@@ -2004,7 +2004,6 @@ void sopt_l1_solver_padmm(void *xsol,
       }
 
       // Copy r in such a way so that as it can be read as real data
-      // in the real-complex case (xsol used for temporary storage).
       if (param.real_out == 1 && param.real_meas == 0)
         for (i = 0; i < nx; i++)
 	      *((double*)r + i) = *((double*)r + 2*i);
