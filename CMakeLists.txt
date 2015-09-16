@@ -13,27 +13,39 @@ set_version(0.1)
 get_gitref()
 
 option(tests          "Enable testing"                         on)
+option(python         "Enable python"                          on)
 option(benchmarks     "Enable benchmarking"                    on)
 option(logging        "Enable logging"                         on)
+
+if(tests)
+  enable_testing()
+endif()
 
 # Add c++11 stuff
 include(AddCPP11Flags)
 include(CheckCXX11Features)
+include(AddPyTest)
 cxx11_feature_check(REQUIRED unique_ptr nullptr override constructor_delegate)
 
 # search/install dependencies
 include(dependencies)
-
 # sets rpath policy explicitly
 cmake_policy(SET CMP0042 NEW)
 
+if(python)
+  include(python_dependencies)
+  include(PythonModule)
+  add_subdirectory(python)
+endif()
+
 if(tests)
-  enable_testing()
   include(catch)
   include(AddExample)
 endif()
+
 if(benchmarks)
   include(AddBenchmark)
 endif()
 
 add_subdirectory(cpp)
+
