@@ -2,10 +2,12 @@
 #include <tiffio.h>
 #include <fstream>
 
-#include <sopt/exception.h>
-#include "tiffwrappers.h"
+#include "sopt/exception.h"
 #include "sopt/logging.h"
+#include "tools_for_tests/directories.h"
+#include "tools_for_tests/tiffwrappers.h"
 
+namespace {
 //! A single pixel
 //! Converts ABGR to greyscale double value
 double convert_to_greyscale(uint32_t &pixel) {
@@ -16,7 +18,6 @@ double convert_to_greyscale(uint32_t &pixel) {
 }
 //! Converts greyscale double value to RGBA
 uint32_t convert_from_greyscale(double pixel) {
-  uint8_t const value = static_cast<uint8_t>(std::round(pixel * 255e0));
   uint32_t result = 0;
   uint8_t *ptr = (uint8_t*)&result;
   auto const g = [](double p) -> uint8_t {
@@ -30,10 +31,10 @@ uint32_t convert_from_greyscale(double pixel) {
   ptr[3] = 255;
   return result;
 }
+}
 
 
-
-namespace sopt {
+namespace sopt { namespace notinstalled {
 sopt::t_rMatrix read_tiff(std::string const & filename) {
   SOPT_INFO("Reading image file {} ", filename);
   TIFF* tif = TIFFOpen(filename.c_str(), "r");
@@ -67,9 +68,9 @@ sopt::t_rMatrix read_tiff(std::string const & filename) {
 }
 
 sopt::t_rMatrix read_standard_tiff(std::string const &name) {
-  std::string const stdname = sopt::data_directory() + "/" + name + ".tiff";
+  std::string const stdname = sopt::notinstalled::data_directory() + "/" + name + ".tiff";
   bool const is_std = std::ifstream(stdname).good();
-  return sopt::read_tiff(is_std ? stdname: name);
+  return sopt::notinstalled::read_tiff(is_std ? stdname: name);
 }
 
 void write_tiff(sopt::t_rMatrix const & image, std::string const & filename) {
@@ -109,4 +110,4 @@ void write_tiff(sopt::t_rMatrix const & image, std::string const & filename) {
   TIFFClose(tif);
   SOPT_TRACE("Freeing raster");
 }
-} /* sopt  */
+}} /* sopt::notinstalled  */

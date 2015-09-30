@@ -46,7 +46,11 @@ endfunction()
 # Then adds a function to create a test
 function(add_catch_test testname)
   cmake_parse_arguments(catch
-    "NOMAIN" "WORKING_DIRECTORY;SEED" "LIBRARIES;LABELS;DEPENDS;ARGUMENTS" ${ARGN})
+    "NOMAIN;NOTEST;NOCATCHLABEL"
+    "WORKING_DIRECTORY;SEED"
+    "LIBRARIES;LABELS;DEPENDS;ARGUMENTS;INCLUDES"
+    ${ARGN}
+  )
 
   # Source deduce from testname if possible
   unset(source)
@@ -74,7 +78,7 @@ function(add_catch_test testname)
   if(catch_DEPENDS)
     add_dependencies(test_${testname} ${catch_DEPENDS})
   endif()
-  include_directories(${CATCH_INCLUDE_DIR})
+  target_include_directories(test_${testname} PUBLIC ${CATCH_INCLUDE_DIR} ${catch_INCLUDES})
 
   unset(EXTRA_ARGS)
   if(catch_WORKING_DIRECTORY)
@@ -86,8 +90,12 @@ function(add_catch_test testname)
   else()
     list(APPEND arguments --rng-seed time)
   endif()
-  add_test(NAME ${testname} COMMAND test_${testname} ${arguments} ${EXTRA_ARGS})
+  if(NOT catch_NOTEST)
+    add_test(NAME ${testname} COMMAND test_${testname} ${arguments} ${EXTRA_ARGS})
 
-  list(APPEND catch_LABELS catch)
-  set_tests_properties(${testname} PROPERTIES LABELS "${catch_LABELS}")
+    if(NOT catch_NOCATCHLABEL)
+      list(APPEND catch_LABELS catch)
+    endif()
+    set_tests_properties(${testname} PROPERTIES LABELS "${catch_LABELS}")
+  endif()
 endfunction()
