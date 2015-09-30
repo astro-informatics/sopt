@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8)
-project(Sopt C)
+project(Sopt CXX)
 
 # Location of extra cmake includes for the project
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake_files)
@@ -12,27 +12,40 @@ include(VersionAndGitRef)
 set_version(0.1)
 get_gitref()
 
-
-# Add C99 flag, since code uses inline
-# yeah, yeah it is GNU C, and others since for ever, but it was not part of the standard.
-include(AddC99Flags)
-
 option(tests          "Enable testing"                         on)
+option(python         "Enable python"                          on)
+option(benchmarks     "Enable benchmarking"                    on)
+option(logging        "Enable logging"                         on)
 
-include(dependencies)
 if(tests)
   enable_testing()
 endif()
 
-include_directories(
-    "${PROJECT_SOURCE_DIR}/include"
-    "${PROJECT_BINARY_DIR}/include"
-)
+# Add c++11 stuff
+include(AddCPP11Flags)
+include(CheckCXX11Features)
+include(AddPyTest)
+cxx11_feature_check(REQUIRED unique_ptr nullptr override constructor_delegate)
 
-# include exernal dependencies
-add_subdirectory(src/c)
-add_subdirectory(include)
-add_subdirectory(doc)
+# search/install dependencies
+include(dependencies)
+# sets rpath policy explicitly
+cmake_policy(SET CMP0042 NEW)
 
-# Exports all Sopt so other packages can access it
-include(export_sopt)
+if(python)
+  include(python_dependencies)
+  include(PythonModule)
+  add_subdirectory(python)
+endif()
+
+if(tests)
+  include(catch)
+  include(AddExample)
+endif()
+
+if(benchmarks)
+  include(AddBenchmark)
+endif()
+
+add_subdirectory(cpp)
+
