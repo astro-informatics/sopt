@@ -13,23 +13,23 @@
 #include "tools_for_tests/directories.h"
 
 typedef double Scalar;
-typedef Eigen::Matrix<Scalar, Eigen::Dynamic, 1> t_Vector;
-typedef Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic> t_Matrix;
+typedef sopt::Vector<Scalar> t_Vector;
+typedef sopt::Matrix<Scalar> t_Matrix;
 std::string const filename = "cameraman256.tiff";
 std::string const outdir = sopt::notinstalled::output_directory() + "/sdmm/regressions/";
 std::string const outfile = "inpainting.tiff";
 
-t_Vector target(sopt::LinearTransform<t_Vector> const &sampling, sopt::t_rMatrix const &image) {
+t_Vector target(sopt::LinearTransform<t_Vector> const &sampling, sopt::Image<> const &image) {
   return sampling * t_Vector::Map(image.data(), image.size());
 }
 
-Scalar sigma(sopt::LinearTransform<t_Vector> const &sampling, sopt::t_rMatrix const &image) {
+Scalar sigma(sopt::LinearTransform<t_Vector> const &sampling, sopt::Image<> const &image) {
   auto const snr = 30.0;
   auto const y0 = target(sampling, image);
   return y0.stableNorm() / std::sqrt(y0.size()) * std::pow(10.0, -(snr / 20.0));
 }
 
-t_Vector dirty(sopt::LinearTransform<t_Vector> const &sampling, sopt::t_rMatrix const &image) {
+t_Vector dirty(sopt::LinearTransform<t_Vector> const &sampling, sopt::Image<> const &image) {
   using namespace sopt;
 
   std::mt19937 gen((std::random_device())());
@@ -52,7 +52,7 @@ t_Vector dirty(sopt::LinearTransform<t_Vector> const &sampling, sopt::t_rMatrix 
 
 sopt::algorithm::SDMM<Scalar> create_sdmm(
     sopt::LinearTransform<t_Vector> const &sampling,
-    sopt::t_rMatrix const &image,
+    sopt::Image<> const &image,
     t_Vector const &y) {
   using namespace sopt;
 
@@ -93,7 +93,7 @@ TEST_CASE("Compare SDMMS", "") {
   using namespace sopt;
 
   // Read image and create target vector y
-  t_rMatrix const image = notinstalled::read_standard_tiff(filename);
+  Image<> const image = notinstalled::read_standard_tiff(filename);
   t_uint const nmeasure = 0.5 * image.size();
   auto const sampling = linear_transform<Scalar>(Sampling(image.size(), nmeasure));
   auto const y = dirty(sampling, image);
