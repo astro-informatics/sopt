@@ -65,8 +65,7 @@ sopt::algorithm::SDMM<Scalar> create_sdmm(
   auto const psi = linear_transform<Scalar>(wavelet, image.rows(), image.cols());
 
   auto relvar = RelativeVariation<Scalar>(1e-2);
-  auto convergence = [&y, &sampling, &psi, &relvar](
-      algorithm::SDMM<Scalar> const&, t_Vector const &x) {
+  auto convergence = [&y, &sampling, &psi, &relvar](sopt::ConstRefVector<Scalar> const &x) {
     INFO("||x - y||_2: " << (y - sampling * x).stableNorm());
     INFO("||Psi^Tx||_1: " << l1_norm(psi.adjoint() * x));
     INFO("||abs(x) - x||_2: " << (x.array().abs().matrix() - x).stableNorm());
