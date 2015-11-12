@@ -1,4 +1,4 @@
-function sol = sdmm_bpcon(y, epsilon, A, At, Psi, Psit, param)
+function sol = sopt_mltb_sdmm_bpcon(y, epsilon, A, At, Psi, Psit, param)
 % BPSDMM - Solve BPDN problem using the simultaneous direction method of multipliers.
 %
 % sol = solve_BPDN(y, A, At, Psi, Psit, PARAM) solves:

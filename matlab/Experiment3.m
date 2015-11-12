@@ -125,7 +125,7 @@ param.rel_obj_L1 = 1e-2;
 maxiter=10;
 sigma=sigma_noise*sqrt(numel(y)/(numel(im)*9));
 tol=1e-3;
-sol1 = sopt_mltb_sara_rwBPDN(y, epsilon, A, At, Psi, Psit, param, sigma, tol, maxiter);
+sol1 = sopt_mltb_dr_rwBPDN(y, epsilon, A, At, Psi, Psit, param, sigma, tol, maxiter);
     
 RSNR1=20*log10(norm(im,'fro')/norm(im-sol1,'fro'));
     

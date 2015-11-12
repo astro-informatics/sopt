@@ -1,6 +1,6 @@
-function sol = sopt_mltb_sara_rwBPDN(y, epsilon, A, At, Psi, Psit, ...
+function sol = sopt_mltb_dr_rwBPDN(y, epsilon, A, At, Psi, Psit, ...
   paramT, sigma, tol, maxiter, initsol)
-% sopt_mltb_solve_rwBPDN - Solve reweighted BPDN problem
+% sopt_mltb_dr_rwBPDN - Solve reweighted BPDN problem
 %
 % Solve the reweighted L1 minimization function using an homotopy
 % continuation method to approximate the L0 norm.  At each iteration the 

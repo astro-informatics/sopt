@@ -1,4 +1,4 @@
-%% Example_BPDN
+%% Example_dr_BPDN
 % Example to demonstrate use of BPDN solver.  A random Fourier sampling
 % measurement operator is considered.  Daubechies 8 wavelets are used for
 % the sparsifying operator.

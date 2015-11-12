@@ -1,6 +1,7 @@
-%% Example_dr_TVDN
-% Example to demonstrate use of TVDN solver.  A random Fourier sampling
-% measurement operator is considered.  
+%% Example_dr_BPDN
+% Example to demonstrate use of BPDN solver.  A random Fourier sampling
+% measurement operator is considered.  Daubechies 8 wavelets are used for
+% the sparsifying operator.
 
 
 %% Clear workspace
@@ -36,11 +37,25 @@ im = im/max(max(im));
 im(im<0) = 0;
 
 
+%% Define sparsity operator
+
+dwtmode('per');
+
+% Decomposition level of the wavelet transform.
+nlevel = 4;
+
+% Daubechies 8 wavelet operator
+[C,S] = wavedec2(im,nlevel,'db8');
+
+Psit = @(x) wavedec2(x, nlevel, 'db8');
+Psi = @(x) waverec2(x, S, 'db8');
+
+
 %% Run simulations
 
-%Random Fourier sampling example
-% Define mask
-% Uniform sampling of the half Fourier plane
+% Random Fourier sampling example
+%  Define mask
+%  Uniform sampling of the half Fourier plane
 mask = rand(size(im)) < p;
 mask(:,1:floor(size(im,2)/2))=0;
 mask = ifftshift(mask);
@@ -70,20 +85,25 @@ tol_B2 = (epsilon_up/epsilon)-1; % Tolerance for the projection onto the L2-ball
 
 % Solve optimisation problem
 
-% Parameters for TVDN
+% Parameters for BPDN
 param.verbose = 1; % Print log or not
 param.gamma = 1e-1; % Converge parameter
-param.rel_obj = 5e-4; % Stopping criterion for the TVDN problem
-param.max_iter = 200; % Max. number of iterations for the TVDN problem
-param_TV.max_iter_TV = 200; % Max. nb. of iter. for the sub-problem (proximal TV operator)
+param.rel_obj = 4e-4; % Stopping criterion for the L1 problem
+param.max_iter = 200; % Max. number of iterations for the L1 problem
+param.tol_B2 = 1-(epsilon/epsilon_up); % Tolerance for the projection onto the L2-ball
 param.nu_B2 = 1; % Bound on the norm of the operator A
 param.tight_B2 = 0; % Indicate if A is a tight frame (1) or not (0)
-param.max_iter_B2 = 200; %Max. number of iterations of the L2-ball projection
-param.pos_B2 = 1; %Positivity flag
-param.tol_B2 = tol_B2; % Tolerance for the projection onto the L2-ball
-
-% Solve TVDN problem with positivity constraint
-sol1 = sopt_mltb_dr_TVDN(y, epsilon, A, At, param);
+param.pos_B2 = 1;  % Positivity constraint flag. (1) active (0) otherwise
+param.tight_L1 = 1; % Indicate if Psit is a tight frame (1) or not (0)
+param.nu_L1 = 1;
+param.max_iter_L1 = 20;
+param.rel_obj_L1 = 1e-2;
+    
+% Solve SARA 
+maxiter=10;
+sigma=sigma_noise*sqrt(numel(y)/(numel(im)*9));
+tol=1e-3;
+sol1 = sopt_mltb_dr_rwBPDN(y, epsilon, A, At, Psi, Psit, param, sigma, tol, maxiter);
 
 % Compute SNR
 RSNR1 = 20*log10(norm(im,'fro') ...
@@ -93,8 +113,8 @@ RSNR1 = 20*log10(norm(im,'fro') ...
 param.pos_B2 = 0; %Positivity flag
 param.real_B2 = 1; %Reality flag
 
-% Solve TVDN problem
-sol2 = sopt_mltb_dr_TVDN(y, epsilon, A, At, param);
+% Solve BPDN problem
+sol2 = sopt_mltb_dr_rwBPDN(y, epsilon, A, At, Psi, Psit, param, sigma, tol, maxiter);
 
 % Compute SNR
 RSNR2 = 20*log10(norm(im,'fro') ...

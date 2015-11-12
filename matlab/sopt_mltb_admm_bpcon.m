@@ -1,6 +1,6 @@
 function [xsol, z] = sopt_mltb_admm_bpcon(y, epsilon, A, At, Psi, Psit, param)
 %
-% sol = admm_bpcon(y, epsilon, A, At, Psi, Psit, param) solves:
+% sol = sopt_mltb_admm_bpcon(y, epsilon, A, At, Psi, Psit, param) solves:
 %
 %   min ||Psit x||_1   s.t.  ||y-A x||_2 <= epsilon
 %

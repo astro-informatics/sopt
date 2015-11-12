@@ -1,6 +1,6 @@
-function sol = sopt_mltb_sara_rwTVDN(y, epsilon, A, At, paramT, ...
+function sol = sopt_mltb_dr_rwTVDN(y, epsilon, A, At, paramT, ...
   sigma, tol, maxiter, initsol)
-% sopt_mltb_solve_rwTVDN - Solve reweighted TVDN problem
+% sopt_mltb_dr_rwTVDN - Solve reweighted TVDN problem
 %
 % Solve the reweighted TV minimization function using an homotopy
 % continuation method to approximate the L0 norm of the magnitude of the 

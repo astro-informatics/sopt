@@ -1,4 +1,4 @@
-%% Example TVDNoA
+%% Example_dr_TVDNoA
 % Example to demonstrate TVoA_B2 solver, where an additional operator is
 % included in the TV norm of the TVDN problem.
 

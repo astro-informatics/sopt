@@ -1,4 +1,4 @@
-%% Exampled_weighted_TVDN
+%% Exampled_dr_weighted_TVDN
 % Example to demonstrate use of TVDN solver when incorporating weights
 % (performs one re-weighting of previous solution).
 

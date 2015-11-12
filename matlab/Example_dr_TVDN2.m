@@ -1,4 +1,4 @@
-%% Example_TVDN2
+%% Example_dr_TVDN2
 % Two examples to demonstrate use of TVDN solver.  Simple inpainting and
 % Fourier measurement examples are included.
 

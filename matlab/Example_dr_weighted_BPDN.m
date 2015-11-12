@@ -1,4 +1,4 @@
-%% Exampled_weighted_L1
+%% Exampled_dr_weighted_BPDN_L1
 % Example to demonstrate use of BPDN solver when incorporating weights
 % (performs one re-weighting of previous solution).
 
