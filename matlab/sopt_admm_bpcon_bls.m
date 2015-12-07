@@ -1,6 +1,6 @@
-function [xsol, z] = admm_bpcon_bls(y, epsilon, A, At, Psi, Psit, param)
+function [xsol, z] = sopt_admm_bpcon_bls(y, epsilon, A, At, Psi, Psit, param)
 %
-% sol = admm_bpcon_bls(y, epsilon, A, At, Psi, Psit, param) solves:
+% sol = sopt_admm_bpcon_bls(y, epsilon, A, At, Psi, Psit, param) solves:
 %
 %   min ||Psit x||_1   s.t.  ||y-A x||_2 <= epsilon
 %
@@ -147,7 +147,7 @@ for t = 1:param.max_iter
     
     %Prox L1 norm (global solution)
     prev_fval = fval;
-    [sol, fval] = prox_L1(sol, param.gamma*mu, param_L1);
+    [sol, fval] = sopt_prox_L1(sol, param.gamma*mu, param_L1);
     
     %Stepsize check
     l1norm = fval;
@@ -168,7 +168,7 @@ for t = 1:param.max_iter
         %Gradient descend step
         sol = xsol - mu*grad;
         %Proximal L1 operator
-        [sol, fval] = prox_L1(sol, param.gamma*mu, param_L1);
+        [sol, fval] = sopt_prox_L1(sol, param.gamma*mu, param_L1);
         %New stepsize check
         l1norm = fval;
         q = qfval + real((sol(:)-xsol(:))'*grad(:))...
