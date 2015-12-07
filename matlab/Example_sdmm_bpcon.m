@@ -94,7 +94,7 @@ param1.max_iter_cg = 50;
 param1.tol_cg = 1e-6;
 
 % Solve BPDN problem with positivity constraint
-sol1 = sopt_mltb_sdmm_bpcon(y, epsilon, A, At, Psi, Psit, param1);
+sol1 = sopt_sdmm_bpcon(y, epsilon, A, At, Psi, Psit, param1);
 sol1 = real(sol1);
 sol1(sol1<0) = 0;
 
@@ -107,7 +107,7 @@ param.pos_B2 = 0; %Positivity flag
 param.real_B2 = 1; %Reality flag
 
 % Solve BPDN problem
-sol2 = sopt_mltb_sdmm_bpcon(y, epsilon, A, At, Psi, Psit, param1);
+sol2 = sopt_sdmm_bpcon(y, epsilon, A, At, Psi, Psit, param1);
 sol2 = real(sol2);
 sol2(sol1<0) = 0;
 

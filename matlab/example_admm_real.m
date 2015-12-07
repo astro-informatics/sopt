@@ -121,7 +121,7 @@ param1.initsol = dirty1;
      
 %Solve BPDN
 tstart = tic;
-[sol, z] = sopt_mltb_admm_bpconw(y, epsilon, A, At, Psi, Psit, w, param1);
+[sol, z] = sopt_admm_bpconw(y, epsilon, A, At, Psi, Psit, w, param1);
 tend = toc(tstart)
 
 

@@ -84,7 +84,7 @@ Psi2 = @(x) waverec2(x,S,'db8');
 
 
 % Variable density mask
-mask = sopt_mltb_vdsmask(size(im,1),size(im,2),p);
+mask = sopt_vdsmask(size(im,1),size(im,2),p);
 ind = find(mask==1);
 % Masking matrix (sparse matrix in matlab)
 Ma = sparse(1:numel(ind), ind, ones(numel(ind), 1), numel(ind), numel(im));
@@ -125,7 +125,7 @@ param.rel_obj_L1 = 1e-2;
 maxiter=10;
 sigma=sigma_noise*sqrt(numel(y)/(numel(im)*9));
 tol=1e-3;
-sol1 = sopt_mltb_dr_rwBPDN(y, epsilon, A, At, Psi, Psit, param, sigma, tol, maxiter);
+sol1 = sopt_dr_rwBPDN(y, epsilon, A, At, Psi, Psit, param, sigma, tol, maxiter);
     
 RSNR1=20*log10(norm(im,'fro')/norm(im-sol1,'fro'));
     
@@ -143,13 +143,13 @@ param1.max_iter_B2 = 200;
 param1.pos_B2 = 1; % Positivity constraint flag. (1) active (0) otherwise
 
 % Solve TVDN problem
-sol2 = sopt_mltb_dr_TVDN(y, epsilon, A, At, param1);
+sol2 = sopt_dr_TVDN(y, epsilon, A, At, param1);
 
 RSNR2=20*log10(norm(im,'fro')/norm(im-sol2,'fro'));
    
     
 % Solve BPDN problem
-sol3 = sopt_mltb_dr_BPDN(y, epsilon, A, At, Psi2, Psit2, param);
+sol3 = sopt_dr_BPDN(y, epsilon, A, At, Psi2, Psit2, param);
 
 
 RSNR3=20*log10(norm(im,'fro')/norm(im-sol3,'fro'));

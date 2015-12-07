@@ -53,7 +53,7 @@ param.max_iter_B2 = 500;
 % Tolerance on noise
 epsilon = sqrt(chi2inv(0.99, numel(ind)))*sigma_noise;
 % Solve TVDN problem
-sol = sopt_mltb_dr_TVDN(y, epsilon, A, At, param);
+sol = sopt_dr_TVDN(y, epsilon, A, At, param);
 % Show reconstructed image
 figure(2);
 subplot(122); imagesc(sol); axis image; axis off;
@@ -75,7 +75,7 @@ colormap gray; title('Measured image'); drawnow;
 % Tolerance on noise
 epsilon = sqrt(chi2inv(0.99, 2*numel(ind))/2)*sigma_noise;
 % Solve TVDN problem
-sol = sopt_mltb_dr_TVDN(y, epsilon, A, At, param);
+sol = sopt_dr_TVDN(y, epsilon, A, At, param);
 % Show reconstructed image
 figure(3);
 subplot(122); imagesc(real(sol)); axis image; axis off;

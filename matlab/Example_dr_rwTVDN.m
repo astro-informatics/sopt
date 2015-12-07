@@ -88,7 +88,7 @@ param.rel_obj_L1 = 1e-2;
 maxiter=10;
 sigma=sigma_noise*sqrt(numel(y)/(numel(im)*9));
 tol=1e-3;
-sol1 = sopt_mltb_dr_rwTVDN(y, epsilon, A, At, param, sigma, tol, maxiter);
+sol1 = sopt_dr_rwTVDN(y, epsilon, A, At, param, sigma, tol, maxiter);
 
 % Compute SNR
 RSNR1 = 20*log10(norm(im,'fro') ...
@@ -99,7 +99,7 @@ param.pos_B2 = 0; %Positivity flag
 param.real_B2 = 1; %Reality flag
 
 % Solve TVDN problem
-sol2 = sopt_mltb_dr_rwTVDN(y, epsilon, A, At, param, sigma, tol, maxiter);
+sol2 = sopt_dr_rwTVDN(y, epsilon, A, At, param, sigma, tol, maxiter);
 
 % Compute SNR
 RSNR2 = 20*log10(norm(im,'fro') ...

@@ -1,5 +1,5 @@
-function [sol, norm_l1] = prox_L1(x, lambda, param)
-% PROJ_L1 - Proximal operator with L1 norm
+function [sol, norm_l1] = sopt_prox_L1v2(x, lambda, param)
+% sopt_prox_L1v2 - Proximal operator with L1 norm
 %
 % sol = prox_L1(x, lambda, param) solves:
 %

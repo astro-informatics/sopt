@@ -83,7 +83,7 @@ param.pos_B2 = 1; %Positivity flag
 param.tol_B2 = tol_B2; % Tolerance for the projection onto the L2-ball
 
 % Solve TVDN problem with positivity constraint
-sol1 = sopt_mltb_dr_TVDN(y, epsilon, A, At, param);
+sol1 = sopt_dr_TVDN(y, epsilon, A, At, param);
 
 % Compute SNR
 RSNR1 = 20*log10(norm(im,'fro') ...
@@ -94,7 +94,7 @@ param.pos_B2 = 0; %Positivity flag
 param.real_B2 = 1; %Reality flag
 
 % Solve TVDN problem
-sol2 = sopt_mltb_dr_TVDN(y, epsilon, A, At, param);
+sol2 = sopt_dr_TVDN(y, epsilon, A, At, param);
 
 % Compute SNR
 RSNR2 = 20*log10(norm(im,'fro') ...

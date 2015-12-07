@@ -1,5 +1,5 @@
-function coef = sopt_mltb_fwdcurvelet(im,real)
-% sopt_mltb_fwdcurvelet - Forward curvelet transform
+function coef = sopt_fwdcurvelet(im,real)
+% sopt_fwdcurvelet - Forward curvelet transform
 %
 % Compute the forward curvelet transform of an image and stores it in
 % vector coef.

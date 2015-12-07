@@ -1,5 +1,5 @@
-function [dx, dy] = sopt_mltb_gradient_op(I, weights_dx, weights_dy)
-% sopt_mltb_gradient_op - Compute gradient
+function [dx, dy] = sopt_gradient_op(I, weights_dx, weights_dy)
+% sopt_gradient_op - Compute gradient
 %
 % Compute the gradient of a two dimensional signal.
 %

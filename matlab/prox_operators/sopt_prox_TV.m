@@ -1,5 +1,5 @@
-function sol = sopt_mltb_prox_TV(x, lambda, param)
-% sopt_mltb_prox_TV - Total variation proximal operator
+function sol = sopt_prox_TV(x, lambda, param)
+% sopt_prox_TV - Total variation proximal operator
 %
 % Compute the TV proximal operator, i.e. solve
 %
@@ -30,7 +30,7 @@ if ~isfield(param, 'verbose'), param.verbose = 1; end
 if ~isfield(param, 'max_iter'), param.max_iter = 200; end
 
 % Initializations
-[r, s] = sopt_mltb_gradient_op(x*0);
+[r, s] = sopt_gradient_op(x*0);
 pold = r; qold = s;
 told = 1; prev_obj = 0;
 
@@ -41,10 +41,10 @@ end
 for iter = 1:param.max_iter
     
     % Current solution
-    sol = x - lambda*sopt_mltb_div_op(r, s);
+    sol = x - lambda*sopt_div_op(r, s);
     
     % Objective function value
-    obj = .5*norm(x(:)-sol(:), 2)^2 + lambda * sopt_mltb_TV_norm(sol, 0);
+    obj = .5*norm(x(:)-sol(:), 2)^2 + lambda * sopt_TV_norm(sol, 0);
     rel_obj = abs(obj-prev_obj)/obj;
     prev_obj = obj;
     
@@ -58,7 +58,7 @@ for iter = 1:param.max_iter
     end
     
     % Udpate divergence vectors and project
-    [dx, dy] = sopt_mltb_gradient_op(sol);
+    [dx, dy] = sopt_gradient_op(sol);
     r = r - 1/(8*lambda) * dx; s = s - 1/(8*lambda) * dy;
     weights = max(1, sqrt(abs(r).^2+abs(s).^2));
     p = r./weights; q = s./weights;

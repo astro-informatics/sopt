@@ -1,5 +1,5 @@
-function sol = sopt_mltb_prox_TVoA(b, lambda, param)
-% sopt_mltb_prox_TVoA - Agumented total variation proximal operator
+function sol = sopt_prox_TVoA(b, lambda, param)
+% sopt_prox_TVoA - Agumented total variation proximal operator
 %
 % Compute the TV proximal operator when an additional linear operator A is
 % incorporated in the TV norm, i.e. solve
@@ -53,11 +53,11 @@ if ~isfield(param, 'incNP'), param.incNP = 0; end
 % Set grad and div operators to planar or spherical case and also 
 % include weights or not (depending on parameter flags).
 if (param.sphere_flag)
-   G = @sopt_mltb_gradient_op_sphere;
-   D = @sopt_mltb_div_op_sphere;
+   G = @sopt_gradient_op_sphere;
+   D = @sopt_div_op_sphere;
 else
-   G = @sopt_mltb_gradient_op;
-   D = @sopt_mltb_div_op;
+   G = @sopt_gradient_op;
+   D = @sopt_div_op;
 end
 
 if (~param.identical_weights_flag && param.zero_weights_flag)
@@ -86,7 +86,7 @@ for iter = 1:param.max_iter
     
     % Objective function value
     obj = .5*norm(b(:)-sol(:), 2) + lambda * ...
-        sopt_mltb_TV_norm(param.A(sol), param.weights_dx, param.weights_dy);
+        sopt_TV_norm(param.A(sol), param.weights_dx, param.weights_dy);
     rel_obj = abs(obj-prev_obj)/obj;
     prev_obj = obj;
     

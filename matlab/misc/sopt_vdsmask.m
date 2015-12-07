@@ -1,5 +1,5 @@
-function mask = sopt_mltb_vdsmask(N,M,p)
-% sopt_mltb_vdsmask - Create variable density sampling profile
+function mask = sopt_vdsmask(N,M,p)
+% sopt_vdsmask - Create variable density sampling profile
 %
 % Creates a binary mask generated from a variable density sampling 
 % profile for two dimensional images in the frequency domain.   The mask 
@@ -37,7 +37,7 @@ else
     maxit=20;
     while (alpha<-0.01 || alpha>0.01) && it<maxit
         pdf = (1-r).^d;
-        [new_pdf,alpha] = sopt_mltb_modifypdf(pdf, nb_meas);
+        [new_pdf,alpha] = sopt_modifypdf(pdf, nb_meas);
         if alpha<0
             d=d+0.1;
         else
@@ -48,7 +48,7 @@ else
 
     mask = zeros(size(new_pdf));
     while sum(mask(:))>nb_meas+tol || sum(mask(:))<nb_meas-tol
-        mask = sopt_mltb_genmask(new_pdf);
+        mask = sopt_genmask(new_pdf);
     end
 
 end

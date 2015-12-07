@@ -49,7 +49,7 @@ epsilon = sqrt(chi2inv(0.99, numel(im)))*sigma_noise;
 % Identity
 A = @(x) x;
 % Solve
-sol = sopt_mltb_dr_TVDNoA(y, epsilon, A, A, func_S, func_St, param);
+sol = sopt_dr_TVDNoA(y, epsilon, A, A, func_S, func_St, param);
 % Show reconstructed image
 figure(2);
 imagesc(func_S(sol)); axis image; axis off;

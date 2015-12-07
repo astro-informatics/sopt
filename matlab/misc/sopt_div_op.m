@@ -1,5 +1,5 @@
-function I = sopt_mltb_div_op(dx, dy, weights_dx, weights_dy)
-% sopt_mltb_div_op - Compute divergence
+function I = sopt_div_op(dx, dy, weights_dx, weights_dy)
+% sopt_div_op - Compute divergence
 %
 % Compute the divergence (adjoint of the gradient) of a two dimensional
 % signal from the horizontal and vertical gradients.

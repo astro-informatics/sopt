@@ -1,5 +1,5 @@
-function sol = sopt_mltb_dr_TVDN(y, epsilon, A, At, param)
-% sopt_mltb_solve_TVDN - Solve TVDN problem
+function sol = sopt_dr_TVDN(y, epsilon, A, At, param)
+% sopt_solve_TVDN - Solve TVDN problem
 %
 % Solve the total variation denoising (TVDN) problem
 %
@@ -99,10 +99,10 @@ while 1
     end
     
     % Projection onto the L2-ball
-    [sol, param_B2.u] = sopt_mltb_fast_proj_B2(xhat, param_B2);
+    [sol, param_B2.u] = sopt_fast_proj_B2(xhat, param_B2);
     
     % Global stopping criterion
-    curr_norm = sopt_mltb_TV_norm(sol, 0);
+    curr_norm = sopt_TV_norm(sol, 0);
     rel_norm = abs(curr_norm - prev_norm)/curr_norm;
     if param.verbose >= 1
         fprintf('  ||x||_TV = %e, rel_norm = %e\n', ...
@@ -118,7 +118,7 @@ while 1
     
     % Proximal L1 operator
     xhat = 2*sol - xhat;
-    temp = sopt_mltb_prox_TV(xhat, param.gamma, param_TV);
+    temp = sopt_prox_TV(xhat, param.gamma, param_TV);
     xhat = temp + sol - xhat;
     
     % Update variables

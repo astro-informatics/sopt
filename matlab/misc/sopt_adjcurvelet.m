@@ -1,5 +1,5 @@
-function restim = sopt_mltb_adjcurvelet(coef, Mod, real)
-% sopt_mltb_adjcurvelet - Adjoint curvelet transform
+function restim = sopt_adjcurvelet(coef, Mod, real)
+% sopt_adjcurvelet - Adjoint curvelet transform
 %
 % Compute the adjoint curvelet transform from the curvelet
 % coefficient vector.

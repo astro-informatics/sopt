@@ -1,6 +1,6 @@
-function [dx, dy] = sopt_mltb_gradient_op_sphere(I, includeNorthpole, ...
+function [dx, dy] = sopt_gradient_op_sphere(I, includeNorthpole, ...
   weights_dx, weights_dy)
-% sopt_mltb_gradient_op_sphere - Compute gradient on sphere
+% sopt_gradient_op_sphere - Compute gradient on sphere
 %
 % Compute the gradientof a signal on the sphere.  The phi direction (x) is
 % periodic, while the theta direction (y) is not.

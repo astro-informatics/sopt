@@ -1,6 +1,6 @@
-function y = sopt_mltb_TV_norm(u, sphere_flag, ...
+function y = sopt_TV_norm(u, sphere_flag, ...
     incNP, weights_dx, weights_dy)
-% sopt_mltb_TV_norm - Compute TV norm
+% sopt_TV_norm - Compute TV norm
 %
 % Compute the TV of an image on the plane or sphere.
 %
@@ -25,15 +25,15 @@ function y = sopt_mltb_TV_norm(u, sphere_flag, ...
 
 if sphere_flag
     if nargin>3 
-        [dx, dy] = sopt_mltb_gradient_op_sphere(u, incNP, weights_dx, weights_dy);
+        [dx, dy] = sopt_gradient_op_sphere(u, incNP, weights_dx, weights_dy);
     else
-        [dx, dy] = sopt_mltb_gradient_op_sphere(u, incNP);
+        [dx, dy] = sopt_gradient_op_sphere(u, incNP);
     end
 else
     if nargin>3 
-        [dx, dy] = sopt_mltb_gradient_op(u, weights_dx, weights_dy);
+        [dx, dy] = sopt_gradient_op(u, weights_dx, weights_dy);
     else
-        [dx, dy] = sopt_mltb_gradient_op(u);
+        [dx, dy] = sopt_gradient_op(u);
     end
 end
 temp = sqrt(abs(dx).^2 + abs(dy).^2);

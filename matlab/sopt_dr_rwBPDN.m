@@ -1,16 +1,17 @@
-function sol = sopt_mltb_dr_rwTVDN(y, epsilon, A, At, paramT, ...
-  sigma, tol, maxiter, initsol)
-% sopt_mltb_dr_rwTVDN - Solve reweighted TVDN problem
+function sol = sopt_dr_rwBPDN(y, epsilon, A, At, Psi, Psit, ...
+  paramT, sigma, tol, maxiter, initsol)
+% sopt_dr_rwBPDN - Solve reweighted BPDN problem
 %
-% Solve the reweighted TV minimization function using an homotopy
-% continuation method to approximate the L0 norm of the magnitude of the 
-% gradient.  At each iteration the following problem is solved:
+% Solve the reweighted L1 minimization function using an homotopy
+% continuation method to approximate the L0 norm.  At each iteration the 
+% following problem is solved:
 %
-%   min_x ||W x||_TV   s.t.  ||y-A x||_2 < epsilon
+%   min_x ||W Psit x||_1   s.t.  ||y-A x||_2 < epsilon
 %
-% where W is a diagonal matrix with diagonal elements given by esentially
-% the inverse of the graident.
-%   
+% where W is a diagonal matrix with diagonal elements given by
+%
+%   [W]_ii = delta(t)/(delta(t)+|[Psit x(t)]_i|).
+%
 % The input parameters are defined as follows.
 %
 %   - y: Input data (measurements).
@@ -21,8 +22,12 @@ function sol = sopt_mltb_dr_rwTVDN(y, epsilon, A, At, paramT, ...
 %
 %   - At: Adjoint measurement operator.
 %
-%   - paramT: Structure containing parameters for the TV solver (see 
-%       documentation for sopt_mltb_solve_TVDN).  
+%   - Psi: Synthesis sparsity transform.
+%
+%   - Psit: Analysis sparsity transform.
+%
+%   - paramT: Structure containing parameters for the L1 solver (see 
+%       documentation for sopt_solve_BPDN).  
 %
 %   - sigma: Noise standard deviation in the analysis domain.
 %
@@ -43,21 +48,19 @@ function sol = sopt_mltb_dr_rwTVDN(y, epsilon, A, At, paramT, ...
 % Reweighted Analysis (SARA): a novel algorithm for radio-interferometric 
 % imaging. Mon. Not. Roy. Astron. Soc., 426(2):1223-1234, 2012.
 
-Psit = @(x) x; Psi=@(x) x;
-
 param=paramT;
 iter=0;
 rel_dist=1;
 
-if nargin<9
+if nargin<11
     fprintf('RW iteration: %i\n', iter);
-    sol = sopt_mltb_dr_TVoA_B2(y, epsilon, A, At, Psi, Psit, param);
+    sol = sopt_dr_BPDN(y, epsilon, A, At, Psi, Psit, param);
 else
     sol = initsol;
 end
 
-
-delta=std(sol(:));
+temp=Psit(sol);
+delta=std(temp(:));
 
 while (rel_dist>tol && iter<maxiter)
   
@@ -66,23 +69,21 @@ while (rel_dist>tol && iter<maxiter)
     fprintf('RW iteration: %i\n', iter);
     fprintf('delta = %e\n', delta);
     
-    %Warm start
+    % Weights
+    weights=abs(Psit(sol));
+    param.weights=delta./(delta+weights);
+    
+    % Warm start
     param.initsol=sol;
+    param.gamma=1e-1*max(weights(:));
     sol1=sol;
     
-    % Weights
-    [param.weights_dx_TV param.weights_dy_TV] = sopt_mltb_gradient_op(real(sol));
-    param.weights_dx_TV = delta./(abs(param.weights_dx_TV)+delta);
-    param.weights_dy_TV = delta./(abs(param.weights_dy_TV)+delta);
-    param.identical_weights_flag_TV = 0;
-    param.gamma=1e-1*max(abs(sol1(:)));
+    % Weighted L1 problem
+    sol = sopt_dr_BPDN(y, epsilon, A, At, Psi, Psit, param);
     
-    %Weighted TV problem
-    sol = sopt_mltb_dr_TVDNoA(y, epsilon, A, At, Psi, Psit, param);
-
-    %Relative distance
-    rel_dist=norm(sol(:)-sol1(:))/norm(sol1(:)); 
-    fprintf('relative distance = %e\n\n', rel_dist);
+    % Relative distance
+    rel_dist=norm(sol(:)-sol1(:))/norm(sol1(:));
+    fprintf('Relative distance = %e\n\n', rel_dist);
     delta = delta/10;
     
 end

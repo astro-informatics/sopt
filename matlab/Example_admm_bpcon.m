@@ -101,7 +101,7 @@ param1.verbose_L1 = 0;
 %param1.initz = z;
 
 % Solve BPDN problem with positivity constraint
-[sol1, z] = sopt_mltb_admm_bpcon(y, epsilon, A, At, Psi, Psit, param1);
+[sol1, z] = sopt_admm_bpcon(y, epsilon, A, At, Psi, Psit, param1);
 
 % Compute SNR
 RSNR1 = 20*log10(norm(im,'fro') ...
@@ -112,7 +112,7 @@ param.pos_B2 = 0; %Positivity flag
 param.real_B2 = 1; %Reality flag
 
 % Solve BPDN problem
-[sol2, z] = sopt_mltb_admm_bpcon(y, epsilon, A, At, Psi, Psit, param1);
+[sol2, z] = sopt_admm_bpcon(y, epsilon, A, At, Psi, Psit, param1);
 
 % Compute SNR
 RSNR2 = 20*log10(norm(im,'fro') ...

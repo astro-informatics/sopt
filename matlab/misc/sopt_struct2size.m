@@ -1,5 +1,5 @@
-function Mod = sopt_mltb_struct2size(C)
-%sopt_mltb_struct2size - Compute curvelet data structure
+function Mod = sopt_struct2size(C)
+%sopt_struct2size - Compute curvelet data structure
 %
 % Compute data structure to store the sizes of the curvelet transform 
 % generated from the CurveLab toolbox.

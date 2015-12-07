@@ -1,8 +1,8 @@
-function [new_pdf, alpha] = sopt_mltb_modifypdf(pdf, nb_meas)
-% sopt_mltb_modifypdf - Modify PDF of sampling profile
+function [new_pdf, alpha] = sopt_modifypdf(pdf, nb_meas)
+% sopt_modifypdf - Modify PDF of sampling profile
 % 
 % Checks PDF of the sampling profile and normalizes it. It is used
-% in sopt_mltb_vdsmask in the generation of variable density sampling
+% in sopt_vdsmask in the generation of variable density sampling
 % profiles.
 %
 % Inputs:

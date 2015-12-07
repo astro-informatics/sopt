@@ -68,20 +68,20 @@ param.zero_weights_flag_TV = 0; %
 param.identical_weights_flag_TV = 1; %
 
 % Solve TVDN problem (without weights)
-sol_1 = sopt_mltb_dr_TVDNoA(y, epsilon, A, At, Psi, Psit, param);
+sol_1 = sopt_dr_TVDNoA(y, epsilon, A, At, Psi, Psit, param);
 
 % Show first reconstructed image
 figure(1);
 subplot(143); imagesc(real(sol_1)); axis image; axis off;
 colormap gray; 
 title(['First estimate: ', ...
-    num2str(sopt_mltb_SNR(im, real(sol_1))), 'dB']);
+    num2str(sopt_SNR(im, real(sol_1))), 'dB']);
 drawnow;
 clc;
 
 %% Re-fine the estimate with weighted TV
 % Weights
-[param.weights_dx_TV param.weights_dy_TV] = sopt_mltb_gradient_op(real(sol_1));
+[param.weights_dx_TV param.weights_dy_TV] = sopt_gradient_op(real(sol_1));
 param.weights_dx_TV = 1./(abs(param.weights_dx_TV)+1e-3);
 param.weights_dy_TV = 1./(abs(param.weights_dy_TV)+1e-3);
 param.identical_weights_flag_TV = 0;
@@ -89,11 +89,11 @@ param.gamma = 1e-3;
 
 % First reconstruction with weights in the gradient
 param.zero_weights_flag_TV = 1;
-sol_2 = sopt_mltb_dr_TVDNoA(y, epsilon, A, At, Psi, Psit, param);
+sol_2 = sopt_dr_TVDNoA(y, epsilon, A, At, Psi, Psit, param);
 % Show second reconstructed image
 figure(1);
 subplot(144); imagesc(real(sol_2)); axis image; axis off;
 colormap gray; 
 title(['Second estimate: ', ...
-    num2str(sopt_mltb_SNR(im, real(sol_2))), 'dB']); 
+    num2str(sopt_SNR(im, real(sol_2))), 'dB']); 
 drawnow;

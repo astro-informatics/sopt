@@ -1,5 +1,5 @@
-function [sol, u] = sopt_mltb_fast_proj_B2(x, param)
-% sopt_mltb_fast_proj_B2 - Fast projection onto L2-ball
+function [sol, u] = sopt_fast_proj_B2(x, param)
+% sopt_fast_proj_B2 - Fast projection onto L2-ball
 %
 % Compute the projection onto the L2 ball, i.e. solve
 %

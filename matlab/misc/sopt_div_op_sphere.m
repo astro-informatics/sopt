@@ -1,6 +1,6 @@
-function I = sopt_mltb_div_op_sphere(dx, dy, includeNorthpole, ...
+function I = sopt_div_op_sphere(dx, dy, includeNorthpole, ...
   weights_dx, weights_dy)
-% sopt_mltb_div_op_sphere - Compute divergence on sphere
+% sopt_div_op_sphere - Compute divergence on sphere
 %
 % Compute the divergence (adjoint of the gradient) of a two dimensional
 % signal on the sphere.  The phi direction (x) is periodic, while the theta

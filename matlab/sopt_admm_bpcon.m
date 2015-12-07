@@ -1,6 +1,6 @@
-function [xsol, z] = sopt_mltb_admm_bpcon(y, epsilon, A, At, Psi, Psit, param)
+function [xsol, z] = sopt_admm_bpcon(y, epsilon, A, At, Psi, Psit, param)
 %
-% sol = sopt_mltb_admm_bpcon(y, epsilon, A, At, Psi, Psit, param) solves:
+% sol = sopt_admm_bpcon(y, epsilon, A, At, Psi, Psit, param) solves:
 %
 %   min ||Psit x||_1   s.t.  ||y-A x||_2 <= epsilon
 %
@@ -137,7 +137,7 @@ for t = 1:param.max_iter
     
     %Prox L1 norm (global solution)
     prev_fval = fval;
-    [xsol, fval] = sopt_mltb_prox_L1(r, param.gamma*mu, param_L1);
+    [xsol, fval] = sopt_prox_L1(r, param.gamma*mu, param_L1);
     
     %Residual
     res = A(xsol) - y;

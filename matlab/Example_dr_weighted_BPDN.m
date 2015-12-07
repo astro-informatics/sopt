@@ -68,20 +68,20 @@ param.tight_L1 = 1; % Indicate if Psit is a tight frame (1) or not (0)
 param.pos_l1 = 1; %
 
 % Solve BPDN problem (without weights)
-sol = sopt_mltb_dr_BPDN(y, epsilon, A, At, Psi, Psit, param);
+sol = sopt_dr_BPDN(y, epsilon, A, At, Psi, Psit, param);
 
 % Show reconstructed image
 figure(1);
 subplot(223); imagesc(real(sol)); axis image; axis off;
 colormap gray; title(['First estimate - ', ...
-    num2str(sopt_mltb_SNR(im, real(sol))), 'dB']); drawnow;
+    num2str(sopt_SNR(im, real(sol))), 'dB']); drawnow;
 
 % Refine the estimate
 param.weights = 1./(abs(sol)+1e-5);
-sol = sopt_mltb_dr_BPDN(y, epsilon, A, At, Psi, Psit, param);
+sol = sopt_dr_BPDN(y, epsilon, A, At, Psi, Psit, param);
 
 % Show reconstructed image
 figure(1);
 subplot(224); imagesc(real(sol)); axis image; axis off;
 colormap gray; title(['Second estimate - ', ...
-    num2str(sopt_mltb_SNR(im, real(sol))), 'dB']); drawnow;
+    num2str(sopt_SNR(im, real(sol))), 'dB']); drawnow;

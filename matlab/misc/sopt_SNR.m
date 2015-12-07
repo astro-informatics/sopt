@@ -1,4 +1,4 @@
-function snr = sopt_mltb_SNR(map_init, map_recon)
+function snr = sopt_SNR(map_init, map_recon)
 % SNR - Compute the SNR between two images
 % 
 % C omputes the SNR between the maps map_init and map_recon.  The SNR is 
