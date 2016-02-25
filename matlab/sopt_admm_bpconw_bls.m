@@ -206,7 +206,7 @@ for t = 1:param.max_iter
     end
     
     %Global stopping criteria
-    if (rel_fval < param.rel_obj && res1 <= epsilon*1.001)
+    if (rel_fval < param.rel_obj && res1 <= epsilon)
         flag = 1;
         break;
     end
