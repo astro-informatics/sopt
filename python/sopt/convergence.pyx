@@ -40,23 +40,22 @@ cdef extern from "sopt/pywrapper.h" namespace "sopt::python":
 
 
 cdef class ConvergenceFunction:
-    def __cinit__(self, real=True, **kwargs):
-        self.is_real = real
-
-    def __init__(self, real=True, function=None):
-        """ Creates a convergence function """
-        self.is_real = real
+    def __cinit__(self, function=None):
         self.function = function if function is not None else lambda x: False
-        if real:
-            self.real_self = wrap_convfunc_real(real_convfunc_to_python, self.function)
-        else:
-            self.complex_self = wrap_convfunc_complex(complex_convfunc_to_python, self.function)
+        self.real_self = wrap_convfunc_real(real_convfunc_to_python, self.function)
+        self.complex_self = wrap_convfunc_complex(complex_convfunc_to_python, self.function)
 
-    def __call__(self, array):
-        """ True if convergence has been achieved """
-        if self.function is not None:
+    def __call__(self, array, gothroughC=False):
+        """ True if convergence has been achieved
+
+            Generally, the functor will call the python function directly. However, it is possible
+            force going through C++ if `gothroughC` is True.
+
+        """
+        from numpy import isrealobj
+        if self.function is not None and gothroughC == False:
             return self.function(array)
-        elif self.is_real:
+        elif isrealobj(array):
             return self._call_real(array)
         else:
             return self._call_complex(array)
@@ -65,6 +64,7 @@ cdef class ConvergenceFunction:
         """ Calls c++ function with array
 
             Will create a copy of array as a Vector[real]
+
         """
         assert self.real_self.is_valid()
         cdef Vector[t_real] carray
@@ -79,11 +79,13 @@ cdef class ConvergenceFunction:
         """ Calls c++ function with array
 
             Will create a copy of array as a Vector[complex]
+
         """
         assert self.complex_self.is_valid()
         cdef:
             double complex value
-        cdef Vector[t_complex] carray
+            Vector[t_complex] carray
+
         carray.resize(len(array))
 
         for i in range(len(array)):

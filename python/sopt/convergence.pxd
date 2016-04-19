@@ -11,7 +11,6 @@ cdef class ConvergenceFunction:
     cdef:
         cConvergenceFunction[t_real] real_self
         cConvergenceFunction[t_complex] complex_self
-        readonly cbool is_real
         object function
 
     cpdef cbool _call_real(self, array) except *

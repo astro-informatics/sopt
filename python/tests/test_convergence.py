@@ -1,54 +1,36 @@
-from pytest import fixture
+from pytest import fixture, mark
 
 
 @fixture
-def real_convfunc():
+def default():
     from sopt.convergence import ConvergenceFunction
-    return ConvergenceFunction(real=True)
-
-
-@fixture
-def complex_convfunc():
-    from sopt.convergence import ConvergenceFunction
-    return ConvergenceFunction(real=False)
-
-
-def test_default_real(real_convfunc):
-    from numpy import array
-    a = array([1, 2, 4])
-    assert not real_convfunc(a)
-    assert not real_convfunc._call_real(a)
-
-
-def test_default_complex(complex_convfunc):
-    from numpy import array
-    a = array([1, 2, 4])
-    assert not complex_convfunc(a)
-    assert not complex_convfunc._call_complex(a)
-
+    return ConvergenceFunction()
 
 def any_larger_than_one(input):
     from numpy import any, abs
     return any(abs(input) > 1e0)
 
-
-def test_real_convergence_callback():
+@fixture
+def larger_than_one():
     from sopt.convergence import ConvergenceFunction
-    convfunc = ConvergenceFunction(real=True, function=any_larger_than_one)
-    assert convfunc([1, 0, 0.1]) == False
-    assert convfunc._call_real([1, 0, 0.1]) == False
-    assert convfunc([1, 0, 1.1]) == True
-    assert convfunc._call_real([1, 0, 1.1]) == True
+    return ConvergenceFunction(any_larger_than_one)
 
 
-def test_complex_convergence_callback():
-    from sopt.convergence import ConvergenceFunction
-    convfunc = ConvergenceFunction(real=False, function=any_larger_than_one)
-    assert convfunc([1, 0, 0.1]) == False
-    assert convfunc._call_complex([1, 0, 0.1]) == False
-    assert convfunc([1, 0, 1.1]) == True
-    assert convfunc._call_complex([1, 0, 1.1]) == True
-    assert convfunc([1j, 0, 0.1]) == False
-    assert convfunc._call_complex([1j, 0, 0.1]) == False
-    assert convfunc([1j, 0, 1.1]) == True
-    assert convfunc._call_complex([1j, 0, 1.1]) == True
+@mark.parametrize('input', (
+    [1, 2, 3],
+    [1j, 2j, 3j],
+))
+def test_default(default, input):
+    assert default(input) == False
+    assert default(input, True) == False
+
+
+@mark.parametrize('input', (
+    [0.9, 0, 0.5],
+    [0.9j, 0j, 0.5j],
+    [1.9, 0, 0.5],
+    [1.9j, 0j, 0.5j],
+))
+def test_real_convergence_callback(larger_than_one, input):
+    assert larger_than_one(input) == any_larger_than_one(input)
+    assert larger_than_one(input, gothroughC=True) == any_larger_than_one(input)
