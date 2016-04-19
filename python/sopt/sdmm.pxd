@@ -1,4 +1,6 @@
 from sopt.types cimport t_real, t_complex, t_uint
+from sopt.convergence cimport ConvergenceFunction
+from sopt.convergence import ConvergenceFunction
 from libcpp cimport bool as cbool
 cdef extern from "sopt/sdmm.h" namespace "sopt::algorithm":
     cdef cppclass cSDMM "sopt::algorithm::SDMM"[T]:
@@ -11,6 +13,8 @@ cdef extern from "sopt/sdmm.h" namespace "sopt::algorithm":
 
 cdef class SDMM:
     cdef:
-        cSDMM[t_real]* real_ptr
-        cSDMM[t_complex]* complex_ptr
-        readonly cbool is_real
+        cSDMM[t_real] real_self
+        """ Instance for calling real functions """
+        cSDMM[t_complex] complex_self
+        """ Instance for calling complex functions """
+        ConvergenceFunction convergence_function

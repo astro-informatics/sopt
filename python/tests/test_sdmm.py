@@ -19,3 +19,9 @@ def test_gamma_property(sdmm):
     assert allclose(sdmm.gamma, 1e-8, 1e-16)
     sdmm.gamma = 1e-4
     assert allclose(sdmm.gamma, 1e-4, 1e-16)
+
+
+def test_convergence_property(sdmm):
+    assert sdmm.convergence([1]) == False
+    sdmm.convergence = lambda x: True
+    assert sdmm.convergence([1]) == True
