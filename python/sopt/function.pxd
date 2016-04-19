@@ -11,26 +11,15 @@ cdef extern from "sopt/types.h" namespace "sopt":
         void resize(int)
         T& operator[](int)
 
-    cdef cppclass Vector[T]:
-        Vector()
-        Vector(int)
-        T* data()
-        int size()
-        void resize(int)
-        T& operator[](int)
-
     cdef cppclass OperatorFunction[T]:
         OperatorFunction()
         void operator()(T &, T &)
 
-cdef api void sopt_operator_function_callback(
-    object self, Vector[double] &input, Vector[double] &output)
+cdef void double_opfunc_to_python(object self, Vector[double] &input, Vector[double] &output)
 
-cdef void call_operator_function(OperatorFunction[Vector[double]]& op, double[::1] input,
-                                 double [::1] output) except *
+ctypedef void(*CallBackDouble)(object, Vector[double] &, Vector[double] &)
+""" Function pointer passed on to OperatorFunction to call python """
 
 cdef extern from "sopt/pywrapper.h" namespace "sopt::python":
-    cdef OperatorFunction[Vector[T]] wrap_operator_function[T](object func)
-
-cdef extern from "sopt/cython_function_api.h":
-    pass
+    cdef OperatorFunction[Vector[double]] wrap_operator_function_double(
+                    CallBackDouble ptrfunc, object func)
