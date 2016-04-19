@@ -55,7 +55,7 @@ public:
     assert(sizes_[1] != 0);
   }
   WrapFunction(WrapFunction const &c) : func(c.func), sizes_(c.sizes_) {}
-  WrapFunction(WrapFunction const &&c) : func(std::move(c.func)), sizes_(std::move(c.sizes_)) {}
+  WrapFunction(WrapFunction &&c) : func(std::move(c.func)), sizes_(std::move(c.sizes_)) {}
   void operator=(WrapFunction const &c) {
     func = c.func;
     sizes_ = c.sizes_;
