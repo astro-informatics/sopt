@@ -13,7 +13,7 @@ namespace sopt {
 namespace algorithm {
 
 //! \brief Proximal Alternate Direction method of mutltipliers
-//! \details \f$\min_{x, z} f(x) + h(z)\f$ subject to \f$Φx + z = y\f$. \f$y\f$ is a target vector.
+//! \details \f$\min_{x, z} f(x) + g(z)\f$ subject to \f$Φx + z = y\f$. \f$y\f$ is a target vector.
 template <class SCALAR> class ProximalADMM {
 public:
   //! Scalar type
@@ -28,7 +28,7 @@ public:
   typedef LinearTransform<t_Vector> t_LinearTransform;
   //! Type of the convergence function
   typedef ConvergenceFunction<Scalar> t_IsConverged;
-  //! Type of the convergence function
+  //! Type of the proximal function
   typedef ProximalFunction<Scalar> t_Proximal;
 
   //! Values indicating how the algorithm ran
@@ -63,7 +63,7 @@ public:
   virtual ~ProximalADMM() {}
 
 // Macro helps define properties that can be initialized as in
-// auto sdmm  = ProximalADMM<float>().prop0(value).prop1(value);
+// auto padmm  = ProximalADMM<float>().prop0(value).prop1(value);
 #define SOPT_MACRO(NAME, TYPE)                                                                     \
   TYPE const &NAME() const { return NAME##_; }                                                     \
   ProximalADMM<SCALAR> &NAME(TYPE const &NAME) {                                                   \
@@ -97,7 +97,7 @@ public:
   void f_proximal(t_Vector &out, Real gamma, t_Vector const &x) const {
     f_proximal()(out, gamma, x);
   }
-  //! \brief Simplifies calling the proximal of f.
+  //! \brief Simplifies calling the proximal of g.
   void g_proximal(t_Vector &out, Real gamma, t_Vector const &x) const {
     g_proximal()(out, gamma, x);
   }
