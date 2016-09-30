@@ -14,6 +14,7 @@ int main(int argc, char const *argv[]) {
   int returnCode = session.applyCommandLine(argc, argv);
   if(returnCode != 0) // Indicates a command line error
     return returnCode;
+  srand(session.configData().rngSeed);
   mersenne.reset(new std::mt19937_64(session.configData().rngSeed));
 
   sopt::logging::initialize();
