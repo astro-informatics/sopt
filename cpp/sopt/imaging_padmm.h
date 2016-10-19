@@ -17,8 +17,8 @@ namespace sopt {
 namespace algorithm {
 
 //! \brief Specialization of Proximal ADMM for Purify
-//! \details \f$\min_{x, z} f(x) + h(z)\f$ subject to \f$Φx + z = y\f$, where \f$f(x) =
-//! ||Ψ^Hx||_1 + i_C(x)\f$ and \f$h(x) = i_B(z)\f$ with \f$C = R^N_{+}\f$ and \f$B = {z \in R^M:
+//! \details \f$\min_{x, z} f(x) + g(z)\f$ subject to \f$Φx + z = y\f$, where \f$f(x) =
+//! ||Ψ^Hx||_1 + i_C(x)\f$ and \f$g(z) = i_B(z)\f$ with \f$C = R^N_{+}\f$ and \f$B = {z \in R^M:
 //! ||z||_2 \leq \epsilon}\f$
 template <class SCALAR> class ImagingProximalADMM : private ProximalADMM<SCALAR> {
   //! Defines convergence behaviour
