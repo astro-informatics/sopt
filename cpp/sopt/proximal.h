@@ -28,7 +28,7 @@ public:
                   Eigen::MatrixBase<T0> const &x) const {
     typedef typename T0::Scalar Scalar;
 #ifdef SOPT_MPI
-    auto const norm = comm_.all_reduce(x.norm(), MPI_SUM);
+    auto const norm = comm_.all_sum_all(x.norm());
 #else
     auto const norm = x.norm();
 #endif
@@ -104,7 +104,7 @@ public:
   //! Calls proximal function
   void operator()(Vector<T> &out, Vector<T> const &x) const {
 #ifdef SOPT_MPI
-    auto const norm = comm_.all_reduce(x.stableNorm(), MPI_SUM);
+    auto const norm = comm_.all_sum_all(x.stableNorm());
 #else
     auto const norm = x.stableNorm();
 #endif
@@ -174,10 +174,9 @@ public:
   //! Calls proximal function
   void operator()(Vector<T> &out, Vector<T> const &x) const {
 #ifdef SOPT_MPI
-    auto const norm
-        = weights().size() == 1 ?
-              comm_.all_reduce(x.stableNorm(), MPI_SUM) * std::abs(weights()(0)) :
-              comm_.all_reduce((x.array() * weights().array()).matrix().stableNorm(), MPI_SUM);
+    auto const norm = weights().size() == 1 ?
+                          comm_.all_sum_all(x.stableNorm()) * std::abs(weights()(0)) :
+                          comm_.all_sum_all((x.array() * weights().array()).matrix().stableNorm());
 #else
     auto const norm = weights().size() == 1 ? x.stableNorm() * std::abs(weights()(0)) :
                                               (x.array() * weights().array()).matrix().stableNorm();
