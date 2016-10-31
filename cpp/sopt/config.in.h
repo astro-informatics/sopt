@@ -13,6 +13,9 @@
 //! Macro to start logging or not
 #cmakedefine SOPT_DO_LOGGING
 
+//! Whether or not to include mpi
+#cmakedefine SOPT_MPI
+
 #include <string>
 #include <tuple>
 

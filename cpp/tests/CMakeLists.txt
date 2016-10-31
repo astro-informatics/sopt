@@ -27,3 +27,24 @@ add_catch_test(padmm LIBRARIES sopt)
 add_catch_test(padmm_warm_start LIBRARIES sopt)
 add_catch_test(reweighted LIBRARIES sopt)
 add_catch_test(power_method LIBRARIES sopt)
+
+if(dompi)
+  add_library(common_mpi_catch_main_object OBJECT common_mpi_catch_main.cpp)
+  target_include_directories(common_mpi_catch_main_object
+    PUBLIC ${PROJECT_SOURCE_DIR}/cpp ${PROJECT_BINARY_DIR}/include ${MPI_CXX_INCLUDE_PATH})
+
+	function(add_mpi_test testname)
+		  add_catch_test(${testname} COMMON_MAIN common_mpi_catch_main_object NOTEST ${ARGN})
+		  unset(arguments)
+		  if(CATCH_JUNIT)
+		  	  set(arguments -r junit -o ${PROJECT_BINARY_DIR}/Testing/${testname}.xml)
+		  endif()
+		  add_test(NAME ${testname}
+		  	  COMMAND
+		  	  ${MPIEXEC} ${MPIEXEC_NUMPROC_FLAG} ${MPIEXEC_MAX_NUMPROCS} ${MPIEXEC_PREFLAGS}
+		  	  test_${testname} ${arguments})
+		  set_tests_properties(${testname} PROPERTIES LABELS "catch;mpi")
+	endfunction()
+
+	add_mpi_test(communicator LIBRARIES sopt)
+endif()
