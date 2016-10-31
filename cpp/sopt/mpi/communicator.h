@@ -48,7 +48,7 @@ public:
   //! Alias for duplicate
   Communicator clone() const { return duplicate(); }
 
-  //! Helper function for gathering
+  //! Helper function for reducing
   template <class T>
   typename std::enable_if<std::is_fundamental<T>::value, T>::type
   all_reduce(T const &value, MPI_Op operation) const {
@@ -57,6 +57,13 @@ public:
     T result;
     MPI_Allreduce(&value, &result, 1, registered_type(value), operation, **this);
     return result;
+  }
+
+  //! Helper function for reducing through sum
+  template <class T>
+  typename std::enable_if<std::is_fundamental<T>::value, T>::type
+  all_sum_all(T const &value) const {
+    return all_reduce(value, MPI_SUM);
   }
 
 private:
