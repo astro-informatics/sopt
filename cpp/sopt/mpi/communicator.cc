@@ -20,6 +20,8 @@ Communicator::Communicator(MPI_Comm const& comm) : impl(nullptr) {
 }
 
 Communicator Communicator::duplicate() const {
+  if(not impl)
+    return Communicator(nullptr);
   MPI_Comm comm;
   MPI_Comm_dup(**this, &comm);
   return comm;

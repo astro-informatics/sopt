@@ -30,7 +30,14 @@ class Communicator {
 
 public:
   //! World communicator
-  Communicator() : Communicator(MPI_COMM_WORLD){};
+  Communicator() : impl() {}
+
+  static Communicator World() {
+    return Communicator(MPI_COMM_WORLD);
+  }
+  static Communicator Self() {
+    return Communicator(MPI_COMM_SELF);
+  }
 
   virtual ~Communicator(){};
 
@@ -39,7 +46,7 @@ public:
   //! The rank of this proc
   decltype(Impl::rank) rank() const { return impl ? impl->rank : 0; }
   //! Returns the Blacs context in a way blacs undersands
-  decltype(Impl::comm) operator*() const { return impl->comm; }
+  decltype(Impl::comm) operator*() const { return impl ? impl->comm: nullptr; }
   //! Root id for this communicator
   static constexpr t_uint root_id() { return 0; }
   //! \brief Duplicates this communicator
