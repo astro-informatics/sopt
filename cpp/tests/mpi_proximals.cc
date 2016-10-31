@@ -8,7 +8,7 @@
 
 TEST_CASE("Parallel Euclidian norm", "[proximal]") {
   using namespace sopt;
-  mpi::Communicator world;
+  auto const world = mpi::Communicator::World();
   proximal::EuclidianNorm eucl(world);
 
   Vector<t_real> out(5);
@@ -23,7 +23,7 @@ TEST_CASE("Parallel Euclidian norm", "[proximal]") {
 
 TEST_CASE("Parallel L2 ball", "[proximal]") {
   using namespace sopt;
-  mpi::Communicator world;
+  auto const world = mpi::Communicator::World();
   proximal::L2Ball<t_real> ball(0.5, world);
   Vector<t_real> out;
   Vector<t_real> x(5);
@@ -39,7 +39,7 @@ TEST_CASE("Parallel L2 ball", "[proximal]") {
 
 TEST_CASE("Parallel WeightedL2Ball", "[proximal]") {
   using namespace sopt;
-  mpi::Communicator world;
+  auto const world = mpi::Communicator::World();
   Vector<t_real> const weights = 0.01 * Vector<t_real>::Random(5).array() + 1e0;
   Vector<t_real> x(5);
   x << 1, 2, 3, 4, 5;

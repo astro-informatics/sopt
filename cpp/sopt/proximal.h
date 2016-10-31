@@ -134,7 +134,7 @@ public:
   }
 
 #ifdef SOPT_MPI
-  mpi::Communicator communicator() const { return comm_; }
+  mpi::Communicator const &communicator() const { return comm_; }
   void communicator(mpi::Communicator const &comm) { comm_ = comm; }
 #endif
 
@@ -166,7 +166,9 @@ public:
   WeightedL2Ball(Real epsilon, Eigen::DenseBase<T0> const &w) : L2Ball<T>(epsilon), weights_(w) {}
   //! Constructs an L2 ball proximal of size epsilon
   WeightedL2Ball(Real epsilon) : WeightedL2Ball(epsilon, t_Vector::Ones(1)) {}
+  using L2Ball<T>::communicator;
 #endif
+
   //! Calls proximal function
   void operator()(Vector<T> &out, typename real_type<T>::type, Vector<T> const &x) const {
     return operator()(out, x);
@@ -174,9 +176,11 @@ public:
   //! Calls proximal function
   void operator()(Vector<T> &out, Vector<T> const &x) const {
 #ifdef SOPT_MPI
-    auto const norm = weights().size() == 1 ?
-                          comm_.all_sum_all(x.stableNorm()) * std::abs(weights()(0)) :
-                          comm_.all_sum_all((x.array() * weights().array()).matrix().stableNorm());
+    auto const norm
+        = weights().size() == 1 ?
+              L2Ball<T>::communicator().all_sum_all(x.stableNorm()) * std::abs(weights()(0)) :
+              L2Ball<T>::communicator().all_sum_all(
+                  (x.array() * weights().array()).matrix().stableNorm());
 #else
     auto const norm = weights().size() == 1 ? x.stableNorm() * std::abs(weights()(0)) :
                                               (x.array() * weights().array()).matrix().stableNorm();
@@ -217,16 +221,8 @@ public:
     return *this;
   }
 
-#ifdef SOPT_MPI
-  mpi::Communicator communicator() const { return comm_; }
-  void communicator(mpi::Communicator const &comm) { comm_ = comm; }
-#endif
-
 private:
   t_Vector weights_;
-#ifdef SOPT_MPI
-  mpi::Communicator comm_;
-#endif
 };
 
 //! Translation over proximal function
