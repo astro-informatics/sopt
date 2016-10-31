@@ -4,21 +4,34 @@
 #include "sopt/config.h"
 #include <type_traits>
 #include <Eigen/Core>
-#include "sopt/proximal_expression.h"
 #include "sopt/maths.h"
+#include "sopt/proximal_expression.h"
+#ifdef SOPT_MPI
+#include "sopt/mpi/communicator.h"
+#endif
 
 namespace sopt {
 //! Holds some standard proximals
 namespace proximal {
 
 //! Proximal of euclidian norm
-struct EuclidianNorm {
+class EuclidianNorm {
+public:
+#ifdef SOPT_MPI
+  EuclidianNorm(mpi::Communicator const &comm = mpi::Communicator()) : comm_(comm){};
+  mpi::Communicator communicator() const { return comm_; }
+  void communicator(mpi::Communicator const &comm) { comm_ = comm; }
+#endif
   template <class T0>
   void operator()(Vector<typename T0::Scalar> &out,
                   typename real_type<typename T0::Scalar>::type const &t,
                   Eigen::MatrixBase<T0> const &x) const {
     typedef typename T0::Scalar Scalar;
+#ifdef SOPT_MPI
+    auto const norm = comm_.all_reduce(x.norm(), MPI_SUM);
+#else
     auto const norm = x.norm();
+#endif
     if(norm > t)
       out = (Scalar(1) - t / norm) * x;
     else
@@ -30,6 +43,10 @@ struct EuclidianNorm {
   operator()(typename T0::Scalar const &t, Eigen::MatrixBase<T0> const &x) const {
     return {*this, t, x};
   }
+#ifdef SOPT_MPI
+private:
+  mpi::Communicator comm_;
+#endif
 };
 
 //! Proximal of the euclidian norm
@@ -72,15 +89,25 @@ void positive_quadrant(Vector<T> &out, typename real_type<T>::type, Vector<T> co
 template <class T> class L2Ball {
 public:
   typedef typename real_type<T>::type Real;
-  //! Constructs an L2 ball proximal of size epsilon
+//! Constructs an L2 ball proximal of size epsilon
+#ifdef SOPT_MPI
+  L2Ball(Real epsilon, mpi::Communicator const &comm = mpi::Communicator())
+      : epsilon_(epsilon), comm_(comm){};
+#else
   L2Ball(Real epsilon) : epsilon_(epsilon) {}
+#endif
+
   //! Calls proximal function
   void operator()(Vector<T> &out, typename real_type<T>::type, Vector<T> const &x) const {
     return operator()(out, x);
   }
   //! Calls proximal function
   void operator()(Vector<T> &out, Vector<T> const &x) const {
+#ifdef SOPT_MPI
+    auto const norm = comm_.all_reduce(x.stableNorm(), MPI_SUM);
+#else
     auto const norm = x.stableNorm();
+#endif
     if(norm > epsilon())
       out = x * (epsilon() / norm);
     else
@@ -106,9 +133,17 @@ public:
     return *this;
   }
 
-protected:
+#ifdef SOPT_MPI
+  mpi::Communicator communicator() const { return comm_; }
+  void communicator(mpi::Communicator const &comm) { comm_ = comm; }
+#endif
+
+private:
   //! Size of the ball
   Real epsilon_;
+#ifdef SOPT_MPI
+  mpi::Communicator comm_;
+#endif
 };
 
 template <class T> class WeightedL2Ball : public L2Ball<T> {
@@ -116,19 +151,37 @@ template <class T> class WeightedL2Ball : public L2Ball<T> {
 public:
   typedef typename L2Ball<T>::Real Real;
   typedef Vector<Real> t_Vector;
+#ifdef SOPT_MPI
+  //! Constructs an L2 ball proximal of size epsilon with given weights
+  template <class T0>
+  WeightedL2Ball(Real epsilon, Eigen::DenseBase<T0> const &w,
+                 mpi::Communicator const &comm = mpi::Communicator())
+      : L2Ball<T>(epsilon, comm), weights_(w) {}
+  //! Constructs an L2 ball proximal of size epsilon
+  WeightedL2Ball(Real epsilon, mpi::Communicator const &comm = mpi::Communicator())
+      : WeightedL2Ball(epsilon, t_Vector::Ones(1), comm) {}
+#else
   //! Constructs an L2 ball proximal of size epsilon with given weights
   template <class T0>
   WeightedL2Ball(Real epsilon, Eigen::DenseBase<T0> const &w) : L2Ball<T>(epsilon), weights_(w) {}
   //! Constructs an L2 ball proximal of size epsilon
   WeightedL2Ball(Real epsilon) : WeightedL2Ball(epsilon, t_Vector::Ones(1)) {}
+#endif
   //! Calls proximal function
   void operator()(Vector<T> &out, typename real_type<T>::type, Vector<T> const &x) const {
     return operator()(out, x);
   }
   //! Calls proximal function
   void operator()(Vector<T> &out, Vector<T> const &x) const {
+#ifdef SOPT_MPI
+    auto const norm
+        = weights().size() == 1 ?
+              comm_.all_reduce(x.stableNorm(), MPI_SUM) * std::abs(weights()(0)) :
+              comm_.all_reduce((x.array() * weights().array()).matrix().stableNorm(), MPI_SUM);
+#else
     auto const norm = weights().size() == 1 ? x.stableNorm() * std::abs(weights()(0)) :
                                               (x.array() * weights().array()).matrix().stableNorm();
+#endif
     if(norm > epsilon())
       out = x * (epsilon() / norm);
     else
@@ -165,8 +218,16 @@ public:
     return *this;
   }
 
-protected:
+#ifdef SOPT_MPI
+  mpi::Communicator communicator() const { return comm_; }
+  void communicator(mpi::Communicator const &comm) { comm_ = comm; }
+#endif
+
+private:
   t_Vector weights_;
+#ifdef SOPT_MPI
+  mpi::Communicator comm_;
+#endif
 };
 
 //! Translation over proximal function

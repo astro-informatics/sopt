@@ -16,6 +16,12 @@
 //! Whether or not to include mpi
 #cmakedefine SOPT_MPI
 
+// figures out available basic types
+#cmakedefine SOPT_CHAR_ARCH
+#cmakedefine SOPT_LONG_ARCH
+#cmakedefine SOPT_ULONG_ARCH
+
+
 #include <string>
 #include <tuple>
 
