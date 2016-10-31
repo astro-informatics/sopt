@@ -47,4 +47,5 @@ if(dompi)
 	endfunction()
 
 	add_mpi_test(communicator LIBRARIES sopt)
+  add_mpi_test(mpi_proximals LIBRARIES sopt)
 endif()

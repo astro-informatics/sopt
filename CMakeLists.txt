@@ -39,12 +39,19 @@ include(compilations)
 
 # search/install dependencies
 include(dependencies)
+
 # sets rpath policy explicitly
 if(CMAKE_VERSION VERSION_LESS 3.0)
     set_property(GLOBAL PROPERTY MACOSX_RPATH ON)
 else()
     cmake_policy(SET CMP0042 NEW)
 endif()
+
+if(SOPT_MPI)
+  include(DetectIntegerArchitecture)
+  DetectIntegerArchitecture(SOPT)
+endif()
+
 
 if(tests OR examples)
   enable_testing()

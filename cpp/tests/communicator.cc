@@ -2,7 +2,7 @@
 #include "catch.hpp"
 
 #include "sopt/config.h"
-#include "sopt/communicator.h"
+#include "sopt/mpi/communicator.h"
 
 using namespace sopt;
 

@@ -1,12 +1,15 @@
 #ifndef SOPT_MPI_COMMUNICATOR_H
 #define SOPT_MPI_COMMUNICATOR_H
 
-#include "Types.h"
+#include "sopt/config.h"
 
 #ifdef SOPT_MPI
 
 #include <memory>
 #include <mpi.h>
+#include <type_traits>
+#include "sopt/types.h"
+#include <sopt/mpi/registered_types.h>
 
 namespace sopt {
 namespace mpi {
@@ -39,11 +42,22 @@ public:
   decltype(Impl::comm) operator*() const { return impl->comm; }
   //! Root id for this communicator
   static constexpr t_uint root_id() { return 0; }
-	//! \brief Duplicates this communicator
-	//! \details Creates a new communicator in all ways equivalent to this one.
-	Communicator duplicate() const;
-	//! Alias for duplicate
-	Communicator clone() const { return duplicate(); }
+  //! \brief Duplicates this communicator
+  //! \details Creates a new communicator in all ways equivalent to this one.
+  Communicator duplicate() const;
+  //! Alias for duplicate
+  Communicator clone() const { return duplicate(); }
+
+  //! Helper function for gathering
+  template <class T>
+  typename std::enable_if<std::is_fundamental<T>::value, T>::type
+  all_reduce(T const &value, MPI_Op operation) const {
+    if(size() == 1)
+      return value;
+    T result;
+    MPI_Allreduce(&value, &result, 1, registered_type(value), operation, **this);
+    return result;
+  }
 
 private:
   //! Holds data associated with the context
