@@ -54,32 +54,32 @@ public:
 
   //! Helper function for reducing
   template <class T>
-  typename std::enable_if<std::is_fundamental<T>::value, T>::type
+  typename std::enable_if<is_registered_type<T>::value, T>::type
   all_reduce(T const &value, MPI_Op operation) const;
 
   //! Helper function for reducing through sum
   template <class T>
-  typename std::enable_if<std::is_fundamental<T>::value, T>::type
+  typename std::enable_if<is_registered_type<T>::value, T>::type
   all_sum_all(T const &value) const {
     return all_reduce(value, MPI_SUM);
   }
 
   //! Scatter one object per proc
   template <class T>
-  typename std::enable_if<std::is_fundamental<T>::value, T>::type
+  typename std::enable_if<is_registered_type<T>::value, T>::type
   scatter_one(std::vector<T> const &values, t_uint const root = root_id()) const;
   //! Receive scattered objects
   template <class T>
-  typename std::enable_if<std::is_fundamental<T>::value, T>::type
+  typename std::enable_if<is_registered_type<T>::value, T>::type
   scatter_one(t_uint const root = root_id()) const;
 
   //! Scatter
   template <class T>
-  typename std::enable_if<std::is_fundamental<T>::value, Vector<T>>::type
+  typename std::enable_if<is_registered_type<T>::value, Vector<T>>::type
   scatterv(Vector<T> const &vec, std::vector<t_int> const &sizes,
            t_uint const root = root_id()) const;
   template <class T>
-  typename std::enable_if<std::is_fundamental<T>::value, Vector<T>>::type
+  typename std::enable_if<is_registered_type<T>::value, Vector<T>>::type
   scatterv(t_int local_size, t_uint const root = root_id()) const;
 
 private:
@@ -98,7 +98,7 @@ private:
 };
 
 template <class T>
-typename std::enable_if<std::is_fundamental<T>::value, T>::type
+typename std::enable_if<is_registered_type<T>::value, T>::type
 Communicator::all_reduce(T const &value, MPI_Op operation) const {
   if(size() == 1)
     return value;
@@ -108,7 +108,7 @@ Communicator::all_reduce(T const &value, MPI_Op operation) const {
 }
 
 template <class T>
-typename std::enable_if<std::is_fundamental<T>::value, T>::type
+typename std::enable_if<is_registered_type<T>::value, T>::type
 Communicator::scatter_one(std::vector<T> const &values, t_uint const root) const {
   assert(root < size());
   if(values.size() != size())
@@ -120,7 +120,7 @@ Communicator::scatter_one(std::vector<T> const &values, t_uint const root) const
 }
 //! Receive scattered objects
 template <class T>
-typename std::enable_if<std::is_fundamental<T>::value, T>::type
+typename std::enable_if<is_registered_type<T>::value, T>::type
 Communicator::scatter_one(t_uint const root) const {
   T result;
   MPI_Scatter(nullptr, 1, registered_type(result), &result, 1, registered_type(result), root,
@@ -129,7 +129,7 @@ Communicator::scatter_one(t_uint const root) const {
 }
 
 template <class T>
-typename std::enable_if<std::is_fundamental<T>::value, Vector<T>>::type
+typename std::enable_if<is_registered_type<T>::value, Vector<T>>::type
 Communicator::scatterv(Vector<T> const &vec, std::vector<t_int> const &sizes,
                        t_uint const root) const {
   if(rank() != root)
@@ -151,7 +151,7 @@ Communicator::scatterv(Vector<T> const &vec, std::vector<t_int> const &sizes,
 }
 
 template <class T>
-typename std::enable_if<std::is_fundamental<T>::value, Vector<T>>::type
+typename std::enable_if<is_registered_type<T>::value, Vector<T>>::type
 Communicator::scatterv(t_int local_size, t_uint const root) const {
   if(rank() == root)
     throw std::runtime_error("Root should call the *other* scatterv");
