@@ -1,4 +1,5 @@
 #include <iostream>
+#include <numeric>
 #include "catch.hpp"
 
 #include "sopt/config.h"
@@ -26,6 +27,18 @@ TEST_CASE("Creates an mpi communicator") {
   SECTION("Duplicate") {
     mpi::Communicator dup = world.duplicate();
     CHECK(*dup != *world);
+  }
+
+  SECTION("Scatter") {
+    if(world.rank() == world.root_id()) {
+      std::vector<t_int> scattered(world.size());
+      std::iota(scattered.begin(), scattered.end(), 2);
+      auto const result = world.scatter_one(scattered, world);
+      CHECK(result == world.rank() + 2);
+    } else {
+      auto const result = world.scatter_one<t_int>(world);
+      CHECK(result == world.rank() + 2);
+    }
   }
 }
 #endif
