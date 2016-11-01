@@ -54,5 +54,12 @@ TEST_CASE("Creates an mpi communicator") {
                             world.scatterv<t_int>(sizes[world.rank()]);
     CHECK(result.isApprox(sendee.segment(displs[world.rank()], sizes[world.rank()])));
   }
+
+  SECTION("All sum all over image") {
+    Image<t_int> image(2, 2);
+    image.fill(world.rank());
+    world.all_sum_all(image);
+    CHECK((2 * image == world.size() * (world.size() - 1)).all());
+  }
 }
 #endif

@@ -57,11 +57,23 @@ public:
   typename std::enable_if<is_registered_type<T>::value, T>::type
   all_reduce(T const &value, MPI_Op operation) const;
 
+  //! In-place reduction over an image
+  template <class T>
+  typename std::enable_if<is_registered_type<T>::value>::type
+  all_reduce(Image<T> &image, MPI_Op operation) const {
+    MPI_Allreduce(MPI_IN_PLACE, image.data(), image.size(), registered_type(T(0)), operation,
+                  **this);
+  }
+
   //! Helper function for reducing through sum
   template <class T>
-  typename std::enable_if<is_registered_type<T>::value, T>::type
-  all_sum_all(T const &value) const {
+  typename std::enable_if<is_registered_type<T>::value, T>::type all_sum_all(T const &value) const {
     return all_reduce(value, MPI_SUM);
+  }
+  template <class T>
+  typename std::enable_if<is_registered_type<T>::value>::type
+  all_sum_all(Image<T> &image) const {
+    all_reduce(image, MPI_SUM);
   }
 
   //! Scatter one object per proc
