@@ -12,7 +12,7 @@ TEST_CASE("Creates an mpi communicator") {
   MPI_Comm_rank(MPI_COMM_WORLD, &rank);
   MPI_Comm_size(MPI_COMM_WORLD, &size);
 
-  mpi::Communicator const world;
+  auto const world = mpi::Communicator::World();
 
   SECTION("General stuff") {
     REQUIRE(*world == MPI_COMM_WORLD);
