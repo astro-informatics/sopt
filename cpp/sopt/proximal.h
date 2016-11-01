@@ -160,13 +160,13 @@ public:
   //! Constructs an L2 ball proximal of size epsilon
   WeightedL2Ball(Real epsilon, mpi::Communicator const &comm = mpi::Communicator())
       : WeightedL2Ball(epsilon, t_Vector::Ones(1), comm) {}
+  using L2Ball<T>::communicator;
 #else
   //! Constructs an L2 ball proximal of size epsilon with given weights
   template <class T0>
   WeightedL2Ball(Real epsilon, Eigen::DenseBase<T0> const &w) : L2Ball<T>(epsilon), weights_(w) {}
   //! Constructs an L2 ball proximal of size epsilon
   WeightedL2Ball(Real epsilon) : WeightedL2Ball(epsilon, t_Vector::Ones(1)) {}
-  using L2Ball<T>::communicator;
 #endif
 
   //! Calls proximal function
@@ -178,9 +178,8 @@ public:
 #ifdef SOPT_MPI
     auto const norm
         = weights().size() == 1 ?
-              L2Ball<T>::communicator().all_sum_all(x.stableNorm()) * std::abs(weights()(0)) :
-              L2Ball<T>::communicator().all_sum_all(
-                  (x.array() * weights().array()).matrix().stableNorm());
+              communicator().all_sum_all(x.stableNorm()) * std::abs(weights()(0)) :
+              communicator().all_sum_all((x.array() * weights().array()).matrix().stableNorm());
 #else
     auto const norm = weights().size() == 1 ? x.stableNorm() * std::abs(weights()(0)) :
                                               (x.array() * weights().array()).matrix().stableNorm();
