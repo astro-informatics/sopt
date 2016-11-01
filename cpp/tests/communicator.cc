@@ -33,12 +33,26 @@ TEST_CASE("Creates an mpi communicator") {
     if(world.rank() == world.root_id()) {
       std::vector<t_int> scattered(world.size());
       std::iota(scattered.begin(), scattered.end(), 2);
-      auto const result = world.scatter_one(scattered, world);
+      auto const result = world.scatter_one(scattered);
       CHECK(result == world.rank() + 2);
     } else {
-      auto const result = world.scatter_one<t_int>(world);
+      auto const result = world.scatter_one<t_int>();
       CHECK(result == world.rank() + 2);
     }
+  }
+
+  SECTION("ScatterV") {
+    std::vector<t_int> sizes(world.size()), displs(world.size());
+    for(t_int i(0); i < world.rank(); ++i)
+      sizes[i] = world.rank() * 2 + i;
+    for(t_int i(1); i < world.rank(); ++i)
+      displs[i] = displs[i - 1] + sizes[i - 1];
+    Vector<t_int> const sendee
+        = Vector<t_int>::Random(std::accumulate(sizes.begin(), sizes.end(), 0));
+    auto const result = world.rank() == world.root_id() ?
+                            world.scatterv(sendee, sizes) :
+                            world.scatterv<t_int>(sizes[world.rank()]);
+    CHECK(result.isApprox(sendee.segment(displs[world.rank()], sizes[world.rank()])));
   }
 }
 #endif
