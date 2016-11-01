@@ -67,12 +67,20 @@ public:
   //! Scatter one object per proc
   template <class T>
   typename std::enable_if<std::is_fundamental<T>::value, T>::type
-  scatter_one(std::vector<T> const &values, Communicator const &comm,
-              t_uint const root = root_id()) const;
+  scatter_one(std::vector<T> const &values, t_uint const root = root_id()) const;
   //! Receive scattered objects
   template <class T>
   typename std::enable_if<std::is_fundamental<T>::value, T>::type
-  scatter_one(Communicator const &comm, t_uint const root = root_id()) const;
+  scatter_one(t_uint const root = root_id()) const;
+
+  //! Scatter
+  template <class T>
+  typename std::enable_if<std::is_fundamental<T>::value, Vector<T>>::type
+  scatterv(Vector<T> const &vec, std::vector<t_int> const &sizes,
+           t_uint const root = root_id()) const;
+  template <class T>
+  typename std::enable_if<std::is_fundamental<T>::value, Vector<T>>::type
+  scatterv(t_int local_size, t_uint const root = root_id()) const;
 
 private:
   //! Holds data associated with the context
@@ -101,23 +109,57 @@ Communicator::all_reduce(T const &value, MPI_Op operation) const {
 
 template <class T>
 typename std::enable_if<std::is_fundamental<T>::value, T>::type
-Communicator::scatter_one(std::vector<T> const &values, Communicator const &comm,
-    t_uint const root) const {
-  assert(root < comm.size());
-  if(values.size() != comm.size())
+Communicator::scatter_one(std::vector<T> const &values, t_uint const root) const {
+  assert(root < size());
+  if(values.size() != size())
     throw std::runtime_error("Expected a single object per process");
   T result;
-  MPI_Scatter(values.data(), 1, registered_type(result), &result, 1, registered_type(result),
-      root, *comm);
+  MPI_Scatter(values.data(), 1, registered_type(result), &result, 1, registered_type(result), root,
+              **this);
   return result;
 }
 //! Receive scattered objects
 template <class T>
 typename std::enable_if<std::is_fundamental<T>::value, T>::type
-Communicator::scatter_one(Communicator const &comm, t_uint const root) const {
+Communicator::scatter_one(t_uint const root) const {
   T result;
   MPI_Scatter(nullptr, 1, registered_type(result), &result, 1, registered_type(result), root,
-      *comm);
+              **this);
+  return result;
+}
+
+template <class T>
+typename std::enable_if<std::is_fundamental<T>::value, Vector<T>>::type
+Communicator::scatterv(Vector<T> const &vec, std::vector<t_int> const &sizes,
+                       t_uint const root) const {
+  if(rank() != root)
+    return scatterv<T>(sizes.at(rank()), root);
+  std::vector<int> sizes_, displs;
+  int i = 0;
+  for(auto const size : sizes) {
+    sizes_.push_back(static_cast<int>(size));
+    displs.push_back(i);
+    i += size;
+  }
+  if(vec.size() != i)
+    throw std::runtime_error("Input vector size and sizes are inconsistent");
+
+  Vector<T> result(sizes[rank()]);
+  MPI_Scatterv(vec.data(), sizes_.data(), displs.data(), registered_type(T(0)), result.data(),
+               sizes_[rank()], registered_type(T(0)), root, **this);
+  return result;
+}
+
+template <class T>
+typename std::enable_if<std::is_fundamental<T>::value, Vector<T>>::type
+Communicator::scatterv(t_int local_size, t_uint const root) const {
+  if(rank() == root)
+    throw std::runtime_error("Root should call the *other* scatterv");
+  std::vector<int> sizes(size());
+  sizes[rank()] = local_size;
+  Vector<T> result(sizes[rank()]);
+  MPI_Scatterv(nullptr, sizes.data(), nullptr, registered_type(T(0)), result.data(), local_size,
+               registered_type(T(0)), root, **this);
   return result;
 }
 
