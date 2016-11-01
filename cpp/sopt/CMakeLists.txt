@@ -17,7 +17,7 @@ if(TIFF_FOUND)
 endif()
 if(SOPT_MPI)
   list(APPEND sources mpi/communicator.cc mpi/registered_types.cc)
-	list(APPEND headers mpi/communicator.h mpi/registered_types.h)
+	list(APPEND mpi_headers mpi/communicator.h mpi/registered_types.h)
 endif()
 
 add_library(sopt SHARED ${sources})
@@ -57,6 +57,7 @@ endif()
 
 install(FILES ${headers} DESTINATION include/sopt)
 install(FILES ${wavelet_headers} DESTINATION include/sopt/wavelets)
+install(FILES ${mpi_headers} DESTINATION include/sopt/mpi)
 install(TARGETS sopt
   EXPORT SoptCPPTargets
   DESTINATION share/cmake/sopt
