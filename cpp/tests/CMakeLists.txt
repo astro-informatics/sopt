@@ -39,6 +39,9 @@ if(dompi)
 		  if(CATCH_JUNIT)
 		  	  set(arguments -r junit -o ${PROJECT_BINARY_DIR}/Testing/${testname}.xml)
 		  endif()
+      if(NOT MPIEXEC_MAX_NUMPROCS)
+        set(MPIEXEC_MAX_NUMPROCS 4)
+      endif()
 		  add_test(NAME ${testname}
 		  	  COMMAND
 		  	  ${MPIEXEC} ${MPIEXEC_NUMPROC_FLAG} ${MPIEXEC_MAX_NUMPROCS} ${MPIEXEC_PREFLAGS}
