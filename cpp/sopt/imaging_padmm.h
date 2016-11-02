@@ -56,19 +56,21 @@ public:
   template <class DERIVED>
   ImagingProximalADMM(Eigen::MatrixBase<DERIVED> const &target)
       : ProximalADMM<SCALAR>(nullptr, nullptr, target), l1_proximal_(), l2ball_proximal_(1e0),
-        tight_frame_(false), relative_variation_(1e-4), residual_convergence_(1e-4) {
+        tight_frame_(false), relative_variation_(1e-4), residual_convergence_(nullptr) {
     set_f_and_g_proximal_to_members_of_this();
+    residual_convergence(1e-4);
   }
   ImagingProximalADMM(ImagingProximalADMM<Scalar> const &c)
       : ProximalADMM<Scalar>(c), l1_proximal_(c.l1_proximal_), l2ball_proximal_(c.l2ball_proximal_),
         tight_frame_(c.tight_frame_), relative_variation_(c.relative_variation_),
-        residual_convergence_(c.residual_convergence_) {
+        residual_convergence_(c.residual_convergence_), communicator_(c.communicator()) {
     set_f_and_g_proximal_to_members_of_this();
   }
   ImagingProximalADMM(ImagingProximalADMM<Scalar> &&c)
       : ProximalADMM<Scalar>(std::move(c)), l1_proximal_(std::move(c.l1_proximal_)),
         l2ball_proximal_(std::move(c.l2ball_proximal_)), tight_frame_(c.tight_frame_),
-        relative_variation_(c.relative_variation_), residual_convergence_(c.residual_convergence_) {
+        relative_variation_(c.relative_variation_), residual_convergence_(c.residual_convergence_),
+        communicator_(std::move(c.communicator_)) {
     set_f_and_g_proximal_to_members_of_this();
   }
 
@@ -115,8 +117,23 @@ public:
   SOPT_MACRO(relative_variation, Real, );
   //! \brief Convergence of the residuals
   //! \details If negative, this convergence criteria is disabled.
-  SOPT_MACRO(residual_convergence, Real, );
+  SOPT_MACRO(residual_convergence, t_IsConverged, );
+  //! MPI communicator (or set of no-ops when compiled serially)
+  SOPT_MACRO(communicator, mpi::Communicator, );
 #undef SOPT_MACRO
+
+  //! \brief Sets to default residual convergence function
+  ImagingProximalADMM &residual_convergence(Real const &tolerance) {
+    if(tolerance <= 0e0)
+      residual_convergence_ = nullptr;
+    else
+      residual_convergence_ = [this, tolerance](t_Vector const &residual) {
+        auto const residual_norm = sopt::l2_norm(residual, this->l2ball_proximal_weights());
+        SOPT_LOW_LOG("    - Residuals: epsilon = {}, residual norm = {}", tolerance, residual_norm);
+        return residual_norm < tolerance;
+      };
+    return *this;
+  }
 
   //! \brief Analysis operator Ψ
   //! \details Under-the-hood, the object is actually owned by the L1 proximal.
@@ -304,21 +321,16 @@ operator()(t_Vector &out, t_Vector const &x_guess, t_Vector const &res_guess) co
     SOPT_LOW_LOG("    - Iteration {}/{}. ", niters, itermax());
     ProximalADMM<Scalar>::iteration_step(out, residual, lambda, z);
 
-    // print-out stuff
+    // objective function convergence
     objectives.second = objectives.first;
     objectives.first = sopt::l1_norm(Psi().adjoint() * out, l1_proximal_weights());
     t_real const relative_objective
         = std::abs(objectives.first - objectives.second) / objectives.first;
-    auto const residual_norm = sopt::l2_norm(residual, l2ball_proximal_weights());
-
     SOPT_LOW_LOG("    - objective: obj value = {}, rel obj = {}", objectives.first,
                  relative_objective);
-    SOPT_LOW_LOG("    - Residuals: epsilon = {}, residual norm = {}", l2ball_proximal_epsilon(),
-                 residual_norm);
-
     // convergence stuff
     auto const user = (not has_user_convergence) or is_converged(out);
-    auto const res = residual_convergence() <= 0e0 or residual_norm < residual_convergence();
+    auto const res = (not residual_convergence()) or residual_convergence()(residual);
     auto const rel = relative_variation() <= 0e0 or relative_objective < relative_variation();
     converged = user and rel and res;
     if(converged) {
