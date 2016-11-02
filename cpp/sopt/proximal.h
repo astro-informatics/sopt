@@ -8,6 +8,7 @@
 #include "sopt/proximal_expression.h"
 #ifdef SOPT_MPI
 #include "sopt/mpi/communicator.h"
+#include "sopt/mpi/utilities.h"
 #endif
 
 namespace sopt {
@@ -28,7 +29,7 @@ public:
                   Eigen::MatrixBase<T0> const &x) const {
     typedef typename T0::Scalar Scalar;
 #ifdef SOPT_MPI
-    auto const norm = comm_.all_sum_all(x.norm());
+    auto const norm = mpi::l2_norm(x, comm_);
 #else
     auto const norm = x.norm();
 #endif
@@ -104,7 +105,7 @@ public:
   //! Calls proximal function
   void operator()(Vector<T> &out, Vector<T> const &x) const {
 #ifdef SOPT_MPI
-    auto const norm = comm_.all_sum_all(x.stableNorm());
+    auto const norm = mpi::l2_norm(x, comm_);
 #else
     auto const norm = x.stableNorm();
 #endif
@@ -176,10 +177,9 @@ public:
   //! Calls proximal function
   void operator()(Vector<T> &out, Vector<T> const &x) const {
 #ifdef SOPT_MPI
-    auto const norm
-        = weights().size() == 1 ?
-              communicator().all_sum_all(x.stableNorm()) * std::abs(weights()(0)) :
-              communicator().all_sum_all((x.array() * weights().array()).matrix().stableNorm());
+    auto const norm = weights().size() == 1 ?
+                          mpi::l2_norm(x, communicator()) * std::abs(weights()(0)) :
+                          mpi::l2_norm((x.array() * weights().array()).matrix(), communicator());
 #else
     auto const norm = weights().size() == 1 ? x.stableNorm() * std::abs(weights()(0)) :
                                               (x.array() * weights().array()).matrix().stableNorm();

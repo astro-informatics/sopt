@@ -14,11 +14,11 @@ TEST_CASE("Parallel Euclidian norm", "[proximal]") {
   Vector<t_real> out(5);
   Vector<t_real> x(5);
   x << 1, 2, 3, 4, 5;
-  eucl(out, world.all_sum_all(x.stableNorm()) * 1.001, x);
+  eucl(out, std::sqrt(world.all_sum_all(x.squaredNorm())) * 1.001, x);
   CHECK(out.isApprox(Vector<t_real>::Zero(x.size())));
 
   out = eucl(0.1, x);
-  CHECK(out.isApprox(x * (1e0 - 0.1 / world.all_sum_all(x.stableNorm()))));
+  CHECK(out.isApprox(x * (1e0 - 0.1 / std::sqrt(world.all_sum_all(x.squaredNorm())))));
 }
 
 TEST_CASE("Parallel L2 ball", "[proximal]") {
@@ -31,8 +31,8 @@ TEST_CASE("Parallel L2 ball", "[proximal]") {
   x *= world.rank();
 
   out = ball(0, x);
-  CHECK(x.isApprox(out / 0.5 * world.all_sum_all(x.stableNorm())));
-  ball.epsilon(world.all_sum_all(x.stableNorm()) * 1.001);
+  CHECK(x.isApprox(out / 0.5 * std::sqrt(world.all_sum_all(x.squaredNorm()))));
+  ball.epsilon(std::sqrt(world.all_sum_all(x.squaredNorm())) * 1.001);
   out = ball(0, x);
   CHECK(x.isApprox(out));
 }
@@ -52,6 +52,7 @@ TEST_CASE("Parallel WeightedL2Ball", "[proximal]") {
   Vector<t_real> const actual = wball(x);
   CHECK(actual.isApprox(expected));
 
-  wball.epsilon(world.all_sum_all((x.array() * weights.array()).matrix().stableNorm()) * 1.001);
+  wball.epsilon(std::sqrt(world.all_sum_all((x.array() * weights.array()).matrix().squaredNorm()))
+                * 1.001);
   CHECK(x.isApprox(wball(x)));
 }
