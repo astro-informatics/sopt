@@ -71,8 +71,7 @@ public:
     return all_reduce(value, MPI_SUM);
   }
   template <class T>
-  typename std::enable_if<is_registered_type<T>::value>::type
-  all_sum_all(Image<T> &image) const {
+  typename std::enable_if<is_registered_type<T>::value>::type all_sum_all(Image<T> &image) const {
     all_reduce(image, MPI_SUM);
   }
 
@@ -177,16 +176,5 @@ Communicator::scatterv(t_int local_size, t_uint const root) const {
 
 } /* optime::mpi */
 } /* optimet */
-#else
-namespace sopt {
-namespace mpi {
-class Communicator {
-public:
-  constexpr t_uint size() const { return 1; }
-  constexpr t_uint rank() const { return 0; }
-  static constexpr t_uint root_id() const { return 0; }
-};
-}
-}
 #endif /* ifdef SOPT_MPI */
 #endif /* ifndef SOPT_MPI_COMMUNICATOR */
