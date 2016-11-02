@@ -2,6 +2,7 @@
 #define SOPT_MPI_TYPES_H
 
 #include "sopt/config.h"
+#ifdef SOPT_MPI
 #include <complex>
 #include <mpi.h>
 
@@ -62,4 +63,5 @@ static_assert(not is_registered_type<std::complex<int>>::value,
               "Checking complex int is NOT registered");
 } /* sopt::mpi */
 } /* sopt */
+#endif
 #endif /* ifndef SOPT_TYPES */
