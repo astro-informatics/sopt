@@ -33,8 +33,35 @@ l2_norm(Eigen::ArrayBase<T0> const &input, Eigen::ArrayBase<T1> const &weights,
 template <class T0, class T1>
 typename real_type<typename T0::Scalar>::type
 l2_norm(Eigen::MatrixBase<T0> const &input, Eigen::MatrixBase<T1> const &weights,
-    Communicator const &comm) {
+        Communicator const &comm) {
   return sopt::mpi::l2_norm(input.matrix(), weights.matrix(), comm);
+}
+
+//! Computes weighted L1 norm
+template <class T0, class T1>
+typename real_type<typename T0::Scalar>::type
+l1_norm(Eigen::ArrayBase<T0> const &input, Eigen::ArrayBase<T1> const &weights,
+        Communicator const &comm) {
+  return comm.all_sum_all(sopt::l1_norm(input, weights));
+}
+//! Computes weighted L1 norm
+template <class T0, class T1>
+typename real_type<typename T0::Scalar>::type
+l1_norm(Eigen::MatrixBase<T0> const &input, Eigen::MatrixBase<T1> const &weights,
+        Communicator const &comm) {
+  return comm.all_sum_all(sopt::l1_norm(input, weights));
+}
+//! Computes L1 norm
+template <class T0>
+typename real_type<typename T0::Scalar>::type
+l1_norm(Eigen::ArrayBase<T0> const &input, Communicator const &comm) {
+  return comm.all_sum_all(sopt::l1_norm(input));
+}
+//! Computes L1 norm
+template <class T0>
+typename real_type<typename T0::Scalar>::type
+l1_norm(Eigen::MatrixBase<T0> const &input, Communicator const &comm) {
+  return comm.all_sum_all(sopt::l1_norm(input));
 }
 }
 } /* sopt::mpi */
