@@ -21,7 +21,10 @@ public:
 #ifdef SOPT_MPI
   EuclidianNorm(mpi::Communicator const &comm = mpi::Communicator()) : comm_(comm){};
   mpi::Communicator communicator() const { return comm_; }
-  void communicator(mpi::Communicator const &comm) { comm_ = comm; }
+  EuclidianNorm &communicator(mpi::Communicator const &comm) {
+    comm_ = comm;
+    return *this;
+  }
 #endif
   template <class T0>
   void operator()(Vector<typename T0::Scalar> &out,
@@ -136,7 +139,10 @@ public:
 
 #ifdef SOPT_MPI
   mpi::Communicator const &communicator() const { return comm_; }
-  void communicator(mpi::Communicator const &comm) { comm_ = comm; }
+  L2Ball &communicator(mpi::Communicator const &comm) {
+    comm_ = comm;
+    return *this;
+  }
 #endif
 
 private:
@@ -161,7 +167,11 @@ public:
   //! Constructs an L2 ball proximal of size epsilon
   WeightedL2Ball(Real epsilon, mpi::Communicator const &comm = mpi::Communicator())
       : WeightedL2Ball(epsilon, t_Vector::Ones(1), comm) {}
-  using L2Ball<T>::communicator;
+  mpi::Communicator communicator() const { return L2Ball<T>::communicator(); }
+  WeightedL2Ball<T> &communicator(mpi::Communicator const &c) {
+    L2Ball<T>::communicator(c);
+    return *this;
+  }
 #else
   //! Constructs an L2 ball proximal of size epsilon with given weights
   template <class T0>
