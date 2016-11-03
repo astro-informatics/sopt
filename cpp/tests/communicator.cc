@@ -61,5 +61,16 @@ TEST_CASE("Creates an mpi communicator") {
     world.all_sum_all(image);
     CHECK((2 * image == world.size() * (world.size() - 1)).all());
   }
+
+  SECTION("Broadcast") {
+    auto const result = world.broadcast(world.root_id() == world.rank() ? 5 : 2, world.root_id());
+    CHECK(result == 5);
+
+    Vector<t_int> y0(3);
+    y0 << 3, 2, 1;
+    auto const y
+        = world.rank() == world.root_id() ? world.broadcast(y0) : world.broadcast<Vector<t_int>>();
+    CHECK(y == y0);
+  }
 }
 #endif
