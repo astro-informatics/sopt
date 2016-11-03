@@ -62,7 +62,19 @@ public:
   //! In-place reduction over an image
   template <class T>
   typename std::enable_if<is_registered_type<T>::value>::type
+  all_reduce(Matrix<T> &image, MPI_Op operation) const {
+    MPI_Allreduce(MPI_IN_PLACE, image.data(), image.size(), registered_type(T(0)), operation,
+                  **this);
+  }
+  template <class T>
+  typename std::enable_if<is_registered_type<T>::value>::type
   all_reduce(Image<T> &image, MPI_Op operation) const {
+    MPI_Allreduce(MPI_IN_PLACE, image.data(), image.size(), registered_type(T(0)), operation,
+                  **this);
+  }
+  template <class T>
+  typename std::enable_if<is_registered_type<T>::value>::type
+  all_reduce(Vector<T> &image, MPI_Op operation) const {
     MPI_Allreduce(MPI_IN_PLACE, image.data(), image.size(), registered_type(T(0)), operation,
                   **this);
   }
@@ -73,7 +85,8 @@ public:
     return all_reduce(value, MPI_SUM);
   }
   template <class T>
-  typename std::enable_if<is_registered_type<T>::value>::type all_sum_all(Image<T> &image) const {
+  typename std::enable_if<is_registered_type<typename T::Scalar>::value>::type
+  all_sum_all(T &image) const {
     all_reduce(image, MPI_SUM);
   }
 
@@ -230,17 +243,19 @@ template <class T>
 typename std::enable_if<is_registered_type<typename T::Scalar>::value, T>::type
 Communicator::broadcast(T const &vec, t_uint const root) const {
   assert(root < size());
-  auto const N = broadcast(vec.size(), root);
+  auto const Nx = broadcast(vec.rows(), root);
+  auto const Ny = broadcast(vec.cols(), root);
   auto result = vec;
-  MPI_Bcast(result.data(), N, Type<typename T::Scalar>::value, root, **this);
+  MPI_Bcast(result.data(), Nx * Ny, Type<typename T::Scalar>::value, root, **this);
   return result;
 }
 template <class T>
 typename std::enable_if<is_registered_type<typename T::Scalar>::value, T>::type
 Communicator::broadcast(t_uint const root) const {
   assert(root < size());
-  auto const N = broadcast(decltype(std::declval<T>().size())(0), root);
-  T result(N);
+  auto const Nx = broadcast(decltype(std::declval<T>().rows())(0), root);
+  auto const Ny = broadcast(decltype(std::declval<T>().cols())(0), root);
+  T result(Nx, Ny);
   MPI_Bcast(result.data(), result.size(), Type<typename T::Scalar>::value, root, **this);
   return result;
 }
