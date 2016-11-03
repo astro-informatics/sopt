@@ -52,4 +52,5 @@ if(dompi)
 
 	add_mpi_test(communicator LIBRARIES sopt)
   add_mpi_test(mpi_proximals LIBRARIES sopt)
+  add_mpi_test(serial_vs_parallel_padmm LIBRARIES sopt tools_for_tests)
 endif()
