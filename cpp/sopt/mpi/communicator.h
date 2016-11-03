@@ -46,6 +46,8 @@ public:
   decltype(Impl::comm) operator*() const { return impl ? impl->comm : nullptr; }
   //! Root id for this communicator
   static constexpr t_uint root_id() { return 0; }
+  //! True if process is root
+  bool is_root() const { return rank() == root_id(); }
   //! \brief Duplicates this communicator
   //! \details Creates a new communicator in all ways equivalent to this one.
   Communicator duplicate() const;
@@ -88,6 +90,12 @@ public:
   broadcast(T const &vec, t_uint const root = root_id()) const;
   template <class T>
   typename std::enable_if<is_registered_type<typename T::Scalar>::value, T>::type
+  broadcast(t_uint const root = root_id()) const;
+  template <class T>
+  typename std::enable_if<is_registered_type<typename T::value_type>::value, T>::type
+  broadcast(T const &vec, t_uint const root = root_id()) const;
+  template <class T>
+  typename std::enable_if<is_registered_type<typename T::value_type>::value, T>::type
   broadcast(t_uint const root = root_id()) const;
 
   //! Scatter one object per proc
@@ -224,7 +232,7 @@ Communicator::broadcast(T const &vec, t_uint const root) const {
   assert(root < size());
   auto const N = broadcast(vec.size(), root);
   auto result = vec;
-  MPI_Bcast(result.data(), N, registered_type(result(0)), root, **this);
+  MPI_Bcast(result.data(), N, Type<typename T::Scalar>::value, root, **this);
   return result;
 }
 template <class T>
@@ -233,7 +241,25 @@ Communicator::broadcast(t_uint const root) const {
   assert(root < size());
   auto const N = broadcast(decltype(std::declval<T>().size())(0), root);
   T result(N);
-  MPI_Bcast(result.data(), result.size(), registered_type(result(0)), root, **this);
+  MPI_Bcast(result.data(), result.size(), Type<typename T::Scalar>::value, root, **this);
+  return result;
+}
+template <class T>
+typename std::enable_if<is_registered_type<typename T::value_type>::value, T>::type
+Communicator::broadcast(T const &vec, t_uint const root) const {
+  assert(root < size());
+  auto const N = broadcast(vec.size(), root);
+  auto result = vec;
+  MPI_Bcast(result.data(), N, Type<typename T::value_type>::value, root, **this);
+  return result;
+}
+template <class T>
+typename std::enable_if<is_registered_type<typename T::value_type>::value, T>::type
+Communicator::broadcast(t_uint const root) const {
+  assert(root < size());
+  auto const N = broadcast(decltype(std::declval<T>().size())(0), root);
+  T result(N);
+  MPI_Bcast(result.data(), result.size(), Type<typename T::value_type>::value, root, **this);
   return result;
 }
 
