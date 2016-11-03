@@ -75,6 +75,21 @@ public:
     all_reduce(image, MPI_SUM);
   }
 
+  //! Broadcasts object
+  template <class T>
+  typename std::enable_if<is_registered_type<T>::value, T>::type
+  broadcast(T const &value, t_uint const root = root_id()) const;
+  //! Receive broadcast object
+  template <class T>
+  typename std::enable_if<is_registered_type<T>::value, T>::type
+  broadcast(t_uint const root = root_id()) const;
+  template <class T>
+  typename std::enable_if<is_registered_type<typename T::Scalar>::value, T>::type
+  broadcast(T const &vec, t_uint const root = root_id()) const;
+  template <class T>
+  typename std::enable_if<is_registered_type<typename T::Scalar>::value, T>::type
+  broadcast(t_uint const root = root_id()) const;
+
   //! Scatter one object per proc
   template <class T>
   typename std::enable_if<is_registered_type<T>::value, T>::type
@@ -92,6 +107,15 @@ public:
   template <class T>
   typename std::enable_if<is_registered_type<T>::value, Vector<T>>::type
   scatterv(t_int local_size, t_uint const root = root_id()) const;
+
+  //! Split current communicator
+  Communicator split(t_int color) const { return split(color, rank()); }
+  //! Split current communicator
+  Communicator split(t_int color, t_uint rank) const {
+    MPI_Comm comm;
+    MPI_Comm_split(**this, color, static_cast<t_int>(rank), &comm);
+    return comm;
+  }
 
 private:
   //! Holds data associated with the context
@@ -171,6 +195,45 @@ Communicator::scatterv(t_int local_size, t_uint const root) const {
   Vector<T> result(sizes[rank()]);
   MPI_Scatterv(nullptr, sizes.data(), nullptr, registered_type(T(0)), result.data(), local_size,
                registered_type(T(0)), root, **this);
+  return result;
+}
+
+template <class T>
+typename std::enable_if<is_registered_type<T>::value, T>::type
+Communicator::broadcast(T const &value, t_uint const root) const {
+  assert(root < size());
+  auto result = value;
+  MPI_Bcast(&result, 1, registered_type(result), root, **this);
+  return result;
+}
+//! Receive broadcast object
+template <class T>
+typename std::enable_if<is_registered_type<T>::value, T>::type
+Communicator::broadcast(t_uint const root) const {
+  if(root == root_id())
+    throw std::runtime_error("Root process should call the *other* broadcasting function");
+  assert(root < size());
+  T result;
+  MPI_Bcast(&result, 1, registered_type(result), root, **this);
+  return result;
+}
+
+template <class T>
+typename std::enable_if<is_registered_type<typename T::Scalar>::value, T>::type
+Communicator::broadcast(T const &vec, t_uint const root) const {
+  assert(root < size());
+  auto const N = broadcast(vec.size(), root);
+  auto result = vec;
+  MPI_Bcast(result.data(), N, registered_type(result(0)), root, **this);
+  return result;
+}
+template <class T>
+typename std::enable_if<is_registered_type<typename T::Scalar>::value, T>::type
+Communicator::broadcast(t_uint const root) const {
+  assert(root < size());
+  auto const N = broadcast(decltype(std::declval<T>().size())(0), root);
+  T result(N);
+  MPI_Bcast(result.data(), result.size(), registered_type(result(0)), root, **this);
   return result;
 }
 
