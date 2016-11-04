@@ -21,10 +21,9 @@ namespace algorithm {
 //! ||Ψ^Hx||_1 + i_C(x)\f$ and \f$h(x) = i_B(z)\f$ with \f$C = R^N_{+}\f$ and \f$B = {z \in R^M:
 //! ||z||_2 \leq \epsilon}\f$
 template <class SCALAR> class ImagingProximalADMM : private ProximalADMM<SCALAR> {
-  //! Defines convergence behaviour
-  struct Breaker;
-
 public:
+  //! Convergence via an objective function
+  class ObjectiveConvergence;
   //! Scalar type
   typedef typename ProximalADMM<SCALAR>::value_type value_type;
   typedef typename ProximalADMM<SCALAR>::Scalar Scalar;
@@ -56,19 +55,24 @@ public:
   template <class DERIVED>
   ImagingProximalADMM(Eigen::MatrixBase<DERIVED> const &target)
       : ProximalADMM<SCALAR>(nullptr, nullptr, target), l1_proximal_(), l2ball_proximal_(1e0),
-        tight_frame_(false), relative_variation_(1e-4), residual_convergence_(1e-4) {
+        tight_frame_(false), relative_variation_(1e-4), residual_convergence_(nullptr),
+        objective_convergence_(nullptr) {
     set_f_and_g_proximal_to_members_of_this();
+    residual_convergence(1e-4);
+    objective_convergence(1e-4);
   }
   ImagingProximalADMM(ImagingProximalADMM<Scalar> const &c)
       : ProximalADMM<Scalar>(c), l1_proximal_(c.l1_proximal_), l2ball_proximal_(c.l2ball_proximal_),
         tight_frame_(c.tight_frame_), relative_variation_(c.relative_variation_),
-        residual_convergence_(c.residual_convergence_) {
+        residual_convergence_(c.residual_convergence_),
+        objective_convergence_(c.objective_convergence_) {
     set_f_and_g_proximal_to_members_of_this();
   }
   ImagingProximalADMM(ImagingProximalADMM<Scalar> &&c)
       : ProximalADMM<Scalar>(std::move(c)), l1_proximal_(std::move(c.l1_proximal_)),
         l2ball_proximal_(std::move(c.l2ball_proximal_)), tight_frame_(c.tight_frame_),
-        relative_variation_(c.relative_variation_), residual_convergence_(c.residual_convergence_) {
+        relative_variation_(c.relative_variation_), residual_convergence_(c.residual_convergence_),
+        objective_convergence_(c.objective_convergence_) {
     set_f_and_g_proximal_to_members_of_this();
   }
 
@@ -115,8 +119,40 @@ public:
   SOPT_MACRO(relative_variation, Real, );
   //! \brief Convergence of the residuals
   //! \details If negative, this convergence criteria is disabled.
-  SOPT_MACRO(residual_convergence, Real, );
+  SOPT_MACRO(residual_convergence, t_IsConverged, );
+  //! \brief Convergence of the residuals
+  //! \details If negative, this convergence criteria is disabled.
+  SOPT_MACRO(objective_convergence, t_IsConverged, );
+  //! MPI communicator (or set of no-ops when compiled serially)
+  SOPT_MACRO(communicator, mpi::Communicator, );
 #undef SOPT_MACRO
+
+  //! \brief Sets to default residual convergence function
+  ImagingProximalADMM &residual_convergence(Real const &tolerance) {
+    if(tolerance <= 0e0)
+      residual_convergence_ = nullptr;
+    else
+      residual_convergence_ = [this, tolerance](t_Vector const &residual) {
+        auto const residual_norm = sopt::l2_norm(residual, this->l2ball_proximal_weights());
+        SOPT_LOW_LOG("    - Residuals: epsilon = {}, residual norm = {}", tolerance, residual_norm);
+        return residual_norm < tolerance;
+      };
+    return *this;
+  }
+
+  //! \brief Sets to default residual convergence function
+  ImagingProximalADMM &objective_convergence(Real const &tolerance) {
+    relative_variation(tolerance);
+    if(relative_variation() <= 0e0)
+      residual_convergence_ = nullptr;
+    else {
+      ObjectiveConvergence conv;
+      objective_convergence_ = [this, conv](Vector<Scalar> const &residual) mutable -> bool {
+        return conv(*this, sopt::l1_norm(residual + this->target(), this->l1_proximal_weights()));
+      };
+    }
+    return *this;
+  }
 
   //! \brief Analysis operator Ψ
   //! \details Under-the-hood, the object is actually owned by the L1 proximal.
@@ -251,6 +287,8 @@ public:
 protected:
   //! Keeps track of the last call to the L1 proximal
   mutable typename proximal::L1<Scalar>::Diagnostic l1_diagnostic;
+  //! State for objective convergence criteria
+  mutable Real current_objective;
   //! Calls l1 proximal operator, checking for thight frame
   template <class T0, class T1>
   typename proximal::L1<Scalar>::Diagnostic
@@ -297,29 +335,18 @@ operator()(t_Vector &out, t_Vector const &x_guess, t_Vector const &res_guess) co
   l1_diagnostic = {0, 0, 0, false};
 
   SOPT_TRACE("    - Initialization");
-  std::pair<Real, Real> objectives{sopt::l1_norm(Psi().adjoint() * out, l1_proximal_weights()), 0};
+  if(objective_convergence())
+    objective_convergence()(residual);
 
   bool converged = false;
   for(t_uint niters(0); niters < itermax(); ++niters) {
     SOPT_LOW_LOG("    - Iteration {}/{}. ", niters, itermax());
     ProximalADMM<Scalar>::iteration_step(out, residual, lambda, z);
 
-    // print-out stuff
-    objectives.second = objectives.first;
-    objectives.first = sopt::l1_norm(Psi().adjoint() * out, l1_proximal_weights());
-    t_real const relative_objective
-        = std::abs(objectives.first - objectives.second) / objectives.first;
-    auto const residual_norm = sopt::l2_norm(residual, l2ball_proximal_weights());
-
-    SOPT_LOW_LOG("    - objective: obj value = {}, rel obj = {}", objectives.first,
-                 relative_objective);
-    SOPT_LOW_LOG("    - Residuals: epsilon = {}, residual norm = {}", l2ball_proximal_epsilon(),
-                 residual_norm);
-
     // convergence stuff
     auto const user = (not has_user_convergence) or is_converged(out);
-    auto const res = residual_convergence() <= 0e0 or residual_norm < residual_convergence();
-    auto const rel = relative_variation() <= 0e0 or relative_objective < relative_variation();
+    auto const res = (not residual_convergence()) or residual_convergence()(residual);
+    auto const rel = (not objective_convergence()) or objective_convergence()(residual);
     converged = user and rel and res;
     if(converged) {
       SOPT_MEDIUM_LOG("    - converged in {} of {} iterations", niters, itermax());
@@ -331,6 +358,22 @@ operator()(t_Vector &out, t_Vector const &x_guess, t_Vector const &res_guess) co
     SOPT_ERROR("    - did not converge within {} iterations", itermax());
   return {itermax(), converged, l1_diagnostic, std::move(residual)};
 }
+
+template <class SCALAR> class ImagingProximalADMM<SCALAR>::ObjectiveConvergence {
+public:
+  typedef typename ImagingProximalADMM<SCALAR>::Real Real;
+  ObjectiveConvergence() : current(0){};
+  bool operator()(ImagingProximalADMM<SCALAR> const &parent, Real const &objective) {
+    auto const previous = current;
+    current = objective;
+    t_real const relative_objective = std::abs(current - previous) / current;
+    SOPT_LOW_LOG("    - objective: obj value = {}, rel obj = {}", current, relative_objective);
+    return parent.relative_variation() <= 0e0 or relative_objective < parent.relative_variation();
+  }
+
+protected:
+  Real current;
+};
 }
 } /* sopt::algorithm */
 #endif
