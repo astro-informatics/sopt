@@ -61,6 +61,7 @@ public:
       sigma2_(1), nu_(1),
       Phi_(linear_transform_identity<Scalar>()),
       Psi_(linear_transform_identity<Scalar>()),
+      residual_convergence_(1e-4), relative_variation_(1e-4),
       target_(target) {}
   virtual ~PrimalDual() {}
 
@@ -96,6 +97,13 @@ public:
   SOPT_MACRO(Phi, t_LinearTransform);
   //! Analysis operator
   SOPT_MACRO(Psi, t_LinearTransform);
+  //! Convergence of the residuals
+  //! If negative it is disabled
+  SOPT_MACRO(residual_convergence, Real);
+  //!  Convergence of the relative variation of the objective functions
+  //!  If negative, this convergence criteria is disabled.
+  SOPT_MACRO(relative_variation, Real);
+
   
 #undef SOPT_MACRO
 
@@ -166,7 +174,8 @@ public:
   std::tuple<t_Vector, t_Vector> initial_guess() const {
     std::tuple<t_Vector, t_Vector> guess;
     std::get<0>(guess) = Phi().adjoint() * target() / nu();
-    std::get<1>(guess) = Phi() * std::get<0>(guess) - target();    return guess;
+    std::get<1>(guess) = Phi() * std::get<0>(guess) - target();
+    return guess;
   }
 
 
@@ -204,19 +213,20 @@ void PrimalDual<SCALAR>::iteration_step(t_Vector &out, t_Vector &residual, t_Vec
   t_Vector prev_sol = out;
   t_Vector prev_s = s;
   t_Vector prev_v = v;
-  t_Vector prev_x_bar = x_bar;
 
   proximal::L2Ball<Real> l2ball_proximal = proximal::L2Ball<Real>(1.0);
   
   // v_t = v_t-1 + Phi*x_bar - l2ball_prox(v_t-1 + Phi*x_bar)
-  auto temp = v + Phi() * x_bar;
-  l2ball_proximal(v, temp);
-  v = temp - v;
+  t_Vector temp = v + (Phi() * x_bar);
+  t_Vector v_prox;
+  l2ball_proximal(v_prox, temp);
+  v = temp - v_prox;
 
   // s_t = s_t-1 + Psi_dagger * x_bar_t-1 - l1norm_prox(s_t-1 + Psi_dagger * x_bar_t-1)
-  temp = s + Psi().adjoint() * x_bar;
-  proximal::l1_norm(s, kappa(), temp);
-  s = temp - s;
+  t_Vector temp2 = s + (Psi().adjoint() * x_bar);
+  t_Vector s_prox;
+  proximal::l1_norm(s_prox, kappa(), temp2);
+  s = temp2 - s_prox;
   
   //x_t = positive orth projection(x_t-1 - tau * (sigma1 * Psi * s + sigma2 * Phi dagger * v))
   out = sopt::positive_quadrant(prev_sol - tau()*(Psi()*s*sigma1() + Phi().adjoint()*v*sigma2()));
@@ -231,28 +241,44 @@ operator()(t_Vector &out, t_Vector const &x_guess, t_Vector const &res_guess) co
   SOPT_HIGH_LOG("Performing Primal Dual");
   sanity_check(x_guess, res_guess);
 
-  t_Vector s = t_Vector::Zero(target().size());
+  proximal::L2Ball<Real> l2ball_proximal = proximal::L2Ball<Real>(1.0);
+  
+  t_Vector s = t_Vector::Zero(x_guess.size());
   t_Vector v = t_Vector::Zero(target().size());
   
-  t_Vector x_bar = t_Vector::Zero(target().size());
+  t_Vector x_bar = t_Vector::Zero(x_guess.size());
   t_Vector residual = res_guess;
 
+  // Check if there is a user provided convergence function
+  bool const has_user_convergence = static_cast<bool>(is_converged());
+  bool converged = false;
+  
   out = x_guess;
-
-  for(t_uint niters(0); niters < itermax(); ++niters) {
+  t_uint niters(0);
+  t_Vector weights(1);
+  weights << 1.0;
+  
+  for(niters; niters < itermax(); ++niters) {
     SOPT_LOW_LOG("    - Iteration {}/{}", niters, itermax());
     iteration_step(out, residual, s, v, x_bar);
     SOPT_LOW_LOG("      - Sum of residuals: {}", residual.array().abs().sum());
 
-    if(is_converged(out)) {
+    auto const residual_norm = sopt::l2_norm(residual, weights);
+    SOPT_LOW_LOG("      - residual norm = {}, residual convergence = {}", residual_norm, residual_convergence());
+    
+    auto const user = (not has_user_convergence) or is_converged(out);
+    auto const res = residual_convergence() <= 0e0 or residual_norm < residual_convergence();
+
+    converged = user and res;
+    if(converged) {
       SOPT_MEDIUM_LOG("    - converged in {} of {} iterations", niters, itermax());
-      return {niters, true};
+      break;
     }
   }
   // check function exists, otherwise, don't know if convergence is meaningful
-  if(static_cast<bool>(is_converged()))
+  if(not converged)
     SOPT_ERROR("    - did not converge within {} iterations", itermax());
-  return {itermax(), false, std::move(residual)};
+  return {niters, false, std::move(residual)};
 }
 }
 } /* sopt::algorithm */

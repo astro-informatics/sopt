@@ -112,10 +112,10 @@ int main(int argc, char const **argv) {
 
   auto const tau = 0.49;
   auto const kappa = 0.0001;
-
+  
   SOPT_HIGH_LOG("Calculating sigma1");
-  //auto const nu1 = pm.AtA(psi, rand);
   auto const nu1data = pm.AtA(lt, rand);
+  // auto const nu1data = pm.AtA(psi, rand);
   nu1data.eigenvector.real().maxCoeff(&index);
   auto const nu1 = nu1data.eigenvector(index).real();
   //  auto const sigma1 = 1 / nu1*nu1;
@@ -123,10 +123,9 @@ int main(int argc, char const **argv) {
 
   SOPT_HIGH_LOG("Calculating sigma2");  
   auto const nu2data = pm.AtA(lt, rand);
+  //  auto const nu2data = pm.AtA(sampling, rand);
   nu2data.eigenvector.real().maxCoeff(&index);
   auto const nu2 = nu2data.eigenvector(index).real();
-  //  auto const nu2 = pm.AtA(sampling, rand);
-  //  auto const sigma2 = 1 / nu2*nu2;
   auto const sigma2 = 1e0 / nu2*nu2;
 
   SOPT_HIGH_LOG("Setting up primal dual algorithm");
@@ -141,7 +140,10 @@ int main(int argc, char const **argv) {
     // .l2ball_proximal_epsilon(epsilon)
                          .nu(nu2*nu2)
                          .Psi(psi)
-                         .Phi(sampling);
+                         .Phi(sampling)
+                         .relative_variation(5e-4)
+                         .residual_convergence(epsilon * 1.001);
+		    
 
   SOPT_HIGH_LOG("Starting primal dual");
   // Alternatively, pd can be called with a tuple (x, residual) as argument
