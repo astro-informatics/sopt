@@ -58,7 +58,7 @@ public:
   template <class DERIVED>
   PrimalDual(Eigen::MatrixBase<DERIVED> const &target)
     : itermax_(std::numeric_limits<t_uint>::max()), is_converged_(), kappa_(1), tau_(1), sigma1_(1),
-      sigma2_(1), nu_(1),
+      sigma2_(1), nu_(1), l2ball_epsilon_(1),
       Phi_(linear_transform_identity<Scalar>()),
       Psi_(linear_transform_identity<Scalar>()),
       residual_convergence_(1e-4), relative_variation_(1e-4),
@@ -91,6 +91,8 @@ public:
   SOPT_MACRO(sigma1, Real);
   //! ς
   SOPT_MACRO(sigma2, Real);
+
+  SOPT_MACRO(l2ball_epsilon, Real);
   //! A function verifying convergence
   SOPT_MACRO(is_converged, t_IsConverged);
   //! Measurement operator
@@ -103,6 +105,8 @@ public:
   //!  Convergence of the relative variation of the objective functions
   //!  If negative, this convergence criteria is disabled.
   SOPT_MACRO(relative_variation, Real);
+  
+
 
   
 #undef SOPT_MACRO
@@ -214,7 +218,7 @@ void PrimalDual<SCALAR>::iteration_step(t_Vector &out, t_Vector &residual, t_Vec
   t_Vector prev_s = s;
   t_Vector prev_v = v;
 
-  proximal::L2Ball<Real> l2ball_proximal = proximal::L2Ball<Real>(1.0);
+  proximal::L2Ball<Real> l2ball_proximal = proximal::L2Ball<Real>(l2ball_epsilon());
   
   // v_t = v_t-1 + Phi*x_bar - l2ball_prox(v_t-1 + Phi*x_bar)
   t_Vector temp = v + (Phi() * x_bar);
@@ -228,7 +232,7 @@ void PrimalDual<SCALAR>::iteration_step(t_Vector &out, t_Vector &residual, t_Vec
   proximal::l1_norm(s_prox, kappa(), temp2);
   s = temp2 - s_prox;
   
-  //x_t = positive orth projection(x_t-1 - tau * (sigma1 * Psi * s + sigma2 * Phi dagger * v))
+  //x_t = positive orth projection(x_t-1 - tau * (sigma1 * Psi * s + sigma2 * Phi dagger * v)) 
   out = sopt::positive_quadrant(prev_sol - tau()*(Psi()*s*sigma1() + Phi().adjoint()*v*sigma2()));
   x_bar = 2*out - prev_sol;
   residual = Phi() * out - target();
@@ -241,8 +245,10 @@ operator()(t_Vector &out, t_Vector const &x_guess, t_Vector const &res_guess) co
   SOPT_HIGH_LOG("Performing Primal Dual");
   sanity_check(x_guess, res_guess);
 
-  proximal::L2Ball<Real> l2ball_proximal = proximal::L2Ball<Real>(1.0);
-  
+  proximal::L2Ball<Real> l2ball_proximal = proximal::L2Ball<Real>(l2ball_epsilon());
+
+  // This should be number of dicitionaries times x_guess.size()
+  // Should be looking up the multiplication factor from Psi
   t_Vector s = t_Vector::Zero(x_guess.size());
   t_Vector v = t_Vector::Zero(target().size());
   
@@ -269,7 +275,7 @@ operator()(t_Vector &out, t_Vector const &x_guess, t_Vector const &res_guess) co
     auto const user = (not has_user_convergence) or is_converged(out);
     auto const res = residual_convergence() <= 0e0 or residual_norm < residual_convergence();
 
-    converged = user and res;
+    //    converged = user and res;
     if(converged) {
       SOPT_MEDIUM_LOG("    - converged in {} of {} iterations", niters, itermax());
       break;

@@ -29,7 +29,7 @@ int main(int argc, char const **argv) {
   // type expected by PrimalDual
   typedef sopt::Vector<Scalar> Vector;
 
-  typedef sopt::Vector<sopt::t_complex> Complex;
+  //  typedef sopt::Vector<sopt::t_complex> Complex;
   // Matrix - linear algebra - A * x is a matrix-vector multiplication
   // type expected by PrimalDual
   typedef sopt::Matrix<Scalar> Matrix;
@@ -39,7 +39,7 @@ int main(int argc, char const **argv) {
 
   
   std::string const input = argc >= 2 ? argv[1] : "cameraman256";
-  std::string const output = argc == 3 ? argv[2] : "none";
+  std::string const output = argc == 3 ? argv[2] : "bob";
   if(argc > 3) {
     std::cout << "Usage:\n"
                  "$ "
@@ -71,6 +71,7 @@ int main(int argc, char const **argv) {
 
   SOPT_HIGH_LOG("Computing primal-dual parameters");
   Vector const y0 = sampling * Vector::Map(image.data(), image.size());
+  
   auto const snr = 30.0;
   auto const sigma = y0.stableNorm() / std::sqrt(y0.size()) * std::pow(10.0, -(snr / 20.0));
   auto const epsilon = std::sqrt(nmeasure + 2 * std::sqrt(y0.size())) * sigma;
@@ -91,53 +92,45 @@ int main(int argc, char const **argv) {
   SOPT_HIGH_LOG("Setting up power method to calculate sigma values");
   Eigen::EigenSolver<Matrix> es;
   SOPT_HIGH_LOG("Setting up matrix A");
-
-  int N=10;
   
-  Matrix A = Matrix::Random(N,N);
-  SOPT_HIGH_LOG("Setting up eigensolver");
-  es.compute(A.adjoint() * A, true);
+  Vector rand = Vector::Random(image.size());
 
-  auto const eigenvalues = es.eigenvalues();
-  auto const eigenvectors = es.eigenvectors();
-  Eigen::DenseIndex index;
-  (eigenvalues.transpose() * eigenvalues).real().maxCoeff(&index);
-  auto const eigenvalue = eigenvalues(index);
-  auto const eigenvector = eigenvectors.col(index);
-  // Create input vector close to solution
-  auto const rand = eigenvector * 1e-4 + Complex::Random(N);
-  auto const lt = sopt::linear_transform(A.cast<sopt::t_complex>());
-
-  auto const pm = sopt::algorithm::PowerMethod<sopt::t_complex>().tolerance(1e-12);
+  auto const pm = sopt::algorithm::PowerMethod<sopt::t_real>().tolerance(1e-12);
 
   auto const tau = 0.49;
   auto const kappa = 0.0001;
   
+  // sigma1 should be 1 (or number of wavelet operators being used)
   SOPT_HIGH_LOG("Calculating sigma1");
-  auto const nu1data = pm.AtA(lt, rand);
-  // auto const nu1data = pm.AtA(psi, rand);
-  nu1data.eigenvector.real().maxCoeff(&index);
-  auto const nu1 = nu1data.eigenvector(index).real();
-  //  auto const sigma1 = 1 / nu1*nu1;
+  auto const nu1data = pm.AtA(psi, rand);
+  auto const nu1 = nu1data.magnitude;
   auto const sigma1 = 1e0 / nu1*nu1;
 
-  SOPT_HIGH_LOG("Calculating sigma2");  
-  auto const nu2data = pm.AtA(lt, rand);
-  //  auto const nu2data = pm.AtA(sampling, rand);
-  nu2data.eigenvector.real().maxCoeff(&index);
-  auto const nu2 = nu2data.eigenvector(index).real();
-  auto const sigma2 = 1e0 / nu2*nu2;
+  std::cout << "sigma1: " << sigma1 << "\n";
+  
+  rand = Vector::Random(image.size());
 
+  // sigma2 should something like 1x10-10
+  SOPT_HIGH_LOG("Calculating sigma2");  
+  auto const nu2data = pm.AtA(sampling, rand);
+  auto const nu2 = nu2data.magnitude;
+  // auto const sigma2 = 1e0 / nu2*nu2;
+  auto sigma2 = 1e0 / nu2*nu2;
+  
+  std::cout << "sigma2: " << sigma2 << "\n";
+  sigma2 = 0.00000001;
+
+  
   SOPT_HIGH_LOG("Setting up primal dual algorithm");
   
   SOPT_HIGH_LOG("Creating primal-dual Functor");
   auto const pd = sopt::algorithm::PrimalDual<Scalar>(y)
-                         .itermax(500)
+                         .itermax(50)
                          .tau(tau)
                          .kappa(kappa)
                          .sigma1(sigma1)
                          .sigma2(sigma2)
-    // .l2ball_proximal_epsilon(epsilon)
+                         .l2ball_epsilon(epsilon)
                          .nu(nu2*nu2)
                          .Psi(psi)
                          .Phi(sampling)
@@ -155,7 +148,7 @@ int main(int argc, char const **argv) {
   // it also contains diagnostic.niters - the number of iterations, and cg_diagnostic - the
   // diagnostic from the last call to the conjugate gradient.
   if(not diagnostic.good)
-    throw std::runtime_error("Did not converge!");
+    //    throw std::runtime_error("Did not converge!");
 
   SOPT_HIGH_LOG("SOPT-primal-dual converged in {} iterations", diagnostic.niters);
   if(output != "none")
