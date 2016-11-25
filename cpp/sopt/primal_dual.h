@@ -8,7 +8,9 @@
 #include "sopt/linear_transform.h"
 #include "sopt/logging.h"
 #include "sopt/types.h"
+#include "sopt/l1_proximal.h"
 #include "sopt/proximal.h"
+#include "sopt/utilities.h"
 
 namespace sopt {
 namespace algorithm {
@@ -33,7 +35,7 @@ public:
   typedef ConvergenceFunction<Scalar> t_IsConverged;
   //! Type of the convergence function
   typedef ProximalFunction<Scalar> t_Proximal;
-
+  typedef sopt::Matrix<Scalar> Matrix;
   //! Values indicating how the algorithm ran
   struct Diagnostic {
     //! Number of iterations
@@ -58,10 +60,10 @@ public:
   template <class DERIVED>
   PrimalDual(Eigen::MatrixBase<DERIVED> const &target)
     : itermax_(std::numeric_limits<t_uint>::max()), is_converged_(), kappa_(1), tau_(1), sigma1_(1),
-      sigma2_(1), nu_(1), l2ball_epsilon_(1),
+      sigma2_(1), levels_(1), nu_(1), l2ball_epsilon_(1),
       Phi_(linear_transform_identity<Scalar>()),
       Psi_(linear_transform_identity<Scalar>()),
-      residual_convergence_(1e-4), relative_variation_(1e-4),
+    residual_convergence_(1e-4), relative_variation_(1e-4), positivity_constraint_(true),
       target_(target) {}
   virtual ~PrimalDual() {}
 
@@ -91,6 +93,8 @@ public:
   SOPT_MACRO(sigma1, Real);
   //! ς
   SOPT_MACRO(sigma2, Real);
+  //! Number of dictionaries used in the wavelet operator
+  SOPT_MACRO(levels, t_uint);
 
   SOPT_MACRO(l2ball_epsilon, Real);
   //! A function verifying convergence
@@ -105,7 +109,8 @@ public:
   //!  Convergence of the relative variation of the objective functions
   //!  If negative, this convergence criteria is disabled.
   SOPT_MACRO(relative_variation, Real);
-  
+  //! Enforce whether the result needs to be projected to the positive quadrant or not
+  SOPT_MACRO(positivity_constraint, bool);
 
 
   
@@ -223,17 +228,20 @@ void PrimalDual<SCALAR>::iteration_step(t_Vector &out, t_Vector &residual, t_Vec
   // v_t = v_t-1 + Phi*x_bar - l2ball_prox(v_t-1 + Phi*x_bar)
   t_Vector temp = v + (Phi() * x_bar);
   t_Vector v_prox;
-  l2ball_proximal(v_prox, temp);
+  v_prox = l2ball_proximal(0, temp-target()) + target();
   v = temp - v_prox;
-
+  
   // s_t = s_t-1 + Psi_dagger * x_bar_t-1 - l1norm_prox(s_t-1 + Psi_dagger * x_bar_t-1)
   t_Vector temp2 = s + (Psi().adjoint() * x_bar);
   t_Vector s_prox;
-  proximal::l1_norm(s_prox, kappa(), temp2);
+  proximal::l1_norm(s_prox, kappa()/sigma1(), temp2);
   s = temp2 - s_prox;
   
   //x_t = positive orth projection(x_t-1 - tau * (sigma1 * Psi * s + sigma2 * Phi dagger * v)) 
-  out = sopt::positive_quadrant(prev_sol - tau()*(Psi()*s*sigma1() + Phi().adjoint()*v*sigma2()));
+  out = prev_sol - tau()*(Psi()*s*sigma1() + Phi().adjoint()*v*sigma2());
+  if(positivity_constraint()){
+    out = sopt::positive_quadrant(out);
+  }
   x_bar = 2*out - prev_sol;
   residual = Phi() * out - target();
     
@@ -249,12 +257,12 @@ operator()(t_Vector &out, t_Vector const &x_guess, t_Vector const &res_guess) co
 
   // This should be number of dicitionaries times x_guess.size()
   // Should be looking up the multiplication factor from Psi
-  t_Vector s = t_Vector::Zero(x_guess.size());
+  t_Vector s = t_Vector::Zero(x_guess.size()*levels());
   t_Vector v = t_Vector::Zero(target().size());
   
   t_Vector x_bar = t_Vector::Zero(x_guess.size());
   t_Vector residual = res_guess;
-
+  
   // Check if there is a user provided convergence function
   bool const has_user_convergence = static_cast<bool>(is_converged());
   bool converged = false;
@@ -263,28 +271,41 @@ operator()(t_Vector &out, t_Vector const &x_guess, t_Vector const &res_guess) co
   t_uint niters(0);
   t_Vector weights(1);
   weights << 1.0;
+
+  std::pair<Real, Real> objectives{sopt::l1_norm(Psi().adjoint() * out, weights), 0};
   
   for(niters; niters < itermax(); ++niters) {
     SOPT_LOW_LOG("    - Iteration {}/{}", niters, itermax());
     iteration_step(out, residual, s, v, x_bar);
     SOPT_LOW_LOG("      - Sum of residuals: {}", residual.array().abs().sum());
 
+    objectives.second = objectives.first;
+    objectives.first = sopt::l1_norm(Psi().adjoint() * out, weights);
+    t_real const relative_objective
+        = std::abs(objectives.first - objectives.second) / objectives.first;
+    SOPT_LOW_LOG("    - objective: obj value = {}, rel obj = {}", objectives.first,
+                 relative_objective);
+
+    
     auto const residual_norm = sopt::l2_norm(residual, weights);
     SOPT_LOW_LOG("      - residual norm = {}, residual convergence = {}", residual_norm, residual_convergence());
     
     auto const user = (not has_user_convergence) or is_converged(out);
     auto const res = residual_convergence() <= 0e0 or residual_norm < residual_convergence();
+    auto const rel = relative_variation() <= 0e0 or relative_objective < relative_variation();
 
-    //    converged = user and res;
+    converged = user and res and rel;
     if(converged) {
       SOPT_MEDIUM_LOG("    - converged in {} of {} iterations", niters, itermax());
+      std::cout << "niters: " << niters << "\n";
       break;
     }
   }
   // check function exists, otherwise, don't know if convergence is meaningful
   if(not converged)
     SOPT_ERROR("    - did not converge within {} iterations", itermax());
-  return {niters, false, std::move(residual)};
+    
+  return {niters, converged, std::move(residual)};
 }
 }
 } /* sopt::algorithm */

@@ -39,7 +39,7 @@ int main(int argc, char const **argv) {
 
   
   std::string const input = argc >= 2 ? argv[1] : "cameraman256";
-  std::string const output = argc == 3 ? argv[2] : "bob";
+  std::string const output = argc == 3 ? argv[2] : "none";
   if(argc > 3) {
     std::cout << "Usage:\n"
                  "$ "
@@ -67,6 +67,14 @@ int main(int argc, char const **argv) {
 
   SOPT_HIGH_LOG("Initializing wavelets");
   auto const wavelet = sopt::wavelets::factory("DB4", 4);
+  auto const nlevels = 1;
+    
+    //  sopt::wavelets::SARA const wavelet{std::make_tuple(std::string{"DB3"}, 1u),
+  //   std::make_tuple(std::string{"DB1"}, 2u),
+  //   std::make_tuple(std::string{"DB1"}, 3u),
+  //   std::make_tuple(std::string{"DB1"}, 4u)};
+    //    auto const nlevels = wavelets.max_levels();
+    
   auto const psi = sopt::linear_transform<Scalar>(wavelet, image.rows(), image.cols());
 
   SOPT_HIGH_LOG("Computing primal-dual parameters");
@@ -93,49 +101,43 @@ int main(int argc, char const **argv) {
   Eigen::EigenSolver<Matrix> es;
   SOPT_HIGH_LOG("Setting up matrix A");
   
-  Vector rand = Vector::Random(image.size());
+  Vector rand = Vector::Random(image.size()*nlevels);
 
   auto const pm = sopt::algorithm::PowerMethod<sopt::t_real>().tolerance(1e-12);
 
   auto const tau = 0.49;
-  auto const kappa = 0.0001;
+  auto const kappa = 0.1;
   
   // sigma1 should be 1 (or number of wavelet operators being used)
   SOPT_HIGH_LOG("Calculating sigma1");
   auto const nu1data = pm.AtA(psi, rand);
   auto const nu1 = nu1data.magnitude;
-  auto const sigma1 = 1e0 / nu1*nu1;
-
-  std::cout << "sigma1: " << sigma1 << "\n";
-  
+  auto sigma1 = 1e0 / nu1;
+      
   rand = Vector::Random(image.size());
 
   // sigma2 should something like 1x10-10
   SOPT_HIGH_LOG("Calculating sigma2");  
   auto const nu2data = pm.AtA(sampling, rand);
   auto const nu2 = nu2data.magnitude;
-  // auto const sigma2 = 1e0 / nu2*nu2;
-  auto sigma2 = 1e0 / nu2*nu2;
+  auto sigma2 = 1e0 / nu2;
   
-  std::cout << "sigma2: " << sigma2 << "\n";
-  sigma2 = 0.00000001;
-
-  
-  SOPT_HIGH_LOG("Setting up primal dual algorithm");
   
   SOPT_HIGH_LOG("Creating primal-dual Functor");
   auto const pd = sopt::algorithm::PrimalDual<Scalar>(y)
-                         .itermax(50)
+                         .itermax(500)
                          .tau(tau)
                          .kappa(kappa)
                          .sigma1(sigma1)
                          .sigma2(sigma2)
+                         .levels(nlevels)
                          .l2ball_epsilon(epsilon)
-                         .nu(nu2*nu2)
+                         .nu(nu2)
                          .Psi(psi)
                          .Phi(sampling)
                          .relative_variation(5e-4)
-                         .residual_convergence(epsilon * 1.001);
+                         .residual_convergence(epsilon * 1.001)
+                         .positivity_constraint(true);
 		    
 
   SOPT_HIGH_LOG("Starting primal dual");
@@ -150,10 +152,11 @@ int main(int argc, char const **argv) {
   if(not diagnostic.good)
     //    throw std::runtime_error("Did not converge!");
 
+    std::cout << "outside niter: " << diagnostic.niters << "\n";
   SOPT_HIGH_LOG("SOPT-primal-dual converged in {} iterations", diagnostic.niters);
   if(output != "none")
     sopt::utilities::write_tiff(Matrix::Map(diagnostic.x.data(), image.rows(), image.cols()),
                                 output + ".tiff");
-
+  
   return 0;
 }
