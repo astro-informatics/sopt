@@ -7,6 +7,7 @@
 #include "sopt/proximal.h"
 #include "sopt/types.h"
 #include "sopt/power_method.h"
+#include "sopt/maths.h"
 
 sopt::t_int random_integer(sopt::t_int min, sopt::t_int max) {
   extern std::unique_ptr<std::mt19937_64> mersenne;
@@ -22,8 +23,6 @@ auto const N = 5;
 
 TEST_CASE("Primal Dual with ||x - x0||_2 functions", "[primaldual][integration]") {
   using namespace sopt;
-  t_Vector const target0 = t_Vector::Random(N);
-  t_Vector const target1 = t_Vector::Random(N) * 4;
 
   t_Matrix const mId = -t_Matrix::Identity(N, N);
 
@@ -31,24 +30,29 @@ TEST_CASE("Primal Dual with ||x - x0||_2 functions", "[primaldual][integration]"
   auto const sigma2 = 1.0;
   
   t_Vector const translation = t_Vector::Ones(N) * 5;
-  auto const primaldual = algorithm::PrimalDual<Scalar>(t_Vector::Zero(N))
+
+  t_Vector target = t_Vector::Random(N);
+
+  t_Vector weights = t_Vector(1);
+  weights(0) = 1.0;
+  
+  auto const epsilon = sopt::l2_norm(target, weights)/2;
+  
+  
+  
+  auto const primaldual = algorithm::PrimalDual<Scalar>(target)
                          .Phi(mId)
                          .Psi(mId)
                          .itermax(3000)
                          .kappa(0.1)
                          .tau(0.49)
+                         .l2ball_epsilon(epsilon)
                          .sigma1(sigma1)
                          .sigma2(sigma2);
   
   auto const result = primaldual();
-
-  t_Vector const segment = (target1 - target0).normalized();
-  t_real const alpha = (result.x - target0).transpose() * segment;
-
-  CHECK((target1 - target0).transpose() * segment >= alpha);
-  CHECK(alpha >= 0e0);
-  CAPTURE(segment.transpose());
-  CAPTURE((result.x - target0).transpose());
-  CAPTURE((result.x - target1).transpose());
-  CHECK((result.x - target0 - alpha * segment).stableNorm() < 1e-8);
+  
+  CAPTURE((result.x - target).transpose());
+  CHECK((result.x - target).stableNorm() < epsilon);
+  //  CHECK((result.x - target0 - alpha * segment).stableNorm() < 1e-8);
 }
