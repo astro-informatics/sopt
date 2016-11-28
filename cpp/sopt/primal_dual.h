@@ -63,7 +63,7 @@ public:
       sigma2_(1), levels_(1), nu_(1), l2ball_epsilon_(1), l1_proximal_weights_(t_Vector::Zero(1)),
       Phi_(linear_transform_identity<Scalar>()),
       Psi_(linear_transform_identity<Scalar>()),
-    residual_convergence_(1e-4), relative_variation_(1e-4), positivity_constraint_(true),
+      residual_convergence_(1e-4), relative_variation_(1e-4), positivity_constraint_(true),
       target_(target) {}
   virtual ~PrimalDual() {}
 
@@ -118,7 +118,6 @@ public:
   
 #undef SOPT_MACRO
 
-  
   //! Vector of target measurements
   t_Vector const &target() const { return target_; }
   //! Sets the vector of target measurements
