@@ -43,17 +43,50 @@ TEST_CASE("Primal Dual, testing norm(output - target()) < l2ball_epsilon()", "[p
   auto const primaldual = algorithm::PrimalDual<Scalar>(target)
                          .Phi(mId)
                          .Psi(mId)
-                         .itermax(3000)
+                         .itermax(5000)
                          .kappa(0.1)
                          .tau(0.49)
                          .l2ball_epsilon(epsilon)
                          .relative_variation(1e-4)
-                         .residual_convergence(epsilon * 1.0001);
+                         .residual_convergence(epsilon);
 
   
   auto const result = primaldual();
   
-  CHECK((result.x - target).stableNorm() < epsilon);
+  CHECK((result.x - target).stableNorm() <= epsilon);
+}
+
+
+TEST_CASE("Primal Dual, testing norm(output - target()) < l2ball_epsilon() no positive quadrant", "[primaldual][integration]") {
+  using namespace sopt;
+
+  t_Matrix const mId = t_Matrix::Identity(N, N);
+
+  auto const sigma1 = 1.0;
+  auto const sigma2 = 1.0;
+
+  t_Vector target = t_Vector::Random(N);
+  
+  t_Vector weights = t_Vector::Zero(1);
+  weights(0) = 1.0;
+  
+  auto const epsilon = sopt::l2_norm(target, weights)/2;
+  
+  auto const primaldual = algorithm::PrimalDual<Scalar>(target)
+                         .Phi(mId)
+                         .Psi(mId)
+                         .itermax(5000)
+                         .kappa(0.1)
+                         .tau(0.49)
+                         .l2ball_epsilon(epsilon)
+                         .positivity_constraint(false)
+                         .relative_variation(1e-4)
+                         .residual_convergence(epsilon);
+
+  
+  auto const result = primaldual();
+  
+  CHECK((result.x - target).stableNorm() <= epsilon);
 }
 
 
@@ -92,13 +125,13 @@ TEST_CASE("Primal Dual, testing norm(output - target()) < l2ball_epsilon() where
                          .kappa(0.1)
                          .tau(0.49)
                          .l2ball_epsilon(epsilon)
-                         .relative_variation(5e-4)
-                         .residual_convergence(epsilon * 1.001);
+                         .relative_variation(1e-4)
+                         .residual_convergence(epsilon);
   
   auto const result = primaldual();
 
   
-  CHECK((result.x - target).stableNorm() < epsilon);
+  CHECK((result.x - target).stableNorm() <= epsilon);
   // Check that the elements of the solution are zero where the elements of the target vector are zero.
   for(t_uint i=0; i < N; ++i){
     if(target(i) == 0){
