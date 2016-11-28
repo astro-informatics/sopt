@@ -8,11 +8,6 @@
 #include "sopt/primal_dual.h"
 #include "sopt/proximal.h"
 #include "sopt/types.h"
-#include "sopt/power_method.h"
-#include "sopt/maths.h"
-
-#include <iostream>
-
 
 sopt::t_int random_integer(sopt::t_int min, sopt::t_int max) {
   extern std::unique_ptr<std::mt19937_64> mersenne;
