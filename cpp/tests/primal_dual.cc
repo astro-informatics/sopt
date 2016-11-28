@@ -9,6 +9,8 @@
 #include "sopt/proximal.h"
 #include "sopt/types.h"
 
+#include <iostream>
+
 sopt::t_int random_integer(sopt::t_int min, sopt::t_int max) {
   extern std::unique_ptr<std::mt19937_64> mersenne;
   std::uniform_int_distribution<sopt::t_int> uniform_dist(min, max);
@@ -31,6 +33,10 @@ TEST_CASE("Primal Dual, testing norm(output - target()) < l2ball_epsilon()", "[p
 
   t_Vector target = t_Vector::Random(N);
 
+  target = sopt::positive_quadrant(target);
+  
+  std::cout << target << "\n";
+  
   t_Vector weights = t_Vector::Zero(1);
   weights(0) = 1.0;
   
@@ -84,7 +90,7 @@ TEST_CASE("Primal Dual, testing norm(output - target()) < l2ball_epsilon() where
   auto const primaldual = algorithm::PrimalDual<Scalar>(target)
                          .Phi(mId)
                          .Psi(mId)
-                         .itermax(3000)
+                         .itermax(5000)
                          .kappa(0.1)
                          .tau(0.49)
                          .l2ball_epsilon(epsilon)
