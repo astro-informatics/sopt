@@ -46,7 +46,7 @@ public:
     t_Vector residual;
 
     Diagnostic(t_uint niters = 0u, bool good = false)
-        : niters(niters), good(good), residual(t_Vector::Zero(0)) {}
+        : niters(niters), good(good), residual(t_Vector::Zero(1)) {}
     Diagnostic(t_uint niters, bool good, t_Vector &&residual)
         : niters(niters), good(good), residual(std::move(residual)) {}
   };
@@ -60,7 +60,7 @@ public:
   template <class DERIVED>
   PrimalDual(Eigen::MatrixBase<DERIVED> const &target)
     : itermax_(std::numeric_limits<t_uint>::max()), is_converged_(), kappa_(1), tau_(1), sigma1_(1),
-      sigma2_(1), levels_(1), nu_(1), l2ball_epsilon_(1),
+      sigma2_(1), levels_(1), nu_(1), l2ball_epsilon_(1), l1_proximal_weights_(t_Vector::Zero(1)),
       Phi_(linear_transform_identity<Scalar>()),
       Psi_(linear_transform_identity<Scalar>()),
     residual_convergence_(1e-4), relative_variation_(1e-4), positivity_constraint_(true),
@@ -96,6 +96,8 @@ public:
   //! Number of dictionaries used in the wavelet operator
   SOPT_MACRO(levels, t_uint);
 
+  SOPT_MACRO(l1_proximal_weights, t_Vector);
+  
   SOPT_MACRO(l2ball_epsilon, Real);
   //! A function verifying convergence
   SOPT_MACRO(is_converged, t_IsConverged);
@@ -269,10 +271,20 @@ operator()(t_Vector &out, t_Vector const &x_guess, t_Vector const &res_guess) co
   
   out = x_guess;
   t_uint niters(0);
+
+  t_Vector l1_weights;
+  
+  if(l1_proximal_weights().size() == 1 && l1_proximal_weights()(0) == 0){
+    l1_weights = t_Vector(1);
+    l1_weights << 1.0;
+  }else{
+    l1_weights = l1_proximal_weights();
+  }
+
   t_Vector weights(1);
   weights << 1.0;
 
-  std::pair<Real, Real> objectives{sopt::l1_norm(Psi().adjoint() * out, weights), 0};
+  std::pair<Real, Real> objectives{sopt::l1_norm(Psi().adjoint() * out, l1_weights), 0};
   
   for(niters; niters < itermax(); ++niters) {
     SOPT_LOW_LOG("    - Iteration {}/{}", niters, itermax());
@@ -280,7 +292,7 @@ operator()(t_Vector &out, t_Vector const &x_guess, t_Vector const &res_guess) co
     SOPT_LOW_LOG("      - Sum of residuals: {}", residual.array().abs().sum());
 
     objectives.second = objectives.first;
-    objectives.first = sopt::l1_norm(Psi().adjoint() * out, weights);
+    objectives.first = sopt::l1_norm(Psi().adjoint() * out, l1_weights);
     t_real const relative_objective
         = std::abs(objectives.first - objectives.second) / objectives.first;
     SOPT_LOW_LOG("    - objective: obj value = {}, rel obj = {}", objectives.first,
@@ -297,7 +309,6 @@ operator()(t_Vector &out, t_Vector const &x_guess, t_Vector const &res_guess) co
     converged = user and res and rel;
     if(converged) {
       SOPT_MEDIUM_LOG("    - converged in {} of {} iterations", niters, itermax());
-      std::cout << "niters: " << niters << "\n";
       break;
     }
   }

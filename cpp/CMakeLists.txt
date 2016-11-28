@@ -3,7 +3,7 @@ set(SOPT_LOGGER_NAME "sopt" CACHE STRING "NAME of the logger")
 set(SOPT_COLOR_LOGGING true CACHE BOOL "Whether to add color to the log")
 if(logging)
   set(SOPT_DO_LOGGING 1)
-  set(SOPT_TEST_LOG_LEVEL critical CACHE STRING "Level when logging tests")
+  set(SOPT_TEST_LOG_LEVEL debug CACHE STRING "Level when logging tests")
   set_property(CACHE SOPT_TEST_LOG_LEVEL PROPERTY STRINGS
     off critical error warn info debug trace)
 else()

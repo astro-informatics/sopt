@@ -253,6 +253,31 @@ reweighted(ImagingProximalADMM<SCALAR> const &algo) {
   };
   return {posq, set_weights, reweightee};
 }
+
+ template <class SCALAR> class PrimalDual;
+template <class ALGORITHM> class PositiveQuadrant;
+template <class T>
+Eigen::CwiseUnaryOp<const details::ProjectPositiveQuadrant<typename T::Scalar>, const T>
+positive_quadrant(Eigen::DenseBase<T> const &input);
+
+template <class SCALAR>
+Reweighted<PositiveQuadrant<PrimalDual<SCALAR>>>
+reweighted(PrimalDual<SCALAR> const &algo) {
+
+  auto const posq = positive_quadrant(algo);
+  typedef typename std::remove_const<decltype(posq)>::type Algorithm;
+  typedef Reweighted<Algorithm> RW;
+  auto const reweightee
+      = [](Algorithm const &posq, typename RW::XVector const &x) -> typename RW::XVector {
+    return posq.algorithm().Psi().adjoint() * x;
+  };
+  auto const set_weights = [](Algorithm &posq, typename RW::WeightVector const &weights) -> void {
+    posq.algorithm().l1_proximal_weights(weights);
+  };
+  return {posq, set_weights, reweightee};
+}
+
+
 } // namespace algorithm
 } // namespace sopt
 #endif
