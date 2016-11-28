@@ -31,7 +31,7 @@ TEST_CASE("Primal Dual, testing norm(output - target()) < l2ball_epsilon()", "[p
 
   t_Vector target = t_Vector::Random(N);
 
-  t_Vector weights = t_Vector(1);
+  t_Vector weights = t_Vector::Zero(1);
   weights(0) = 1.0;
   
   auto const epsilon = sopt::l2_norm(target, weights)/2;
@@ -75,7 +75,7 @@ TEST_CASE("Primal Dual, testing norm(output - target()) < l2ball_epsilon() where
   
   target(1) = std::rand();
   
-  t_Vector weights = t_Vector(1);
+  t_Vector weights = t_Vector::Zero(1);
 
   weights(0) = 1.0;
   
