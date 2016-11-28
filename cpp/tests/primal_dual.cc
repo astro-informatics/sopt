@@ -35,8 +35,6 @@ TEST_CASE("Primal Dual, testing norm(output - target()) < l2ball_epsilon()", "[p
 
   target = sopt::positive_quadrant(target);
   
-  std::cout << target << "\n";
-  
   t_Vector weights = t_Vector::Zero(1);
   weights(0) = 1.0;
   
@@ -49,8 +47,8 @@ TEST_CASE("Primal Dual, testing norm(output - target()) < l2ball_epsilon()", "[p
                          .kappa(0.1)
                          .tau(0.49)
                          .l2ball_epsilon(epsilon)
-                         .relative_variation(5e-4)
-                         .residual_convergence(epsilon * 1.001);
+                         .relative_variation(1e-4)
+                         .residual_convergence(epsilon * 1.0001);
 
   
   auto const result = primaldual();
