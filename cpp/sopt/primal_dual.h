@@ -60,7 +60,7 @@ public:
   template <class DERIVED>
   PrimalDual(Eigen::MatrixBase<DERIVED> const &target)
     : itermax_(std::numeric_limits<t_uint>::max()), is_converged_(), kappa_(1), tau_(1), sigma1_(1),
-      sigma2_(1), levels_(1), nu_(1), l2ball_epsilon_(1), l1_proximal_weights_(t_Vector::Zero(1)),
+      sigma2_(1), levels_(1), nu_(1), l2ball_epsilon_(1), l1_proximal_weights_(Vector<Real>::Zero(1)),
       Phi_(linear_transform_identity<Scalar>()),
       Psi_(linear_transform_identity<Scalar>()),
       residual_convergence_(1e-4), relative_variation_(1e-4), positivity_constraint_(true),
@@ -271,16 +271,16 @@ operator()(t_Vector &out, t_Vector const &x_guess, t_Vector const &res_guess) co
   out = x_guess;
   t_uint niters(0);
 
-  t_Vector l1_weights;
+  Vector<Real> l1_weights;
   
   if(l1_proximal_weights().size() == 1 && (l1_proximal_weights()(0)) == 0){
-    l1_weights = t_Vector(1);
+    l1_weights = Vector<Real>(1);
     l1_weights << 1.0;
   }else{
     l1_weights = l1_proximal_weights();
   }
 
-  t_Vector weights(1);
+  Vector<Real> weights(1);
   weights << 1.0;
 
   std::pair<Real, Real> objectives{sopt::l1_norm(Psi().adjoint() * out, l1_weights), 0};
