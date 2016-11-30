@@ -96,7 +96,7 @@ public:
   //! Number of dictionaries used in the wavelet operator
   SOPT_MACRO(levels, t_uint);
 
-  SOPT_MACRO(l1_proximal_weights, t_Vector);
+  SOPT_MACRO(l1_proximal_weights, Vector<Real>);
   
   SOPT_MACRO(l2ball_epsilon, Real);
   //! A function verifying convergence
@@ -224,7 +224,7 @@ void PrimalDual<SCALAR>::iteration_step(t_Vector &out, t_Vector &residual, t_Vec
   t_Vector prev_s = s;
   t_Vector prev_v = v;
 
-  proximal::L2Ball<Real> l2ball_proximal = proximal::L2Ball<Real>(l2ball_epsilon());
+  proximal::L2Ball<Scalar> l2ball_proximal = proximal::L2Ball<Scalar>(l2ball_epsilon());
   
   // v_t = v_t-1 + Phi*x_bar - l2ball_prox(v_t-1 + Phi*x_bar)
   t_Vector temp = v + (Phi() * x_bar);
@@ -254,7 +254,7 @@ operator()(t_Vector &out, t_Vector const &x_guess, t_Vector const &res_guess) co
   SOPT_HIGH_LOG("Performing Primal Dual");
   sanity_check(x_guess, res_guess);
 
-  proximal::L2Ball<Real> l2ball_proximal = proximal::L2Ball<Real>(l2ball_epsilon());
+  proximal::L2Ball<Scalar> l2ball_proximal = proximal::L2Ball<Scalar>(l2ball_epsilon());
 
   // This should be number of dicitionaries times x_guess.size()
   // Should be looking up the multiplication factor from Psi
@@ -273,7 +273,7 @@ operator()(t_Vector &out, t_Vector const &x_guess, t_Vector const &res_guess) co
 
   t_Vector l1_weights;
   
-  if(l1_proximal_weights().size() == 1 && l1_proximal_weights()(0) == 0){
+  if(l1_proximal_weights().size() == 1 && (l1_proximal_weights()(0)) == 0){
     l1_weights = t_Vector(1);
     l1_weights << 1.0;
   }else{
