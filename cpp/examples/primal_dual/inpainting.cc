@@ -14,6 +14,7 @@
 #include <sopt/types.h>
 #include <sopt/utilities.h>
 #include <sopt/wavelets.h>
+#include <sopt/wavelets/sara.h>
 #include <sopt/power_method.h>
 
 // This header is not part of the installed sopt interface
@@ -66,14 +67,18 @@ int main(int argc, char const **argv) {
       = sopt::linear_transform<Scalar>(sopt::Sampling(image.size(), nmeasure, mersenne));
 
   SOPT_HIGH_LOG("Initializing wavelets");
+  // Below we define a simple wavelet set for testing
   auto const wavelet = sopt::wavelets::factory("DB4", 4);
   auto const nlevels = 1;
-    
-    //  sopt::wavelets::SARA const wavelet{std::make_tuple(std::string{"DB3"}, 1u),
-  //   std::make_tuple(std::string{"DB1"}, 2u),
-  //   std::make_tuple(std::string{"DB1"}, 3u),
+
+  // The commented out code below allows running the example with a set of SARA wavelets instead of the simpler
+  // wavelet setup above.  You cannot use this and the wavelet defined above at the same time, so if you
+  // uncomment the code below ensure you comment out the wavelet definition above.
+  //  sopt::wavelets::SARA const wavelet{std::make_tuple(std::string{"DB3"}, 1u),
+  //    std::make_tuple(std::string{"DB1"}, 2u),
+  //    std::make_tuple(std::string{"DB1"}, 3u),
   //   std::make_tuple(std::string{"DB1"}, 4u)};
-    //    auto const nlevels = wavelets.max_levels();
+  //  auto const nlevels = wavelet.size();
     
   auto const psi = sopt::linear_transform<Scalar>(wavelet, image.rows(), image.cols());
 

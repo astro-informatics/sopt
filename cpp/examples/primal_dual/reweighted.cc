@@ -71,7 +71,7 @@ int main(int argc, char const **argv) {
                                   std::make_tuple(std::string{"DB1"}, 3u),
                                   std::make_tuple(std::string{"DB1"}, 4u)};
 
-  auto const nlevels = sara.max_levels();
+  auto const nlevels = sara.size();
   
   auto const psi = sopt::linear_transform<Scalar>(sara, image.rows(), image.cols());
 
