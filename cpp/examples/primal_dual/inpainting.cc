@@ -154,7 +154,6 @@ int main(int argc, char const **argv) {
   if(not diagnostic.good)
     //    throw std::runtime_error("Did not converge!");
 
-    std::cout << "outside niter: " << diagnostic.niters << "\n";
   SOPT_HIGH_LOG("SOPT-primal-dual converged in {} iterations", diagnostic.niters);
   if(output != "none")
     sopt::utilities::write_tiff(Matrix::Map(diagnostic.x.data(), image.rows(), image.cols()),
