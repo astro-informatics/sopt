@@ -8,3 +8,4 @@ add_example(l1_proximal LIBRARIES sopt)
 
 add_subdirectory(sdmm)
 add_subdirectory(proximal_admm)
+add_subdirectory(primal_dual)
