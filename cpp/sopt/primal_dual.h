@@ -5,18 +5,19 @@
 #include <functional>
 #include <limits>
 #include "sopt/exception.h"
+#include "sopt/l1_proximal.h"
 #include "sopt/linear_transform.h"
 #include "sopt/logging.h"
-#include "sopt/types.h"
-#include "sopt/l1_proximal.h"
 #include "sopt/proximal.h"
+#include "sopt/types.h"
 #include "sopt/utilities.h"
 
 namespace sopt {
 namespace algorithm {
 
 //! \brief Primal Dual method
-//! \details This is a basic implementation of the primal dual method using a forward backwards algorithm.
+//! \details This is a basic implementation of the primal dual method using a forward backwards
+//! algorithm.
 //! \f$\min_{x, y, z} f(x) + l(y) + h(z)\f$ subject to \f$Φx = y\f$, \f$Ψ^Hx = z\f$
 //!  We are not implementing blocking or parallelism here.
 template <class SCALAR> class PrimalDual {
@@ -59,12 +60,11 @@ public:
   //! Setups PrimalDual
   template <class DERIVED>
   PrimalDual(Eigen::MatrixBase<DERIVED> const &target)
-    : itermax_(std::numeric_limits<t_uint>::max()), is_converged_(), kappa_(1), tau_(1), sigma1_(1),
-      sigma2_(1), levels_(1), nu_(1), l2ball_epsilon_(1), l1_proximal_weights_(Vector<Real>::Zero(1)),
-      Phi_(linear_transform_identity<Scalar>()),
-      Psi_(linear_transform_identity<Scalar>()),
-      residual_convergence_(1e-4), relative_variation_(1e-4), positivity_constraint_(true),
-      target_(target) {}
+      : itermax_(std::numeric_limits<t_uint>::max()), is_converged_(), kappa_(1), tau_(1),
+        sigma1_(1), sigma2_(1), levels_(1), nu_(1), l2ball_epsilon_(1),
+        l1_proximal_weights_(Vector<Real>::Zero(1)), Phi_(linear_transform_identity<Scalar>()),
+        Psi_(linear_transform_identity<Scalar>()), residual_convergence_(1e-4),
+        relative_variation_(1e-4), positivity_constraint_(true), target_(target) {}
   virtual ~PrimalDual() {}
 
 // Macro helps define properties that can be initialized as in
@@ -83,7 +83,7 @@ public:
 
   //! Maximum number of iterations
   SOPT_MACRO(itermax, t_uint);
-    //! ν parameter
+  //! ν parameter
   SOPT_MACRO(nu, Real);
   //! κ
   SOPT_MACRO(kappa, Real);
@@ -97,7 +97,7 @@ public:
   SOPT_MACRO(levels, t_uint);
 
   SOPT_MACRO(l1_proximal_weights, Vector<Real>);
-  
+
   SOPT_MACRO(l2ball_epsilon, Real);
   //! A function verifying convergence
   SOPT_MACRO(is_converged, t_IsConverged);
@@ -114,8 +114,6 @@ public:
   //! Enforce whether the result needs to be projected to the positive quadrant or not
   SOPT_MACRO(positivity_constraint, bool);
 
-
-  
 #undef SOPT_MACRO
 
   //! Vector of target measurements
@@ -126,14 +124,11 @@ public:
     return *this;
   }
 
-    
-  
   //! Facilitates call to user-provided convergence function
   bool is_converged(t_Vector const &x) const {
     return static_cast<bool>(is_converged()) and is_converged()(x);
   }
 
-  
   //! \brief Calls Primal Dual
   //! \param[out] out: Output vector x
   Diagnostic operator()(t_Vector &out) const { return operator()(out, initial_guess()); }
@@ -163,13 +158,12 @@ public:
     static_cast<Diagnostic &>(result) = operator()(result.x, warmstart.x, warmstart.residual);
     return result;
   }
-  //! \brief Analysis operator Ψ and Ψ^† 
+  //! \brief Analysis operator Ψ and Ψ^†
   template <class... ARGS>
   typename std::enable_if<sizeof...(ARGS) >= 1, PrimalDual &>::type Psi(ARGS &&... args) {
     Psi_ = linear_transform(std::forward<ARGS>(args)...);
     return *this;
   }
-
 
   //! Set Φ and Φ^† using arguments that sopt::linear_transform understands
   template <class... ARGS>
@@ -188,11 +182,9 @@ public:
     return guess;
   }
 
-
 protected:
-
-  
-  void iteration_step(t_Vector &out, t_Vector &residual, t_Vector &s, t_Vector &v, t_Vector &x_bar) const;
+  void iteration_step(t_Vector &out, t_Vector &residual, t_Vector &s, t_Vector &v,
+                      t_Vector &x_bar) const;
 
   //! Checks input makes sense
   void sanity_check(t_Vector const &x_guess, t_Vector const &res_guess) const {
@@ -217,35 +209,34 @@ protected:
 };
 
 template <class SCALAR>
-void PrimalDual<SCALAR>::iteration_step(t_Vector &out, t_Vector &residual, t_Vector &s,
-					     t_Vector &v, t_Vector &x_bar) const {
+void PrimalDual<SCALAR>::iteration_step(t_Vector &out, t_Vector &residual, t_Vector &s, t_Vector &v,
+                                        t_Vector &x_bar) const {
 
   t_Vector prev_sol = out;
   t_Vector prev_s = s;
   t_Vector prev_v = v;
 
   proximal::L2Ball<Scalar> l2ball_proximal = proximal::L2Ball<Scalar>(l2ball_epsilon());
-  
+
   // v_t = v_t-1 + Phi*x_bar - l2ball_prox(v_t-1 + Phi*x_bar)
   t_Vector temp = v + (Phi() * x_bar);
   t_Vector v_prox;
-  v_prox = l2ball_proximal(0, temp-target()) + target();
+  v_prox = l2ball_proximal(0, temp - target()) + target();
   v = temp - v_prox;
-  
+
   // s_t = s_t-1 + Psi_dagger * x_bar_t-1 - l1norm_prox(s_t-1 + Psi_dagger * x_bar_t-1)
   t_Vector temp2 = s + (Psi().adjoint() * x_bar);
   t_Vector s_prox;
-  proximal::l1_norm(s_prox, kappa()/sigma1(), temp2);
+  proximal::l1_norm(s_prox, kappa() / sigma1(), temp2);
   s = temp2 - s_prox;
-  
-  //x_t = positive orth projection(x_t-1 - tau * (sigma1 * Psi * s + sigma2 * Phi dagger * v)) 
-  out = prev_sol - tau()*(Psi()*s*sigma1() + Phi().adjoint()*v*sigma2());
-  if(positivity_constraint()){
+
+  // x_t = positive orth projection(x_t-1 - tau * (sigma1 * Psi * s + sigma2 * Phi dagger * v))
+  out = prev_sol - tau() * (Psi() * s * sigma1() + Phi().adjoint() * v * sigma2());
+  if(positivity_constraint()) {
     out = sopt::positive_quadrant(out);
   }
-  x_bar = 2*out - prev_sol;
+  x_bar = 2 * out - prev_sol;
   residual = Phi() * out - target();
-    
 }
 
 template <class SCALAR>
@@ -258,33 +249,32 @@ operator()(t_Vector &out, t_Vector const &x_guess, t_Vector const &res_guess) co
 
   // This should be number of dicitionaries times x_guess.size()
   // Should be looking up the multiplication factor from Psi
-  t_Vector s = t_Vector::Zero(x_guess.size()*levels());
+  t_Vector s = t_Vector::Zero(x_guess.size() * levels());
   t_Vector v = t_Vector::Zero(target().size());
-  
+
   t_Vector x_bar = t_Vector::Zero(x_guess.size());
   t_Vector residual = res_guess;
-  
+
   // Check if there is a user provided convergence function
   bool const has_user_convergence = static_cast<bool>(is_converged());
   bool converged = false;
-  
+
   out = x_guess;
   t_uint niters(0);
 
   Vector<Real> l1_weights;
-  
-  if(l1_proximal_weights().size() == 1 && (l1_proximal_weights()(0)) == 0){
-    l1_weights = Vector<Real>(1);
-    l1_weights << 1.0;
-  }else{
+
+  if(l1_proximal_weights().size() == 1 && (l1_proximal_weights()(0)) == 0) {
+    l1_weights = Vector<Real>::Ones(1);
+
+  } else {
     l1_weights = l1_proximal_weights();
   }
 
-  Vector<Real> weights(1);
-  weights << 1.0;
+  Vector<Real> weights = Vector<Real>::Ones(1);
 
   std::pair<Real, Real> objectives{sopt::l1_norm(Psi().adjoint() * out, l1_weights), 0};
-  
+
   for(niters; niters < itermax(); ++niters) {
     SOPT_LOW_LOG("    - Iteration {}/{}", niters, itermax());
     iteration_step(out, residual, s, v, x_bar);
@@ -297,10 +287,10 @@ operator()(t_Vector &out, t_Vector const &x_guess, t_Vector const &res_guess) co
     SOPT_LOW_LOG("    - objective: obj value = {}, rel obj = {}", objectives.first,
                  relative_objective);
 
-    
     auto const residual_norm = sopt::l2_norm(residual, weights);
-    SOPT_LOW_LOG("      - residual norm = {}, residual convergence = {}", residual_norm, residual_convergence());
-    
+    SOPT_LOW_LOG("      - residual norm = {}, residual convergence = {}", residual_norm,
+                 residual_convergence());
+
     auto const user = (not has_user_convergence) or is_converged(out);
     auto const res = residual_convergence() <= 0e0 or residual_norm < residual_convergence();
     auto const rel = relative_variation() <= 0e0 or relative_objective < relative_variation();
@@ -314,7 +304,7 @@ operator()(t_Vector &out, t_Vector const &x_guess, t_Vector const &res_guess) co
   // check function exists, otherwise, don't know if convergence is meaningful
   if(not converged)
     SOPT_ERROR("    - did not converge within {} iterations", itermax());
-    
+
   return {niters, converged, std::move(residual)};
 }
 }

@@ -6,10 +6,11 @@
 #include <vector>
 #include <Eigen/Eigenvalues>
 
-#include <sopt/primal_dual.h>
 #include <sopt/logging.h>
 #include <sopt/maths.h>
 #include <sopt/positive_quadrant.h>
+#include <sopt/power_method.h>
+#include <sopt/primal_dual.h>
 #include <sopt/relative_variation.h>
 #include <sopt/reweighted.h>
 #include <sopt/sampling.h>
@@ -17,7 +18,6 @@
 #include <sopt/utilities.h>
 #include <sopt/wavelets.h>
 #include <sopt/wavelets/sara.h>
-#include <sopt/power_method.h>
 
 // This header is not part of the installed sopt interface
 // It is only present in tests
@@ -66,13 +66,12 @@ int main(int argc, char const **argv) {
       = sopt::linear_transform<Scalar>(sopt::Sampling(image.size(), nmeasure, mersenne));
 
   SOPT_MEDIUM_LOG("Initializing wavelets");
-  sopt::wavelets::SARA const sara{std::make_tuple(std::string{"DB3"}, 1u),
-                                  std::make_tuple(std::string{"DB1"}, 2u),
-                                  std::make_tuple(std::string{"DB1"}, 3u),
-                                  std::make_tuple(std::string{"DB1"}, 4u)};
+  sopt::wavelets::SARA const sara{
+      std::make_tuple(std::string{"DB3"}, 1u), std::make_tuple(std::string{"DB1"}, 2u),
+      std::make_tuple(std::string{"DB1"}, 3u), std::make_tuple(std::string{"DB1"}, 4u)};
 
   auto const nlevels = sara.size();
-  
+
   auto const psi = sopt::linear_transform<Scalar>(sara, image.rows(), image.cols());
 
   SOPT_MEDIUM_LOG("Computing primaal-dual parameters");
@@ -97,45 +96,43 @@ int main(int argc, char const **argv) {
   SOPT_HIGH_LOG("Setting up power method to calculate sigma values");
   Eigen::EigenSolver<Matrix> es;
   SOPT_HIGH_LOG("Setting up matrix A");
-  
-  Vector rand = Vector::Random(image.size()*nlevels);
+
+  Vector rand = Vector::Random(image.size() * nlevels);
 
   auto const pm = sopt::algorithm::PowerMethod<sopt::t_real>().tolerance(1e-12);
 
   auto const tau = 0.49;
   auto const kappa = 0.1;
-  
+
   // sigma1 should be 1 (or number of wavelet operators being used)
   SOPT_HIGH_LOG("Calculating sigma1");
   auto const nu1data = pm.AtA(psi, rand);
   auto const nu1 = nu1data.magnitude;
   auto sigma1 = 1e0 / nu1;
-      
+
   rand = Vector::Random(image.size());
 
   // sigma2 should something like 1x10-10
-  SOPT_HIGH_LOG("Calculating sigma2");  
+  SOPT_HIGH_LOG("Calculating sigma2");
   auto const nu2data = pm.AtA(sampling, rand);
   auto const nu2 = nu2data.magnitude;
   auto sigma2 = 1e0 / nu2;
 
-  
-    SOPT_HIGH_LOG("Creating primal-dual Functor");
+  SOPT_HIGH_LOG("Creating primal-dual Functor");
   auto const pd = sopt::algorithm::PrimalDual<Scalar>(y)
-                         .itermax(500)
-                         .tau(tau)
-                         .kappa(kappa)
-                         .sigma1(sigma1)
-                         .sigma2(sigma2)
-                         .l2ball_epsilon(epsilon)
-                         .levels(nlevels)
-                         .nu(nu2)
-                         .Psi(psi)
-                         .Phi(sampling)
-                         .relative_variation(5e-4)
-                         .residual_convergence(epsilon * 1.001)
-                         .positivity_constraint(true);
-
+                      .itermax(500)
+                      .tau(tau)
+                      .kappa(kappa)
+                      .sigma1(sigma1)
+                      .sigma2(sigma2)
+                      .l2ball_epsilon(epsilon)
+                      .levels(nlevels)
+                      .nu(nu2)
+                      .Psi(psi)
+                      .Phi(sampling)
+                      .relative_variation(5e-4)
+                      .residual_convergence(epsilon * 1.001)
+                      .positivity_constraint(true);
 
   SOPT_MEDIUM_LOG("Creating the reweighted algorithm");
   // This follows the reweighted algorithm for SDMM
