@@ -151,10 +151,10 @@ int main(int argc, char const **argv) {
   // diagnostic should tell us the function converged
   // it also contains diagnostic.niters - the number of iterations, and cg_diagnostic - the
   // diagnostic from the last call to the conjugate gradient.
-  if(not diagnostic.good)
-    //    throw std::runtime_error("Did not converge!");
-
+  if(not diagnostic.good) {
     SOPT_HIGH_LOG("SOPT-primal-dual converged in {} iterations", diagnostic.niters);
+    // throw std::runtime_error("Did not converge!");
+  }
   if(output != "none")
     sopt::utilities::write_tiff(Matrix::Map(diagnostic.x.data(), image.rows(), image.cols()),
                                 output + ".tiff");
