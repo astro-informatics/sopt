@@ -75,7 +75,7 @@ int main(int, char const **) {
   // Lets test we are at a minimum by recreating the objective function
   // and checking that stepping in any direction raises its value
   auto const objective = [&target0, &target1, &L0, &L1](t_Vector const &x) {
-    return (L0 * x - target0).stableNorm() + (L1 * x - target1).stableNorm();
+    return (L0 * x - target0).norm() + (L1 * x - target1).norm();
   };
   auto const minimum = objective(result);
   for(int i(0); i < N; ++i) {

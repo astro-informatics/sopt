@@ -18,7 +18,7 @@ struct EuclidianNorm {
                   typename real_type<typename T0::Scalar>::type const &t,
                   Eigen::MatrixBase<T0> const &x) const {
     typedef typename T0::Scalar Scalar;
-    auto const norm = x.stableNorm();
+    auto const norm = x.norm();
     if(norm > t)
       out = (Scalar(1) - t / norm) * x;
     else

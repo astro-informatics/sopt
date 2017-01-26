@@ -60,9 +60,9 @@ public:
   //! Setups PrimalDual
   template <class DERIVED>
   PrimalDual(Eigen::MatrixBase<DERIVED> const &target)
-      : itermax_(std::numeric_limits<t_uint>::max()), is_converged_(), kappa_(1), tau_(1),
-        sigma1_(1), sigma2_(1), levels_(1), nu_(1), l2ball_epsilon_(1),
-        l1_proximal_weights_(Vector<Real>::Zero(1)), Phi_(linear_transform_identity<Scalar>()),
+      : itermax_(std::numeric_limits<t_uint>::max()), nu_(1), kappa_(1), tau_(1), sigma1_(1),
+        sigma2_(1), levels_(1), l1_proximal_weights_(Vector<Real>::Zero(1)), l2ball_epsilon_(1),
+        is_converged_(), Phi_(linear_transform_identity<Scalar>()),
         Psi_(linear_transform_identity<Scalar>()), residual_convergence_(1e-4),
         relative_variation_(1e-4), positivity_constraint_(true), target_(target) {}
   virtual ~PrimalDual() {}
@@ -183,6 +183,9 @@ public:
   }
 
 protected:
+  //! Vector of measurements
+  t_Vector target_;
+
   void iteration_step(t_Vector &out, t_Vector &residual, t_Vector &s, t_Vector &v,
                       t_Vector &x_bar) const;
 
@@ -203,9 +206,6 @@ protected:
   //! \param[in] guess: initial guess
   //! \param[in] residuals: initial residuals
   Diagnostic operator()(t_Vector &out, t_Vector const &guess, t_Vector const &res) const;
-
-  //! Vector of measurements
-  t_Vector target_;
 };
 
 template <class SCALAR>
@@ -216,7 +216,7 @@ void PrimalDual<SCALAR>::iteration_step(t_Vector &out, t_Vector &residual, t_Vec
   t_Vector prev_s = s;
   t_Vector prev_v = v;
 
-  proximal::L2Ball<Scalar> l2ball_proximal = proximal::L2Ball<Scalar>(l2ball_epsilon());
+  auto const l2ball_proximal = proximal::L2Ball<Scalar>(l2ball_epsilon());
 
   // v_t = v_t-1 + Phi*x_bar - l2ball_prox(v_t-1 + Phi*x_bar)
   t_Vector temp = v + (Phi() * x_bar);
@@ -244,8 +244,6 @@ typename PrimalDual<SCALAR>::Diagnostic PrimalDual<SCALAR>::
 operator()(t_Vector &out, t_Vector const &x_guess, t_Vector const &res_guess) const {
   SOPT_HIGH_LOG("Performing Primal Dual");
   sanity_check(x_guess, res_guess);
-
-  proximal::L2Ball<Scalar> l2ball_proximal = proximal::L2Ball<Scalar>(l2ball_epsilon());
 
   // This should be number of dicitionaries times x_guess.size()
   // Should be looking up the multiplication factor from Psi
@@ -275,7 +273,7 @@ operator()(t_Vector &out, t_Vector const &x_guess, t_Vector const &res_guess) co
 
   std::pair<Real, Real> objectives{sopt::l1_norm(Psi().adjoint() * out, l1_weights), 0};
 
-  for(niters; niters < itermax(); ++niters) {
+  for(; niters < itermax(); ++niters) {
     SOPT_LOW_LOG("    - Iteration {}/{}", niters, itermax());
     iteration_step(out, residual, s, v, x_bar);
     SOPT_LOW_LOG("      - Sum of residuals: {}", residual.array().abs().sum());
