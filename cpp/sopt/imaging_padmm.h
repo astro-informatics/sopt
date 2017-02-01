@@ -9,6 +9,7 @@
 #include "sopt/l1_proximal.h"
 #include "sopt/linear_transform.h"
 #include "sopt/logging.h"
+#include "sopt/mpi/communicator.h"
 #include "sopt/padmm.h"
 #include "sopt/proximal.h"
 #include "sopt/types.h"
@@ -339,7 +340,8 @@ operator()(t_Vector &out, t_Vector const &x_guess, t_Vector const &res_guess) co
     objective_convergence()(residual);
 
   bool converged = false;
-  for(t_uint niters(0); niters < itermax(); ++niters) {
+  t_uint niters(0);
+  for(; niters < itermax(); ++niters) {
     SOPT_LOW_LOG("    - Iteration {}/{}. ", niters, itermax());
     ProximalADMM<Scalar>::iteration_step(out, residual, lambda, z);
 
@@ -356,7 +358,7 @@ operator()(t_Vector &out, t_Vector const &x_guess, t_Vector const &res_guess) co
 
   if(not converged)
     SOPT_ERROR("    - did not converge within {} iterations", itermax());
-  return {itermax(), converged, l1_diagnostic, std::move(residual)};
+  return {niters, converged, l1_diagnostic, std::move(residual)};
 }
 
 template <class SCALAR> class ImagingProximalADMM<SCALAR>::ObjectiveConvergence {
