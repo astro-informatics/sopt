@@ -4,12 +4,12 @@
 #include "sopt/config.h"
 
 #ifdef SOPT_MPI
+
 #include <memory>
 #include <mpi.h>
 #include <type_traits>
 #include <vector>
 #include "sopt/mpi/registered_types.h"
-#endif
 #include "sopt/types.h"
 
 namespace sopt {
@@ -21,27 +21,20 @@ namespace mpi {
 class Communicator {
   //! Holds actual data associated with mpi
   struct Impl {
-#ifdef SOPT_MPI
     //! The blacs context
     MPI_Comm comm;
     //! The number of processes
     t_uint size;
     //! The rank of this object
     t_uint rank;
-#endif
   };
 
 public:
   //! World communicator
   Communicator() : impl() {}
 
-#ifdef SOPT_MPI
   static Communicator World() { return Communicator(MPI_COMM_WORLD); }
   static Communicator Self() { return Communicator(MPI_COMM_SELF); }
-#else
-  static Communicator World() { return Communicator(); }
-  static Communicator Self() { return Communicator(); }
-#endif
 
   virtual ~Communicator(){};
 
@@ -57,15 +50,10 @@ public:
   bool is_root() const { return rank() == root_id(); }
   //! \brief Duplicates this communicator
   //! \details Creates a new communicator in all ways equivalent to this one.
-#ifdef SOPT_MPI
   Communicator duplicate() const;
-#else
-  Communicator duplicate() const { return Communicator(); }
-#endif
   //! Alias for duplicate
   Communicator clone() const { return duplicate(); }
 
-#ifdef SOPT_MPI
   //! Helper function for reducing
   template <class T>
   typename std::enable_if<is_registered_type<T>::value, T>::type
@@ -149,13 +137,11 @@ public:
     MPI_Comm_split(**this, color, static_cast<t_int>(rank), &comm);
     return comm;
   }
-#endif
 
 private:
   //! Holds data associated with the context
   std::shared_ptr<Impl const> impl;
 
-#ifdef SOPT_MPI
   //! Deletes an mpi communicator
   static void delete_comm(Impl *impl);
 
@@ -165,10 +151,8 @@ private:
   //! communicator will be
   //! released.
   Communicator(MPI_Comm const &comm);
-#endif
 };
 
-#ifdef SOPT_MPI
 template <class T>
 typename std::enable_if<is_registered_type<T>::value, T>::type
 Communicator::all_reduce(T const &value, MPI_Op operation) const {
@@ -293,8 +277,8 @@ Communicator::broadcast(t_uint const root) const {
   MPI_Bcast(result.data(), result.size(), Type<typename T::value_type>::value, root, **this);
   return result;
 }
-#endif
 
-} /* sopt::mpi */
-} /* sopt */
+} /* optime::mpi */
+} /* optimet */
+#endif /* ifdef SOPT_MPI */
 #endif /* ifndef SOPT_MPI_COMMUNICATOR */
