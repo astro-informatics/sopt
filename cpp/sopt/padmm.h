@@ -27,7 +27,7 @@ public:
   //! Type of the Ψ and Ψ^H operations, as well as Φ and Φ^H
   typedef LinearTransform<t_Vector> t_LinearTransform;
   //! Type of the convergence function
-  typedef ConvergenceFunction<Scalar> t_IsConverged;
+  typedef std::function<bool(t_Vector const&, t_Vector const&)> t_IsConverged;
   //! Type of the convergence function
   typedef ProximalFunction<Scalar> t_Proximal;
 
@@ -84,7 +84,8 @@ public:
   SOPT_MACRO(nu, Real);
   //! Lagrange update scale β
   SOPT_MACRO(lagrange_update_scale, Real);
-  //! A function verifying convergence
+  //! \brief A function verifying convergence
+  //! \details It takes as input two arguments: the current solution x and the current residual.
   SOPT_MACRO(is_converged, t_IsConverged);
   //! Measurement operator
   SOPT_MACRO(Phi, t_LinearTransform);
@@ -102,6 +103,11 @@ public:
     g_proximal()(out, gamma, x);
   }
 
+  //! Convergence function that takes only the output as argument
+  ProximalADMM<Scalar> & is_converged(std::function<bool(t_Vector const&x)> const &func) {
+    return is_converged([func](t_Vector const &x, t_Vector const&) { return func(x); });
+  }
+
   //! Vector of target measurements
   t_Vector const &target() const { return target_; }
   //! Sets the vector of target measurements
@@ -111,8 +117,8 @@ public:
   }
 
   //! Facilitates call to user-provided convergence function
-  bool is_converged(t_Vector const &x) const {
-    return static_cast<bool>(is_converged()) and is_converged()(x);
+  bool is_converged(t_Vector const &x, t_Vector const &residual) const {
+    return static_cast<bool>(is_converged()) and is_converged()(x, residual);
   }
 
   //! \brief Calls Proximal ADMM
@@ -213,7 +219,7 @@ operator()(t_Vector &out, t_Vector const &x_guess, t_Vector const &res_guess) co
     iteration_step(out, residual, lambda, z);
     SOPT_LOW_LOG("      - Sum of residuals: {}", residual.array().abs().sum());
 
-    if(is_converged(out)) {
+    if(is_converged(out, residual)) {
       SOPT_MEDIUM_LOG("    - converged in {} of {} iterations", niters, itermax());
       return {niters, true};
     }

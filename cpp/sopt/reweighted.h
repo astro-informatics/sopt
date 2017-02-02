@@ -38,7 +38,7 @@ public:
   //! Type of then underlying vectors
   typedef typename Algorithm::t_Vector XVector;
   //! Type of the convergence function
-  typedef typename Algorithm::t_IsConverged t_IsConverged;
+  typedef ConvergenceFunction<Scalar> t_IsConverged;
   //! \brief Type of the function that is subject to reweighting
   //! \details E.g. \f$Ψ^Tx\f$. Note that l1-norm is not applied here.
   typedef std::function<XVector(Algorithm const &, XVector const &)> t_Reweightee;
