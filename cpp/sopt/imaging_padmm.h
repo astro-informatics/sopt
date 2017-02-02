@@ -9,7 +9,6 @@
 #include "sopt/l1_proximal.h"
 #include "sopt/linear_transform.h"
 #include "sopt/logging.h"
-#include "sopt/mpi/communicator.h"
 #include "sopt/padmm.h"
 #include "sopt/proximal.h"
 #include "sopt/relative_variation.h"
