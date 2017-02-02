@@ -174,9 +174,20 @@ public:
   //! - x = Φ^T y / ν
   //! - residuals = Φ x - y
   std::tuple<t_Vector, t_Vector> initial_guess() const {
+    return ProximalADMM<SCALAR>::initial_guess(target(), Phi(), nu());
+  }
+
+  //! \brief Computes initial guess for x and the residual using the targets
+  //! \details with y the vector of measurements
+  //! - x = Φ^T y / ν
+  //! - residuals = Φ x - y
+  //!
+  //! This function simplifies creating overloads for operator() in PADMM wrappers.
+  static std::tuple<t_Vector, t_Vector>
+  initial_guess(t_Vector const &target, t_LinearTransform const &phi, Real nu) {
     std::tuple<t_Vector, t_Vector> guess;
-    std::get<0>(guess) = Phi().adjoint() * target() / nu();
-    std::get<1>(guess) = Phi() * std::get<0>(guess) - target();
+    std::get<0>(guess) = phi.adjoint() * target / nu;
+    std::get<1>(guess) = phi * std::get<0>(guess) - target;
     return guess;
   }
 
