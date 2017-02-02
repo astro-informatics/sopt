@@ -31,6 +31,7 @@ add_catch_test(primal_dual LIBRARIES sopt)
 
 if(dompi)
   add_library(common_mpi_catch_main_object OBJECT common_mpi_catch_main.cc)
+  add_dependencies(common_mpi_catch_main_object lookup_dependencies)
   target_include_directories(common_mpi_catch_main_object
     PUBLIC ${PROJECT_SOURCE_DIR}/cpp ${PROJECT_BINARY_DIR}/include ${MPI_CXX_INCLUDE_PATH})
 
