@@ -1,6 +1,6 @@
 #include <exception>
 #include <mpi.h>
-#include "Communicator.h"
+#include "communicator.h"
 
 namespace sopt { namespace mpi {
 
