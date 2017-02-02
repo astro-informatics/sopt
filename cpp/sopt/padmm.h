@@ -131,8 +131,20 @@ public:
     return operator()(out, std::get<0>(guess), std::get<1>(guess));
   }
   //! \brief Calls Proximal ADMM
+  //! \param[out] out: Output vector x
+  //! \param[in] guess: initial guess
+  Diagnostic
+  operator()(t_Vector &out, std::tuple<t_Vector const &, t_Vector const &> const &guess) const {
+    return operator()(out, std::get<0>(guess), std::get<1>(guess));
+  }
+  //! \brief Calls Proximal ADMM
   //! \param[in] guess: initial guess
   DiagnosticAndResult operator()(std::tuple<t_Vector, t_Vector> const &guess) const {
+    return operator()(std::tie(std::get<0>(guess), std::get<1>(guess)));
+  }
+  //! \brief Calls Proximal ADMM
+  //! \param[in] guess: initial guess
+  DiagnosticAndResult operator()(std::tuple<t_Vector const&, t_Vector const&> const &guess) const {
     DiagnosticAndResult result;
     static_cast<Diagnostic &>(result) = operator()(result.x, guess);
     return result;
