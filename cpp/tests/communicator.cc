@@ -43,9 +43,9 @@ TEST_CASE("Creates an mpi communicator") {
 
   SECTION("ScatterV") {
     std::vector<t_int> sizes(world.size()), displs(world.size());
-    for(t_int i(0); i < world.rank(); ++i)
+    for(t_uint i(0); i < world.rank(); ++i)
       sizes[i] = world.rank() * 2 + i;
-    for(t_int i(1); i < world.rank(); ++i)
+    for(t_uint i(1); i < world.rank(); ++i)
       displs[i] = displs[i - 1] + sizes[i - 1];
     Vector<t_int> const sendee
         = Vector<t_int>::Random(std::accumulate(sizes.begin(), sizes.end(), 0));
