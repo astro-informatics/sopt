@@ -155,7 +155,7 @@ TEST_CASE("Scalar elative variation", "[utility][convergence]") {
   CHECK(not relvar(input));
   CHECK(relvar(input));
   CHECK(not relvar(input + 0.1));
-  CHECK(relvar(input + 0.1 + relvar.relative_tolerance()));
+  CHECK(relvar(input + 0.1 + 0.1 * relvar.relative_tolerance()));
 }
 
 TEST_CASE("Standard deviation", "[utility]") {
