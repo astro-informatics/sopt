@@ -43,7 +43,7 @@ public:
   //! The rank of this proc
   decltype(Impl::rank) rank() const { return impl ? impl->rank : 0; }
   //! Returns the Blacs context in a way blacs undersands
-  decltype(Impl::comm) operator*() const { return impl ? impl->comm : nullptr; }
+  decltype(Impl::comm) operator*() const { return impl ? impl->comm : MPI_COMM_NULL; }
   //! Root id for this communicator
   static constexpr t_uint root_id() { return 0; }
   //! True if process is root
