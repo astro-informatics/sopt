@@ -48,8 +48,12 @@ SOPT_MACRO(std::complex<long double>);
 template <class T> inline constexpr MPIType registered_type(T const &) { return Type<T>::value; }
 
 namespace details {
-//! Defines c++17 metafunction
-template <class...> using void_t = void;
+template<typename... Ts> struct make_void { typedef void type;};
+//! \brief Defines c++17 metafunction
+//! \details This implements [std::void_t](http://en.cppreference.com/w/cpp/types/void_t). See
+//! therein and [CWG 1558](http://open-std.org/JTC1/SC22/WG21/docs/cwg_defects.html#1558) for the
+//! reason behind the slightly convoluted approach.
+template<typename... Ts> using void_t = typename make_void<Ts...>::type;
 }
 //! True if the type is registered
 template <class T, class = details::void_t<>> class is_registered_type : public std::false_type {};
