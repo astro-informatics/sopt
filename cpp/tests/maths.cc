@@ -98,7 +98,9 @@ TEST_CASE("Soft threshhold", "[utility][threshhold]") {
       CHECK(actual(2) == input(2) + threshhold(2));
       CHECK(actual(3) == input(3) - threshhold(3));
 
+#ifdef CATCH_HAS_THROWS_AS
       CHECK_THROWS_AS(soft_threshhold(input, threshhold.head(2)), sopt::Exception);
+#endif
     }
     SECTION("Complex input") {
       Array<t_complex> const actual = soft_threshhold(input.cast<t_complex>(), threshhold);
@@ -107,7 +109,9 @@ TEST_CASE("Soft threshhold", "[utility][threshhold]") {
       CHECK(actual(2) == input(2) + threshhold(2));
       CHECK(actual(3) == input(3) - threshhold(3));
 
+#ifdef CATCH_HAS_THROWS_AS
       CHECK_THROWS_AS(soft_threshhold(input, threshhold.head(2)), sopt::Exception);
+#endif
     }
   }
 }
