@@ -105,10 +105,14 @@ public:
   typename std::enable_if<is_registered_type<typename T::Scalar>::value, T>::type
   broadcast(t_uint const root = root_id()) const;
   template <class T>
-  typename std::enable_if<is_registered_type<typename T::value_type>::value, T>::type
+  typename std::enable_if<is_registered_type<typename T::value_type>::value
+                              and not std::is_base_of<Eigen::EigenBase<T>, T>::value,
+                          T>::type
   broadcast(T const &vec, t_uint const root = root_id()) const;
   template <class T>
-  typename std::enable_if<is_registered_type<typename T::value_type>::value, T>::type
+  typename std::enable_if<is_registered_type<typename T::value_type>::value
+                              and not std::is_base_of<Eigen::EigenBase<T>, T>::value,
+                          T>::type
   broadcast(t_uint const root = root_id()) const;
 
   //! Scatter one object per proc
@@ -260,7 +264,9 @@ Communicator::broadcast(t_uint const root) const {
   return result;
 }
 template <class T>
-typename std::enable_if<is_registered_type<typename T::value_type>::value, T>::type
+typename std::enable_if<is_registered_type<typename T::value_type>::value
+                            and not std::is_base_of<Eigen::EigenBase<T>, T>::value,
+                        T>::type
 Communicator::broadcast(T const &vec, t_uint const root) const {
   assert(root < size());
   auto const N = broadcast(vec.size(), root);
@@ -269,7 +275,9 @@ Communicator::broadcast(T const &vec, t_uint const root) const {
   return result;
 }
 template <class T>
-typename std::enable_if<is_registered_type<typename T::value_type>::value, T>::type
+typename std::enable_if<is_registered_type<typename T::value_type>::value
+                            and not std::is_base_of<Eigen::EigenBase<T>, T>::value,
+                        T>::type
 Communicator::broadcast(t_uint const root) const {
   assert(root < size());
   auto const N = broadcast(decltype(std::declval<T>().size())(0), root);
