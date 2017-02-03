@@ -11,6 +11,8 @@ void Communicator::delete_comm(Communicator::Impl *const impl) {
 }
 
 Communicator::Communicator(MPI_Comm const& comm) : impl(nullptr) {
+  if(comm == MPI_COMM_NULL)
+    return;
   int size, rank;
   MPI_Comm_size(comm, &size);
   MPI_Comm_rank(comm, &rank);
@@ -21,7 +23,7 @@ Communicator::Communicator(MPI_Comm const& comm) : impl(nullptr) {
 
 Communicator Communicator::duplicate() const {
   if(not impl)
-    return Communicator(nullptr);
+    return Communicator(MPI_COMM_NULL);
   MPI_Comm comm;
   MPI_Comm_dup(**this, &comm);
   return comm;
