@@ -27,5 +27,11 @@ MPIType const Type<long double>::value  = MPI_LONG_DOUBLE;
 MPIType const Type<std::complex<float>>::value       = MPI_C_FLOAT_COMPLEX;
 MPIType const Type<std::complex<double>>::value      = MPI_C_DOUBLE_COMPLEX;
 MPIType const Type<std::complex<long double>>::value = MPI_C_LONG_DOUBLE_COMPLEX;
+
+static_assert(is_registered_type<int>::value, "Checking int is registered");
+static_assert(is_registered_type<std::complex<double>>::value,
+    "Checking complex double is registered");
+static_assert(not is_registered_type<std::complex<int>>::value,
+    "Checking complex int is NOT registered");
 } /* mpi */
 } /* sopt */

@@ -55,12 +55,6 @@ template <class...> using void_t = void;
 template <class T, class = details::void_t<>> class is_registered_type : public std::false_type {};
 template <class T>
 class is_registered_type<T, details::void_t<decltype(Type<T>::value)>> : public std::true_type {};
-
-static_assert(is_registered_type<int>::value, "Checking int is registered");
-static_assert(is_registered_type<std::complex<double>>::value,
-              "Checking complex double is registered");
-static_assert(not is_registered_type<std::complex<int>>::value,
-              "Checking complex int is NOT registered");
 } /* sopt::mpi */
 } /* sopt */
 #endif
