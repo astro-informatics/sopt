@@ -44,23 +44,23 @@ if(dompi)
     target_include_directories(common_mpi_catch_main_object SYSTEM PUBLIC ${CATCH_INCLUDE_DIR})
   endif()
 
-	function(add_mpi_test testname)
-		  add_catch_test(${testname} COMMON_MAIN common_mpi_catch_main_object NOTEST ${ARGN})
-		  unset(arguments)
-		  if(CATCH_JUNIT)
-		  	  set(arguments -r junit -o ${PROJECT_BINARY_DIR}/Testing/${testname}.xml)
-		  endif()
-      if(NOT MPIEXEC_MAX_NUMPROCS)
-        set(MPIEXEC_MAX_NUMPROCS 4)
-      endif()
-		  add_test(NAME ${testname}
-		  	  COMMAND
-		  	  ${MPIEXEC} ${MPIEXEC_NUMPROC_FLAG} ${MPIEXEC_MAX_NUMPROCS} ${MPIEXEC_PREFLAGS}
-		  	  test_${testname} ${arguments})
-		  set_tests_properties(${testname} PROPERTIES LABELS "catch;mpi")
-	endfunction()
+  function(add_mpi_test testname)
+    add_catch_test(${testname} COMMON_MAIN common_mpi_catch_main_object NOTEST ${ARGN})
+    unset(arguments)
+    if(CATCH_JUNIT)
+      set(arguments -r junit -o ${PROJECT_BINARY_DIR}/Testing/${testname}.xml)
+    endif()
+    if(NOT MPIEXEC_MAX_NUMPROCS)
+      set(MPIEXEC_MAX_NUMPROCS 4)
+    endif()
+    add_test(NAME ${testname}
+    	  COMMAND
+    	  ${MPIEXEC} ${MPIEXEC_NUMPROC_FLAG} ${MPIEXEC_MAX_NUMPROCS} ${MPIEXEC_PREFLAGS}
+    	  $<TARGET_FILE:test_${testname}> ${arguments})
+    set_tests_properties(${testname} PROPERTIES LABELS "catch;mpi")
+  endfunction()
 
-	add_mpi_test(communicator LIBRARIES sopt)
+  add_mpi_test(communicator LIBRARIES sopt)
   add_mpi_test(mpi_proximals LIBRARIES sopt)
   add_mpi_test(serial_vs_parallel_padmm LIBRARIES sopt tools_for_tests)
 endif()
