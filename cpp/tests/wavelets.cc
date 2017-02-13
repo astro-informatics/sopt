@@ -1,5 +1,6 @@
 #include <catch.hpp>
 #include <random>
+#include <memory>
 
 #include "sopt/types.h"
 #include "sopt/wavelets/direct.h"
