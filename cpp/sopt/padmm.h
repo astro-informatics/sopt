@@ -27,7 +27,7 @@ public:
   //! Type of the Ψ and Ψ^H operations, as well as Φ and Φ^H
   typedef LinearTransform<t_Vector> t_LinearTransform;
   //! Type of the convergence function
-  typedef ConvergenceFunction<Scalar> t_IsConverged;
+  typedef std::function<bool(t_Vector const&, t_Vector const&)> t_IsConverged;
   //! Type of the convergence function
   typedef ProximalFunction<Scalar> t_Proximal;
 
@@ -84,7 +84,8 @@ public:
   SOPT_MACRO(nu, Real);
   //! Lagrange update scale β
   SOPT_MACRO(lagrange_update_scale, Real);
-  //! A function verifying convergence
+  //! \brief A function verifying convergence
+  //! \details It takes as input two arguments: the current solution x and the current residual.
   SOPT_MACRO(is_converged, t_IsConverged);
   //! Measurement operator
   SOPT_MACRO(Phi, t_LinearTransform);
@@ -102,17 +103,22 @@ public:
     g_proximal()(out, gamma, x);
   }
 
+  //! Convergence function that takes only the output as argument
+  ProximalADMM<Scalar> & is_converged(std::function<bool(t_Vector const&x)> const &func) {
+    return is_converged([func](t_Vector const &x, t_Vector const&) { return func(x); });
+  }
+
   //! Vector of target measurements
   t_Vector const &target() const { return target_; }
   //! Sets the vector of target measurements
-  template <class DERIVED> ProximalADMM<DERIVED> &target(Eigen::MatrixBase<DERIVED> const &target) {
+  template <class DERIVED> ProximalADMM<Scalar> &target(Eigen::MatrixBase<DERIVED> const &target) {
     target_ = target;
     return *this;
   }
 
   //! Facilitates call to user-provided convergence function
-  bool is_converged(t_Vector const &x) const {
-    return static_cast<bool>(is_converged()) and is_converged()(x);
+  bool is_converged(t_Vector const &x, t_Vector const &residual) const {
+    return static_cast<bool>(is_converged()) and is_converged()(x, residual);
   }
 
   //! \brief Calls Proximal ADMM
@@ -125,8 +131,20 @@ public:
     return operator()(out, std::get<0>(guess), std::get<1>(guess));
   }
   //! \brief Calls Proximal ADMM
+  //! \param[out] out: Output vector x
+  //! \param[in] guess: initial guess
+  Diagnostic
+  operator()(t_Vector &out, std::tuple<t_Vector const &, t_Vector const &> const &guess) const {
+    return operator()(out, std::get<0>(guess), std::get<1>(guess));
+  }
+  //! \brief Calls Proximal ADMM
   //! \param[in] guess: initial guess
   DiagnosticAndResult operator()(std::tuple<t_Vector, t_Vector> const &guess) const {
+    return operator()(std::tie(std::get<0>(guess), std::get<1>(guess)));
+  }
+  //! \brief Calls Proximal ADMM
+  //! \param[in] guess: initial guess
+  DiagnosticAndResult operator()(std::tuple<t_Vector const&, t_Vector const&> const &guess) const {
     DiagnosticAndResult result;
     static_cast<Diagnostic &>(result) = operator()(result.x, guess);
     return result;
@@ -156,9 +174,20 @@ public:
   //! - x = Φ^T y / ν
   //! - residuals = Φ x - y
   std::tuple<t_Vector, t_Vector> initial_guess() const {
+    return ProximalADMM<SCALAR>::initial_guess(target(), Phi(), nu());
+  }
+
+  //! \brief Computes initial guess for x and the residual using the targets
+  //! \details with y the vector of measurements
+  //! - x = Φ^T y / ν
+  //! - residuals = Φ x - y
+  //!
+  //! This function simplifies creating overloads for operator() in PADMM wrappers.
+  static std::tuple<t_Vector, t_Vector>
+  initial_guess(t_Vector const &target, t_LinearTransform const &phi, Real nu) {
     std::tuple<t_Vector, t_Vector> guess;
-    std::get<0>(guess) = Phi().adjoint() * target() / nu();
-    std::get<1>(guess) = Phi() * std::get<0>(guess) - target();
+    std::get<0>(guess) = phi.adjoint() * target / nu;
+    std::get<1>(guess) = phi * std::get<0>(guess) - target;
     return guess;
   }
 
@@ -213,7 +242,7 @@ operator()(t_Vector &out, t_Vector const &x_guess, t_Vector const &res_guess) co
     iteration_step(out, residual, lambda, z);
     SOPT_LOW_LOG("      - Sum of residuals: {}", residual.array().abs().sum());
 
-    if(is_converged(out)) {
+    if(is_converged(out, residual)) {
       SOPT_MEDIUM_LOG("    - converged in {} of {} iterations", niters, itermax());
       return {niters, true};
     }

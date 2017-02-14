@@ -98,7 +98,9 @@ TEST_CASE("Soft threshhold", "[utility][threshhold]") {
       CHECK(actual(2) == input(2) + threshhold(2));
       CHECK(actual(3) == input(3) - threshhold(3));
 
+#ifdef CATCH_HAS_THROWS_AS
       CHECK_THROWS_AS(soft_threshhold(input, threshhold.head(2)), sopt::Exception);
+#endif
     }
     SECTION("Complex input") {
       Array<t_complex> const actual = soft_threshhold(input.cast<t_complex>(), threshhold);
@@ -107,7 +109,9 @@ TEST_CASE("Soft threshhold", "[utility][threshhold]") {
       CHECK(actual(2) == input(2) + threshhold(2));
       CHECK(actual(3) == input(3) - threshhold(3));
 
+#ifdef CATCH_HAS_THROWS_AS
       CHECK_THROWS_AS(soft_threshhold(input, threshhold.head(2)), sopt::Exception);
+#endif
     }
   }
 }
@@ -145,8 +149,17 @@ TEST_CASE("Relative variation", "[utility][convergence]") {
   sopt::Array<> input = sopt::Array<>::Random(6);
   CHECK(not relvar(input));
   CHECK(relvar(input));
-  CHECK(relvar(input + relvar.epsilon() * 0.5 / 6. * sopt::Array<>::Random(6)));
-  CHECK(not relvar(input + relvar.epsilon() * 1.1 * sopt::Array<>::Ones(6)));
+  CHECK(relvar(input + relvar.tolerance() * 0.5 / 6. * sopt::Array<>::Random(6)));
+  CHECK(not relvar(input + relvar.tolerance() * 1.1 * sopt::Array<>::Ones(6)));
+}
+
+TEST_CASE("Scalar elative variation", "[utility][convergence]") {
+  sopt::ScalarRelativeVariation<double> relvar(1e-8, 1e-8, "Yo");
+  sopt::t_real input = sopt::Array<>::Random(1)(0);
+  CHECK(not relvar(input));
+  CHECK(relvar(input));
+  CHECK(not relvar(input + 0.1));
+  CHECK(relvar(input + 0.1 + 0.1 * relvar.relative_tolerance()));
 }
 
 TEST_CASE("Standard deviation", "[utility]") {

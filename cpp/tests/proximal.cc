@@ -129,12 +129,14 @@ TEST_CASE("Tight-Frame L1 proximal", "[l1][proximal]") {
     check_is_minimum(input, 0.235);
   }
 
+#ifdef CATCH_HAS_THROWS_AS
   SECTION("Weights cannot be negative") {
     CHECK_THROWS_AS(l1.weights(-1e0), Exception);
     Vector<t_real> weights = Vector<t_real>::Random(5).array().abs().matrix();
     weights[2] = -1;
     CHECK_THROWS_AS(l1.weights(weights), Exception);
   }
+#endif
 }
 
 TEST_CASE("L1 proximal utilities", "[l1][utilities]") {

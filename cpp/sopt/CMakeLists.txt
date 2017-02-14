@@ -15,6 +15,10 @@ if(TIFF_FOUND)
   list(APPEND sources utilities.cc)
   list(APPEND headers utilities.h)
 endif()
+if(SOPT_MPI)
+  list(APPEND sources mpi/communicator.cc mpi/registered_types.cc)
+	list(APPEND mpi_headers mpi/communicator.h mpi/registered_types.h mpi/utilities.h)
+endif()
 
 add_library(sopt SHARED ${sources})
 add_dependencies(sopt lookup_dependencies)
@@ -46,9 +50,14 @@ endif()
 if(TARGET openmp::openmp)
   target_link_libraries(sopt openmp::openmp)
 endif()
+if(SOPT_MPI)
+	target_link_libraries(sopt ${MPI_CXX_LIBRARIES})
+  target_include_directories(sopt SYSTEM PUBLIC ${MPI_CXX_INCLUDE_PATH})
+endif()
 
 install(FILES ${headers} DESTINATION include/sopt)
 install(FILES ${wavelet_headers} DESTINATION include/sopt/wavelets)
+install(FILES ${mpi_headers} DESTINATION include/sopt/mpi)
 install(TARGETS sopt
   EXPORT SoptCPPTargets
   DESTINATION share/cmake/sopt
