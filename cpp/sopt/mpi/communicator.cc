@@ -5,7 +5,7 @@
 namespace sopt { namespace mpi {
 
 void Communicator::delete_comm(Communicator::Impl *const impl) {
-  if(impl->comm != MPI_COMM_WORLD)
+  if(impl->comm != MPI_COMM_WORLD and impl->comm != MPI_COMM_SELF and impl->comm != MPI_COMM_NULL)
     MPI_Comm_free(&impl->comm);
   delete impl;
 }
