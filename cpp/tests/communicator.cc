@@ -73,11 +73,17 @@ TEST_CASE("Creates an mpi communicator") {
     CHECK(y == y0);
 
     std::vector<t_int> v0 = {3, 2, 1};
-    auto const v
-      = world.rank() == world.root_id() ? world.broadcast(v0) : world.broadcast<std::vector<t_int>>();
+    auto const v = world.rank() == world.root_id() ? world.broadcast(v0) :
+                                                     world.broadcast<std::vector<t_int>>();
     CHECK(v[0] == v0[0]);
     CHECK(v[1] == v0[1]);
     CHECK(v[2] == v0[2]);
+
+    Image<t_int> image0(2, 2);
+    image0 << 3, 2, 1, 0;
+    auto const image = world.rank() == world.root_id() ? world.broadcast(image0) :
+                                                         world.broadcast<Image<t_int>>();
+    CHECK(image.matrix() == image0.matrix());
   }
 }
 #endif
