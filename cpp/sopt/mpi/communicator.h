@@ -97,6 +97,13 @@ public:
   all_sum_all(T &image) const {
     all_reduce(image, MPI_SUM);
   }
+  template <class T>
+  typename std::enable_if<is_registered_type<typename T::Scalar>::value, T>::type
+  all_sum_all(T const &image) const {
+    T result(image);
+    all_reduce(result, MPI_SUM);
+    return result;
+  }
 
   //! Broadcasts object
   template <class T>
