@@ -5,6 +5,7 @@
 
 #include "sopt/config.h"
 #include "sopt/linear_transform.h"
+#include "sopt/mpi/communicator.h"
 #include "sopt/wavelets/sara.h"
 #include "sopt/wavelets/wavelets.h"
 
@@ -83,6 +84,39 @@ LinearTransform<Vector<T>>
 linear_transform(wavelets::SARA const &sara, t_uint rows, t_uint cols = 1) {
   return details::linear_transform<T, wavelets::SARA>(sara, rows, cols, sara.size());
 }
+#ifdef SOPT_MPI
+template <class T>
+LinearTransform<Vector<T>> linear_transform(wavelets::SARA const &sara, t_uint rows, t_uint cols,
+                                            sopt::mpi::Communicator const &comm) {
+  auto const factor = sara.size();
+  auto const normalization = std::sqrt(sara.size()) / std::sqrt(comm.all_sum_all(sara.size()));
+  return LinearTransform<Vector<T>>(
+      [&sara, rows, cols, factor, comm, normalization](Vector<T> &out, Vector<T> const &x) {
+        assert(static_cast<t_uint>(x.size()) == rows * cols * factor);
+        out.resize(rows * cols);
+        if(sara.size() == 0)
+          out.fill(0);
+        else {
+          auto signal = Image<T>::Map(out.data(), rows, cols);
+          auto const coeffs = Image<T>::Map(x.data(), rows, cols * factor);
+          sara.indirect(coeffs, signal);
+          out *= normalization;
+        }
+        comm.all_sum_all(out);
+      },
+      {{0, 1, static_cast<t_int>(rows * cols)}},
+      [&sara, rows, cols, factor, normalization](Vector<T> &out, Vector<T> const &x) {
+        assert(static_cast<t_uint>(x.size()) == rows * cols);
+        out.resize(rows * cols * factor);
+        auto const signal = Image<T>::Map(x.data(), rows, cols);
+        auto coeffs = Image<T>::Map(out.data(), rows, cols * factor);
+        sara.direct(coeffs, signal);
+        out *= normalization;
+      },
+      {{0, 1, static_cast<t_int>(factor * rows * cols)}});
+}
+#endif
+
 } /* sopt */
 
 #endif

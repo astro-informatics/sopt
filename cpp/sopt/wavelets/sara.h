@@ -36,6 +36,8 @@ public:
     for(; first != last; ++first)
       emplace_back(std::get<0>(*first), std::get<1>(*first));
   }
+
+  SARA(const_iterator first, const_iterator last) : std::vector<Wavelet>(first, last) {}
   //! Destructor
   virtual ~SARA() {}
 
@@ -98,6 +100,8 @@ public:
 
   //! Number of levels over which to do transform
   t_uint max_levels() const {
+    if(size() == 0)
+      return 0;
     auto cmp = [](Wavelet const &a, Wavelet const &b) { return a.levels() < b.levels(); };
     return std::max_element(begin(), end(), cmp)->levels();
   }
@@ -121,6 +125,8 @@ void SARA::direct(Eigen::ArrayBase<T1> &coeffs, Eigen::ArrayBase<T0> const &sign
     coeffs.derived().resize(signal.rows(), signal.cols() * size());
   if(coeffs.rows() != signal.rows() or coeffs.cols() != signal.cols() * static_cast<t_int>(size()))
     throw std::length_error("Incorrect size for output matrix(or could not resize)");
+  if(size() == 0)
+    return;
   auto const Ncols = signal.cols();
 #ifndef SOPT_OPENMP
   SOPT_TRACE("Calling direct sara without threads");
@@ -143,6 +149,8 @@ void SARA::direct(Eigen::ArrayBase<T1> &coeffs, Eigen::ArrayBase<T0> const &sign
 
 template <class T0, class T1>
 void SARA::indirect(Eigen::ArrayBase<T1> const &coeffs, Eigen::ArrayBase<T0> &signal) const {
+  if(size() == 0)
+    throw std::runtime_error("Empty wavelets: adjoint operation undefined");
   SOPT_WAVELET_ERROR_MACRO(coeffs);
   if(coeffs.cols() % size() != 0)
     throw std::length_error(
