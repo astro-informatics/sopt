@@ -7,6 +7,7 @@
 
 #include <memory>
 #include <mpi.h>
+#include <string>
 #include <type_traits>
 #include <vector>
 #include "sopt/mpi/registered_types.h"
@@ -129,6 +130,7 @@ public:
                               and not std::is_base_of<Eigen::EigenBase<T>, T>::value,
                           T>::type
   broadcast(t_uint const root = root_id()) const;
+  std::string broadcast(std::string const &input, t_uint const root = root_id()) const;
 
   //! Scatter one object per proc
   template <class T>
@@ -258,7 +260,7 @@ template <class T>
 typename std::enable_if<is_registered_type<T>::value, T>::type
 Communicator::broadcast(t_uint const root) const {
   assert(root < size());
-  if(root == root_id())
+  if(root == rank())
     throw std::runtime_error("Root process should call the *other* broadcasting function");
   T result;
   MPI_Bcast(&result, 1, registered_type(result), root, **this);
@@ -270,17 +272,21 @@ typename std::enable_if<is_registered_type<typename T::Scalar>::value, T>::type
 Communicator::broadcast(T const &vec, t_uint const root) const {
   if(not impl)
     return vec;
+  if(rank() != root)
+    return broadcast<T>(root);
   assert(root < size());
   auto const Nx = broadcast(vec.rows(), root);
   auto const Ny = broadcast(vec.cols(), root);
-  auto result = vec;
-  MPI_Bcast(result.data(), Nx * Ny, Type<typename T::Scalar>::value, root, **this);
-  return result;
+  MPI_Bcast(const_cast<typename T::Scalar *>(vec.data()), Nx * Ny, Type<typename T::Scalar>::value,
+            root, **this);
+  return vec;
 }
 template <class T>
 typename std::enable_if<is_registered_type<typename T::Scalar>::value, T>::type
 Communicator::broadcast(t_uint const root) const {
   assert(root < size());
+  if(root == rank())
+    throw std::runtime_error("Root process should call the *other* broadcasting function");
   auto const Nx = broadcast(decltype(std::declval<T>().rows())(0), root);
   auto const Ny = broadcast(decltype(std::declval<T>().cols())(0), root);
   T result(Nx, Ny);
@@ -295,10 +301,12 @@ Communicator::broadcast(T const &vec, t_uint const root) const {
   assert(root < size());
   if(not impl)
     return vec;
+  if(rank() != root)
+    return broadcast<T>(root);
   auto const N = broadcast(vec.size(), root);
-  auto result = vec;
-  MPI_Bcast(result.data(), N, Type<typename T::value_type>::value, root, **this);
-  return result;
+  MPI_Bcast(const_cast<typename T::value_type *>(vec.data()), N,
+            Type<typename T::value_type>::value, root, **this);
+  return vec;
 }
 template <class T>
 typename std::enable_if<is_registered_type<typename T::value_type>::value
@@ -306,12 +314,13 @@ typename std::enable_if<is_registered_type<typename T::value_type>::value
                         T>::type
 Communicator::broadcast(t_uint const root) const {
   assert(root < size());
+  if(root == rank())
+    throw std::runtime_error("Root process should call the *other* broadcasting function");
   auto const N = broadcast(decltype(std::declval<T>().size())(0), root);
   T result(N);
   MPI_Bcast(result.data(), result.size(), Type<typename T::value_type>::value, root, **this);
   return result;
 }
-
 } /* optime::mpi */
 } /* optimet */
 #endif /* ifdef SOPT_MPI */

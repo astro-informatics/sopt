@@ -63,27 +63,42 @@ TEST_CASE("Creates an mpi communicator") {
   }
 
   SECTION("Broadcast") {
-    auto const result = world.broadcast(world.root_id() == world.rank() ? 5 : 2, world.root_id());
-    CHECK(result == 5);
+    SECTION("integer") {
+      auto const result = world.broadcast(world.root_id() == world.rank() ? 5 : 2, world.root_id());
+      CHECK(result == 5);
+    }
 
-    Vector<t_int> y0(3);
-    y0 << 3, 2, 1;
-    auto const y
-        = world.rank() == world.root_id() ? world.broadcast(y0) : world.broadcast<Vector<t_int>>();
-    CHECK(y == y0);
+    SECTION("Eigen vector") {
+      Vector<t_int> y0(3);
+      y0 << 3, 2, 1;
+      auto const y = world.rank() == world.root_id() ? world.broadcast(y0) :
+                                                       world.broadcast<Vector<t_int>>();
+      CHECK(y == y0);
 
-    std::vector<t_int> v0 = {3, 2, 1};
-    auto const v = world.rank() == world.root_id() ? world.broadcast(v0) :
-                                                     world.broadcast<std::vector<t_int>>();
-    CHECK(v[0] == v0[0]);
-    CHECK(v[1] == v0[1]);
-    CHECK(v[2] == v0[2]);
+      std::vector<t_int> v0 = {3, 2, 1};
+      auto const v = world.rank() == world.root_id() ? world.broadcast(v0) :
+                                                       world.broadcast<std::vector<t_int>>();
+      CHECK(v[0] == v0[0]);
+      CHECK(v[1] == v0[1]);
+      CHECK(v[2] == v0[2]);
+    }
 
-    Image<t_int> image0(2, 2);
-    image0 << 3, 2, 1, 0;
-    auto const image = world.rank() == world.root_id() ? world.broadcast(image0) :
-                                                         world.broadcast<Image<t_int>>();
-    CHECK(image.matrix() == image0.matrix());
+    SECTION("Eigen image - and check for correct size initialization") {
+      Image<t_int> image0(2, 2);
+      image0 << 3, 2, 1, 0;
+      auto const image = world.rank() == world.root_id() ? world.broadcast(image0) :
+                                                           world.broadcast<Image<t_int>>();
+      CHECK(image.matrix() == image0.matrix());
+
+      Image<t_int> const image1 = world.is_root() ? image0 : Image<t_int>();
+      CHECK(world.broadcast(image1).matrix() == image0.matrix());
+    }
+
+    SECTION("std::string") {
+      auto const expected = "Hello World!";
+      std::string const input = world.is_root() ? expected: "";
+      CHECK(world.broadcast(input) == expected);
+    }
   }
 }
 #endif
