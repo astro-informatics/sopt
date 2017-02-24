@@ -78,9 +78,7 @@ TEST_CASE("Creates an mpi communicator") {
       std::vector<t_int> v0 = {3, 2, 1};
       auto const v = world.rank() == world.root_id() ? world.broadcast(v0) :
                                                        world.broadcast<std::vector<t_int>>();
-      CHECK(v[0] == v0[0]);
-      CHECK(v[1] == v0[1]);
-      CHECK(v[2] == v0[2]);
+      CHECK(std::equal(v.begin(), v.end(), v0.begin()));
     }
 
     SECTION("Eigen image - and check for correct size initialization") {
