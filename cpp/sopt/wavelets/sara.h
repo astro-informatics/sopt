@@ -128,22 +128,23 @@ void SARA::direct(Eigen::ArrayBase<T1> &coeffs, Eigen::ArrayBase<T0> const &sign
   if(size() == 0)
     return;
   auto const Ncols = signal.cols();
-#ifndef SOPT_OPENMP
-  SOPT_TRACE("Calling direct sara without threads");
-  for(size_type i(0); i < size(); ++i)
-    at(i).direct(coeffs.leftCols((i + 1) * Ncols).rightCols(Ncols), signal);
-#else
+#ifdef SOPT_OPENMP
 #pragma omp parallel
+#endif
   {
+#ifndef SOPT_OPENMP
+    SOPT_TRACE("Calling direct sara without threads");
+#else
     if(omp_get_thread_num() == 0) {
       SOPT_TRACE("Calling direct sara with {} threads of {}", omp_get_num_threads(),
                  omp_get_max_threads());
     }
 #pragma omp for
+#endif
     for(size_type i = 0; i < size(); ++i)
       at(i).direct(coeffs.leftCols((i + 1) * Ncols).rightCols(Ncols), signal);
   }
-#endif
+
   coeffs /= std::sqrt(size());
 }
 
@@ -159,30 +160,27 @@ void SARA::indirect(Eigen::ArrayBase<T1> const &coeffs, Eigen::ArrayBase<T0> &si
     signal.derived().resize(coeffs.rows(), coeffs.cols() / size());
   if(coeffs.rows() != signal.rows() or coeffs.cols() != signal.cols() * static_cast<t_int>(size()))
     throw std::length_error("Incorrect size for output matrix(or could not resize)");
-
+  auto priv_image = Image<typename T0::Scalar>::Zero(signal.rows(), signal.cols()).eval();
   auto const Ncols = signal.cols();
-#ifndef SOPT_OPENMP
-  SOPT_TRACE("Calling indirect sara without threads");
-  signal = front().indirect(coeffs.leftCols(Ncols).rightCols(Ncols));
-  for(size_type i(1); i < size(); ++i)
-    signal += at(i).indirect(coeffs.leftCols((i + 1) * Ncols).rightCols(Ncols));
-#else
-  signal.fill(0);
+#ifdef SOPT_OPENMP
+#pragma omp declare reduction(+ : Image < typename T0::Scalar > : omp_out += omp_in) initializer(  \
+    omp_priv = Image < typename T0::Scalar > ::Zero(omp_orig.rows(), omp_orig.cols()))
 #pragma omp parallel
+#endif
   {
+#ifndef SOPT_OPENMP
+    SOPT_TRACE("Calling indirect sara without threads");
+#else
     if(omp_get_thread_num() == 0) {
       SOPT_TRACE("Calling indirect sara with {} threads of {}", omp_get_num_threads(),
                  omp_get_max_threads());
     }
-    Image<typename T0::Scalar> reductor = Image<typename T0::Scalar>::Zero(signal.rows(), Ncols);
-#pragma omp for
-    for(size_type i = 0; i < size(); ++i)
-      reductor += at(i).indirect(coeffs.leftCols((i + 1) * Ncols).rightCols(Ncols));
-#pragma omp critical
-    signal += reductor;
-  }
+#pragma omp for reduction(+ : priv_image)
 #endif
-  signal /= std::sqrt(size());
+    for(size_type i = 0; i < size(); ++i)
+      priv_image += at(i).indirect(coeffs.leftCols((i + 1) * Ncols).rightCols(Ncols));
+  }
+  signal = priv_image / std::sqrt(size());
 }
 
 #undef SOPT_WAVELET_ERROR_MACRO
