@@ -2,6 +2,7 @@
 #define SOPT_MPI_COMMUNICATOR_H
 
 #include "sopt/config.h"
+#include "sopt/mpi/session.h"
 
 #ifdef SOPT_MPI
 
@@ -35,8 +36,8 @@ class Communicator {
   };
 
 public:
-  //! World communicator
-  Communicator() : impl() {}
+  //! No-op communicator
+  Communicator() : impl(), session() {}
 
   static Communicator World() { return Communicator(MPI_COMM_WORLD); }
   static Communicator Self() { return Communicator(MPI_COMM_SELF); }
@@ -162,6 +163,9 @@ public:
 private:
   //! Holds data associated with the context
   std::shared_ptr<Impl const> impl;
+  //! \brief Holds a reference to the session singleton
+  //! \details Ensures MPI_Finalized is called after destruction of this object
+  std::shared_ptr<mpi::details::initializer> session;
 
   //! Deletes an mpi communicator
   static void delete_comm(Impl *impl);

@@ -1,6 +1,7 @@
 #include <exception>
 #include <mpi.h>
-#include "communicator.h"
+#include "sopt/mpi/communicator.h"
+#include "sopt/mpi/session.h"
 
 namespace sopt {
 namespace mpi {
@@ -11,7 +12,7 @@ void Communicator::delete_comm(Communicator::Impl *const impl) {
   delete impl;
 }
 
-Communicator::Communicator(MPI_Comm const &comm) : impl(nullptr) {
+Communicator::Communicator(MPI_Comm const &comm) : impl(nullptr), session(session_singleton()) {
   if(comm == MPI_COMM_NULL)
     return;
   int size, rank;
