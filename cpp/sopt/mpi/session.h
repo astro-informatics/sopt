@@ -2,6 +2,7 @@
 #define SOPT_MPI_SESSION_H
 
 #include "sopt/config.h"
+#include <memory>
 
 #ifdef SOPT_MPI
 #include <mpi.h>
@@ -10,17 +11,21 @@
 namespace sopt {
 namespace mpi {
 #ifdef SOPT_MPI
+namespace details {
+struct initializer_tag {
+  static void deleter(initializer_tag *tag);
+};
+}
 //! Calls mpi init
-void init(int argc, const char **argv);
+std::unique_ptr<details::initializer_tag, decltype(&details::initializer_tag::deleter)>
+init(int argc, const char **argv);
 //! True if mpi has been initialized
 bool initialized();
 //! True if mpi has been finalized
 bool finalized();
-//! Closes mpi stuff
-void finalize();
 #else
 inline void init(int argc, const char **argv) {}
-inline void finalize() {}
+inline bool initialized() { return false; };
 #endif
 } /* sopt::mpi */
 } /* sopt */
