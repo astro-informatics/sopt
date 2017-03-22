@@ -10,7 +10,6 @@ using namespace sopt;
 std::vector<char const *> cargs;
 TEST_CASE("Create/delete session") {
   CHECK(mpi::initialized() == false);
-  CHECK(mpi::finalized() == false);
   auto session = mpi::init(cargs.size(), cargs.data());
   CHECK(mpi::initialized() == true);
   CHECK(mpi::finalized() == false);
