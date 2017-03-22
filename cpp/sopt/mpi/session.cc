@@ -9,13 +9,13 @@ namespace sopt {
 namespace mpi {
 
 namespace details {
-void initializer_tag::deleter(initializer_tag *tag) {
+void initializer::deleter(initializer *tag) {
   if(not tag)
     return;
 
   delete tag;
 
-  if(finalized())
+  if(finalized() or not initialized())
     return;
 
   auto const error = MPI_Finalize();
@@ -24,14 +24,33 @@ void initializer_tag::deleter(initializer_tag *tag) {
     throw std::runtime_error("MPI error");
   }
 }
+std::weak_ptr<initializer> initializer::singleton;
 }
 
-std::unique_ptr<details::initializer_tag, decltype(&details::initializer_tag::deleter)>
-init(int argc, const char **argv) {
-  if(initialized())
-    return {nullptr, &details::initializer_tag::deleter};
-  MPI_Init(&argc, const_cast<char ***>(&argv));
-  return {new details::initializer_tag, &details::initializer_tag::deleter};
+std::shared_ptr<details::initializer> init(int argc, const char **argv) {
+  if(finalized())
+    throw std::runtime_error("MPI session has already been finalized");
+  if(not initialized()) {
+    assert(details::initializer::singleton.expired());
+    std::shared_ptr<details::initializer> ptr(new details::initializer,
+                                              &details::initializer::deleter);
+    if(MPI_Init(&argc, const_cast<char ***>(&argv)) == MPI_SUCCESS)
+      details::initializer::singleton = ptr;
+    return details::initializer::singleton.lock();
+  }
+  return session_singleton();
+}
+
+std::shared_ptr<details::initializer> session_singleton() {
+  if(not initialized())
+    throw std::runtime_error("MPI session not initialized");
+  if(details::initializer::singleton.expired()) {
+    std::shared_ptr<details::initializer> ptr(new details::initializer,
+                                              &details::initializer::deleter);
+    details::initializer::singleton = ptr;
+    return details::initializer::singleton.lock();
+  }
+  return details::initializer::singleton.lock();
 }
 
 bool initialized() {

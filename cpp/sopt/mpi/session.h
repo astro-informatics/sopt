@@ -12,13 +12,15 @@ namespace sopt {
 namespace mpi {
 #ifdef SOPT_MPI
 namespace details {
-struct initializer_tag {
-  static void deleter(initializer_tag *tag);
+struct initializer {
+  static void deleter(initializer *tag);
+  //! Gets singleton to session
+  static std::weak_ptr<details::initializer> singleton;
 };
 }
 //! Calls mpi init
-std::unique_ptr<details::initializer_tag, decltype(&details::initializer_tag::deleter)>
-init(int argc, const char **argv);
+std::shared_ptr<details::initializer> init(int argc, const char **argv);
+std::shared_ptr<details::initializer> session_singleton();
 //! True if mpi has been initialized
 bool initialized();
 //! True if mpi has been finalized

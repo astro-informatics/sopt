@@ -14,7 +14,7 @@ TEST_CASE("Create/delete session") {
   auto session = mpi::init(cargs.size(), cargs.data());
   CHECK(mpi::initialized() == true);
   CHECK(mpi::finalized() == false);
-  session.reset(nullptr);
+  session.reset();
   CHECK(mpi::initialized() == true);
   CHECK(mpi::finalized() == true);
 }
