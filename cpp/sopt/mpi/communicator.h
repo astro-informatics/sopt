@@ -160,6 +160,14 @@ public:
     return comm;
   }
 
+  //! Barrier to sync procs
+  void barrier() const {
+    if(not impl)
+      return;
+    if(MPI_Barrier(**this) != MPI_SUCCESS)
+      throw std::runtime_error("Encountered error in mpi barrier");
+  }
+
 private:
   //! Holds data associated with the context
   std::shared_ptr<Impl const> impl;
