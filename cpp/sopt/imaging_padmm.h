@@ -323,7 +323,11 @@ template <class SCALAR>
 bool ImagingProximalADMM<SCALAR>::is_converged(ScalarRelativeVariation<Scalar> &scalvar,
                                                t_Vector const &x, t_Vector const &residual) const {
   auto const user = static_cast<bool>(is_converged()) == false or is_converged()(x, residual);
-  return user and residual_convergence(x, residual) and objective_convergence(scalvar, x, residual);
+  auto const res = residual_convergence(x, residual);
+  auto const obj = objective_convergence(scalvar, x, residual);
+  // beware of short-circuiting!
+  // better evaluate each convergence function everytime, especially with mpi
+  return user and res and obj;
 }
 }
 } /* sopt::algorithm */
