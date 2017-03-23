@@ -9,7 +9,7 @@
 #include "sopt/logging.h"
 #include "sopt/wavelets/wavelets.h"
 #ifdef SOPT_MPI
-#include "sopt/mpi/Communicator.h"
+#include "sopt/mpi/communicator.h"
 #endif
 
 namespace sopt {
