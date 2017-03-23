@@ -187,9 +187,7 @@ public:
   //! Calls proximal function
   void operator()(Vector<T> &out, Vector<T> const &x) const {
 #ifdef SOPT_MPI
-    auto const norm = weights().size() == 1 ?
-                          mpi::l2_norm(x, communicator()) * std::abs(weights()(0)) :
-                          mpi::l2_norm((x.array() * weights().array()).matrix(), communicator());
+    auto const norm = mpi::l2_norm(x.array(), weights().array(), communicator());
 #else
     auto const norm = weights().size() == 1 ? x.stableNorm() * std::abs(weights()(0)) :
                                               (x.array() * weights().array()).matrix().stableNorm();
