@@ -8,6 +8,9 @@
 #include <vector>
 #include "sopt/logging.h"
 #include "sopt/wavelets/wavelets.h"
+#ifdef SOPT_MPI
+#include "sopt/mpi/Communicator.h"
+#endif
 
 namespace sopt {
 namespace wavelets {
@@ -200,6 +203,16 @@ typename T0::PlainObject SARA::direct(Eigen::ArrayBase<T0> const &signal) const 
   (*this).direct(result, signal);
   return result;
 }
+
+#ifdef SOPT_MPI
+//! \brief Creates a sara transform distributed across processors
+//! \details This is a convenience function for creating a distributed linear transform above. It
+//! does not perform any mpi operation itself.
+SARA distribute_sara(SARA const &all_wavelets, t_uint size, t_uint rank);
+inline SARA distribute_sara(SARA const &all_wavelets, mpi::Communicator const &comm) {
+  return distribute_sara(all_wavelets, comm.size(), comm.rank());
+}
+#endif
 }
 }
 #endif
