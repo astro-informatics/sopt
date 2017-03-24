@@ -274,19 +274,19 @@ operator()(t_Vector &out, t_Vector const &x_guess, t_Vector const &res_guess) co
   std::pair<Real, Real> objectives{sopt::l1_norm(Psi().adjoint() * out, l1_weights), 0};
 
   for(; niters < itermax(); ++niters) {
-    SOPT_LOW_LOG("    - Iteration {}/{}", niters, itermax());
+    SOPT_LOW_LOG("    - [PD] Iteration {}/{}", niters, itermax());
     iteration_step(out, residual, s, v, x_bar);
-    SOPT_LOW_LOG("      - Sum of residuals: {}", residual.array().abs().sum());
+    SOPT_LOW_LOG("      - [PD] Sum of residuals: {}", residual.array().abs().sum());
 
     objectives.second = objectives.first;
     objectives.first = sopt::l1_norm(Psi().adjoint() * out, l1_weights);
     t_real const relative_objective
         = std::abs(objectives.first - objectives.second) / objectives.first;
-    SOPT_LOW_LOG("    - objective: obj value = {}, rel obj = {}", objectives.first,
+    SOPT_LOW_LOG("    - [PD] objective: obj value = {}, rel obj = {}", objectives.first,
                  relative_objective);
 
     auto const residual_norm = sopt::l2_norm(residual, weights);
-    SOPT_LOW_LOG("      - residual norm = {}, residual convergence = {}", residual_norm,
+    SOPT_LOW_LOG("      - [PD] residual norm = {}, residual convergence = {}", residual_norm,
                  residual_convergence());
 
     auto const user = (not has_user_convergence) or is_converged(out);
@@ -295,13 +295,13 @@ operator()(t_Vector &out, t_Vector const &x_guess, t_Vector const &res_guess) co
 
     converged = user and res and rel;
     if(converged) {
-      SOPT_MEDIUM_LOG("    - converged in {} of {} iterations", niters, itermax());
+      SOPT_MEDIUM_LOG("    - [PD] converged in {} of {} iterations", niters, itermax());
       break;
     }
   }
   // check function exists, otherwise, don't know if convergence is meaningful
   if(not converged)
-    SOPT_ERROR("    - did not converge within {} iterations", itermax());
+    SOPT_ERROR("    - [PD] did not converge within {} iterations", itermax());
 
   return {niters, converged, std::move(residual)};
 }

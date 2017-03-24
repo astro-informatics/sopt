@@ -273,12 +273,12 @@ template <class T0, class MIXING>
 typename L1<SCALAR>::Diagnostic L1<SCALAR>::
 operator()(Eigen::MatrixBase<T0> &out, Real gamma, Vector<Scalar> const &x, MIXING mixing) const {
 
-  SOPT_MEDIUM_LOG("  Starting Proximal L1 operator:");
+  SOPT_MEDIUM_LOG("Starting Proximal L1 operator:");
   t_uint niters = 0;
   out = x;
 
   Breaker breaker(objective(out, x, gamma), tolerance(), false); // not fista_mixing());
-  SOPT_LOW_LOG("    - iter {}, prox_fval = {}", niters, breaker.current());
+  SOPT_LOW_LOG("    - [ProxL1] iter {}, prox_fval = {}", niters, breaker.current());
   Vector<Scalar> const res = Psi().adjoint() * out;
   Vector<Scalar> u_l1 = 1e0 / nu() * (res - apply_soft_threshhold(gamma, res));
   apply_constraints(out, x - Psi() * u_l1);
@@ -287,7 +287,7 @@ operator()(Eigen::MatrixBase<T0> &out, Real gamma, Vector<Scalar> const &x, MIXI
   for(++niters; niters < itermax() or itermax() == 0; ++niters) {
 
     auto const do_break = breaker(objective(x, out, gamma));
-    SOPT_LOW_LOG("    - iter {}, prox_fval = {}, rel_fval = {}", niters, breaker.current(),
+    SOPT_LOW_LOG("    - [ProxL1] iter {}, prox_fval = {}, rel_fval = {}", niters, breaker.current(),
                  breaker.relative_variation());
     if(do_break)
       break;
@@ -301,10 +301,10 @@ operator()(Eigen::MatrixBase<T0> &out, Real gamma, Vector<Scalar> const &x, MIXI
     SOPT_WARN("Two-cycle detected when computing L1");
 
   if(breaker.converged()) {
-    SOPT_LOW_LOG("  Proximal L1 operator converged at {} in {} iterations", breaker.current(),
+    SOPT_LOW_LOG("Proximal L1 operator converged at {} in {} iterations", breaker.current(),
                  niters);
   } else
-    SOPT_ERROR("  Proximal L1 operator did not converge after {} iterations", niters);
+    SOPT_ERROR("Proximal L1 operator did not converge after {} iterations", niters);
   return {niters, breaker.relative_variation(), breaker.current(), breaker.converged()};
 }
 

@@ -238,18 +238,18 @@ operator()(t_Vector &out, t_Vector const &x_guess, t_Vector const &res_guess) co
   out = x_guess;
 
   for(t_uint niters(0); niters < itermax(); ++niters) {
-    SOPT_LOW_LOG("    - Iteration {}/{}", niters, itermax());
+    SOPT_LOW_LOG("    - [PADMM] Iteration {}/{}", niters, itermax());
     iteration_step(out, residual, lambda, z);
-    SOPT_LOW_LOG("      - Sum of residuals: {}", residual.array().abs().sum());
+    SOPT_LOW_LOG("      - [PADMM] Sum of residuals: {}", residual.array().abs().sum());
 
     if(is_converged(out, residual)) {
-      SOPT_MEDIUM_LOG("    - converged in {} of {} iterations", niters, itermax());
+      SOPT_MEDIUM_LOG("    - [PADMM] converged in {} of {} iterations", niters, itermax());
       return {niters, true};
     }
   }
   // check function exists, otherwise, don't know if convergence is meaningful
   if(static_cast<bool>(is_converged()))
-    SOPT_ERROR("    - did not converge within {} iterations", itermax());
+    SOPT_ERROR("    - [PADMM] did not converge within {} iterations", itermax());
   return {itermax(), false, std::move(residual)};
 }
 }
