@@ -238,20 +238,22 @@ operator()(t_Vector &out, t_Vector const &x_guess, t_Vector const &res_guess) co
   t_Vector residual = res_guess;
   out = x_guess;
 
-  for(t_uint niters(0); niters < itermax(); ++niters) {
+  t_uint niters(0);
+  bool converged = false;
+  for(; (not converged) && (niters < itermax()); ++niters) {
     SOPT_LOW_LOG("    - [PADMM] Iteration {}/{}", niters, itermax());
     iteration_step(out, residual, lambda, z);
     SOPT_LOW_LOG("      - [PADMM] Sum of residuals: {}", residual.array().abs().sum());
-
-    if(is_converged(out, residual)) {
-      SOPT_MEDIUM_LOG("    - [PADMM] converged in {} of {} iterations", niters, itermax());
-      return {niters, true};
-    }
+    converged = is_converged(out, residual);
   }
-  // check function exists, otherwise, don't know if convergence is meaningful
-  if(static_cast<bool>(is_converged()))
+
+  if(converged) {
+    SOPT_MEDIUM_LOG("    - [PADMM] converged in {} of {} iterations", niters, itermax());
+  } else if(static_cast<bool>(is_converged())) {
+    // not meaningful if not convergence function
     SOPT_ERROR("    - [PADMM] did not converge within {} iterations", itermax());
-  return {itermax(), false, std::move(residual)};
+  }
+  return {niters, converged, std::move(residual)};
 }
 }
 } /* sopt::algorithm */
