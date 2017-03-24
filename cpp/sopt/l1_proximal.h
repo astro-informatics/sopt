@@ -8,6 +8,10 @@
 #include "sopt/linear_transform.h"
 #include "sopt/maths.h"
 #include "sopt/proximal_expression.h"
+#ifdef SOPT_MPI
+#include "sopt/mpi/communicator.h"
+#include "sopt/mpi/utilities.h"
+#endif
 
 namespace sopt {
 namespace proximal {
@@ -25,8 +29,20 @@ public:
   //! Underlying real scalar type
   typedef typename real_type<Scalar>::type Real;
 
+#ifdef SOPT_MPI
+  //! \brief MPI constructor with direct and adjoint space communicators
+  //! \details The communicators are only using when computing the objective function. The objective
+  //! function is composed of two parts: one in direct space (input when applying Psi), and
+  //! one in adjoint space (input when applying adjoint). The two spaces can be distributed or not,
+  //! independantly of one another. Hence the two communicators.
+  L1TightFrame(mpi::Communicator const &direct_comm = mpi::Communicator(),
+               mpi::Communicator const &adjoint_comm = mpi::Communicator())
+      : Psi_(linear_transform_identity<Scalar>()), nu_(1e0), direct_space_comm_(direct_comm),
+        adjoint_space_comm_(adjoint_comm), weights_(Vector<Real>::Ones(1)) {}
+#else
   L1TightFrame()
       : Psi_(linear_transform_identity<Scalar>()), nu_(1e0), weights_(Vector<Real>::Ones(1)) {}
+#endif
 
 #define SOPT_MACRO(NAME, TYPE)                                                                     \
   TYPE const &NAME() const { return NAME##_; }                                                     \
@@ -43,6 +59,12 @@ public:
   SOPT_MACRO(Psi, LinearTransform<Vector<Scalar>>);
   //! Bound on the squared norm of the operator Ψ
   SOPT_MACRO(nu, Real);
+#ifdef SOPT_MPI
+  //! Communicator for summing in direct space (input when applying Psi)
+  SOPT_MACRO(direct_space_comm, mpi::Communicator);
+  //! Communicator for summing in adjoint space (input when applying Psi^T)
+  SOPT_MACRO(adjoint_space_comm, mpi::Communicator);
+#endif
 #undef SOPT_MACRO
   //! Weights of the l1 norm
   Vector<Real> const &weights() const { return weights_; }
@@ -122,7 +144,13 @@ typename std::enable_if<is_complex<SCALAR>::value == is_complex<typename T0::Sca
                         typename real_type<SCALAR>::type>::type
 L1TightFrame<SCALAR>::objective(Eigen::MatrixBase<T0> const &x, Eigen::MatrixBase<T1> const &z,
                                 Real const &gamma) const {
+#ifdef SOPT_MPI
+  auto const adj = gamma * sopt::mpi::l1_norm(Psi().adjoint() * z, weights(), adjoint_space_comm());
+  auto const dir = direct_space_comm().all_sum_all(0.5 * (x - z).squaredNorm());
+  return adj + dir;
+#else
   return 0.5 * (x - z).squaredNorm() + gamma * sopt::l1_norm(Psi().adjoint() * z, weights());
+#endif
 }
 
 //! \brief L1 proximal, including linear transform
@@ -141,6 +169,10 @@ public:
   class Breaker;
 
   using L1TightFrame<SCALAR>::objective;
+#ifdef SOPT_MPI
+  using L1TightFrame<SCALAR>::direct_space_comm;
+  using L1TightFrame<SCALAR>::adjoint_space_comm;
+#endif
 
   //! Underlying scalar type
   typedef typename L1TightFrame<SCALAR>::Scalar Scalar;
@@ -187,9 +219,16 @@ public:
     return result;
   }
 
+#ifdef SOPT_MPI
+  L1(mpi::Communicator const &direct_comm = mpi::Communicator(),
+     mpi::Communicator const &adjoint_comm = mpi::Communicator())
+      : L1TightFrame<SCALAR>(direct_comm, adjoint_comm), itermax_(0), tolerance_(1e-8),
+        positivity_constraint_(false), real_constraint_(false), fista_mixing_(true) {}
+#else
   L1()
       : L1TightFrame<SCALAR>(), itermax_(0), tolerance_(1e-8), positivity_constraint_(false),
         real_constraint_(false), fista_mixing_(true) {}
+#endif
 
 #define SOPT_MACRO(NAME, TYPE)                                                                     \
   TYPE const &NAME() const { return NAME##_; }                                                     \

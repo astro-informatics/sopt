@@ -210,6 +210,11 @@ public:
   SOPT_MACRO(weights, l1, L1);
   SOPT_MACRO(epsilon, l2ball, WeightedL2Ball);
   SOPT_MACRO(weights, l2ball, WeightedL2Ball);
+#ifdef SOPT_MPI
+  SOPT_MACRO(communicator, l2ball, WeightedL2Ball);
+  SOPT_MACRO(direct_space_comm, l1, L1);
+  SOPT_MACRO(adjoint_space_comm, l1, L1);
+#endif
 #undef SOPT_MACRO
 
   //! Helper function to set-up default residual convergence function
