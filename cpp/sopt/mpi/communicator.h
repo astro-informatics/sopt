@@ -73,18 +73,27 @@ public:
   template <class T>
   typename std::enable_if<is_registered_type<T>::value>::type
   all_reduce(Matrix<T> &image, MPI_Op operation) const {
+    if(size() == 1)
+      return;
+    assert(impl and image.size() and image.data());
     MPI_Allreduce(MPI_IN_PLACE, image.data(), image.size(), registered_type(T(0)), operation,
                   **this);
   }
   template <class T>
   typename std::enable_if<is_registered_type<T>::value>::type
   all_reduce(Image<T> &image, MPI_Op operation) const {
+    if(size() == 1)
+      return;
+    assert(impl and image.size() and image.data());
     MPI_Allreduce(MPI_IN_PLACE, image.data(), image.size(), registered_type(T(0)), operation,
                   **this);
   }
   template <class T>
   typename std::enable_if<is_registered_type<T>::value>::type
   all_reduce(Vector<T> &image, MPI_Op operation) const {
+    if(size() == 1)
+      return;
+    assert(impl and image.size() and image.data());
     MPI_Allreduce(MPI_IN_PLACE, image.data(), image.size(), registered_type(T(0)), operation,
                   **this);
   }
@@ -191,6 +200,7 @@ typename std::enable_if<is_registered_type<T>::value, T>::type
 Communicator::all_reduce(T const &value, MPI_Op operation) const {
   if(size() == 1)
     return value;
+  assert(impl);
   T result;
   MPI_Allreduce(&value, &result, 1, registered_type(value), operation, **this);
   return result;
