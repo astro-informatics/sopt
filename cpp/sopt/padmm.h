@@ -27,7 +27,7 @@ public:
   //! Type of the Ψ and Ψ^H operations, as well as Φ and Φ^H
   typedef LinearTransform<t_Vector> t_LinearTransform;
   //! Type of the convergence function
-  typedef std::function<bool(t_Vector const&, t_Vector const&)> t_IsConverged;
+  typedef std::function<bool(t_Vector const &, t_Vector const &)> t_IsConverged;
   //! Type of the convergence function
   typedef ProximalFunction<Scalar> t_Proximal;
 
@@ -104,8 +104,8 @@ public:
   }
 
   //! Convergence function that takes only the output as argument
-  ProximalADMM<Scalar> & is_converged(std::function<bool(t_Vector const&x)> const &func) {
-    return is_converged([func](t_Vector const &x, t_Vector const&) { return func(x); });
+  ProximalADMM<Scalar> &is_converged(std::function<bool(t_Vector const &x)> const &func) {
+    return is_converged([func](t_Vector const &x, t_Vector const &) { return func(x); });
   }
 
   //! Vector of target measurements
@@ -144,7 +144,8 @@ public:
   }
   //! \brief Calls Proximal ADMM
   //! \param[in] guess: initial guess
-  DiagnosticAndResult operator()(std::tuple<t_Vector const&, t_Vector const&> const &guess) const {
+  DiagnosticAndResult
+  operator()(std::tuple<t_Vector const &, t_Vector const &> const &guess) const {
     DiagnosticAndResult result;
     static_cast<Diagnostic &>(result) = operator()(result.x, guess);
     return result;
