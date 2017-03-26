@@ -308,7 +308,7 @@ bool ImagingProximalADMM<SCALAR>::residual_convergence(t_Vector const &x,
   if(residual_tolerance() <= 0e0)
     return true;
   auto const residual_norm = sopt::l2_norm(residual, l2ball_proximal_weights());
-  SOPT_LOW_LOG("    - Residuals: {} <? {}", residual_norm, residual_tolerance());
+  SOPT_LOW_LOG("    - [PADMM] Residuals: {} <? {}", residual_norm, residual_tolerance());
   return residual_norm < residual_tolerance();
 };
 
@@ -320,7 +320,7 @@ bool ImagingProximalADMM<SCALAR>::objective_convergence(ScalarRelativeVariation<
     return objective_convergence()(x, residual);
   if(scalvar.relative_tolerance() <= 0e0)
     return true;
-  auto const current = sopt::l1_norm(residual + target(), l1_proximal_weights());
+  auto const current = sopt::l1_norm(Psi().adjoint() * x, l1_proximal_weights());
   return scalvar(current);
 };
 

@@ -107,22 +107,20 @@ TEST_CASE("Parallel vs serial inpainting") {
       },
       sampling.adjoint().sizes());
   padmm.Phi(parallel_sampling);
-  padmm.residual_convergence(
-      [&padmm, epsilon, split_comm, world](Vector const &, Vector const &residual) {
-        auto const tolerance = epsilon * 1.001;
-        auto const residual_norm
-            = sopt::mpi::l2_norm(residual, padmm.l2ball_proximal_weights(), split_comm);
-        SOPT_LOW_LOG("    - Residuals: epsilon = {}, residual norm = {}", tolerance, residual_norm);
-        auto const result = residual_norm < tolerance;
-        CHECK(result == (world.broadcast<int>(result, world.root_id()) != 0));
-        return result;
-      });
+  padmm.residual_convergence([&padmm, split_comm, world](Vector const &,
+                                                         Vector const &residual) mutable -> bool {
+    auto const residual_norm
+        = sopt::mpi::l2_norm(residual, padmm.l2ball_proximal_weights(), split_comm);
+    SOPT_LOW_LOG("    - [PADMM] Residuals: {} <? {}", residual_norm, padmm.residual_tolerance());
+    CHECK(residual_norm == Approx(world.broadcast(residual_norm, world.root_id())));
+    return residual_norm < padmm.residual_tolerance();
+  });
   sopt::ScalarRelativeVariation<Scalar> conv(padmm.relative_variation(), padmm.relative_variation(),
                                              "Objective function");
   padmm.objective_convergence(
-      [&padmm, conv, split_comm, world](Vector const &, Vector const &residual) mutable -> bool {
-        auto const result = conv(
-            sopt::mpi::l1_norm(residual + padmm.target(), padmm.l1_proximal_weights(), split_comm));
+      [&padmm, split_comm, conv, world](Vector const &x, Vector const &) mutable -> bool {
+        auto const result = conv(sopt::mpi::l1_norm(padmm.Psi().adjoint() * x,
+                                                    padmm.l1_proximal_weights(), split_comm));
         CHECK(result == (world.broadcast<int>(result, world.root_id()) != 0));
         return result;
       });
