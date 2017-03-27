@@ -55,6 +55,48 @@ TEST_CASE("Creates an mpi communicator") {
     CHECK(result.isApprox(sendee.segment(displs[world.rank()], sizes[world.rank()])));
   }
 
+  SECTION("Gather") {
+    if(world.rank() == world.root_id()) {
+      std::vector<t_int> scattered(world.size());
+      std::iota(scattered.begin(), scattered.end(), 2);
+      auto const result = world.scatter_one(scattered);
+      REQUIRE(result == world.rank() + 2);
+      auto const gathered = world.gather_one(result);
+      for (t_int i = 0; i < gathered.size(); i++)
+        CHECK(gathered[i] == scattered[i]);
+    } else {
+      auto const result = world.scatter_one<t_int>();
+      REQUIRE(result == world.rank() + 2);
+      auto const gather = world.gather_one(result);
+      CHECK(gather[world.rank()] == result);
+    }
+  }
+
+  SECTION("GatherV") {
+    std::vector<t_int> sizes(world.size()), displs(world.size());
+    for(t_uint i(0); i < world.rank(); ++i)
+      sizes[i] = world.rank() * 2 + i + 1;
+    for(t_uint i(1); i < world.rank(); ++i)
+      displs[i] = displs[i - 1] + sizes[i - 1];
+    Vector<t_int> const sendee
+        = Vector<t_int>::Random(std::accumulate(sizes.begin(), sizes.end(), 0));
+    auto const scattered = (world.rank() == world.root_id()) ?
+                            world.scatterv(sendee, sizes) :
+                            world.scatterv<t_int>(sizes[world.rank()]);
+    CHECK(scattered.size() == sizes[world.rank()]);
+    REQUIRE(scattered.isApprox(sendee.segment(displs[world.rank()], sizes[world.rank()])));
+    auto const result = world.gatherv(scattered, sizes);
+    if (world.rank() == world.root_id()) {
+      CHECK(result.size() == sendee.size());
+      CHECK(result.isApprox(sendee.segment(displs[world.rank()], sizes[world.rank()])));
+    }
+    else {
+      CHECK(result.size() == sizes[world.rank()]);
+      INFO(world.rank());
+      CHECK(result.isApprox(scattered));
+    }
+  }
+
   SECTION("All sum all over image") {
     Image<t_int> image(2, 2);
     image.fill(world.rank());
