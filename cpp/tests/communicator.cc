@@ -85,7 +85,7 @@ TEST_CASE("Creates an mpi communicator") {
                             world.scatterv<t_int>(sizes[world.rank()]);
     CHECK(scattered.size() == sizes[world.rank()]);
     REQUIRE(scattered.isApprox(sendee.segment(displs[world.rank()], sizes[world.rank()])));
-    auto const result = world.gatherv(scattered, sizes);
+    auto const result = world.rank() == world.root_id() ? world.gatherv(scattered, sizes) : world.gatherv(scattered, sizes[world.rank()]);
     if (world.rank() == world.root_id()) {
       CHECK(result.size() == sendee.size());
       CHECK(result.isApprox(sendee.segment(displs[world.rank()], sizes[world.rank()])));

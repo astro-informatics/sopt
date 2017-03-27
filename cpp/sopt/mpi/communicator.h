@@ -170,6 +170,9 @@ public:
   typename std::enable_if<is_registered_type<T>::value, Vector<T>>::type
   gatherv(Vector<T> const &vec, std::vector<t_int> const &sizes,
                        t_uint const root = root_id()) const;
+  template <class T>
+  typename std::enable_if<is_registered_type<T>::value, Vector<T>>::type
+  gatherv(Vector<T> const &vec, t_uint const root = root_id()) const;
 
   //! Split current communicator
   Communicator split(t_int color) const { return split(color, rank()); }
@@ -307,27 +310,30 @@ Communicator::gatherv(Vector<T> const &vec, std::vector<t_int> const &sizes,
   int i = 0;
   for(auto const size : sizes) {
     sizes_.push_back(static_cast<int>(size));
-    if (rank() == root)
-      displs.push_back(i);
+    displs.push_back(i);
     i += size;
   }
-  int result_size = rank() == root ? i : sizes_[rank()];
-
+  int result_size = i;
   Vector<T> result(result_size);
   if(not impl)
     result = vec.head(sizes[rank()]);
-  else {
-    //Recieve and send gathered objects
-    if (rank() == root)
-      MPI_Gatherv(vec.data(), sizes_[rank()], registered_type(T(0)), result.data(), sizes_.data(),
+  else
+    MPI_Gatherv(vec.data(), sizes_[rank()], registered_type(T(0)), result.data(), sizes_.data(),
         displs.data(), registered_type(T(0)), root, **this);
-    else
-      MPI_Gatherv(vec.data(), sizes_[rank()], registered_type(T(0)), nullptr, nullptr,
-        nullptr, nullptr, root, **this);
-  }
   return result;
 }
 
+template <class T>
+typename std::enable_if<is_registered_type<T>::value, Vector<T>>::type
+Communicator::gatherv(Vector<T> const &vec,
+                       t_uint const root) const {
+  if (rank() == root)
+    throw std::runtime_error("Root should call the *other* gatherv");
+  int local_size = vec.size();
+  MPI_Gatherv(vec.data(), local_size, registered_type(T(0)), nullptr, nullptr,
+        nullptr, nullptr, root, **this);
+  return vec;
+}
 template <class T>
 typename std::enable_if<is_registered_type<T>::value, T>::type
 Communicator::broadcast(T const &value, t_uint const root) const {
