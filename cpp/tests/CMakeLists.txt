@@ -32,7 +32,7 @@ add_catch_test(reweighted LIBRARIES sopt)
 add_catch_test(power_method LIBRARIES sopt)
 add_catch_test(primal_dual LIBRARIES sopt)
 
-if(dompi)
+if(SOPT_MPI)
   add_library(common_mpi_catch_main_object OBJECT common_mpi_catch_main.cc)
   add_dependencies(common_mpi_catch_main_object lookup_dependencies)
   target_include_directories(common_mpi_catch_main_object
