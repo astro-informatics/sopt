@@ -55,46 +55,38 @@ TEST_CASE("Creates an mpi communicator") {
     CHECK(result.isApprox(sendee.segment(displs[world.rank()], sizes[world.rank()])));
   }
 
-  SECTION("Gather") {
+  SECTION("Gather a single item") {
     if(world.rank() == world.root_id()) {
       std::vector<t_int> scattered(world.size());
       std::iota(scattered.begin(), scattered.end(), 2);
       auto const result = world.scatter_one(scattered);
       REQUIRE(result == world.rank() + 2);
-      auto const gathered = world.gather_one(result);
-      for (t_int i = 0; i < gathered.size(); i++)
+      auto const gathered = world.gather(result);
+      for(t_int i = 0; i < gathered.size(); i++)
         CHECK(gathered[i] == scattered[i]);
     } else {
       auto const result = world.scatter_one<t_int>();
       REQUIRE(result == world.rank() + 2);
-      auto const gather = world.gather_one(result);
-      CHECK(gather[world.rank()] == result);
+      auto const gather = world.gather(result);
+      CHECK(gather.size() == 0);
     }
   }
 
-  SECTION("GatherV") {
-    std::vector<t_int> sizes(world.size()), displs(world.size());
-    for(t_uint i(0); i < world.rank(); ++i)
-      sizes[i] = world.rank() * 2 + i + 1;
-    for(t_uint i(1); i < world.rank(); ++i)
-      displs[i] = displs[i - 1] + sizes[i - 1];
-    Vector<t_int> const sendee
-        = Vector<t_int>::Random(std::accumulate(sizes.begin(), sizes.end(), 0));
-    auto const scattered = (world.rank() == world.root_id()) ?
-                            world.scatterv(sendee, sizes) :
-                            world.scatterv<t_int>(sizes[world.rank()]);
-    CHECK(scattered.size() == sizes[world.rank()]);
-    REQUIRE(scattered.isApprox(sendee.segment(displs[world.rank()], sizes[world.rank()])));
-    auto const result = world.rank() == world.root_id() ? world.gatherv(scattered, sizes) : world.gatherv(scattered, sizes[world.rank()]);
-    if (world.rank() == world.root_id()) {
-      CHECK(result.size() == sendee.size());
-      CHECK(result.isApprox(sendee.segment(displs[world.rank()], sizes[world.rank()])));
-    }
-    else {
-      CHECK(result.size() == sizes[world.rank()]);
-      INFO(world.rank());
-      CHECK(result.isApprox(scattered));
-    }
+  SECTION("Gather an eigen vector") {
+    auto const size = [](t_int n) { return n * 2 + 10; };
+    auto const totsize = [](t_int n) { return std::max(0, n * (9 + n)); };
+    Vector<t_int> const sendee = Vector<t_int>::Constant(size(world.rank()), world.rank());
+    std::vector<t_int> sizes(world.size());
+    int n(0);
+    std::generate(sizes.begin(), sizes.end(), [&n, &size]() { return size(n++); });
+
+    auto const result = world.is_root() ? world.gather(sendee, sizes) : world.gather(sendee);
+    if(world.rank() == world.root_id()) {
+      CHECK(result.size() == totsize(world.size()));
+      for(t_int i(0); i < world.size(); ++i)
+        CHECK(result.segment(totsize(i), size(i)) == Vector<t_int>::Constant(size(i), i));
+    } else
+      CHECK(result.size() == 0);
   }
 
   SECTION("All sum all over image") {
@@ -138,7 +130,7 @@ TEST_CASE("Creates an mpi communicator") {
 
     SECTION("std::string") {
       auto const expected = "Hello World!";
-      std::string const input = world.is_root() ? expected: "";
+      std::string const input = world.is_root() ? expected : "";
       CHECK(world.broadcast(input) == expected);
     }
   }

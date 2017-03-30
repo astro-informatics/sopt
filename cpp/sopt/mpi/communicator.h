@@ -163,16 +163,16 @@ public:
   // Gather one object per proc
   template <class T>
   typename std::enable_if<is_registered_type<T>::value, std::vector<T>>::type
-  gather_one(T const value, t_uint const root = root_id()) const;
+  gather(T const value, t_uint const root = root_id()) const;
 
   //! Gather
   template <class T>
   typename std::enable_if<is_registered_type<T>::value, Vector<T>>::type
-  gatherv(Vector<T> const &vec, std::vector<t_int> const &sizes,
-                       t_uint const root = root_id()) const;
+  gather(Vector<T> const &vec, std::vector<t_int> const &sizes,
+         t_uint const root = root_id()) const;
   template <class T>
   typename std::enable_if<is_registered_type<T>::value, Vector<T>>::type
-  gatherv(Vector<T> const &vec, t_uint const root = root_id()) const;
+  gather(Vector<T> const &vec, t_uint const root = root_id()) const;
 
   //! Split current communicator
   Communicator split(t_int color) const { return split(color, rank()); }
@@ -283,57 +283,65 @@ Communicator::scatterv(t_int local_size, t_uint const root) const {
 
 template <class T>
 typename std::enable_if<is_registered_type<T>::value, std::vector<T>>::type
-Communicator::gather_one(T const value, t_uint const root) const {
+Communicator::gather(T const value, t_uint const root) const {
   assert(root < size());
-  std::vector<T> result(size());
-  if(size() == 1) {
-    result.at(0) = value;
-    return result;
-  }
-  if (rank() == root) {
+  if(size() == 1 and rank() == root)
+    return {value};
+  else if(size() == 1)
+    return {};
+  std::vector<T> result;
+  if(rank() == root) {
+    result.resize(size());
     MPI_Gather(&value, 1, registered_type(value), result.data(), 1, registered_type(value), root,
-              **this);
-    return result;
-  }
-  else {
-    MPI_Gather(&value, 1, registered_type(value), nullptr, 1, nullptr, root, **this);
-    result.at(rank()) = value;
-    return result;
-  }
-}
-
-template <class T>
-typename std::enable_if<is_registered_type<T>::value, Vector<T>>::type
-Communicator::gatherv(Vector<T> const &vec, std::vector<t_int> const &sizes,
-                       t_uint const root) const {
-  std::vector<int> sizes_, displs;
-  int i = 0;
-  for(auto const size : sizes) {
-    sizes_.push_back(static_cast<int>(size));
-    displs.push_back(i);
-    i += size;
-  }
-  int result_size = i;
-  Vector<T> result(result_size);
-  if(not impl)
-    result = vec.head(sizes[rank()]);
-  else
-    MPI_Gatherv(vec.data(), sizes_[rank()], registered_type(T(0)), result.data(), sizes_.data(),
-        displs.data(), registered_type(T(0)), root, **this);
+               **this);
+  } else
+    MPI_Gather(&value, 1, registered_type(value), nullptr, 1, registered_type(value), root, **this);
   return result;
 }
 
 template <class T>
 typename std::enable_if<is_registered_type<T>::value, Vector<T>>::type
-Communicator::gatherv(Vector<T> const &vec,
-                       t_uint const root) const {
-  if (rank() == root)
-    throw std::runtime_error("Root should call the *other* gatherv");
-  int local_size = vec.size();
-  MPI_Gatherv(vec.data(), local_size, registered_type(T(0)), nullptr, nullptr,
-        nullptr, nullptr, root, **this);
-  return vec;
+Communicator::gather(Vector<T> const &vec, std::vector<t_int> const &sizes,
+                     t_uint const root) const {
+  assert(root < size());
+  if(sizes.size() != 0 and vec.size() != sizes[rank()])
+    throw std::runtime_error("Sizes and input vector size do not match");
+  if(sizes.size() != size() and rank() == root)
+    throw std::runtime_error("Sizes and communicator size do not match");
+
+  if(size() == 1 and rank() == root)
+    return vec;
+  else if(size() == 1)
+    return Vector<T>(0);
+
+  if(rank() != root)
+    return gather(vec, root);
+
+  std::vector<int> sizes_, displs;
+  int result_size = 0;
+  for(auto const size : sizes) {
+    sizes_.push_back(static_cast<int>(size));
+    displs.push_back(result_size);
+    result_size += size;
+  }
+  Vector<T> result(result_size);
+  MPI_Gatherv(vec.data(), sizes_[rank()], registered_type(T(0)), result.data(), sizes_.data(),
+              displs.data(), registered_type(T(0)), root, **this);
+  return result;
 }
+
+template <class T>
+typename std::enable_if<is_registered_type<T>::value, Vector<T>>::type
+Communicator::gather(Vector<T> const &vec, t_uint const root) const {
+  assert(root < size());
+  if(rank() == root)
+    throw std::runtime_error("Root should call the *other* gather");
+
+  MPI_Gatherv(vec.data(), vec.size(), registered_type(T(0)), nullptr, nullptr, nullptr,
+              registered_type(T(0)), root, **this);
+  return Vector<T>(0);
+}
+
 template <class T>
 typename std::enable_if<is_registered_type<T>::value, T>::type
 Communicator::broadcast(T const &value, t_uint const root) const {
