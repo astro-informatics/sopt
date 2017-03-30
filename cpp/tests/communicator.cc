@@ -62,7 +62,7 @@ TEST_CASE("Creates an mpi communicator") {
       auto const result = world.scatter_one(scattered);
       REQUIRE(result == world.rank() + 2);
       auto const gathered = world.gather(result);
-      for(t_int i = 0; i < gathered.size(); i++)
+      for(decltype(gathered)::size_type i = 0; i < gathered.size(); i++)
         CHECK(gathered[i] == scattered[i]);
     } else {
       auto const result = world.scatter_one<t_int>();
@@ -83,7 +83,7 @@ TEST_CASE("Creates an mpi communicator") {
     auto const result = world.is_root() ? world.gather(sendee, sizes) : world.gather(sendee);
     if(world.rank() == world.root_id()) {
       CHECK(result.size() == totsize(world.size()));
-      for(t_int i(0); i < world.size(); ++i)
+      for(decltype(world.size()) i(0); i < world.size(); ++i)
         CHECK(result.segment(totsize(i), size(i)) == Vector<t_int>::Constant(size(i), i));
     } else
       CHECK(result.size() == 0);
