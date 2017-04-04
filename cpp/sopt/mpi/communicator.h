@@ -312,7 +312,7 @@ Communicator::gather(Vector<T> const &vec, std::vector<t_int> const &sizes,
   if(size() == 1 and rank() == root)
     return vec;
   else if(size() == 1)
-    return Vector<T>(0);
+    return Vector<T>();
 
   if(rank() != root)
     return gather(vec, root);
@@ -339,7 +339,7 @@ Communicator::gather(Vector<T> const &vec, t_uint const root) const {
 
   MPI_Gatherv(vec.data(), vec.size(), registered_type(T(0)), nullptr, nullptr, nullptr,
               registered_type(T(0)), root, **this);
-  return Vector<T>(0);
+  return Vector<T>();
 }
 
 template <class T>
