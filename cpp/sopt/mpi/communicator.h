@@ -302,7 +302,7 @@ Communicator::gather(T const value, t_uint const root) const {
   if(size() == 1 and rank() == root)
     return {value};
   else if(size() == 1)
-    return {};
+    return {value};
   std::vector<T> result;
   if(rank() == root) {
     result.resize(size());
@@ -321,12 +321,10 @@ Communicator::gather(Vector<T> const &vec, std::vector<t_int> const &sizes,
   if(sizes.size() != 0 and vec.size() != sizes[rank()])
     throw std::runtime_error("Sizes and input vector size do not match");
   if(sizes.size() != size() and rank() == root)
-    throw std::runtime_error("Sizes and communicator size do not match");
+    throw std::runtime_error("Sizes and communicator size do not match on root");
 
-  if(size() == 1 and rank() == root)
+  if(size() == 1)
     return vec;
-  else if(size() == 1)
-    return Vector<T>();
 
   if(rank() != root)
     return gather(vec, root);
@@ -364,12 +362,10 @@ Communicator::gather(std::vector<T> const &vec, std::vector<t_int> const &sizes,
   if(sizes.size() != 0 and vec.size() != sizes[rank()])
     throw std::runtime_error("Sizes and input vector size do not match");
   if(sizes.size() != size() and rank() == root)
-    throw std::runtime_error("Sizes and communicator size do not match");
+    throw std::runtime_error("Sizes and communicator size do not match on root");
 
-  if(size() == 1 and rank() == root)
+  if(size() == 1)
     return vec;
-  else if(size() == 1)
-    return {};
 
   if(rank() != root)
     return gather(vec, root);
@@ -405,6 +401,8 @@ Communicator::gather(std::set<T> const &set, std::vector<t_int> const& sizes, t_
   assert(root < size());
   if(rank() != root)
     return gather(set, root);
+  else if(size() == 1)
+    return set;
 
   assert(sizes.size() == size());
   assert(sizes[root] == set.size());
