@@ -11,6 +11,7 @@
 #include <string>
 #include <type_traits>
 #include <vector>
+#include <set>
 #include "sopt/mpi/registered_types.h"
 #include "sopt/types.h"
 
@@ -173,6 +174,13 @@ public:
   template <class T>
   typename std::enable_if<is_registered_type<T>::value, Vector<T>>::type
   gather(Vector<T> const &vec, t_uint const root = root_id()) const;
+
+  template <class T>
+  typename std::enable_if<is_registered_type<T>::value, std::set<T>>::type
+  gather(std::set<T> const &set, std::vector<t_int> sizes, t_uint const root = root_id()) const;
+  template <class T>
+  typename std::enable_if<is_registered_type<T>::value, std::set<T>>::type
+  gather(std::set<T> const &vec, t_uint const root = root_id()) const;
 
   //! Split current communicator
   Communicator split(t_int color) const { return split(color, rank()); }
@@ -340,6 +348,34 @@ Communicator::gather(Vector<T> const &vec, t_uint const root) const {
   MPI_Gatherv(vec.data(), vec.size(), registered_type(T(0)), nullptr, nullptr, nullptr,
               registered_type(T(0)), root, **this);
   return Vector<T>();
+}
+
+template <class T>
+typename std::enable_if<is_registered_type<T>::value, std::set<T>>::type
+Communicator::gather(std::set<T> const &set, std::vector<t_int> sizes, t_uint const root) const {
+  assert(root < size());
+  if(rank() != root)
+    return gather(set, root);
+
+  assert(sizes.size() == size());
+  assert(sizes[root] == set.size());
+  Vector<T> buffer(set.size());
+  std::copy(set.begin(), set.end(), buffer.data());
+  buffer = gather(buffer, sizes);
+  return std::set<T>(buffer.data(), buffer.data() + buffer.size());
+}
+
+template <class T>
+typename std::enable_if<is_registered_type<T>::value, std::set<T>>::type
+Communicator::gather(std::set<T> const &set, t_uint const root) const {
+  assert(root < size());
+  if(rank() == root)
+    throw std::runtime_error("Root should call the *other* gather");
+
+  Vector<T> buffer(set.size());
+  std::copy(set.begin(), set.end(), buffer.data());
+  gather(buffer);
+  return {};
 }
 
 template <class T>

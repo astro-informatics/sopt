@@ -89,6 +89,17 @@ TEST_CASE("Creates an mpi communicator") {
       CHECK(result.size() == 0);
   }
 
+  SECTION("Gather an std::set") {
+    std::set<t_int> const input{static_cast<t_int>(world.size()), static_cast<t_int>(world.rank())};
+    auto const result = world.gather(input, world.gather<t_int>(input.size()));
+    if(world.is_root()) {
+      CHECK(result.size() == world.size() + 1);
+      for(decltype(world.size()) i(0); i <= world.size(); ++i)
+        CHECK(result.count(i) == 1);
+    } else
+      CHECK(result.size() == 0);
+  }
+
   SECTION("All sum all over image") {
     Image<t_int> image(2, 2);
     image.fill(world.rank());
