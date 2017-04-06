@@ -403,7 +403,7 @@ Communicator::gather(std::set<T> const &set, t_uint const root) const {
   Vector<T> buffer(set.size());
   std::copy(set.begin(), set.end(), buffer.data());
   gather(buffer);
-  return {};
+  return std::set<T>();
 }
 
 template <class T>
