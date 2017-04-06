@@ -57,9 +57,9 @@ protected:                                                                      
 public:
 
   //! Maximum number of iterations
-  SOPT_MACRO(itermax, t_uint);
+  SOPT_MACRO(itermax, t_uint)
   //! Convergence criteria
-  SOPT_MACRO(tolerance, Real);
+  SOPT_MACRO(tolerance, Real)
 #undef SOPT_MACRO
   //! \brief Calls the power method for A.adjoint() * A
   DiagnosticAndResult AtA(t_LinearTransform const &A, t_Vector const &input) const;
