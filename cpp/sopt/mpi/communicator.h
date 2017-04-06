@@ -278,6 +278,11 @@ template <class T>
 typename std::enable_if<is_registered_type<T>::value, Vector<T>>::type
 Communicator::scatterv(Vector<T> const &vec, std::vector<t_int> const &sizes,
                        t_uint const root) const {
+  if(size() == 1) {
+    if(sizes.size() == 1 and vec.size() != sizes.front())
+      throw std::runtime_error("Input vector size and sizes are inconsistent on root");
+    return vec;
+  }
   if(rank() != root)
     return scatterv<T>(sizes.at(rank()), root);
   std::vector<int> sizes_, displs;
