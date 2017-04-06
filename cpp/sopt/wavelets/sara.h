@@ -11,6 +11,9 @@
 #ifdef SOPT_MPI
 #include "sopt/mpi/communicator.h"
 #endif
+#ifdef SOPT_OPENMP
+#include <omp.h>
+#endif
 
 namespace sopt {
 namespace wavelets {
