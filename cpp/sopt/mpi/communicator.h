@@ -410,6 +410,8 @@ template <class T>
 typename std::enable_if<is_registered_type<T>::value, T>::type
 Communicator::broadcast(T const &value, t_uint const root) const {
   assert(root < size());
+  if(size() == 1)
+    return value;
   if(not impl)
     return value;
   auto result = value;
@@ -431,6 +433,8 @@ Communicator::broadcast(t_uint const root) const {
 template <class T>
 typename std::enable_if<is_registered_type<typename T::Scalar>::value, T>::type
 Communicator::broadcast(T const &vec, t_uint const root) const {
+  if(size() == 1)
+    return vec;
   if(not impl)
     return vec;
   if(rank() != root)
@@ -460,6 +464,8 @@ typename std::enable_if<is_registered_type<typename T::value_type>::value
                         T>::type
 Communicator::broadcast(T const &vec, t_uint const root) const {
   assert(root < size());
+  if(size() == 1)
+    return vec;
   if(not impl)
     return vec;
   if(rank() != root)
@@ -482,7 +488,7 @@ Communicator::broadcast(t_uint const root) const {
   MPI_Bcast(result.data(), result.size(), Type<typename T::value_type>::value, root, **this);
   return result;
 }
-} /* optime::mpi */
-} /* optimet */
+} // namespace mpi
+} // namespace sopt
 #endif /* ifdef SOPT_MPI */
 #endif /* ifndef SOPT_MPI_COMMUNICATOR */
