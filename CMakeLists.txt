@@ -19,7 +19,7 @@ option(examples       "Enable Examples"                        on)
 option(logging        "Enable logging"                         on)
 option(regressions    "Enable regressions"                     off)
 option(openmp         "Enable OpenMP"                          on)
-option(dompi          "Enable MPI"                             off)
+option(dompi          "Enable MPI"                             on)
 
 if(regressions)
   enable_language(C)

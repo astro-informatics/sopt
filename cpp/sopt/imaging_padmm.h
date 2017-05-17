@@ -210,6 +210,11 @@ public:
   SOPT_MACRO(weights, l1, L1);
   SOPT_MACRO(epsilon, l2ball, WeightedL2Ball);
   SOPT_MACRO(weights, l2ball, WeightedL2Ball);
+#ifdef SOPT_MPI
+  SOPT_MACRO(communicator, l2ball, WeightedL2Ball);
+  SOPT_MACRO(direct_space_comm, l1, L1);
+  SOPT_MACRO(adjoint_space_comm, l1, L1);
+#endif
 #undef SOPT_MACRO
 
   //! Helper function to set-up default residual convergence function
@@ -303,7 +308,7 @@ bool ImagingProximalADMM<SCALAR>::residual_convergence(t_Vector const &x,
   if(residual_tolerance() <= 0e0)
     return true;
   auto const residual_norm = sopt::l2_norm(residual, l2ball_proximal_weights());
-  SOPT_LOW_LOG("    - Residuals: {} <? {}", residual_norm, residual_tolerance());
+  SOPT_LOW_LOG("    - [PADMM] Residuals: {} <? {}", residual_norm, residual_tolerance());
   return residual_norm < residual_tolerance();
 };
 
@@ -315,7 +320,7 @@ bool ImagingProximalADMM<SCALAR>::objective_convergence(ScalarRelativeVariation<
     return objective_convergence()(x, residual);
   if(scalvar.relative_tolerance() <= 0e0)
     return true;
-  auto const current = sopt::l1_norm(residual + target(), l1_proximal_weights());
+  auto const current = sopt::l1_norm(Psi().adjoint() * x, l1_proximal_weights());
   return scalvar(current);
 };
 
@@ -323,7 +328,11 @@ template <class SCALAR>
 bool ImagingProximalADMM<SCALAR>::is_converged(ScalarRelativeVariation<Scalar> &scalvar,
                                                t_Vector const &x, t_Vector const &residual) const {
   auto const user = static_cast<bool>(is_converged()) == false or is_converged()(x, residual);
-  return user and residual_convergence(x, residual) and objective_convergence(scalvar, x, residual);
+  auto const res = residual_convergence(x, residual);
+  auto const obj = objective_convergence(scalvar, x, residual);
+  // beware of short-circuiting!
+  // better evaluate each convergence function everytime, especially with mpi
+  return user and res and obj;
 }
 }
 } /* sopt::algorithm */

@@ -78,3 +78,4 @@ build/
 .*.swp
 .settings
 python/tests/__pycache__
+*.h.gch

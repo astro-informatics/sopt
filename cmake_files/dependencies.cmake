@@ -47,6 +47,6 @@ endif()
 
 set(SOPT_MPI FALSE)
 if(dompi)
-	find_package(MPI REQUIRED)
-  set(SOPT_MPI TRUE)
+	find_package(MPI)
 endif()
+set(SOPT_MPI ${MPI_FOUND})

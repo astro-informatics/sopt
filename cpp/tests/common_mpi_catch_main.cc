@@ -7,13 +7,14 @@
 #include <random>
 #include <regex>
 #include <sopt/logging.h>
+#include <sopt/mpi/session.h>
 
 std::unique_ptr<std::mt19937_64> mersenne(new std::mt19937_64(0));
 
 int main(int argc, const char **argv) {
   Catch::Session session; // There must be exactly once instance
 
-  MPI_Init(&argc, const_cast<char ***>(&argv));
+  auto const mpi_session = sopt::mpi::init(argc, argv);
 
   // The following mess transforms the input arguments so that output files have different names
   // on different processors
@@ -49,8 +50,6 @@ int main(int argc, const char **argv) {
   sopt::logging::initialize();
 
   auto const result = session.run();
-
-  MPI_Finalize();
 
   return result;
 }

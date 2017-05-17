@@ -8,6 +8,12 @@
 #include <vector>
 #include "sopt/logging.h"
 #include "sopt/wavelets/wavelets.h"
+#ifdef SOPT_MPI
+#include "sopt/mpi/communicator.h"
+#endif
+#ifdef SOPT_OPENMP
+#include <omp.h>
+#endif
 
 namespace sopt {
 namespace wavelets {
@@ -36,6 +42,8 @@ public:
     for(; first != last; ++first)
       emplace_back(std::get<0>(*first), std::get<1>(*first));
   }
+
+  SARA(const_iterator first, const_iterator last) : std::vector<Wavelet>(first, last) {}
   //! Destructor
   virtual ~SARA() {}
 
@@ -98,6 +106,8 @@ public:
 
   //! Number of levels over which to do transform
   t_uint max_levels() const {
+    if(size() == 0)
+      return 0;
     auto cmp = [](Wavelet const &a, Wavelet const &b) { return a.levels() < b.levels(); };
     return std::max_element(begin(), end(), cmp)->levels();
   }
@@ -121,28 +131,33 @@ void SARA::direct(Eigen::ArrayBase<T1> &coeffs, Eigen::ArrayBase<T0> const &sign
     coeffs.derived().resize(signal.rows(), signal.cols() * size());
   if(coeffs.rows() != signal.rows() or coeffs.cols() != signal.cols() * static_cast<t_int>(size()))
     throw std::length_error("Incorrect size for output matrix(or could not resize)");
+  if(size() == 0)
+    return;
   auto const Ncols = signal.cols();
-#ifndef SOPT_OPENMP
-  SOPT_TRACE("Calling direct sara without threads");
-  for(size_type i(0); i < size(); ++i)
-    at(i).direct(coeffs.leftCols((i + 1) * Ncols).rightCols(Ncols), signal);
-#else
+#ifdef SOPT_OPENMP
 #pragma omp parallel
+#endif
   {
+#ifndef SOPT_OPENMP
+    SOPT_TRACE("Calling direct sara without threads");
+#else
     if(omp_get_thread_num() == 0) {
       SOPT_TRACE("Calling direct sara with {} threads of {}", omp_get_num_threads(),
                  omp_get_max_threads());
     }
 #pragma omp for
+#endif
     for(size_type i = 0; i < size(); ++i)
       at(i).direct(coeffs.leftCols((i + 1) * Ncols).rightCols(Ncols), signal);
   }
-#endif
+
   coeffs /= std::sqrt(size());
 }
 
 template <class T0, class T1>
 void SARA::indirect(Eigen::ArrayBase<T1> const &coeffs, Eigen::ArrayBase<T0> &signal) const {
+  if(size() == 0)
+    throw std::runtime_error("Empty wavelets: adjoint operation undefined");
   SOPT_WAVELET_ERROR_MACRO(coeffs);
   if(coeffs.cols() % size() != 0)
     throw std::length_error(
@@ -151,30 +166,27 @@ void SARA::indirect(Eigen::ArrayBase<T1> const &coeffs, Eigen::ArrayBase<T0> &si
     signal.derived().resize(coeffs.rows(), coeffs.cols() / size());
   if(coeffs.rows() != signal.rows() or coeffs.cols() != signal.cols() * static_cast<t_int>(size()))
     throw std::length_error("Incorrect size for output matrix(or could not resize)");
-
+  auto priv_image = Image<typename T0::Scalar>::Zero(signal.rows(), signal.cols()).eval();
   auto const Ncols = signal.cols();
-#ifndef SOPT_OPENMP
-  SOPT_TRACE("Calling indirect sara without threads");
-  signal = front().indirect(coeffs.leftCols(Ncols).rightCols(Ncols));
-  for(size_type i(1); i < size(); ++i)
-    signal += at(i).indirect(coeffs.leftCols((i + 1) * Ncols).rightCols(Ncols));
-#else
-  signal.fill(0);
+#ifdef SOPT_OPENMP
+#pragma omp declare reduction(+ : Image < typename T0::Scalar > : omp_out += omp_in) initializer(  \
+    omp_priv = Image < typename T0::Scalar > ::Zero(omp_orig.rows(), omp_orig.cols()))
 #pragma omp parallel
+#endif
   {
+#ifndef SOPT_OPENMP
+    SOPT_TRACE("Calling indirect sara without threads");
+#else
     if(omp_get_thread_num() == 0) {
       SOPT_TRACE("Calling indirect sara with {} threads of {}", omp_get_num_threads(),
                  omp_get_max_threads());
     }
-    Image<typename T0::Scalar> reductor = Image<typename T0::Scalar>::Zero(signal.rows(), Ncols);
-#pragma omp for
-    for(size_type i = 0; i < size(); ++i)
-      reductor += at(i).indirect(coeffs.leftCols((i + 1) * Ncols).rightCols(Ncols));
-#pragma omp critical
-    signal += reductor;
-  }
+#pragma omp for reduction(+ : priv_image)
 #endif
-  signal /= std::sqrt(size());
+    for(size_type i = 0; i < size(); ++i)
+      priv_image += at(i).indirect(coeffs.leftCols((i + 1) * Ncols).rightCols(Ncols));
+  }
+  signal = priv_image / std::sqrt(size());
 }
 
 #undef SOPT_WAVELET_ERROR_MACRO
@@ -194,6 +206,16 @@ typename T0::PlainObject SARA::direct(Eigen::ArrayBase<T0> const &signal) const 
   (*this).direct(result, signal);
   return result;
 }
+
+#ifdef SOPT_MPI
+//! \brief Creates a sara transform distributed across processors
+//! \details This is a convenience function for creating a distributed linear transform above. It
+//! does not perform any mpi operation itself.
+SARA distribute_sara(SARA const &all_wavelets, t_uint size, t_uint rank);
+inline SARA distribute_sara(SARA const &all_wavelets, mpi::Communicator const &comm) {
+  return distribute_sara(all_wavelets, comm.size(), comm.rank());
+}
+#endif
 }
 }
 #endif

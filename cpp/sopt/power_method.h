@@ -57,9 +57,9 @@ protected:                                                                      
 public:
 
   //! Maximum number of iterations
-  SOPT_MACRO(itermax, t_uint);
+  SOPT_MACRO(itermax, t_uint)
   //! Convergence criteria
-  SOPT_MACRO(tolerance, Real);
+  SOPT_MACRO(tolerance, Real)
 #undef SOPT_MACRO
   //! \brief Calls the power method for A.adjoint() * A
   DiagnosticAndResult AtA(t_LinearTransform const &A, t_Vector const &input) const;
@@ -109,16 +109,16 @@ operator()(OperatorFunction<t_Vector> const &op, t_Vector const &input) const {
         = eigenvector.stableNorm() / static_cast<Real>(eigenvector.size());
     auto const rel_val = std::abs((magnitude - previous_magnitude) / previous_magnitude);
     converged = rel_val < tolerance();
-    SOPT_INFO("    - Iteration {}/{} -- norm: {}", niters, itermax(), magnitude);
+    SOPT_INFO("    - [PM] Iteration {}/{} -- norm: {}", niters, itermax(), magnitude);
 
     eigenvector /= magnitude;
     previous_magnitude = magnitude;
   }
   // check function exists, otherwise, don't know if convergence is meaningful
   if(not converged) {
-    SOPT_WARN("    - did not converge within {} iterations", itermax());
+    SOPT_WARN("    - [PM] did not converge within {} iterations", itermax());
   } else {
-    SOPT_INFO("    - converged in {} of {} iterations", niters, itermax());
+    SOPT_INFO("    - [PM] converged in {} of {} iterations", niters, itermax());
   }
   return DiagnosticAndResult{itermax(), converged, previous_magnitude, eigenvector.normalized()};
 }

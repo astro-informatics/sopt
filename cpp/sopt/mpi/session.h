@@ -2,6 +2,7 @@
 #define SOPT_MPI_SESSION_H
 
 #include "sopt/config.h"
+#include <memory>
 
 #ifdef SOPT_MPI
 #include <mpi.h>
@@ -10,17 +11,23 @@
 namespace sopt {
 namespace mpi {
 #ifdef SOPT_MPI
+namespace details {
+struct initializer {
+  static void deleter(initializer *tag);
+  //! Gets singleton to session
+  static std::weak_ptr<details::initializer> singleton;
+};
+}
 //! Calls mpi init
-void init(int argc, const char **argv);
+std::shared_ptr<details::initializer> init(int argc, const char **argv);
+std::shared_ptr<details::initializer> session_singleton();
 //! True if mpi has been initialized
 bool initialized();
 //! True if mpi has been finalized
 bool finalized();
-//! Closes mpi stuff
-void finalize();
 #else
 inline void init(int argc, const char **argv) {}
-inline void finalize() {}
+inline bool initialized() { return false; };
 #endif
 } /* sopt::mpi */
 } /* sopt */

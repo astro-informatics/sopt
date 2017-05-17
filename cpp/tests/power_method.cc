@@ -1,5 +1,5 @@
-#include <iostream>
 #include <random>
+#include <numeric>
 #include <Eigen/Eigenvalues>
 #include "catch.hpp"
 
@@ -11,7 +11,8 @@ TEST_CASE("Power Method") {
   typedef t_real Scalar;
   auto const N = 10;
   Eigen::EigenSolver<Matrix<Scalar>> es;
-  Matrix<Scalar> A = Matrix<Scalar>::Random(N, N);
+  Matrix<Scalar> A(N, N);
+  std::iota(A.data(), A.data() + A.size(), 0);
   es.compute(A.adjoint() * A, true);
 
   auto const eigenvalues = es.eigenvalues();

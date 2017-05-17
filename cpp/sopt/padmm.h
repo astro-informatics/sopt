@@ -27,7 +27,7 @@ public:
   //! Type of the Ψ and Ψ^H operations, as well as Φ and Φ^H
   typedef LinearTransform<t_Vector> t_LinearTransform;
   //! Type of the convergence function
-  typedef std::function<bool(t_Vector const&, t_Vector const&)> t_IsConverged;
+  typedef std::function<bool(t_Vector const &, t_Vector const &)> t_IsConverged;
   //! Type of the convergence function
   typedef ProximalFunction<Scalar> t_Proximal;
 
@@ -104,8 +104,8 @@ public:
   }
 
   //! Convergence function that takes only the output as argument
-  ProximalADMM<Scalar> & is_converged(std::function<bool(t_Vector const&x)> const &func) {
-    return is_converged([func](t_Vector const &x, t_Vector const&) { return func(x); });
+  ProximalADMM<Scalar> &is_converged(std::function<bool(t_Vector const &x)> const &func) {
+    return is_converged([func](t_Vector const &x, t_Vector const &) { return func(x); });
   }
 
   //! Vector of target measurements
@@ -144,7 +144,8 @@ public:
   }
   //! \brief Calls Proximal ADMM
   //! \param[in] guess: initial guess
-  DiagnosticAndResult operator()(std::tuple<t_Vector const&, t_Vector const&> const &guess) const {
+  DiagnosticAndResult
+  operator()(std::tuple<t_Vector const &, t_Vector const &> const &guess) const {
     DiagnosticAndResult result;
     static_cast<Diagnostic &>(result) = operator()(result.x, guess);
     return result;
@@ -237,20 +238,22 @@ operator()(t_Vector &out, t_Vector const &x_guess, t_Vector const &res_guess) co
   t_Vector residual = res_guess;
   out = x_guess;
 
-  for(t_uint niters(0); niters < itermax(); ++niters) {
-    SOPT_LOW_LOG("    - Iteration {}/{}", niters, itermax());
+  t_uint niters(0);
+  bool converged = false;
+  for(; (not converged) && (niters < itermax()); ++niters) {
+    SOPT_LOW_LOG("    - [PADMM] Iteration {}/{}", niters, itermax());
     iteration_step(out, residual, lambda, z);
-    SOPT_LOW_LOG("      - Sum of residuals: {}", residual.array().abs().sum());
-
-    if(is_converged(out, residual)) {
-      SOPT_MEDIUM_LOG("    - converged in {} of {} iterations", niters, itermax());
-      return {niters, true};
-    }
+    SOPT_LOW_LOG("      - [PADMM] Sum of residuals: {}", residual.array().abs().sum());
+    converged = is_converged(out, residual);
   }
-  // check function exists, otherwise, don't know if convergence is meaningful
-  if(static_cast<bool>(is_converged()))
-    SOPT_ERROR("    - did not converge within {} iterations", itermax());
-  return {itermax(), false, std::move(residual)};
+
+  if(converged) {
+    SOPT_MEDIUM_LOG("    - [PADMM] converged in {} of {} iterations", niters, itermax());
+  } else if(static_cast<bool>(is_converged())) {
+    // not meaningful if not convergence function
+    SOPT_ERROR("    - [PADMM] did not converge within {} iterations", itermax());
+  }
+  return {niters, converged, std::move(residual)};
 }
 }
 } /* sopt::algorithm */
