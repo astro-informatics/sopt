@@ -1,4 +1,3 @@
-
 #ifndef SOPT_FORWARD_BACKWARD_H
 #define SOPT_FORWARD_BACKWARD_H
 
@@ -27,6 +26,8 @@ public:
   typedef Vector<Scalar> t_Vector;
   //! Type of the Ψ and Ψ^H operations, as well as Φ and Φ^H
   typedef LinearTransform<t_Vector> t_LinearTransform;
+  //! Type of Φ^HΦ
+  typedef OperatorFunction<t_Vector> t_OperatorFunction;
   //! Type of the convergence function
   typedef std::function<bool(t_Vector const &, t_Vector const &)> t_IsConverged;
   //! Type of the convergence function
@@ -52,14 +53,14 @@ public:
     t_Vector x;
   };
 
-  //! Setups ProximalADMM
+  //! Setups Forward Backward
   //! \param[in] f_proximal: proximal operator of the \f$f\f$ function.
   //! \param[in] g_proximal: proximal operator of the \f$g\f$ function
   template <class DERIVED>
   ForwardBackward(t_Proximal const &g_proximal, Eigen::MatrixBase<DERIVED> const &target)
       : itermax_(std::numeric_limits<t_uint>::max()), sigma_(1), beta_(1e-8), mu_(1),
-        is_converged_(), PhiTPhi(linear_transform_identity<Scalar>()), g_proximal_(g_proximal),
-        target_(target) {}
+        is_converged_(), PhiTPhi_([](t_Vector &out, const t_Vector &in) { out = in; }),
+        g_proximal_(g_proximal), target_(target) {}
   virtual ~ForwardBackward() {}
 
 // Macro helps define properties that can be initialized as in
@@ -78,17 +79,17 @@ public:
 
   //! Maximum number of iterations
   SOPT_MACRO(itermax, t_uint);
-  //! σ parameter
+  //! σ parameter (spread for l2 norm)
   SOPT_MACRO(sigma, Real);
-  //! μ parameter
+  //! μ parameter (threshold parameter)
   SOPT_MACRO(mu, Real);
   //! Gradient step size β
   SOPT_MACRO(beta, Real);
   //! \brief A function verifying convergence
   //! \details It takes as input two arguments: the current solution x and the current residual.
   SOPT_MACRO(is_converged, t_IsConverged);
-  //! Measurement operator
-  SOPT_MACRO(PhiTPhi, t_LinearTransform);
+  //! Projection of Measurement Operator
+  SOPT_MACRO(PhiTPhi, t_OperatorFunction);
   //! First proximal
   SOPT_MACRO(g_proximal, t_Proximal);
 #undef SOPT_MACRO
@@ -116,28 +117,28 @@ public:
     return static_cast<bool>(is_converged()) and is_converged()(x, residual);
   }
 
-  //! \brief Calls Proximal ADMM
+  //! \brief Calls Forward Backward
   //! \param[out] out: Output vector x
   Diagnostic operator()(t_Vector &out) const { return operator()(out, initial_guess()); }
-  //! \brief Calls Proximal ADMM
+  //! \brief Calls Forward Backward
   //! \param[out] out: Output vector x
   //! \param[in] guess: initial guess
   Diagnostic operator()(t_Vector &out, std::tuple<t_Vector, t_Vector> const &guess) const {
     return operator()(out, std::get<0>(guess), std::get<1>(guess));
   }
-  //! \brief Calls Proximal ADMM
+  //! \brief Calls Forward Backward
   //! \param[out] out: Output vector x
   //! \param[in] guess: initial guess
   Diagnostic
   operator()(t_Vector &out, std::tuple<t_Vector const &, t_Vector const &> const &guess) const {
     return operator()(out, std::get<0>(guess), std::get<1>(guess));
   }
-  //! \brief Calls Proximal ADMM
+  //! \brief Calls Forward Backward
   //! \param[in] guess: initial guess
   DiagnosticAndResult operator()(std::tuple<t_Vector, t_Vector> const &guess) const {
     return operator()(std::tie(std::get<0>(guess), std::get<1>(guess)));
   }
-  //! \brief Calls Proximal ADMM
+  //! \brief Calls Forward Backward
   //! \param[in] guess: initial guess
   DiagnosticAndResult
   operator()(std::tuple<t_Vector const &, t_Vector const &> const &guess) const {
@@ -160,12 +161,9 @@ public:
   }
   //! Set Φ and Φ^† using arguments that sopt::linear_transform understands
   template <class... ARGS>
-  typename std::enable_if<sizeof...(ARGS) >= 1, ProximalForwardBackward &>::type
-  Phi(ARGS &&... args) {
-    t_LinearTransform Phi_ = linear_transform(std::forward<ARGS>(args)...);
-    auto direct = chained_operators(Phi_.adjoint(), Phi_.operator*());
-    auto indirect = chained_operators(Phi_.operator*(), Phi_.adjoint());
-    PhiTPhi_ = t_LinearTransform(direct, indirect);
+  typename std::enable_if<sizeof...(ARGS) >= 1, ForwardBackward &>::type Phi(ARGS &&... args) {
+    const t_LinearTransform Phi_ = linear_transform(std::forward<ARGS>(args)...);
+    PhiTPhi_ = [=](t_Vector &out, const t_Vector &in) { out = Phi_.adjoint() * (Phi_ * in); };
     return *this;
   }
 
@@ -181,11 +179,11 @@ public:
   //! - x = Φ^T y / ν
   //! - residuals = Φ x - y
   //!
-  //! This function simplifies creating overloads for operator() in PADMM wrappers.
+  //! This function simplifies creating overloads for operator() in FB wrappers.
   static std::tuple<t_Vector, t_Vector> initial_guess(t_Vector const &target) {
     std::tuple<t_Vector, t_Vector> guess;
     std::get<0>(guess) = target;
-    std::get<1>(guess) = t_Vector::Zero(guess.size());
+    std::get<1>(guess) = t_Vector::Zero(target.size());
     return guess;
   }
 
@@ -194,17 +192,17 @@ protected:
 
   //! Checks input makes sense
   void sanity_check(t_Vector const &x_guess, t_Vector const &res_guess) const {
-    if((PhiTPhi().adjoint() * target()).size() != x_guess.size())
+    t_Vector target_out;
+    PhiTPhi_(target_out, target());
+    if(target_out.size() != x_guess.size())
       SOPT_THROW("target, adjoint measurement operator and input vector have inconsistent sizes");
     if(target().size() != res_guess.size())
       SOPT_THROW("target and residual vector have inconsistent sizes");
-    if((PhiTPhi() * x_guess).size() != target().size())
-      SOPT_THROW("target, measurement operator and input vector have inconsistent sizes");
     if(not static_cast<bool>(is_converged()))
       SOPT_WARN("No convergence function was provided: algorithm will run for {} steps", itermax());
   }
 
-  //! \brief Calls Proximal ADMM
+  //! \brief Calls Forward Backward
   //! \param[out] out: Output vector x
   //! \param[in] guess: initial guess
   //! \param[in] residuals: initial residuals
@@ -212,18 +210,17 @@ protected:
 
   //! Vector of measurements (Φ^T y, i.e. dirty image )
   t_Vector target_;
-  //! Projection of Measurement Operator
-  t_LinearTransform PhiTPhi_;
 };
 
 template <class SCALAR>
-void FowrardBackward<SCALAR>::iteration_step(t_Vector &out, t_Vector &residual) const {
-  g_proximal(out, beta() / mu(), out - beta() * residual / sigma());
-  residual = PhiTPhi() * out - target();
+void ForwardBackward<SCALAR>::iteration_step(t_Vector &out, t_Vector &residual) const {
+  g_proximal(out, mu() * beta(), out - beta() * residual / sigma());
+  PhiTPhi_(residual, out);
+  residual = residual - target();
 }
 
 template <class SCALAR>
-typename ForwardBackward<SCALAR>::Diagnostic ProximalADMM<SCALAR>::
+typename ForwardBackward<SCALAR>::Diagnostic ForwardBackward<SCALAR>::
 operator()(t_Vector &out, t_Vector const &x_guess, t_Vector const &res_guess) const {
 
   SOPT_HIGH_LOG("Performing Forward-Backward");

@@ -1,14 +1,14 @@
 # list of headers
 set(headers
-  primal_dual.h imaging_padmm.h logging.disabled.h maths.h proximal.h relative_variation.h sdmm.h
+  imaging_forward_backward.h forward_backward.h primal_dual.h imaging_padmm.h logging.disabled.h maths.h proximal.h relative_variation.h sdmm.h
   wavelets.h conjugate_gradient.h l1_proximal.h logging.enabled.h padmm.h proximal_expression.h
   reweighted.h types.h wrapper.h exception.h linear_transform.h logging.h positive_quadrant.h
   real_type.h sampling.h power_method.h ${PROJECT_BINARY_DIR}/include/sopt/config.h
-)
+  )
 set(wavelet_headers
   wavelets/direct.h wavelets/indirect.h wavelets/innards.impl.h wavelets/sara.h
   wavelets/wavelet_data.h wavelets/wavelets.h
-)
+  )
 
 set(sources wavelets/wavelets.cc wavelets/wavelet_data.cc)
 if(TIFF_FOUND)
@@ -17,7 +17,7 @@ if(TIFF_FOUND)
 endif()
 if(SOPT_MPI)
   list(APPEND sources mpi/communicator.cc mpi/registered_types.cc mpi/session.cc wavelets/sara.cc)
-	list(APPEND mpi_headers mpi/communicator.h mpi/registered_types.h mpi/utilities.h mpi/session.h)
+  list(APPEND mpi_headers mpi/communicator.h mpi/registered_types.h mpi/utilities.h mpi/session.h)
 endif()
 
 add_library(sopt SHARED ${sources})
@@ -51,7 +51,7 @@ if(TARGET openmp::openmp)
   target_link_libraries(sopt openmp::openmp)
 endif()
 if(SOPT_MPI)
-	target_link_libraries(sopt ${MPI_CXX_LIBRARIES})
+  target_link_libraries(sopt ${MPI_CXX_LIBRARIES})
   target_include_directories(sopt SYSTEM PUBLIC ${MPI_CXX_INCLUDE_PATH})
 endif()
 
@@ -64,4 +64,4 @@ install(TARGETS sopt
   LIBRARY DESTINATION lib
   ARCHIVE DESTINATION lib
   INCLUDES DESTINATION include
-)
+  )

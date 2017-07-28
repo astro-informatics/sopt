@@ -1,0 +1,2 @@
+add_example(forward_backward_inpainting inpainting.cc LIBRARIES sopt tools_for_tests)
+set_target_properties(example_forward_backward_inpainting PROPERTIES OUTPUT_NAME inpainting)

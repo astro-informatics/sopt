@@ -9,7 +9,7 @@ if(logging)
   target_include_directories(common_catch_main_object PUBLIC
     "${PROJECT_BINARY_DIR}/include/"
     "${CMAKE_CURRENT_SOURCE_DIR}/.."
-  )
+    )
   add_dependencies(common_catch_main_object lookup_dependencies)
 endif()
 if(CATCH_HAS_THROWS_AS)
@@ -28,6 +28,7 @@ add_catch_test(sdmm_warm_start LIBRARIES sopt)
 add_catch_test(proximal LIBRARIES sopt)
 add_catch_test_with_seed(seeded_proximal test_proximal 1449580491)
 add_catch_test(padmm LIBRARIES sopt)
+add_catch_test(forward_backward LIBRARIES sopt)
 add_catch_test(padmm_warm_start LIBRARIES sopt)
 add_catch_test(reweighted LIBRARIES sopt)
 add_catch_test(power_method LIBRARIES sopt)

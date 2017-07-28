@@ -452,7 +452,7 @@ protected:
   std::array<Real, 4> objectives;
   bool do_two_cycle;
 };
-}
-} /* sopt::proximal */
+} // namespace proximal
+} // namespace sopt
 
 #endif

@@ -25,6 +25,7 @@ public:
   typedef typename FB::Scalar Scalar;
   typedef typename FB::Real Real;
   typedef typename FB::t_Vector t_Vector;
+  typedef typename FB::t_OperatorFunction t_OperatorFunction;
   typedef typename FB::t_LinearTransform t_LinearTransform;
   typedef typename FB::t_Proximal t_Proximal;
   typedef typename FB::t_IsConverged t_IsConverged;
@@ -47,19 +48,20 @@ public:
     t_Vector x;
   };
 
-  //! Setups imaging wrapper for ProximalADMM
+  //! Setups imaging wrapper for Forward Backward
   //! \param[in] f_proximal: proximal operator of the \f$f\f$ function.
   //! \param[in] g_proximal: proximal operator of the \f$g\f$ function
   template <class DERIVED>
-  ImagingFB(Eigen::MatrixBase<DERIVED> const &target)
+  ImagingForwardBackward(Eigen::MatrixBase<DERIVED> const &target)
       : l1_proximal_(), tight_frame_(false), residual_tolerance_(1e-4), relative_variation_(1e-4),
         residual_convergence_(nullptr), objective_convergence_(nullptr),
-        itermax_(std::numeric_limits<t_uint>::max()), gamma_(1e-8), nu_(1), is_converged_(),
-        Phi_(linear_transform_identity<Scalar>()), target_(target) {}
-  virtual ~ImagingProximalADMM() {}
+        itermax_(std::numeric_limits<t_uint>::max()), beta_(1e-8), mu_(1), sigma_(1),
+        is_converged_(), PhiTPhi_([](t_Vector &out, const t_Vector &in) { out = in; }),
+        target_(target) {}
+  virtual ~ImagingForwardBackward() {}
 
 // Macro helps define properties that can be initialized as in
-// auto padmm = ImagingProximalADMM<float>().prop0(value).prop1(value);
+// auto padmm = ImagingForwardBackward<float>().prop0(value).prop1(value);
 #define SOPT_MACRO(NAME, TYPE)                                                                     \
   TYPE const &NAME() const { return NAME##_; }                                                     \
   ImagingForwardBackward<SCALAR> &NAME(TYPE const &NAME) {                                         \
@@ -98,16 +100,15 @@ public:
   SOPT_MACRO(beta, Real);
   //! A function verifying convergence
   SOPT_MACRO(is_converged, t_IsConverged);
-  //! Measurement operator
-  SOPT_MACRO(Phi, t_LinearTransform);
   //! Compact Measurement operator
-  SOPT_MACRO(PhiTPhi, t_LinearTransform);
+  SOPT_MACRO(PhiTPhi, t_OperatorFunction);
 
 #undef SOPT_MACRO
   //! Vector of target measurements
   t_Vector const &target() const { return target_; }
   //! Sets the vector of target measurements
-  template <class DERIVED> FB<Scalar> &target(Eigen::MatrixBase<DERIVED> const &target) {
+  template <class DERIVED>
+  ImagingForwardBackward &target(Eigen::MatrixBase<DERIVED> const &target) {
     target_ = target;
     return *this;
   }
@@ -115,7 +116,7 @@ public:
   //! \brief Calls FB
   //! \param[out] out: Output vector x
   Diagnostic operator()(t_Vector &out) const {
-    return operator()(out, FB::initial_guess(Phi().adjoint() * target()));
+    return operator()(out, FB::initial_guess(target()));
   }
   //! \brief Calls FB
   //! \param[out] out: Output vector x
@@ -123,7 +124,7 @@ public:
   Diagnostic operator()(t_Vector &out, std::tuple<t_Vector, t_Vector> const &guess) const {
     return operator()(out, std::get<0>(guess), std::get<1>(guess));
   }
-  //! \brief Calls Proximal ADMM
+  //! \brief Calls FB
   //! \param[out] out: Output vector x
   //! \param[in] guess: initial guess
   Diagnostic
@@ -147,8 +148,7 @@ public:
   //! \param[in] guess: initial guess
   DiagnosticAndResult operator()() const {
     DiagnosticAndResult result;
-    static_cast<Diagnostic &>(result)
-        = operator()(result.x, FB::initial_guess(Phi().adjoint() * target()));
+    static_cast<Diagnostic &>(result) = operator()(result.x, FB::initial_guess(target()));
     return result;
   }
   //! Makes it simple to chain different calls to FB
@@ -156,17 +156,6 @@ public:
     DiagnosticAndResult result = warmstart;
     static_cast<Diagnostic &>(result) = operator()(result.x, warmstart.x, warmstart.residual);
     return result;
-  }
-
-  //! Set Φ and Φ^† using arguments that sopt::linear_transform understands
-  template <class... ARGS>
-  typename std::enable_if<sizeof...(ARGS) >= 1, ProximalForwardBackward &>::type
-  Phi(ARGS &&... args) {
-    Phi_ = linear_transform(std::forward<ARGS>(args)...);
-    auto direct = chained_operators(Phi_.adjoint(), Phi_.operator*());
-    auto indirect = chained_operators(Phi_.operator*(), Phi_.adjoint());
-    PhiTPhi_ = t_LinearTransform(direct, indirect);
-    return *this;
   }
 
   //! \brief L1 proximal used during calculation
@@ -178,7 +167,7 @@ public:
   t_LinearTransform const &Psi() const { return l1_proximal().Psi(); }
   //! Analysis operator Ψ
   template <class... ARGS>
-  typename std::enable_if<sizeof...(ARGS) >= 1, ImagingProximalADMM<Scalar> &>::type
+  typename std::enable_if<sizeof...(ARGS) >= 1, ImagingForwardBackward<Scalar> &>::type
   Psi(ARGS &&... args) {
     l1_proximal().Psi(std::forward<ARGS>(args)...);
     return *this;
@@ -195,7 +184,7 @@ public:
     return NAME##_proximal().VAR();                                                                \
   }                                                                                                \
   /** \brief Forwards to l1_proximal **/                                                           \
-  ImagingProximalADMM<Scalar> &NAME##_proximal_##VAR(                                              \
+  ImagingForwardBackward<Scalar> &NAME##_proximal_##VAR(                                           \
       decltype(std::declval<proximal::PROXIMAL<Scalar> const>().VAR()) VAR) {                      \
     NAME##_proximal().VAR(VAR);                                                                    \
     return *this;                                                                                  \
@@ -214,15 +203,15 @@ public:
 #undef SOPT_MACRO
 
   //! Helper function to set-up default residual convergence function
-  ImagingProximalADMM<Scalar> &residual_convergence(Real const &tolerance) {
+  ImagingForwardBackward<Scalar> &residual_convergence(Real const &tolerance) {
     return residual_convergence(nullptr).residual_tolerance(tolerance);
   }
   //! Helper function to set-up default residual convergence function
-  ImagingProximalADMM<Scalar> &objective_convergence(Real const &tolerance) {
+  ImagingForwardBackward<Scalar> &objective_convergence(Real const &tolerance) {
     return objective_convergence(nullptr).relative_variation(tolerance);
   }
   //! Convergence function that takes only the output as argument
-  ImagingProximalADMM<Scalar> &is_converged(std::function<bool(t_Vector const &x)> const &func) {
+  ImagingForwardBackward<Scalar> &is_converged(std::function<bool(t_Vector const &x)> const &func) {
     return is_converged([func](t_Vector const &x, t_Vector const &) { return func(x); });
   }
 
@@ -282,7 +271,7 @@ operator()(t_Vector &out, t_Vector const &guess, t_Vector const &res) const {
   auto const convergence = [this, scalvar](t_Vector const &x, t_Vector const &residual) mutable {
     return this->is_converged(scalvar, x, residual);
   };
-  auto const fb = ForwardBackward(g_proximal, Phi().adjoint() * target())
+  auto const fb = ForwardBackward<SCALAR>(g_proximal, target())
                       .itermax(itermax())
                       .beta(beta())
                       .mu(mu())
@@ -300,15 +289,15 @@ bool ImagingForwardBackward<SCALAR>::residual_convergence(t_Vector const &x,
     return residual_convergence()(x, residual);
   if(residual_tolerance() <= 0e0)
     return true;
-  auto const residual_norm = sopt::l2_norm(residual, l2ball_proximal_weights());
+  auto const residual_norm = sopt::l2_norm(residual, t_Vector::Ones(residual.size()));
   SOPT_LOW_LOG("    - [FB] Residuals: {} <? {}", residual_norm, residual_tolerance());
   return residual_norm < residual_tolerance();
 };
 
 template <class SCALAR>
-bool ImagingFowardBackward<SCALAR>::objective_convergence(ScalarRelativeVariation<Scalar> &scalvar,
-                                                          t_Vector const &x,
-                                                          t_Vector const &residual) const {
+bool ImagingForwardBackward<SCALAR>::objective_convergence(ScalarRelativeVariation<Scalar> &scalvar,
+                                                           t_Vector const &x,
+                                                           t_Vector const &residual) const {
   if(static_cast<bool>(objective_convergence()))
     return objective_convergence()(x, residual);
   if(scalvar.relative_tolerance() <= 0e0)
