@@ -214,6 +214,15 @@ public:
   ImagingForwardBackward<Scalar> &is_converged(std::function<bool(t_Vector const &x)> const &func) {
     return is_converged([func](t_Vector const &x, t_Vector const &) { return func(x); });
   }
+  //! Return objective function that is being minimized
+  std::function<t_real(t_Vector)> const objective_function() const {
+    return [=](const t_Vector &x) {
+      t_Vector z;
+      PhiTPhi_(z, x);
+      return mu_ * sopt::l1_norm(Psi().adjoint() * x, l1_proximal_weights())
+             + std::pow(sopt::l2_norm(target_ - z) / sigma_, 2);
+    };
+  }
 
 protected:
   //! Vector of measurements

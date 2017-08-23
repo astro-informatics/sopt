@@ -12,8 +12,8 @@
 namespace sopt {
 namespace algorithm {
 
-//! \brief Proximal Alternate Direction method of mutltipliers
-//! \details \f$\min_{x, z} f(x) + h(z)\f$ subject to \f$Φx + z = y\f$. \f$y\f$ is a target vector.
+//! \brief Proximal Forward Backward algorithm
+//! \details \f$\min_{x} γf(x) + \|y - Φx\|\f$ where \f$y\f$ is a target vector.
 template <class SCALAR> class ForwardBackward {
 public:
   //! Scalar type
@@ -185,6 +185,15 @@ public:
     std::get<0>(guess) = target;
     std::get<1>(guess) = t_Vector::Zero(target.size());
     return guess;
+  }
+
+  std::function<t_real(t_Vector)> const
+  objective_function(const std::function<t_real(t_Vector)> &g) const {
+    return [=](const t_Vector &x) {
+      t_Vector z;
+      PhiTPhi_(z, x);
+      return g(x) + std::pow(sopt::l2_norm(target_ - z) / sigma_, 2);
+    };
   }
 
 protected:
