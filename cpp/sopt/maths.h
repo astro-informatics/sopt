@@ -147,6 +147,20 @@ typename real_type<typename T0::Scalar>::type
 l2_norm(Eigen::MatrixBase<T0> const &input, Eigen::MatrixBase<T1> const &weights) {
   return l2_norm(input.derived().array(), weights.derived().array());
 }
+//! Computes weighted L2 norm
+template <class T0>
+typename real_type<typename T0::Scalar>::type l2_norm(Eigen::ArrayBase<T0> const &input) {
+  typename T0::PlainObject w(1);
+  w(0) = 1;
+  return l2_norm(input, w);
+}
+//! Computes weighted L2 norm
+template <class T0>
+typename real_type<typename T0::Scalar>::type l2_norm(Eigen::MatrixBase<T0> const &input) {
+  typename T0::PlainObject w(1);
+  w(0) = 1;
+  return l2_norm(input.derived().array(), w.array());
+}
 
 namespace details {
 //! Greatest common divisor
