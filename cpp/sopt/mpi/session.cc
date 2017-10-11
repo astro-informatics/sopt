@@ -1,8 +1,8 @@
+#include "sopt/mpi/session.h"
 #include "sopt/config.h"
 #include <exception>
 #include <mpi.h>
 #include "sopt/logging.h"
-#include "sopt/mpi/session.h"
 #include "sopt/types.h"
 
 namespace sopt {
@@ -25,7 +25,7 @@ void initializer::deleter(initializer *tag) {
   }
 }
 std::weak_ptr<initializer> initializer::singleton;
-}
+} // namespace details
 
 std::shared_ptr<details::initializer> init(int argc, const char **argv) {
   if(finalized())
@@ -34,8 +34,19 @@ std::shared_ptr<details::initializer> init(int argc, const char **argv) {
     assert(details::initializer::singleton.expired());
     std::shared_ptr<details::initializer> ptr(new details::initializer,
                                               &details::initializer::deleter);
+#ifdef SOPT_OPENMP
+    t_int provided;
+    if(MPI_Init_thread(&argc, const_cast<char ***>(&argv), MPI_THREAD_FUNNELED, &provided)
+       == MPI_SUCCESS)
+#else
     if(MPI_Init(&argc, const_cast<char ***>(&argv)) == MPI_SUCCESS)
+#endif
       details::initializer::singleton = ptr;
+
+#ifdef SOPT_OPENMP
+    if(provided < MPI_THREAD_FUNNELED)
+      SOPT_THROW("MPI threading support not sufficient.");
+#endif
     return details::initializer::singleton.lock();
   }
   return session_singleton();
@@ -75,5 +86,5 @@ void finalize() {
   MPI_Finalize();
 }
 
-} /* optimet::mpi  */
-} /* optimet  */
+} // namespace mpi
+} // namespace sopt
