@@ -54,7 +54,8 @@ int main(int argc, char const **argv) {
   sopt::logging::initialize();
   sopt::logging::set_level("debug");
   SOPT_HIGH_LOG("Read input file {}", input);
-  Image const image = sopt::notinstalled::read_standard_tiff(input);
+  const Image image = sopt::notinstalled::read_standard_tiff(input)
+                      / sopt::notinstalled::read_standard_tiff(input).cwiseAbs().maxCoeff();
   SOPT_HIGH_LOG("Image size: {} x {} = {}", image.cols(), image.rows(), image.size());
 
   SOPT_HIGH_LOG("Initializing sensing operator");
@@ -63,10 +64,10 @@ int main(int argc, char const **argv) {
       = sopt::linear_transform<Scalar>(sopt::Sampling(image.size(), nmeasure, mersenne));
   auto phiTphi = [=](Vector &out, const Vector &in) { out = sampling.adjoint() * (sampling * in); };
   SOPT_HIGH_LOG("Initializing wavelets");
-  // auto const wavelet = sopt::wavelets::factory("DB4", 4);
+  auto const wavelet = sopt::wavelets::factory("DB4", 4);
 
-  sopt::wavelets::SARA const wavelet{std::make_tuple("db1", 4u), std::make_tuple("db2", 4u),
-                                     std::make_tuple("db3", 4u), std::make_tuple("db4", 4u)};
+  //  sopt::wavelets::SARA const wavelet{std::make_tuple("db1", 4u), std::make_tuple("db2", 4u),
+  //                                   std::make_tuple("db3", 4u), std::make_tuple("db4", 4u)};
 
   auto const psi = sopt::linear_transform<Scalar>(wavelet, image.rows(), image.cols());
   SOPT_LOW_LOG("Wavelet coefficients: {}", (psi.adjoint() * image).size());
@@ -75,7 +76,7 @@ int main(int argc, char const **argv) {
   Vector const y0 = sampling * Vector::Map(image.data(), image.size());
   auto const snr = 30.0;
   auto const sigma = y0.stableNorm() / std::sqrt(y0.size()) * std::pow(10.0, -(snr / 20.0));
-  auto const epsilon = std::sqrt(nmeasure + 2 * std::sqrt(y0.size())) * sigma;
+  auto const epsilon = std::sqrt(nmeasure + 2 * std::sqrt(nmeasure)) * sigma;
 
   SOPT_HIGH_LOG("Create dirty vector");
   std::normal_distribution<> gaussian_dist(0, sigma);
@@ -89,15 +90,18 @@ int main(int argc, char const **argv) {
                                 "dirty_" + output + ".tiff");
   }
 
+  sopt::t_real const mu
+      = (psi.adjoint() * (sampling.adjoint() * y)).cwiseAbs().maxCoeff() * 1e-2 * nmeasure;
+  sopt::t_real const beta = 1. / static_cast<sopt::t_real>(nmeasure);
   SOPT_HIGH_LOG("Creating Foward Backward Functor");
   auto const fb = sopt::algorithm::ImagingForwardBackward<Scalar>(sampling.adjoint() * y)
                       .itermax(500)
-                      .beta(1)
-                      .sigma(1.)
-                      .mu(0.01)
+                      .beta(beta)
+                      .sigma(sigma)
+                      .mu(mu)
                       .relative_variation(5e-4)
                       .residual_tolerance(0)
-                      .tight_frame(false)
+                      .tight_frame(true)
                       .l1_proximal_tolerance(1e-4)
                       .l1_proximal_nu(1)
                       .l1_proximal_itermax(50)
@@ -123,21 +127,25 @@ int main(int argc, char const **argv) {
 
   SOPT_HIGH_LOG("SOPT-Forward Backward converged in {} iterations", diagnostic.niters);
 
-  const sopt::t_real alpha = 0.01;
+  const sopt::t_real alpha = 0.99;
   const sopt::t_uint grid_pixel_size = image.rows() / 16;
   SOPT_HIGH_LOG("Finding credible interval");
-  const std::function<sopt::t_real(sopt::Vector<sopt::t_real>)> objective_function
-      = fb.objective_function();
+  const std::function<Scalar(Vector)> objective_function = fb.objective_function();
 
-  sopt::Image<sopt::t_real> lower_error, upper_error;
-  std::tie(lower_error, upper_error)
+  sopt::Image<sopt::t_real> lower_error, upper_error, mean_solution;
+  std::tie(lower_error, mean_solution, upper_error)
       = sopt::credible_region::credible_interval<sopt::Vector<sopt::t_real>, sopt::t_real>(
           diagnostic.x, image.rows(), image.cols(), grid_pixel_size, objective_function, alpha);
   if(output != "none") {
-    sopt::utilities::write_tiff(Matrix::Map(upper_error.data(), image.rows(), image.cols()),
-                                output + "_upper_error.tiff");
-    sopt::utilities::write_tiff(Matrix::Map(lower_error.data(), image.rows(), image.cols()),
-                                output + "_lower_error.tiff");
+    sopt::utilities::write_tiff(
+        Matrix::Map(upper_error.data(), upper_error.rows(), upper_error.cols()),
+        output + "_upper_error.tiff");
+    sopt::utilities::write_tiff(
+        Matrix::Map(mean_solution.data(), mean_solution.rows(), mean_solution.cols()),
+        output + "_mean_solution.tiff");
+    sopt::utilities::write_tiff(
+        Matrix::Map(lower_error.data(), lower_error.rows(), lower_error.cols()),
+        output + "_lower_error.tiff");
   }
   return 0;
 }
