@@ -19,7 +19,7 @@ t_real compute_energy_upper_bound(
     const std::function<t_real(typename T::PlainObject)> &objective_function);
 
 template <class T>
-std::tuple<t_real, t_real>
+std::tuple<t_real, t_real, t_real>
 find_credible_interval(const Eigen::MatrixBase<T> &solution, const t_uint &rows, const t_uint &cols,
                        const std::tuple<t_uint, t_uint, t_uint, t_uint> &region,
                        const std::function<t_real(typename T::PlainObject)> &objective_function,
@@ -27,7 +27,7 @@ find_credible_interval(const Eigen::MatrixBase<T> &solution, const t_uint &rows,
 
 template <class T, class K>
 typename std::enable_if<is_complex<K>::value or std::is_arithmetic<K>::value,
-                        std::tuple<Image<K>, Image<K>>>::type
+                        std::tuple<Image<K>, Image<K>, Image<K>>>::type
 credible_interval_grid(const Eigen::MatrixBase<T> &solution, const t_uint &rows, const t_uint &cols,
                        const t_uint &grid_pixel_size,
                        const std::function<t_real(typename T::PlainObject)> &objective_function,
@@ -35,21 +35,21 @@ credible_interval_grid(const Eigen::MatrixBase<T> &solution, const t_uint &rows,
 
 template <class T, class K>
 typename std::enable_if<is_complex<K>::value or std::is_arithmetic<K>::value,
-                        std::tuple<Image<K>, Image<K>>>::type
+                        std::tuple<Image<K>, Image<K>, Image<K>>>::type
 credible_interval_grid(const Eigen::MatrixBase<T> &solution, const t_uint &rows, const t_uint &cols,
                        const std::tuple<t_uint, t_uint> &grid_pixel_size,
                        const std::function<t_real(typename T::PlainObject)> &objective_function,
                        const t_real &energy_upperbound);
 template <class T, class K>
 typename std::enable_if<is_complex<K>::value or std::is_arithmetic<K>::value,
-                        std::tuple<Image<K>, Image<K>>>::type
+                        std::tuple<Image<K>, Image<K>, Image<K>>>::type
 credible_interval(const Eigen::MatrixBase<T> &solution, const t_uint &rows, const t_uint &cols,
                   const t_uint &grid_pixel_size,
                   const std::function<t_real(typename T::PlainObject)> &objective_function,
                   const t_real &alpha);
 template <class T, class K>
 typename std::enable_if<is_complex<K>::value or std::is_arithmetic<K>::value,
-                        std::tuple<Image<K>, Image<K>>>::type
+                        std::tuple<Image<K>, Image<K>, Image<K>>>::type
 credible_interval(const Eigen::MatrixBase<T> &solution, const t_uint &rows, const t_uint &cols,
                   const std::tuple<t_uint, t_uint> &grid_pixel_size,
                   const std::function<t_real(typename T::PlainObject)> &objective_function,
@@ -68,15 +68,16 @@ t_real compute_energy_upper_bound(
     SOPT_THROW("α must positive.");
   if(alpha >= 1)
     SOPT_THROW("α must less than 1.");
-  const t_uint N = solution.size();
+  const t_real N = solution.size();
   const t_real energy = objective_function(solution);
   auto const gamma = energy + N * (std::sqrt(16 * std::log(3 / (1 - alpha)) / N) + 1);
-  SOPT_MEDIUM_LOG("γ = {}", gamma);
+  SOPT_MEDIUM_LOG("Confidence interval: %{}", 100 * alpha);
+  SOPT_MEDIUM_LOG("γ = {}, g(x_s) = {}", gamma, energy);
   return gamma;
 }
 
 template <class T>
-std::tuple<t_real, t_real>
+std::tuple<t_real, t_real, t_real>
 find_credible_interval(const Eigen::MatrixBase<T> &solution, const t_uint &rows, const t_uint &cols,
                        const std::tuple<t_uint, t_uint, t_uint, t_uint> &region,
                        const std::function<t_real(typename T::PlainObject)> &objective_function,
@@ -97,33 +98,28 @@ find_credible_interval(const Eigen::MatrixBase<T> &solution, const t_uint &rows,
                           ->block(std::get<0>(region), std::get<1>(region), std::get<2>(region),
                                   std::get<3>(region))
                           .array()
-                          .cwiseAbs()
+                          .real()
                           .mean();
-  const t_real b = std::max(varried_solution
-                                    ->block(std::get<0>(region), std::get<1>(region),
-                                            std::get<2>(region), std::get<3>(region))
-                                    .array()
-                                    .cwiseAbs()
-                                    .maxCoeff()
-                                * 2,
-                            energy_upperbound * 2);
+  const t_real b = (mean > 0) ?
+                       solution.cwiseAbs().maxCoeff() * 2 :
+                       std::max(solution.stableNorm(), static_cast<t_real>(solution.size()));
   std::function<t_real(t_real)> const bound_estimater = [=](const t_real &x) -> t_real {
     varried_solution
         ->block(std::get<0>(region), std::get<1>(region), std::get<2>(region), std::get<3>(region))
-        .setConstant(mean + x);
+        .fill(mean + x);
     return objective_function(
         Vector<typename T::Scalar>::Map(varried_solution->data(), varried_solution->size()));
   };
 
   const t_real bound_lower
-      = sopt::bisection_method(energy_upperbound, bound_estimater, -b, 0., 1e-4);
+      = sopt::bisection_method(energy_upperbound, bound_estimater, -b, 0., 1e-3);
   const t_real bound_upper
-      = sopt::bisection_method(energy_upperbound, bound_estimater, 0., b, 1e-4);
-  return std::make_tuple(bound_lower, bound_upper);
+      = sopt::bisection_method(energy_upperbound, bound_estimater, 0., b, 1e-3);
+  return std::make_tuple(bound_lower, mean, bound_upper);
 }
 template <class T, class K>
 typename std::enable_if<is_complex<K>::value or std::is_arithmetic<K>::value,
-                        std::tuple<Image<K>, Image<K>>>::type
+                        std::tuple<Image<K>, Image<K>, Image<K>>>::type
 credible_interval_grid(const Eigen::MatrixBase<T> &solution, const t_uint &rows, const t_uint &cols,
                        const t_uint &grid_pixel_size,
                        const std::function<t_real(typename T::PlainObject)> &objective_function,
@@ -136,7 +132,7 @@ credible_interval_grid(const Eigen::MatrixBase<T> &solution, const t_uint &rows,
 
 template <class T, class K>
 typename std::enable_if<is_complex<K>::value or std::is_arithmetic<K>::value,
-                        std::tuple<Image<K>, Image<K>>>::type
+                        std::tuple<Image<K>, Image<K>, Image<K>>>::type
 credible_interval_grid(const Eigen::MatrixBase<T> &solution, const t_uint &rows, const t_uint &cols,
                        const std::tuple<t_uint, t_uint> &grid_pixel_size,
                        const std::function<t_real(typename T::PlainObject)> &objective_function,
@@ -150,6 +146,7 @@ credible_interval_grid(const Eigen::MatrixBase<T> &solution, const t_uint &rows,
   const t_uint grid_cols = std::floor(static_cast<t_real>(cols) / dcol);
   Image<K> credible_grid_lower_bound = Image<K>::Zero(grid_rows, grid_cols);
   Image<K> credible_grid_upper_bound = Image<K>::Zero(grid_rows, grid_cols);
+  Image<K> credible_grid_mean = Image<K>::Zero(grid_rows, grid_cols);
   SOPT_LOW_LOG("Starting calculation of credible interval: {} x {} grid.", grid_rows, grid_cols);
   for(t_uint i = 0; i < grid_rows; i++) {
     for(t_uint j = 0; j < grid_cols; j++) {
@@ -170,17 +167,20 @@ credible_interval_grid(const Eigen::MatrixBase<T> &solution, const t_uint &rows,
       SOPT_LOW_LOG("Grid pixel ({}, {}): [{}, {}) x [{}, {})", i, j, start_row,
                    start_row + delta_row, start_col, start_col + delta_col);
       const auto region = std::make_tuple(start_row, start_col, delta_row, delta_col);
-      const std::tuple<t_real, t_real> bounds = find_credible_interval(
+      const std::tuple<t_real, t_real, t_real> bounds = find_credible_interval(
           solution, rows, cols, region, objective_function, energy_upperbound);
+      SOPT_LOW_LOG("η- = {}, mean = {}, η+ = {}", std::get<0>(bounds), std::get<1>(bounds),
+                   std::get<2>(bounds));
       credible_grid_lower_bound(i, j) = std::get<0>(bounds);
-      credible_grid_upper_bound(i, j) = std::get<1>(bounds);
+      credible_grid_mean(i, j) = std::get<1>(bounds);
+      credible_grid_upper_bound(i, j) = std::get<2>(bounds);
     }
   }
-  return std::make_tuple(credible_grid_lower_bound, credible_grid_upper_bound);
+  return std::make_tuple(credible_grid_lower_bound, credible_grid_mean, credible_grid_upper_bound);
 }
 template <class T, class K>
 typename std::enable_if<is_complex<K>::value or std::is_arithmetic<K>::value,
-                        std::tuple<Image<K>, Image<K>>>::type
+                        std::tuple<Image<K>, Image<K>, Image<K>>>::type
 credible_interval(const Eigen::MatrixBase<T> &solution, const t_uint &rows, const t_uint &cols,
                   const std::tuple<t_uint, t_uint> &grid_pixel_size,
                   const std::function<t_real(typename T::PlainObject)> &objective_function,
@@ -191,7 +191,7 @@ credible_interval(const Eigen::MatrixBase<T> &solution, const t_uint &rows, cons
 }
 template <class T, class K>
 typename std::enable_if<is_complex<K>::value or std::is_arithmetic<K>::value,
-                        std::tuple<Image<K>, Image<K>>>::type
+                        std::tuple<Image<K>, Image<K>, Image<K>>>::type
 credible_interval(const Eigen::MatrixBase<T> &solution, const t_uint &rows, const t_uint &cols,
                   const t_uint &grid_pixel_size,
                   const std::function<t_real(typename T::PlainObject)> &objective_function,
