@@ -7,6 +7,7 @@
 #include "sopt/exception.h"
 #include "sopt/linear_transform.h"
 #include "sopt/logging.h"
+#include "sopt/objective_functions.h"
 #include "sopt/types.h"
 
 namespace sopt {
@@ -189,11 +190,8 @@ public:
 
   std::function<t_real(t_Vector)> const
   objective_function(const std::function<t_real(t_Vector)> &g) const {
-    return [=](const t_Vector &x) {
-      t_Vector z;
-      PhiTPhi_(z, x);
-      return g(x) + std::pow(sopt::l2_norm(target_ - z) / sigma_, 2);
-    };
+    return objective_functions::unconstrained_regularisation<t_Vector>(g, sigma(), target(),
+                                                                       PhiTPhi());
   }
 
 protected:
@@ -223,7 +221,7 @@ protected:
 
 template <class SCALAR>
 void ForwardBackward<SCALAR>::iteration_step(t_Vector &out, t_Vector &residual) const {
-  g_proximal(out, mu() * beta(), out - beta() * residual / sigma());
+  g_proximal(out, mu() * beta(), out - beta() * residual / std::pow(sigma(), 2));
   PhiTPhi_(residual, out);
   residual = residual - target();
 }
@@ -244,6 +242,8 @@ operator()(t_Vector &out, t_Vector const &x_guess, t_Vector const &res_guess) co
     SOPT_LOW_LOG("    - [FB] Iteration {}/{}", niters, itermax());
     iteration_step(out, residual);
     SOPT_LOW_LOG("      - [FB] Sum of residuals: {}", residual.array().abs().sum());
+    SOPT_LOW_LOG("      - [FB] l2 objective function: {}",
+                 0.5 * std::pow(sopt::l2_norm(residual) / sigma(), 2));
     converged = is_converged(out, residual);
   }
 
