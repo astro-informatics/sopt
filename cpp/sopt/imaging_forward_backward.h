@@ -10,6 +10,7 @@
 #include "sopt/l1_proximal.h"
 #include "sopt/linear_transform.h"
 #include "sopt/logging.h"
+#include "sopt/objective_functions.h"
 #include "sopt/proximal.h"
 #include "sopt/relative_variation.h"
 #include "sopt/types.h"
@@ -216,12 +217,8 @@ public:
   }
   //! Return objective function that is being minimized
   std::function<t_real(t_Vector)> const objective_function() const {
-    return [=](const t_Vector &x) {
-      t_Vector z;
-      PhiTPhi_(z, x);
-      return mu_ * sopt::l1_norm(Psi().adjoint() * x, l1_proximal_weights())
-             + std::pow(sopt::l2_norm(target_ - z) / sigma_, 2);
-    };
+    return objective_functions::unconstrained_l1_regularisation<t_Vector>(mu(), sigma(), target(),
+                                                                          PhiTPhi(), Psi());
   }
 
 protected:
@@ -270,7 +267,7 @@ template <class SCALAR>
 typename ImagingForwardBackward<SCALAR>::Diagnostic ImagingForwardBackward<SCALAR>::
 operator()(t_Vector &out, t_Vector const &guess, t_Vector const &res) const {
   SOPT_HIGH_LOG("Performing Foward Backward with L1 operator");
-  // The f proximal is an L1 proximal that stores some diagnostic result
+  // The g proximal is an L1 proximal that stores some diagnostic result
   Diagnostic result;
   auto const g_proximal = [this, &result](t_Vector &out, Real gamma, t_Vector const &x) {
     result.l1_diagnostic = this->l1_proximal(out, gamma, x);
@@ -298,7 +295,7 @@ bool ImagingForwardBackward<SCALAR>::residual_convergence(t_Vector const &x,
     return residual_convergence()(x, residual);
   if(residual_tolerance() <= 0e0)
     return true;
-  auto const residual_norm = sopt::l2_norm(residual, t_Vector::Ones(residual.size()));
+  auto const residual_norm = sopt::l2_norm(residual);
   SOPT_LOW_LOG("    - [FB] Residuals: {} <? {}", residual_norm, residual_tolerance());
   return residual_norm < residual_tolerance();
 };
