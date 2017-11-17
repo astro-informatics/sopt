@@ -34,7 +34,7 @@ int main(int argc, const char **argv) {
     else if(arg.size() < N or arg.substr(0, N) != "--out=")
       cargs.push_back(arg.c_str());
 
-  auto const returnCode = session.applyCommandLine(cargs.size(), cargs.data());
+  auto const returnCode = session.applyCommandLine(cargs.size(), const_cast<char **>(cargs.data()));
   if(returnCode != 0) // Indicates a command line error
     return returnCode;
 
