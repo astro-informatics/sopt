@@ -29,7 +29,7 @@ TEST_CASE("caculating upper and lower interval") {
   const std::function<t_real(t_Vector)> energy_function
       = [](const t_Vector &input) -> t_real { return input.cwiseAbs().maxCoeff(); };
   const t_real gamma = 1.;
-  std::tuple<t_uint, t_uint, t_uint, t_uint> const region = {0, 0, rows, cols};
+  std::tuple<t_uint, t_uint, t_uint, t_uint> const region = std::make_tuple(0, 0, rows, cols);
   t_real lower = 0;
   t_real upper = 0;
   t_real mean = 0;
@@ -40,8 +40,8 @@ TEST_CASE("caculating upper and lower interval") {
   CHECK(std::abs(upper - 0.5) <= 1e-4);
   std::tie(lower, mean, upper)
       = credible_region::find_credible_interval(x, rows, cols,
-                                                {std::floor(rows * 0.25), std::floor(cols * 0.25),
-                                                 std::floor(rows * 0.5), std::floor(cols * 0.5)},
+                                                std::make_tuple(std::floor(rows * 0.25), std::floor(cols * 0.25),
+                                                 std::floor(rows * 0.5), std::floor(cols * 0.5)),
                                                 energy_function, gamma);
   CHECK(std::abs(lower + 1.5) <= 1e-4);
   CHECK(std::abs(upper - 0.5) <= 1e-4);
