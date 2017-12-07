@@ -101,7 +101,7 @@ find_credible_interval(const Eigen::MatrixBase<T> &solution, const t_uint &rows,
                           .real()
                           .mean();
   const t_real b = (mean > 0) ?
-                       solution.cwiseAbs().maxCoeff() * 2 :
+                       solution.cwiseAbs().maxCoeff() * 3 :
                        std::max(solution.stableNorm(), static_cast<t_real>(solution.size()));
   std::function<t_real(t_real)> const bound_estimater = [=](const t_real &x) -> t_real {
     varried_solution

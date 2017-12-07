@@ -23,8 +23,8 @@ bisection_method(const K &function_value, const std::function<K(K)> &func, const
   t_real upper_eta = b;
   t_real relative_difference = 1;
   t_real eta = (a + b) * 0.5;
-  // SOPT_LOW_LOG("Starting bisection method over x ∈ [{}, {}], to estimate f(x) = {}", a, b,
-  //              function_value);
+   SOPT_LOW_LOG("Starting bisection method over x ∈ [{}, {}], to estimate f(x) = {}", a, b,
+                function_value);
   const auto estimate = [&](const K &x) { return func(x) - function_value; };
   const t_real eb = estimate(b);
   const t_real ea = estimate(a);
@@ -34,8 +34,11 @@ bisection_method(const K &function_value, const std::function<K(K)> &func, const
     return a;
   if((ea > 0 and eb > 0) or (ea < 0 and eb < 0))
     SOPT_THROW("f(a) = " << ea << " and f(b) = " << eb
-                         << " have the wrong sign. Bisection Method not applicable for "
-                            "this function.");
+                         << " have the wrong sign."
+                            "Where a = " << a << " and b = " << b
+                            << " Bisection Method not applicable for "
+                            "this function."
+                            );
   const auto sign = [&](const K &x) { return (x > 0) ? 1 : ((x < 0) ? -1 : 0); };
   // SOPT_LOW_LOG("Convergence when: |f((a+b)/2) -f(x)| < {} or |a - b| < {}", rel_convergence,
   //              rel_convergence);
@@ -52,8 +55,8 @@ bisection_method(const K &function_value, const std::function<K(K)> &func, const
     relative_difference = std::abs(function_est);
     assert(!(estimate(lower_eta) > 0 and estimate(upper_eta) > 0)
            and !(estimate(lower_eta) < 0 and estimate(upper_eta) < 0));
-    SOPT_LOW_LOG("|f(x_0) - f(x)| = {}, x = {}, [{}, {}]", relative_difference, eta, lower_eta,
-                 upper_eta);
+ //   SOPT_LOW_LOG("|f(x_0) - f(x)| = {}, x = {}, [{}, {}]", relative_difference, eta, lower_eta,
+ //                upper_eta);
   }
   return eta;
 }

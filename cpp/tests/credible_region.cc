@@ -27,25 +27,32 @@ TEST_CASE("calculating gamma") {
 TEST_CASE("caculating upper and lower interval") {
   const t_Vector x = t_Vector::Constant(N, 0.5);
   const std::function<t_real(t_Vector)> energy_function
-      = [](const t_Vector &input) -> t_real { return input.cwiseAbs().maxCoeff(); };
+      = [](const t_Vector &input) -> t_real { return (input.array()).cwiseAbs().maxCoeff(); };
   const t_real gamma = 1.;
   std::tuple<t_uint, t_uint, t_uint, t_uint> const region = std::make_tuple(0, 0, rows, cols);
+  CAPTURE(gamma);
   t_real lower = 0;
   t_real upper = 0;
   t_real mean = 0;
   std::tie(lower, mean, upper)
       = credible_region::find_credible_interval(x, rows, cols, region, energy_function, gamma);
-  CHECK(std::abs(lower + 1.5) <= 1e-4);
-  CHECK(std::abs(mean - 0.5) <= 1e-4);
-  CHECK(std::abs(upper - 0.5) <= 1e-4);
+  CHECK(std::abs(lower + 1.5) <= 1e-2);
+  CHECK(std::abs(mean - 0.5) <= 1e-2);
+  CHECK(std::abs(upper - 0.5) <= 1e-2);
+  CAPTURE(lower);
+  CAPTURE(mean);
+  CAPTURE(upper);
   std::tie(lower, mean, upper)
       = credible_region::find_credible_interval(x, rows, cols,
                                                 std::make_tuple(std::floor(rows * 0.25), std::floor(cols * 0.25),
                                                  std::floor(rows * 0.5), std::floor(cols * 0.5)),
                                                 energy_function, gamma);
-  CHECK(std::abs(lower + 1.5) <= 1e-4);
-  CHECK(std::abs(upper - 0.5) <= 1e-4);
-  CHECK(std::abs(mean - 0.5) <= 1e-4);
+  CHECK(std::abs(lower + 1.5) <= 1e-2);
+  CHECK(std::abs(upper - 0.5) <= 1e-2);
+  CHECK(std::abs(mean - 0.5) <= 1e-2);
+  CAPTURE(lower);
+  CAPTURE(mean);
+  CAPTURE(upper);
 }
 
 TEST_CASE("calculating upper and lower interval grid") {
@@ -65,9 +72,9 @@ TEST_CASE("calculating upper and lower interval grid") {
   Image<t_real> upper = Image<t_real>::Zero(rows, cols);
   std::tie(lower, mean, upper) = credible_region::credible_interval_grid<t_Vector, t_real>(
       x, rows, cols, pix_size, energy_function, gamma);
-  CHECK(expected_lower.isApprox(lower, 1e-4));
-  CHECK(expected_mean.isApprox(mean, 1e-4));
-  CHECK(expected_upper.isApprox(upper, 1e-4));
+  CHECK(expected_lower.isApprox(lower, 1e-2));
+  CHECK(expected_mean.isApprox(mean, 1e-2));
+  CHECK(expected_upper.isApprox(upper, 1e-2));
 }
 
 TEST_CASE("calculating upper and lower interval grid non const") {
@@ -90,7 +97,7 @@ TEST_CASE("calculating upper and lower interval grid non const") {
   Image<t_real> const expected_lower = Image<t_real>::Constant(grid_rows, grid_cols, -gamma);
   Image<t_real> const expected_mean = Image<t_real>::Constant(grid_rows, grid_cols, 0);
   Image<t_real> const expected_upper = Image<t_real>::Constant(grid_rows, grid_cols, gamma);
-  CHECK(expected_lower.isApprox(lower, 1e-4));
-  CHECK(expected_mean.isApprox(mean, 1e-4));
-  CHECK(expected_upper.isApprox(upper, 1e-4));
+  CHECK(expected_lower.isApprox(lower, 1e-2));
+  CHECK(expected_mean.isApprox(mean, 1e-2));
+  CHECK(expected_upper.isApprox(upper, 1e-2));
 }
