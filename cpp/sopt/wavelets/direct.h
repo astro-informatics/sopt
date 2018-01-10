@@ -41,16 +41,21 @@ direct_transform_impl(Eigen::ArrayBase<T0> const &coeffs_, Eigen::ArrayBase<T1> 
   assert(coeffs.rows() == signal.rows());
   assert(coeffs.cols() == signal.cols());
   assert(wavelet.direct_filter.low.size() == wavelet.direct_filter.high.size());
-
-  for(t_uint i(0); i < static_cast<t_uint>(coeffs.rows()); ++i)
+#ifdef SOPT_OPENMP
+#pragma omp parallel for
+#endif
+  for(t_uint i = 0; i < static_cast<t_uint>(coeffs.rows()); ++i)
     direct_transform_impl(coeffs.row(i).transpose(), signal.row(i).transpose(), wavelet);
 
-  for(t_uint i(0); i < static_cast<t_uint>(coeffs.cols()); ++i) {
+#ifdef SOPT_OPENMP
+#pragma omp parallel for
+#endif
+  for(t_uint i = 0; i < static_cast<t_uint>(coeffs.cols()); ++i) {
     signal.col(i) = coeffs.col(i);
     direct_transform_impl(coeffs.col(i), signal.col(i), wavelet);
   }
 }
-}
+} // namespace
 
 //! \brief N-levels 1d direct transform
 //! \param[out] coeffs_: output of the function (despite the const)
@@ -112,6 +117,6 @@ auto direct_transform(Eigen::ArrayBase<T0> const &signal, t_uint levels, Wavelet
   direct_transform(result, signal, levels, wavelet);
   return result;
 }
-}
-}
+} // namespace wavelets
+} // namespace sopt
 #endif

@@ -37,9 +37,10 @@ int main(int argc, char const **argv) {
   if(argc > 3) {
     std::cout << "Usage:\n"
                  "$ "
-              << argv[0] << " [input [output]]\n\n"
-                            "- input: path to the image to clean (or name of standard SOPT image)\n"
-                            "- output: filename pattern for output image\n";
+              << argv[0]
+              << " [input [output]]\n\n"
+                 "- input: path to the image to clean (or name of standard SOPT image)\n"
+                 "- output: filename pattern for output image\n";
     exit(0);
   }
   // Set up random numbers for C and C++
@@ -50,6 +51,7 @@ int main(int argc, char const **argv) {
   // Initializes and sets logger (if compiled with logging)
   // See set_level function for levels.
   sopt::logging::initialize();
+  sopt::logging::set_level("debug");
 
   SOPT_HIGH_LOG("Read input file {}", input);
   Image const image = sopt::notinstalled::read_standard_tiff(input);

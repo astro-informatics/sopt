@@ -39,13 +39,19 @@ indirect_transform_impl(Eigen::ArrayBase<T0> const &coeffs_, Eigen::ArrayBase<T1
   assert(coeffs.rows() == signal.rows() and coeffs.cols() == signal.cols());
   assert(coeffs.rows() % 2 == 0 and coeffs.cols() % 2 == 0);
 
-  for(typename T0::Index i(0); i < signal.rows(); ++i)
+#ifdef SOPT_OPENMP
+#pragma omp parallel for
+#endif
+  for(t_uint i = 0; i < signal.rows(); ++i)
     indirect_transform_impl(coeffs.row(i).transpose(), signal.row(i).transpose(), wavelet);
   coeffs = signal;
-  for(typename T0::Index j(0); j < signal.cols(); ++j)
+#ifdef SOPT_OPENMP
+#pragma omp parallel for
+#endif
+  for(t_uint j = 0; j < signal.cols(); ++j)
     indirect_transform_impl(coeffs.col(j), signal.col(j), wavelet);
 }
-}
+} // namespace
 
 //! \brief N-levels 1d indirect transform
 //! \param[in] coeffs_: input coefficients
@@ -115,6 +121,6 @@ auto indirect_transform(Eigen::ArrayBase<T0> const &coeffs, t_uint levels,
   indirect_transform(coeffs, result, levels, wavelet);
   return result;
 }
-}
-}
+} // namespace wavelets
+} // namespace sopt
 #endif

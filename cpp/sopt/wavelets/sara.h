@@ -32,12 +32,12 @@ public:
   SARA(std::initializer_list<std::tuple<std::string, t_uint>> const &init)
       : SARA(init.begin(), init.end()) {}
   //! Construct from any iterator over a (std:string, t_uint) tuple
-  template <class ITERATOR,
-            class T = typename std::
-                enable_if<std::is_convertible<decltype(std::get<0>(*std::declval<ITERATOR>())),
-                                              std::string>::value
-                          and std::is_convertible<decltype(std::get<1>(*std::declval<ITERATOR>())),
-                                                  t_uint>::value>::type>
+  template <
+      class ITERATOR,
+      class T = typename std::enable_if<
+          std::is_convertible<decltype(std::get<0>(*std::declval<ITERATOR>())), std::string>::value
+          and std::is_convertible<decltype(std::get<1>(*std::declval<ITERATOR>())),
+                                  t_uint>::value>::type>
   SARA(ITERATOR first, ITERATOR last) {
     for(; first != last; ++first)
       emplace_back(std::get<0>(*first), std::get<1>(*first));
@@ -134,18 +134,9 @@ void SARA::direct(Eigen::ArrayBase<T1> &coeffs, Eigen::ArrayBase<T0> const &sign
   if(size() == 0)
     return;
   auto const Ncols = signal.cols();
-#ifdef SOPT_OPENMP
-#pragma omp parallel
-#endif
   {
 #ifndef SOPT_OPENMP
     SOPT_TRACE("Calling direct sara without threads");
-#else
-    if(omp_get_thread_num() == 0) {
-      SOPT_TRACE("Calling direct sara with {} threads of {}", omp_get_num_threads(),
-                 omp_get_max_threads());
-    }
-#pragma omp for
 #endif
     for(size_type i = 0; i < size(); ++i)
       at(i).direct(coeffs.leftCols((i + 1) * Ncols).rightCols(Ncols), signal);
@@ -168,20 +159,9 @@ void SARA::indirect(Eigen::ArrayBase<T1> const &coeffs, Eigen::ArrayBase<T0> &si
     throw std::length_error("Incorrect size for output matrix(or could not resize)");
   auto priv_image = Image<typename T0::Scalar>::Zero(signal.rows(), signal.cols()).eval();
   auto const Ncols = signal.cols();
-#ifdef SOPT_OPENMP
-#pragma omp declare reduction(+ : Image < typename T0::Scalar > : omp_out += omp_in) initializer(  \
-    omp_priv = Image < typename T0::Scalar > ::Zero(omp_orig.rows(), omp_orig.cols()))
-#pragma omp parallel
-#endif
   {
 #ifndef SOPT_OPENMP
     SOPT_TRACE("Calling indirect sara without threads");
-#else
-    if(omp_get_thread_num() == 0) {
-      SOPT_TRACE("Calling indirect sara with {} threads of {}", omp_get_num_threads(),
-                 omp_get_max_threads());
-    }
-#pragma omp for reduction(+ : priv_image)
 #endif
     for(size_type i = 0; i < size(); ++i)
       priv_image += at(i).indirect(coeffs.leftCols((i + 1) * Ncols).rightCols(Ncols));
@@ -216,6 +196,6 @@ inline SARA distribute_sara(SARA const &all_wavelets, mpi::Communicator const &c
   return distribute_sara(all_wavelets, comm.size(), comm.rank());
 }
 #endif
-}
-}
+} // namespace wavelets
+} // namespace sopt
 #endif
