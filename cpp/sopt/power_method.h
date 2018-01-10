@@ -12,6 +12,42 @@
 namespace sopt {
 namespace algorithm {
 
+template <class T>
+t_real power_method(const sopt::LinearTransform<T> &op, const t_uint &niters,
+                    const t_real &relative_difference, const T &initial_vector) {
+  /*
+     Attempt at coding the power method, returns thesqrt of the largest eigen value of a linear
+     operator composed with its adjoint niters:: max number of iterations relative_difference::
+     percentage difference at which eigen value has converged
+     */
+  if(niters <= 0)
+    return 1;
+  t_real estimate_eigen_value = 1;
+  t_real old_value = 0;
+  T estimate_eigen_vector = initial_vector;
+  estimate_eigen_vector = estimate_eigen_vector / estimate_eigen_vector.matrix().norm();
+  SOPT_DEBUG("Starting power method");
+  SOPT_DEBUG(" -[PM] Iteration: 0, norm = {}", estimate_eigen_value);
+  for(t_int i = 0; i < niters; ++i) {
+    estimate_eigen_vector = op.adjoint() * (op * estimate_eigen_vector);
+    estimate_eigen_value = estimate_eigen_vector.matrix().norm();
+    SOPT_DEBUG("Iteration: {}, norm = {}", i + 1, estimate_eigen_value);
+    if(estimate_eigen_value <= 0)
+      throw std::runtime_error("Error in operator.");
+    if(estimate_eigen_value != estimate_eigen_value)
+      throw std::runtime_error("Error in operator or data corrupted.");
+    estimate_eigen_vector = estimate_eigen_vector / estimate_eigen_value;
+    if(relative_difference * relative_difference
+       > std::abs(old_value - estimate_eigen_value) / old_value) {
+      old_value = estimate_eigen_value;
+      SOPT_DEBUG("Converged to norm = {}, relative difference < {}", std::sqrt(old_value),
+                 relative_difference);
+      break;
+    }
+    old_value = estimate_eigen_value;
+  }
+  return std::sqrt(old_value);
+}
 //! \brief Eigenvalue and eigenvector for eigenvalue with largest magnitude
 template <class SCALAR> class PowerMethod {
 public:
@@ -109,7 +145,7 @@ operator()(OperatorFunction<t_Vector> const &op, t_Vector const &input) const {
         = eigenvector.stableNorm() / static_cast<Real>(eigenvector.size());
     auto const rel_val = std::abs((magnitude - previous_magnitude) / previous_magnitude);
     converged = rel_val < tolerance();
-    SOPT_INFO("    - [PM] Iteration {}/{} -- norm: {}", niters, itermax(), magnitude);
+    SOPT_INFO("    - [PM] iteration {}/{} -- norm: {}", niters, itermax(), magnitude);
 
     eigenvector /= magnitude;
     previous_magnitude = magnitude;
@@ -122,6 +158,6 @@ operator()(OperatorFunction<t_Vector> const &op, t_Vector const &input) const {
   }
   return DiagnosticAndResult{itermax(), converged, previous_magnitude, eigenvector.normalized()};
 }
-}
-} /* sopt::algorithm */
+} // namespace algorithm
+} // namespace sopt
 #endif
