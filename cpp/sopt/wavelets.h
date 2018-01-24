@@ -2,7 +2,8 @@
 #define SOPT_WAVELETS_H
 
 // Convenience header to include wavelets headers and additional utilities
-
+#include <typeinfo>
+#include <cxxabi.h>
 #include "sopt/config.h"
 #include "sopt/linear_transform.h"
 #include "sopt/mpi/communicator.h"
@@ -102,7 +103,17 @@ LinearTransform<Vector<T>> linear_transform(wavelets::SARA const &sara, t_uint r
           sara.indirect(coeffs, signal);
           out *= normalization;
         }
-        comm.all_sum_all(out);
+	/*Testing MPI error int mystatus;
+	char *myrealname;
+        std::cout << "Before out sum\n";
+        std::cout << typeid(out).name() << std::endl;
+        myrealname = __cxxabiv1::__cxa_demangle(typeid(out).name(),0,0,&mystatus);
+        std::cout <<  myrealname << std::endl;
+        std::cout << out.rows() << " " << out.cols() << std::endl;
+        std::cout << typeid(out.data()).name() << std::endl;
+        myrealname = __cxxabiv1::__cxa_demangle(typeid(out.data()).name(),0,0,&mystatus);
+        std::cout <<  myrealname << std::endl;*/
+        comm.all_sum_all(*out.data());
       },
       {{0, 1, static_cast<t_int>(rows * cols)}},
       [&sara, rows, cols, factor, normalization](Vector<T> &out, Vector<T> const &x) {
