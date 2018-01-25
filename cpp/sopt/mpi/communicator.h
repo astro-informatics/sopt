@@ -15,6 +15,10 @@
 #include "sopt/mpi/registered_types.h"
 #include "sopt/types.h"
 
+#include <typeinfo>
+#include <cxxabi.h>
+
+
 namespace sopt {
 namespace mpi {
 
@@ -77,6 +81,14 @@ public:
     if(size() == 1)
       return;
     assert(impl and image.size() and image.data());
+    int mystatus;
+    char *myrealname;
+    std::cout << "MATRIX ALLREDUCE\n";
+    std::cout << typeid(image).name() << std::endl;
+    myrealname = __cxxabiv1::__cxa_demangle(typeid(image).name(),0,0,&mystatus);
+    std::cout <<  myrealname << std::endl;
+
+
     MPI_Allreduce(MPI_IN_PLACE, image.data(), image.size(), registered_type(T(0)), operation,
                   **this);
   }
@@ -86,6 +98,14 @@ public:
     if(size() == 1)
       return;
     assert(impl and image.size() and image.data());
+    int mystatus;
+    char *myrealname;
+    std::cout << "IMAGE ALLREDUCE\n";
+    std::cout << typeid(image).name() << std::endl;
+    myrealname = __cxxabiv1::__cxa_demangle(typeid(image).name(),0,0,&mystatus);
+    std::cout <<  myrealname << std::endl;
+
+
     MPI_Allreduce(MPI_IN_PLACE, image.data(), image.size(), registered_type(T(0)), operation,
                   **this);
   }
@@ -95,6 +115,14 @@ public:
     if(size() == 1)
       return;
     assert(impl and image.size() and image.data());
+    int mystatus;
+    char *myrealname;
+    std::cout << "VECTOR ALLREDUCE\n";
+    std::cout << typeid(image).name() << std::endl;
+    myrealname = __cxxabiv1::__cxa_demangle(typeid(image).name(),0,0,&mystatus);
+    std::cout <<  myrealname << std::endl;
+
+
     MPI_Allreduce(MPI_IN_PLACE, image.data(), image.size(), registered_type(T(0)), operation,
                   **this);
   }
@@ -102,17 +130,40 @@ public:
   //! Helper function for reducing through sum
   template <class T>
   typename std::enable_if<is_registered_type<T>::value, T>::type all_sum_all(T const &value) const {
+    std::cout << "VALUE ALLREDUCE\n";
+    int mystatus;
+    char *myrealname;
+    std::cout << typeid(value).name() << std::endl;
+    myrealname = __cxxabiv1::__cxa_demangle(typeid(value).name(),0,0,&mystatus);
+    std::cout <<  myrealname << std::endl;
+
+
     return all_reduce(value, MPI_SUM);
   }
   template <class T>
   typename std::enable_if<is_registered_type<typename T::Scalar>::value>::type
   all_sum_all(T &image) const {
+    std::cout << "CONST SCALAR ALLREDUCE\n";
+    int mystatus;
+    char *myrealname;
+    std::cout << typeid(image).name() << std::endl;
+    myrealname = __cxxabiv1::__cxa_demangle(typeid(image).name(),0,0,&mystatus);
+    std::cout <<  myrealname << std::endl;
+ 
     all_reduce(image, MPI_SUM);
   }
   template <class T>
   typename std::enable_if<is_registered_type<typename T::Scalar>::value, T>::type
   all_sum_all(T const &image) const {
     T result(image);
+    std::cout << "SCALAR ALLREDUCE\n";  
+    int mystatus;
+    char *myrealname;
+    std::cout << typeid(image).name() << std::endl;
+    myrealname = __cxxabiv1::__cxa_demangle(typeid(image).name(),0,0,&mystatus);
+    std::cout <<  myrealname << std::endl;
+
+
     all_reduce(result, MPI_SUM);
     return result;
   }
