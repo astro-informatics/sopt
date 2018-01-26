@@ -14,6 +14,7 @@
 #include <vector>
 #include "sopt/mpi/registered_types.h"
 #include "sopt/types.h"
+#include <iostream>
 
 #include <typeinfo>
 #include <cxxabi.h>
