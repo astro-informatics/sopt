@@ -1,6 +1,7 @@
 #ifndef SOPT_WAVELETS_H
 #define SOPT_WAVELETS_H
 
+#include <iostream>
 // Convenience header to include wavelets headers and additional utilities
 #include "sopt/config.h"
 #include "sopt/linear_transform.h"
@@ -101,8 +102,6 @@ LinearTransform<Vector<T>> linear_transform(wavelets::SARA const &sara, t_uint r
           sara.indirect(coeffs, signal);
           out *= normalization;
         }
-        //comm.all_sum_all(*out.data());
-	std::cout << "before out allreduce\n";
         comm.all_sum_all(out);
       },
       {{0, 1, static_cast<t_int>(rows * cols)}},
