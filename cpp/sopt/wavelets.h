@@ -54,42 +54,42 @@ linear_transform(OP const &op, t_uint rows, t_uint cols, t_uint factor = 1) {
 namespace utilities {
 //! return wavelet basis coefficients from a dictionary
 template <class T>
-Vector<T> get_wavelet_basis_coefficients(const Vector<T> &coeffs, const t_uint basis_index,
-                                         const t_uint size);
+Vector<T> &
+get_wavelet_basis_coefficients(Vector<T> &coeffs, const t_uint basis_index, const t_uint size);
 //! return wavelet basis coefficients for a given level and below (1d case)
 template <class T>
-Vector<T> get_wavelet_levels_1d(const Vector<T> &coeffs, const t_uint level, const t_uint size);
+Vector<T> &get_wavelet_levels_1d(Vector<T> &coeffs, const t_uint level, const t_uint size);
 //! return wavelet basis coefficients for a given level and below (2d case)
 template <class T>
-Vector<T> get_wavelet_levels(const Vector<T> &coeffs, const t_uint level, const t_uint rows,
-                             const t_uint cols);
+Vector<T> &
+get_wavelet_levels(Vector<T> &coeffs, const t_uint level, const t_uint rows, const t_uint cols);
 //! return wavelet basis coefficients low pass (rows) and high pass (cols) for a given level
 template <class T>
-Vector<T> get_wavelet_low_high_pass(const Vector<T> &coeffs, const t_uint level, const t_uint rows,
-                                    const t_uint cols);
-//! return wavelet basis coefficients high pass (rows) and high pass (cols) for a given level
-template <class T>
-Vector<T> get_wavelet_high_high_pass(const Vector<T> &coeffs, const t_uint level, const t_uint rows,
+Vector<T> &get_wavelet_low_high_pass(Vector<T> &coeffs, const t_uint level, const t_uint rows,
                                      const t_uint cols);
 //! return wavelet basis coefficients high pass (rows) and high pass (cols) for a given level
 template <class T>
-Vector<T> get_wavelet_high_low_pass(const Vector<T> &coeffs, const t_uint level, const t_uint rows,
-                                    const t_uint cols);
+Vector<T> &get_wavelet_high_high_pass(Vector<T> &coeffs, const t_uint level, const t_uint rows,
+                                      const t_uint cols);
 //! return wavelet basis coefficients high pass (rows) and high pass (cols) for a given level
 template <class T>
-Vector<T> get_wavelet_low_low_pass(const Vector<T> &coeffs, const t_uint level, const t_uint rows,
-                                   const t_uint cols);
+Vector<T> &get_wavelet_high_low_pass(Vector<T> &coeffs, const t_uint level, const t_uint rows,
+                                     const t_uint cols);
+//! return wavelet basis coefficients high pass (rows) and high pass (cols) for a given level
+template <class T>
+Vector<T> &get_wavelet_low_low_pass(Vector<T> &coeffs, const t_uint level, const t_uint rows,
+                                    const t_uint cols);
 //! return 1d high pass filter for a given level of a wavelet
 template <class T>
-Vector<T> get_wavelet_high_pass_1d(const Vector<T> &coeffs, const t_uint level, const t_uint size);
+Vector<T> &get_wavelet_high_pass_1d(Vector<T> &coeffs, const t_uint level, const t_uint size);
 // macro to add version to work with a wavelet dictionary
 #define SOPT_WAVELET_MACRO(NAME)                                                                   \
   template <class T>                                                                               \
-  Vector<T> NAME(const Vector<T> &coeffs, const t_uint basis_index, const t_uint level,            \
-                 const t_uint rows, const t_uint cols);                                            \
+  Vector<T> &NAME(Vector<T> &coeffs, const t_uint basis_index, const t_uint level,                 \
+                  const t_uint rows, const t_uint cols);                                           \
   template <class T>                                                                               \
-  Vector<T> NAME(const Vector<T> &coeffs, const t_uint basis_index, const t_uint level,            \
-                 const t_uint rows, const t_uint cols) {                                           \
+  Vector<T> &NAME(Vector<T> &coeffs, const t_uint basis_index, const t_uint level,                 \
+                  const t_uint rows, const t_uint cols) {                                          \
     return NAME(get_wavelet_basis_coefficients(coeffs, basis_index, coeffs.size()), level, rows,   \
                 cols);                                                                             \
   };
@@ -101,33 +101,33 @@ SOPT_WAVELET_MACRO(get_wavelet_low_low_pass)
 #undef SOPT_WAVELET_MACRO
 // implimentations
 template <class T>
-Vector<T> get_wavelet_basis_coefficients(const Vector<T> &coeffs, const t_uint basis_index,
-                                         const t_uint size) {
+Vector<T> &
+get_wavelet_basis_coefficients(Vector<T> &coeffs, const t_uint basis_index, const t_uint size) {
   assert(coeffs.size() > basis_index * size);
   return coeffs.segment(basis_index * size, size);
 }
 template <class T>
-Vector<T> get_wavelet_levels_1d(const Vector<T> &coeffs, const t_uint level, const t_uint size) {
+Vector<T> &get_wavelet_levels_1d(Vector<T> &coeffs, const t_uint level, const t_uint size) {
 
   auto const N = static_cast<t_uint>(coeffs.size()) >> level; // bitshift to divide by 2^level
   return coeffs.head(N);
 }
 template <class T>
-Vector<T> get_wavelet_high_pass_1d(const Vector<T> &coeffs, const t_uint level, const t_uint size) {
+Vector<T> &get_wavelet_high_pass_1d(Vector<T> &coeffs, const t_uint level, const t_uint size) {
   auto const N = static_cast<t_uint>(coeffs.size()) >> level; // bitshift to divide by 2^level
   return get_wavelet_levels(coeffs, level, size).tail(N / 2);
 }
 template <class T>
-Vector<T> get_wavelet_levels(const Vector<T> &coeffs, const t_uint level, const t_uint rows,
-                             const t_uint cols) {
+Vector<T> &
+get_wavelet_levels(Vector<T> &coeffs, const t_uint level, const t_uint rows, const t_uint cols) {
   const Matrix<T> signal = Matrix<T>::Map(coeffs.data(), rows, cols);
   auto const Nx = static_cast<t_uint>(signal.rows()) >> level; // bitshift to divide by 2^level
   auto const Ny = static_cast<t_uint>(signal.cols()) >> level;
   return Vector<T>::Map(signal.topLeftCorner(Nx, Ny).data(), Nx * Ny);
 }
 template <class T>
-Vector<T> get_wavelet_low_high_pass(const Vector<T> &coeffs, const t_uint level, const t_uint rows,
-                                    const t_uint cols) {
+Vector<T> &get_wavelet_low_high_pass(Vector<T> &coeffs, const t_uint level, const t_uint rows,
+                                     const t_uint cols) {
   auto const Nx = rows >> level; // bitshift to divide by 2^level
   auto const Ny = cols >> level;
   const Matrix<T> signal
@@ -136,8 +136,8 @@ Vector<T> get_wavelet_low_high_pass(const Vector<T> &coeffs, const t_uint level,
                         signal.size() / 4);
 }
 template <class T>
-Vector<T> get_wavelet_high_high_pass(const Vector<T> &coeffs, const t_uint level, const t_uint rows,
-                                     const t_uint cols) {
+Vector<T> &get_wavelet_high_high_pass(Vector<T> &coeffs, const t_uint level, const t_uint rows,
+                                      const t_uint cols) {
   auto const Nx = rows >> level; // bitshift to divide by 2^level
   auto const Ny = cols >> level;
   const Matrix<T> signal
@@ -146,8 +146,8 @@ Vector<T> get_wavelet_high_high_pass(const Vector<T> &coeffs, const t_uint level
                         signal.size() / 4);
 }
 template <class T>
-Vector<T> get_wavelet_high_low_pass(const Vector<T> &coeffs, const t_uint level, const t_uint rows,
-                                    const t_uint cols) {
+Vector<T> &get_wavelet_high_low_pass(Vector<T> &coeffs, const t_uint level, const t_uint rows,
+                                     const t_uint cols) {
   auto const Nx = rows >> level; // bitshift to divide by 2^level
   auto const Ny = cols >> level;
   const Matrix<T> signal
@@ -156,8 +156,8 @@ Vector<T> get_wavelet_high_low_pass(const Vector<T> &coeffs, const t_uint level,
                         signal.size() / 4);
 }
 template <class T>
-Vector<T> get_wavelet_low_low_pass(const Vector<T> &coeffs, const t_uint level, const t_uint rows,
-                                   const t_uint cols) {
+Vector<T> &get_wavelet_low_low_pass(Vector<T> &coeffs, const t_uint level, const t_uint rows,
+                                    const t_uint cols) {
   auto const Nx = rows >> level; // bitshift to divide by 2^level
   auto const Ny = cols >> level;
   const Matrix<T> signal
@@ -234,6 +234,6 @@ LinearTransform<Vector<T>> linear_transform(wavelets::SARA const &sara, t_uint r
 }
 #endif
 
-} /* sopt */
+} // namespace sopt
 
 #endif
