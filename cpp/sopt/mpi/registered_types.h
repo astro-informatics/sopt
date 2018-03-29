@@ -5,11 +5,13 @@
 #ifdef SOPT_MPI
 #include <complex>
 #include <mpi.h>
-
 namespace sopt {
 namespace mpi {
 //! Type of an mpi tupe
 typedef decltype(MPI_CHAR) MPIType;
+// Some MPI libraries don't actually have a type defined that will work in the above line
+// so the line below can be used instead
+//typedef int MPIType;
 
 //! MPI type associated with a c++ type
 template <class T> struct Type;

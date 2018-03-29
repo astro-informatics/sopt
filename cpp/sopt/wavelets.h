@@ -1,8 +1,8 @@
 #ifndef SOPT_WAVELETS_H
 #define SOPT_WAVELETS_H
 
+#include <iostream>
 // Convenience header to include wavelets headers and additional utilities
-
 #include "sopt/config.h"
 #include "sopt/linear_transform.h"
 #include "sopt/mpi/communicator.h"
