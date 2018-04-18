@@ -1,8 +1,6 @@
 include(PackageLookup)  # check for existence, or install external projects
 
-lookup_package(Eigen3 REQUIRED
-  ARGUMENTS URL "https://bitbucket.org/LukePratley/eigen/get/3.2.tar.gz"
-            MD5 "66eda8ad0cce49e539bd2755e417b653")
+lookup_package(Eigen3 REQUIRED DOWNLOAD_BY_DEFAULT ARGUMENTS URL "http://bitbucket.org/eigen/eigen/get/3.3.4.tar.gz" MD5 "1a47e78efe365a97de0c022d127607c3")
 if(logging)
   lookup_package(spdlog REQUIRED)
 endif()
