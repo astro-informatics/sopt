@@ -138,8 +138,8 @@ template <class T0, class T1>
 typename real_type<typename T0::Scalar>::type
 l2_norm(Eigen::ArrayBase<T0> const &input, Eigen::ArrayBase<T1> const &weights) {
   if(weights.size() == 1)
-    return input.matrix().stableNorm() * std::abs(weights(0));
-  return (input * weights).matrix().stableNorm();
+    return input.matrix().eval().stableNorm() * std::abs(weights(0));
+  return (input * weights).matrix().eval().stableNorm();
 }
 //! Computes weighted L2 norm
 template <class T0, class T1>
