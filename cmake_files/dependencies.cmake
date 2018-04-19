@@ -7,6 +7,16 @@ if(logging)
   lookup_package(spdlog REQUIRED)
 endif()
 
+if(docs)
+  cmake_policy(SET CMP0057 NEW)
+  find_package(Doxygen REQUIRED dot)
+  if(NOT DOXYGEN_FOUND)
+    mesage(STATUS "Could not find Doxygen or dot. No building documentation")
+    set(docs OFF)
+  endif()
+endif()
+
+
 find_package(TIFF)
 if(examples OR regression)
   if(NOT TIFF_FOUND)
