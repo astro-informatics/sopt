@@ -202,6 +202,14 @@ linear_transform(wavelets::SARA const &sara, t_uint rows, t_uint cols = 1) {
   return details::linear_transform<T, wavelets::SARA>(sara, rows, cols, sara.size());
 }
 #ifdef SOPT_MPI
+//! \brief Returns linear transform for distirbuted SARA linear operator
+//! \param[in] sara: SARA wavelet dictionary
+//! \param[in] rows: Number of rows in the image
+//! \param[in] cols: Number of columns in the image
+//! \param[in] comm: SOPT MPI communicator object
+//! \note There is an issue with using the adjoint wavelet transform of the SARA basis.
+//! When there are more nodes than wavelets, this function will return an empty Vector<T>() 
+//! on the extra nodes. This can cause some functions to break, like .maxCoeff().
 template <class T>
 LinearTransform<Vector<T>> linear_transform(wavelets::SARA const &sara, t_uint rows, t_uint cols,
                                             sopt::mpi::Communicator const &comm) {
