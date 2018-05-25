@@ -37,7 +37,8 @@ t_real power_method(const sopt::LinearTransform<T> &op, const t_uint &niters,
       throw std::runtime_error("Error in operator or data corrupted.");
     estimate_eigen_vector = estimate_eigen_vector / estimate_eigen_value;
     t_real const rel_diff = std::abs(old_value - estimate_eigen_value) / old_value;
-    SOPT_DEBUG(" -[PM] Iteration: {}, norm = {}, relative_difference = {} ( < {})", i + 1, estimate_eigen_value, std::sqrt(rel_diff), relative_difference);
+    SOPT_DEBUG(" -[PM] Iteration: {}, norm = {}", i + 1, estimate_eigen_value);
+    SOPT_DEBUG(" -[PM] Relative Difference = {} ( < {})", std::sqrt(rel_diff), relative_difference);
     if(relative_difference * relative_difference
        > rel_diff) {
       old_value = estimate_eigen_value;
