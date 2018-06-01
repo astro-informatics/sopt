@@ -331,10 +331,10 @@ Communicator::gather(T const value, t_uint const root) const {
   std::vector<T> result;
   if(rank() == root) {
     result.resize(size());
-    MPI_Gather(&value, 1, registered_type(value), result.data(), 1, registered_type(value), root,
+    MPI_Gather(const_cast<void*>(reinterpret_cast<const void *>(&value)), 1, registered_type(value), result.data(), 1, registered_type(value), root,
                **this);
   } else
-    MPI_Gather(&value, 1, registered_type(value), nullptr, 1, registered_type(value), root, **this);
+    MPI_Gather(const_cast<void*>(reinterpret_cast<const void *>(&value)), 1, registered_type(value), nullptr, 1, registered_type(value), root, **this);
   return result;
 }
 
@@ -364,7 +364,8 @@ CONTAINER Communicator::gather_(CONTAINER const &vec, std::vector<t_int> const &
     result_size += size;
   }
   CONTAINER result(result_size);
-  MPI_Gatherv(vec.data(), sizes_[rank()], mpi::Type<T>::value, result.data(), sizes_.data(),
+ 
+  MPI_Gatherv(const_cast<void *>(reinterpret_cast<const void *>(vec.data())), sizes_[rank()], mpi::Type<T>::value, result.data(), sizes_.data(),
               displs.data(), mpi::Type<T>::value, root, **this);
   return result;
 }
@@ -375,7 +376,7 @@ CONTAINER Communicator::gather_(CONTAINER const &vec, t_uint const root) const {
   if(rank() == root)
     throw std::runtime_error("Root should call the *other* gather");
 
-  MPI_Gatherv(vec.data(), vec.size(), mpi::Type<T>::value, nullptr, nullptr, nullptr,
+  MPI_Gatherv(const_cast<void*>(reinterpret_cast<const void *>(vec.data())), vec.size(), mpi::Type<T>::value, nullptr, nullptr, nullptr,
               mpi::Type<T>::value, root, **this);
   return CONTAINER();
 }
