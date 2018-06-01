@@ -265,7 +265,7 @@ Communicator::scatter_one(std::vector<T> const &values, t_uint const root) const
   if(size() == 1)
     return values.at(0);
   T result;
-  MPI_Scatter(values.data(), 1, registered_type(result), &result, 1, registered_type(result), root,
+  MPI_Scatter(const_cast<void*>(reinterpret_cast<const void*>(values.data())), 1, registered_type(result), &result, 1, registered_type(result), root,
               **this);
   return result;
 }
@@ -304,7 +304,7 @@ Communicator::scatterv(Vector<T> const &vec, std::vector<t_int> const &sizes,
   if(not impl)
     result = vec.head(sizes[rank()]);
   else
-    MPI_Scatterv(vec.data(), sizes_.data(), displs.data(), registered_type(T(0)), result.data(),
+    MPI_Scatterv(const_cast<void*>(reinterpret_cast<const void*>(vec.data())), sizes_.data(), displs.data(), registered_type(T(0)), result.data(),
                  sizes_[rank()], registered_type(T(0)), root, **this);
   return result;
 }
