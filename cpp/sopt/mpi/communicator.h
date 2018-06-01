@@ -252,7 +252,7 @@ Communicator::all_reduce(T const &value, MPI_Op operation) const {
     return value;
   assert(impl);
   T result;
-  MPI_Allreduce(&value, &result, 1, registered_type(value), operation, **this);
+  MPI_Allreduce(const_cast<void*>(reinterpret_cast<const void*>(&value)), &result, 1, registered_type(value), operation, **this);
   return result;
 }
 
