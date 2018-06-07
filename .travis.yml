@@ -1,4 +1,4 @@
-language: python
+language: c
 
 # The apt packages below are needed but can no longer be installed with
 # sudo apt-get.
@@ -26,17 +26,20 @@ matrix:
   include:
     - os: osx
       language: generic
+      env: TITLE="All dependencies"
       
     - os: linux
       dist: trusty
       sudo: required
       language: generic
+      env: TITLE="All dependencies" DEBUG=True
 
 before_install:
+  - echo "==================== ${TITLE} ====================="
   # Install stuff specifically for MacOS
   #- if [ $TRAVIS_OS_NAME = osx ]; then brew update; rm '/usr/local/include/c++'; brew install gcc; fi
-  - if [ $TRAVIS_OS_NAME = linux ]; then sudo add-apt-repository -y ppa:george-edison55/cmake-3.x; sudo apt-get update; sudo apt-get install cmake; fi
-  - if [ $TRAVIS_OS_NAME = linux ]; then sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y; sudo apt-get update; sudo apt-get install gcc-snapshot -y; sudo apt-get update; sudo apt-get install gcc-7 g++-7 -y; sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 60 --slave /usr/bin/g++ g++ /usr/bin/g++-7; fi
+  - if [ $TRAVIS_OS_NAME = linux ]; then source .ci/setup_linux.sh; fi
+
 
 install:
 
@@ -48,7 +51,7 @@ script:
   - cd build
   - cmake .. -DCMAKE_BUILD_TYPE=Release
   - make -j
-  - ctest --output-on-failure
+  - ctest -T test --output-on-failure -V
 
 after_success:
 
