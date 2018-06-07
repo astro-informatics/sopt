@@ -5,7 +5,7 @@ language: c
 addons:
   apt:
     packages:
-      - cmake # 2.8.12
+      - cmake3 # 3.5.1
       - g++ # 4.8.2
       - libfftw3-dev # version 3.3.3
       - mpi-default-dev # version 4.8.4

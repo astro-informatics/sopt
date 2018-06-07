@@ -4,13 +4,6 @@ if [[ $DEBUG == True ]]; then
     set -x # This prints out all the commands
 fi
 
-## Install latest cmake
-
-sudo add-apt-repository -y ppa:george-edison55/cmake-3.x
-sudo apt-get update
-sudo apt-get install cmake
-
-
 ## Install gcc7
 
 sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
