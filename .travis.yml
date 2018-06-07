@@ -50,7 +50,7 @@ script:
   - pwd
   - mkdir build
   - cd build
-  - cmake .. -DCMAKE_BUILD_TYPE=Release
+  - cmake .. -DCMAKE_BUILD_TYPE=Release -Ddompi=OFF -Dexamples=OFF -Dopenmp=OFF
   - make -j
   - ctest -T test --output-on-failure -V
 
