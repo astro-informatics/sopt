@@ -14,11 +14,20 @@ addons:
       - libboost-all-dev # version 1.54
       - libeigen3-dev # version 3.2.0
       - llvm # version 3.4
-      - libcfitsio3-dev # version 3.34
-      - libccfits-dev # version 2.4
-      - libyaml-cpp-dev # version 0.5.1
+      # - libcfitsio3-dev # version 3.34
+      # - libccfits-dev # version 2.4
+      # - libyaml-cpp-dev # version 0.5.1
 
 # libtiff is version 5 in Trusty
+
+# env:
+#     global:
+#         - SETUP_CMD='test'
+#         - TEST_CMD='py.test test_env.py'
+#         - PYTHON_VERSION=3.6
+
+#     matrix:
+#         - SETUP_CMD='egg_info' TEST_CMD='python --version'
 
 matrix:
   # Don't wait for allowed failures - do we really need this? TODO
@@ -26,14 +35,22 @@ matrix:
 
   include:
     - os: osx
-      language: generic
+      #language: generic
       env: TITLE="All dependencies"
       
     - os: linux
       dist: trusty
       sudo: required
-      language: generic
-      env: TITLE="All dependencies" DEBUG=True
+      env: TITLE="All dependencies" DEBUG=True LDFLAGS='-lpthread'
+      #language: generic
+
+    # - os: linux # no dependencies installed
+  #   - os: linux #Documentation? To push to gh-pages
+  #     env: PYTHON_VERSION=3.4 PYTEST_VERSION=3.1 PIP_FALLBACK=false
+      
+  # allow_failures:
+  #   - os: linux #Benchmark
+  #     env: PYTHON_VERSION=3.4 PYTEST_VERSION=3.1 PIP_FALLBACK=false
 
 before_install:
   - echo "==================== ${TITLE} ====================="
@@ -51,7 +68,7 @@ script:
   - mkdir build
   - cd build
   - cmake .. -DCMAKE_BUILD_TYPE=Release -Ddompi=OFF -Dexamples=OFF -Dopenmp=OFF
-  - make -j
+  - make VERBOSE=1
   - ctest -T test --output-on-failure -V
 
 after_success:
