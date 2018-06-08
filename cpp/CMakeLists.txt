@@ -20,7 +20,7 @@ list(GET version 2 Sopt_VERSION_PATCH)
 configure_file(sopt/config.in.h "${PROJECT_BINARY_DIR}/include/sopt/config.h")
 
 add_subdirectory(sopt)
-if(regressions OR examples)
+if(regressions OR examples OR tests)
   # Tiff wrappers and whatnot
   add_subdirectory(tools_for_tests)
 endif()
