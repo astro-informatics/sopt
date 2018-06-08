@@ -41,7 +41,7 @@ matrix:
     - os: linux
       dist: trusty
       sudo: required
-      env: TITLE="All dependencies" DEBUG=True LDFLAGS='-lpthread'
+      env: TITLE="All dependencies" DEBUG=True LDFLAGS='-pthread'
       #language: generic
 
     # - os: linux # no dependencies installed
