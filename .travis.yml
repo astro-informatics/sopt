@@ -18,10 +18,6 @@ addons:
       # - libyaml-cpp-dev # version 0.5.1
       # libtiff is version 5 in Trusty
 
-compiler:
-  - clang
-  - gcc
-
 # env:
 #     global:
 #         - SETUP_CMD='test'
@@ -39,10 +35,14 @@ matrix:
     - os: osx
       osx_image: xcode8
       env:
-        - TITLE="Who knows"
+        - TITLE="Who knows - GCC"
+
+    - os: osx
+      osx_image: xcode8
+      env:
+        - TITLE="Who knows - Clang"
 
     - os: linux
-      dist: trusty
       addons:
         apt:
           packages:
@@ -53,7 +53,22 @@ matrix:
             #- llvm # version 3.4
 
       env:
-        - TITLE="All dependencies"
+        - TITLE="All dependencies - GCC"
+        - DEBUG=True
+        - LDFLAGS='-pthread'
+
+    - os: linux
+      addons:
+        apt:
+          packages:
+            - libfftw3-dev # version 3.3.3
+            - libtiff5-dev # version 5 ?
+            - libboost-all-dev # version 1.54
+            - libeigen3-dev # version 3.2.0
+            #- llvm # version 3.4
+
+      env:
+        - TITLE="All dependencies - Clang"
         - DEBUG=True
         - LDFLAGS='-pthread'
 
@@ -69,8 +84,8 @@ before_install:
   - echo "Travis Run!"
   - if [ $TRAVIS_OS_NAME = osx ]; then brew install gcc; fi
   - [[ $TRAVIS_OS_NAME = osx ]] && ClangVer="" || ClangVer="-5.0"
-  - [[ ${CC} = *gcc* ]] && CC=gcc-7 || CC=clang${ClangVer}
-  - [[ ${CXX} = 'g++'* ]] && CXX=g++-7 || CXX=clang++${ClangVer}
+  - [[ ${TITLE} = *GCC* ]] && CC=gcc-7 || CC=clang${ClangVer}
+  - [[ ${TITLE} = *GCC* ]] && CXX=g++-7 || CXX=clang++${ClangVer}
   - echo "==================== ${TITLE} ====================="
   - echo "==================== ${CXX} ====================="
   # Install stuff specifically for MacOS
