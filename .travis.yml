@@ -66,6 +66,7 @@ matrix:
   #     env: PYTHON_VERSION=3.4 PYTEST_VERSION=3.1 PIP_FALLBACK=false
 
 before_install:
+  - echo "Travis Run!"
   - if [ $TRAVIS_OS_NAME = osx ]; then brew install gcc; fi
   - [[ $TRAVIS_OS_NAME = osx ]] && ClangVer="" || ClangVer="-5.0"
   - [[ ${CC} = *gcc* ]] && CC=gcc-7 || CC=clang${ClangVer}
