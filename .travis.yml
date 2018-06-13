@@ -67,8 +67,9 @@ matrix:
 
 before_install:
   - if [ $TRAVIS_OS_NAME = osx ]; then brew install gcc; fi
-  - CC=[[ ${CC} = *gcc* ]] && CC=gcc-7 || CC=clang-5.0
-  - CCX=[[ ${CXX} = 'g++'* ]] && CXX=g++-7 || CXX=clang++-5.0
+  - [[ $TRAVIS_OS_NAME = osx ]] && ClangVer="" || ClangVer="-5.0"
+  - [[ ${CC} = *gcc* ]] && CC=gcc-7 || CC=clang${ClangVer}
+  - [[ ${CXX} = 'g++'* ]] && CXX=g++-7 || CXX=clang++${ClangVer}
   - echo "==================== ${TITLE} ====================="
   - echo "==================== ${CXX} ====================="
   # Install stuff specifically for MacOS
