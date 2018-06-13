@@ -39,8 +39,9 @@ matrix:
     - os: osx
       osx_image: xcode8
       env:
-        - TITLE="Who knows - GCC"
-        - MATRIX_EVAL="brew install gcc && CC=gcc-7 && CXX=g++-7"
+        - TITLE="Who knows"
+        - CC=[[ ${CC} = *gcc* ]] && CC=gcc-7 || CC=clang-5.0
+        - CXX=[[ ${CC} = 'g++'* ]] && CXX=g++-7 || CXX=clang++-5.0
 
     - os: linux
       dist: trusty
@@ -54,10 +55,11 @@ matrix:
             #- llvm # version 3.4
 
       env:
-        - TITLE="All dependencies - GCC"
+        - TITLE="All dependencies"
         - DEBUG=True
         - LDFLAGS='-pthread'
-        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
+        - CC=[[ ${CC} = *gcc* ]] && CC=gcc-7 || CC=clang-5.0
+        - CXX=[[ ${CC} = 'g++'* ]] && CXX=g++-7 || CXX=clang++-5.0
 
     # - os: linux # no dependencies installed
   #   - os: linux #Documentation? To push to gh-pages
@@ -68,8 +70,8 @@ matrix:
   #     env: PYTHON_VERSION=3.4 PYTEST_VERSION=3.1 PIP_FALLBACK=false
 
 before_install:
-  - eval "${MATRIX_EVAL}"
   - echo "==================== ${TITLE} ====================="
+  - echo "==================== ${CXX} ====================="
   # Install stuff specifically for MacOS
   #- if [ $TRAVIS_OS_NAME = osx ]; then brew update; rm '/usr/local/include/c++'; brew install gcc; fi
   # - if [ $TRAVIS_OS_NAME = linux ]; then source .ci/setup_linux.sh; fi
