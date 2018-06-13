@@ -23,6 +23,11 @@ Communicator::Communicator(MPI_Comm const &comm) : impl(nullptr), session(sessio
   impl = std::shared_ptr<Impl const>(new Impl(data), &delete_comm);
 }
 
+void Communicator::abort(const std::string & reason){
+  fprintf(stderr, "MPI Error on Rank %3d: %s\n", this->rank(), reason.c_str());
+  MPI_Abort(**this, MPI_ERR_OTHER);
+}
+
 Communicator Communicator::duplicate() const {
   if(not impl)
     return Communicator(MPI_COMM_NULL);
