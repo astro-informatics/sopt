@@ -40,8 +40,6 @@ matrix:
       osx_image: xcode8
       env:
         - TITLE="Who knows"
-        - CC=[[ ${CC} = *gcc* ]] && CC=gcc-7 || CC=clang-5.0
-        - CXX=[[ ${CC} = 'g++'* ]] && CXX=g++-7 || CXX=clang++-5.0
 
     - os: linux
       dist: trusty
@@ -58,8 +56,6 @@ matrix:
         - TITLE="All dependencies"
         - DEBUG=True
         - LDFLAGS='-pthread'
-        - CC=[[ ${CC} = *gcc* ]] && CC=gcc-7 || CC=clang-5.0
-        - CXX=[[ ${CC} = 'g++'* ]] && CXX=g++-7 || CXX=clang++-5.0
 
     # - os: linux # no dependencies installed
   #   - os: linux #Documentation? To push to gh-pages
@@ -70,6 +66,9 @@ matrix:
   #     env: PYTHON_VERSION=3.4 PYTEST_VERSION=3.1 PIP_FALLBACK=false
 
 before_install:
+  - if [ $TRAVIS_OS_NAME = osx ]; then brew install gcc; fi
+  - CC=[[ ${CC} = *gcc* ]] && CC=gcc-7 || CC=clang-5.0
+  - CCX=[[ ${CXX} = 'g++'* ]] && CXX=g++-7 || CXX=clang++-5.0
   - echo "==================== ${TITLE} ====================="
   - echo "==================== ${CXX} ====================="
   # Install stuff specifically for MacOS
