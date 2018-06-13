@@ -1,24 +1,26 @@
-language: c
+language: cpp
+sudo: required
+dist: trusty
 
 # The apt packages below are needed but can no longer be installed with
 # sudo apt-get.
 addons:
   apt:
+    sources:
+      - ubuntu-toolchain-r-test
+      - llvm-toolchain-trusty-5.0
     packages:
-      - cmake3 # 3.5.1
-      - g++ # 4.8.2
-      - libgomp1 # 4.8.4
-      - libfftw3-dev # version 3.3.3
-      - mpi-default-dev # version 4.8.4
-      - libtiff5-dev # version 5 ?
-      - libboost-all-dev # version 1.54
-      - libeigen3-dev # version 3.2.0
-      - llvm # version 3.4
+      - g++-7
+      - clang-5.0
+
       # - libcfitsio3-dev # version 3.34
       # - libccfits-dev # version 2.4
       # - libyaml-cpp-dev # version 0.5.1
+      # libtiff is version 5 in Trusty
 
-# libtiff is version 5 in Trusty
+compiler:
+  - clang
+  - gcc
 
 # env:
 #     global:
@@ -35,14 +37,27 @@ matrix:
 
   include:
     - os: osx
-      #language: generic
-      env: TITLE="All dependencies"
-      
+      osx_image: xcode8
+      env:
+        - TITLE="Who knows - GCC"
+        - MATRIX_EVAL="brew install gcc && CC=gcc-7 && CXX=g++-7"
+
     - os: linux
       dist: trusty
-      sudo: required
-      env: TITLE="All dependencies" DEBUG=True LDFLAGS='-pthread'
-      #language: generic
+      addons:
+        apt:
+          packages:
+            - libfftw3-dev # version 3.3.3
+            - libtiff5-dev # version 5 ?
+            - libboost-all-dev # version 1.54
+            - libeigen3-dev # version 3.2.0
+            #- llvm # version 3.4
+
+      env:
+        - TITLE="All dependencies - GCC"
+        - DEBUG=True
+        - LDFLAGS='-pthread'
+        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
 
     # - os: linux # no dependencies installed
   #   - os: linux #Documentation? To push to gh-pages
@@ -53,10 +68,11 @@ matrix:
   #     env: PYTHON_VERSION=3.4 PYTEST_VERSION=3.1 PIP_FALLBACK=false
 
 before_install:
+  - eval "${MATRIX_EVAL}"
   - echo "==================== ${TITLE} ====================="
   # Install stuff specifically for MacOS
   #- if [ $TRAVIS_OS_NAME = osx ]; then brew update; rm '/usr/local/include/c++'; brew install gcc; fi
-  - if [ $TRAVIS_OS_NAME = linux ]; then source .ci/setup_linux.sh; fi
+  # - if [ $TRAVIS_OS_NAME = linux ]; then source .ci/setup_linux.sh; fi
 
 
 install:
