@@ -52,7 +52,7 @@ matrix:
         - MPI=ON
         - openMP=ON
         - DOCS=OFF
-        - CMAKE_CMD_EXTRA='-DMPIEXEC:FILEPATH=$(which mpirun) -DMPIEXEC_MAX_NUMPROCS=4'
+        - CMAKE_CMD_EXTRA="-DMPIEXEC:FILEPATH=$(which mpirun) -DMPIEXEC_MAX_NUMPROCS=4"
 
     - os: osx
       osx_image: xcode8
@@ -128,7 +128,7 @@ matrix:
         - MPI=ON
         - openMP=ON
         - DOCS=OFF
-        - CMAKE_CMD_EXTRA='-DMPIEXEC:FILEPATH=$(which mpirun) -DMPIEXEC_MAX_NUMPROCS=4'
+        - CMAKE_CMD_EXTRA="-DMPIEXEC:FILEPATH=$(which mpirun) -DMPIEXEC_MAX_NUMPROCS=4"
 
     - os: linux
       addons:
@@ -152,7 +152,7 @@ matrix:
         - MPI=ON
         - openMP=ON
         - DOCS=OFF
-        - CMAKE_CMD_EXTRA='-DMPIEXEC:FILEPATH=$(which mpirun) -DMPIEXEC_MAX_NUMPROCS=4'
+        - CMAKE_CMD_EXTRA="-DMPIEXEC:FILEPATH=$(which mpirun) -DMPIEXEC_MAX_NUMPROCS=4"
 
 
     - os: linux
@@ -211,7 +211,7 @@ matrix:
 
 before_install:
   - echo "Travis Run!"
-  - if [ $TRAVIS_OS_NAME = osx ]; then brew update; brew install gcc@7; fi
+  - if [ $TRAVIS_OS_NAME = osx ]; then brew update; brew install gcc@7 open-mpi; fi
   - if [ $TRAVIS_OS_NAME = linux ]; then ClangVer="-5.0"; fi
   - if [[ ${TITLE} = *GCC* ]]; then CC=gcc-7; else CC=clang${ClangVer}; fi
   - if [[ ${TITLE} = *GCC* ]]; then CXX=g++-7; else CXX=clang++${ClangVer}; fi
