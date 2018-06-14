@@ -24,7 +24,7 @@ Communicator::Communicator(MPI_Comm const &comm) : impl(nullptr), session(sessio
 }
 
 void Communicator::abort(const std::string & reason) const{
-  fprintf(stderr, "MPI Error on Rank %3i: %s\n", rank(), reason.c_str());
+  fprintf(stderr, "MPI Error on Rank %i: %s\n", rank(), reason.c_str());
   MPI_Abort(**this, MPI_ERR_OTHER);
 }
 
