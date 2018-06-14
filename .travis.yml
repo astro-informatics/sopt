@@ -4,14 +4,6 @@ dist: trusty
 
 # The apt packages below are needed but can no longer be installed with
 # sudo apt-get.
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-      - llvm-toolchain-trusty-5.0
-    packages:
-      - g++-7
-      - clang-5.0
 
       # - libcfitsio3-dev # version 3.34
       # - libccfits-dev # version 2.4
@@ -45,7 +37,11 @@ matrix:
     - os: linux
       addons:
         apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-trusty-5.0
           packages:
+            - g++-7
             - libfftw3-dev # version 3.3.3
             - libtiff5-dev # version 5 ?
             - libboost-all-dev # version 1.54
@@ -60,7 +56,11 @@ matrix:
     - os: linux
       addons:
         apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-trusty-5.0
           packages:
+            - clang-5.0
             - libfftw3-dev # version 3.3.3
             - libtiff5-dev # version 5 ?
             - libboost-all-dev # version 1.54
@@ -82,7 +82,7 @@ matrix:
 
 before_install:
   - echo "Travis Run!"
-  - if [ $TRAVIS_OS_NAME = osx ]; then brew install gcc; fi
+  - if [ $TRAVIS_OS_NAME = osx ]; then brew update; brew install gcc; fi
   - if [ $TRAVIS_OS_NAME = linux ]; then ClangVer="-5.0"; fi
   - if [[ ${TITLE} = *GCC* ]]; then CC=gcc-7; else CC=clang${ClangVer}; fi
   - if [[ ${TITLE} = *GCC* ]]; then CXX=g++-7; else CXX=clang++${ClangVer}; fi
