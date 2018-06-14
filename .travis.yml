@@ -84,8 +84,8 @@ before_install:
   - echo "Travis Run!"
   - if [ $TRAVIS_OS_NAME = osx ]; then brew install gcc; fi
   - if [ $TRAVIS_OS_NAME = linux ]; then ClangVer="-5.0"; fi
-  - if [ ${TITLE} = *GCC* ]; then CC=gcc-7; else CC=clang${ClangVer}; fi
-  - if [ ${TITLE} = *GCC* ]; then CXX=g++-7; else CXX=clang++${ClangVer}; fi
+  - if [[ ${TITLE} = *GCC* ]]; then CC=gcc-7; else CC=clang${ClangVer}; fi
+  - if [[ ${TITLE} = *GCC* ]]; then CXX=g++-7; else CXX=clang++${ClangVer}; fi
   - echo "==================== ${TITLE} ====================="
   - echo "==================== ${CXX} ====================="
   # Install stuff specifically for MacOS
