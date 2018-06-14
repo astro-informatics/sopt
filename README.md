@@ -6,6 +6,8 @@ Description
 
 **SOPT** is an open-source `C++` package available under the [license](#license) below. It performs Sparse OPTimisation using state-of-the-art convex optimisation algorithms. It solves a variety of sparse regularisation problems, including the Sparsity Averaging Reweighted Analysis (SARA) algorithm. 
 
+**SOPT** also has several MPI wrappers that can be adapted for computational distirbution of various linear operators and convex optimisation algorithms. Wavelet Operators with **SOPT** also support multi-threading through OpenMP.
+
 **SOPT** is written in `C++` primarily but also contains partial and prototyped Matlab implementations of various algorithms.
 
 **SOPT** is largely provided to support the [**PURIFY**](https://github.com/astro-informatics/purify) package, a companion open-source code to perform radio interferometric imaging, also written by the authors of **SOPT**. For further background please see the [reference](#references-and-citation) section.
@@ -15,7 +17,7 @@ This documentation outlines the necessary and optional [dependencies](#dependenc
 Dependencies installation
 -------------------------
 
-**SOPT** is mostly written in `C++11`. Pre-requisites and dependencies are listed in following and minimal versions required are tested against `Travis CI` meaning that they come natively with the Ubuntu Trusty release. These are also the default ones fetched by `CMake`.
+**SOPT** is mostly written in `C++11`. Pre-requisites and dependencies are listed in following and minimal versions required are tested against `Travis CI` meaning that they come natively with OSX and the Ubuntu Trusty release. These are also the default ones fetched by `CMake`.
 
 `C++` minimal dependencies:
 
