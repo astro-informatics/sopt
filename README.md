@@ -4,14 +4,18 @@ SOPT: Sparse OPTimisation Library [![Build Status](https://travis-ci.com/astro-i
 Description
 -----------
 
-**SOPT** is an opensource `C++` package to perform Sparse OPTimisation. It solves a variety of sparse regularisation
-problems, including the Sparsity Averaging Reweighted Analysis (SARA) algorithm. Prototype Matlab implementations of various algorithms are
-also included.
+**SOPT** is an open-source `C++` package available under the [license](#license) below. It performs Sparse OPTimisation using state-of-the-art convex optimisation algorithms. It solves a variety of sparse regularisation problems, including the Sparsity Averaging Reweighted Analysis (SARA) algorithm. 
+
+**SOPT** is written in `C++` primarily but also contains partial and prototyped Matlab implementations of various algorithms.
+
+**SOPT** is largely provided to support the [**PURIFY**](https://github.com/astro-informatics/purify) package, a companion open-source code to perform radio interferometric imaging, also written by the authors of **SOPT**. For further background please see the [reference](#references-and-citation) section.
+
+This documentation outlines the necessary and optional [dependencies](#dependencies-installation) upon which **SOPT** should be built, before describing [installation](#installing-and-building-SOPT) and [testing](#testing) details and [Matlab](#Matlab) support. [Contributors](#contributors), [references](#references-and-citation) and [license](#license) information then follows.
 
 Dependencies installation
 -------------------------
 
-**SOPT** is mostly written both in `C++11` and `Python`. Pre-requisites and dependencies are listed in following and minimal versions required are tested against `Travis CI` meaning that they come natively with the Ubuntu Trusty release. These are also the default ones fetched by `CMake`.
+**SOPT** is mostly written in `C++11`. Pre-requisites and dependencies are listed in following and minimal versions required are tested against `Travis CI` meaning that they come natively with the Ubuntu Trusty release. These are also the default ones fetched by `CMake`.
 
 `C++` minimal dependencies:
 
@@ -30,28 +34,16 @@ Dependencies installation
 - [google/benchmark](https://github.com/google/benchmark) - Optional - A `C++`
   micro-benchmarking framework only needed for benchmarks. Downloaded automatically if absent.
 
-`Python` dependencies:
-
-- [numpy](http://www.numpy.org/) Fundamental package for scientific computing with `Python`
-- [scipy](https://www.scipy.org/) User-friendly and efficient numerical routines such as routines
-  for numerical integration and optimization
-- [pandas](http://pandas.pydata.org/) Library providing high-performance, easy-to-use data
-  structures and data analysis tools
-- [cython](http://cython.org/) Makes writing `C` extensions for `Python` as easy as `Python` itself.
-  Downloaded automatically if absent.
-- [pytest](http://doc.pytest.org/en/latest/) Optional - for testing only. Unit-testing framework
-  for python. Downloaded automatically if absent and testing is not disabled.
-
 Installing and building SOPT
 ----------------------------
 
-**SOPT** can be installed through the software packet manager on Unices distributions, for instance on Ubuntu:
+**SOPT** can be installed through the software packet manager on Linux Debian distributions:
 
 ```
 apt-get install sopt
 ```
 
-Alternatively, you can build **SOPT** entirely. Once the mandatory dependencies are present, `git clone` the repository:
+Alternatively, you can build **SOPT** entirely from the source code. Once the mandatory dependencies are present, `git clone` from the [GitHub repository](https://github.com/astro-informatics/sopt):
 
 ```
 git clone https://github.com/astro-informatics/sopt.git
@@ -86,55 +78,45 @@ cd /path/to/code/build
 ctest .
 ```
 
+Matlab
+------
+
+A separate Matlab implementation is provided with **SOPT**. This implementation includes some (but not all) of the optimisation algorithms implemented in the `C++` code, including the SARA algorithm.
+
+The Matlab implementation is contained in the matlab directory. This is a stand-alone implementation and does not call any of the `C++` code. In future, Matlab interfaces to the `C++` code may also be included in **SOPT**.
+
+See `matlab/README.txt` for an overview of the Matlab implementation. The stand-alone Matlab implementation is also self-documenting; corresponding documentation can be found in `matlab/doc`. We thank Gilles Puy for contributing to this Matlab implementation.
+
 Contributors
 ------------
 
 **SOPT** was initially created by Rafael Carrillo, Jason McEwen and Yves Wiaux but major contributions
 have since been made by a number of others. The full list of contributors is as follows:
 
-* [Rafael E. Carrillo](https://www.researchgate.net/profile/Rafael_Carrillo2)
-* [Jason D. McEwen](http://www.jasonmcewen.org)
-* [Yves Wiaux](http://basp.eps.hw.ac.uk)
-* [Vijay Kartik](https://people.epfl.ch/vijay.kartik)
-* [Mayeul d'Avezac](https://github.com/mdavezac)
-* [Luke Pratley](https://about.me/luke.pratley)
-* [David Perez-Suarez](https://dpshelio.github.io)
-* [Ilektra Christidi](https://github.com/ilectra)
-* [Roland Guichard](https://github.com/UCLGuichard)
+* [Dr. Mayeul d'Avezac](https://github.com/mdavezac)
+* [Dr. Rafael E. Carrillo](https://www.researchgate.net/profile/Rafael_Carrillo2)
+* [Dr. Ilektra Christidi](https://github.com/ilectra)
+* [Dr. Roland Guichard](https://github.com/UCLGuichard)
+* [Dr. Vijay Kartik](https://people.epfl.ch/vijay.kartik)
+* [Dr. Jason D. McEwen](http://www.jasonmcewen.org)
+* [Dr. David Perez-Suarez](https://dpshelio.github.io)
+* [Dr. Luke Pratley](https://about.me/luke.pratley)
+* [Dr. Yves Wiaux](http://basp.eps.hw.ac.uk)
 
 References and citation
 -----------------------
 
-When referencing this code, please cite our related papers:
+If you use **SOPT** for work that results in publication, please reference the [webpage](#webpage) and our related academic papers:
 
-1. R. E. Carrillo, J. D. McEwen and Y. Wiaux. "Sparsity Averaging Reweighted
-   Analysis (SARA): a novel algorithm for radio-interferometric imaging", Mon.
-   Not. Roy. Astron. Soc., 426(2):1223-1234, 2012,
-   [arXiv:1205.3123](http://arxiv.org/abs/arXiv:1205.3123)
-2. R. E. Carrillo, J. D. McEwen, D. Van De Ville, J.-P. Thiran, and Y. Wiaux.  "Sparsity averaging
-   for compressive imaging", IEEE Signal Processing Letters, 20(6):591-594, 2013,
-   [arXiv:1208.2330](http://arxiv.org/abs/arXiv:1208.2330)
-3. A. Onose, R. E. Carrillo, A. Repetti, J. D. McEwen, J.-P. Thiran, J.-C. Pesquet, and Y. Wiaux.
-   "Scalable splitting algorithms for big-data interferometric imaging in the SKA era". Mon. Not.
-   Roy. Astron. Soc., 462(4):4314-4335, 2016,
-   [arXiv:1601.04026](http://arxiv.org/abs/arXiv:1601.04026)
-
-Webpage
--------
-
-http://astro-informatics.github.io/sopt/
-
-
-Support
--------
-
-For any questions or comments, feel free to contact [Jason McEwen](jason.mcewen@gmail.com), or add
-an issue to the [issue tracker](https://github.com/astro-informatics/sopt/issues).
-
-Notes
------
-
-The code is given for educational purpose. For the `Matlab` version of the code see the folder matlab.
+1. L. Pratley _et al._ (to be published)
+2. A. Onose, R. E. Carrillo, A. Repetti, J. D. McEwen, J.-P. Thiran, J.-C. Pesquet, and Y. Wiaux.
+   "Scalable splitting algorithms for big-data interferometric imaging in the SKA era" _Mon. Not.
+   Roy. Astron. Soc._ **462(4):4314-4335** (2016) [arXiv:1601.04026](http://arxiv.org/abs/arXiv:1601.04026)
+3. R. E. Carrillo, J. D. McEwen, D. Van De Ville, J.-P. Thiran, and Y. Wiaux.  "Sparsity averaging
+   for compressive imaging" _IEEE Signal Processing Letters_ **20(6):591-594** (2013) [arXiv:1208.2330](http://arxiv.org/abs/arXiv:1208.2330)
+4. R. E. Carrillo, J. D. McEwen and Y. Wiaux. "Sparsity Averaging Reweighted
+   Analysis (SARA): a novel algorithm for radio-interferometric imaging" _Mon.
+   Not. Roy. Astron. Soc._ **426(2):1223-1234** (2012) [arXiv:1205.3123](http://arxiv.org/abs/arXiv:1205.3123)
 
 License
 -------
@@ -157,4 +139,20 @@ License
 >    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 >    02110-1301, USA.
 
+Webpage
+-------
+
+http://astro-informatics.github.io/sopt/
+
+
+Support
+-------
+
+For any questions or comments, feel free to contact [Jason McEwen](jason.mcewen@gmail.com), or add
+an issue to the [issue tracker](https://github.com/astro-informatics/sopt/issues).
+
+Notes
+-----
+
+The code is given for educational purpose. For the `Matlab` version of the code see the folder matlab.
 
