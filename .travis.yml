@@ -10,6 +10,10 @@ dist: trusty
       # - libyaml-cpp-dev # version 0.5.1
       # libtiff is version 5 in Trusty
 
+env:
+  global:
+    - BUILD_CMD='make VERBOSE=1'
+    - TEST_CMD='ctest -T test --output-on-failure -V'
 # env:
 #     global:
 #         - SETUP_CMD='test'
@@ -28,11 +32,17 @@ matrix:
       osx_image: xcode8
       env:
         - TITLE="Who knows - GCC"
+        - MPI=OFF
+        - openMP=OFF
+        - DOCS=OFF
 
     - os: osx
       osx_image: xcode8
       env:
         - TITLE="Who knows - Clang"
+        - MPI=OFF
+        - openMP=OFF
+        - DOCS=OFF
 
     - os: linux
       addons:
@@ -52,6 +62,9 @@ matrix:
         - TITLE="All dependencies - GCC"
         - DEBUG=True
         - LDFLAGS='-pthread'
+        - MPI=OFF
+        - openMP=OFF
+        - DOCS=OFF
 
     - os: linux
       addons:
@@ -71,14 +84,41 @@ matrix:
         - TITLE="All dependencies - Clang"
         - DEBUG=True
         - LDFLAGS='-pthread'
+        - MPI=OFF
+        - openMP=OFF
+        - DOCS=OFF
 
     # - os: linux # no dependencies installed
   #   - os: linux #Documentation? To push to gh-pages
   #     env: PYTHON_VERSION=3.4 PYTEST_VERSION=3.1 PIP_FALLBACK=false
       
-  # allow_failures:
+  allow_failures:
   #   - os: linux #Benchmark
   #     env: PYTHON_VERSION=3.4 PYTEST_VERSION=3.1 PIP_FALLBACK=false
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-trusty-5.0
+          packages:
+            - g++-7
+            - libfftw3-dev # version 3.3.3
+            - libtiff5-dev # version 5 ?
+            - libboost-all-dev # version 1.54
+            - libeigen3-dev # version 3.2.0
+            - doxygen # version 1.8.6-2
+            - graphviz # version 2.36.0
+
+      env:
+        - TITLE="Documentation - GCC"
+        - DEBUG=True
+        - LDFLAGS='-pthread'
+        - MPI=OFF
+        - openMP=OFF
+        - DOCS=ON
+        - BUILD_CMD='make doc VERBOSE=1'
+        - TEST_CMD=''
 
 before_install:
   - echo "Travis Run!"
@@ -101,9 +141,9 @@ script:
   - pwd
   - mkdir build
   - cd build
-  - cmake .. -DCMAKE_BUILD_TYPE=Release -Ddompi=OFF -Dexamples=OFF -Dopenmp=OFF
-  - make VERBOSE=1
-  - ctest -T test --output-on-failure -V
+  - cmake .. -DCMAKE_BUILD_TYPE=Release -Ddompi=${MPI} -Dexamples=OFF -Dopenmp=${openMP} -Ddocs=${DOCS}
+  - eval $BUILD_CMD
+  - eval $TEST_CMD
 
 after_success:
 

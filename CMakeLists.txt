@@ -20,7 +20,7 @@ option(logging        "Enable logging"                         on)
 option(regressions    "Enable regressions"                     off)
 option(openmp         "Enable OpenMP"                          on)
 option(dompi          "Enable MPI"                             on)
-option(docs           "Build documentation"                    on)
+option(docs           "Build documentation"                    off)
 
 if(regressions)
   enable_language(C)
