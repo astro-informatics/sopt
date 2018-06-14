@@ -48,6 +48,15 @@ matrix:
     - os: osx
       osx_image: xcode8
       env:
+        - TITLE="Who knows - GCC - MPI"
+        - MPI=ON
+        - openMP=ON
+        - DOCS=OFF
+        - CMAKE_CMD_EXTRA='-DMPIEXEC:FILEPATH=$(which mpirun) -DMPIEXEC_MAX_NUMPROCS=4'
+
+    - os: osx
+      osx_image: xcode8
+      env:
         - TITLE="Who knows - Clang"
         - MPI=OFF
         - openMP=OFF
@@ -96,6 +105,55 @@ matrix:
         - MPI=OFF
         - openMP=ON
         - DOCS=OFF
+
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-trusty-5.0
+          packages:
+            - g++-7
+            - libfftw3-dev # version 3.3.3
+            - libtiff5-dev # version 5 ?
+            - libboost-all-dev # version 1.54
+            - libeigen3-dev # version 3.2.0
+            - libgomp1 # version 4.8.4-2
+            - openmpi-bin # Version 1.6.5-8
+
+      env:
+        - TITLE="All dependencies - GCC - MPI"
+        - DEBUG=True
+        - LDFLAGS='-pthread'
+        - MPI=ON
+        - openMP=ON
+        - DOCS=OFF
+        - CMAKE_CMD_EXTRA='-DMPIEXEC:FILEPATH=$(which mpirun) -DMPIEXEC_MAX_NUMPROCS=4'
+
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-trusty-5.0
+          packages:
+            - g++-7
+            - libfftw3-dev # version 3.3.3
+            - libtiff5-dev # version 5 ?
+            - libboost-all-dev # version 1.54
+            - libeigen3-dev # version 3.2.0
+            - libgomp1 # version 4.8.4-2
+            - mpich # version 3.0.4-6
+
+      env:
+        - TITLE="All dependencies - GCC - MPI - mpich"
+        - DEBUG=True
+        - LDFLAGS='-pthread'
+        - MPI=ON
+        - openMP=ON
+        - DOCS=OFF
+        - CMAKE_CMD_EXTRA='-DMPIEXEC:FILEPATH=$(which mpirun) -DMPIEXEC_MAX_NUMPROCS=4'
+
 
     - os: linux
       addons:
@@ -172,7 +230,7 @@ script:
   - pwd
   - mkdir build
   - cd build
-  - cmake .. -DCMAKE_BUILD_TYPE=Release -Ddompi=${MPI} -Dexamples=OFF -Dopenmp=${openMP} -Ddocs=${DOCS}
+  - cmake .. -DCMAKE_BUILD_TYPE=Release -Ddompi=${MPI} -Dexamples=OFF -Dopenmp=${openMP} -Ddocs=${DOCS} ${CMAKE_CMD_EXTRA}
   - eval $BUILD_CMD
   - eval $TEST_CMD
 
