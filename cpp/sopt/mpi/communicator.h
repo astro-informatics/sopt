@@ -69,6 +69,8 @@ public:
   Communicator duplicate() const;
   //! Alias for duplicate
   Communicator clone() const { return duplicate(); }
+  //! Will abort and kill all processes then print the reason
+  void abort(const std::string & reason) const;
 
   //! Helper function for reducing
   template <class T>
