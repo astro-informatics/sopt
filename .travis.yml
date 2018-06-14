@@ -181,7 +181,7 @@ matrix:
   #   - os: linux #Documentation? To push to gh-pages
   #     env: PYTHON_VERSION=3.4 PYTEST_VERSION=3.1 PIP_FALLBACK=false
       
-  allow_failures:
+  #allow_failures:
   #   - os: linux #Benchmark
   #     env: PYTHON_VERSION=3.4 PYTEST_VERSION=3.1 PIP_FALLBACK=false
     - os: linux
@@ -217,6 +217,7 @@ before_install:
   - if [[ ${TITLE} = *GCC* ]]; then CXX=g++-7; else CXX=clang++${ClangVer}; fi
   - echo "==================== ${TITLE} ====================="
   - echo "==================== ${CXX} ====================="
+  - if [ ${MPI} = ON ]; then echo $(which mpirun); echo ${CMAKE_CMD_EXTRA}; fi
   # Install stuff specifically for MacOS
   #- if [ $TRAVIS_OS_NAME = osx ]; then brew update; rm '/usr/local/include/c++'; brew install gcc; fi
   # - if [ $TRAVIS_OS_NAME = linux ]; then source .ci/setup_linux.sh; fi
