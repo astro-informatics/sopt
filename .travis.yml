@@ -14,6 +14,7 @@ env:
   global:
     - BUILD_CMD='make VERBOSE=1'
     - TEST_CMD='ctest -T test --output-on-failure -V'
+    - OMP_NUM_THREADS=4
 # env:
 #     global:
 #         - SETUP_CMD='test'
@@ -34,6 +35,14 @@ matrix:
         - TITLE="Who knows - GCC"
         - MPI=OFF
         - openMP=OFF
+        - DOCS=OFF
+
+    - os: osx
+      osx_image: xcode8
+      env:
+        - TITLE="Who knows - GCC - OMP"
+        - MPI=OFF
+        - openMP=ON
         - DOCS=OFF
 
     - os: osx
@@ -64,6 +73,28 @@ matrix:
         - LDFLAGS='-pthread'
         - MPI=OFF
         - openMP=OFF
+        - DOCS=OFF
+
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-trusty-5.0
+          packages:
+            - g++-7
+            - libfftw3-dev # version 3.3.3
+            - libtiff5-dev # version 5 ?
+            - libboost-all-dev # version 1.54
+            - libeigen3-dev # version 3.2.0
+            - libgomp1 # version 4.8.4-2
+
+      env:
+        - TITLE="All dependencies - GCC - OMP"
+        - DEBUG=True
+        - LDFLAGS='-pthread'
+        - MPI=OFF
+        - openMP=ON
         - DOCS=OFF
 
     - os: linux
