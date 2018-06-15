@@ -24,7 +24,7 @@ Dr. Mayeul D'Avezac<br>
 <br><br><br>
 
 <p>
-  <img src="https://raw.githubusercontent.com/astro-informatics/sopt/gh-pages/images/photo_ilektra.jpg" width="100"
+  <img src="https://raw.githubusercontent.com/astro-informatics/sopt/gh-pages/images/photo_ilektra.png" width="100"
   alt="Example frontpage image" class="left photobox" style="float: left"/>
   Dr. Ilektra Christidi<br>
     <a href="https://github.com/ilectra">Academic
