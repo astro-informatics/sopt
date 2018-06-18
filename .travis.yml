@@ -190,7 +190,7 @@ matrix:
             - openmpi-bin # Version 1.6.5-8
 
       env:
-        - TITLE="No dependencies - g++ - MPI"
+        - TITLE="No dependencies - GCC - MPI"
         - DEBUG=True
         - LDFLAGS='-pthread'
         - MPI=ON
@@ -211,7 +211,7 @@ matrix:
             - openmpi-bin # Version 1.6.5-8
 
       env:
-        - TITLE="Benchmark (no deps) - g++ - MPI"
+        - TITLE="Benchmark (no deps) - GCC - MPI"
         - DEBUG=True
         - LDFLAGS='-pthread'
         - MPI=ON
