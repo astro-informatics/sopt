@@ -198,6 +198,28 @@ matrix:
         - DOCS=OFF
         - CMAKE_CMD_EXTRA="-DMPIEXEC:FILEPATH=$(which mpirun) -DMPIEXEC_MAX_NUMPROCS=4"
 
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-trusty-5.0
+          packages:
+            - g++-7
+            - libtiff5-dev # version 5 ?
+            - libgomp1 # version 4.8.4-2
+            - openmpi-bin # Version 1.6.5-8
+
+      env:
+        - TITLE="Benchmark (no deps) - g++ - MPI"
+        - DEBUG=True
+        - LDFLAGS='-pthread'
+        - MPI=ON
+        - openMP=ON
+        - DOCS=OFF
+        - CMAKE_CMD_EXTRA="-DMPIEXEC:FILEPATH=$(which mpirun) -DMPIEXEC_MAX_NUMPROCS=4 -Dbenchmarks=ON"
+        - TEST_CMD='cd cpp/benchmarks; ./wavelets; ./conjugate_gradient; ./l1_proximal'
+
   #   - os: linux #Documentation? To push to gh-pages
   #     env: PYTHON_VERSION=3.4 PYTEST_VERSION=3.1 PIP_FALLBACK=false
       
