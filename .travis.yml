@@ -258,9 +258,9 @@ before_install:
   - if [[ ${TITLE} = *GCC* ]]; then CC=gcc-7; else CC=clang${ClangVer}; fi
   - if [[ ${TITLE} = *GCC* ]]; then CXX=g++-7; else CXX=clang++${ClangVer}; fi
   # As MPI is not installed already, this variable is not set properly
-  - if [[ $TRAVIS_ON_NAME = osx && $MPI = ON ]]; then export CMAKE_CMD_EXTRA="-DMPIEXEC:FILEPATH=$(which mpirun) -DMPIEXEC_MAX_NUMPROCS=4"; fi
+  - if [[ $TRAVIS_OS_NAME = osx && $MPI = ON ]]; then export CMAKE_CMD_EXTRA="-DMPIEXEC:FILEPATH=$(which mpirun) -DMPIEXEC_MAX_NUMPROCS=4"; fi
   - echo "==================== ${TITLE} ====================="
-  - if [[ $TRAVIS_ON_NAME = osx && $MPI = ON ]]; then echo "==================== ${CMAKE_CMD_EXTRA} ====================="; fi
+  - if [[ $TRAVIS_OS_NAME = osx && $MPI = ON ]]; then echo "==================== ${CMAKE_CMD_EXTRA} ====================="; fi
 
   # Install stuff specifically for MacOS
   #- if [ $TRAVIS_OS_NAME = osx ]; then brew update; rm '/usr/local/include/c++'; brew install gcc; fi
