@@ -52,7 +52,7 @@ matrix:
         - MPI=ON
         - openMP=ON
         - DOCS=OFF
-        - CMAKE_CMD_EXTRA="-DMPIEXEC:FILEPATH=$(which mpirun) -DMPIEXEC_MAX_NUMPROCS=4"
+        - CMAKE_CMD_EXTRA="-DMPIEXEC:FILEPATH=$(which mpirun) -DMPIEXEC_MAX_NUMPROCS=2"
 
     - os: osx
       osx_image: xcode8
@@ -258,7 +258,7 @@ before_install:
   - if [[ ${TITLE} = *GCC* ]]; then CC=gcc-7; else CC=clang${ClangVer}; fi
   - if [[ ${TITLE} = *GCC* ]]; then CXX=g++-7; else CXX=clang++${ClangVer}; fi
   # As MPI is not installed already, this variable is not set properly
-  - if [[ $TRAVIS_OS_NAME = osx && $MPI = ON ]]; then export CMAKE_CMD_EXTRA="-DMPIEXEC:FILEPATH=$(which mpirun) -DMPIEXEC_MAX_NUMPROCS=4"; fi
+  - if [[ $TRAVIS_OS_NAME = osx && $MPI = ON ]]; then export CMAKE_CMD_EXTRA="-DMPIEXEC:FILEPATH=$(which mpirun) -DMPIEXEC_MAX_NUMPROCS=2"; fi
   - echo "==================== ${TITLE} ====================="
   - if [[ $TRAVIS_OS_NAME = osx && $MPI = ON ]]; then echo "==================== ${CMAKE_CMD_EXTRA} ====================="; fi
 
