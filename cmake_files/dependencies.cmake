@@ -22,6 +22,10 @@ if(examples OR regression)
   endif()
 endif()
 
+if(benchmark)
+    lookup_package(GBenchmark REQUIRED DOWNLOAD_BY_DEFAULT ARGUMENTS GIT_TAG "v1.3.0")
+endif()
+
 if(regressions)
   find_package(FFTW3 REQUIRED DOUBLE)
   set(REGRESSION_ORACLE_ID "last_of_c"
