@@ -2,30 +2,13 @@ language: cpp
 sudo: required
 dist: trusty
 
-# The apt packages below are needed but can no longer be installed with
-# sudo apt-get.
-
-      # - libcfitsio3-dev # version 3.34
-      # - libccfits-dev # version 2.4
-      # - libyaml-cpp-dev # version 0.5.1
-      # libtiff is version 5 in Trusty
-
 env:
   global:
     - BUILD_CMD='make VERBOSE=1'
     - TEST_CMD='ctest -T test --output-on-failure -V'
     - OMP_NUM_THREADS=4
-# env:
-#     global:
-#         - SETUP_CMD='test'
-#         - TEST_CMD='py.test test_env.py'
-#         - PYTHON_VERSION=3.6
-
-#     matrix:
-#         - SETUP_CMD='egg_info' TEST_CMD='python --version'
 
 matrix:
-  # Don't wait for allowed failures - do we really need this? TODO
   fast_finish: true
 
   include:
@@ -167,7 +150,6 @@ matrix:
             - libtiff5-dev # version 5 ?
             - libboost-all-dev # version 1.54
             - libeigen3-dev # version 3.2.0
-            #- llvm # version 3.4
 
       env:
         - TITLE="All dependencies - Clang"
@@ -250,6 +232,9 @@ matrix:
         - DOCS=ON
         - BUILD_CMD='make doc VERBOSE=1'
         - TEST_CMD=''
+
+
+
 
 before_install:
   - echo "Travis Run!"
