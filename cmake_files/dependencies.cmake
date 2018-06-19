@@ -22,9 +22,6 @@ if(examples OR regression)
   endif()
 endif()
 
-if(benchmarks)
-    lookup_package(GBenchmark REQUIRED DOWNLOAD_BY_DEFAULT ARGUMENTS GIT_TAG "v1.3.0")
-endif()
 
 if(regressions)
   find_package(FFTW3 REQUIRED DOUBLE)

@@ -66,6 +66,7 @@ if(examples)
 endif()
 
 if(benchmarks)
+  set(GBenchmark_GIT_TAG "v1.3.0")
   include(AddBenchmark)
 endif()
 if(regressions)
