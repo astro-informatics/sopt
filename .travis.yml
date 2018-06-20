@@ -8,6 +8,19 @@ env:
     - TEST_CMD='ctest -T test --output-on-failure -V'
     - OMP_NUM_THREADS=4
 
+
+addons:
+  apt:
+    sources: &basic_sources
+      - ubuntu-toolchain-r-test
+      - llvm-toolchain-trusty-5.0
+    packages: &native_deps
+      - g++-7
+      - clang-5.0
+      - libtiff5-dev # version 5 ?
+      - libgomp1 # version 4.8.4-2
+
+
 matrix:
   fast_finish: true
 
@@ -49,15 +62,11 @@ matrix:
       addons:
         apt:
           sources:
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-trusty-5.0
+            - *basic_sources
           packages:
-            - g++-7
-            - libfftw3-dev # version 3.3.3
-            - libtiff5-dev # version 5 ?
-            - libboost-all-dev # version 1.54
-            - libeigen3-dev # version 3.2.0
-            #- llvm # version 3.4
+            - *native_deps
+            - &all_deps [ libfftw3-dev, libboost-all-dev, libeigen3-dev ]
+            # libfftw3 version 3.3.3; libboost-all-dev version 1.54; libeigen3-dev version 3.2.0
 
       env:
         - TITLE="All dependencies - GCC"
@@ -71,15 +80,10 @@ matrix:
       addons:
         apt:
           sources:
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-trusty-5.0
+            - *basic_sources
           packages:
-            - g++-7
-            - libfftw3-dev # version 3.3.3
-            - libtiff5-dev # version 5 ?
-            - libboost-all-dev # version 1.54
-            - libeigen3-dev # version 3.2.0
-            - libgomp1 # version 4.8.4-2
+            - *native_deps
+            - *all_deps
 
       env:
         - TITLE="All dependencies - GCC - OMP"
@@ -93,15 +97,10 @@ matrix:
       addons:
         apt:
           sources:
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-trusty-5.0
+            - *basic_sources
           packages:
-            - g++-7
-            - libfftw3-dev # version 3.3.3
-            - libtiff5-dev # version 5 ?
-            - libboost-all-dev # version 1.54
-            - libeigen3-dev # version 3.2.0
-            - libgomp1 # version 4.8.4-2
+            - *native_deps
+            - *all_deps
             - openmpi-bin # Version 1.6.5-8
 
       env:
@@ -117,15 +116,10 @@ matrix:
       addons:
         apt:
           sources:
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-trusty-5.0
+            - *basic_sources
           packages:
-            - g++-7
-            - libfftw3-dev # version 3.3.3
-            - libtiff5-dev # version 5 ?
-            - libboost-all-dev # version 1.54
-            - libeigen3-dev # version 3.2.0
-            - libgomp1 # version 4.8.4-2
+            - *native_deps
+            - *all_deps
             - mpich # version 3.0.4-6
 
       env:
@@ -142,15 +136,10 @@ matrix:
       addons:
         apt:
           sources:
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-trusty-5.0
+            - *basic_sources
           packages:
-            - clang-5.0
-            - libfftw3-dev # version 3.3.3
-            - libtiff5-dev # version 5 ?
-            - libboost-all-dev # version 1.54
-            - libeigen3-dev # version 3.2.0
-
+            - *native_deps
+            - *all_deps
       env:
         - TITLE="All dependencies - Clang"
         - DEBUG=True
@@ -163,12 +152,9 @@ matrix:
       addons:
         apt:
           sources:
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-trusty-5.0
+            - *basic_sources
           packages:
-            - g++-7
-            - libtiff5-dev # version 5 ?
-            - libgomp1 # version 4.8.4-2
+            - *native_deps
             - openmpi-bin # Version 1.6.5-8
 
       env:
@@ -184,12 +170,9 @@ matrix:
       addons:
         apt:
           sources:
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-trusty-5.0
+            - *basic_sources
           packages:
-            - g++-7
-            - libtiff5-dev # version 5 ?
-            - libgomp1 # version 4.8.4-2
+            - *native_deps
             - openmpi-bin # Version 1.6.5-8
 
       env:
@@ -212,14 +195,10 @@ matrix:
       addons:
         apt:
           sources:
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-trusty-5.0
+            - *basic_sources
           packages:
-            - g++-7
-            - libfftw3-dev # version 3.3.3
-            - libtiff5-dev # version 5 ?
-            - libboost-all-dev # version 1.54
-            - libeigen3-dev # version 3.2.0
+            - *native_deps
+            - *all_deps
             - doxygen # version 1.8.6-2
             - graphviz # version 2.36.0
 
