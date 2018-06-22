@@ -187,12 +187,6 @@ matrix:
         - Benchmarks=ON
         - TEST_CMD='cd cpp/benchmarks; ./wavelets; ./conjugate_gradient; ./l1_proximal'
 
-  #   - os: linux #Documentation? To push to gh-pages
-  #     env: PYTHON_VERSION=3.4 PYTEST_VERSION=3.1 PIP_FALLBACK=false
-      
-  #allow_failures:
-  #   - os: linux #Benchmark
-  #     env: PYTHON_VERSION=3.4 PYTEST_VERSION=3.1 PIP_FALLBACK=false
     - os: linux
       addons:
         apt:
@@ -232,15 +226,10 @@ before_install:
   - if [ $TRAVIS_OS_NAME = linux ]; then ClangVer="-5.0"; fi
   - if [[ ${TITLE} = *GCC* ]]; then CC=gcc-7; else CC=clang${ClangVer}; fi
   - if [[ ${TITLE} = *GCC* ]]; then CXX=g++-7; else CXX=clang++${ClangVer}; fi
-  # As MPI is not installed already, this variable is not set properly
+  # As MPI is not installed already, this variable is not set properly; this
+  # way is set up for all the jobs in the same manner.
   - if [[ $MPI = ON ]]; then eval $MPI_CONFIG; fi
   - echo "==================== ${TITLE} ====================="
-  - if [[ $TRAVIS_OS_NAME = osx && $MPI = ON ]]; then echo "==================== ${CMAKE_CMD_EXTRA} ====================="; fi
-
-  # Install stuff specifically for MacOS
-  #- if [ $TRAVIS_OS_NAME = osx ]; then brew update; rm '/usr/local/include/c++'; brew install gcc; fi
-  # - if [ $TRAVIS_OS_NAME = linux ]; then source .ci/setup_linux.sh; fi
-
 
 install:
 
@@ -250,7 +239,14 @@ script:
   - pwd
   - mkdir build
   - cd build
-  - cmake .. -DCMAKE_BUILD_TYPE=Release -Ddompi=${MPI} -Dexamples=OFF -Dopenmp=${openMP} -Ddocs=${DOCS} -Dbenchmarks=${Benchmarks-OFF} ${CMAKE_CMD_EXTRA}
+  - |
+    cmake .. -DCMAKE_BUILD_TYPE=Release \
+    -Ddompi=${MPI} \
+    -Dexamples=OFF \
+    -Dopenmp=${openMP} \
+    -Ddocs=${DOCS} \
+    -Dbenchmarks=${Benchmarks-OFF} \
+    ${CMAKE_CMD_EXTRA}
   - eval $BUILD_CMD
   - eval $TEST_CMD
 
