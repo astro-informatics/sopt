@@ -186,6 +186,7 @@ matrix:
         - MPI_PROCS=4
         - Benchmarks=ON
         - TEST_CMD='cd cpp/benchmarks; ./wavelets; ./conjugate_gradient; ./l1_proximal'
+        - TRAVIS_ALLOW_FAILURE=true
 
     - os: linux
       addons:
