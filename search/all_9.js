@@ -1,0 +1,19 @@
+var searchData=
+[
+  ['l1',['L1',['../db/d2b/classsopt_1_1proximal_1_1L1.html',1,'sopt::proximal']]],
+  ['l1_3c_20scalar_20_3e',['L1&lt; Scalar &gt;',['../db/d2b/classsopt_1_1proximal_1_1L1.html',1,'sopt::proximal']]],
+  ['l1_5fdiagnostic',['l1_diagnostic',['../d5/df4/structsopt_1_1algorithm_1_1ImagingForwardBackward_1_1Diagnostic.html#ad4e7d138ffe53eb0d3b770c5f915625b',1,'sopt::algorithm::ImagingForwardBackward::Diagnostic::l1_diagnostic()'],['../d4/d13/structsopt_1_1algorithm_1_1ImagingProximalADMM_1_1Diagnostic.html#a31e2019b33bc6ead42e5ef12bc769f5b',1,'sopt::algorithm::ImagingProximalADMM::Diagnostic::l1_diagnostic()']]],
+  ['l1_5fnorm',['l1_norm',['../da/d40/namespacesopt_1_1proximal.html#acaa892cd8aec7d5e6c4f24192cbca062',1,'sopt::proximal::l1_norm(Eigen::DenseBase&lt; T0 &gt; &amp;out, typename real_type&lt; typename T0::Scalar &gt;::type gamma, Eigen::DenseBase&lt; T1 &gt; const &amp;x)'],['../da/d40/namespacesopt_1_1proximal.html#a539249fec2aa941ca7eb05a2c781cf2f',1,'sopt::proximal::l1_norm(Vector&lt; S &gt; &amp;out, typename real_type&lt; S &gt;::type gamma, Vector&lt; S &gt; const &amp;x)'],['../da/d40/namespacesopt_1_1proximal.html#af3353b451839ced4b6d7161ac18e13ba',1,'sopt::proximal::l1_norm(typename real_type&lt; typename T::Scalar &gt;::type gamma, Eigen::DenseBase&lt; T &gt; const &amp;x) -&gt; decltype(sopt::soft_threshhold(x, gamma))']]],
+  ['l1_5fproximal',['l1_proximal',['../d5/da7/classsopt_1_1algorithm_1_1ImagingForwardBackward.html#ae2268cacdae64e3358a5056f50109657',1,'sopt::algorithm::ImagingForwardBackward::l1_proximal()'],['../de/d53/classsopt_1_1algorithm_1_1ImagingProximalADMM.html#a13f2b3576b20ad05c3540c3702813bec',1,'sopt::algorithm::ImagingProximalADMM::l1_proximal()']]],
+  ['l1tightframe',['L1TightFrame',['../db/db3/classsopt_1_1proximal_1_1L1TightFrame.html',1,'sopt::proximal']]],
+  ['l1tightframe_3c_20scalar_20_3e',['L1TightFrame&lt; Scalar &gt;',['../db/db3/classsopt_1_1proximal_1_1L1TightFrame.html',1,'sopt::proximal']]],
+  ['l2ball',['L2Ball',['../db/d76/classsopt_1_1proximal_1_1L2Ball.html',1,'sopt::proximal']]],
+  ['l2ball',['L2Ball',['../db/d76/classsopt_1_1proximal_1_1L2Ball.html#a64f316c375a0f130b1d4a2e5f2c9199d',1,'sopt::proximal::L2Ball']]],
+  ['l2ball_5fproximal',['l2ball_proximal',['../de/d53/classsopt_1_1algorithm_1_1ImagingProximalADMM.html#af90cea9890b8380d68a775dd77d6147e',1,'sopt::algorithm::ImagingProximalADMM']]],
+  ['levels',['levels',['../dc/d7f/classsopt_1_1wavelets_1_1Wavelet.html#a6def392e77a8b1cbcf4b1859db02c938',1,'sopt::wavelets::Wavelet::levels() const '],['../dc/d7f/classsopt_1_1wavelets_1_1Wavelet.html#a0db95a400b0f852a488d133c06c5b35f',1,'sopt::wavelets::Wavelet::levels(t_uint l)']]],
+  ['lineartransform',['LinearTransform',['../d9/d6e/classsopt_1_1LinearTransform.html#a653b6af71c698632c208639c19870439',1,'sopt::LinearTransform::LinearTransform(t_Function const &amp;direct, t_Function const &amp;indirect, std::array&lt; t_int, 3 &gt; sizes={{1, 1, 0}})'],['../d9/d6e/classsopt_1_1LinearTransform.html#a43e425e3a0b156cb450f52afb7aec423',1,'sopt::LinearTransform::LinearTransform(t_Function const &amp;direct, std::array&lt; t_int, 3 &gt; dsizes, t_Function const &amp;indirect, std::array&lt; t_int, 3 &gt; isizes)']]],
+  ['lineartransform',['LinearTransform',['../d9/d6e/classsopt_1_1LinearTransform.html',1,'sopt']]],
+  ['lineartransform_3c_20t_5fvector_20_3e',['LinearTransform&lt; t_Vector &gt;',['../d9/d6e/classsopt_1_1LinearTransform.html',1,'sopt']]],
+  ['low',['low',['../d1/d4b/structsopt_1_1wavelets_1_1WaveletData_1_1DirectFilter.html#a1a075f09c5c3e6ff8e1df22de1855920',1,'sopt::wavelets::WaveletData::DirectFilter']]],
+  ['low_5feven',['low_even',['../dc/d15/structsopt_1_1wavelets_1_1WaveletData.html#a0f6b5829d73e218244449151f24b6791',1,'sopt::wavelets::WaveletData']]]
+];
