@@ -5,7 +5,9 @@
 // Convenience header to include wavelets headers and additional utilities
 #include "sopt/config.h"
 #include "sopt/linear_transform.h"
+#ifdef SOPT_MPI
 #include "sopt/mpi/communicator.h"
+#endif
 #include "sopt/wavelets/sara.h"
 #include "sopt/wavelets/wavelets.h"
 
