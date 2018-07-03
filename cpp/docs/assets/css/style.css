@@ -21,3 +21,12 @@
     padding-left: 10px; /* if you want space between the images */
     float:right;
 }
+
+#titlearea img{
+    height: 150px;
+}
+
+.headertitle {
+    font-size: xx-large;
+    font-weight: bolder;
+}
