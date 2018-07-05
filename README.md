@@ -1,8 +1,11 @@
-SOPT: Sparse OPTimisation Library [![Build Status](https://travis-ci.com/astro-informatics/sopt.svg?branch=development)](https://travis-ci.com/astro-informatics/sopt)
-=================================
+
+Sparse OPTimisation Library
+---------------------------------
+
+[![Build Status](https://travis-ci.com/astro-informatics/sopt.svg?branch=development)](https://travis-ci.com/astro-informatics/sopt)
 
 Description
------------
+-------------
 
 **SOPT** is an open-source `C++` package available under the [license](#license) below. It performs Sparse OPTimisation using state-of-the-art convex optimisation algorithms. It solves a variety of sparse regularisation problems, including the Sparsity Averaging Reweighted Analysis (SARA) algorithm. 
 
