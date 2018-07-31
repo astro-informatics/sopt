@@ -251,7 +251,7 @@ before_install:
 install:
 
 before_script:
-  - if [[ ${TITLE} = *MPI3* ]]; then bash .ci/build_openmpi.sh; MPI_EXTRA="--map-by core:OVERSUBSCRIBE"; fi;
+  - if [[ ${TITLE} = *MPI3* ]]; then bash .ci/build_openmpi.sh; MPI_EXTRA="--oversubscribed"; fi;
   - if [[ $MPI = ON ]]; then eval $MPI_CONFIG; fi
 
 script:
