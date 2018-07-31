@@ -251,7 +251,7 @@ before_install:
 install:
 
 before_script:
-  - if [[ ${TITLE} = *MPI3* ]]; then bash .ci/build_openmpi.sh; fi;
+  - if [[ ${TITLE} = *MPI3* ]]; then bash .ci/build_openmpi.sh; MPI_EXTRA='"--map-by core:OVERSUBSCRIBE"'; fi;
   - if [[ $MPI = ON ]]; then eval $MPI_CONFIG; fi
 
 script:
@@ -265,7 +265,7 @@ script:
     -Dopenmp=${openMP} \
     -Ddocs=${DOCS} \
     -Dbenchmarks=${Benchmarks-OFF} \
-    ${CMAKE_CMD_EXTRA}
+    ${CMAKE_CMD_EXTRA} -DMPIEXEC_PREFLAGS=${MPI_EXTRA-""}
   - eval $BUILD_CMD
   - eval $TEST_CMD
 
