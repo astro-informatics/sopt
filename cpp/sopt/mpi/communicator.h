@@ -6,6 +6,7 @@
 
 #ifdef SOPT_MPI
 
+#include <iostream>
 #include <memory>
 #include <mpi.h>
 #include <set>
@@ -14,11 +15,9 @@
 #include <vector>
 #include "sopt/mpi/registered_types.h"
 #include "sopt/types.h"
-#include <iostream>
 
-#include <typeinfo>
 #include <cxxabi.h>
-
+#include <typeinfo>
 
 namespace sopt {
 namespace mpi {
@@ -70,7 +69,7 @@ public:
   //! Alias for duplicate
   Communicator clone() const { return duplicate(); }
   //! Will abort and kill all processes then print the reason
-  void abort(const std::string & reason) const;
+  void abort(const std::string &reason) const;
 
   //! Helper function for reducing
   template <class T>
@@ -204,6 +203,10 @@ public:
   gather(std::vector<T> const &vec, t_uint const root = root_id()) const {
     return gather_<std::vector<T>, T>(vec, root);
   }
+  //! All to all
+  template <class T>
+  typename std::enable_if<is_registered_type<T>::value, Vector<T>>::type
+  all_to_allv(const Vector<T> &vec, std::vector<t_int> const &send_sizes) const;
 
   //! Split current communicator
   Communicator split(t_int color) const { return split(color, rank()); }
@@ -254,7 +257,8 @@ Communicator::all_reduce(T const &value, MPI_Op operation) const {
     return value;
   assert(impl);
   T result;
-  MPI_Allreduce(const_cast<void*>(reinterpret_cast<const void*>(&value)), &result, 1, registered_type(value), operation, **this);
+  MPI_Allreduce(const_cast<void *>(reinterpret_cast<const void *>(&value)), &result, 1,
+                registered_type(value), operation, **this);
   return result;
 }
 
@@ -267,8 +271,8 @@ Communicator::scatter_one(std::vector<T> const &values, t_uint const root) const
   if(size() == 1)
     return values.at(0);
   T result;
-  MPI_Scatter(const_cast<void*>(reinterpret_cast<const void*>(values.data())), 1, registered_type(result), &result, 1, registered_type(result), root,
-              **this);
+  MPI_Scatter(const_cast<void *>(reinterpret_cast<const void *>(values.data())), 1,
+              registered_type(result), &result, 1, registered_type(result), root, **this);
   return result;
 }
 //! Receive scattered objects
@@ -306,8 +310,9 @@ Communicator::scatterv(Vector<T> const &vec, std::vector<t_int> const &sizes,
   if(not impl)
     result = vec.head(sizes[rank()]);
   else
-    MPI_Scatterv(const_cast<void*>(reinterpret_cast<const void*>(vec.data())), sizes_.data(), displs.data(), registered_type(T(0)), result.data(),
-                 sizes_[rank()], registered_type(T(0)), root, **this);
+    MPI_Scatterv(const_cast<void *>(reinterpret_cast<const void *>(vec.data())), sizes_.data(),
+                 displs.data(), registered_type(T(0)), result.data(), sizes_[rank()],
+                 registered_type(T(0)), root, **this);
   return result;
 }
 
@@ -325,6 +330,42 @@ Communicator::scatterv(t_int local_size, t_uint const root) const {
 }
 
 template <class T>
+typename std::enable_if<is_registered_type<T>::value, Vector<T>>::type
+Communicator::all_to_allv(const Vector<T> &vec, std::vector<t_int> const &send_sizes) const {
+  if(size() == 1) {
+    if(send_sizes.size() == 1 and vec.size() != send_sizes.front())
+      throw std::runtime_error("Input vector size and sizes are inconsistent on root");
+    return vec;
+  }
+  std::vector<t_int> rec_sizes(send_sizes.size(), 0);
+  for(t_int i = 0; i < size(); i++) {
+    if(i == rank())
+      rec_sizes = gather<t_int>(send_sizes[i], i);
+    else
+      gather<t_int>(send_sizes[i], i);
+  }
+
+  int i = 0;
+  std::vector<int> ssizes_, sdispls;
+  for(auto const size : send_sizes) {
+    ssizes_.push_back(static_cast<int>(size));
+    sdispls.push_back(i);
+    i += size;
+  }
+  int total = 0;
+  std::vector<int> rsizes_, rdispls;
+  for(auto const size : rec_sizes) {
+    rsizes_.push_back(static_cast<int>(size));
+    rdispls.push_back(total);
+    total += size;
+  }
+  Vector<T> output = Vector<T>::Zero(total);
+  MPI_Alltoallv(vec.data(), ssizes_.data(), sdispls.data(), registered_type(T(0)), output.data(),
+                rsizes_.data(), rdispls.data(), registered_type(T(0)), **this);
+  return output;
+};
+
+template <class T>
 typename std::enable_if<is_registered_type<T>::value, std::vector<T>>::type
 Communicator::gather(T const value, t_uint const root) const {
   assert(root < size());
@@ -333,10 +374,11 @@ Communicator::gather(T const value, t_uint const root) const {
   std::vector<T> result;
   if(rank() == root) {
     result.resize(size());
-    MPI_Gather(const_cast<void*>(reinterpret_cast<const void *>(&value)), 1, registered_type(value), result.data(), 1, registered_type(value), root,
-               **this);
+    MPI_Gather(const_cast<void *>(reinterpret_cast<const void *>(&value)), 1,
+               registered_type(value), result.data(), 1, registered_type(value), root, **this);
   } else
-    MPI_Gather(const_cast<void*>(reinterpret_cast<const void *>(&value)), 1, registered_type(value), nullptr, 1, registered_type(value), root, **this);
+    MPI_Gather(const_cast<void *>(reinterpret_cast<const void *>(&value)), 1,
+               registered_type(value), nullptr, 1, registered_type(value), root, **this);
   return result;
 }
 
@@ -366,9 +408,10 @@ CONTAINER Communicator::gather_(CONTAINER const &vec, std::vector<t_int> const &
     result_size += size;
   }
   CONTAINER result(result_size);
- 
-  MPI_Gatherv(const_cast<void *>(reinterpret_cast<const void *>(vec.data())), sizes_[rank()], mpi::Type<T>::value, result.data(), sizes_.data(),
-              displs.data(), mpi::Type<T>::value, root, **this);
+
+  MPI_Gatherv(const_cast<void *>(reinterpret_cast<const void *>(vec.data())), sizes_[rank()],
+              mpi::Type<T>::value, result.data(), sizes_.data(), displs.data(), mpi::Type<T>::value,
+              root, **this);
   return result;
 }
 
@@ -378,8 +421,8 @@ CONTAINER Communicator::gather_(CONTAINER const &vec, t_uint const root) const {
   if(rank() == root)
     throw std::runtime_error("Root should call the *other* gather");
 
-  MPI_Gatherv(const_cast<void*>(reinterpret_cast<const void *>(vec.data())), vec.size(), mpi::Type<T>::value, nullptr, nullptr, nullptr,
-              mpi::Type<T>::value, root, **this);
+  MPI_Gatherv(const_cast<void *>(reinterpret_cast<const void *>(vec.data())), vec.size(),
+              mpi::Type<T>::value, nullptr, nullptr, nullptr, mpi::Type<T>::value, root, **this);
   return CONTAINER();
 }
 
@@ -496,6 +539,7 @@ Communicator::broadcast(t_uint const root) const {
   MPI_Bcast(result.data(), result.size(), Type<typename T::value_type>::value, root, **this);
   return result;
 }
+
 } // namespace mpi
 } // namespace sopt
 #endif /* ifdef SOPT_MPI */
