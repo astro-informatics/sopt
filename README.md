@@ -64,7 +64,8 @@ cmake -DCMAKE_BUILD_TYPE=Release ..
 make
 ```
 
-To install in directory `/X`, with libraries going to `X/lib` do:
+To install in directory `/X`, with libraries going to `X/lib`, `Python` modules to
+`X/lib/pythonA.B/site-packages/sopt`, etc, do:
 
 ```
 cd /path/to/code/build
