@@ -121,6 +121,24 @@ matrix:
           packages:
             - *native_deps
             - *all_deps
+
+      env:
+        - TITLE="All dependencies - GCC - MPI3"
+        - DEBUG=True
+        - LDFLAGS='-pthread'
+        - MPI=ON
+        - openMP=ON
+        - DOCS=OFF
+        - MPI_PROCS=4
+
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - *basic_sources
+          packages:
+            - *native_deps
+            - *all_deps
             - mpich # version 3.0.4-6
 
       env:
@@ -228,12 +246,13 @@ before_install:
   - if [[ ${TITLE} = *GCC* ]]; then CXX=g++-7; else CXX=clang++${ClangVer}; fi
   # As MPI is not installed already, this variable is not set properly; this
   # way is set up for all the jobs in the same manner.
-  - if [[ $MPI = ON ]]; then eval $MPI_CONFIG; fi
   - echo "==================== ${TITLE} ====================="
 
 install:
 
 before_script:
+  - if [[ ${TITLE} = *MPI3* ]]; then bash .ci/build_openmpi.sh; MPI_EXTRA="--oversubsribe"; fi;
+  - if [[ $MPI = ON ]]; then eval $MPI_CONFIG; fi
 
 script:
   - pwd
@@ -246,7 +265,7 @@ script:
     -Dopenmp=${openMP} \
     -Ddocs=${DOCS} \
     -Dbenchmarks=${Benchmarks-OFF} \
-    ${CMAKE_CMD_EXTRA}
+    ${CMAKE_CMD_EXTRA} -DMPIEXEC_PREFLAGS="${MPI_EXTRA-}"
   - eval $BUILD_CMD
   - eval $TEST_CMD
 
