@@ -27,6 +27,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="../../logo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">SOPT
    </div>
@@ -260,6 +261,8 @@ class sopt::algorithm::SDMM&lt; SCALAR &gt;</h3>
 
 <p>Simultaneous-direction method of the multipliers. </p>
 <p>The algorithm is detailed in (doi) 10.1093/mnras/stu202. </p>
+
+<p>Definition at line <a class="el" href="../../db/dc6/sdmm_8h_source.html#l00022">22</a> of file <a class="el" href="../../db/dc6/sdmm_8h_source.html">sdmm.h</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a8faac4cc614d2885302c7224ec139b5c"></a>
 <div class="memitem">
@@ -300,6 +303,12 @@ template&lt;class T0 , class... T&gt; </div>
 <p>Forwards to internal conjugage gradient object. </p>
 <p>Removes the need for ugly extra brackets. </p>
 
+<p>Definition at line <a class="el" href="../../db/dc6/sdmm_8h_source.html#l00162">162</a> of file <a class="el" href="../../db/dc6/sdmm_8h_source.html">sdmm.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;                                                                                          {</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../de/d0b/classsopt_1_1algorithm_1_1SDMM.html#a70f1abe51c4ff2bce73bea0722e36b8c">conjugate_gradient</a>()(std::forward&lt;T0&gt;(t0), std::forward&lt;T&gt;(args)...);</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;  }</div>
+<div class="ttc" id="classsopt_1_1algorithm_1_1SDMM_html_a70f1abe51c4ff2bce73bea0722e36b8c"><div class="ttname"><a href="../../de/d0b/classsopt_1_1algorithm_1_1SDMM.html#a70f1abe51c4ff2bce73bea0722e36b8c">sopt::algorithm::SDMM::conjugate_gradient</a></div><div class="ttdeci">SDMM&lt; SCALAR &gt; &amp; conjugate_gradient(t_uint itermax, t_real tolerance)</div><div class="ttdoc">Helps setup conjugate gradient. </div><div class="ttdef"><b>Definition:</b> <a href="../../db/dc6/sdmm_8h_source.html#l00081">sdmm.h:81</a></div></div>
+</div><!-- fragment -->
 </div>
 </div>
 <a class="anchor" id="a44c20f8fd419027049ce499e35e5b135"></a>
@@ -331,6 +340,48 @@ template&lt;class SCALAR &gt; </div>
 <p>Implements <a class="el" href="../../de/d0b/classsopt_1_1algorithm_1_1SDMM.html" title="Simultaneous-direction method of the multipliers. ">SDMM</a>. </p>
 <p>Follows Combettes and Pesquet "Proximal Splitting Methods in Signal Processing", arXiv:0912.3522v4 [math.OC] (2010), equation 65. See therein for notation </p>
 
+<p>Definition at line <a class="el" href="../../db/dc6/sdmm_8h_source.html#l00193">193</a> of file <a class="el" href="../../db/dc6/sdmm_8h_source.html">sdmm.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;                                                       {</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;  sanity_check(input);</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;  <span class="keywordtype">bool</span> convergence = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;  t_uint niters(0);</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;  <span class="comment">// Figures out where itermax or convergence reached</span></div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> has_finished = [&amp;convergence, &amp;niters, <span class="keyword">this</span>](t_Vector <span class="keyword">const</span> &amp;out) {</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    convergence = <a class="code" href="../../de/d0b/classsopt_1_1algorithm_1_1SDMM.html#a3ed4ccd98e3dc83bbf36aae4199caeb5">is_converged</a>(out);</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    <span class="keywordflow">return</span> niters &gt;= itermax() or convergence;</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;  };</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;  SOPT_HIGH_LOG(&quot;Performing SDMM &quot;);</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;  out = input;</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;  t_Vectors y(<a class="code" href="../../de/d0b/classsopt_1_1algorithm_1_1SDMM.html#ac78962264c917b73d40d7133edca9a32">transforms</a>().<a class="code" href="../../de/d0b/classsopt_1_1algorithm_1_1SDMM.html#ac6d47777561a2922d3854080a6046eeb">size</a>()), z(<a class="code" href="../../de/d0b/classsopt_1_1algorithm_1_1SDMM.html#ac78962264c917b73d40d7133edca9a32">transforms</a>().size());</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;  <span class="comment">// Initial step replaces iteration update with initialization</span></div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;  initialization(y, z, input);</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;  auto cg_diagnostic = solve_for_xn(out, y, z);</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;  while(not has_finished(out)) {</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    SOPT_LOW_LOG(<span class="stringliteral">&quot;Iteration {}/{}. &quot;</span>, niters, itermax());</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;    <span class="comment">// computes y and z from out and transforms</span></div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;    update_directions(y, z, out);</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    SOPT_LOW_LOG(<span class="stringliteral">&quot;   - sum z_ij = {}&quot;</span>,</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;                 std::accumulate(z.begin(), z.end(), <a class="code" href="../../de/d0b/classsopt_1_1algorithm_1_1SDMM.html#ae40289cc31766ddcbfe9d683ac80a25a">Scalar</a>(0e0),</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;                                 [](Scalar <span class="keyword">const</span> &amp;a, t_Vector <span class="keyword">const</span> &amp;z) { <span class="keywordflow">return</span> a + z.sum(); }));</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    <span class="comment">// computes x = L^-1 y</span></div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    cg_diagnostic = solve_for_xn(out, y, z);</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    SOPT_LOW_LOG(<span class="stringliteral">&quot;   - CG Residual = {} in {}/{} iterations&quot;</span>, cg_diagnostic.residual,</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;                 cg_diagnostic.niters, <a class="code" href="../../de/d0b/classsopt_1_1algorithm_1_1SDMM.html#a70f1abe51c4ff2bce73bea0722e36b8c">conjugate_gradient</a>().itermax());</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    ++niters;</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;  }</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;  <span class="keywordflow">return</span> {niters, convergence, cg_diagnostic};</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;}</div>
+<div class="ttc" id="classsopt_1_1algorithm_1_1SDMM_html_ac6d47777561a2922d3854080a6046eeb"><div class="ttname"><a href="../../de/d0b/classsopt_1_1algorithm_1_1SDMM.html#ac6d47777561a2922d3854080a6046eeb">sopt::algorithm::SDMM::size</a></div><div class="ttdeci">t_uint size() const </div><div class="ttdoc">Number of terms. </div><div class="ttdef"><b>Definition:</b> <a href="../../db/dc6/sdmm_8h_source.html#l00155">sdmm.h:155</a></div></div>
+<div class="ttc" id="classsopt_1_1algorithm_1_1SDMM_html_ac78962264c917b73d40d7133edca9a32"><div class="ttname"><a href="../../de/d0b/classsopt_1_1algorithm_1_1SDMM.html#ac78962264c917b73d40d7133edca9a32">sopt::algorithm::SDMM::transforms</a></div><div class="ttdeci">std::vector&lt; t_LinearTransform &gt; const &amp; transforms() const </div><div class="ttdoc">Linear transforms associated with each objective function. </div><div class="ttdef"><b>Definition:</b> <a href="../../db/dc6/sdmm_8h_source.html#l00131">sdmm.h:131</a></div></div>
+<div class="ttc" id="classsopt_1_1algorithm_1_1SDMM_html_a70f1abe51c4ff2bce73bea0722e36b8c"><div class="ttname"><a href="../../de/d0b/classsopt_1_1algorithm_1_1SDMM.html#a70f1abe51c4ff2bce73bea0722e36b8c">sopt::algorithm::SDMM::conjugate_gradient</a></div><div class="ttdeci">SDMM&lt; SCALAR &gt; &amp; conjugate_gradient(t_uint itermax, t_real tolerance)</div><div class="ttdoc">Helps setup conjugate gradient. </div><div class="ttdef"><b>Definition:</b> <a href="../../db/dc6/sdmm_8h_source.html#l00081">sdmm.h:81</a></div></div>
+<div class="ttc" id="classsopt_1_1algorithm_1_1SDMM_html_ae40289cc31766ddcbfe9d683ac80a25a"><div class="ttname"><a href="../../de/d0b/classsopt_1_1algorithm_1_1SDMM.html#ae40289cc31766ddcbfe9d683ac80a25a">sopt::algorithm::SDMM::Scalar</a></div><div class="ttdeci">value_type Scalar</div><div class="ttdoc">Scalar type. </div><div class="ttdef"><b>Definition:</b> <a href="../../db/dc6/sdmm_8h_source.html#l00040">sdmm.h:40</a></div></div>
+<div class="ttc" id="classsopt_1_1algorithm_1_1SDMM_html_a3ed4ccd98e3dc83bbf36aae4199caeb5"><div class="ttname"><a href="../../de/d0b/classsopt_1_1algorithm_1_1SDMM.html#a3ed4ccd98e3dc83bbf36aae4199caeb5">sopt::algorithm::SDMM::is_converged</a></div><div class="ttdeci">bool is_converged(t_Vector const &amp;x) const </div><div class="ttdoc">Forwards to convergence function parameter. </div><div class="ttdef"><b>Definition:</b> <a href="../../db/dc6/sdmm_8h_source.html#l00168">sdmm.h:168</a></div></div>
+</div><!-- fragment -->
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>

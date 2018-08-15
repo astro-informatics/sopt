@@ -27,6 +27,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="../../logo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">SOPT
    </div>
@@ -197,6 +198,8 @@ class sopt::algorithm::Reweighted&lt; ALGORITHM &gt;</h3>
 <li>a function returning Ψ^Tx given x</li>
 <li>a function to modify the inner algorithm with new weights </li>
 </ul>
+
+<p>Definition at line <a class="el" href="../../d6/dd3/reweighted_8h_source.html#l00009">9</a> of file <a class="el" href="../../d6/dd3/reweighted_8h_source.html">reweighted.h</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a class="anchor" id="a1453691c73190c48467367ff5a3e7823"></a>
 <div class="memitem">
@@ -212,6 +215,8 @@ template&lt;class ALGORITHM&gt; </div>
 
 <p>Type of the function that is subject to reweighting. </p>
 <p>E.g. \(Ψ^Tx\). Note that l1-norm is not applied here. </p>
+
+<p>Definition at line <a class="el" href="../../d6/dd3/reweighted_8h_source.html#l00044">44</a> of file <a class="el" href="../../d6/dd3/reweighted_8h_source.html">reweighted.h</a>.</p>
 
 </div>
 </div>
@@ -234,6 +239,15 @@ template&lt;class ALGORITHM &gt; </div>
 <p>Performs reweighting. </p>
 <p>This overload will compute an initial result without initial weights set to one. </p>
 
+<p>Definition at line <a class="el" href="../../d6/dd3/reweighted_8h_source.html#l00180">180</a> of file <a class="el" href="../../d6/dd3/reweighted_8h_source.html">reweighted.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;                                                                                       {</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;  <a class="code" href="../../dd/d5f/classsopt_1_1algorithm_1_1Reweighted.html#acafa7db5b2a33aa860f0c16401f26973">Algorithm</a> algo = algorithm();</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;  set_weights(algo, WeightVector::Ones(1));</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="../../dd/d5f/classsopt_1_1algorithm_1_1Reweighted.html#aeaae260c83aa2bfda51088e7be5dd95e">operator()</a>(algo());</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;}</div>
+<div class="ttc" id="classsopt_1_1algorithm_1_1Reweighted_html_acafa7db5b2a33aa860f0c16401f26973"><div class="ttname"><a href="../../dd/d5f/classsopt_1_1algorithm_1_1Reweighted.html#acafa7db5b2a33aa860f0c16401f26973">sopt::algorithm::Reweighted::Algorithm</a></div><div class="ttdeci">ALGORITHM Algorithm</div><div class="ttdoc">Inner-loop algorithm. </div><div class="ttdef"><b>Definition:</b> <a href="../../d6/dd3/reweighted_8h_source.html#l00031">reweighted.h:31</a></div></div>
+<div class="ttc" id="classsopt_1_1algorithm_1_1Reweighted_html_aeaae260c83aa2bfda51088e7be5dd95e"><div class="ttname"><a href="../../dd/d5f/classsopt_1_1algorithm_1_1Reweighted.html#aeaae260c83aa2bfda51088e7be5dd95e">sopt::algorithm::Reweighted::operator()</a></div><div class="ttdeci">ReweightedResult operator()() const </div><div class="ttdoc">Performs reweighting. </div><div class="ttdef"><b>Definition:</b> <a href="../../d6/dd3/reweighted_8h_source.html#l00180">reweighted.h:180</a></div></div>
+</div><!-- fragment -->
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>

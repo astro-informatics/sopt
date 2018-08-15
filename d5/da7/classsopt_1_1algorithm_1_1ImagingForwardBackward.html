@@ -27,6 +27,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="../../logo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">SOPT
    </div>
@@ -273,12 +274,18 @@ std::function&lt; t_real(t_Vector)&gt;<br class="typebreak"/>
 <tr class="memdesc:a468701a7743b9ab559be1e094c060c94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return objective function that is being minimized. <br/></td></tr>
 <tr class="separator:a468701a7743b9ab559be1e094c060c94"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;class SCALAR&gt;<br/>
+class sopt::algorithm::ImagingForwardBackward&lt; SCALAR &gt;</h3>
+
+
+<p>Definition at line <a class="el" href="../../db/d05/imaging__forward__backward_8h_source.html#l00020">20</a> of file <a class="el" href="../../db/d05/imaging__forward__backward_8h_source.html">imaging_forward_backward.h</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="aa65883194375705f1798cbd17f17b952"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class SCALAR &gt; </div>
+template&lt;class SCALAR&gt; </div>
 <div class="memtemplate">
 template&lt;class DERIVED &gt; </div>
 <table class="mlabels">
@@ -308,6 +315,12 @@ template&lt;class DERIVED &gt; </div>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="../../db/d05/imaging__forward__backward_8h_source.html#l00056">56</a> of file <a class="el" href="../../db/d05/imaging__forward__backward_8h_source.html">imaging_forward_backward.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      : l1_proximal_(), tight_frame_(<span class="keyword">false</span>), residual_tolerance_(1e-4), relative_variation_(1e-4),</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        residual_convergence_(<span class="keyword">nullptr</span>), objective_convergence_(<span class="keyword">nullptr</span>),</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        itermax_(std::numeric_limits&lt;t_uint&gt;::max()), beta_(1e-8), mu_(1), sigma_(1),</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        is_converged_(), PhiTPhi_([](t_Vector &amp;out, <span class="keyword">const</span> t_Vector &amp;in) { out = in; }),</div>
+</div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -315,7 +328,7 @@ template&lt;class DERIVED &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class SCALAR &gt; </div>
+template&lt;class SCALAR&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -337,13 +350,18 @@ template&lt;class SCALAR &gt; </div>
 <p>L1 proximal used during calculation. </p>
 <p>Non-const version to setup the object. </p>
 
+<p>Definition at line <a class="el" href="../../db/d05/imaging__forward__backward_8h_source.html#l00164">164</a> of file <a class="el" href="../../db/d05/imaging__forward__backward_8h_source.html">imaging_forward_backward.h</a>.</p>
+
+<p>Referenced by <a class="el" href="../../db/d05/imaging__forward__backward_8h_source.html#l00168">sopt::algorithm::ImagingForwardBackward&lt; SCALAR &gt;::Psi()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;{ <span class="keywordflow">return</span> l1_proximal_; }</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a class="anchor" id="a1d7a5a63a43fa11336579a2d30e1d6e3"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class SCALAR &gt; </div>
+template&lt;class SCALAR&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -371,13 +389,23 @@ template&lt;class SCALAR &gt; </div>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="../../db/d05/imaging__forward__backward_8h_source.html#l00119">119</a> of file <a class="el" href="../../db/d05/imaging__forward__backward_8h_source.html">imaging_forward_backward.h</a>.</p>
+
+<p>References <a class="el" href="../../d2/d36/forward__backward_8h_source.html#l00175">sopt::algorithm::ForwardBackward&lt; SCALAR &gt;::initial_guess()</a>, <a class="el" href="../../db/d05/imaging__forward__backward_8h_source.html#l00150">sopt::algorithm::ImagingForwardBackward&lt; SCALAR &gt;::operator()()</a>, and <a class="el" href="../../db/d05/imaging__forward__backward_8h_source.html#l00109">sopt::algorithm::ImagingForwardBackward&lt; SCALAR &gt;::target()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;                                             {</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../d5/da7/classsopt_1_1algorithm_1_1ImagingForwardBackward.html#ae10fee84a71cbd7b32ad55c950979378">operator()</a>(out, <a class="code" href="../../df/d63/classsopt_1_1algorithm_1_1ForwardBackward.html#a6ccc17a3c7880460a56e8ae5c8ab16f6">FB::initial_guess</a>(<a class="code" href="../../d5/da7/classsopt_1_1algorithm_1_1ImagingForwardBackward.html#ac8a186978902392c5f62b01b2e118990">target</a>()));</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;  }</div>
+<div class="ttc" id="classsopt_1_1algorithm_1_1ForwardBackward_html_a6ccc17a3c7880460a56e8ae5c8ab16f6"><div class="ttname"><a href="../../df/d63/classsopt_1_1algorithm_1_1ForwardBackward.html#a6ccc17a3c7880460a56e8ae5c8ab16f6">sopt::algorithm::ForwardBackward::initial_guess</a></div><div class="ttdeci">std::tuple&lt; t_Vector, t_Vector &gt; initial_guess() const </div><div class="ttdoc">Computes initial guess for x and the residual using the targets. </div><div class="ttdef"><b>Definition:</b> <a href="../../d2/d36/forward__backward_8h_source.html#l00175">forward_backward.h:175</a></div></div>
+<div class="ttc" id="classsopt_1_1algorithm_1_1ImagingForwardBackward_html_ae10fee84a71cbd7b32ad55c950979378"><div class="ttname"><a href="../../d5/da7/classsopt_1_1algorithm_1_1ImagingForwardBackward.html#ae10fee84a71cbd7b32ad55c950979378">sopt::algorithm::ImagingForwardBackward::operator()</a></div><div class="ttdeci">DiagnosticAndResult operator()() const </div><div class="ttdoc">Calls FB. </div><div class="ttdef"><b>Definition:</b> <a href="../../db/d05/imaging__forward__backward_8h_source.html#l00150">imaging_forward_backward.h:150</a></div></div>
+<div class="ttc" id="classsopt_1_1algorithm_1_1ImagingForwardBackward_html_ac8a186978902392c5f62b01b2e118990"><div class="ttname"><a href="../../d5/da7/classsopt_1_1algorithm_1_1ImagingForwardBackward.html#ac8a186978902392c5f62b01b2e118990">sopt::algorithm::ImagingForwardBackward::target</a></div><div class="ttdeci">t_Vector const &amp; target() const </div><div class="ttdoc">Vector of target measurements. </div><div class="ttdef"><b>Definition:</b> <a href="../../db/d05/imaging__forward__backward_8h_source.html#l00109">imaging_forward_backward.h:109</a></div></div>
+</div><!-- fragment -->
 </div>
 </div>
 <a class="anchor" id="a9d2fb72cdc848b123cb567e67ca90523"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class SCALAR &gt; </div>
+template&lt;class SCALAR&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -416,13 +444,21 @@ template&lt;class SCALAR &gt; </div>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="../../db/d05/imaging__forward__backward_8h_source.html#l00125">125</a> of file <a class="el" href="../../db/d05/imaging__forward__backward_8h_source.html">imaging_forward_backward.h</a>.</p>
+
+<p>References <a class="el" href="../../db/d05/imaging__forward__backward_8h_source.html#l00150">sopt::algorithm::ImagingForwardBackward&lt; SCALAR &gt;::operator()()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;                                                                                        {</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../d5/da7/classsopt_1_1algorithm_1_1ImagingForwardBackward.html#ae10fee84a71cbd7b32ad55c950979378">operator()</a>(out, std::get&lt;0&gt;(guess), std::get&lt;1&gt;(guess));</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;  }</div>
+<div class="ttc" id="classsopt_1_1algorithm_1_1ImagingForwardBackward_html_ae10fee84a71cbd7b32ad55c950979378"><div class="ttname"><a href="../../d5/da7/classsopt_1_1algorithm_1_1ImagingForwardBackward.html#ae10fee84a71cbd7b32ad55c950979378">sopt::algorithm::ImagingForwardBackward::operator()</a></div><div class="ttdeci">DiagnosticAndResult operator()() const </div><div class="ttdoc">Calls FB. </div><div class="ttdef"><b>Definition:</b> <a href="../../db/d05/imaging__forward__backward_8h_source.html#l00150">imaging_forward_backward.h:150</a></div></div>
+</div><!-- fragment -->
 </div>
 </div>
 <a class="anchor" id="a9a9e1b21b80ac21347d73f92166e7e27"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class SCALAR &gt; </div>
+template&lt;class SCALAR&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -461,13 +497,21 @@ template&lt;class SCALAR &gt; </div>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="../../db/d05/imaging__forward__backward_8h_source.html#l00132">132</a> of file <a class="el" href="../../db/d05/imaging__forward__backward_8h_source.html">imaging_forward_backward.h</a>.</p>
+
+<p>References <a class="el" href="../../db/d05/imaging__forward__backward_8h_source.html#l00150">sopt::algorithm::ImagingForwardBackward&lt; SCALAR &gt;::operator()()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;                                                                                             {</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../d5/da7/classsopt_1_1algorithm_1_1ImagingForwardBackward.html#ae10fee84a71cbd7b32ad55c950979378">operator()</a>(out, std::get&lt;0&gt;(guess), std::get&lt;1&gt;(guess));</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;  }</div>
+<div class="ttc" id="classsopt_1_1algorithm_1_1ImagingForwardBackward_html_ae10fee84a71cbd7b32ad55c950979378"><div class="ttname"><a href="../../d5/da7/classsopt_1_1algorithm_1_1ImagingForwardBackward.html#ae10fee84a71cbd7b32ad55c950979378">sopt::algorithm::ImagingForwardBackward::operator()</a></div><div class="ttdeci">DiagnosticAndResult operator()() const </div><div class="ttdoc">Calls FB. </div><div class="ttdef"><b>Definition:</b> <a href="../../db/d05/imaging__forward__backward_8h_source.html#l00150">imaging_forward_backward.h:150</a></div></div>
+</div><!-- fragment -->
 </div>
 </div>
 <a class="anchor" id="a7fabca9948097be1a3608ccd983b090a"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class SCALAR &gt; </div>
+template&lt;class SCALAR&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -495,13 +539,21 @@ template&lt;class SCALAR &gt; </div>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="../../db/d05/imaging__forward__backward_8h_source.html#l00137">137</a> of file <a class="el" href="../../db/d05/imaging__forward__backward_8h_source.html">imaging_forward_backward.h</a>.</p>
+
+<p>References <a class="el" href="../../db/d05/imaging__forward__backward_8h_source.html#l00150">sopt::algorithm::ImagingForwardBackward&lt; SCALAR &gt;::operator()()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;                                                                                  {</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../d5/da7/classsopt_1_1algorithm_1_1ImagingForwardBackward.html#ae10fee84a71cbd7b32ad55c950979378">operator()</a>(std::tie(std::get&lt;0&gt;(guess), std::get&lt;1&gt;(guess)));</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;  }</div>
+<div class="ttc" id="classsopt_1_1algorithm_1_1ImagingForwardBackward_html_ae10fee84a71cbd7b32ad55c950979378"><div class="ttname"><a href="../../d5/da7/classsopt_1_1algorithm_1_1ImagingForwardBackward.html#ae10fee84a71cbd7b32ad55c950979378">sopt::algorithm::ImagingForwardBackward::operator()</a></div><div class="ttdeci">DiagnosticAndResult operator()() const </div><div class="ttdoc">Calls FB. </div><div class="ttdef"><b>Definition:</b> <a href="../../db/d05/imaging__forward__backward_8h_source.html#l00150">imaging_forward_backward.h:150</a></div></div>
+</div><!-- fragment -->
 </div>
 </div>
 <a class="anchor" id="a6074ec63c55b1e5ee6a8ab5ac720372d"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class SCALAR &gt; </div>
+template&lt;class SCALAR&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -529,13 +581,22 @@ template&lt;class SCALAR &gt; </div>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="../../db/d05/imaging__forward__backward_8h_source.html#l00143">143</a> of file <a class="el" href="../../db/d05/imaging__forward__backward_8h_source.html">imaging_forward_backward.h</a>.</p>
+
+<p>References <a class="el" href="../../db/d05/imaging__forward__backward_8h_source.html#l00049">sopt::algorithm::ImagingForwardBackward&lt; SCALAR &gt;::DiagnosticAndResult::x</a>.</p>
+<div class="fragment"><div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;                                                                              {</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    DiagnosticAndResult result;</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    <span class="keyword">static_cast&lt;</span>Diagnostic &amp;<span class="keyword">&gt;</span>(result) = <span class="keyword">operator</span>()(result.x, guess);</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;  }</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a class="anchor" id="ae10fee84a71cbd7b32ad55c950979378"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class SCALAR &gt; </div>
+template&lt;class SCALAR&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -562,13 +623,26 @@ template&lt;class SCALAR &gt; </div>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="../../db/d05/imaging__forward__backward_8h_source.html#l00150">150</a> of file <a class="el" href="../../db/d05/imaging__forward__backward_8h_source.html">imaging_forward_backward.h</a>.</p>
+
+<p>References <a class="el" href="../../d2/d36/forward__backward_8h_source.html#l00175">sopt::algorithm::ForwardBackward&lt; SCALAR &gt;::initial_guess()</a>, <a class="el" href="../../db/d05/imaging__forward__backward_8h_source.html#l00109">sopt::algorithm::ImagingForwardBackward&lt; SCALAR &gt;::target()</a>, and <a class="el" href="../../db/d05/imaging__forward__backward_8h_source.html#l00049">sopt::algorithm::ImagingForwardBackward&lt; SCALAR &gt;::DiagnosticAndResult::x</a>.</p>
+
+<p>Referenced by <a class="el" href="../../db/d05/imaging__forward__backward_8h_source.html#l00119">sopt::algorithm::ImagingForwardBackward&lt; SCALAR &gt;::operator()()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;                                         {</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    DiagnosticAndResult result;</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    <span class="keyword">static_cast&lt;</span>Diagnostic &amp;<span class="keyword">&gt;</span>(result) = <span class="keyword">operator</span>()(result.x, <a class="code" href="../../df/d63/classsopt_1_1algorithm_1_1ForwardBackward.html#a6ccc17a3c7880460a56e8ae5c8ab16f6">FB::initial_guess</a>(<a class="code" href="../../d5/da7/classsopt_1_1algorithm_1_1ImagingForwardBackward.html#ac8a186978902392c5f62b01b2e118990">target</a>()));</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;  }</div>
+<div class="ttc" id="classsopt_1_1algorithm_1_1ForwardBackward_html_a6ccc17a3c7880460a56e8ae5c8ab16f6"><div class="ttname"><a href="../../df/d63/classsopt_1_1algorithm_1_1ForwardBackward.html#a6ccc17a3c7880460a56e8ae5c8ab16f6">sopt::algorithm::ForwardBackward::initial_guess</a></div><div class="ttdeci">std::tuple&lt; t_Vector, t_Vector &gt; initial_guess() const </div><div class="ttdoc">Computes initial guess for x and the residual using the targets. </div><div class="ttdef"><b>Definition:</b> <a href="../../d2/d36/forward__backward_8h_source.html#l00175">forward_backward.h:175</a></div></div>
+<div class="ttc" id="classsopt_1_1algorithm_1_1ImagingForwardBackward_html_ac8a186978902392c5f62b01b2e118990"><div class="ttname"><a href="../../d5/da7/classsopt_1_1algorithm_1_1ImagingForwardBackward.html#ac8a186978902392c5f62b01b2e118990">sopt::algorithm::ImagingForwardBackward::target</a></div><div class="ttdeci">t_Vector const &amp; target() const </div><div class="ttdoc">Vector of target measurements. </div><div class="ttdef"><b>Definition:</b> <a href="../../db/d05/imaging__forward__backward_8h_source.html#l00109">imaging_forward_backward.h:109</a></div></div>
+</div><!-- fragment -->
 </div>
 </div>
 <a class="anchor" id="a6048af3b031a05ff921823bdc61f1655"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class SCALAR &gt; </div>
+template&lt;class SCALAR&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -590,13 +664,22 @@ template&lt;class SCALAR &gt; </div>
 <p>Analysis operator Ψ </p>
 <p>Under-the-hood, the object is actually owned by the L1 proximal. </p>
 
+<p>Definition at line <a class="el" href="../../db/d05/imaging__forward__backward_8h_source.html#l00168">168</a> of file <a class="el" href="../../db/d05/imaging__forward__backward_8h_source.html">imaging_forward_backward.h</a>.</p>
+
+<p>References <a class="el" href="../../db/d05/imaging__forward__backward_8h_source.html#l00164">sopt::algorithm::ImagingForwardBackward&lt; SCALAR &gt;::l1_proximal()</a>, and <a class="el" href="../../dc/d90/l1__proximal_8h_source.html#l00279">sopt::proximal::L1&lt; SCALAR &gt;::Psi()</a>.</p>
+
+<p>Referenced by <a class="el" href="../../db/d05/imaging__forward__backward_8h_source.html#l00219">sopt::algorithm::ImagingForwardBackward&lt; SCALAR &gt;::objective_function()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="../../d5/da7/classsopt_1_1algorithm_1_1ImagingForwardBackward.html#ae2268cacdae64e3358a5056f50109657">l1_proximal</a>().<a class="code" href="../../db/d2b/classsopt_1_1proximal_1_1L1.html#ae1f0b219fc669ca7c62ff7fffe497ab4">Psi</a>(); }</div>
+<div class="ttc" id="classsopt_1_1proximal_1_1L1_html_ae1f0b219fc669ca7c62ff7fffe497ab4"><div class="ttname"><a href="../../db/d2b/classsopt_1_1proximal_1_1L1.html#ae1f0b219fc669ca7c62ff7fffe497ab4">sopt::proximal::L1::Psi</a></div><div class="ttdeci">LinearTransform&lt; Vector&lt; Scalar &gt; &gt; const &amp; Psi() const </div><div class="ttdoc">Linear transform applied to input prior to L1 norm. </div><div class="ttdef"><b>Definition:</b> <a href="../../dc/d90/l1__proximal_8h_source.html#l00279">l1_proximal.h:279</a></div></div>
+<div class="ttc" id="classsopt_1_1algorithm_1_1ImagingForwardBackward_html_ae2268cacdae64e3358a5056f50109657"><div class="ttname"><a href="../../d5/da7/classsopt_1_1algorithm_1_1ImagingForwardBackward.html#ae2268cacdae64e3358a5056f50109657">sopt::algorithm::ImagingForwardBackward::l1_proximal</a></div><div class="ttdeci">proximal::L1&lt; Scalar &gt; &amp; l1_proximal()</div><div class="ttdoc">L1 proximal used during calculation. </div><div class="ttdef"><b>Definition:</b> <a href="../../db/d05/imaging__forward__backward_8h_source.html#l00164">imaging_forward_backward.h:164</a></div></div>
+</div><!-- fragment -->
 </div>
 </div>
 <a class="anchor" id="af6f8c78fdfb46c821071ebfb0c632f5b"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class SCALAR &gt; </div>
+template&lt;class SCALAR&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="../../d5/da7/classsopt_1_1algorithm_1_1ImagingForwardBackward.html">sopt::algorithm::ImagingForwardBackward</a>&lt; SCALAR &gt;::SOPT_MACRO </td>
@@ -627,7 +710,7 @@ template&lt;class SCALAR &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class SCALAR &gt; </div>
+template&lt;class SCALAR&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="../../d5/da7/classsopt_1_1algorithm_1_1ImagingForwardBackward.html">sopt::algorithm::ImagingForwardBackward</a>&lt; SCALAR &gt;::SOPT_MACRO </td>
@@ -658,7 +741,7 @@ template&lt;class SCALAR &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class SCALAR &gt; </div>
+template&lt;class SCALAR&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="../../d5/da7/classsopt_1_1algorithm_1_1ImagingForwardBackward.html">sopt::algorithm::ImagingForwardBackward</a>&lt; SCALAR &gt;::SOPT_MACRO </td>
@@ -689,7 +772,7 @@ template&lt;class SCALAR &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class SCALAR &gt; </div>
+template&lt;class SCALAR&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="../../d5/da7/classsopt_1_1algorithm_1_1ImagingForwardBackward.html">sopt::algorithm::ImagingForwardBackward</a>&lt; SCALAR &gt;::SOPT_MACRO </td>

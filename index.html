@@ -27,6 +27,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">SOPT
    </div>
@@ -114,7 +115,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <p>``` git clone <a href="https://github.com/astro-informatics/sopt.git">https://github.com/astro-informatics/sopt.git</a> ```</p>
 <p>Then, the program can be built with standard <code>CMake</code> command:</p>
 <p>``` cd /path/to/code mkdir build cd build cmake -DCMAKE_BUILD_TYPE=Release .. make ```</p>
-<p>To install in directory <code>/X</code>, with libraries going to <code>X/lib</code>, <code>Python</code> modules to <code>X/lib/pythonA.B/site-packages/sopt</code>, etc, do:</p>
+<p>To install in directory <code>/X</code>, with libraries going to <code>X/lib</code> do:</p>
 <p>``` cd /path/to/code/build cmake -DCMAKE_INSTALL_PREFIX=/X .. make install ```</p>
 <h2>Testing </h2>
 <p>To check everything went all right, run the test suite:</p>

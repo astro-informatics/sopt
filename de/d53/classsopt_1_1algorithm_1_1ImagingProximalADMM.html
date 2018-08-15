@@ -27,6 +27,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="../../logo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">SOPT
    </div>
@@ -280,12 +281,18 @@ template&lt;class... ARGS&gt; </td></tr>
 <tr class="memdesc:a50b94664939eed1c0e77ab6aee545dc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convergence function that takes only the output as argument. <br/></td></tr>
 <tr class="separator:a50b94664939eed1c0e77ab6aee545dc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;class SCALAR&gt;<br/>
+class sopt::algorithm::ImagingProximalADMM&lt; SCALAR &gt;</h3>
+
+
+<p>Definition at line <a class="el" href="../../d5/d11/imaging__padmm_8h_source.html#l00019">19</a> of file <a class="el" href="../../d5/d11/imaging__padmm_8h_source.html">imaging_padmm.h</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a050021058a2b776429b956e7d7367a64"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class SCALAR &gt; </div>
+template&lt;class SCALAR&gt; </div>
 <div class="memtemplate">
 template&lt;class DERIVED &gt; </div>
 <table class="mlabels">
@@ -315,6 +322,14 @@ template&lt;class DERIVED &gt; </div>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="../../d5/d11/imaging__padmm_8h_source.html#l00054">54</a> of file <a class="el" href="../../d5/d11/imaging__padmm_8h_source.html">imaging_padmm.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;      : l1_proximal_(), l2ball_proximal_(1e0), tight_frame_(<span class="keyword">false</span>), residual_tolerance_(1e-4),</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        relative_variation_(1e-4), residual_convergence_(<span class="keyword">nullptr</span>), objective_convergence_(<span class="keyword">nullptr</span>),</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        itermax_(std::numeric_limits&lt;t_uint&gt;::max()), gamma_(1e-8), nu_(1),</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        lagrange_update_scale_(0.9), is_converged_(), Phi_(linear_transform_identity&lt;Scalar&gt;()),</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        target_(<a class="code" href="../../de/d53/classsopt_1_1algorithm_1_1ImagingProximalADMM.html#af85bb0e25d2ecfe01bd9b9ef2b462cba">target</a>) {}</div>
+<div class="ttc" id="classsopt_1_1algorithm_1_1ImagingProximalADMM_html_af85bb0e25d2ecfe01bd9b9ef2b462cba"><div class="ttname"><a href="../../de/d53/classsopt_1_1algorithm_1_1ImagingProximalADMM.html#af85bb0e25d2ecfe01bd9b9ef2b462cba">sopt::algorithm::ImagingProximalADMM::target</a></div><div class="ttdeci">t_Vector const &amp; target() const </div><div class="ttdoc">Vector of target measurements. </div><div class="ttdef"><b>Definition:</b> <a href="../../d5/d11/imaging__padmm_8h_source.html#l00109">imaging_padmm.h:109</a></div></div>
+</div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -322,7 +337,7 @@ template&lt;class DERIVED &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class SCALAR &gt; </div>
+template&lt;class SCALAR&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -344,13 +359,18 @@ template&lt;class SCALAR &gt; </div>
 <p>L1 proximal used during calculation. </p>
 <p>Non-const version to setup the object. </p>
 
+<p>Definition at line <a class="el" href="../../d5/d11/imaging__padmm_8h_source.html#l00172">172</a> of file <a class="el" href="../../d5/d11/imaging__padmm_8h_source.html">imaging_padmm.h</a>.</p>
+
+<p>Referenced by <a class="el" href="../../d5/d11/imaging__padmm_8h_source.html#l00179">sopt::algorithm::ImagingProximalADMM&lt; SCALAR &gt;::Psi()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;{ <span class="keywordflow">return</span> l1_proximal_; }</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a class="anchor" id="af90cea9890b8380d68a775dd77d6147e"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class SCALAR &gt; </div>
+template&lt;class SCALAR&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -372,13 +392,16 @@ template&lt;class SCALAR &gt; </div>
 <p>Proximal of the L2 ball. </p>
 <p>Non-const version to setup the object. </p>
 
+<p>Definition at line <a class="el" href="../../d5/d11/imaging__padmm_8h_source.html#l00175">175</a> of file <a class="el" href="../../d5/d11/imaging__padmm_8h_source.html">imaging_padmm.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;{ <span class="keywordflow">return</span> l2ball_proximal_; }</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a class="anchor" id="aa733d482299520c941858ccfef10b751"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class SCALAR &gt; </div>
+template&lt;class SCALAR&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -406,13 +429,23 @@ template&lt;class SCALAR &gt; </div>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="../../d5/d11/imaging__padmm_8h_source.html#l00119">119</a> of file <a class="el" href="../../d5/d11/imaging__padmm_8h_source.html">imaging_padmm.h</a>.</p>
+
+<p>References <a class="el" href="../../d1/d4e/padmm_8h_source.html#l00177">sopt::algorithm::ProximalADMM&lt; SCALAR &gt;::initial_guess()</a>, <a class="el" href="../../d5/d11/imaging__padmm_8h_source.html#l00150">sopt::algorithm::ImagingProximalADMM&lt; SCALAR &gt;::operator()()</a>, and <a class="el" href="../../d5/d11/imaging__padmm_8h_source.html#l00109">sopt::algorithm::ImagingProximalADMM&lt; SCALAR &gt;::target()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;                                             {</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../de/d53/classsopt_1_1algorithm_1_1ImagingProximalADMM.html#a3c7b216e766151de39a651913b028dd0">operator()</a>(out, <a class="code" href="../../d6/dc8/classsopt_1_1algorithm_1_1ProximalADMM.html#a0bc6c6e8d5ba794899fdc27204945a62">PADMM::initial_guess</a>(<a class="code" href="../../de/d53/classsopt_1_1algorithm_1_1ImagingProximalADMM.html#af85bb0e25d2ecfe01bd9b9ef2b462cba">target</a>(), Phi(), nu()));</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;  }</div>
+<div class="ttc" id="classsopt_1_1algorithm_1_1ImagingProximalADMM_html_af85bb0e25d2ecfe01bd9b9ef2b462cba"><div class="ttname"><a href="../../de/d53/classsopt_1_1algorithm_1_1ImagingProximalADMM.html#af85bb0e25d2ecfe01bd9b9ef2b462cba">sopt::algorithm::ImagingProximalADMM::target</a></div><div class="ttdeci">t_Vector const &amp; target() const </div><div class="ttdoc">Vector of target measurements. </div><div class="ttdef"><b>Definition:</b> <a href="../../d5/d11/imaging__padmm_8h_source.html#l00109">imaging_padmm.h:109</a></div></div>
+<div class="ttc" id="classsopt_1_1algorithm_1_1ImagingProximalADMM_html_a3c7b216e766151de39a651913b028dd0"><div class="ttname"><a href="../../de/d53/classsopt_1_1algorithm_1_1ImagingProximalADMM.html#a3c7b216e766151de39a651913b028dd0">sopt::algorithm::ImagingProximalADMM::operator()</a></div><div class="ttdeci">DiagnosticAndResult operator()() const </div><div class="ttdoc">Calls Proximal ADMM. </div><div class="ttdef"><b>Definition:</b> <a href="../../d5/d11/imaging__padmm_8h_source.html#l00150">imaging_padmm.h:150</a></div></div>
+<div class="ttc" id="classsopt_1_1algorithm_1_1ProximalADMM_html_a0bc6c6e8d5ba794899fdc27204945a62"><div class="ttname"><a href="../../d6/dc8/classsopt_1_1algorithm_1_1ProximalADMM.html#a0bc6c6e8d5ba794899fdc27204945a62">sopt::algorithm::ProximalADMM::initial_guess</a></div><div class="ttdeci">std::tuple&lt; t_Vector, t_Vector &gt; initial_guess() const </div><div class="ttdoc">Computes initial guess for x and the residual using the targets. </div><div class="ttdef"><b>Definition:</b> <a href="../../d1/d4e/padmm_8h_source.html#l00177">padmm.h:177</a></div></div>
+</div><!-- fragment -->
 </div>
 </div>
 <a class="anchor" id="a845f2d9f4ff03b28258cde3498a099d7"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class SCALAR &gt; </div>
+template&lt;class SCALAR&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -451,13 +484,21 @@ template&lt;class SCALAR &gt; </div>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="../../d5/d11/imaging__padmm_8h_source.html#l00125">125</a> of file <a class="el" href="../../d5/d11/imaging__padmm_8h_source.html">imaging_padmm.h</a>.</p>
+
+<p>References <a class="el" href="../../d5/d11/imaging__padmm_8h_source.html#l00150">sopt::algorithm::ImagingProximalADMM&lt; SCALAR &gt;::operator()()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;                                                                                        {</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../de/d53/classsopt_1_1algorithm_1_1ImagingProximalADMM.html#a3c7b216e766151de39a651913b028dd0">operator()</a>(out, std::get&lt;0&gt;(guess), std::get&lt;1&gt;(guess));</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;  }</div>
+<div class="ttc" id="classsopt_1_1algorithm_1_1ImagingProximalADMM_html_a3c7b216e766151de39a651913b028dd0"><div class="ttname"><a href="../../de/d53/classsopt_1_1algorithm_1_1ImagingProximalADMM.html#a3c7b216e766151de39a651913b028dd0">sopt::algorithm::ImagingProximalADMM::operator()</a></div><div class="ttdeci">DiagnosticAndResult operator()() const </div><div class="ttdoc">Calls Proximal ADMM. </div><div class="ttdef"><b>Definition:</b> <a href="../../d5/d11/imaging__padmm_8h_source.html#l00150">imaging_padmm.h:150</a></div></div>
+</div><!-- fragment -->
 </div>
 </div>
 <a class="anchor" id="a4fcab97b32f1bc706f812e81b1626158"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class SCALAR &gt; </div>
+template&lt;class SCALAR&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -496,13 +537,21 @@ template&lt;class SCALAR &gt; </div>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="../../d5/d11/imaging__padmm_8h_source.html#l00132">132</a> of file <a class="el" href="../../d5/d11/imaging__padmm_8h_source.html">imaging_padmm.h</a>.</p>
+
+<p>References <a class="el" href="../../d5/d11/imaging__padmm_8h_source.html#l00150">sopt::algorithm::ImagingProximalADMM&lt; SCALAR &gt;::operator()()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;                                                                                             {</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../de/d53/classsopt_1_1algorithm_1_1ImagingProximalADMM.html#a3c7b216e766151de39a651913b028dd0">operator()</a>(out, std::get&lt;0&gt;(guess), std::get&lt;1&gt;(guess));</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;  }</div>
+<div class="ttc" id="classsopt_1_1algorithm_1_1ImagingProximalADMM_html_a3c7b216e766151de39a651913b028dd0"><div class="ttname"><a href="../../de/d53/classsopt_1_1algorithm_1_1ImagingProximalADMM.html#a3c7b216e766151de39a651913b028dd0">sopt::algorithm::ImagingProximalADMM::operator()</a></div><div class="ttdeci">DiagnosticAndResult operator()() const </div><div class="ttdoc">Calls Proximal ADMM. </div><div class="ttdef"><b>Definition:</b> <a href="../../d5/d11/imaging__padmm_8h_source.html#l00150">imaging_padmm.h:150</a></div></div>
+</div><!-- fragment -->
 </div>
 </div>
 <a class="anchor" id="a79f63b1049d0f311b955eec84fa979f4"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class SCALAR &gt; </div>
+template&lt;class SCALAR&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -530,13 +579,21 @@ template&lt;class SCALAR &gt; </div>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="../../d5/d11/imaging__padmm_8h_source.html#l00137">137</a> of file <a class="el" href="../../d5/d11/imaging__padmm_8h_source.html">imaging_padmm.h</a>.</p>
+
+<p>References <a class="el" href="../../d5/d11/imaging__padmm_8h_source.html#l00150">sopt::algorithm::ImagingProximalADMM&lt; SCALAR &gt;::operator()()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;                                                                                  {</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../de/d53/classsopt_1_1algorithm_1_1ImagingProximalADMM.html#a3c7b216e766151de39a651913b028dd0">operator()</a>(std::tie(std::get&lt;0&gt;(guess), std::get&lt;1&gt;(guess)));</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;  }</div>
+<div class="ttc" id="classsopt_1_1algorithm_1_1ImagingProximalADMM_html_a3c7b216e766151de39a651913b028dd0"><div class="ttname"><a href="../../de/d53/classsopt_1_1algorithm_1_1ImagingProximalADMM.html#a3c7b216e766151de39a651913b028dd0">sopt::algorithm::ImagingProximalADMM::operator()</a></div><div class="ttdeci">DiagnosticAndResult operator()() const </div><div class="ttdoc">Calls Proximal ADMM. </div><div class="ttdef"><b>Definition:</b> <a href="../../d5/d11/imaging__padmm_8h_source.html#l00150">imaging_padmm.h:150</a></div></div>
+</div><!-- fragment -->
 </div>
 </div>
 <a class="anchor" id="a11c42c2a3d92a3d931ff5d567c05433f"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class SCALAR &gt; </div>
+template&lt;class SCALAR&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -564,13 +621,22 @@ template&lt;class SCALAR &gt; </div>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="../../d5/d11/imaging__padmm_8h_source.html#l00143">143</a> of file <a class="el" href="../../d5/d11/imaging__padmm_8h_source.html">imaging_padmm.h</a>.</p>
+
+<p>References <a class="el" href="../../d5/d11/imaging__padmm_8h_source.html#l00047">sopt::algorithm::ImagingProximalADMM&lt; SCALAR &gt;::DiagnosticAndResult::x</a>.</p>
+<div class="fragment"><div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;                                                                              {</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    DiagnosticAndResult result;</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    <span class="keyword">static_cast&lt;</span>Diagnostic &amp;<span class="keyword">&gt;</span>(result) = <span class="keyword">operator</span>()(result.x, guess);</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;  }</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a class="anchor" id="a3c7b216e766151de39a651913b028dd0"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class SCALAR &gt; </div>
+template&lt;class SCALAR&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -597,13 +663,27 @@ template&lt;class SCALAR &gt; </div>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="../../d5/d11/imaging__padmm_8h_source.html#l00150">150</a> of file <a class="el" href="../../d5/d11/imaging__padmm_8h_source.html">imaging_padmm.h</a>.</p>
+
+<p>References <a class="el" href="../../d1/d4e/padmm_8h_source.html#l00177">sopt::algorithm::ProximalADMM&lt; SCALAR &gt;::initial_guess()</a>, <a class="el" href="../../d5/d11/imaging__padmm_8h_source.html#l00109">sopt::algorithm::ImagingProximalADMM&lt; SCALAR &gt;::target()</a>, and <a class="el" href="../../d5/d11/imaging__padmm_8h_source.html#l00047">sopt::algorithm::ImagingProximalADMM&lt; SCALAR &gt;::DiagnosticAndResult::x</a>.</p>
+
+<p>Referenced by <a class="el" href="../../d5/d11/imaging__padmm_8h_source.html#l00119">sopt::algorithm::ImagingProximalADMM&lt; SCALAR &gt;::operator()()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;                                         {</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    DiagnosticAndResult result;</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    <span class="keyword">static_cast&lt;</span>Diagnostic &amp;<span class="keyword">&gt;</span>(result)</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;        = <span class="keyword">operator</span>()(result.x, <a class="code" href="../../d6/dc8/classsopt_1_1algorithm_1_1ProximalADMM.html#a0bc6c6e8d5ba794899fdc27204945a62">PADMM::initial_guess</a>(<a class="code" href="../../de/d53/classsopt_1_1algorithm_1_1ImagingProximalADMM.html#af85bb0e25d2ecfe01bd9b9ef2b462cba">target</a>(), Phi(), nu()));</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;  }</div>
+<div class="ttc" id="classsopt_1_1algorithm_1_1ImagingProximalADMM_html_af85bb0e25d2ecfe01bd9b9ef2b462cba"><div class="ttname"><a href="../../de/d53/classsopt_1_1algorithm_1_1ImagingProximalADMM.html#af85bb0e25d2ecfe01bd9b9ef2b462cba">sopt::algorithm::ImagingProximalADMM::target</a></div><div class="ttdeci">t_Vector const &amp; target() const </div><div class="ttdoc">Vector of target measurements. </div><div class="ttdef"><b>Definition:</b> <a href="../../d5/d11/imaging__padmm_8h_source.html#l00109">imaging_padmm.h:109</a></div></div>
+<div class="ttc" id="classsopt_1_1algorithm_1_1ProximalADMM_html_a0bc6c6e8d5ba794899fdc27204945a62"><div class="ttname"><a href="../../d6/dc8/classsopt_1_1algorithm_1_1ProximalADMM.html#a0bc6c6e8d5ba794899fdc27204945a62">sopt::algorithm::ProximalADMM::initial_guess</a></div><div class="ttdeci">std::tuple&lt; t_Vector, t_Vector &gt; initial_guess() const </div><div class="ttdoc">Computes initial guess for x and the residual using the targets. </div><div class="ttdef"><b>Definition:</b> <a href="../../d1/d4e/padmm_8h_source.html#l00177">padmm.h:177</a></div></div>
+</div><!-- fragment -->
 </div>
 </div>
 <a class="anchor" id="a2b8d73d887285cb4d97f265c5007a61f"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class SCALAR &gt; </div>
+template&lt;class SCALAR&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -625,13 +705,20 @@ template&lt;class SCALAR &gt; </div>
 <p>Analysis operator Ψ </p>
 <p>Under-the-hood, the object is actually owned by the L1 proximal. </p>
 
+<p>Definition at line <a class="el" href="../../d5/d11/imaging__padmm_8h_source.html#l00179">179</a> of file <a class="el" href="../../d5/d11/imaging__padmm_8h_source.html">imaging_padmm.h</a>.</p>
+
+<p>References <a class="el" href="../../d5/d11/imaging__padmm_8h_source.html#l00172">sopt::algorithm::ImagingProximalADMM&lt; SCALAR &gt;::l1_proximal()</a>, and <a class="el" href="../../dc/d90/l1__proximal_8h_source.html#l00279">sopt::proximal::L1&lt; SCALAR &gt;::Psi()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="../../de/d53/classsopt_1_1algorithm_1_1ImagingProximalADMM.html#a13f2b3576b20ad05c3540c3702813bec">l1_proximal</a>().<a class="code" href="../../db/d2b/classsopt_1_1proximal_1_1L1.html#ae1f0b219fc669ca7c62ff7fffe497ab4">Psi</a>(); }</div>
+<div class="ttc" id="classsopt_1_1algorithm_1_1ImagingProximalADMM_html_a13f2b3576b20ad05c3540c3702813bec"><div class="ttname"><a href="../../de/d53/classsopt_1_1algorithm_1_1ImagingProximalADMM.html#a13f2b3576b20ad05c3540c3702813bec">sopt::algorithm::ImagingProximalADMM::l1_proximal</a></div><div class="ttdeci">proximal::L1&lt; Scalar &gt; &amp; l1_proximal()</div><div class="ttdoc">L1 proximal used during calculation. </div><div class="ttdef"><b>Definition:</b> <a href="../../d5/d11/imaging__padmm_8h_source.html#l00172">imaging_padmm.h:172</a></div></div>
+<div class="ttc" id="classsopt_1_1proximal_1_1L1_html_ae1f0b219fc669ca7c62ff7fffe497ab4"><div class="ttname"><a href="../../db/d2b/classsopt_1_1proximal_1_1L1.html#ae1f0b219fc669ca7c62ff7fffe497ab4">sopt::proximal::L1::Psi</a></div><div class="ttdeci">LinearTransform&lt; Vector&lt; Scalar &gt; &gt; const &amp; Psi() const </div><div class="ttdoc">Linear transform applied to input prior to L1 norm. </div><div class="ttdef"><b>Definition:</b> <a href="../../dc/d90/l1__proximal_8h_source.html#l00279">l1_proximal.h:279</a></div></div>
+</div><!-- fragment -->
 </div>
 </div>
 <a class="anchor" id="a0f23ba5f168627ab41678003158ac2f5"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class SCALAR &gt; </div>
+template&lt;class SCALAR&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="../../de/d53/classsopt_1_1algorithm_1_1ImagingProximalADMM.html">sopt::algorithm::ImagingProximalADMM</a>&lt; SCALAR &gt;::SOPT_MACRO </td>
@@ -662,7 +749,7 @@ template&lt;class SCALAR &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class SCALAR &gt; </div>
+template&lt;class SCALAR&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="../../de/d53/classsopt_1_1algorithm_1_1ImagingProximalADMM.html">sopt::algorithm::ImagingProximalADMM</a>&lt; SCALAR &gt;::SOPT_MACRO </td>
@@ -693,7 +780,7 @@ template&lt;class SCALAR &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class SCALAR &gt; </div>
+template&lt;class SCALAR&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="../../de/d53/classsopt_1_1algorithm_1_1ImagingProximalADMM.html">sopt::algorithm::ImagingProximalADMM</a>&lt; SCALAR &gt;::SOPT_MACRO </td>
@@ -724,7 +811,7 @@ template&lt;class SCALAR &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class SCALAR &gt; </div>
+template&lt;class SCALAR&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="../../de/d53/classsopt_1_1algorithm_1_1ImagingProximalADMM.html">sopt::algorithm::ImagingProximalADMM</a>&lt; SCALAR &gt;::SOPT_MACRO </td>
