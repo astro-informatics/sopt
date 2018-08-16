@@ -80,9 +80,10 @@ TEST_CASE("Primal Dual, testing norm(output - target()) < l2ball_epsilon() no po
   CHECK((result.x - target).stableNorm() <= epsilon);
 }
 
-TEST_CASE("Primal Dual, testing norm(output - target()) < l2ball_epsilon() where target vector is "
-          "mainly zero",
-          "[primaldual][integration]") {
+TEST_CASE(
+    "Primal Dual, testing norm(output - target()) < l2ball_epsilon() where target vector is "
+    "mainly zero",
+    "[primaldual][integration]") {
   using namespace sopt;
 
   auto const seed = std::time(0);
@@ -121,8 +122,8 @@ TEST_CASE("Primal Dual, testing norm(output - target()) < l2ball_epsilon() where
   CHECK((result.x - target).stableNorm() <= epsilon);
   // Check that the elements of the solution are zero where the elements of the target vector are
   // zero.
-  for(t_uint i = 0; i < N; ++i) {
-    if(target(i) == 0) {
+  for (t_uint i = 0; i < N; ++i) {
+    if (target(i) == 0) {
       CHECK(result.x(i) == Approx(0));
     } else {
       CHECK(result.x(i) != Approx(0));

@@ -13,7 +13,6 @@ TEST_CASE("Linear Transforms", "[ops]") {
   auto const N = 10;
 
   SECTION("Functions") {
-
     auto direct = [](t_Vector &out, t_Vector const &input) { out = input * 2 - 1; };
     auto indirect = [](t_Vector &out, t_Vector const &input) { out = input * 4 - 1; };
     t_Vector const x = t_Vector::Random(2 * N) * 5;
@@ -53,8 +52,8 @@ TEST_CASE("Linear Transforms", "[ops]") {
     CHECK((op * x.matrix()).cols() == 1);
     CHECK((op * x.matrix()).rows() == N);
     CHECK(op * x.matrix() == L.matrix() * x.matrix());
-    CHECK(op.adjoint() * x.head(N).matrix()
-          == L.conjugate().transpose().matrix() * x.head(N).matrix());
+    CHECK(op.adjoint() * x.head(N).matrix() ==
+          L.conjugate().transpose().matrix() * x.head(N).matrix());
   }
 }
 
@@ -69,10 +68,9 @@ TEST_CASE("Array of Linear transforms", "[ops]") {
   t_Vector const x = t_Vector::Random(N) * 5;
   std::vector<t_Matrix> Ls{t_Matrix::Random(N, N), t_Matrix::Random(N, N)};
   std::vector<LinearTransform<t_Vector>> ops;
-  for(auto const &matrix : Ls)
-    ops.emplace_back(sopt::linear_transform(matrix));
+  for (auto const &matrix : Ls) ops.emplace_back(sopt::linear_transform(matrix));
 
-  for(decltype(Ls)::size_type i(0); i < ops.size(); ++i) {
+  for (decltype(Ls)::size_type i(0); i < ops.size(); ++i) {
     CHECK(ops[i] * x == Ls[i] * x);
     CHECK(ops[i].adjoint() * x == Ls[i].conjugate().transpose() * x);
   }

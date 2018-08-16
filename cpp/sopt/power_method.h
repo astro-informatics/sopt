@@ -20,27 +20,24 @@ t_real power_method(const sopt::LinearTransform<T> &op, const t_uint &niters,
      operator composed with its adjoint niters:: max number of iterations relative_difference::
      percentage difference at which eigen value has converged
      */
-  if(niters <= 0)
-    return 1;
+  if (niters <= 0) return 1;
   t_real estimate_eigen_value = 1;
   t_real old_value = 0;
   T estimate_eigen_vector = initial_vector;
   estimate_eigen_vector = estimate_eigen_vector / estimate_eigen_vector.matrix().stableNorm();
   SOPT_DEBUG("Starting power method");
   SOPT_DEBUG(" -[PM] Iteration: 0, norm = {}", estimate_eigen_value);
-  for(t_int i = 0; i < niters; ++i) {
+  for (t_int i = 0; i < niters; ++i) {
     estimate_eigen_vector = op.adjoint() * (op * estimate_eigen_vector);
     estimate_eigen_value = estimate_eigen_vector.matrix().stableNorm();
-    if(estimate_eigen_value <= 0)
-      throw std::runtime_error("Error in operator.");
-    if(estimate_eigen_value != estimate_eigen_value)
+    if (estimate_eigen_value <= 0) throw std::runtime_error("Error in operator.");
+    if (estimate_eigen_value != estimate_eigen_value)
       throw std::runtime_error("Error in operator or data corrupted.");
     estimate_eigen_vector = estimate_eigen_vector / estimate_eigen_value;
     t_real const rel_diff = std::abs(old_value - estimate_eigen_value) / old_value;
     SOPT_DEBUG(" -[PM] Iteration: {}, norm = {}", i + 1, estimate_eigen_value);
     SOPT_DEBUG(" -[PM] Relative Difference = {} ( < {})", std::sqrt(rel_diff), relative_difference);
-    if(relative_difference * relative_difference
-       > rel_diff) {
+    if (relative_difference * relative_difference > rel_diff) {
       old_value = estimate_eigen_value;
       SOPT_DEBUG("Converged to norm = {}, relative difference < {}", std::sqrt(old_value),
                  relative_difference);
@@ -51,8 +48,9 @@ t_real power_method(const sopt::LinearTransform<T> &op, const t_uint &niters,
   return std::sqrt(old_value);
 }
 //! \brief Eigenvalue and eigenvector for eigenvalue with largest magnitude
-template <class SCALAR> class PowerMethod {
-public:
+template <class SCALAR>
+class PowerMethod {
+ public:
   //! Scalar type
   typedef SCALAR value_type;
   //! Scalar type
@@ -82,17 +80,17 @@ public:
 
 // Macro helps define properties that can be initialized as in
 // auto sdmm  = ProximalADMM<float>().prop0(value).prop1(value);
-#define SOPT_MACRO(NAME, TYPE)                                                                     \
-  TYPE const &NAME() const { return NAME##_; }                                                     \
-  PowerMethod<SCALAR> &NAME(TYPE const &NAME) {                                                    \
-    NAME##_ = NAME;                                                                                \
-    return *this;                                                                                  \
-  }                                                                                                \
-                                                                                                   \
-protected:                                                                                         \
-  TYPE NAME##_;                                                                                    \
-                                                                                                   \
-public:
+#define SOPT_MACRO(NAME, TYPE)                  \
+  TYPE const &NAME() const { return NAME##_; }  \
+  PowerMethod<SCALAR> &NAME(TYPE const &NAME) { \
+    NAME##_ = NAME;                             \
+    return *this;                               \
+  }                                             \
+                                                \
+ protected:                                     \
+  TYPE NAME##_;                                 \
+                                                \
+ public:
 
   //! Maximum number of iterations
   SOPT_MACRO(itermax, t_uint)
@@ -109,12 +107,12 @@ public:
   //! \brief Calls the power method for a given matrix-vector multiplication function
   DiagnosticAndResult operator()(OperatorFunction<t_Vector> const &op, t_Vector const &input) const;
 
-protected:
+ protected:
 };
 
 template <class SCALAR>
-typename PowerMethod<SCALAR>::DiagnosticAndResult
-PowerMethod<SCALAR>::AtA(t_LinearTransform const &A, t_Vector const &input) const {
+typename PowerMethod<SCALAR>::DiagnosticAndResult PowerMethod<SCALAR>::AtA(
+    t_LinearTransform const &A, t_Vector const &input) const {
   auto const op = [&A](t_Vector &out, t_Vector const &input) -> void {
     out = A.adjoint() * (A * input).eval();
   };
@@ -123,16 +121,16 @@ PowerMethod<SCALAR>::AtA(t_LinearTransform const &A, t_Vector const &input) cons
 
 template <class SCALAR>
 template <class DERIVED>
-typename PowerMethod<SCALAR>::DiagnosticAndResult PowerMethod<SCALAR>::
-operator()(Eigen::DenseBase<DERIVED> const &A, t_Vector const &input) const {
+typename PowerMethod<SCALAR>::DiagnosticAndResult PowerMethod<SCALAR>::operator()(
+    Eigen::DenseBase<DERIVED> const &A, t_Vector const &input) const {
   Matrix<Scalar> const Ad = A.derived();
   auto const op = [&Ad](t_Vector &out, t_Vector const &input) -> void { out = Ad * input; };
   return operator()(op, input);
 }
 
 template <class SCALAR>
-typename PowerMethod<SCALAR>::DiagnosticAndResult PowerMethod<SCALAR>::
-operator()(OperatorFunction<t_Vector> const &op, t_Vector const &input) const {
+typename PowerMethod<SCALAR>::DiagnosticAndResult PowerMethod<SCALAR>::operator()(
+    OperatorFunction<t_Vector> const &op, t_Vector const &input) const {
   SOPT_INFO("Computing the upper bound of a given operator");
   SOPT_INFO("    - input vector {}", input.transpose());
   t_Vector eigenvector = input.normalized();
@@ -141,10 +139,10 @@ operator()(OperatorFunction<t_Vector> const &op, t_Vector const &input) const {
   bool converged = false;
   t_uint niters = 0;
 
-  for(; niters < itermax() and converged == false; ++niters) {
+  for (; niters < itermax() and converged == false; ++niters) {
     op(eigenvector, eigenvector);
-    typename t_Vector::Scalar const magnitude
-        = eigenvector.stableNorm() / static_cast<Real>(eigenvector.size());
+    typename t_Vector::Scalar const magnitude =
+        eigenvector.stableNorm() / static_cast<Real>(eigenvector.size());
     auto const rel_val = std::abs((magnitude - previous_magnitude) / previous_magnitude);
     converged = rel_val < tolerance();
     SOPT_INFO("    - [PM] iteration {}/{} -- norm: {}", niters, itermax(), magnitude);
@@ -153,13 +151,13 @@ operator()(OperatorFunction<t_Vector> const &op, t_Vector const &input) const {
     previous_magnitude = magnitude;
   }
   // check function exists, otherwise, don't know if convergence is meaningful
-  if(not converged) {
+  if (not converged) {
     SOPT_WARN("    - [PM] did not converge within {} iterations", itermax());
   } else {
     SOPT_INFO("    - [PM] converged in {} of {} iterations", niters, itermax());
   }
   return DiagnosticAndResult{itermax(), converged, previous_magnitude, eigenvector.normalized()};
 }
-} // namespace algorithm
-} // namespace sopt
+}  // namespace algorithm
+}  // namespace sopt
 #endif

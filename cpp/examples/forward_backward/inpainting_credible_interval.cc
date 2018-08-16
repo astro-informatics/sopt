@@ -35,7 +35,7 @@ int main(int argc, char const **argv) {
 
   std::string const input = argc >= 2 ? argv[1] : "cameraman256";
   std::string const output = argc == 3 ? argv[2] : "none";
-  if(argc > 3) {
+  if (argc > 3) {
     std::cout << "Usage:\n"
                  "$ "
               << argv[0]
@@ -54,14 +54,14 @@ int main(int argc, char const **argv) {
   sopt::logging::initialize();
   sopt::logging::set_level("debug");
   SOPT_HIGH_LOG("Read input file {}", input);
-  const Image image = sopt::notinstalled::read_standard_tiff(input)
-                      / sopt::notinstalled::read_standard_tiff(input).cwiseAbs().maxCoeff();
+  const Image image = sopt::notinstalled::read_standard_tiff(input) /
+                      sopt::notinstalled::read_standard_tiff(input).cwiseAbs().maxCoeff();
   SOPT_HIGH_LOG("Image size: {} x {} = {}", image.cols(), image.rows(), image.size());
 
   SOPT_HIGH_LOG("Initializing sensing operator");
   sopt::t_uint nmeasure = std::floor(0.33 * image.size());
-  sopt::LinearTransform<Vector> const sampling
-      = sopt::linear_transform<Scalar>(sopt::Sampling(image.size(), nmeasure, mersenne));
+  sopt::LinearTransform<Vector> const sampling =
+      sopt::linear_transform<Scalar>(sopt::Sampling(image.size(), nmeasure, mersenne));
   auto phiTphi = [=](Vector &out, const Vector &in) { out = sampling.adjoint() * (sampling * in); };
   SOPT_HIGH_LOG("Initializing wavelets");
   auto const wavelet = sopt::wavelets::factory("DB4", 4);
@@ -81,17 +81,16 @@ int main(int argc, char const **argv) {
   SOPT_HIGH_LOG("Create dirty vector");
   std::normal_distribution<> gaussian_dist(0, sigma);
   Vector y(y0.size());
-  for(sopt::t_int i = 0; i < y0.size(); i++)
-    y(i) = y0(i) + gaussian_dist(mersenne);
+  for (sopt::t_int i = 0; i < y0.size(); i++) y(i) = y0(i) + gaussian_dist(mersenne);
   // Write dirty imagte to file
-  if(output != "none") {
+  if (output != "none") {
     Vector const dirty = sampling.adjoint() * y;
     sopt::utilities::write_tiff(Matrix::Map(dirty.data(), image.rows(), image.cols()),
                                 "dirty_" + output + ".tiff");
   }
 
-  sopt::t_real const mu
-      = (psi.adjoint() * (sampling.adjoint() * y)).cwiseAbs().maxCoeff() * 1e-2 * nmeasure;
+  sopt::t_real const mu =
+      (psi.adjoint() * (sampling.adjoint() * y)).cwiseAbs().maxCoeff() * 1e-2 * nmeasure;
   sopt::t_real const beta = 1. / static_cast<sopt::t_real>(nmeasure);
   SOPT_HIGH_LOG("Creating Foward Backward Functor");
   auto const fb = sopt::algorithm::ImagingForwardBackward<Scalar>(sampling.adjoint() * y)
@@ -116,14 +115,13 @@ int main(int argc, char const **argv) {
   auto const diagnostic = fb();
   SOPT_HIGH_LOG("Forward backward returned {}", diagnostic.good);
 
-  if(output != "none")
+  if (output != "none")
     sopt::utilities::write_tiff(Matrix::Map(diagnostic.x.data(), image.rows(), image.cols()),
                                 output + ".tiff");
   // diagnostic should tell us the function converged
   // it also contains diagnostic.niters - the number of iterations, and cg_diagnostic - the
   // diagnostic from the last call to the conjugate gradient.
-  if(not diagnostic.good)
-    throw std::runtime_error("Did not converge!");
+  if (not diagnostic.good) throw std::runtime_error("Did not converge!");
 
   SOPT_HIGH_LOG("SOPT-Forward Backward converged in {} iterations", diagnostic.niters);
 
@@ -133,10 +131,10 @@ int main(int argc, char const **argv) {
   const std::function<Scalar(Vector)> objective_function = fb.objective_function();
 
   sopt::Image<sopt::t_real> lower_error, upper_error, mean_solution;
-  std::tie(lower_error, mean_solution, upper_error)
-      = sopt::credible_region::credible_interval<sopt::Vector<sopt::t_real>, sopt::t_real>(
+  std::tie(lower_error, mean_solution, upper_error) =
+      sopt::credible_region::credible_interval<sopt::Vector<sopt::t_real>, sopt::t_real>(
           diagnostic.x, image.rows(), image.cols(), grid_pixel_size, objective_function, alpha);
-  if(output != "none") {
+  if (output != "none") {
     sopt::utilities::write_tiff(
         Matrix::Map(upper_error.data(), upper_error.rows(), upper_error.cols()),
         output + "_upper_error.tiff");

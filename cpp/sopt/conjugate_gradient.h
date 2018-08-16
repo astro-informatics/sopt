@@ -5,8 +5,8 @@
 #include <limits>
 #include <type_traits>
 #include "sopt/logging.h"
-#include "sopt/types.h"
 #include "sopt/maths.h"
+#include "sopt/types.h"
 #include "sopt/wrapper.h"
 
 namespace sopt {
@@ -14,9 +14,10 @@ namespace sopt {
 class ConjugateGradient {
   //! \brief Wraps around a matrix to fake a functor
   //! \details xout = A * xin becomes apply_matrix_instance(xout, xin);
-  template <class T> class ApplyMatrix;
+  template <class T>
+  class ApplyMatrix;
 
-public:
+ public:
   //! Values indicating how the algorithm ran
   struct Diagnostic {
     //! Number of iterations
@@ -27,7 +28,10 @@ public:
     bool good;
   };
   //! Values indicating how the algorithm ran and its result;
-  template <class T> struct DiagnosticAndResult : public Diagnostic { Vector<T> result; };
+  template <class T>
+  struct DiagnosticAndResult : public Diagnostic {
+    Vector<T> result;
+  };
   //! \brief Creates conjugate gradient operator
   //! \param[in] itermax: Maximum number of iterations. 0 means algorithm breaks only if
   //! convergence is reached.
@@ -42,8 +46,8 @@ public:
   //! A as a matrix and A as a functor. A as a functor means A can be a complex operation, e.g. an
   //! FFT or two.
   template <class VECTOR, class T1, class T2>
-  Diagnostic
-  operator()(VECTOR &x, Eigen::MatrixBase<T1> const &A, Eigen::MatrixBase<T2> const &b) const {
+  Diagnostic operator()(VECTOR &x, Eigen::MatrixBase<T1> const &A,
+                        Eigen::MatrixBase<T2> const &b) const {
     return implementation(x, A, b);
   }
   //! \brief Computes $x$ for $Ax=b$
@@ -58,8 +62,8 @@ public:
   //! \details Specialisation where x is constructed during call and returned. And x is a matrix
   //! rather than an array.
   template <class T0, class A_TYPE>
-  DiagnosticAndResult<typename T0::Scalar>
-  operator()(A_TYPE const &A, Eigen::MatrixBase<T0> const &b) const {
+  DiagnosticAndResult<typename T0::Scalar> operator()(A_TYPE const &A,
+                                                      Eigen::MatrixBase<T0> const &b) const {
     DiagnosticAndResult<typename T0::Scalar> result;
     result.result = Vector<typename T0::Scalar>::Zero(b.size());
     *static_cast<Diagnostic *>(&result) = operator()(result.result, A, b);
@@ -76,12 +80,11 @@ public:
   t_real tolerance() const { return tolerance_; }
   //! Sets tolerance criteria
   void tolerance(t_real const &tolerance) {
-    if(tolerance <= 0e0)
-      throw std::domain_error("Incorrect tolerance input");
+    if (tolerance <= 0e0) throw std::domain_error("Incorrect tolerance input");
     tolerance_ = tolerance;
   }
 
-protected:
+ protected:
   //! Tolerance criteria
   t_real tolerance_;
   //! Maximum number of iteration
@@ -93,7 +96,7 @@ protected:
   //! Work array to hold p
   Image<> work_p;
 
-private:
+ private:
   //! \brief Just one implementation for all types
   //! \note This is a template function, to avoid repetition, but it is not declared in the
   //! header.
@@ -102,14 +105,13 @@ private:
 };
 
 template <class VECTOR, class T1, class MATRIXLIKE>
-ConjugateGradient::Diagnostic
-ConjugateGradient::implementation(VECTOR &x, MATRIXLIKE const &A,
-                                  Eigen::MatrixBase<T1> const &b) const {
+ConjugateGradient::Diagnostic ConjugateGradient::implementation(
+    VECTOR &x, MATRIXLIKE const &A, Eigen::MatrixBase<T1> const &b) const {
   typedef typename T1::Scalar Scalar;
   typedef typename real_type<Scalar>::type Real;
 
   x.resize(b.size());
-  if(std::abs((b.transpose().conjugate() * b)(0)) < tolerance()) {
+  if (std::abs((b.transpose().conjugate() * b)(0)) < tolerance()) {
     x.fill(0);
     return {0, 0, 1};
   }
@@ -122,7 +124,7 @@ ConjugateGradient::implementation(VECTOR &x, MATRIXLIKE const &A,
   Real residual = std::abs((residuals.transpose().conjugate() * residuals)(0));
 
   t_uint i(0);
-  for(; i < itermax(); ++i) {
+  for (; i < itermax(); ++i) {
     Ap = A * p;
     Scalar const alpha = residual / (p.transpose().conjugate() * Ap)(0);
     x += alpha * p;
@@ -130,7 +132,7 @@ ConjugateGradient::implementation(VECTOR &x, MATRIXLIKE const &A,
 
     Real new_residual = std::abs((residuals.transpose().conjugate() * residuals)(0));
     SOPT_LOW_LOG("CG iteration {} - residuals: {}", i, new_residual);
-    if(std::abs(new_residual) < tolerance()) {
+    if (std::abs(new_residual) < tolerance()) {
       residual = new_residual;
       break;
     }
@@ -140,5 +142,5 @@ ConjugateGradient::implementation(VECTOR &x, MATRIXLIKE const &A,
   }
   return {i, residual, residual < tolerance()};
 }
-} /* sopt */
+}  // namespace sopt
 #endif
