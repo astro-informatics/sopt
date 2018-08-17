@@ -154,7 +154,7 @@ Real&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../.
 class sopt::proximal::L1&lt; SCALAR &gt;::Breaker</h3>
 
 
-<p>Definition at line <a class="el" href="../../dc/d90/l1__proximal_8h_source.html#l00403">403</a> of file <a class="el" href="../../dc/d90/l1__proximal_8h_source.html">l1_proximal.h</a>.</p>
+<p>Definition at line <a class="el" href="../../dc/d90/l1__proximal_8h_source.html#l00412">412</a> of file <a class="el" href="../../dc/d90/l1__proximal_8h_source.html">l1_proximal.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="adb199fd4831597d20d1fef5d98540ab6"></a>
 <div class="memitem">
@@ -205,11 +205,13 @@ template&lt;class SCALAR&gt; </div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="../../dc/d90/l1__proximal_8h_source.html#l00411">411</a> of file <a class="el" href="../../dc/d90/l1__proximal_8h_source.html">l1_proximal.h</a>.</p>
+<p>Definition at line <a class="el" href="../../dc/d90/l1__proximal_8h_source.html#l00420">420</a> of file <a class="el" href="../../dc/d90/l1__proximal_8h_source.html">l1_proximal.h</a>.</p>
 
 <p>References <a class="el" href="../../db/db3/classsopt_1_1proximal_1_1L1TightFrame.html#ac893db689b44e7498da5990b7b44be63">sopt::proximal::L1TightFrame&lt; SCALAR &gt;::objective()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;      : tolerance_(<a class="code" href="../../d9/d62/classsopt_1_1proximal_1_1L1_1_1Breaker.html#ab992521d1240213bb712b05568fba8a5">tolerance</a>), iter(0), objectives({{<a class="code" href="../../db/db3/classsopt_1_1proximal_1_1L1TightFrame.html#ac893db689b44e7498da5990b7b44be63">objective</a>, 0, 0, 0}}),</div>
-<div class="ttc" id="classsopt_1_1proximal_1_1L1_1_1Breaker_html_ab992521d1240213bb712b05568fba8a5"><div class="ttname"><a href="../../d9/d62/classsopt_1_1proximal_1_1L1_1_1Breaker.html#ab992521d1240213bb712b05568fba8a5">sopt::proximal::L1::Breaker::tolerance</a></div><div class="ttdeci">Real tolerance() const </div><div class="ttdoc">Tolerance criteria. </div><div class="ttdef"><b>Definition:</b> <a href="../../dc/d90/l1__proximal_8h_source.html#l00442">l1_proximal.h:442</a></div></div>
+<div class="fragment"><div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;      : tolerance_(<a class="code" href="../../d9/d62/classsopt_1_1proximal_1_1L1_1_1Breaker.html#ab992521d1240213bb712b05568fba8a5">tolerance</a>),</div>
+<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;        iter(0),</div>
+<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;        objectives({{<a class="code" href="../../db/db3/classsopt_1_1proximal_1_1L1TightFrame.html#ac893db689b44e7498da5990b7b44be63">objective</a>, 0, 0, 0}}),</div>
+<div class="ttc" id="classsopt_1_1proximal_1_1L1_1_1Breaker_html_ab992521d1240213bb712b05568fba8a5"><div class="ttname"><a href="../../d9/d62/classsopt_1_1proximal_1_1L1_1_1Breaker.html#ab992521d1240213bb712b05568fba8a5">sopt::proximal::L1::Breaker::tolerance</a></div><div class="ttdeci">Real tolerance() const </div><div class="ttdoc">Tolerance criteria. </div><div class="ttdef"><b>Definition:</b> <a href="../../dc/d90/l1__proximal_8h_source.html#l00452">l1_proximal.h:452</a></div></div>
 <div class="ttc" id="classsopt_1_1proximal_1_1L1TightFrame_html_ac893db689b44e7498da5990b7b44be63"><div class="ttname"><a href="../../db/db3/classsopt_1_1proximal_1_1L1TightFrame.html#ac893db689b44e7498da5990b7b44be63">sopt::proximal::L1TightFrame::objective</a></div><div class="ttdeci">std::enable_if&lt; is_complex&lt; Scalar &gt;::value==is_complex&lt; typename T0::Scalar &gt;::value and is_complex&lt; Scalar &gt;::value==is_complex&lt; typename T1::Scalar &gt;::value, Real &gt;::type objective(Eigen::MatrixBase&lt; T0 &gt; const &amp;x, Eigen::MatrixBase&lt; T1 &gt; const &amp;z, Real const &amp;gamma) const </div><div class="ttdoc"> </div></div>
 </div><!-- fragment -->
 </div>
@@ -241,14 +243,14 @@ template&lt;class SCALAR&gt; </div>
 <p>Whether we have a cycle of period two. </p>
 <p>Cycling is prone to happen without mixing, it seems. </p>
 
-<p>Definition at line <a class="el" href="../../dc/d90/l1__proximal_8h_source.html#l00428">428</a> of file <a class="el" href="../../dc/d90/l1__proximal_8h_source.html">l1_proximal.h</a>.</p>
+<p>Definition at line <a class="el" href="../../dc/d90/l1__proximal_8h_source.html#l00439">439</a> of file <a class="el" href="../../dc/d90/l1__proximal_8h_source.html">l1_proximal.h</a>.</p>
 
-<p>Referenced by <a class="el" href="../../dc/d90/l1__proximal_8h_source.html#l00313">sopt::proximal::L1&lt; SCALAR &gt;::operator()()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;                         {</div>
-<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;    <span class="keywordflow">return</span> do_two_cycle and iter &gt; 3 and std::abs(objectives[0] - objectives[2]) &lt; <a class="code" href="../../d9/d62/classsopt_1_1proximal_1_1L1_1_1Breaker.html#ab992521d1240213bb712b05568fba8a5">tolerance</a>()</div>
-<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;           and std::abs(objectives[1] - objectives[3]) &lt; <a class="code" href="../../d9/d62/classsopt_1_1proximal_1_1L1_1_1Breaker.html#ab992521d1240213bb712b05568fba8a5">tolerance</a>();</div>
-<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;  }</div>
-<div class="ttc" id="classsopt_1_1proximal_1_1L1_1_1Breaker_html_ab992521d1240213bb712b05568fba8a5"><div class="ttname"><a href="../../d9/d62/classsopt_1_1proximal_1_1L1_1_1Breaker.html#ab992521d1240213bb712b05568fba8a5">sopt::proximal::L1::Breaker::tolerance</a></div><div class="ttdeci">Real tolerance() const </div><div class="ttdoc">Tolerance criteria. </div><div class="ttdef"><b>Definition:</b> <a href="../../dc/d90/l1__proximal_8h_source.html#l00442">l1_proximal.h:442</a></div></div>
+<p>Referenced by <a class="el" href="../../dc/d90/l1__proximal_8h_source.html#l00322">sopt::proximal::L1&lt; SCALAR &gt;::operator()()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;                         {</div>
+<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;    <span class="keywordflow">return</span> do_two_cycle and iter &gt; 3 and std::abs(objectives[0] - objectives[2]) &lt; <a class="code" href="../../d9/d62/classsopt_1_1proximal_1_1L1_1_1Breaker.html#ab992521d1240213bb712b05568fba8a5">tolerance</a>() and</div>
+<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;           std::abs(objectives[1] - objectives[3]) &lt; <a class="code" href="../../d9/d62/classsopt_1_1proximal_1_1L1_1_1Breaker.html#ab992521d1240213bb712b05568fba8a5">tolerance</a>();</div>
+<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;  }</div>
+<div class="ttc" id="classsopt_1_1proximal_1_1L1_1_1Breaker_html_ab992521d1240213bb712b05568fba8a5"><div class="ttname"><a href="../../d9/d62/classsopt_1_1proximal_1_1L1_1_1Breaker.html#ab992521d1240213bb712b05568fba8a5">sopt::proximal::L1::Breaker::tolerance</a></div><div class="ttdeci">Real tolerance() const </div><div class="ttdoc">Tolerance criteria. </div><div class="ttdef"><b>Definition:</b> <a href="../../dc/d90/l1__proximal_8h_source.html#l00452">l1_proximal.h:452</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>

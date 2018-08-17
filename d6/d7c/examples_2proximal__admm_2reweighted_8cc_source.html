@@ -135,50 +135,50 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'Search');
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  std::string <span class="keyword">const</span> input = argc &gt;= 2 ? argv[1] : <span class="stringliteral">&quot;cameraman256&quot;</span>;</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  std::string <span class="keyword">const</span> output = argc == 3 ? argv[2] : <span class="stringliteral">&quot;none&quot;</span>;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <span class="keywordflow">if</span>(argc &gt; 3) {</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <span class="keywordflow">if</span> (argc &gt; 3) {</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    std::cout &lt;&lt; <span class="stringliteral">&quot;Usage:\n&quot;</span></div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                 <span class="stringliteral">&quot;$ &quot;</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;              &lt;&lt; argv[0] &lt;&lt; <span class="stringliteral">&quot; [input [output]]\n\n&quot;</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                            <span class="stringliteral">&quot;- input: path to the image to clean (or name of standard SOPT image)\n&quot;</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                            <span class="stringliteral">&quot;- output: filename pattern for output image\n&quot;</span>;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    exit(0);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  }</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <span class="comment">// Set up random numbers for C and C++</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> seed = std::time(0);</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  std::srand((<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>)seed);</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  std::mt19937 mersenne(std::time(0));</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  <span class="comment">// Initializes and sets logger (if compiled with logging)</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  <span class="comment">// See set_level function for levels.</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  sopt::logging::initialize();</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  SOPT_MEDIUM_LOG(<span class="stringliteral">&quot;Read input file {}&quot;</span>, input);</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  Image <span class="keyword">const</span> image = sopt::notinstalled::read_standard_tiff(input);</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  SOPT_MEDIUM_LOG(<span class="stringliteral">&quot;Initializing sensing operator&quot;</span>);</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  sopt::t_uint nmeasure = 0.33 * image.size();</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> sampling</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;      = sopt::linear_transform&lt;Scalar&gt;(<a class="code" href="../../d9/d5f/classsopt_1_1Sampling.html">sopt::Sampling</a>(image.size(), nmeasure, mersenne));</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  SOPT_MEDIUM_LOG(<span class="stringliteral">&quot;Initializing wavelets&quot;</span>);</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  <a class="code" href="../../d5/d79/classsopt_1_1wavelets_1_1SARA.html">sopt::wavelets::SARA</a> <span class="keyword">const</span> sara{std::make_tuple(std::string{<span class="stringliteral">&quot;DB3&quot;</span>}, 1u),</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                                  std::make_tuple(std::string{<span class="stringliteral">&quot;DB1&quot;</span>}, 2u),</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                                  std::make_tuple(std::string{<span class="stringliteral">&quot;DB1&quot;</span>}, 3u)};</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> psi = sopt::linear_transform&lt;Scalar&gt;(sara, image.rows(), image.cols());</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  SOPT_MEDIUM_LOG(<span class="stringliteral">&quot;Computing proximal-ADMM parameters&quot;</span>);</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  Vector <span class="keyword">const</span> y0 = sampling * Vector::Map(image.data(), image.size());</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> snr = 30.0;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> sigma = y0.stableNorm() / std::sqrt(y0.size()) * std::pow(10.0, -(snr / 20.0));</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> epsilon = std::sqrt(nmeasure + 2 * std::sqrt(y0.size())) * sigma;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  SOPT_MEDIUM_LOG(<span class="stringliteral">&quot;Create dirty vector&quot;</span>);</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  std::normal_distribution&lt;&gt; gaussian_dist(0, sigma);</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  Vector y(y0.size());</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  <span class="keywordflow">for</span>(sopt::t_int i = 0; i &lt; y0.size(); i++)</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    y(i) = y0(i) + gaussian_dist(mersenne);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;              &lt;&lt; argv[0]</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;              &lt;&lt; <span class="stringliteral">&quot; [input [output]]\n\n&quot;</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                 <span class="stringliteral">&quot;- input: path to the image to clean (or name of standard SOPT image)\n&quot;</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;                 <span class="stringliteral">&quot;- output: filename pattern for output image\n&quot;</span>;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    exit(0);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  }</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <span class="comment">// Set up random numbers for C and C++</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> seed = std::time(0);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  std::srand((<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>)seed);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  std::mt19937 mersenne(std::time(0));</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  <span class="comment">// Initializes and sets logger (if compiled with logging)</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <span class="comment">// See set_level function for levels.</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  sopt::logging::initialize();</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  SOPT_MEDIUM_LOG(<span class="stringliteral">&quot;Read input file {}&quot;</span>, input);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  Image <span class="keyword">const</span> image = sopt::notinstalled::read_standard_tiff(input);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  SOPT_MEDIUM_LOG(<span class="stringliteral">&quot;Initializing sensing operator&quot;</span>);</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  sopt::t_uint nmeasure = 0.33 * image.size();</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> sampling =</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;      sopt::linear_transform&lt;Scalar&gt;(<a class="code" href="../../d9/d5f/classsopt_1_1Sampling.html">sopt::Sampling</a>(image.size(), nmeasure, mersenne));</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  SOPT_MEDIUM_LOG(<span class="stringliteral">&quot;Initializing wavelets&quot;</span>);</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  <a class="code" href="../../d5/d79/classsopt_1_1wavelets_1_1SARA.html">sopt::wavelets::SARA</a> <span class="keyword">const</span> sara{std::make_tuple(std::string{<span class="stringliteral">&quot;DB3&quot;</span>}, 1u),</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                                  std::make_tuple(std::string{<span class="stringliteral">&quot;DB1&quot;</span>}, 2u),</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                                  std::make_tuple(std::string{<span class="stringliteral">&quot;DB1&quot;</span>}, 3u)};</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> psi = sopt::linear_transform&lt;Scalar&gt;(sara, image.rows(), image.cols());</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  SOPT_MEDIUM_LOG(<span class="stringliteral">&quot;Computing proximal-ADMM parameters&quot;</span>);</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  Vector <span class="keyword">const</span> y0 = sampling * Vector::Map(image.data(), image.size());</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> snr = 30.0;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> sigma = y0.stableNorm() / std::sqrt(y0.size()) * std::pow(10.0, -(snr / 20.0));</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> epsilon = std::sqrt(nmeasure + 2 * std::sqrt(y0.size())) * sigma;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  SOPT_MEDIUM_LOG(<span class="stringliteral">&quot;Create dirty vector&quot;</span>);</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  std::normal_distribution&lt;&gt; gaussian_dist(0, sigma);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  Vector y(y0.size());</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  <span class="keywordflow">for</span> (sopt::t_int i = 0; i &lt; y0.size(); i++) y(i) = y0(i) + gaussian_dist(mersenne);</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  <span class="comment">// Write dirty imagte to file</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  <span class="keywordflow">if</span>(output != <span class="stringliteral">&quot;none&quot;</span>) {</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  <span class="keywordflow">if</span> (output != <span class="stringliteral">&quot;none&quot;</span>) {</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    Vector <span class="keyword">const</span> dirty = sampling.adjoint() * y;</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    sopt::utilities::write_tiff(Matrix::Map(dirty.data(), image.rows(), image.cols()),</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                                <span class="stringliteral">&quot;dirty_&quot;</span> + output + <span class="stringliteral">&quot;.tiff&quot;</span>);</div>
@@ -206,8 +206,8 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'Search');
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;  <span class="comment">// positive_quadrant projects the result of PADMM on the positive quadrant.</span></div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;  <span class="comment">// This follows the reweighted algorithm for SDMM</span></div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> min_delta = sigma * std::sqrt(y.size()) / std::sqrt(8 * image.size());</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> reweighted</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;      = sopt::algorithm::reweighted(padmm).itermax(5).min_delta(min_delta).is_converged(</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> reweighted =</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;      sopt::algorithm::reweighted(padmm).itermax(5).min_delta(min_delta).is_converged(</div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;          <a class="code" href="../../d7/d4a/classsopt_1_1RelativeVariation.html">sopt::RelativeVariation&lt;Scalar&gt;</a>(1e-3));</div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;</div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;  SOPT_MEDIUM_LOG(<span class="stringliteral">&quot;Starting proximal-ADMM&quot;</span>);</div>
@@ -217,16 +217,16 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'Search');
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;  SOPT_MEDIUM_LOG(<span class="stringliteral">&quot;proximal-ADMM returned {}&quot;</span>, diagnostic.good);</div>
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;</div>
 <div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;  SOPT_MEDIUM_LOG(<span class="stringliteral">&quot;SOPT-proximal-ADMM converged in {} iterations&quot;</span>, diagnostic.niters);</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;  <span class="keywordflow">if</span>(output != <span class="stringliteral">&quot;none&quot;</span>)</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;  <span class="keywordflow">if</span> (output != <span class="stringliteral">&quot;none&quot;</span>)</div>
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    sopt::utilities::write_tiff(Matrix::Map(diagnostic.algo.x.data(), image.rows(), image.cols()),</div>
 <div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;                                output + <span class="stringliteral">&quot;.tiff&quot;</span>);</div>
 <div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;</div>
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;  <span class="keywordflow">return</span> 0;</div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;}</div>
-<div class="ttc" id="classsopt_1_1algorithm_1_1ImagingProximalADMM_html_a99bfcc4355c8eae813fe6aeedd1c4850"><div class="ttname"><a href="../../de/d53/classsopt_1_1algorithm_1_1ImagingProximalADMM.html#a99bfcc4355c8eae813fe6aeedd1c4850">sopt::algorithm::ImagingProximalADMM::residual_convergence</a></div><div class="ttdeci">ImagingProximalADMM&lt; Scalar &gt; &amp; residual_convergence(Real const &amp;tolerance)</div><div class="ttdoc">Helper function to set-up default residual convergence function. </div><div class="ttdef"><b>Definition:</b> <a href="../../d5/d11/imaging__padmm_8h_source.html#l00221">imaging_padmm.h:221</a></div></div>
-<div class="ttc" id="classsopt_1_1RelativeVariation_html"><div class="ttname"><a href="../../d7/d4a/classsopt_1_1RelativeVariation.html">sopt::RelativeVariation</a></div><div class="ttdef"><b>Definition:</b> <a href="../../de/d90/relative__variation_8h_source.html#l00012">relative_variation.h:12</a></div></div>
-<div class="ttc" id="classsopt_1_1Sampling_html"><div class="ttname"><a href="../../d9/d5f/classsopt_1_1Sampling.html">sopt::Sampling</a></div><div class="ttdoc">An operator that samples a set of measurements. </div><div class="ttdef"><b>Definition:</b> <a href="../../d1/da8/sampling_8h_source.html#l00017">sampling.h:17</a></div></div>
-<div class="ttc" id="classsopt_1_1algorithm_1_1ImagingProximalADMM_html"><div class="ttname"><a href="../../de/d53/classsopt_1_1algorithm_1_1ImagingProximalADMM.html">sopt::algorithm::ImagingProximalADMM</a></div><div class="ttdef"><b>Definition:</b> <a href="../../d5/d11/imaging__padmm_8h_source.html#l00019">imaging_padmm.h:19</a></div></div>
+<div class="ttc" id="classsopt_1_1algorithm_1_1ImagingProximalADMM_html_a99bfcc4355c8eae813fe6aeedd1c4850"><div class="ttname"><a href="../../de/d53/classsopt_1_1algorithm_1_1ImagingProximalADMM.html#a99bfcc4355c8eae813fe6aeedd1c4850">sopt::algorithm::ImagingProximalADMM::residual_convergence</a></div><div class="ttdeci">ImagingProximalADMM&lt; Scalar &gt; &amp; residual_convergence(Real const &amp;tolerance)</div><div class="ttdoc">Helper function to set-up default residual convergence function. </div><div class="ttdef"><b>Definition:</b> <a href="../../d5/d11/imaging__padmm_8h_source.html#l00231">imaging_padmm.h:231</a></div></div>
+<div class="ttc" id="classsopt_1_1RelativeVariation_html"><div class="ttname"><a href="../../d7/d4a/classsopt_1_1RelativeVariation.html">sopt::RelativeVariation</a></div><div class="ttdef"><b>Definition:</b> <a href="../../de/d90/relative__variation_8h_source.html#l00013">relative_variation.h:13</a></div></div>
+<div class="ttc" id="classsopt_1_1Sampling_html"><div class="ttname"><a href="../../d9/d5f/classsopt_1_1Sampling.html">sopt::Sampling</a></div><div class="ttdoc">An operator that samples a set of measurements. </div><div class="ttdef"><b>Definition:</b> <a href="../../d1/da8/sampling_8h_source.html#l00016">sampling.h:16</a></div></div>
+<div class="ttc" id="classsopt_1_1algorithm_1_1ImagingProximalADMM_html"><div class="ttname"><a href="../../de/d53/classsopt_1_1algorithm_1_1ImagingProximalADMM.html">sopt::algorithm::ImagingProximalADMM</a></div><div class="ttdef"><b>Definition:</b> <a href="../../d5/d11/imaging__padmm_8h_source.html#l00020">imaging_padmm.h:20</a></div></div>
 <div class="ttc" id="classsopt_1_1wavelets_1_1SARA_html"><div class="ttname"><a href="../../d5/d79/classsopt_1_1wavelets_1_1SARA.html">sopt::wavelets::SARA</a></div><div class="ttdoc">Sparsity Averaging Reweighted Analysis. </div><div class="ttdef"><b>Definition:</b> <a href="../../d0/d20/sara_8h_source.html#l00022">sara.h:22</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

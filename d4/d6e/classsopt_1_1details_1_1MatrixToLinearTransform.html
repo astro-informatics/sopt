@@ -149,7 +149,7 @@ class sopt::details::MatrixToLinearTransform&lt; EIGEN &gt;</h3>
 <p>Wraps a matrix into a function and its conjugate transpose. </p>
 <p>This class helps to wrap matrices into functions, such that we can use and store them such that SDMM algorithms can refer to them. </p>
 
-<p>Definition at line <a class="el" href="../../d7/dd7/linear__transform_8h_source.html#l00020">20</a> of file <a class="el" href="../../d7/dd7/linear__transform_8h_source.html">linear_transform.h</a>.</p>
+<p>Definition at line <a class="el" href="../../d7/dd7/linear__transform_8h_source.html#l00021">21</a> of file <a class="el" href="../../d7/dd7/linear__transform_8h_source.html">linear_transform.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ad965988ccd40489168a0bd9c3c9d0834"></a>
 <div class="memitem">
@@ -180,8 +180,8 @@ template&lt;class T0 &gt; </div>
 <p>Creates from an expression. </p>
 <p>Expression is evaluated and the result stored internally. This object owns a copy of the matrix. It might share it with a few friendly neighbors. </p>
 
-<p>Definition at line <a class="el" href="../../d7/dd7/linear__transform_8h_source.html#l00148">148</a> of file <a class="el" href="../../d7/dd7/linear__transform_8h_source.html">linear_transform.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;: matrix(std::make_shared&lt;EIGEN&gt;(A)) {}</div>
+<p>Definition at line <a class="el" href="../../d7/dd7/linear__transform_8h_source.html#l00153">153</a> of file <a class="el" href="../../d7/dd7/linear__transform_8h_source.html">linear_transform.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;: matrix(std::make_shared&lt;EIGEN&gt;(A)) {}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -212,10 +212,10 @@ template&lt;class EIGEN&gt; </div>
 <p>Returns conjugate transpose operator. </p>
 <p>The matrix is shared. </p>
 
-<p>Definition at line <a class="el" href="../../d7/dd7/linear__transform_8h_source.html#l00163">163</a> of file <a class="el" href="../../d7/dd7/linear__transform_8h_source.html">linear_transform.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;                                                        {</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    <span class="keywordflow">return</span> MatrixAdjointToLinearTransform&lt;EIGEN&gt;(matrix);</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;  }</div>
+<p>Definition at line <a class="el" href="../../d7/dd7/linear__transform_8h_source.html#l00168">168</a> of file <a class="el" href="../../d7/dd7/linear__transform_8h_source.html">linear_transform.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;                                                        {</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    <span class="keywordflow">return</span> MatrixAdjointToLinearTransform&lt;EIGEN&gt;(matrix);</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;  }</div>
 </div><!-- fragment -->
 </div>
 </div>

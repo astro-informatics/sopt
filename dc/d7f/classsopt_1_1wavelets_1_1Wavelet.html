@@ -260,14 +260,14 @@ template&lt;class T0 &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>wavelet coefficients</dd></dl>
 <p>Supports 1 and 2 dimensional tranforms for real and complex data. </p>
 
-<p>Definition at line <a class="el" href="../../d6/db8/wavelets_2wavelets_8h_source.html#l00052">52</a> of file <a class="el" href="../../d6/db8/wavelets_2wavelets_8h_source.html">wavelets.h</a>.</p>
+<p>Definition at line <a class="el" href="../../d6/db8/wavelets_2wavelets_8h_source.html#l00051">51</a> of file <a class="el" href="../../d6/db8/wavelets_2wavelets_8h_source.html">wavelets.h</a>.</p>
 
-<p>References <a class="el" href="../../d6/db8/wavelets_2wavelets_8h_source.html#l00129">levels()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                                                      {</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    SOPT_WAVELET_MACRO_MULTIPLE(signal);</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordflow">return</span> direct_transform(signal, <a class="code" href="../../dc/d7f/classsopt_1_1wavelets_1_1Wavelet.html#a6def392e77a8b1cbcf4b1859db02c938">levels</a>(), *<span class="keyword">this</span>);</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  }</div>
-<div class="ttc" id="classsopt_1_1wavelets_1_1Wavelet_html_a6def392e77a8b1cbcf4b1859db02c938"><div class="ttname"><a href="../../dc/d7f/classsopt_1_1wavelets_1_1Wavelet.html#a6def392e77a8b1cbcf4b1859db02c938">sopt::wavelets::Wavelet::levels</a></div><div class="ttdeci">t_uint levels() const </div><div class="ttdoc">Number of levels over which to do transform. </div><div class="ttdef"><b>Definition:</b> <a href="../../d6/db8/wavelets_2wavelets_8h_source.html#l00129">wavelets.h:129</a></div></div>
+<p>References <a class="el" href="../../d6/db8/wavelets_2wavelets_8h_source.html#l00128">levels()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                                                      {</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    SOPT_WAVELET_MACRO_MULTIPLE(signal);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordflow">return</span> direct_transform(signal, <a class="code" href="../../dc/d7f/classsopt_1_1wavelets_1_1Wavelet.html#a6def392e77a8b1cbcf4b1859db02c938">levels</a>(), *<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  }</div>
+<div class="ttc" id="classsopt_1_1wavelets_1_1Wavelet_html_a6def392e77a8b1cbcf4b1859db02c938"><div class="ttname"><a href="../../dc/d7f/classsopt_1_1wavelets_1_1Wavelet.html#a6def392e77a8b1cbcf4b1859db02c938">sopt::wavelets::Wavelet::levels</a></div><div class="ttdeci">t_uint levels() const </div><div class="ttdoc">Number of levels over which to do transform. </div><div class="ttdef"><b>Definition:</b> <a href="../../d6/db8/wavelets_2wavelets_8h_source.html#l00128">wavelets.h:128</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -315,16 +315,16 @@ template&lt;class T0 , class T1 &gt; </div>
 </dl>
 <p>Supports 1 and 2 dimensional tranforms for real and complex data. </p>
 
-<p>Definition at line <a class="el" href="../../d6/db8/wavelets_2wavelets_8h_source.html#l00066">66</a> of file <a class="el" href="../../d6/db8/wavelets_2wavelets_8h_source.html">wavelets.h</a>.</p>
+<p>Definition at line <a class="el" href="../../d6/db8/wavelets_2wavelets_8h_source.html#l00065">65</a> of file <a class="el" href="../../d6/db8/wavelets_2wavelets_8h_source.html">wavelets.h</a>.</p>
 
-<p>References <a class="el" href="../../d7/d4a/wavelet__data_8h_source.html#l00018">sopt::wavelets::WaveletData::coefficients</a>, and <a class="el" href="../../d6/db8/wavelets_2wavelets_8h_source.html#l00129">levels()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                                                                    {</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    SOPT_WAVELET_MACRO_MULTIPLE(signal);</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    SOPT_WAVELET_MACRO_EQUAL_SIZE(<a class="code" href="../../dc/d15/structsopt_1_1wavelets_1_1WaveletData.html#ab0ddff45005d827193093764f085429f">coefficients</a>, signal);</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordflow">return</span> direct_transform(<a class="code" href="../../dc/d15/structsopt_1_1wavelets_1_1WaveletData.html#ab0ddff45005d827193093764f085429f">coefficients</a>, signal, <a class="code" href="../../dc/d7f/classsopt_1_1wavelets_1_1Wavelet.html#a6def392e77a8b1cbcf4b1859db02c938">levels</a>(), *<span class="keyword">this</span>);</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  }</div>
+<p>References <a class="el" href="../../d7/d4a/wavelet__data_8h_source.html#l00018">sopt::wavelets::WaveletData::coefficients</a>, and <a class="el" href="../../d6/db8/wavelets_2wavelets_8h_source.html#l00128">levels()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                                                                    {</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    SOPT_WAVELET_MACRO_MULTIPLE(signal);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    SOPT_WAVELET_MACRO_EQUAL_SIZE(<a class="code" href="../../dc/d15/structsopt_1_1wavelets_1_1WaveletData.html#ab0ddff45005d827193093764f085429f">coefficients</a>, signal);</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordflow">return</span> direct_transform(<a class="code" href="../../dc/d15/structsopt_1_1wavelets_1_1WaveletData.html#ab0ddff45005d827193093764f085429f">coefficients</a>, signal, <a class="code" href="../../dc/d7f/classsopt_1_1wavelets_1_1Wavelet.html#a6def392e77a8b1cbcf4b1859db02c938">levels</a>(), *<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  }</div>
 <div class="ttc" id="structsopt_1_1wavelets_1_1WaveletData_html_ab0ddff45005d827193093764f085429f"><div class="ttname"><a href="../../dc/d15/structsopt_1_1wavelets_1_1WaveletData.html#ab0ddff45005d827193093764f085429f">sopt::wavelets::WaveletData::coefficients</a></div><div class="ttdeci">t_vector const coefficients</div><div class="ttdoc">Wavelet coefficient per-se. </div><div class="ttdef"><b>Definition:</b> <a href="../../d7/d4a/wavelet__data_8h_source.html#l00018">wavelet_data.h:18</a></div></div>
-<div class="ttc" id="classsopt_1_1wavelets_1_1Wavelet_html_a6def392e77a8b1cbcf4b1859db02c938"><div class="ttname"><a href="../../dc/d7f/classsopt_1_1wavelets_1_1Wavelet.html#a6def392e77a8b1cbcf4b1859db02c938">sopt::wavelets::Wavelet::levels</a></div><div class="ttdeci">t_uint levels() const </div><div class="ttdoc">Number of levels over which to do transform. </div><div class="ttdef"><b>Definition:</b> <a href="../../d6/db8/wavelets_2wavelets_8h_source.html#l00129">wavelets.h:129</a></div></div>
+<div class="ttc" id="classsopt_1_1wavelets_1_1Wavelet_html_a6def392e77a8b1cbcf4b1859db02c938"><div class="ttname"><a href="../../dc/d7f/classsopt_1_1wavelets_1_1Wavelet.html#a6def392e77a8b1cbcf4b1859db02c938">sopt::wavelets::Wavelet::levels</a></div><div class="ttdeci">t_uint levels() const </div><div class="ttdoc">Number of levels over which to do transform. </div><div class="ttdef"><b>Definition:</b> <a href="../../d6/db8/wavelets_2wavelets_8h_source.html#l00128">wavelets.h:128</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -372,16 +372,16 @@ template&lt;class T0 , class T1 &gt; </div>
 </dl>
 <p>Supports 1 and 2 dimensional tranforms for real and complex data. This version allows non-constant Eigen expressions to be passe on without the ugly <code>const_cast</code> of the cannonical approach. </p>
 
-<p>Definition at line <a class="el" href="../../d6/db8/wavelets_2wavelets_8h_source.html#l00083">83</a> of file <a class="el" href="../../d6/db8/wavelets_2wavelets_8h_source.html">wavelets.h</a>.</p>
+<p>Definition at line <a class="el" href="../../d6/db8/wavelets_2wavelets_8h_source.html#l00082">82</a> of file <a class="el" href="../../d6/db8/wavelets_2wavelets_8h_source.html">wavelets.h</a>.</p>
 
-<p>References <a class="el" href="../../d7/d4a/wavelet__data_8h_source.html#l00018">sopt::wavelets::WaveletData::coefficients</a>, and <a class="el" href="../../d6/db8/wavelets_2wavelets_8h_source.html#l00129">levels()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                                                                    {</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    SOPT_WAVELET_MACRO_MULTIPLE(signal);</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    SOPT_WAVELET_MACRO_EQUAL_SIZE(<a class="code" href="../../dc/d15/structsopt_1_1wavelets_1_1WaveletData.html#ab0ddff45005d827193093764f085429f">coefficients</a>, signal);</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordflow">return</span> direct_transform(<a class="code" href="../../dc/d15/structsopt_1_1wavelets_1_1WaveletData.html#ab0ddff45005d827193093764f085429f">coefficients</a>, signal, <a class="code" href="../../dc/d7f/classsopt_1_1wavelets_1_1Wavelet.html#a6def392e77a8b1cbcf4b1859db02c938">levels</a>(), *<span class="keyword">this</span>);</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;  }</div>
+<p>References <a class="el" href="../../d7/d4a/wavelet__data_8h_source.html#l00018">sopt::wavelets::WaveletData::coefficients</a>, and <a class="el" href="../../d6/db8/wavelets_2wavelets_8h_source.html#l00128">levels()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                                                                    {</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    SOPT_WAVELET_MACRO_MULTIPLE(signal);</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    SOPT_WAVELET_MACRO_EQUAL_SIZE(<a class="code" href="../../dc/d15/structsopt_1_1wavelets_1_1WaveletData.html#ab0ddff45005d827193093764f085429f">coefficients</a>, signal);</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordflow">return</span> direct_transform(<a class="code" href="../../dc/d15/structsopt_1_1wavelets_1_1WaveletData.html#ab0ddff45005d827193093764f085429f">coefficients</a>, signal, <a class="code" href="../../dc/d7f/classsopt_1_1wavelets_1_1Wavelet.html#a6def392e77a8b1cbcf4b1859db02c938">levels</a>(), *<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;  }</div>
 <div class="ttc" id="structsopt_1_1wavelets_1_1WaveletData_html_ab0ddff45005d827193093764f085429f"><div class="ttname"><a href="../../dc/d15/structsopt_1_1wavelets_1_1WaveletData.html#ab0ddff45005d827193093764f085429f">sopt::wavelets::WaveletData::coefficients</a></div><div class="ttdeci">t_vector const coefficients</div><div class="ttdoc">Wavelet coefficient per-se. </div><div class="ttdef"><b>Definition:</b> <a href="../../d7/d4a/wavelet__data_8h_source.html#l00018">wavelet_data.h:18</a></div></div>
-<div class="ttc" id="classsopt_1_1wavelets_1_1Wavelet_html_a6def392e77a8b1cbcf4b1859db02c938"><div class="ttname"><a href="../../dc/d7f/classsopt_1_1wavelets_1_1Wavelet.html#a6def392e77a8b1cbcf4b1859db02c938">sopt::wavelets::Wavelet::levels</a></div><div class="ttdeci">t_uint levels() const </div><div class="ttdoc">Number of levels over which to do transform. </div><div class="ttdef"><b>Definition:</b> <a href="../../d6/db8/wavelets_2wavelets_8h_source.html#l00129">wavelets.h:129</a></div></div>
+<div class="ttc" id="classsopt_1_1wavelets_1_1Wavelet_html_a6def392e77a8b1cbcf4b1859db02c938"><div class="ttname"><a href="../../dc/d7f/classsopt_1_1wavelets_1_1Wavelet.html#a6def392e77a8b1cbcf4b1859db02c938">sopt::wavelets::Wavelet::levels</a></div><div class="ttdeci">t_uint levels() const </div><div class="ttdoc">Number of levels over which to do transform. </div><div class="ttdef"><b>Definition:</b> <a href="../../d6/db8/wavelets_2wavelets_8h_source.html#l00128">wavelets.h:128</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -418,15 +418,15 @@ template&lt;class T0 &gt; </div>
 </dl>
 <p>Supports 1 and 2 dimensional tranforms for real and complex data. </p>
 
-<p>Definition at line <a class="el" href="../../d6/db8/wavelets_2wavelets_8h_source.html#l00095">95</a> of file <a class="el" href="../../d6/db8/wavelets_2wavelets_8h_source.html">wavelets.h</a>.</p>
+<p>Definition at line <a class="el" href="../../d6/db8/wavelets_2wavelets_8h_source.html#l00094">94</a> of file <a class="el" href="../../d6/db8/wavelets_2wavelets_8h_source.html">wavelets.h</a>.</p>
 
-<p>References <a class="el" href="../../d7/d4a/wavelet__data_8h_source.html#l00018">sopt::wavelets::WaveletData::coefficients</a>, and <a class="el" href="../../d6/db8/wavelets_2wavelets_8h_source.html#l00129">levels()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                                                              {</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    SOPT_WAVELET_MACRO_MULTIPLE(<a class="code" href="../../dc/d15/structsopt_1_1wavelets_1_1WaveletData.html#ab0ddff45005d827193093764f085429f">coefficients</a>);</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordflow">return</span> indirect_transform(<a class="code" href="../../dc/d15/structsopt_1_1wavelets_1_1WaveletData.html#ab0ddff45005d827193093764f085429f">coefficients</a>, <a class="code" href="../../dc/d7f/classsopt_1_1wavelets_1_1Wavelet.html#a6def392e77a8b1cbcf4b1859db02c938">levels</a>(), *<span class="keyword">this</span>);</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;  }</div>
+<p>References <a class="el" href="../../d7/d4a/wavelet__data_8h_source.html#l00018">sopt::wavelets::WaveletData::coefficients</a>, and <a class="el" href="../../d6/db8/wavelets_2wavelets_8h_source.html#l00128">levels()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                                                              {</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    SOPT_WAVELET_MACRO_MULTIPLE(<a class="code" href="../../dc/d15/structsopt_1_1wavelets_1_1WaveletData.html#ab0ddff45005d827193093764f085429f">coefficients</a>);</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keywordflow">return</span> indirect_transform(<a class="code" href="../../dc/d15/structsopt_1_1wavelets_1_1WaveletData.html#ab0ddff45005d827193093764f085429f">coefficients</a>, <a class="code" href="../../dc/d7f/classsopt_1_1wavelets_1_1Wavelet.html#a6def392e77a8b1cbcf4b1859db02c938">levels</a>(), *<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;  }</div>
 <div class="ttc" id="structsopt_1_1wavelets_1_1WaveletData_html_ab0ddff45005d827193093764f085429f"><div class="ttname"><a href="../../dc/d15/structsopt_1_1wavelets_1_1WaveletData.html#ab0ddff45005d827193093764f085429f">sopt::wavelets::WaveletData::coefficients</a></div><div class="ttdeci">t_vector const coefficients</div><div class="ttdoc">Wavelet coefficient per-se. </div><div class="ttdef"><b>Definition:</b> <a href="../../d7/d4a/wavelet__data_8h_source.html#l00018">wavelet_data.h:18</a></div></div>
-<div class="ttc" id="classsopt_1_1wavelets_1_1Wavelet_html_a6def392e77a8b1cbcf4b1859db02c938"><div class="ttname"><a href="../../dc/d7f/classsopt_1_1wavelets_1_1Wavelet.html#a6def392e77a8b1cbcf4b1859db02c938">sopt::wavelets::Wavelet::levels</a></div><div class="ttdeci">t_uint levels() const </div><div class="ttdoc">Number of levels over which to do transform. </div><div class="ttdef"><b>Definition:</b> <a href="../../d6/db8/wavelets_2wavelets_8h_source.html#l00129">wavelets.h:129</a></div></div>
+<div class="ttc" id="classsopt_1_1wavelets_1_1Wavelet_html_a6def392e77a8b1cbcf4b1859db02c938"><div class="ttname"><a href="../../dc/d7f/classsopt_1_1wavelets_1_1Wavelet.html#a6def392e77a8b1cbcf4b1859db02c938">sopt::wavelets::Wavelet::levels</a></div><div class="ttdeci">t_uint levels() const </div><div class="ttdoc">Number of levels over which to do transform. </div><div class="ttdef"><b>Definition:</b> <a href="../../d6/db8/wavelets_2wavelets_8h_source.html#l00128">wavelets.h:128</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -474,16 +474,16 @@ template&lt;class T0 , class T1 &gt; </div>
 </dl>
 <p>Supports 1 and 2 dimensional tranforms for real and complex data. </p>
 
-<p>Definition at line <a class="el" href="../../d6/db8/wavelets_2wavelets_8h_source.html#l00106">106</a> of file <a class="el" href="../../d6/db8/wavelets_2wavelets_8h_source.html">wavelets.h</a>.</p>
+<p>Definition at line <a class="el" href="../../d6/db8/wavelets_2wavelets_8h_source.html#l00105">105</a> of file <a class="el" href="../../d6/db8/wavelets_2wavelets_8h_source.html">wavelets.h</a>.</p>
 
-<p>References <a class="el" href="../../d7/d4a/wavelet__data_8h_source.html#l00018">sopt::wavelets::WaveletData::coefficients</a>, and <a class="el" href="../../d6/db8/wavelets_2wavelets_8h_source.html#l00129">levels()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                                                                      {</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    SOPT_WAVELET_MACRO_MULTIPLE(<a class="code" href="../../dc/d15/structsopt_1_1wavelets_1_1WaveletData.html#ab0ddff45005d827193093764f085429f">coefficients</a>);</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    SOPT_WAVELET_MACRO_EQUAL_SIZE(signal, <a class="code" href="../../dc/d15/structsopt_1_1wavelets_1_1WaveletData.html#ab0ddff45005d827193093764f085429f">coefficients</a>);</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keywordflow">return</span> indirect_transform(<a class="code" href="../../dc/d15/structsopt_1_1wavelets_1_1WaveletData.html#ab0ddff45005d827193093764f085429f">coefficients</a>, signal, <a class="code" href="../../dc/d7f/classsopt_1_1wavelets_1_1Wavelet.html#a6def392e77a8b1cbcf4b1859db02c938">levels</a>(), *<span class="keyword">this</span>);</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;  }</div>
+<p>References <a class="el" href="../../d7/d4a/wavelet__data_8h_source.html#l00018">sopt::wavelets::WaveletData::coefficients</a>, and <a class="el" href="../../d6/db8/wavelets_2wavelets_8h_source.html#l00128">levels()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;                                                                      {</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    SOPT_WAVELET_MACRO_MULTIPLE(<a class="code" href="../../dc/d15/structsopt_1_1wavelets_1_1WaveletData.html#ab0ddff45005d827193093764f085429f">coefficients</a>);</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    SOPT_WAVELET_MACRO_EQUAL_SIZE(signal, <a class="code" href="../../dc/d15/structsopt_1_1wavelets_1_1WaveletData.html#ab0ddff45005d827193093764f085429f">coefficients</a>);</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keywordflow">return</span> indirect_transform(<a class="code" href="../../dc/d15/structsopt_1_1wavelets_1_1WaveletData.html#ab0ddff45005d827193093764f085429f">coefficients</a>, signal, <a class="code" href="../../dc/d7f/classsopt_1_1wavelets_1_1Wavelet.html#a6def392e77a8b1cbcf4b1859db02c938">levels</a>(), *<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;  }</div>
 <div class="ttc" id="structsopt_1_1wavelets_1_1WaveletData_html_ab0ddff45005d827193093764f085429f"><div class="ttname"><a href="../../dc/d15/structsopt_1_1wavelets_1_1WaveletData.html#ab0ddff45005d827193093764f085429f">sopt::wavelets::WaveletData::coefficients</a></div><div class="ttdeci">t_vector const coefficients</div><div class="ttdoc">Wavelet coefficient per-se. </div><div class="ttdef"><b>Definition:</b> <a href="../../d7/d4a/wavelet__data_8h_source.html#l00018">wavelet_data.h:18</a></div></div>
-<div class="ttc" id="classsopt_1_1wavelets_1_1Wavelet_html_a6def392e77a8b1cbcf4b1859db02c938"><div class="ttname"><a href="../../dc/d7f/classsopt_1_1wavelets_1_1Wavelet.html#a6def392e77a8b1cbcf4b1859db02c938">sopt::wavelets::Wavelet::levels</a></div><div class="ttdeci">t_uint levels() const </div><div class="ttdoc">Number of levels over which to do transform. </div><div class="ttdef"><b>Definition:</b> <a href="../../d6/db8/wavelets_2wavelets_8h_source.html#l00129">wavelets.h:129</a></div></div>
+<div class="ttc" id="classsopt_1_1wavelets_1_1Wavelet_html_a6def392e77a8b1cbcf4b1859db02c938"><div class="ttname"><a href="../../dc/d7f/classsopt_1_1wavelets_1_1Wavelet.html#a6def392e77a8b1cbcf4b1859db02c938">sopt::wavelets::Wavelet::levels</a></div><div class="ttdeci">t_uint levels() const </div><div class="ttdoc">Number of levels over which to do transform. </div><div class="ttdef"><b>Definition:</b> <a href="../../d6/db8/wavelets_2wavelets_8h_source.html#l00128">wavelets.h:128</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -531,15 +531,15 @@ template&lt;class T0 , class T1 &gt; </div>
 </dl>
 <p>Supports 1 and 2 dimensional tranforms for real and complex data. This version allows non-constant Eigen expressions to be passe on without the ugly <code>const_cast</code> of the cannonical approach. </p>
 
-<p>Definition at line <a class="el" href="../../d6/db8/wavelets_2wavelets_8h_source.html#l00120">120</a> of file <a class="el" href="../../d6/db8/wavelets_2wavelets_8h_source.html">wavelets.h</a>.</p>
+<p>Definition at line <a class="el" href="../../d6/db8/wavelets_2wavelets_8h_source.html#l00119">119</a> of file <a class="el" href="../../d6/db8/wavelets_2wavelets_8h_source.html">wavelets.h</a>.</p>
 
-<p>References <a class="el" href="../../d6/db8/wavelets_2wavelets_8h_source.html#l00129">levels()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;                                                                {</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    SOPT_WAVELET_MACRO_MULTIPLE(coeffs);</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    SOPT_WAVELET_MACRO_EQUAL_SIZE(signal, coeffs);</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="keywordflow">return</span> indirect_transform(coeffs, signal, <a class="code" href="../../dc/d7f/classsopt_1_1wavelets_1_1Wavelet.html#a6def392e77a8b1cbcf4b1859db02c938">levels</a>(), *<span class="keyword">this</span>);</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;  }</div>
-<div class="ttc" id="classsopt_1_1wavelets_1_1Wavelet_html_a6def392e77a8b1cbcf4b1859db02c938"><div class="ttname"><a href="../../dc/d7f/classsopt_1_1wavelets_1_1Wavelet.html#a6def392e77a8b1cbcf4b1859db02c938">sopt::wavelets::Wavelet::levels</a></div><div class="ttdeci">t_uint levels() const </div><div class="ttdoc">Number of levels over which to do transform. </div><div class="ttdef"><b>Definition:</b> <a href="../../d6/db8/wavelets_2wavelets_8h_source.html#l00129">wavelets.h:129</a></div></div>
+<p>References <a class="el" href="../../d6/db8/wavelets_2wavelets_8h_source.html#l00128">levels()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;                                                                {</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    SOPT_WAVELET_MACRO_MULTIPLE(coeffs);</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    SOPT_WAVELET_MACRO_EQUAL_SIZE(signal, coeffs);</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="keywordflow">return</span> indirect_transform(coeffs, signal, <a class="code" href="../../dc/d7f/classsopt_1_1wavelets_1_1Wavelet.html#a6def392e77a8b1cbcf4b1859db02c938">levels</a>(), *<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;  }</div>
+<div class="ttc" id="classsopt_1_1wavelets_1_1Wavelet_html_a6def392e77a8b1cbcf4b1859db02c938"><div class="ttname"><a href="../../dc/d7f/classsopt_1_1wavelets_1_1Wavelet.html#a6def392e77a8b1cbcf4b1859db02c938">sopt::wavelets::Wavelet::levels</a></div><div class="ttdeci">t_uint levels() const </div><div class="ttdoc">Number of levels over which to do transform. </div><div class="ttdef"><b>Definition:</b> <a href="../../d6/db8/wavelets_2wavelets_8h_source.html#l00128">wavelets.h:128</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>

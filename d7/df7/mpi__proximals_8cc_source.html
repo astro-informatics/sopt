@@ -145,18 +145,18 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'Search');
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <a class="code" href="../../da/d4c/classsopt_1_1proximal_1_1WeightedL2Ball.html">proximal::WeightedL2Ball&lt;t_real&gt;</a> wball(0.5, weights, world);</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <a class="code" href="../../db/d76/classsopt_1_1proximal_1_1L2Ball.html">proximal::L2Ball&lt;t_real&gt;</a> ball(0.5, world);</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  Vector&lt;t_real&gt; <span class="keyword">const</span> expected</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;      = ball((x.array() * weights.array()).matrix()).array() / weights.array();</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  Vector&lt;t_real&gt; <span class="keyword">const</span> expected =</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;      ball((x.array() * weights.array()).matrix()).array() / weights.array();</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  Vector&lt;t_real&gt; <span class="keyword">const</span> actual = wball(x);</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  CHECK(actual.isApprox(expected));</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  wball.epsilon(std::sqrt(world.all_sum_all((x.array() * weights.array()).matrix().squaredNorm()))</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                * 1.001);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  wball.epsilon(std::sqrt(world.all_sum_all((x.array() * weights.array()).matrix().squaredNorm())) *</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                1.001);</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  CHECK(x.isApprox(wball(x)));</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;}</div>
-<div class="ttc" id="classsopt_1_1proximal_1_1L2Ball_html"><div class="ttname"><a href="../../db/d76/classsopt_1_1proximal_1_1L2Ball.html">sopt::proximal::L2Ball</a></div><div class="ttdoc">Proximal for indicator function of L2 ball. </div><div class="ttdef"><b>Definition:</b> <a href="../../d2/dee/proximal_8h_source.html#l00093">proximal.h:93</a></div></div>
+<div class="ttc" id="classsopt_1_1proximal_1_1L2Ball_html"><div class="ttname"><a href="../../db/d76/classsopt_1_1proximal_1_1L2Ball.html">sopt::proximal::L2Ball</a></div><div class="ttdoc">Proximal for indicator function of L2 ball. </div><div class="ttdef"><b>Definition:</b> <a href="../../d2/dee/proximal_8h_source.html#l00094">proximal.h:94</a></div></div>
 <div class="ttc" id="classsopt_1_1proximal_1_1EuclidianNorm_html"><div class="ttname"><a href="../../d8/d48/classsopt_1_1proximal_1_1EuclidianNorm.html">sopt::proximal::EuclidianNorm</a></div><div class="ttdoc">Proximal of euclidian norm. </div><div class="ttdef"><b>Definition:</b> <a href="../../d2/dee/proximal_8h_source.html#l00019">proximal.h:19</a></div></div>
-<div class="ttc" id="classsopt_1_1proximal_1_1WeightedL2Ball_html"><div class="ttname"><a href="../../da/d4c/classsopt_1_1proximal_1_1WeightedL2Ball.html">sopt::proximal::WeightedL2Ball</a></div><div class="ttdef"><b>Definition:</b> <a href="../../d2/dee/proximal_8h_source.html#l00156">proximal.h:156</a></div></div>
+<div class="ttc" id="classsopt_1_1proximal_1_1WeightedL2Ball_html"><div class="ttname"><a href="../../da/d4c/classsopt_1_1proximal_1_1WeightedL2Ball.html">sopt::proximal::WeightedL2Ball</a></div><div class="ttdef"><b>Definition:</b> <a href="../../d2/dee/proximal_8h_source.html#l00158">proximal.h:158</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

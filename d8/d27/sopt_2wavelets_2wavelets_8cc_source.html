@@ -105,12 +105,12 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'Search');
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>wavelets {</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div>
 <div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="../../dc/d7f/classsopt_1_1wavelets_1_1Wavelet.html#a127561e37a23c4cfde3ec8935ebded8f">    9</a></span>&#160;<a class="code" href="../../dc/d7f/classsopt_1_1wavelets_1_1Wavelet.html">Wavelet</a> factory(std::string name, t_uint nlevels) {</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;  <span class="keywordflow">if</span>(name == <span class="stringliteral">&quot;dirac&quot;</span> or name == <span class="stringliteral">&quot;Dirac&quot;</span>) {</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;  <span class="keywordflow">if</span> (name == <span class="stringliteral">&quot;dirac&quot;</span> or name == <span class="stringliteral">&quot;Dirac&quot;</span>) {</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    SOPT_MEDIUM_LOG(<span class="stringliteral">&quot;Creating Dirac Wavelet&quot;</span>);</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../dc/d7f/classsopt_1_1wavelets_1_1Wavelet.html">Wavelet</a>(daubechies_data(1), 0);</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;  }</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;  <span class="keywordflow">if</span>(name.substr(0, 2) == <span class="stringliteral">&quot;DB&quot;</span> or name.substr(0, 2) == <span class="stringliteral">&quot;db&quot;</span>) {</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;  <span class="keywordflow">if</span> (name.substr(0, 2) == <span class="stringliteral">&quot;DB&quot;</span> or name.substr(0, 2) == <span class="stringliteral">&quot;db&quot;</span>) {</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    std::istringstream sstr(name.substr(2, name.size() - 2));</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    t_uint l(0);</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    sstr &gt;&gt; l;</div>
@@ -120,8 +120,8 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'Search');
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  <span class="comment">// Unknown input wavelet</span></div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  <span class="keywordflow">throw</span> std::exception();</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;}</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;}</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;}</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;}  <span class="comment">// namespace wavelets</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;}  <span class="comment">// namespace sopt</span></div>
 <div class="ttc" id="classsopt_1_1wavelets_1_1Wavelet_html"><div class="ttname"><a href="../../dc/d7f/classsopt_1_1wavelets_1_1Wavelet.html">sopt::wavelets::Wavelet</a></div><div class="ttdoc">Performs direct and indirect wavelet transforms. </div><div class="ttdef"><b>Definition:</b> <a href="../../d6/db8/wavelets_2wavelets_8h_source.html#l00020">wavelets.h:20</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

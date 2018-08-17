@@ -101,26 +101,26 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'Search');
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;iomanip&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;type_traits&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;sopt/imaging_padmm.h&quot;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;sopt/logging.h&quot;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;sopt/proximal.h&quot;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;sopt/relative_variation.h&quot;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;sopt/sampling.h&quot;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;sopt/wavelets.h&quot;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &quot;tools_for_tests/cdata.h&quot;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &quot;tools_for_tests/directories.h&quot;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &quot;tools_for_tests/inpainting.h&quot;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &quot;tools_for_tests/tiffwrappers.h&quot;</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &quot;sopt_l1.h&quot;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;sopt_l1.h&quot;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;tools_for_tests/cdata.h&quot;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;tools_for_tests/directories.h&quot;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;tools_for_tests/inpainting.h&quot;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;tools_for_tests/tiffwrappers.h&quot;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;sopt/imaging_padmm.h&quot;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &quot;sopt/logging.h&quot;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &quot;sopt/proximal.h&quot;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &quot;sopt/relative_variation.h&quot;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &quot;sopt/sampling.h&quot;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &quot;sopt/wavelets.h&quot;</span></div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">typedef</span> <span class="keywordtype">double</span> Scalar;</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">typedef</span> sopt::Vector&lt;Scalar&gt; t_Vector;</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">typedef</span> sopt::Matrix&lt;Scalar&gt; t_Matrix;</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<a class="code" href="../../de/d53/classsopt_1_1algorithm_1_1ImagingProximalADMM.html">sopt::algorithm::ImagingProximalADMM&lt;Scalar&gt;</a></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;create_admm(<a class="code" href="../../d9/d6e/classsopt_1_1LinearTransform.html">sopt::LinearTransform&lt;t_Vector&gt;</a> <span class="keyword">const</span> &amp;phi, <a class="code" href="../../d9/d6e/classsopt_1_1LinearTransform.html">sopt::LinearTransform&lt;t_Vector&gt;</a> <span class="keyword">const</span> &amp;psi,</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;            sopt_l1_param_padmm <span class="keyword">const</span> &amp;params, t_Vector <span class="keyword">const</span> &amp;target) {</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<a class="code" href="../../de/d53/classsopt_1_1algorithm_1_1ImagingProximalADMM.html">sopt::algorithm::ImagingProximalADMM&lt;Scalar&gt;</a> create_admm(<a class="code" href="../../d9/d6e/classsopt_1_1LinearTransform.html">sopt::LinearTransform&lt;t_Vector&gt;</a> <span class="keyword">const</span> &amp;phi,</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;                                                         <a class="code" href="../../d9/d6e/classsopt_1_1LinearTransform.html">sopt::LinearTransform&lt;t_Vector&gt;</a> <span class="keyword">const</span> &amp;psi,</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;                                                         sopt_l1_param_padmm <span class="keyword">const</span> &amp;params,</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;                                                         t_Vector <span class="keyword">const</span> &amp;target) {</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  <span class="keyword">using namespace </span>sopt;</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="../../de/d53/classsopt_1_1algorithm_1_1ImagingProximalADMM.html">algorithm::ImagingProximalADMM&lt;Scalar&gt;</a>(target)</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;      .itermax(params.max_iter + 1)</div>
@@ -153,24 +153,24 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'Search');
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> y = dirty(sampling, image, *mersenne);</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  sopt_l1_param_padmm params{</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;      0,                        <span class="comment">// verbosity</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;      200,                      <span class="comment">// max iter</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;      0.1,                      <span class="comment">// gamma</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;      0.0005,                   <span class="comment">// relative change</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;      epsilon(sampling, image), <span class="comment">// radius of the l2ball</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;      1,                        <span class="comment">// real out</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;      1,                        <span class="comment">// real meas</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;      0,                         <span class="comment">// verbosity</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;      200,                       <span class="comment">// max iter</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;      0.1,                       <span class="comment">// gamma</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;      0.0005,                    <span class="comment">// relative change</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;      epsilon(sampling, image),  <span class="comment">// radius of the l2ball</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;      1,                         <span class="comment">// real out</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;      1,                         <span class="comment">// real meas</span></div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;      {</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;          0,    <span class="comment">// verbose = 1;</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;          8,    <span class="comment">// max_iter = 50;</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;          0.01, <span class="comment">// rel_obj = 0.01;</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;          1,    <span class="comment">// nu = 1;</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;          0,    <span class="comment">// tight = 0;</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;          1,    <span class="comment">// pos = 1;</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;          0,     <span class="comment">// verbose = 1;</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;          8,     <span class="comment">// max_iter = 50;</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;          0.01,  <span class="comment">// rel_obj = 0.01;</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;          1,     <span class="comment">// nu = 1;</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;          0,     <span class="comment">// tight = 0;</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;          1,     <span class="comment">// pos = 1;</span></div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;      },</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;      1.001, <span class="comment">// epsilon tol scale</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;      0.9,   <span class="comment">// lagrange_update_scale</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;      1.0,   <span class="comment">// nu</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;      1.001,  <span class="comment">// epsilon tol scale</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;      0.9,    <span class="comment">// lagrange_update_scale</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;      1.0,    <span class="comment">// nu</span></div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  };</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  <span class="comment">// Create c++ SDMM</span></div>
@@ -182,7 +182,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'Search');
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  <a class="code" href="../../df/d7d/structsopt_1_1CData.html">CData&lt;Scalar&gt;</a> <span class="keyword">const</span> psi_data{image.size(), image.size(), psi, 0, 0};</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  <span class="comment">// Try increasing number of iterations and check output of c and c++ algorithms are the same</span></div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;  <span class="keywordflow">for</span>(t_uint i : {1, 5, 10}) {</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;  <span class="keywordflow">for</span> (t_uint i : {1, 5, 10}) {</div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    SECTION(fmt::format(<span class="stringliteral">&quot;With {} iterations&quot;</span>, i)) {</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;      sopt_l1_param_padmm c_params = params;</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;      c_params.max_iter = i;</div>
@@ -196,7 +196,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'Search');
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;          (<span class="keywordtype">void</span> *)c.data(), c.size(), &amp;direct_transform&lt;Scalar&gt;, (<span class="keywordtype">void</span> **)&amp;sampling_data,</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;          &amp;adjoint_transform&lt;Scalar&gt;, (<span class="keywordtype">void</span> **)&amp;sampling_data, &amp;direct_transform&lt;Scalar&gt;,</div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;          (<span class="keywordtype">void</span> **)&amp;psi_data, &amp;adjoint_transform&lt;Scalar&gt;,</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;          (<span class="keywordtype">void</span> **)&amp;psi_data, <span class="comment">// synthesis</span></div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;          (<span class="keywordtype">void</span> **)&amp;psi_data,  <span class="comment">// synthesis</span></div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;          c.size(), (<span class="keywordtype">void</span> *)y.data(), y.size(), l1_weights.data(), l2_weights.data(), c_params);</div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;</div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;      CAPTURE(cpp.x.head(5).transpose());</div>
@@ -205,10 +205,10 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'Search');
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    }</div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;  };</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;}</div>
-<div class="ttc" id="structsopt_1_1CData_html"><div class="ttname"><a href="../../df/d7d/structsopt_1_1CData.html">sopt::CData</a></div><div class="ttdef"><b>Definition:</b> <a href="../../da/d0d/cdata_8h_source.html#l00010">cdata.h:10</a></div></div>
-<div class="ttc" id="classsopt_1_1algorithm_1_1ImagingProximalADMM_html_a99bfcc4355c8eae813fe6aeedd1c4850"><div class="ttname"><a href="../../de/d53/classsopt_1_1algorithm_1_1ImagingProximalADMM.html#a99bfcc4355c8eae813fe6aeedd1c4850">sopt::algorithm::ImagingProximalADMM::residual_convergence</a></div><div class="ttdeci">ImagingProximalADMM&lt; Scalar &gt; &amp; residual_convergence(Real const &amp;tolerance)</div><div class="ttdoc">Helper function to set-up default residual convergence function. </div><div class="ttdef"><b>Definition:</b> <a href="../../d5/d11/imaging__padmm_8h_source.html#l00221">imaging_padmm.h:221</a></div></div>
-<div class="ttc" id="classsopt_1_1Sampling_html"><div class="ttname"><a href="../../d9/d5f/classsopt_1_1Sampling.html">sopt::Sampling</a></div><div class="ttdoc">An operator that samples a set of measurements. </div><div class="ttdef"><b>Definition:</b> <a href="../../d1/da8/sampling_8h_source.html#l00017">sampling.h:17</a></div></div>
-<div class="ttc" id="classsopt_1_1algorithm_1_1ImagingProximalADMM_html"><div class="ttname"><a href="../../de/d53/classsopt_1_1algorithm_1_1ImagingProximalADMM.html">sopt::algorithm::ImagingProximalADMM</a></div><div class="ttdef"><b>Definition:</b> <a href="../../d5/d11/imaging__padmm_8h_source.html#l00019">imaging_padmm.h:19</a></div></div>
+<div class="ttc" id="structsopt_1_1CData_html"><div class="ttname"><a href="../../df/d7d/structsopt_1_1CData.html">sopt::CData</a></div><div class="ttdef"><b>Definition:</b> <a href="../../da/d0d/cdata_8h_source.html#l00011">cdata.h:11</a></div></div>
+<div class="ttc" id="classsopt_1_1algorithm_1_1ImagingProximalADMM_html_a99bfcc4355c8eae813fe6aeedd1c4850"><div class="ttname"><a href="../../de/d53/classsopt_1_1algorithm_1_1ImagingProximalADMM.html#a99bfcc4355c8eae813fe6aeedd1c4850">sopt::algorithm::ImagingProximalADMM::residual_convergence</a></div><div class="ttdeci">ImagingProximalADMM&lt; Scalar &gt; &amp; residual_convergence(Real const &amp;tolerance)</div><div class="ttdoc">Helper function to set-up default residual convergence function. </div><div class="ttdef"><b>Definition:</b> <a href="../../d5/d11/imaging__padmm_8h_source.html#l00231">imaging_padmm.h:231</a></div></div>
+<div class="ttc" id="classsopt_1_1Sampling_html"><div class="ttname"><a href="../../d9/d5f/classsopt_1_1Sampling.html">sopt::Sampling</a></div><div class="ttdoc">An operator that samples a set of measurements. </div><div class="ttdef"><b>Definition:</b> <a href="../../d1/da8/sampling_8h_source.html#l00016">sampling.h:16</a></div></div>
+<div class="ttc" id="classsopt_1_1algorithm_1_1ImagingProximalADMM_html"><div class="ttname"><a href="../../de/d53/classsopt_1_1algorithm_1_1ImagingProximalADMM.html">sopt::algorithm::ImagingProximalADMM</a></div><div class="ttdef"><b>Definition:</b> <a href="../../d5/d11/imaging__padmm_8h_source.html#l00020">imaging_padmm.h:20</a></div></div>
 <div class="ttc" id="classsopt_1_1LinearTransform_html"><div class="ttname"><a href="../../d9/d6e/classsopt_1_1LinearTransform.html">sopt::LinearTransform&lt; t_Vector &gt;</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

@@ -122,122 +122,120 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'Search');
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> world = mpi::Communicator::World();</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  <span class="comment">// split into serial and parallel</span></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> split_comm = world.split(world.is_root());</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  <span class="keywordflow">if</span>(world.size() &lt; 2)</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  <span class="comment">// Some typedefs for simplicity</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <span class="keyword">typedef</span> <span class="keywordtype">double</span> Scalar;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  <span class="keyword">typedef</span> sopt::Vector&lt;Scalar&gt; Vector;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <span class="keyword">typedef</span> sopt::Image&lt;Scalar&gt; Image;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  std::string <span class="keyword">const</span> input = <span class="stringliteral">&quot;cameraman256&quot;</span>;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <span class="comment">// Read input file</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  Image <span class="keyword">const</span> image = world.is_root() ?</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                          world.broadcast(sopt::notinstalled::read_standard_tiff(input)) :</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;                          world.broadcast&lt;Image&gt;();</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <span class="comment">// Initializing sensing operator</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <span class="comment">// The operator is obtained by world root proc and split across the procs in split_comm</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  sopt::t_uint nmeasure = 0.33 * image.size();</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  <span class="keyword">auto</span> indices = world.is_root() ?</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                     world.broadcast(<a class="code" href="../../d9/d5f/classsopt_1_1Sampling.html">sopt::Sampling</a>(image.size(), nmeasure, *mersenne).indices()) :</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;                     world.broadcast&lt;std::vector&lt;t_uint&gt;&gt;();</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <span class="keywordflow">if</span>(split_comm.size() &gt; 1) {</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">auto</span> <span class="keyword">const</span> copy = indices;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">auto</span> <span class="keyword">const</span> N = indices.size() / split_comm.size()</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;                   + (split_comm.rank() &lt; indices.size() % split_comm.size() ? 1 : 0);</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">auto</span> <span class="keyword">const</span> start = split_comm.rank() * (indices.size() / split_comm.size())</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                       + std::min(indices.size() % split_comm.size(), split_comm.rank());</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    indices.resize(N);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    std::copy(copy.begin() + start, copy.begin() + N + start, indices.begin());</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  }</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> sampling = sopt::linear_transform&lt;Scalar&gt;(<a class="code" href="../../d9/d5f/classsopt_1_1Sampling.html">sopt::Sampling</a>(image.size(), indices));</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <span class="comment">// Initializing wavelets</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> wavelet = sopt::wavelets::factory(<span class="stringliteral">&quot;DB4&quot;</span>, 4);</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> psi = sopt::linear_transform&lt;Scalar&gt;(wavelet, image.rows(), image.cols());</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  <span class="comment">// Computing proximal-ADMM parameters</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  Vector <span class="keyword">const</span> y0 = sampling * Vector::Map(image.data(), image.size());</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  CHECK(y0.size() == indices.size());</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> snr = 30.0;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> sigma = y0.stableNorm() / std::sqrt(y0.size()) * std::pow(10.0, -(snr / 20.0));</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> epsilon = world.broadcast(std::sqrt(nmeasure + 2 * std::sqrt(y0.size())) * sigma);</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  <span class="comment">// Create dirty vector</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  std::normal_distribution&lt;&gt; gaussian_dist(0, sigma);</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  Vector y = world.is_root() ? y0 : world.broadcast&lt;Vector&gt;();</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  <span class="keywordflow">if</span>(world.is_root()) {</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordflow">for</span>(sopt::t_int i = 0; i &lt; y0.size(); i++)</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;      y(i) += gaussian_dist(*mersenne);</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    world.broadcast(y);</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  }</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  <span class="keywordflow">if</span>(split_comm.size() &gt; 1) {</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keyword">auto</span> <span class="keyword">const</span> N</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        = y.size() / split_comm.size() + (split_comm.rank() &lt; y.size() % split_comm.size() ? 1 : 0);</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keyword">auto</span> <span class="keyword">const</span> start = split_comm.rank() * (y.size() / split_comm.size())</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                       + std::min(y.size() % split_comm.size(), split_comm.rank());</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    y = y.segment(start, N).eval();</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  }</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  CHECK(y.size() == indices.size());</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  <span class="comment">// Creating proximal-ADMM Functor</span></div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;  <span class="keyword">auto</span> padmm = <a class="code" href="../../de/d53/classsopt_1_1algorithm_1_1ImagingProximalADMM.html">sopt::algorithm::ImagingProximalADMM&lt;Scalar&gt;</a>(y)</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                   .itermax(4)</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                   .gamma(1e-1)</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                   .relative_variation(5e-4)</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                   .<a class="code" href="../../de/d53/classsopt_1_1algorithm_1_1ImagingProximalADMM.html#af90cea9890b8380d68a775dd77d6147e">l2ball_proximal</a>(</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                       <a class="code" href="../../da/d4c/classsopt_1_1proximal_1_1WeightedL2Ball.html">sopt::proximal::WeightedL2Ball&lt;Scalar&gt;</a>(epsilon).communicator(split_comm))</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;                   .tight_frame(<span class="keyword">false</span>)</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;                   .l1_proximal_tolerance(1e-2)</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                   .l1_proximal_nu(1)</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                   .l1_proximal_itermax(50)</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;                   .l1_proximal_positivity_constraint(<span class="keyword">true</span>)</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;                   .l1_proximal_real_constraint(<span class="keyword">true</span>)</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                   .lagrange_update_scale(0.9)</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;                   .nu(1e0)</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                   .Psi(psi);</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;  <a class="code" href="../../d9/d6e/classsopt_1_1LinearTransform.html">LinearTransform&lt;Vector&gt;</a> <span class="keyword">const</span> parallel_sampling(</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;      [&amp;sampling](Vector &amp;out, Vector <span class="keyword">const</span> &amp;input) { out = sampling * input; }, sampling.sizes(),</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;      [&amp;sampling, split_comm](Vector &amp;out, Vector <span class="keyword">const</span> &amp;input) {</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        out = sampling.adjoint() * input;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        split_comm.all_sum_all(out);</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;      },</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;      sampling.adjoint().sizes());</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;  padmm.Phi(parallel_sampling);</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;  padmm.residual_convergence([&amp;padmm, split_comm, world](Vector <span class="keyword">const</span> &amp;,</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;                                                         Vector <span class="keyword">const</span> &amp;residual) <span class="keyword">mutable</span> -&gt; <span class="keywordtype">bool</span> {</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keyword">auto</span> <span class="keyword">const</span> residual_norm</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        = sopt::mpi::l2_norm(residual, padmm.l2ball_proximal_weights(), split_comm);</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    SOPT_LOW_LOG(<span class="stringliteral">&quot;    - [PADMM] Residuals: {} &lt;? {}&quot;</span>, residual_norm, padmm.residual_tolerance());</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    CHECK(residual_norm == Approx(world.broadcast(residual_norm, world.root_id())));</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keywordflow">return</span> residual_norm &lt; padmm.residual_tolerance();</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;  });</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;  <a class="code" href="../../d4/db0/classsopt_1_1ScalarRelativeVariation.html">sopt::ScalarRelativeVariation&lt;Scalar&gt;</a> conv(padmm.relative_variation(), padmm.relative_variation(),</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;                                             <span class="stringliteral">&quot;Objective function&quot;</span>);</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;  padmm.objective_convergence(</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;      [&amp;padmm, split_comm, conv, world](Vector <span class="keyword">const</span> &amp;x, Vector <span class="keyword">const</span> &amp;) <span class="keyword">mutable</span> -&gt; <span class="keywordtype">bool</span> {</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        <span class="keyword">auto</span> <span class="keyword">const</span> result = conv(sopt::mpi::l1_norm(padmm.Psi().adjoint() * x,</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;                                                    padmm.l1_proximal_weights(), split_comm));</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        CHECK(result == (world.broadcast&lt;<span class="keywordtype">int</span>&gt;(result, world.root_id()) != 0));</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        <span class="keywordflow">return</span> result;</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;      });</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;  padmm.is_converged([world](Vector <span class="keyword">const</span> &amp;image, Vector <span class="keyword">const</span> &amp;) -&gt; <span class="keywordtype">bool</span> {</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keyword">auto</span> <span class="keyword">const</span> from_root = world.broadcast(image);</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    CHECK(from_root.isApprox(image, 1e-12));</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;  });</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> diagnostic = padmm();</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;  CHECK(diagnostic.good == (world.broadcast&lt;<span class="keywordtype">int</span>&gt;(diagnostic.good, world.root_id()) != 0));</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;  CHECK(diagnostic.x.isApprox(world.broadcast(diagnostic.x)));</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;}</div>
-<div class="ttc" id="classsopt_1_1ScalarRelativeVariation_html"><div class="ttname"><a href="../../d4/db0/classsopt_1_1ScalarRelativeVariation.html">sopt::ScalarRelativeVariation</a></div><div class="ttdef"><b>Definition:</b> <a href="../../de/d90/relative__variation_8h_source.html#l00051">relative_variation.h:51</a></div></div>
-<div class="ttc" id="classsopt_1_1algorithm_1_1ImagingProximalADMM_html_af90cea9890b8380d68a775dd77d6147e"><div class="ttname"><a href="../../de/d53/classsopt_1_1algorithm_1_1ImagingProximalADMM.html#af90cea9890b8380d68a775dd77d6147e">sopt::algorithm::ImagingProximalADMM::l2ball_proximal</a></div><div class="ttdeci">proximal::WeightedL2Ball&lt; Scalar &gt; &amp; l2ball_proximal()</div><div class="ttdoc">Proximal of the L2 ball. </div><div class="ttdef"><b>Definition:</b> <a href="../../d5/d11/imaging__padmm_8h_source.html#l00175">imaging_padmm.h:175</a></div></div>
-<div class="ttc" id="classsopt_1_1Sampling_html"><div class="ttname"><a href="../../d9/d5f/classsopt_1_1Sampling.html">sopt::Sampling</a></div><div class="ttdoc">An operator that samples a set of measurements. </div><div class="ttdef"><b>Definition:</b> <a href="../../d1/da8/sampling_8h_source.html#l00017">sampling.h:17</a></div></div>
-<div class="ttc" id="classsopt_1_1proximal_1_1WeightedL2Ball_html"><div class="ttname"><a href="../../da/d4c/classsopt_1_1proximal_1_1WeightedL2Ball.html">sopt::proximal::WeightedL2Ball</a></div><div class="ttdef"><b>Definition:</b> <a href="../../d2/dee/proximal_8h_source.html#l00156">proximal.h:156</a></div></div>
-<div class="ttc" id="classsopt_1_1algorithm_1_1ImagingProximalADMM_html"><div class="ttname"><a href="../../de/d53/classsopt_1_1algorithm_1_1ImagingProximalADMM.html">sopt::algorithm::ImagingProximalADMM</a></div><div class="ttdef"><b>Definition:</b> <a href="../../d5/d11/imaging__padmm_8h_source.html#l00019">imaging_padmm.h:19</a></div></div>
-<div class="ttc" id="classsopt_1_1LinearTransform_html"><div class="ttname"><a href="../../d9/d6e/classsopt_1_1LinearTransform.html">sopt::LinearTransform</a></div><div class="ttdoc">Joins together direct and indirect operators. </div><div class="ttdef"><b>Definition:</b> <a href="../../d7/dd7/linear__transform_8h_source.html#l00026">linear_transform.h:26</a></div></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  <span class="keywordflow">if</span> (world.size() &lt; 2) <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  <span class="comment">// Some typedefs for simplicity</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  <span class="keyword">typedef</span> <span class="keywordtype">double</span> Scalar;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <span class="keyword">typedef</span> sopt::Vector&lt;Scalar&gt; Vector;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  <span class="keyword">typedef</span> sopt::Image&lt;Scalar&gt; Image;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  std::string <span class="keyword">const</span> input = <span class="stringliteral">&quot;cameraman256&quot;</span>;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="comment">// Read input file</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  Image <span class="keyword">const</span> image = world.is_root()</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                          ? world.broadcast(sopt::notinstalled::read_standard_tiff(input))</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                          : world.broadcast&lt;Image&gt;();</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <span class="comment">// Initializing sensing operator</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <span class="comment">// The operator is obtained by world root proc and split across the procs in split_comm</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  sopt::t_uint nmeasure = 0.33 * image.size();</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  <span class="keyword">auto</span> indices = world.is_root()</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                     ? world.broadcast(<a class="code" href="../../d9/d5f/classsopt_1_1Sampling.html">sopt::Sampling</a>(image.size(), nmeasure, *mersenne).indices())</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                     : world.broadcast&lt;std::vector&lt;t_uint&gt;&gt;();</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <span class="keywordflow">if</span> (split_comm.size() &gt; 1) {</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">auto</span> <span class="keyword">const</span> copy = indices;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">auto</span> <span class="keyword">const</span> N = indices.size() / split_comm.size() +</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                   (split_comm.rank() &lt; indices.size() % split_comm.size() ? 1 : 0);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keyword">auto</span> <span class="keyword">const</span> start = split_comm.rank() * (indices.size() / split_comm.size()) +</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                       std::min(indices.size() % split_comm.size(), split_comm.rank());</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    indices.resize(N);</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    std::copy(copy.begin() + start, copy.begin() + N + start, indices.begin());</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  }</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> sampling = sopt::linear_transform&lt;Scalar&gt;(<a class="code" href="../../d9/d5f/classsopt_1_1Sampling.html">sopt::Sampling</a>(image.size(), indices));</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  <span class="comment">// Initializing wavelets</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> wavelet = sopt::wavelets::factory(<span class="stringliteral">&quot;DB4&quot;</span>, 4);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> psi = sopt::linear_transform&lt;Scalar&gt;(wavelet, image.rows(), image.cols());</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  <span class="comment">// Computing proximal-ADMM parameters</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  Vector <span class="keyword">const</span> y0 = sampling * Vector::Map(image.data(), image.size());</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  CHECK(y0.size() == indices.size());</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> snr = 30.0;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> sigma = y0.stableNorm() / std::sqrt(y0.size()) * std::pow(10.0, -(snr / 20.0));</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> epsilon = world.broadcast(std::sqrt(nmeasure + 2 * std::sqrt(y0.size())) * sigma);</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  <span class="comment">// Create dirty vector</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  std::normal_distribution&lt;&gt; gaussian_dist(0, sigma);</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  Vector y = world.is_root() ? y0 : world.broadcast&lt;Vector&gt;();</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  <span class="keywordflow">if</span> (world.is_root()) {</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordflow">for</span> (sopt::t_int i = 0; i &lt; y0.size(); i++) y(i) += gaussian_dist(*mersenne);</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    world.broadcast(y);</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  }</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  <span class="keywordflow">if</span> (split_comm.size() &gt; 1) {</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keyword">auto</span> <span class="keyword">const</span> N =</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        y.size() / split_comm.size() + (split_comm.rank() &lt; y.size() % split_comm.size() ? 1 : 0);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keyword">auto</span> <span class="keyword">const</span> start = split_comm.rank() * (y.size() / split_comm.size()) +</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                       std::min(y.size() % split_comm.size(), split_comm.rank());</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    y = y.segment(start, N).eval();</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  }</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  CHECK(y.size() == indices.size());</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  <span class="comment">// Creating proximal-ADMM Functor</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  <span class="keyword">auto</span> padmm =</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;      <a class="code" href="../../de/d53/classsopt_1_1algorithm_1_1ImagingProximalADMM.html">sopt::algorithm::ImagingProximalADMM&lt;Scalar&gt;</a>(y)</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;          .itermax(4)</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;          .gamma(1e-1)</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;          .relative_variation(5e-4)</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;          .<a class="code" href="../../de/d53/classsopt_1_1algorithm_1_1ImagingProximalADMM.html#af90cea9890b8380d68a775dd77d6147e">l2ball_proximal</a>(<a class="code" href="../../da/d4c/classsopt_1_1proximal_1_1WeightedL2Ball.html">sopt::proximal::WeightedL2Ball&lt;Scalar&gt;</a>(epsilon).communicator(split_comm))</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;          .tight_frame(<span class="keyword">false</span>)</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;          .l1_proximal_tolerance(1e-2)</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;          .l1_proximal_nu(1)</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;          .l1_proximal_itermax(50)</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;          .l1_proximal_positivity_constraint(<span class="keyword">true</span>)</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;          .l1_proximal_real_constraint(<span class="keyword">true</span>)</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;          .lagrange_update_scale(0.9)</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;          .nu(1e0)</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;          .Psi(psi);</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;  <a class="code" href="../../d9/d6e/classsopt_1_1LinearTransform.html">LinearTransform&lt;Vector&gt;</a> <span class="keyword">const</span> parallel_sampling(</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;      [&amp;sampling](Vector &amp;out, Vector <span class="keyword">const</span> &amp;input) { out = sampling * input; }, sampling.sizes(),</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;      [&amp;sampling, split_comm](Vector &amp;out, Vector <span class="keyword">const</span> &amp;input) {</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        out = sampling.adjoint() * input;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        split_comm.all_sum_all(out);</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;      },</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;      sampling.adjoint().sizes());</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;  padmm.Phi(parallel_sampling);</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;  padmm.residual_convergence([&amp;padmm, split_comm, world](Vector <span class="keyword">const</span> &amp;,</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;                                                         Vector <span class="keyword">const</span> &amp;residual) <span class="keyword">mutable</span> -&gt; <span class="keywordtype">bool</span> {</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keyword">auto</span> <span class="keyword">const</span> residual_norm =</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        sopt::mpi::l2_norm(residual, padmm.l2ball_proximal_weights(), split_comm);</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    SOPT_LOW_LOG(<span class="stringliteral">&quot;    - [PADMM] Residuals: {} &lt;? {}&quot;</span>, residual_norm, padmm.residual_tolerance());</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    CHECK(residual_norm == Approx(world.broadcast(residual_norm, world.root_id())));</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keywordflow">return</span> residual_norm &lt; padmm.residual_tolerance();</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;  });</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;  <a class="code" href="../../d4/db0/classsopt_1_1ScalarRelativeVariation.html">sopt::ScalarRelativeVariation&lt;Scalar&gt;</a> conv(padmm.relative_variation(), padmm.relative_variation(),</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;                                             <span class="stringliteral">&quot;Objective function&quot;</span>);</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;  padmm.objective_convergence(</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;      [&amp;padmm, split_comm, conv, world](Vector <span class="keyword">const</span> &amp;x, Vector <span class="keyword">const</span> &amp;) <span class="keyword">mutable</span> -&gt; <span class="keywordtype">bool</span> {</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        <span class="keyword">auto</span> <span class="keyword">const</span> result = conv(</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;            sopt::mpi::l1_norm(padmm.Psi().adjoint() * x, padmm.l1_proximal_weights(), split_comm));</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        CHECK(result == (world.broadcast&lt;<span class="keywordtype">int</span>&gt;(result, world.root_id()) != 0));</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;      });</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;  padmm.is_converged([world](Vector <span class="keyword">const</span> &amp;image, Vector <span class="keyword">const</span> &amp;) -&gt; <span class="keywordtype">bool</span> {</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="keyword">auto</span> <span class="keyword">const</span> from_root = world.broadcast(image);</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    CHECK(from_root.isApprox(image, 1e-12));</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;  });</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> diagnostic = padmm();</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;  CHECK(diagnostic.good == (world.broadcast&lt;<span class="keywordtype">int</span>&gt;(diagnostic.good, world.root_id()) != 0));</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;  CHECK(diagnostic.x.isApprox(world.broadcast(diagnostic.x)));</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;}</div>
+<div class="ttc" id="classsopt_1_1ScalarRelativeVariation_html"><div class="ttname"><a href="../../d4/db0/classsopt_1_1ScalarRelativeVariation.html">sopt::ScalarRelativeVariation</a></div><div class="ttdef"><b>Definition:</b> <a href="../../de/d90/relative__variation_8h_source.html#l00055">relative_variation.h:55</a></div></div>
+<div class="ttc" id="classsopt_1_1algorithm_1_1ImagingProximalADMM_html_af90cea9890b8380d68a775dd77d6147e"><div class="ttname"><a href="../../de/d53/classsopt_1_1algorithm_1_1ImagingProximalADMM.html#af90cea9890b8380d68a775dd77d6147e">sopt::algorithm::ImagingProximalADMM::l2ball_proximal</a></div><div class="ttdeci">proximal::WeightedL2Ball&lt; Scalar &gt; &amp; l2ball_proximal()</div><div class="ttdoc">Proximal of the L2 ball. </div><div class="ttdef"><b>Definition:</b> <a href="../../d5/d11/imaging__padmm_8h_source.html#l00185">imaging_padmm.h:185</a></div></div>
+<div class="ttc" id="classsopt_1_1Sampling_html"><div class="ttname"><a href="../../d9/d5f/classsopt_1_1Sampling.html">sopt::Sampling</a></div><div class="ttdoc">An operator that samples a set of measurements. </div><div class="ttdef"><b>Definition:</b> <a href="../../d1/da8/sampling_8h_source.html#l00016">sampling.h:16</a></div></div>
+<div class="ttc" id="classsopt_1_1proximal_1_1WeightedL2Ball_html"><div class="ttname"><a href="../../da/d4c/classsopt_1_1proximal_1_1WeightedL2Ball.html">sopt::proximal::WeightedL2Ball</a></div><div class="ttdef"><b>Definition:</b> <a href="../../d2/dee/proximal_8h_source.html#l00158">proximal.h:158</a></div></div>
+<div class="ttc" id="classsopt_1_1algorithm_1_1ImagingProximalADMM_html"><div class="ttname"><a href="../../de/d53/classsopt_1_1algorithm_1_1ImagingProximalADMM.html">sopt::algorithm::ImagingProximalADMM</a></div><div class="ttdef"><b>Definition:</b> <a href="../../d5/d11/imaging__padmm_8h_source.html#l00020">imaging_padmm.h:20</a></div></div>
+<div class="ttc" id="classsopt_1_1LinearTransform_html"><div class="ttname"><a href="../../d9/d6e/classsopt_1_1LinearTransform.html">sopt::LinearTransform</a></div><div class="ttdoc">Joins together direct and indirect operators. </div><div class="ttdef"><b>Definition:</b> <a href="../../d7/dd7/linear__transform_8h_source.html#l00029">linear_transform.h:29</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

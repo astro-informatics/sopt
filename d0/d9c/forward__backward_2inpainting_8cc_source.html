@@ -132,13 +132,13 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'Search');
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  std::string <span class="keyword">const</span> input = argc &gt;= 2 ? argv[1] : <span class="stringliteral">&quot;cameraman256&quot;</span>;</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  std::string <span class="keyword">const</span> output = argc == 3 ? argv[2] : <span class="stringliteral">&quot;none&quot;</span>;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <span class="keywordflow">if</span>(argc &gt; 3) {</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <span class="keywordflow">if</span> (argc &gt; 3) {</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    std::cout &lt;&lt; <span class="stringliteral">&quot;Usage:\n&quot;</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;      <span class="stringliteral">&quot;$ &quot;</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;      &lt;&lt; argv[0]</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;      &lt;&lt; <span class="stringliteral">&quot; [input [output]]\n\n&quot;</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;      <span class="stringliteral">&quot;- input: path to the image to clean (or name of standard SOPT image)\n&quot;</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;      <span class="stringliteral">&quot;- output: filename pattern for output image\n&quot;</span>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;                 <span class="stringliteral">&quot;$ &quot;</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;              &lt;&lt; argv[0]</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;              &lt;&lt; <span class="stringliteral">&quot; [input [output]]\n\n&quot;</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                 <span class="stringliteral">&quot;- input: path to the image to clean (or name of standard SOPT image)\n&quot;</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                 <span class="stringliteral">&quot;- output: filename pattern for output image\n&quot;</span>;</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    exit(0);</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  }</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <span class="comment">// Set up random numbers for C and C++</span></div>
@@ -156,14 +156,14 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'Search');
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  SOPT_HIGH_LOG(<span class="stringliteral">&quot;Initializing sensing operator&quot;</span>);</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  sopt::t_uint nmeasure = std::floor(0.33 * image.size());</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  <a class="code" href="../../d9/d6e/classsopt_1_1LinearTransform.html">sopt::LinearTransform&lt;Vector&gt;</a> <span class="keyword">const</span> sampling</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    = sopt::linear_transform&lt;Scalar&gt;(<a class="code" href="../../d9/d5f/classsopt_1_1Sampling.html">sopt::Sampling</a>(image.size(), nmeasure, mersenne));</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  <a class="code" href="../../d9/d6e/classsopt_1_1LinearTransform.html">sopt::LinearTransform&lt;Vector&gt;</a> <span class="keyword">const</span> sampling =</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;      sopt::linear_transform&lt;Scalar&gt;(<a class="code" href="../../d9/d5f/classsopt_1_1Sampling.html">sopt::Sampling</a>(image.size(), nmeasure, mersenne));</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  <span class="keyword">auto</span> phiTphi = [=](Vector &amp;out, <span class="keyword">const</span> Vector &amp;in) { out = sampling.adjoint() * (sampling * in); };</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  SOPT_HIGH_LOG(<span class="stringliteral">&quot;Initializing wavelets&quot;</span>);</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  <span class="comment">// auto const wavelet = sopt::wavelets::factory(&quot;DB4&quot;, 4);</span></div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  <a class="code" href="../../d5/d79/classsopt_1_1wavelets_1_1SARA.html">sopt::wavelets::SARA</a> <span class="keyword">const</span> wavelet{std::make_tuple(<span class="stringliteral">&quot;db1&quot;</span>, 4u), std::make_tuple(<span class="stringliteral">&quot;db2&quot;</span>, 4u),</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    std::make_tuple(<span class="stringliteral">&quot;db3&quot;</span>, 4u), std::make_tuple(<span class="stringliteral">&quot;db4&quot;</span>, 4u)};</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                                     std::make_tuple(<span class="stringliteral">&quot;db3&quot;</span>, 4u), std::make_tuple(<span class="stringliteral">&quot;db4&quot;</span>, 4u)};</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> psi = sopt::linear_transform&lt;Scalar&gt;(wavelet, image.rows(), image.cols());</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  SOPT_LOW_LOG(<span class="stringliteral">&quot;Wavelet coefficients: {}&quot;</span>, (psi.adjoint() * image).size());</div>
@@ -177,56 +177,54 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'Search');
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  SOPT_HIGH_LOG(<span class="stringliteral">&quot;Create dirty vector&quot;</span>);</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  std::normal_distribution&lt;&gt; gaussian_dist(0, sigma);</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  Vector y(y0.size());</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  <span class="keywordflow">for</span>(sopt::t_int i = 0; i &lt; y0.size(); i++)</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    y(i) = y0(i) + gaussian_dist(mersenne);</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  <span class="comment">// Write dirty imagte to file</span></div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  <span class="keywordflow">if</span>(output != <span class="stringliteral">&quot;none&quot;</span>) {</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    Vector <span class="keyword">const</span> dirty = sampling.adjoint() * y;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    sopt::utilities::write_tiff(Matrix::Map(dirty.data(), image.rows(), image.cols()),</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <span class="stringliteral">&quot;dirty_&quot;</span> + output + <span class="stringliteral">&quot;.tiff&quot;</span>);</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;  }</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  SOPT_HIGH_LOG(<span class="stringliteral">&quot;Creating Foward Backward Functor&quot;</span>);</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> fb = <a class="code" href="../../d5/da7/classsopt_1_1algorithm_1_1ImagingForwardBackward.html">sopt::algorithm::ImagingForwardBackward&lt;Scalar&gt;</a>(sampling.adjoint() * y)</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    .itermax(500)</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    .beta(1)</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    .sigma(1.)</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    .mu(0.01)</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    .relative_variation(5e-4)</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    .residual_tolerance(0)</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    .tight_frame(<span class="keyword">false</span>)</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    .l1_proximal_tolerance(1e-4)</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    .l1_proximal_nu(1)</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    .l1_proximal_itermax(50)</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    .l1_proximal_positivity_constraint(<span class="keyword">true</span>)</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    .l1_proximal_real_constraint(<span class="keyword">true</span>)</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    .<a class="code" href="../../d5/da7/classsopt_1_1algorithm_1_1ImagingForwardBackward.html#a6048af3b031a05ff921823bdc61f1655">Psi</a>(psi)</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    .PhiTPhi(phiTphi);</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;  SOPT_HIGH_LOG(<span class="stringliteral">&quot;Starting Forward Backward&quot;</span>);</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;  <span class="comment">// Alternatively, forward-backward can be called with a tuple (x, residual) as argument</span></div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;  <span class="comment">// Here, we default to (Φ^Ty/ν, ΦΦ^Ty/ν - y)</span></div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> diagnostic = fb();</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;  SOPT_HIGH_LOG(<span class="stringliteral">&quot;Forward backward returned {}&quot;</span>, diagnostic.good);</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;  <span class="keywordflow">if</span>(output != <span class="stringliteral">&quot;none&quot;</span>)</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    sopt::utilities::write_tiff(Matrix::Map(diagnostic.x.data(), image.rows(), image.cols()),</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        output + <span class="stringliteral">&quot;.tiff&quot;</span>);</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;  <span class="comment">// diagnostic should tell us the function converged</span></div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;  <span class="comment">// it also contains diagnostic.niters - the number of iterations, and cg_diagnostic - the</span></div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;  <span class="comment">// diagnostic from the last call to the conjugate gradient.</span></div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;  <span class="keywordflow">if</span>(not diagnostic.good)</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Did not converge!&quot;</span>);</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  <span class="keywordflow">for</span> (sopt::t_int i = 0; i &lt; y0.size(); i++) y(i) = y0(i) + gaussian_dist(mersenne);</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  <span class="comment">// Write dirty imagte to file</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  <span class="keywordflow">if</span> (output != <span class="stringliteral">&quot;none&quot;</span>) {</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    Vector <span class="keyword">const</span> dirty = sampling.adjoint() * y;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    sopt::utilities::write_tiff(Matrix::Map(dirty.data(), image.rows(), image.cols()),</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                                <span class="stringliteral">&quot;dirty_&quot;</span> + output + <span class="stringliteral">&quot;.tiff&quot;</span>);</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;  }</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  SOPT_HIGH_LOG(<span class="stringliteral">&quot;Creating Foward Backward Functor&quot;</span>);</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> fb = <a class="code" href="../../d5/da7/classsopt_1_1algorithm_1_1ImagingForwardBackward.html">sopt::algorithm::ImagingForwardBackward&lt;Scalar&gt;</a>(sampling.adjoint() * y)</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                      .itermax(500)</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;                      .beta(1)</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;                      .sigma(1.)</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                      .mu(0.01)</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                      .relative_variation(5e-4)</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;                      .residual_tolerance(0)</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;                      .tight_frame(<span class="keyword">false</span>)</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                      .l1_proximal_tolerance(1e-4)</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;                      .l1_proximal_nu(1)</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                      .l1_proximal_itermax(50)</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;                      .l1_proximal_positivity_constraint(<span class="keyword">true</span>)</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;                      .l1_proximal_real_constraint(<span class="keyword">true</span>)</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;                      .<a class="code" href="../../d5/da7/classsopt_1_1algorithm_1_1ImagingForwardBackward.html#a6048af3b031a05ff921823bdc61f1655">Psi</a>(psi)</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;                      .PhiTPhi(phiTphi);</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;  SOPT_HIGH_LOG(<span class="stringliteral">&quot;Starting Forward Backward&quot;</span>);</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;  <span class="comment">// Alternatively, forward-backward can be called with a tuple (x, residual) as argument</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;  <span class="comment">// Here, we default to (Φ^Ty/ν, ΦΦ^Ty/ν - y)</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> diagnostic = fb();</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;  SOPT_HIGH_LOG(<span class="stringliteral">&quot;Forward backward returned {}&quot;</span>, diagnostic.good);</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;  <span class="keywordflow">if</span> (output != <span class="stringliteral">&quot;none&quot;</span>)</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    sopt::utilities::write_tiff(Matrix::Map(diagnostic.x.data(), image.rows(), image.cols()),</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;                                output + <span class="stringliteral">&quot;.tiff&quot;</span>);</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;  <span class="comment">// diagnostic should tell us the function converged</span></div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;  <span class="comment">// it also contains diagnostic.niters - the number of iterations, and cg_diagnostic - the</span></div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;  <span class="comment">// diagnostic from the last call to the conjugate gradient.</span></div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;  <span class="keywordflow">if</span> (not diagnostic.good) <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Did not converge!&quot;</span>);</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;  SOPT_HIGH_LOG(<span class="stringliteral">&quot;SOPT-Forward Backward converged in {} iterations&quot;</span>, diagnostic.niters);</div>
 <div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;  SOPT_HIGH_LOG(<span class="stringliteral">&quot;SOPT-Forward Backward converged in {} iterations&quot;</span>, diagnostic.niters);</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;  <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;}</div>
-<div class="ttc" id="classsopt_1_1algorithm_1_1ImagingForwardBackward_html_a6048af3b031a05ff921823bdc61f1655"><div class="ttname"><a href="../../d5/da7/classsopt_1_1algorithm_1_1ImagingForwardBackward.html#a6048af3b031a05ff921823bdc61f1655">sopt::algorithm::ImagingForwardBackward::Psi</a></div><div class="ttdeci">t_LinearTransform const &amp; Psi() const </div><div class="ttdoc">Analysis operator Ψ </div><div class="ttdef"><b>Definition:</b> <a href="../../db/d05/imaging__forward__backward_8h_source.html#l00168">imaging_forward_backward.h:168</a></div></div>
-<div class="ttc" id="classsopt_1_1Sampling_html"><div class="ttname"><a href="../../d9/d5f/classsopt_1_1Sampling.html">sopt::Sampling</a></div><div class="ttdoc">An operator that samples a set of measurements. </div><div class="ttdef"><b>Definition:</b> <a href="../../d1/da8/sampling_8h_source.html#l00017">sampling.h:17</a></div></div>
-<div class="ttc" id="classsopt_1_1LinearTransform_html"><div class="ttname"><a href="../../d9/d6e/classsopt_1_1LinearTransform.html">sopt::LinearTransform</a></div><div class="ttdoc">Joins together direct and indirect operators. </div><div class="ttdef"><b>Definition:</b> <a href="../../d7/dd7/linear__transform_8h_source.html#l00026">linear_transform.h:26</a></div></div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;  <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;}</div>
+<div class="ttc" id="classsopt_1_1algorithm_1_1ImagingForwardBackward_html_a6048af3b031a05ff921823bdc61f1655"><div class="ttname"><a href="../../d5/da7/classsopt_1_1algorithm_1_1ImagingForwardBackward.html#a6048af3b031a05ff921823bdc61f1655">sopt::algorithm::ImagingForwardBackward::Psi</a></div><div class="ttdeci">t_LinearTransform const &amp; Psi() const </div><div class="ttdoc">Analysis operator Ψ </div><div class="ttdef"><b>Definition:</b> <a href="../../db/d05/imaging__forward__backward_8h_source.html#l00177">imaging_forward_backward.h:177</a></div></div>
+<div class="ttc" id="classsopt_1_1Sampling_html"><div class="ttname"><a href="../../d9/d5f/classsopt_1_1Sampling.html">sopt::Sampling</a></div><div class="ttdoc">An operator that samples a set of measurements. </div><div class="ttdef"><b>Definition:</b> <a href="../../d1/da8/sampling_8h_source.html#l00016">sampling.h:16</a></div></div>
+<div class="ttc" id="classsopt_1_1LinearTransform_html"><div class="ttname"><a href="../../d9/d6e/classsopt_1_1LinearTransform.html">sopt::LinearTransform</a></div><div class="ttdoc">Joins together direct and indirect operators. </div><div class="ttdef"><b>Definition:</b> <a href="../../d7/dd7/linear__transform_8h_source.html#l00029">linear_transform.h:29</a></div></div>
 <div class="ttc" id="classsopt_1_1wavelets_1_1SARA_html"><div class="ttname"><a href="../../d5/d79/classsopt_1_1wavelets_1_1SARA.html">sopt::wavelets::SARA</a></div><div class="ttdoc">Sparsity Averaging Reweighted Analysis. </div><div class="ttdef"><b>Definition:</b> <a href="../../d0/d20/sara_8h_source.html#l00022">sara.h:22</a></div></div>
-<div class="ttc" id="classsopt_1_1algorithm_1_1ImagingForwardBackward_html"><div class="ttname"><a href="../../d5/da7/classsopt_1_1algorithm_1_1ImagingForwardBackward.html">sopt::algorithm::ImagingForwardBackward</a></div><div class="ttdef"><b>Definition:</b> <a href="../../db/d05/imaging__forward__backward_8h_source.html#l00020">imaging_forward_backward.h:20</a></div></div>
+<div class="ttc" id="classsopt_1_1algorithm_1_1ImagingForwardBackward_html"><div class="ttname"><a href="../../d5/da7/classsopt_1_1algorithm_1_1ImagingForwardBackward.html">sopt::algorithm::ImagingForwardBackward</a></div><div class="ttdef"><b>Definition:</b> <a href="../../db/d05/imaging__forward__backward_8h_source.html#l00021">imaging_forward_backward.h:21</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

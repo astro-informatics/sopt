@@ -100,24 +100,22 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'Search');
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;sopt/types.h&gt;</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keywordtype">int</span> main(<span class="keywordtype">int</span>, <span class="keywordtype">char</span> <span class="keyword">const</span> **) {</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;  <span class="comment">// Create a matrix with a single negative real numbers</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;  <span class="keyword">typedef</span> sopt::Image&lt;std::complex&lt;int&gt;&gt; t_Matrix;</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;  t_Matrix input = 2 * t_Matrix::Ones(5, 5) + t_Matrix::Random(5, 5);</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;  <span class="comment">// Apply projection</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;  t_Matrix posquad = sopt::positive_quadrant(input);</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;  <span class="comment">// imaginary part and negative real part becomes zero</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;  <span class="keywordflow">if</span>((posquad.array().imag() != 0).any())</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Imaginary part not zero&quot;</span>);</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;  <span class="comment">// positive real part unchanged</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;  posquad.real()(2, 3) = input.real()(2, 3);</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;  <span class="keywordflow">if</span>((posquad.array().real() != input.array().real()).all())</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Real part was modified&quot;</span>);</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;}</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;  <span class="comment">// Create a matrix with a single negative real numbers</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;  <span class="keyword">typedef</span> sopt::Image&lt;std::complex&lt;int&gt;&gt; t_Matrix;</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;  t_Matrix input = 2 * t_Matrix::Ones(5, 5) + t_Matrix::Random(5, 5);</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;  <span class="comment">// Apply projection</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;  t_Matrix posquad = sopt::positive_quadrant(input);</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;  <span class="comment">// imaginary part and negative real part becomes zero</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;  <span class="keywordflow">if</span> ((posquad.array().imag() != 0).any()) <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Imaginary part not zero&quot;</span>);</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;  <span class="comment">// positive real part unchanged</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;  posquad.real()(2, 3) = input.real()(2, 3);</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;  <span class="keywordflow">if</span> ((posquad.array().real() != input.array().real()).all())</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Real part was modified&quot;</span>);</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

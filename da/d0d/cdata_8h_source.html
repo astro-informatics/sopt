@@ -105,32 +105,35 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'Search');
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>sopt {</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">// Wraps calls to sampling and wavelets to C style</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="../../df/d7d/structsopt_1_1CData.html">   10</a></span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt; <span class="keyword">struct </span><a class="code" href="../../df/d7d/structsopt_1_1CData.html">CData</a> {</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;  <span class="keyword">typedef</span> Eigen::Matrix&lt;T, Eigen::Dynamic, 1&gt; t_Vector;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;  <span class="keyword">typename</span> t_Vector::Index nin, nout;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;  <a class="code" href="../../d9/d6e/classsopt_1_1LinearTransform.html">sopt::LinearTransform&lt;t_Vector&gt;</a> <span class="keyword">const</span> &amp;transform;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;  t_uint direct_calls, adjoint_calls;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;};</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt; <span class="keywordtype">void</span> direct_transform(<span class="keywordtype">void</span> *out, <span class="keywordtype">void</span> *in, <span class="keywordtype">void</span> **data) {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;  <a class="code" href="../../df/d7d/structsopt_1_1CData.html">CData&lt;T&gt;</a> <span class="keyword">const</span> &amp;cdata = *(<a class="code" href="../../df/d7d/structsopt_1_1CData.html">CData&lt;T&gt;</a> *)data;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  <span class="keyword">typedef</span> Eigen::Matrix&lt;T, Eigen::Dynamic, 1&gt; t_Vector;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;  t_Vector <span class="keyword">const</span> eval = cdata.transform * t_Vector::Map((T *)in, cdata.nin);</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  ++(((<a class="code" href="../../df/d7d/structsopt_1_1CData.html">CData&lt;T&gt;</a> *)data)-&gt;direct_calls);</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  t_Vector::Map((T *)out, cdata.nout) = eval;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;}</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt; <span class="keywordtype">void</span> adjoint_transform(<span class="keywordtype">void</span> *out, <span class="keywordtype">void</span> *in, <span class="keywordtype">void</span> **data) {</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  CData&lt;T&gt; <span class="keyword">const</span> &amp;cdata = *(CData&lt;T&gt; *)data;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  <span class="keyword">typedef</span> Eigen::Matrix&lt;T, Eigen::Dynamic, 1&gt; t_Vector;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  t_Vector <span class="keyword">const</span> eval = cdata.transform.<a class="code" href="../../d9/d6e/classsopt_1_1LinearTransform.html#a1dce547d46b42698ff7594026dcec292">adjoint</a>() * t_Vector::Map((T *)in, cdata.nout);</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  ++(((CData&lt;T&gt; *)data)-&gt;adjoint_calls);</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  t_Vector::Map((T *)out, cdata.nin) = eval;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;}</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;} <span class="comment">/* sopt */</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="structsopt_1_1CData_html"><div class="ttname"><a href="../../df/d7d/structsopt_1_1CData.html">sopt::CData</a></div><div class="ttdef"><b>Definition:</b> <a href="../../da/d0d/cdata_8h_source.html#l00010">cdata.h:10</a></div></div>
-<div class="ttc" id="classsopt_1_1LinearTransform_html_a1dce547d46b42698ff7594026dcec292"><div class="ttname"><a href="../../d9/d6e/classsopt_1_1LinearTransform.html#a1dce547d46b42698ff7594026dcec292">sopt::LinearTransform::adjoint</a></div><div class="ttdeci">LinearTransform&lt; VECTOR &gt; adjoint() const </div><div class="ttdoc">Indirect transform. </div><div class="ttdef"><b>Definition:</b> <a href="../../d7/dd7/linear__transform_8h_source.html#l00075">linear_transform.h:75</a></div></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="../../df/d7d/structsopt_1_1CData.html">   11</a></span>&#160;<span class="keyword">struct </span><a class="code" href="../../df/d7d/structsopt_1_1CData.html">CData</a> {</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;  <span class="keyword">typedef</span> Eigen::Matrix&lt;T, Eigen::Dynamic, 1&gt; t_Vector;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;  <span class="keyword">typename</span> t_Vector::Index nin, nout;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;  <a class="code" href="../../d9/d6e/classsopt_1_1LinearTransform.html">sopt::LinearTransform&lt;t_Vector&gt;</a> <span class="keyword">const</span> &amp;transform;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;  t_uint direct_calls, adjoint_calls;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;};</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keywordtype">void</span> direct_transform(<span class="keywordtype">void</span> *out, <span class="keywordtype">void</span> *in, <span class="keywordtype">void</span> **data) {</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;  <a class="code" href="../../df/d7d/structsopt_1_1CData.html">CData&lt;T&gt;</a> <span class="keyword">const</span> &amp;cdata = *(<a class="code" href="../../df/d7d/structsopt_1_1CData.html">CData&lt;T&gt;</a> *)data;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  <span class="keyword">typedef</span> Eigen::Matrix&lt;T, Eigen::Dynamic, 1&gt; t_Vector;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  t_Vector <span class="keyword">const</span> eval = cdata.transform * t_Vector::Map((T *)in, cdata.nin);</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  ++(((<a class="code" href="../../df/d7d/structsopt_1_1CData.html">CData&lt;T&gt;</a> *)data)-&gt;direct_calls);</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  t_Vector::Map((T *)out, cdata.nout) = eval;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;}</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keywordtype">void</span> adjoint_transform(<span class="keywordtype">void</span> *out, <span class="keywordtype">void</span> *in, <span class="keywordtype">void</span> **data) {</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  CData&lt;T&gt; <span class="keyword">const</span> &amp;cdata = *(CData&lt;T&gt; *)data;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  <span class="keyword">typedef</span> Eigen::Matrix&lt;T, Eigen::Dynamic, 1&gt; t_Vector;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  t_Vector <span class="keyword">const</span> eval = cdata.transform.<a class="code" href="../../d9/d6e/classsopt_1_1LinearTransform.html#a1dce547d46b42698ff7594026dcec292">adjoint</a>() * t_Vector::Map((T *)in, cdata.nout);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  ++(((CData&lt;T&gt; *)data)-&gt;adjoint_calls);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  t_Vector::Map((T *)out, cdata.nin) = eval;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;}</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;}  <span class="comment">// namespace sopt</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="structsopt_1_1CData_html"><div class="ttname"><a href="../../df/d7d/structsopt_1_1CData.html">sopt::CData</a></div><div class="ttdef"><b>Definition:</b> <a href="../../da/d0d/cdata_8h_source.html#l00011">cdata.h:11</a></div></div>
+<div class="ttc" id="classsopt_1_1LinearTransform_html_a1dce547d46b42698ff7594026dcec292"><div class="ttname"><a href="../../d9/d6e/classsopt_1_1LinearTransform.html#a1dce547d46b42698ff7594026dcec292">sopt::LinearTransform::adjoint</a></div><div class="ttdeci">LinearTransform&lt; VECTOR &gt; adjoint() const </div><div class="ttdoc">Indirect transform. </div><div class="ttdef"><b>Definition:</b> <a href="../../d7/dd7/linear__transform_8h_source.html#l00078">linear_transform.h:78</a></div></div>
 <div class="ttc" id="classsopt_1_1LinearTransform_html"><div class="ttname"><a href="../../d9/d6e/classsopt_1_1LinearTransform.html">sopt::LinearTransform&lt; t_Vector &gt;</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

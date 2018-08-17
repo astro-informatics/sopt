@@ -112,20 +112,24 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'Search');
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">typedef</span> <span class="keywordtype">double</span> t_real;</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">typedef</span> std::complex&lt;t_real&gt; t_complex;</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T = t_real&gt; <span class="keyword">using</span> Vector = Eigen::Matrix&lt;T, Eigen::Dynamic, 1&gt;;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T = t_real&gt; <span class="keyword">using</span> Matrix = Eigen::Matrix&lt;T, Eigen::Dynamic, Eigen::Dynamic&gt;;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T = t_real&gt; <span class="keyword">using</span> Array = Eigen::Array&lt;T, Eigen::Dynamic, 1&gt;;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T = t_real&gt; <span class="keyword">using</span> Image = Eigen::Array&lt;T, Eigen::Dynamic, Eigen::Dynamic&gt;;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> VECTOR = Vector&lt;&gt;&gt;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">using</span> OperatorFunction = std::function&lt;void(VECTOR &amp;, VECTOR const &amp;)&gt;;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> SCALAR = t_real&gt;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keyword">using</span> ProximalFunction = std::function&lt;void(Vector&lt;SCALAR&gt; &amp;, <span class="keyword">typename</span> real_type&lt;SCALAR&gt;::type,</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;                                            Vector&lt;SCALAR&gt; <span class="keyword">const</span> &amp;)&gt;;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T = t_real&gt;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">using</span> Vector = Eigen::Matrix&lt;T, Eigen::Dynamic, 1&gt;;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T = t_real&gt;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">using</span> Matrix = Eigen::Matrix&lt;T, Eigen::Dynamic, Eigen::Dynamic&gt;;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T = t_real&gt;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">using</span> Array = Eigen::Array&lt;T, Eigen::Dynamic, 1&gt;;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T = t_real&gt;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">using</span> Image = Eigen::Array&lt;T, Eigen::Dynamic, Eigen::Dynamic&gt;;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> VECTOR = Vector&lt;&gt;&gt;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keyword">using</span> OperatorFunction = std::function&lt;void(VECTOR &amp;, VECTOR const &amp;)&gt;;</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> SCALAR = t_real&gt;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keyword">using</span> ConvergenceFunction = std::function&lt;bool(Vector&lt;SCALAR&gt; <span class="keyword">const</span> &amp;)&gt;;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;}</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keyword">using</span> ProximalFunction =</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    std::function&lt;void(Vector&lt;SCALAR&gt; &amp;, <span class="keyword">typename</span> real_type&lt;SCALAR&gt;::type, Vector&lt;SCALAR&gt; <span class="keyword">const</span> &amp;)&gt;;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> SCALAR = t_real&gt;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="keyword">using</span> ConvergenceFunction = std::function&lt;bool(Vector&lt;SCALAR&gt; <span class="keyword">const</span> &amp;)&gt;;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;}  <span class="comment">// namespace sopt</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

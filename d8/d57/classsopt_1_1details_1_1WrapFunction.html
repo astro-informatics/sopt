@@ -183,7 +183,7 @@ class sopt::details::WrapFunction&lt; VECTOR &gt;</h3>
 <p>Wraps an std::function to return an expression. </p>
 <p>This makes writing the application of a function more beautiful on the eye. A function call <code>func(output, input)</code> can be made to look like <code>output = func(input)</code> or <code>output = func * input</code>. </p>
 
-<p>Definition at line <a class="el" href="../../da/df1/wrapper_8h_source.html#l00042">42</a> of file <a class="el" href="../../da/df1/wrapper_8h_source.html">wrapper.h</a>.</p>
+<p>Definition at line <a class="el" href="../../da/df1/wrapper_8h_source.html#l00046">46</a> of file <a class="el" href="../../da/df1/wrapper_8h_source.html">wrapper.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a260cef6252937e7fbd40f8ee987d81d7"></a>
 <div class="memitem">
@@ -227,13 +227,13 @@ template&lt;class VECTOR&gt; </div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="../../da/df1/wrapper_8h_source.html#l00052">52</a> of file <a class="el" href="../../da/df1/wrapper_8h_source.html">wrapper.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                                                                  {{1, 1, 0}})</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;      : func(func), sizes_(<a class="code" href="../../d8/d57/classsopt_1_1details_1_1WrapFunction.html#aaa8fc6cd419288a4ab511d28eafb0d7d">sizes</a>) {</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="comment">// cannot devide by zero</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    assert(sizes_[1] != 0);</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  }</div>
-<div class="ttc" id="classsopt_1_1details_1_1WrapFunction_html_aaa8fc6cd419288a4ab511d28eafb0d7d"><div class="ttname"><a href="../../d8/d57/classsopt_1_1details_1_1WrapFunction.html#aaa8fc6cd419288a4ab511d28eafb0d7d">sopt::details::WrapFunction::sizes</a></div><div class="ttdeci">std::array&lt; t_int, 3 &gt; const &amp; sizes() const </div><div class="ttdoc">Defines relation-ship between input and output sizes. </div><div class="ttdef"><b>Definition:</b> <a href="../../da/df1/wrapper_8h_source.html#l00102">wrapper.h:102</a></div></div>
+<p>Definition at line <a class="el" href="../../da/df1/wrapper_8h_source.html#l00056">56</a> of file <a class="el" href="../../da/df1/wrapper_8h_source.html">wrapper.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                                                                  {{1, 1, 0}})</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      : func(func), sizes_(<a class="code" href="../../d8/d57/classsopt_1_1details_1_1WrapFunction.html#aaa8fc6cd419288a4ab511d28eafb0d7d">sizes</a>) {</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="comment">// cannot devide by zero</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    assert(sizes_[1] != 0);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  }</div>
+<div class="ttc" id="classsopt_1_1details_1_1WrapFunction_html_aaa8fc6cd419288a4ab511d28eafb0d7d"><div class="ttname"><a href="../../d8/d57/classsopt_1_1details_1_1WrapFunction.html#aaa8fc6cd419288a4ab511d28eafb0d7d">sopt::details::WrapFunction::sizes</a></div><div class="ttdeci">std::array&lt; t_int, 3 &gt; const &amp; sizes() const </div><div class="ttdoc">Defines relation-ship between input and output sizes. </div><div class="ttdef"><b>Definition:</b> <a href="../../da/df1/wrapper_8h_source.html#l00106">wrapper.h:106</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -264,8 +264,8 @@ template&lt;class VECTOR&gt; </div>
 <p>Defines relation-ship between input and output sizes. </p>
 <p>An integer tuple (a, b, c) where, if N is the size of the input, then \((N * a) / b + c\) is the output. \(b\) cannot be zero. In the simplest case where this objects wraps a square matrix, then the sizes are (1, 1, 0). If this objects wraps a rectangular matrix which halves the number of elements, then the sizes would be (1, 2, 0). </p>
 
-<p>Definition at line <a class="el" href="../../da/df1/wrapper_8h_source.html#l00102">102</a> of file <a class="el" href="../../da/df1/wrapper_8h_source.html">wrapper.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;{ <span class="keywordflow">return</span> sizes_; }</div>
+<p>Definition at line <a class="el" href="../../da/df1/wrapper_8h_source.html#l00106">106</a> of file <a class="el" href="../../da/df1/wrapper_8h_source.html">wrapper.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;{ <span class="keywordflow">return</span> sizes_; }</div>
 </div><!-- fragment -->
 </div>
 </div>

@@ -100,20 +100,20 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'Search');
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define SOPT_SAMPLING_H</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;sopt/config.h&quot;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;sopt/config.h&quot;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;initializer_list&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;random&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;Eigen/Core&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;sopt/linear_transform.h&quot;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;sopt/types.h&quot;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>sopt {</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="../../d9/d5f/classsopt_1_1Sampling.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="../../d9/d5f/classsopt_1_1Sampling.html">Sampling</a> {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="../../d9/d5f/classsopt_1_1Sampling.html#a09becc036c4d93d2d3c17bb09c76581f">   20</a></span>&#160;  <a class="code" href="../../d9/d5f/classsopt_1_1Sampling.html#a09becc036c4d93d2d3c17bb09c76581f">Sampling</a>(t_uint size, std::vector&lt;t_uint&gt; <span class="keyword">const</span> &amp;<a class="code" href="../../d9/d5f/classsopt_1_1Sampling.html#a85b2e357b3a1733a61e558a74be84650">indices</a>) : indices_(indices), size(size) {}</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">class</span> RNG&gt; <a class="code" href="../../d9/d5f/classsopt_1_1Sampling.html#a09becc036c4d93d2d3c17bb09c76581f">Sampling</a>(t_uint size, t_uint samples, RNG &amp;&amp;rng);</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;initializer_list&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;random&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;Eigen/Core&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;sopt/linear_transform.h&quot;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;sopt/types.h&quot;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>sopt {</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="../../d9/d5f/classsopt_1_1Sampling.html">   16</a></span>&#160;<span class="keyword">class </span><a class="code" href="../../d9/d5f/classsopt_1_1Sampling.html">Sampling</a> {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="../../d9/d5f/classsopt_1_1Sampling.html#a09becc036c4d93d2d3c17bb09c76581f">   19</a></span>&#160;  <a class="code" href="../../d9/d5f/classsopt_1_1Sampling.html#a09becc036c4d93d2d3c17bb09c76581f">Sampling</a>(t_uint size, std::vector&lt;t_uint&gt; <span class="keyword">const</span> &amp;<a class="code" href="../../d9/d5f/classsopt_1_1Sampling.html#a85b2e357b3a1733a61e558a74be84650">indices</a>) : indices_(indices), size(size) {}</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">class</span> RNG&gt;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  <a class="code" href="../../d9/d5f/classsopt_1_1Sampling.html#a09becc036c4d93d2d3c17bb09c76581f">Sampling</a>(t_uint size, t_uint samples, RNG &amp;&amp;rng);</div>
 <div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="../../d9/d5f/classsopt_1_1Sampling.html#a21d30fe3734b9f4e1d7bd98eb84575ee">   24</a></span>&#160;  <a class="code" href="../../d9/d5f/classsopt_1_1Sampling.html#a21d30fe3734b9f4e1d7bd98eb84575ee">Sampling</a>(t_uint size, t_uint samples)</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;      : <a class="code" href="../../d9/d5f/classsopt_1_1Sampling.html">Sampling</a>(size, samples, std::mt19937_64(std::random_device()())) {}</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
@@ -137,9 +137,9 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'Search');
 <div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="../../d9/d5f/classsopt_1_1Sampling.html#af6d010498c2acc565882b77e14619bf8">   45</a></span>&#160;  t_uint <a class="code" href="../../d9/d5f/classsopt_1_1Sampling.html#af6d010498c2acc565882b77e14619bf8">cols</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> size; }</div>
 <div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="../../d9/d5f/classsopt_1_1Sampling.html#adf6709b902f217a2c42ae72bcd8b8b32">   47</a></span>&#160;  t_uint <a class="code" href="../../d9/d5f/classsopt_1_1Sampling.html#adf6709b902f217a2c42ae72bcd8b8b32">rows</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> indices_.size(); }</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
-<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="../../d9/d5f/classsopt_1_1Sampling.html#a85b2e357b3a1733a61e558a74be84650">   50</a></span>&#160;  std::vector&lt;t_uint&gt; <span class="keyword">const</span> &amp; <a class="code" href="../../d9/d5f/classsopt_1_1Sampling.html#a85b2e357b3a1733a61e558a74be84650">indices</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> indices_; }</div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="../../d9/d5f/classsopt_1_1Sampling.html#a85b2e357b3a1733a61e558a74be84650">   50</a></span>&#160;  std::vector&lt;t_uint&gt; <span class="keyword">const</span> &amp;<a class="code" href="../../d9/d5f/classsopt_1_1Sampling.html#a85b2e357b3a1733a61e558a74be84650">indices</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> indices_; }</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; <span class="keyword">protected</span>:</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  std::vector&lt;t_uint&gt; indices_;</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  t_uint size;</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;};</div>
@@ -147,7 +147,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'Search');
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T0, <span class="keyword">class</span> T1&gt;</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="keywordtype">void</span> Sampling::operator()(Eigen::DenseBase&lt;T0&gt; &amp;out, Eigen::DenseBase&lt;T1&gt; <span class="keyword">const</span> &amp;x)<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  out.resize(indices_.size());</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  <span class="keywordflow">for</span>(decltype(indices_.size()) i(0); i &lt; indices_.size(); ++i) {</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  <span class="keywordflow">for</span> (decltype(indices_.size()) i(0); i &lt; indices_.size(); ++i) {</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    assert(indices_[i] &lt; static_cast&lt;t_uint&gt;(x.size()));</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    out[i] = x[indices_[i]];</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  }</div>
@@ -158,33 +158,34 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'Search');
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  assert(static_cast&lt;t_uint&gt;(x.size()) == indices_.size());</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  out.resize(out.size());</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  out.fill(0);</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  <span class="keywordflow">for</span>(decltype(indices_.size()) i(0); i &lt; indices_.size(); ++i) {</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  <span class="keywordflow">for</span> (decltype(indices_.size()) i(0); i &lt; indices_.size(); ++i) {</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    assert(indices_[i] &lt; static_cast&lt;t_uint&gt;(out.size()));</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    out[indices_[i]] = x[i];</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  }</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;}</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt; LinearTransform&lt;Vector&lt;T&gt;&gt; linear_transform(Sampling <span class="keyword">const</span> &amp;sampling) {</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  <span class="keywordflow">return</span> linear_transform&lt;Vector&lt;T&gt;&gt;(</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;      [sampling](Vector&lt;T&gt; &amp;out, Vector&lt;T&gt; <span class="keyword">const</span> &amp;x) { sampling(out, x); },</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;      {{0, 1, <span class="keyword">static_cast&lt;</span>t_int<span class="keyword">&gt;</span>(sampling.rows())}},</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;      [sampling](Vector&lt;T&gt; &amp;out, Vector&lt;T&gt; <span class="keyword">const</span> &amp;x) { sampling.adjoint(out, x); },</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;      {{0, 1, <span class="keyword">static_cast&lt;</span>t_int<span class="keyword">&gt;</span>(sampling.cols())}});</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;}</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> RNG&gt;</div>
-<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="../../d9/d5f/classsopt_1_1Sampling.html#a6b80118bdb469695742e26d0cf039f04">   89</a></span>&#160;<a class="code" href="../../d9/d5f/classsopt_1_1Sampling.html#a09becc036c4d93d2d3c17bb09c76581f">Sampling::Sampling</a>(t_uint size, t_uint samples, RNG &amp;&amp;rng) : indices_(size), size(size) {</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  std::iota(indices_.begin(), indices_.end(), 0);</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  std::shuffle(indices_.begin(), indices_.end(), rng);</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  indices_.resize(samples);</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;}</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;} <span class="comment">/* sopt  */</span></div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="classsopt_1_1Sampling_html_a09becc036c4d93d2d3c17bb09c76581f"><div class="ttname"><a href="../../d9/d5f/classsopt_1_1Sampling.html#a09becc036c4d93d2d3c17bb09c76581f">sopt::Sampling::Sampling</a></div><div class="ttdeci">Sampling(t_uint size, std::vector&lt; t_uint &gt; const &amp;indices)</div><div class="ttdoc">Constructs from a vector. </div><div class="ttdef"><b>Definition:</b> <a href="../../d1/da8/sampling_8h_source.html#l00020">sampling.h:20</a></div></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;LinearTransform&lt;Vector&lt;T&gt;&gt; linear_transform(Sampling <span class="keyword">const</span> &amp;sampling) {</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  <span class="keywordflow">return</span> linear_transform&lt;Vector&lt;T&gt;&gt;(</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;      [sampling](Vector&lt;T&gt; &amp;out, Vector&lt;T&gt; <span class="keyword">const</span> &amp;x) { sampling(out, x); },</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;      {{0, 1, <span class="keyword">static_cast&lt;</span>t_int<span class="keyword">&gt;</span>(sampling.rows())}},</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;      [sampling](Vector&lt;T&gt; &amp;out, Vector&lt;T&gt; <span class="keyword">const</span> &amp;x) { sampling.adjoint(out, x); },</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;      {{0, 1, <span class="keyword">static_cast&lt;</span>t_int<span class="keyword">&gt;</span>(sampling.cols())}});</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;}</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> RNG&gt;</div>
+<div class="line"><a name="l00090"></a><span class="lineno"><a class="line" href="../../d9/d5f/classsopt_1_1Sampling.html#a6b80118bdb469695742e26d0cf039f04">   90</a></span>&#160;<a class="code" href="../../d9/d5f/classsopt_1_1Sampling.html#a09becc036c4d93d2d3c17bb09c76581f">Sampling::Sampling</a>(t_uint size, t_uint samples, RNG &amp;&amp;rng) : indices_(size), size(size) {</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  std::iota(indices_.begin(), indices_.end(), 0);</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  std::shuffle(indices_.begin(), indices_.end(), rng);</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;  indices_.resize(samples);</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;}</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;}  <span class="comment">// namespace sopt</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="classsopt_1_1Sampling_html_a09becc036c4d93d2d3c17bb09c76581f"><div class="ttname"><a href="../../d9/d5f/classsopt_1_1Sampling.html#a09becc036c4d93d2d3c17bb09c76581f">sopt::Sampling::Sampling</a></div><div class="ttdeci">Sampling(t_uint size, std::vector&lt; t_uint &gt; const &amp;indices)</div><div class="ttdoc">Constructs from a vector. </div><div class="ttdef"><b>Definition:</b> <a href="../../d1/da8/sampling_8h_source.html#l00019">sampling.h:19</a></div></div>
 <div class="ttc" id="classsopt_1_1Sampling_html_af6d010498c2acc565882b77e14619bf8"><div class="ttname"><a href="../../d9/d5f/classsopt_1_1Sampling.html#af6d010498c2acc565882b77e14619bf8">sopt::Sampling::cols</a></div><div class="ttdeci">t_uint cols() const </div><div class="ttdoc">Size of the vector returned by the adjoint operation. </div><div class="ttdef"><b>Definition:</b> <a href="../../d1/da8/sampling_8h_source.html#l00045">sampling.h:45</a></div></div>
 <div class="ttc" id="classsopt_1_1Sampling_html_a21d30fe3734b9f4e1d7bd98eb84575ee"><div class="ttname"><a href="../../d9/d5f/classsopt_1_1Sampling.html#a21d30fe3734b9f4e1d7bd98eb84575ee">sopt::Sampling::Sampling</a></div><div class="ttdeci">Sampling(t_uint size, t_uint samples)</div><div class="ttdoc">Constructs from the size and the number of samples to pick. </div><div class="ttdef"><b>Definition:</b> <a href="../../d1/da8/sampling_8h_source.html#l00024">sampling.h:24</a></div></div>
-<div class="ttc" id="classsopt_1_1Sampling_html"><div class="ttname"><a href="../../d9/d5f/classsopt_1_1Sampling.html">sopt::Sampling</a></div><div class="ttdoc">An operator that samples a set of measurements. </div><div class="ttdef"><b>Definition:</b> <a href="../../d1/da8/sampling_8h_source.html#l00017">sampling.h:17</a></div></div>
+<div class="ttc" id="classsopt_1_1Sampling_html"><div class="ttname"><a href="../../d9/d5f/classsopt_1_1Sampling.html">sopt::Sampling</a></div><div class="ttdoc">An operator that samples a set of measurements. </div><div class="ttdef"><b>Definition:</b> <a href="../../d1/da8/sampling_8h_source.html#l00016">sampling.h:16</a></div></div>
 <div class="ttc" id="classsopt_1_1Sampling_html_a85b2e357b3a1733a61e558a74be84650"><div class="ttname"><a href="../../d9/d5f/classsopt_1_1Sampling.html#a85b2e357b3a1733a61e558a74be84650">sopt::Sampling::indices</a></div><div class="ttdeci">std::vector&lt; t_uint &gt; const &amp; indices() const </div><div class="ttdoc">Indices of sampled points. </div><div class="ttdef"><b>Definition:</b> <a href="../../d1/da8/sampling_8h_source.html#l00050">sampling.h:50</a></div></div>
 <div class="ttc" id="classsopt_1_1Sampling_html_adf6709b902f217a2c42ae72bcd8b8b32"><div class="ttname"><a href="../../d9/d5f/classsopt_1_1Sampling.html#adf6709b902f217a2c42ae72bcd8b8b32">sopt::Sampling::rows</a></div><div class="ttdeci">t_uint rows() const </div><div class="ttdoc">Number of measurements. </div><div class="ttdef"><b>Definition:</b> <a href="../../d1/da8/sampling_8h_source.html#l00047">sampling.h:47</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
