@@ -3,26 +3,26 @@
 #include <iomanip>
 #include <type_traits>
 
+#include "sopt_l1.h"
+#include "tools_for_tests/cdata.h"
+#include "tools_for_tests/directories.h"
+#include "tools_for_tests/inpainting.h"
+#include "tools_for_tests/tiffwrappers.h"
 #include "sopt/imaging_padmm.h"
 #include "sopt/logging.h"
 #include "sopt/proximal.h"
 #include "sopt/relative_variation.h"
 #include "sopt/sampling.h"
 #include "sopt/wavelets.h"
-#include "tools_for_tests/cdata.h"
-#include "tools_for_tests/directories.h"
-#include "tools_for_tests/inpainting.h"
-#include "tools_for_tests/tiffwrappers.h"
-#include "sopt_l1.h"
 
 typedef double Scalar;
 typedef sopt::Vector<Scalar> t_Vector;
 typedef sopt::Matrix<Scalar> t_Matrix;
 
-sopt::algorithm::ImagingProximalADMM<Scalar>
-create_admm(sopt::LinearTransform<t_Vector> const &phi, sopt::LinearTransform<t_Vector> const &psi,
-            sopt_l1_param_padmm const &params, t_Vector const &target) {
-
+sopt::algorithm::ImagingProximalADMM<Scalar> create_admm(sopt::LinearTransform<t_Vector> const &phi,
+                                                         sopt::LinearTransform<t_Vector> const &psi,
+                                                         sopt_l1_param_padmm const &params,
+                                                         t_Vector const &target) {
   using namespace sopt;
   return algorithm::ImagingProximalADMM<Scalar>(target)
       .itermax(params.max_iter + 1)
@@ -55,24 +55,24 @@ TEST_CASE("Compare ADMM C++ and C", "") {
   auto const y = dirty(sampling, image, *mersenne);
 
   sopt_l1_param_padmm params{
-      0,                        // verbosity
-      200,                      // max iter
-      0.1,                      // gamma
-      0.0005,                   // relative change
-      epsilon(sampling, image), // radius of the l2ball
-      1,                        // real out
-      1,                        // real meas
+      0,                         // verbosity
+      200,                       // max iter
+      0.1,                       // gamma
+      0.0005,                    // relative change
+      epsilon(sampling, image),  // radius of the l2ball
+      1,                         // real out
+      1,                         // real meas
       {
-          0,    // verbose = 1;
-          8,    // max_iter = 50;
-          0.01, // rel_obj = 0.01;
-          1,    // nu = 1;
-          0,    // tight = 0;
-          1,    // pos = 1;
+          0,     // verbose = 1;
+          8,     // max_iter = 50;
+          0.01,  // rel_obj = 0.01;
+          1,     // nu = 1;
+          0,     // tight = 0;
+          1,     // pos = 1;
       },
-      1.001, // epsilon tol scale
-      0.9,   // lagrange_update_scale
-      1.0,   // nu
+      1.001,  // epsilon tol scale
+      0.9,    // lagrange_update_scale
+      1.0,    // nu
   };
 
   // Create c++ SDMM
@@ -84,7 +84,7 @@ TEST_CASE("Compare ADMM C++ and C", "") {
   CData<Scalar> const psi_data{image.size(), image.size(), psi, 0, 0};
 
   // Try increasing number of iterations and check output of c and c++ algorithms are the same
-  for(t_uint i : {1, 5, 10}) {
+  for (t_uint i : {1, 5, 10}) {
     SECTION(fmt::format("With {} iterations", i)) {
       sopt_l1_param_padmm c_params = params;
       c_params.max_iter = i;
@@ -98,7 +98,7 @@ TEST_CASE("Compare ADMM C++ and C", "") {
           (void *)c.data(), c.size(), &direct_transform<Scalar>, (void **)&sampling_data,
           &adjoint_transform<Scalar>, (void **)&sampling_data, &direct_transform<Scalar>,
           (void **)&psi_data, &adjoint_transform<Scalar>,
-          (void **)&psi_data, // synthesis
+          (void **)&psi_data,  // synthesis
           c.size(), (void *)y.data(), y.size(), l1_weights.data(), l2_weights.data(), c_params);
 
       CAPTURE(cpp.x.head(5).transpose());

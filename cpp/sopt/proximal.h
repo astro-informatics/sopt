@@ -17,7 +17,7 @@ namespace proximal {
 
 //! Proximal of euclidian norm
 class EuclidianNorm {
-public:
+ public:
 #ifdef SOPT_MPI
   EuclidianNorm(mpi::Communicator const &comm = mpi::Communicator()) : comm_(comm){};
   mpi::Communicator communicator() const { return comm_; }
@@ -36,19 +36,19 @@ public:
 #else
     auto const norm = x.norm();
 #endif
-    if(norm > t)
+    if (norm > t)
       out = (Scalar(1) - t / norm) * x;
     else
       out.fill(0);
   }
   //! Lazy version
   template <class T0>
-  ProximalExpression<EuclidianNorm, T0>
-  operator()(typename T0::Scalar const &t, Eigen::MatrixBase<T0> const &x) const {
+  ProximalExpression<EuclidianNorm, T0> operator()(typename T0::Scalar const &t,
+                                                   Eigen::MatrixBase<T0> const &x) const {
     return {*this, t, x};
   }
 #ifdef SOPT_MPI
-private:
+ private:
   mpi::Communicator comm_;
 #endif
 };
@@ -90,8 +90,9 @@ void positive_quadrant(Vector<T> &out, typename real_type<T>::type, Vector<T> co
 };
 
 //! Proximal for indicator function of L2 ball
-template <class T> class L2Ball {
-public:
+template <class T>
+class L2Ball {
+ public:
   typedef typename real_type<T>::type Real;
 //! Constructs an L2 ball proximal of size epsilon
 #ifdef SOPT_MPI
@@ -112,7 +113,7 @@ public:
 #else
     auto const norm = x.stableNorm();
 #endif
-    if(norm > epsilon())
+    if (norm > epsilon())
       out = x * (epsilon() / norm);
     else
       out = x;
@@ -145,7 +146,7 @@ public:
   }
 #endif
 
-private:
+ private:
   //! Size of the ball
   Real epsilon_;
 #ifdef SOPT_MPI
@@ -153,9 +154,9 @@ private:
 #endif
 };
 
-template <class T> class WeightedL2Ball : public L2Ball<T> {
-
-public:
+template <class T>
+class WeightedL2Ball : public L2Ball<T> {
+ public:
   typedef typename L2Ball<T>::Real Real;
   typedef Vector<Real> t_Vector;
 #ifdef SOPT_MPI
@@ -189,18 +190,18 @@ public:
 #ifdef SOPT_MPI
     auto const norm = mpi::l2_norm(x.array(), weights().array(), communicator());
 #else
-    auto const norm = weights().size() == 1 ? x.stableNorm() * std::abs(weights()(0)) :
-                                              (x.array() * weights().array()).matrix().stableNorm();
+    auto const norm = weights().size() == 1 ? x.stableNorm() * std::abs(weights()(0))
+                                            : (x.array() * weights().array()).matrix().stableNorm();
 #endif
-    if(norm > epsilon())
+    if (norm > epsilon())
       out = x * (epsilon() / norm);
     else
       out = x;
   }
   //! Lazy version
   template <class T0>
-  EnveloppeExpression<WeightedL2Ball, T0>
-  operator()(Real const &, Eigen::MatrixBase<T0> const &x) const {
+  EnveloppeExpression<WeightedL2Ball, T0> operator()(Real const &,
+                                                     Eigen::MatrixBase<T0> const &x) const {
     return {*this, x};
   }
   //! Lazy version
@@ -212,11 +213,10 @@ public:
   //! Weights associated with each dimension
   t_Vector const &weights() const { return weights_; }
   //! Weights associated with each dimension
-  template <class T0> WeightedL2Ball<T> &weights(Eigen::MatrixBase<T0> const &w) {
-    if((w.array() < 0e0).any())
-      SOPT_THROW("Weights cannot be negative");
-    if(w.stableNorm() < 1e-12)
-      SOPT_THROW("Weights cannot be null");
+  template <class T0>
+  WeightedL2Ball<T> &weights(Eigen::MatrixBase<T0> const &w) {
+    if ((w.array() < 0e0).any()) SOPT_THROW("Weights cannot be negative");
+    if (w.stableNorm() < 1e-12) SOPT_THROW("Weights cannot be null");
     weights_ = w;
     return *this;
   }
@@ -228,21 +228,22 @@ public:
     return *this;
   }
 
-private:
+ private:
   t_Vector weights_;
 };
 
 //! Translation over proximal function
-template <class FUNCTION, class VECTOR> class Translation {
-public:
+template <class FUNCTION, class VECTOR>
+class Translation {
+ public:
   //! Creates proximal of translated function
   template <class T_VECTOR>
   Translation(FUNCTION const &func, T_VECTOR const &trans) : func(func), trans(trans) {}
   //! Computes proximal of translated function
   template <class OUTPUT, class T0>
-  typename std::enable_if<std::is_reference<OUTPUT>::value, void>::type
-  operator()(OUTPUT out, typename real_type<typename T0::Scalar>::type const &t,
-             Eigen::MatrixBase<T0> const &x) const {
+  typename std::enable_if<std::is_reference<OUTPUT>::value, void>::type operator()(
+      OUTPUT out, typename real_type<typename T0::Scalar>::type const &t,
+      Eigen::MatrixBase<T0> const &x) const {
     func(out, t, x + trans);
     out -= trans;
   }
@@ -256,12 +257,12 @@ public:
   }
   //! Lazy version
   template <class T0>
-  ProximalExpression<Translation<FUNCTION, VECTOR> const &, T0>
-  operator()(typename T0::Scalar const &t, Eigen::MatrixBase<T0> const &x) const {
+  ProximalExpression<Translation<FUNCTION, VECTOR> const &, T0> operator()(
+      typename T0::Scalar const &t, Eigen::MatrixBase<T0> const &x) const {
     return {*this, t, x};
   }
 
-private:
+ private:
   //! Function to translate
   FUNCTION const func;
   //! Translation
@@ -273,7 +274,7 @@ template <class FUNCTION, class VECTOR>
 Translation<FUNCTION, VECTOR> translate(FUNCTION const &func, VECTOR const &translation) {
   return Translation<FUNCTION, VECTOR>(func, translation);
 }
-}
-} /* sopt::proximal */
+}  // namespace proximal
+}  // namespace sopt
 
 #endif

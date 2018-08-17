@@ -23,8 +23,8 @@ SCENARIO("SDMM with warm start", "[sdmm][integration]") {
     auto convergence = [&target1, &target0](t_Vector const &x) -> bool {
       t_Vector const segment = (target1 - target0).normalized();
       t_real const alpha = (x - target0).transpose() * segment;
-      return alpha >= 0e0 and (target1 - target0).transpose() * segment >= alpha
-             and (x - target0 - alpha * segment).stableNorm() < 1e-8;
+      return alpha >= 0e0 and (target1 - target0).transpose() * segment >= alpha and
+             (x - target0 - alpha * segment).stableNorm() < 1e-8;
     };
 
     auto sdmm = algorithm::SDMM<Scalar>()

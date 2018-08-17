@@ -17,7 +17,7 @@ struct initializer {
   //! Gets singleton to session
   static std::weak_ptr<details::initializer> singleton;
 };
-}
+}  // namespace details
 //! Calls mpi init
 std::shared_ptr<details::initializer> init(int argc, const char **argv);
 std::shared_ptr<details::initializer> session_singleton();
@@ -29,6 +29,6 @@ bool finalized();
 inline void init(int argc, const char **argv) {}
 inline bool initialized() { return false; };
 #endif
-} /* sopt::mpi */
-} /* sopt */
+}  // namespace mpi
+}  // namespace sopt
 #endif /* ifndef SOPT_MPI_SESSION_H */

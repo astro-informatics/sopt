@@ -11,7 +11,6 @@ namespace utilities {
 sopt::Image<> read_tiff(std::string const &name);
 //! Writes a tiff greyscale file
 void write_tiff(Image<> const &image, std::string const &filename);
-}
-} /* sopt::utilities */
+}  // namespace utilities
+}  // namespace sopt
 #endif
-

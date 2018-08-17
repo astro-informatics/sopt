@@ -3,13 +3,12 @@
 #include <sopt/power_method.h>
 
 int main(int, char const **) {
-
   typedef sopt::t_real Scalar;
   auto const N = 10;
 
   // Create some kind of matrix
-  sopt::Matrix<Scalar> const A
-      = sopt::Matrix<uint8_t>::Identity(N, N).cast<Scalar>() * 100 + sopt::Matrix<Scalar>(N, N);
+  sopt::Matrix<Scalar> const A =
+      sopt::Matrix<uint8_t>::Identity(N, N).cast<Scalar>() * 100 + sopt::Matrix<Scalar>(N, N);
 
   // the linear transform wraps the matrix into something the power-method understands
   auto const lt = sopt::linear_transform(A.cast<sopt::t_complex>());
@@ -26,7 +25,7 @@ int main(int, char const **) {
   auto const eigenvalue = es.eigenvalues()(index);
 
   // This should pass if the power method is correct
-  if(std::abs(result.magnitude - std::abs(eigenvalue)) > 1e-8 * std::abs(eigenvalue))
+  if (std::abs(result.magnitude - std::abs(eigenvalue)) > 1e-8 * std::abs(eigenvalue))
     throw std::runtime_error("Power method did not converge to the expected value");
 
   return 0;

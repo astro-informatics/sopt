@@ -7,8 +7,8 @@
 #include <type_traits>
 #include <Eigen/Core>
 #include "sopt/logging.h"
-#include "sopt/types.h"
 #include "sopt/maths.h"
+#include "sopt/types.h"
 #include "sopt/wrapper.h"
 
 namespace sopt {
@@ -17,14 +17,17 @@ namespace details {
 //! \brief Wraps a matrix into a function and its conjugate transpose
 //! \details This class helps to wrap matrices into functions, such that we can use and store them
 //! such that SDMM algorithms can refer to them.
-template <class EIGEN> class MatrixToLinearTransform;
+template <class EIGEN>
+class MatrixToLinearTransform;
 //! Wraps a tranposed matrix into a function and its conjugate transpose
-template <class EIGEN> class MatrixAdjointToLinearTransform;
-}
+template <class EIGEN>
+class MatrixAdjointToLinearTransform;
+}  // namespace details
 
 //! Joins together direct and indirect operators
-template <class VECTOR> class LinearTransform : public details::WrapFunction<VECTOR> {
-public:
+template <class VECTOR>
+class LinearTransform : public details::WrapFunction<VECTOR> {
+ public:
   //! Type of the wrapped functions
   typedef OperatorFunction<VECTOR> t_Function;
 
@@ -80,7 +83,7 @@ public:
   using details::WrapFunction<VECTOR>::sizes;
   using details::WrapFunction<VECTOR>::rows;
 
-private:
+ private:
   //! Function applying conjugate transpose operator
   details::WrapFunction<VECTOR> indirect_;
 };
@@ -94,9 +97,9 @@ private:
 //!     of size N, then the output is of size (a * N) / b + c. A similar quantity is deduced for
 //!     the indirect operator.
 template <class VECTOR>
-LinearTransform<VECTOR>
-linear_transform(OperatorFunction<VECTOR> const &direct, OperatorFunction<VECTOR> const &indirect,
-                 std::array<t_int, 3> const &sizes = {{1, 1, 0}}) {
+LinearTransform<VECTOR> linear_transform(OperatorFunction<VECTOR> const &direct,
+                                         OperatorFunction<VECTOR> const &indirect,
+                                         std::array<t_int, 3> const &sizes = {{1, 1, 0}}) {
   return {direct, indirect, sizes};
 }
 //! Helper function to creates a function operator
@@ -109,9 +112,10 @@ linear_transform(OperatorFunction<VECTOR> const &direct, OperatorFunction<VECTOR
 //! \param[in] dsizes: 3 integer elements (a, b, c) such that if the input to the indirect
 //!    linear operator is of size N, then the output is of size (a * N) / b + c.
 template <class VECTOR>
-LinearTransform<VECTOR>
-linear_transform(OperatorFunction<VECTOR> const &direct, std::array<t_int, 3> const &dsizes,
-                 OperatorFunction<VECTOR> const &indirect, std::array<t_int, 3> const &isizes) {
+LinearTransform<VECTOR> linear_transform(OperatorFunction<VECTOR> const &direct,
+                                         std::array<t_int, 3> const &dsizes,
+                                         OperatorFunction<VECTOR> const &indirect,
+                                         std::array<t_int, 3> const &isizes) {
   return {direct, dsizes, indirect, isizes};
 }
 
@@ -129,13 +133,14 @@ LinearTransform<VECTOR> linear_transform(details::WrapFunction<VECTOR> const &di
 
 namespace details {
 
-template <class EIGEN> class MatrixToLinearTransform {
+template <class EIGEN>
+class MatrixToLinearTransform {
   //! The underlying raw matrix type
   typedef typename std::remove_const<typename std::remove_reference<EIGEN>::type>::type Raw;
   //! The matrix underlying the expression
   typedef typename Raw::PlainObject PlainMatrix;
 
-public:
+ public:
   //! The output type
   typedef
       typename std::conditional<std::is_base_of<Eigen::MatrixBase<PlainMatrix>, PlainMatrix>::value,
@@ -152,9 +157,9 @@ public:
   //! Performs operation
   void operator()(PlainObject &out, PlainObject const &x) const {
 #ifndef NDEBUG
-    if((*matrix).cols() != x.size())
-      SOPT_THROW("Input vector and matrix do not match: ") << out.cols() << " columns for "
-                                                           << x.size() << " elements.";
+    if ((*matrix).cols() != x.size())
+      SOPT_THROW("Input vector and matrix do not match: ")
+          << out.cols() << " columns for " << x.size() << " elements.";
 #endif
     out = (*matrix) * x;
   }
@@ -164,13 +169,14 @@ public:
     return MatrixAdjointToLinearTransform<EIGEN>(matrix);
   }
 
-private:
+ private:
   //! Wrapped matrix
   std::shared_ptr<EIGEN> matrix;
 };
 
-template <class EIGEN> class MatrixAdjointToLinearTransform {
-public:
+template <class EIGEN>
+class MatrixAdjointToLinearTransform {
+ public:
   typedef typename MatrixToLinearTransform<EIGEN>::PlainObject PlainObject;
   //! \brief Creates from an expression
   //! \details Expression is evaluated and the result stored internally. This object owns a
@@ -184,9 +190,9 @@ public:
   //! Performs operation
   void operator()(PlainObject &out, PlainObject const &x) const {
 #ifndef NDEBUG
-    if((*matrix).rows() != x.size())
-      SOPT_THROW("Input vector and matrix adjoint do not match: ") << out.cols() << " rows for "
-                                                                   << x.size() << " elements.";
+    if ((*matrix).rows() != x.size())
+      SOPT_THROW("Input vector and matrix adjoint do not match: ")
+          << out.cols() << " rows for " << x.size() << " elements.";
 #endif
     out = matrix->adjoint() * x;
   }
@@ -194,17 +200,17 @@ public:
   //! \details The matrix is shared.
   MatrixToLinearTransform<EIGEN> adjoint() const { return MatrixToLinearTransform<EIGEN>(matrix); }
 
-private:
+ private:
   std::shared_ptr<EIGEN> matrix;
 };
-}
+}  // namespace details
 
 //! Helper function to creates a function operator
 template <class DERIVED>
-LinearTransform<Vector<typename DERIVED::Scalar>>
-linear_transform(Eigen::MatrixBase<DERIVED> const &A) {
+LinearTransform<Vector<typename DERIVED::Scalar>> linear_transform(
+    Eigen::MatrixBase<DERIVED> const &A) {
   details::MatrixToLinearTransform<Matrix<typename DERIVED::Scalar>> const matrix(A);
-  if(A.rows() == A.cols())
+  if (A.rows() == A.cols())
     return {matrix, matrix.adjoint()};
   else {
     t_int const gcd = details::gcd(A.cols(), A.rows());
@@ -215,9 +221,10 @@ linear_transform(Eigen::MatrixBase<DERIVED> const &A) {
 }
 
 //! Helper function to create a linear transform that's just the identity
-template <class SCALAR> LinearTransform<Vector<SCALAR>> linear_transform_identity() {
+template <class SCALAR>
+LinearTransform<Vector<SCALAR>> linear_transform_identity() {
   return {[](Vector<SCALAR> &out, Vector<SCALAR> const &in) { out = in; },
           [](Vector<SCALAR> &out, Vector<SCALAR> const &in) { out = in; }};
 }
-}
+}  // namespace sopt
 #endif

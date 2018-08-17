@@ -20,27 +20,26 @@ Wavelet factory(std::string name = "DB1", t_uint nlevels = 1);
 class Wavelet : public WaveletData {
   friend Wavelet factory(std::string name, t_uint nlevels);
 
-protected:
+ protected:
   //! Should be called through factory function
   Wavelet(WaveletData const &c, t_uint nlevels) : WaveletData(c), levels_(nlevels) {}
 
-public:
+ public:
   //! Destructor
   virtual ~Wavelet() {}
 
 // Temporary macros that checks constraints on input
-#define SOPT_WAVELET_MACRO_MULTIPLE(NAME)                                                          \
-  if((NAME.rows() == 1 or NAME.cols() == 1)) {                                                     \
-    if(NAME.size() % (1 << levels()) != 0)                                                         \
-      throw std::length_error("Size of " #NAME " must number a multiple of 2^levels or 1");        \
-  } else if(NAME.rows() != 1 and NAME.rows() % (1 << levels()) != 0)                               \
-    throw std::length_error("Rows of " #NAME " must number a multiple of 2^levels or 1");          \
-  else if(NAME.cols() % (1 << levels()) != 0)                                                      \
+#define SOPT_WAVELET_MACRO_MULTIPLE(NAME)                                                   \
+  if ((NAME.rows() == 1 or NAME.cols() == 1)) {                                             \
+    if (NAME.size() % (1 << levels()) != 0)                                                 \
+      throw std::length_error("Size of " #NAME " must number a multiple of 2^levels or 1"); \
+  } else if (NAME.rows() != 1 and NAME.rows() % (1 << levels()) != 0)                       \
+    throw std::length_error("Rows of " #NAME " must number a multiple of 2^levels or 1");   \
+  else if (NAME.cols() % (1 << levels()) != 0)                                              \
     throw std::length_error("Columns of " #NAME " must number a multiple of 2^levels");
-#define SOPT_WAVELET_MACRO_EQUAL_SIZE(A, B)                                                        \
-  if(A.rows() != B.rows() or A.cols() != B.cols())                                                 \
-    A.derived().resize(B.rows(), B.cols());                                                        \
-  if(A.rows() != B.rows() or A.cols() != B.cols())                                                 \
+#define SOPT_WAVELET_MACRO_EQUAL_SIZE(A, B)                                                 \
+  if (A.rows() != B.rows() or A.cols() != B.cols()) A.derived().resize(B.rows(), B.cols()); \
+  if (A.rows() != B.rows() or A.cols() != B.cols())                                         \
   throw std::length_error("Incorrect size for output matrix(or could not resize)")
   //! \brief Direct transform
   //! \param[in] signal: computes wavelet coefficients for this signal. Its size must be a
@@ -130,10 +129,10 @@ public:
   //! Sets number of levels over which to do transform
   void levels(t_uint l) { levels_ = l; }
 
-protected:
+ protected:
   //! Number of levels in the wavelet
   t_uint levels_;
 };
-}
-}
+}  // namespace wavelets
+}  // namespace sopt
 #endif

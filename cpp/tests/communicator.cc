@@ -30,7 +30,7 @@ TEST_CASE("Creates an mpi communicator") {
   }
 
   SECTION("Scatter") {
-    if(world.rank() == world.root_id()) {
+    if (world.rank() == world.root_id()) {
       std::vector<t_int> scattered(world.size());
       std::iota(scattered.begin(), scattered.end(), 2);
       auto const result = world.scatter_one(scattered);
@@ -43,26 +43,24 @@ TEST_CASE("Creates an mpi communicator") {
 
   SECTION("ScatterV") {
     std::vector<t_int> sizes(world.size()), displs(world.size());
-    for(t_uint i(0); i < world.rank(); ++i)
-      sizes[i] = world.rank() * 2 + i;
-    for(t_uint i(1); i < world.rank(); ++i)
-      displs[i] = displs[i - 1] + sizes[i - 1];
-    Vector<t_int> const sendee
-        = Vector<t_int>::Random(std::accumulate(sizes.begin(), sizes.end(), 0));
-    auto const result = world.rank() == world.root_id() ?
-                            world.scatterv(sendee, sizes) :
-                            world.scatterv<t_int>(sizes[world.rank()]);
+    for (t_uint i(0); i < world.rank(); ++i) sizes[i] = world.rank() * 2 + i;
+    for (t_uint i(1); i < world.rank(); ++i) displs[i] = displs[i - 1] + sizes[i - 1];
+    Vector<t_int> const sendee =
+        Vector<t_int>::Random(std::accumulate(sizes.begin(), sizes.end(), 0));
+    auto const result = world.rank() == world.root_id()
+                            ? world.scatterv(sendee, sizes)
+                            : world.scatterv<t_int>(sizes[world.rank()]);
     CHECK(result.isApprox(sendee.segment(displs[world.rank()], sizes[world.rank()])));
   }
 
   SECTION("Gather a single item") {
-    if(world.rank() == world.root_id()) {
+    if (world.rank() == world.root_id()) {
       std::vector<t_int> scattered(world.size());
       std::iota(scattered.begin(), scattered.end(), 2);
       auto const result = world.scatter_one(scattered);
       REQUIRE(result == world.rank() + 2);
       auto const gathered = world.gather(result);
-      for(decltype(gathered)::size_type i = 0; i < gathered.size(); i++)
+      for (decltype(gathered)::size_type i = 0; i < gathered.size(); i++)
         CHECK(gathered[i] == scattered[i]);
     } else {
       auto const result = world.scatter_one<t_int>();
@@ -81,9 +79,9 @@ TEST_CASE("Creates an mpi communicator") {
     std::generate(sizes.begin(), sizes.end(), [&n, &size]() { return size(n++); });
 
     auto const result = world.is_root() ? world.gather(sendee, sizes) : world.gather(sendee);
-    if(world.rank() == world.root_id()) {
+    if (world.rank() == world.root_id()) {
       CHECK(result.size() == totsize(world.size()));
-      for(decltype(world.size()) i(0); i < world.size(); ++i)
+      for (decltype(world.size()) i(0); i < world.size(); ++i)
         CHECK(result.segment(totsize(i), size(i)) == Vector<t_int>::Constant(size(i), i));
     } else
       CHECK(result.size() == 0);
@@ -92,22 +90,22 @@ TEST_CASE("Creates an mpi communicator") {
   SECTION("Gather an std::set") {
     std::set<t_int> const input{static_cast<t_int>(world.size()), static_cast<t_int>(world.rank())};
     auto const result = world.gather(input, world.gather<t_int>(input.size()));
-    if(world.is_root()) {
+    if (world.is_root()) {
       CHECK(result.size() == world.size() + 1);
-      for(decltype(world.size()) i(0); i <= world.size(); ++i)
-        CHECK(result.count(i) == 1);
+      for (decltype(world.size()) i(0); i <= world.size(); ++i) CHECK(result.count(i) == 1);
     } else
       CHECK(result.size() == 0);
   }
 
   SECTION("Gather an std::vector") {
-    std::vector<t_int> const input{static_cast<t_int>(world.size()), static_cast<t_int>(world.rank())};
+    std::vector<t_int> const input{static_cast<t_int>(world.size()),
+                                   static_cast<t_int>(world.rank())};
     auto const result = world.gather(input, world.gather<t_int>(input.size()));
-    if(world.is_root()) {
+    if (world.is_root()) {
       CHECK(result.size() == world.size() * 2);
-      for(decltype(world.size()) i(0); i < world.size(); ++i) {
+      for (decltype(world.size()) i(0); i < world.size(); ++i) {
         CHECK(result[2 * i] == world.size());
-        CHECK(result[2 *i + 1] == i);
+        CHECK(result[2 * i + 1] == i);
       }
     } else
       CHECK(result.size() == 0);
@@ -129,21 +127,21 @@ TEST_CASE("Creates an mpi communicator") {
     SECTION("Eigen vector") {
       Vector<t_int> y0(3);
       y0 << 3, 2, 1;
-      auto const y = world.rank() == world.root_id() ? world.broadcast(y0) :
-                                                       world.broadcast<Vector<t_int>>();
+      auto const y =
+          world.rank() == world.root_id() ? world.broadcast(y0) : world.broadcast<Vector<t_int>>();
       CHECK(y == y0);
 
       std::vector<t_int> v0 = {3, 2, 1};
-      auto const v = world.rank() == world.root_id() ? world.broadcast(v0) :
-                                                       world.broadcast<std::vector<t_int>>();
+      auto const v = world.rank() == world.root_id() ? world.broadcast(v0)
+                                                     : world.broadcast<std::vector<t_int>>();
       CHECK(std::equal(v.begin(), v.end(), v0.begin()));
     }
 
     SECTION("Eigen image - and check for correct size initialization") {
       Image<t_int> image0(2, 2);
       image0 << 3, 2, 1, 0;
-      auto const image = world.rank() == world.root_id() ? world.broadcast(image0) :
-                                                           world.broadcast<Image<t_int>>();
+      auto const image = world.rank() == world.root_id() ? world.broadcast(image0)
+                                                         : world.broadcast<Image<t_int>>();
       CHECK(image.matrix() == image0.matrix());
 
       Image<t_int> const image1 = world.is_root() ? image0 : Image<t_int>();

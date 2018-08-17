@@ -15,9 +15,9 @@ namespace {
 //! \param[out] signal: output with the reconstituted signal
 //! \param[in] wavelet: contains wavelet coefficients
 template <class T0, class T1>
-typename std::enable_if<T1::IsVectorAtCompileTime, void>::type
-indirect_transform_impl(Eigen::ArrayBase<T0> const &coeffs, Eigen::ArrayBase<T1> const &signal_,
-                        WaveletData const &wavelet) {
+typename std::enable_if<T1::IsVectorAtCompileTime, void>::type indirect_transform_impl(
+    Eigen::ArrayBase<T0> const &coeffs, Eigen::ArrayBase<T1> const &signal_,
+    WaveletData const &wavelet) {
   Eigen::ArrayBase<T1> &signal = const_cast<Eigen::ArrayBase<T1> &>(signal_);
 
   assert(coeffs.size() == signal.size());
@@ -31,9 +31,9 @@ indirect_transform_impl(Eigen::ArrayBase<T0> const &coeffs, Eigen::ArrayBase<T1>
 //! \param[out] signal: output with the reconstituted signal
 //! \param[in] wavelet: contains wavelet coefficients
 template <class T0, class T1>
-typename std::enable_if<not T1::IsVectorAtCompileTime, void>::type
-indirect_transform_impl(Eigen::ArrayBase<T0> const &coeffs_, Eigen::ArrayBase<T1> const &signal_,
-                        WaveletData const &wavelet) {
+typename std::enable_if<not T1::IsVectorAtCompileTime, void>::type indirect_transform_impl(
+    Eigen::ArrayBase<T0> const &coeffs_, Eigen::ArrayBase<T1> const &signal_,
+    WaveletData const &wavelet) {
   Eigen::ArrayBase<T0> &coeffs = const_cast<Eigen::ArrayBase<T0> &>(coeffs_);
   Eigen::ArrayBase<T1> &signal = const_cast<Eigen::ArrayBase<T1> &>(signal_);
   assert(coeffs.rows() == signal.rows() and coeffs.cols() == signal.cols());
@@ -42,16 +42,16 @@ indirect_transform_impl(Eigen::ArrayBase<T0> const &coeffs_, Eigen::ArrayBase<T1
 #ifdef SOPT_OPENMP
 #pragma omp parallel for
 #endif
-  for(t_uint i = 0; i < signal.rows(); ++i)
+  for (t_uint i = 0; i < signal.rows(); ++i)
     indirect_transform_impl(coeffs.row(i).transpose(), signal.row(i).transpose(), wavelet);
   coeffs = signal;
 #ifdef SOPT_OPENMP
 #pragma omp parallel for
 #endif
-  for(t_uint j = 0; j < signal.cols(); ++j)
+  for (t_uint j = 0; j < signal.cols(); ++j)
     indirect_transform_impl(coeffs.col(j), signal.col(j), wavelet);
 }
-} // namespace
+}  // namespace
 
 //! \brief N-levels 1d indirect transform
 //! \param[in] coeffs_: input coefficients
@@ -60,17 +60,16 @@ indirect_transform_impl(Eigen::ArrayBase<T0> const &coeffs_, Eigen::ArrayBase<T1
 //! \note The size  of the coefficients should a multiple of $2^l$ where $l$ is the number of
 //! levels.
 template <class T0, class T1>
-typename std::enable_if<T1::IsVectorAtCompileTime, void>::type
-indirect_transform(Eigen::ArrayBase<T0> const &coeffs, Eigen::ArrayBase<T1> &signal, t_uint levels,
-                   WaveletData const &wavelet) {
-  if(levels == 0)
-    return;
+typename std::enable_if<T1::IsVectorAtCompileTime, void>::type indirect_transform(
+    Eigen::ArrayBase<T0> const &coeffs, Eigen::ArrayBase<T1> &signal, t_uint levels,
+    WaveletData const &wavelet) {
+  if (levels == 0) return;
   assert(coeffs.rows() == signal.rows());
   assert(coeffs.cols() == signal.cols());
   assert(coeffs.size() % (1u << levels) == 0);
 
   auto input = copy(coeffs);
-  for(t_uint level(levels - 1); level > 0; --level) {
+  for (t_uint level(levels - 1); level > 0; --level) {
     auto const N = static_cast<t_uint>(signal.size()) >> level;
     indirect_transform_impl(input.head(N), signal.head(N), wavelet);
     input.head(N) = signal.head(N);
@@ -85,21 +84,21 @@ indirect_transform(Eigen::ArrayBase<T0> const &coeffs, Eigen::ArrayBase<T1> &sig
 //! \note The size  of the signal and coefficients should a multiple of $2^l$ where $l$ is the
 //! number of levels.
 template <class T0, class T1>
-typename std::enable_if<not T1::IsVectorAtCompileTime, void>::type
-indirect_transform(Eigen::ArrayBase<T0> const &coeffs_, Eigen::ArrayBase<T1> const &signal_,
-                   t_uint levels, WaveletData const &wavelet) {
+typename std::enable_if<not T1::IsVectorAtCompileTime, void>::type indirect_transform(
+    Eigen::ArrayBase<T0> const &coeffs_, Eigen::ArrayBase<T1> const &signal_, t_uint levels,
+    WaveletData const &wavelet) {
   Eigen::ArrayBase<T0> &coeffs = const_cast<Eigen::ArrayBase<T0> &>(coeffs_);
   Eigen::ArrayBase<T1> &signal = const_cast<Eigen::ArrayBase<T1> &>(signal_);
   assert(coeffs.rows() == signal.rows());
   assert(coeffs.cols() == signal.cols());
   assert(coeffs.size() % (1u << levels) == 0);
-  if(levels == 0) {
+  if (levels == 0) {
     signal = coeffs_;
     return;
   }
 
   auto input = copy(coeffs);
-  for(t_uint level(levels - 1); level > 0; --level) {
+  for (t_uint level(levels - 1); level > 0; --level) {
     auto const Nx = static_cast<t_uint>(signal.rows()) >> level;
     auto const Ny = static_cast<t_uint>(signal.cols()) >> level;
     indirect_transform_impl(input.topLeftCorner(Nx, Ny), signal.topLeftCorner(Nx, Ny), wavelet);
@@ -121,6 +120,6 @@ auto indirect_transform(Eigen::ArrayBase<T0> const &coeffs, t_uint levels,
   indirect_transform(coeffs, result, levels, wavelet);
   return result;
 }
-} // namespace wavelets
-} // namespace sopt
+}  // namespace wavelets
+}  // namespace sopt
 #endif
