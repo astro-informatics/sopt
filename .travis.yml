@@ -196,6 +196,27 @@ matrix:
             - *basic_sources
           packages:
             - *native_deps
+            - openmpi-bin # Version 1.6.5-8
+
+      env:
+        - TITLE="Examples (no deps) - GCC - MPI"
+        - DEBUG=True
+        - LDFLAGS='-pthread'
+        - MPI=ON
+        - openMP=ON
+        - DOCS=OFF
+        - MPI_PROCS=4
+        - EXAMPLES=ON
+        - TEST_CMD='cd cpp/examples; find ./ -type f -perm /u=x -printf "Executing %p\n" -exec  {} \; '
+        - TRAVIS_ALLOW_FAILURE=true
+
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - *basic_sources
+          packages:
+            - *native_deps
             - *all_deps
             - doxygen # version 1.8.6-2
             - graphviz # version 2.36.0
@@ -261,7 +282,7 @@ script:
   - |
     cmake .. -DCMAKE_BUILD_TYPE=Release \
     -Ddompi=${MPI} \
-    -Dexamples=OFF \
+    -Dexamples=${EXAMPLES-OFF} \
     -Dopenmp=${openMP} \
     -Ddocs=${DOCS} \
     -Dbenchmarks=${Benchmarks-OFF} \
