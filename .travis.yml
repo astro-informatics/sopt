@@ -18,7 +18,6 @@ addons:
     packages: &native_deps
       - g++-7
       - clang-5.0
-      - clang-format-5.0
       - libtiff5-dev # version 5 ?
       - libgomp1 # version 4.8.4-2
 
@@ -238,7 +237,6 @@ matrix:
             - *basic_sources
           packages:
             - *native_deps
-
       env:
         - TITLE="Lint"
         - DEBUG=True
@@ -274,6 +272,13 @@ before_install:
 install:
 
 before_script:
+  - |
+    if [[ ${TITLE} = *Lint* ]]; then
+        curl https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+        echo "deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-7 main" | sudo tee -a /etc/apt/sources.list
+        sudo apt-get update -y -qq
+        sudo apt-get install clang-format-7
+    fi
 
 script:
   - pwd
