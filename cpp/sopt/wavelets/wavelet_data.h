@@ -42,6 +42,6 @@ struct WaveletData {
 
 //! Factory function returning specific daubechie wavelet data
 WaveletData const &daubechies_data(t_uint);
-}
-}
+}  // namespace wavelets
+}  // namespace sopt
 #endif

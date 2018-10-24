@@ -19,8 +19,7 @@ void direct_matrix(benchmark::State &state) {
   auto const input = sopt::Image<TYPE>::Random(Nx, Ny).eval();
   auto output = sopt::Image<TYPE>::Zero(Nx, Ny).eval();
   auto const wavelet = sopt::wavelets::factory(get_name(DB), LEVEL);
-  while(state.KeepRunning())
-    wavelet.direct(output, input);
+  while (state.KeepRunning()) wavelet.direct(output, input);
   state.SetBytesProcessed(int64_t(state.iterations()) * int64_t(Nx) * int64_t(Ny) * sizeof(TYPE));
 }
 
@@ -31,8 +30,7 @@ void indirect_matrix(benchmark::State &state) {
   auto const input = sopt::Image<TYPE>::Random(Nx, Ny).eval();
   auto output = sopt::Image<TYPE>::Zero(Nx, Ny).eval();
   auto const wavelet = sopt::wavelets::factory(get_name(DB), LEVEL);
-  while(state.KeepRunning())
-    wavelet.indirect(input, output);
+  while (state.KeepRunning()) wavelet.indirect(input, output);
   state.SetBytesProcessed(int64_t(state.iterations()) * int64_t(Nx) * int64_t(Ny) * sizeof(TYPE));
 }
 
@@ -42,8 +40,7 @@ void direct_vector(benchmark::State &state) {
   auto const input = sopt::Array<TYPE>::Random(Nx).eval();
   auto output = sopt::Array<TYPE>::Zero(Nx).eval();
   auto const wavelet = sopt::wavelets::factory(get_name(DB), LEVEL);
-  while(state.KeepRunning())
-    wavelet.direct(output, input);
+  while (state.KeepRunning()) wavelet.direct(output, input);
   state.SetBytesProcessed(int64_t(state.iterations()) * int64_t(Nx) * sizeof(TYPE));
 }
 template <class TYPE, unsigned DB = 1, unsigned LEVEL = 1>
@@ -52,8 +49,7 @@ void indirect_vector(benchmark::State &state) {
   auto const input = sopt::Array<TYPE>::Random(Nx).eval();
   auto output = sopt::Array<TYPE>::Zero(Nx).eval();
   auto const wavelet = sopt::wavelets::factory(get_name(DB), LEVEL);
-  while(state.KeepRunning())
-    wavelet.indirect(input, output);
+  while (state.KeepRunning()) wavelet.indirect(input, output);
   state.SetBytesProcessed(int64_t(state.iterations()) * int64_t(Nx) * sizeof(TYPE));
 }
 

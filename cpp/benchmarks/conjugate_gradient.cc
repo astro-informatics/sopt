@@ -2,7 +2,8 @@
 #include <sstream>
 #include <benchmark/benchmark.h>
 
-template <class TYPE> void matrix_cg(benchmark::State &state) {
+template <class TYPE>
+void matrix_cg(benchmark::State &state) {
   auto const N = state.range_x();
   auto const epsilon = std::pow(10, -state.range_y());
   auto const A = sopt::Image<TYPE>::Random(N, N).eval();
@@ -12,12 +13,12 @@ template <class TYPE> void matrix_cg(benchmark::State &state) {
   auto const Ahb = A.matrix().transpose().conjugate() * b.matrix();
   auto output = sopt::Vector<TYPE>::Zero(N).eval();
   sopt::ConjugateGradient cg(0, epsilon);
-  while(state.KeepRunning())
-    cg(output, AhA, Ahb);
+  while (state.KeepRunning()) cg(output, AhA, Ahb);
   state.SetBytesProcessed(int64_t(state.iterations()) * int64_t(N) * sizeof(TYPE));
 }
 
-template <class TYPE> void function_cg(benchmark::State &state) {
+template <class TYPE>
+void function_cg(benchmark::State &state) {
   auto const N = state.range_x();
   auto const epsilon = std::pow(10, -state.range_y());
   auto const A = sopt::Image<TYPE>::Random(N, N).eval();
@@ -29,8 +30,7 @@ template <class TYPE> void function_cg(benchmark::State &state) {
   auto func = [&AhA](t_Vector &out, t_Vector const &input) { out = AhA * input; };
   auto output = sopt::Vector<TYPE>::Zero(N).eval();
   sopt::ConjugateGradient cg(0, epsilon);
-  while(state.KeepRunning())
-    cg(output, func, Ahb);
+  while (state.KeepRunning()) cg(output, func, Ahb);
   state.SetBytesProcessed(int64_t(state.iterations()) * int64_t(N) * sizeof(TYPE));
 }
 

@@ -9,8 +9,9 @@
 
 namespace sopt {
 
-template <class TYPE> class RelativeVariation {
-public:
+template <class TYPE>
+class RelativeVariation {
+ public:
   //! Underlying scalar type
   typedef TYPE Scalar;
   //! Underlying scalar type
@@ -23,11 +24,13 @@ public:
       : tolerance_(c.tolerance_), previous_(c.previous_){};
 
   //! True if object has changed by less than tolerance
-  template <class T> bool operator()(Eigen::MatrixBase<T> const &input) {
+  template <class T>
+  bool operator()(Eigen::MatrixBase<T> const &input) {
     return operator()(input.array());
   }
   //! True if object has changed by less than tolerance
-  template <class T> bool operator()(Eigen::ArrayBase<T> const &input);
+  template <class T>
+  bool operator()(Eigen::ArrayBase<T> const &input);
   //! Allowed variation
   Real tolerance() const { return tolerance_; }
   //! Allowed variation
@@ -42,14 +45,15 @@ public:
     return *this;
   }
 
-protected:
+ protected:
   Real tolerance_;
   Array<Scalar> previous_;
   std::string name_;
 };
 
-template <class TYPE> class ScalarRelativeVariation {
-public:
+template <class TYPE>
+class ScalarRelativeVariation {
+ public:
   //! Underlying scalar type
   typedef TYPE Scalar;
   //! Underlying scalar type
@@ -57,11 +61,15 @@ public:
   //! Maximum variation from one step to the next
   ScalarRelativeVariation(Real relative_tolerance = 1e-12, Real absolute_tolerance = 1e-12,
                           std::string const &name = "")
-      : name_(name), relative_tolerance_(relative_tolerance),
-        absolute_tolerance_(absolute_tolerance), previous_(0), is_first_(true){};
+      : name_(name),
+        relative_tolerance_(relative_tolerance),
+        absolute_tolerance_(absolute_tolerance),
+        previous_(0),
+        is_first_(true){};
   //! Copy constructor
   ScalarRelativeVariation(ScalarRelativeVariation const &c)
-      : relative_tolerance_(c.relative_tolerance_), previous_(c.previous_),
+      : relative_tolerance_(c.relative_tolerance_),
+        previous_(c.previous_),
         is_first_(c.is_first_){};
 
   //! True if object has changed by less than tolerance
@@ -89,7 +97,7 @@ public:
     return *this;
   }
 
-protected:
+ protected:
   std::string name_;
   Real relative_tolerance_;
   Real absolute_tolerance_;
@@ -100,7 +108,7 @@ protected:
 template <class SCALAR>
 template <class T>
 bool RelativeVariation<SCALAR>::operator()(Eigen::ArrayBase<T> const &input) {
-  if(previous_.size() != input.size()) {
+  if (previous_.size() != input.size()) {
     previous_ = input;
     return false;
   }
@@ -110,22 +118,23 @@ bool RelativeVariation<SCALAR>::operator()(Eigen::ArrayBase<T> const &input) {
   return norm < tolerance() * tolerance();
 }
 
-template <class SCALAR> bool ScalarRelativeVariation<SCALAR>::operator()(Scalar const &current) {
-  if(is_first_) {
+template <class SCALAR>
+bool ScalarRelativeVariation<SCALAR>::operator()(Scalar const &current) {
+  if (is_first_) {
     previous_ = current;
     is_first_ = false;
     return false;
   }
   auto const average = (std::abs(previous_) + std::abs(current)) * 0.5;
   auto const diff = std::abs(previous_ - current);
-  auto const result
-      = diff <= relative_tolerance() * std::abs(average) or std::abs(diff) < absolute_tolerance();
+  auto const result =
+      diff <= relative_tolerance() * std::abs(average) or std::abs(diff) < absolute_tolerance();
   SOPT_LOW_LOG("    - {} relative variation: {} < {} * {} or {} < {} is {}", name(), diff,
                relative_tolerance(), average, diff, absolute_tolerance(),
                result ? "true" : "false");
   previous_ = current;
   return result;
 }
-} /* sopt  */
+}  // namespace sopt
 
 #endif

@@ -4,6 +4,11 @@
 #include <random>
 #include <type_traits>
 
+#include "sopt_l1.h"
+#include "tools_for_tests/cdata.h"
+#include "tools_for_tests/directories.h"
+#include "tools_for_tests/inpainting.h"
+#include "tools_for_tests/tiffwrappers.h"
 #include "sopt/logging.h"
 #include "sopt/positive_quadrant.h"
 #include "sopt/proximal.h"
@@ -12,11 +17,6 @@
 #include "sopt/sampling.h"
 #include "sopt/sdmm.h"
 #include "sopt/wavelets.h"
-#include "tools_for_tests/cdata.h"
-#include "tools_for_tests/directories.h"
-#include "tools_for_tests/inpainting.h"
-#include "tools_for_tests/tiffwrappers.h"
-#include "sopt_l1.h"
 
 typedef double Scalar;
 typedef sopt::Vector<Scalar> t_Vector;
@@ -25,7 +25,6 @@ typedef sopt::Matrix<Scalar> t_Matrix;
 sopt::algorithm::SDMM<Scalar> create_sdmm(sopt::LinearTransform<t_Vector> const &sampling,
                                           sopt::LinearTransform<t_Vector> const &psi,
                                           t_Vector const &y, sopt_l1_sdmmparam const &params) {
-
   using namespace sopt;
   return algorithm::SDMM<Scalar>()
       .itermax(params.max_iter)
@@ -66,15 +65,15 @@ TEST_CASE("Compare Reweighted SDMMS", "") {
   auto const y = dirty(sampling, image, *mersenne);
 
   sopt_l1_sdmmparam params = {
-      10,                       // verbosity
-      2,                        // max iter
-      0.1,                      // gamma
-      0.01,                     // relative change
-      epsilon(sampling, image), // radius of the l2ball
-      1e-3,                     // Relative tolerance on epsilon
-      std::is_same<Scalar, sopt::real_type<Scalar>::type>::value ? 1 : 0, // real data
-      200,                                                                // cg max iter
-      1e-8,                                                               // cg tol
+      10,                        // verbosity
+      2,                         // max iter
+      0.1,                       // gamma
+      0.01,                      // relative change
+      epsilon(sampling, image),  // radius of the l2ball
+      1e-3,                      // Relative tolerance on epsilon
+      std::is_same<Scalar, sopt::real_type<Scalar>::type>::value ? 1 : 0,  // real data
+      200,                                                                 // cg max iter
+      1e-8,                                                                // cg tol
   };
 
   sopt_l1_rwparam rwparam = {
@@ -91,7 +90,7 @@ TEST_CASE("Compare Reweighted SDMMS", "") {
   warm_start.x = positive_quadrant(warm_start.x);
 
   // Try increasing number of iterations and check output of c and c++ algorithms are the same
-  for(t_uint i : {0, 1, 2, 5}) {
+  for (t_uint i : {0, 1, 2, 5}) {
     SECTION(fmt::format("With {} iterations", i)) {
       sopt_l1_rwparam c_params = rwparam;
       c_params.max_iter = i;
@@ -104,7 +103,7 @@ TEST_CASE("Compare Reweighted SDMMS", "") {
       sopt_l1_rwsdmm((void *)c.data(), c.size(), &direct_transform<Scalar>, (void **)&sampling_data,
                      &adjoint_transform<Scalar>, (void **)&sampling_data, &direct_transform<Scalar>,
                      (void **)&psi_data, &adjoint_transform<Scalar>,
-                     (void **)&psi_data, // synthesis
+                     (void **)&psi_data,  // synthesis
                      (psi.adjoint() * c).size(), (void *)y.data(), y.size(), params, c_params);
 
       CAPTURE(cpp.algo.x.head(25).tail(3).transpose());

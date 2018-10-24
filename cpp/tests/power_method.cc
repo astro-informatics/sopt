@@ -6,7 +6,6 @@
 #include "sopt/power_method.h"
 
 TEST_CASE("Power Method") {
-
   using namespace sopt;
   typedef t_real Scalar;
   auto const N = 10;
@@ -66,8 +65,9 @@ TEST_CASE("Power Method (from Purify)") {
   Vector<t_complex> const input = eigenvector * 1e-4 + Vector<t_complex>::Random(N);
 
   const auto forward = [=](Vector<t_complex> &out, const Vector<t_complex> &in) { out = A * in; };
-  const auto backward
-      = [=](Vector<t_complex> &out, const Vector<t_complex> &in) { out = A.adjoint() * in; };
+  const auto backward = [=](Vector<t_complex> &out, const Vector<t_complex> &in) {
+    out = A.adjoint() * in;
+  };
   SECTION("Power Method") {
     auto op_norm = algorithm::power_method<Vector<t_complex>>({forward, backward}, power_iters,
                                                               power_tol, input);

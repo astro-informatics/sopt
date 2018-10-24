@@ -20,8 +20,9 @@ namespace algorithm {
 //! algorithm.
 //! \f$\min_{x, y, z} f(x) + l(y) + h(z)\f$ subject to \f$Φx = y\f$, \f$Ψ^Hx = z\f$
 //!  We are not implementing blocking or parallelism here.
-template <class SCALAR> class PrimalDual {
-public:
+template <class SCALAR>
+class PrimalDual {
+ public:
   //! Scalar type
   typedef SCALAR value_type;
   //! Scalar type
@@ -60,26 +61,37 @@ public:
   //! Setups PrimalDual
   template <class DERIVED>
   PrimalDual(Eigen::MatrixBase<DERIVED> const &target)
-      : itermax_(std::numeric_limits<t_uint>::max()), nu_(1), kappa_(1), tau_(1), sigma1_(1),
-        sigma2_(1), levels_(1), l1_proximal_weights_(Vector<Real>::Zero(1)), l2ball_epsilon_(1),
-        is_converged_(), Phi_(linear_transform_identity<Scalar>()),
-        Psi_(linear_transform_identity<Scalar>()), residual_convergence_(1e-4),
-        relative_variation_(1e-4), positivity_constraint_(true), target_(target) {}
+      : itermax_(std::numeric_limits<t_uint>::max()),
+        nu_(1),
+        kappa_(1),
+        tau_(1),
+        sigma1_(1),
+        sigma2_(1),
+        levels_(1),
+        l1_proximal_weights_(Vector<Real>::Zero(1)),
+        l2ball_epsilon_(1),
+        is_converged_(),
+        Phi_(linear_transform_identity<Scalar>()),
+        Psi_(linear_transform_identity<Scalar>()),
+        residual_convergence_(1e-4),
+        relative_variation_(1e-4),
+        positivity_constraint_(true),
+        target_(target) {}
   virtual ~PrimalDual() {}
 
 // Macro helps define properties that can be initialized as in
 // auto pd  = PrimalDual<float>().prop0(value).prop1(value);
-#define SOPT_MACRO(NAME, TYPE)                                                                     \
-  TYPE const &NAME() const { return NAME##_; }                                                     \
-  PrimalDual<SCALAR> &NAME(TYPE const &NAME) {                                                     \
-    NAME##_ = NAME;                                                                                \
-    return *this;                                                                                  \
-  }                                                                                                \
-                                                                                                   \
-protected:                                                                                         \
-  TYPE NAME##_;                                                                                    \
-                                                                                                   \
-public:
+#define SOPT_MACRO(NAME, TYPE)                 \
+  TYPE const &NAME() const { return NAME##_; } \
+  PrimalDual<SCALAR> &NAME(TYPE const &NAME) { \
+    NAME##_ = NAME;                            \
+    return *this;                              \
+  }                                            \
+                                               \
+ protected:                                    \
+  TYPE NAME##_;                                \
+                                               \
+ public:
 
   //! Maximum number of iterations
   SOPT_MACRO(itermax, t_uint);
@@ -119,7 +131,8 @@ public:
   //! Vector of target measurements
   t_Vector const &target() const { return target_; }
   //! Sets the vector of target measurements
-  template <class DERIVED> PrimalDual<DERIVED> &target(Eigen::MatrixBase<DERIVED> const &target) {
+  template <class DERIVED>
+  PrimalDual<DERIVED> &target(Eigen::MatrixBase<DERIVED> const &target) {
     target_ = target;
     return *this;
   }
@@ -182,7 +195,7 @@ public:
     return guess;
   }
 
-protected:
+ protected:
   //! Vector of measurements
   t_Vector target_;
 
@@ -191,13 +204,13 @@ protected:
 
   //! Checks input makes sense
   void sanity_check(t_Vector const &x_guess, t_Vector const &res_guess) const {
-    if((Phi().adjoint() * target()).size() != x_guess.size())
+    if ((Phi().adjoint() * target()).size() != x_guess.size())
       SOPT_THROW("target, adjoint measurement operator and input vector have inconsistent sizes");
-    if(target().size() != res_guess.size())
+    if (target().size() != res_guess.size())
       SOPT_THROW("target and residual vector have inconsistent sizes");
-    if((Phi() * x_guess).size() != target().size())
+    if ((Phi() * x_guess).size() != target().size())
       SOPT_THROW("target, measurement operator and input vector have inconsistent sizes");
-    if(not static_cast<bool>(is_converged()))
+    if (not static_cast<bool>(is_converged()))
       SOPT_WARN("No convergence function was provided: algorithm will run for {} steps", itermax());
   }
 
@@ -211,7 +224,6 @@ protected:
 template <class SCALAR>
 void PrimalDual<SCALAR>::iteration_step(t_Vector &out, t_Vector &residual, t_Vector &s, t_Vector &v,
                                         t_Vector &x_bar) const {
-
   t_Vector prev_sol = out;
   t_Vector prev_s = s;
   t_Vector prev_v = v;
@@ -232,7 +244,7 @@ void PrimalDual<SCALAR>::iteration_step(t_Vector &out, t_Vector &residual, t_Vec
 
   // x_t = positive orth projection(x_t-1 - tau * (sigma1 * Psi * s + sigma2 * Phi dagger * v))
   out = prev_sol - tau() * (Psi() * s * sigma1() + Phi().adjoint() * v * sigma2());
-  if(positivity_constraint()) {
+  if (positivity_constraint()) {
     out = sopt::positive_quadrant(out);
   }
   x_bar = 2 * out - prev_sol;
@@ -240,8 +252,8 @@ void PrimalDual<SCALAR>::iteration_step(t_Vector &out, t_Vector &residual, t_Vec
 }
 
 template <class SCALAR>
-typename PrimalDual<SCALAR>::Diagnostic PrimalDual<SCALAR>::
-operator()(t_Vector &out, t_Vector const &x_guess, t_Vector const &res_guess) const {
+typename PrimalDual<SCALAR>::Diagnostic PrimalDual<SCALAR>::operator()(
+    t_Vector &out, t_Vector const &x_guess, t_Vector const &res_guess) const {
   SOPT_HIGH_LOG("Performing Primal Dual");
   sanity_check(x_guess, res_guess);
 
@@ -262,7 +274,7 @@ operator()(t_Vector &out, t_Vector const &x_guess, t_Vector const &res_guess) co
 
   Vector<Real> l1_weights;
 
-  if(l1_proximal_weights().size() == 1 && (l1_proximal_weights()(0)) == 0) {
+  if (l1_proximal_weights().size() == 1 && (l1_proximal_weights()(0)) == 0) {
     l1_weights = Vector<Real>::Ones(1);
 
   } else {
@@ -273,15 +285,15 @@ operator()(t_Vector &out, t_Vector const &x_guess, t_Vector const &res_guess) co
 
   std::pair<Real, Real> objectives{sopt::l1_norm(Psi().adjoint() * out, l1_weights), 0};
 
-  for(; niters < itermax(); ++niters) {
+  for (; niters < itermax(); ++niters) {
     SOPT_LOW_LOG("    - [PD] Iteration {}/{}", niters, itermax());
     iteration_step(out, residual, s, v, x_bar);
     SOPT_LOW_LOG("      - [PD] Sum of residuals: {}", residual.array().abs().sum());
 
     objectives.second = objectives.first;
     objectives.first = sopt::l1_norm(Psi().adjoint() * out, l1_weights);
-    t_real const relative_objective
-        = std::abs(objectives.first - objectives.second) / objectives.first;
+    t_real const relative_objective =
+        std::abs(objectives.first - objectives.second) / objectives.first;
     SOPT_LOW_LOG("    - [PD] objective: obj value = {}, rel obj = {}", objectives.first,
                  relative_objective);
 
@@ -294,17 +306,16 @@ operator()(t_Vector &out, t_Vector const &x_guess, t_Vector const &res_guess) co
     auto const rel = relative_variation() <= 0e0 or relative_objective < relative_variation();
 
     converged = user and res and rel;
-    if(converged) {
+    if (converged) {
       SOPT_MEDIUM_LOG("    - [PD] converged in {} of {} iterations", niters, itermax());
       break;
     }
   }
   // check function exists, otherwise, don't know if convergence is meaningful
-  if(not converged)
-    SOPT_ERROR("    - [PD] did not converge within {} iterations", itermax());
+  if (not converged) SOPT_ERROR("    - [PD] did not converge within {} iterations", itermax());
 
   return {niters, converged, std::move(residual)};
 }
-}
-} /* sopt::algorithm */
+}  // namespace algorithm
+}  // namespace sopt
 #endif

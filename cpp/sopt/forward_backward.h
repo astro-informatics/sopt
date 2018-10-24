@@ -15,8 +15,9 @@ namespace algorithm {
 
 //! \brief Proximal Forward Backward algorithm
 //! \details \f$\min_{x} γf(x) + \|y - Φx\|\f$ where \f$y\f$ is a target vector.
-template <class SCALAR> class ForwardBackward {
-public:
+template <class SCALAR>
+class ForwardBackward {
+ public:
   //! Scalar type
   typedef SCALAR value_type;
   //! Scalar type
@@ -59,24 +60,29 @@ public:
   //! \param[in] g_proximal: proximal operator of the \f$g\f$ function
   template <class DERIVED>
   ForwardBackward(t_Proximal const &g_proximal, Eigen::MatrixBase<DERIVED> const &target)
-      : itermax_(std::numeric_limits<t_uint>::max()), sigma_(1), beta_(1e-8), mu_(1),
-        is_converged_(), PhiTPhi_([](t_Vector &out, const t_Vector &in) { out = in; }),
-        g_proximal_(g_proximal), target_(target) {}
+      : itermax_(std::numeric_limits<t_uint>::max()),
+        sigma_(1),
+        beta_(1e-8),
+        mu_(1),
+        is_converged_(),
+        PhiTPhi_([](t_Vector &out, const t_Vector &in) { out = in; }),
+        g_proximal_(g_proximal),
+        target_(target) {}
   virtual ~ForwardBackward() {}
 
 // Macro helps define properties that can be initialized as in
 // auto fb  = ProximalFowardBackward<float>().prop0(value).prop1(value);
-#define SOPT_MACRO(NAME, TYPE)                                                                     \
-  TYPE const &NAME() const { return NAME##_; }                                                     \
-  ForwardBackward<SCALAR> &NAME(TYPE const &NAME) {                                                \
-    NAME##_ = NAME;                                                                                \
-    return *this;                                                                                  \
-  }                                                                                                \
-                                                                                                   \
-protected:                                                                                         \
-  TYPE NAME##_;                                                                                    \
-                                                                                                   \
-public:
+#define SOPT_MACRO(NAME, TYPE)                      \
+  TYPE const &NAME() const { return NAME##_; }      \
+  ForwardBackward<SCALAR> &NAME(TYPE const &NAME) { \
+    NAME##_ = NAME;                                 \
+    return *this;                                   \
+  }                                                 \
+                                                    \
+ protected:                                         \
+  TYPE NAME##_;                                     \
+                                                    \
+ public:
 
   //! Maximum number of iterations
   SOPT_MACRO(itermax, t_uint);
@@ -130,8 +136,8 @@ public:
   //! \brief Calls Forward Backward
   //! \param[out] out: Output vector x
   //! \param[in] guess: initial guess
-  Diagnostic
-  operator()(t_Vector &out, std::tuple<t_Vector const &, t_Vector const &> const &guess) const {
+  Diagnostic operator()(t_Vector &out,
+                        std::tuple<t_Vector const &, t_Vector const &> const &guess) const {
     return operator()(out, std::get<0>(guess), std::get<1>(guess));
   }
   //! \brief Calls Forward Backward
@@ -141,8 +147,8 @@ public:
   }
   //! \brief Calls Forward Backward
   //! \param[in] guess: initial guess
-  DiagnosticAndResult
-  operator()(std::tuple<t_Vector const &, t_Vector const &> const &guess) const {
+  DiagnosticAndResult operator()(
+      std::tuple<t_Vector const &, t_Vector const &> const &guess) const {
     DiagnosticAndResult result;
     static_cast<Diagnostic &>(result) = operator()(result.x, guess);
     return result;
@@ -188,24 +194,24 @@ public:
     return guess;
   }
 
-  std::function<t_real(t_Vector)> const
-  objective_function(const std::function<t_real(t_Vector)> &g) const {
+  std::function<t_real(t_Vector)> const objective_function(
+      const std::function<t_real(t_Vector)> &g) const {
     return objective_functions::unconstrained_regularisation<t_Vector>(g, sigma(), target(),
                                                                        PhiTPhi());
   }
 
-protected:
+ protected:
   void iteration_step(t_Vector &out, t_Vector &residual) const;
 
   //! Checks input makes sense
   void sanity_check(t_Vector const &x_guess, t_Vector const &res_guess) const {
     t_Vector target_out;
     PhiTPhi_(target_out, target());
-    if(target_out.size() != x_guess.size())
+    if (target_out.size() != x_guess.size())
       SOPT_THROW("target, adjoint measurement operator and input vector have inconsistent sizes");
-    if(target().size() != res_guess.size())
+    if (target().size() != res_guess.size())
       SOPT_THROW("target and residual vector have inconsistent sizes");
-    if(not static_cast<bool>(is_converged()))
+    if (not static_cast<bool>(is_converged()))
       SOPT_WARN("No convergence function was provided: algorithm will run for {} steps", itermax());
   }
 
@@ -227,9 +233,8 @@ void ForwardBackward<SCALAR>::iteration_step(t_Vector &out, t_Vector &residual) 
 }
 
 template <class SCALAR>
-typename ForwardBackward<SCALAR>::Diagnostic ForwardBackward<SCALAR>::
-operator()(t_Vector &out, t_Vector const &x_guess, t_Vector const &res_guess) const {
-
+typename ForwardBackward<SCALAR>::Diagnostic ForwardBackward<SCALAR>::operator()(
+    t_Vector &out, t_Vector const &x_guess, t_Vector const &res_guess) const {
   SOPT_HIGH_LOG("Performing Forward-Backward");
   sanity_check(x_guess, res_guess);
 
@@ -238,7 +243,7 @@ operator()(t_Vector &out, t_Vector const &x_guess, t_Vector const &res_guess) co
 
   t_uint niters(0);
   bool converged = false;
-  for(; (not converged) && (niters < itermax()); ++niters) {
+  for (; (not converged) && (niters < itermax()); ++niters) {
     SOPT_LOW_LOG("    - [FB] Iteration {}/{}", niters, itermax());
     iteration_step(out, residual);
     SOPT_LOW_LOG("      - [FB] Sum of residuals: {}", residual.array().abs().sum());
@@ -247,14 +252,14 @@ operator()(t_Vector &out, t_Vector const &x_guess, t_Vector const &res_guess) co
     converged = is_converged(out, residual);
   }
 
-  if(converged) {
+  if (converged) {
     SOPT_MEDIUM_LOG("    - [FB] converged in {} of {} iterations", niters, itermax());
-  } else if(static_cast<bool>(is_converged())) {
+  } else if (static_cast<bool>(is_converged())) {
     // not meaningful if not convergence function
     SOPT_ERROR("    - [FB] did not converge within {} iterations", itermax());
   }
   return {niters, converged, std::move(residual)};
 }
-} // namespace algorithm
-} // namespace sopt
+}  // namespace algorithm
+}  // namespace sopt
 #endif

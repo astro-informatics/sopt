@@ -6,13 +6,14 @@
 
 namespace sopt {
 namespace algorithm {
-template <class ALGORITHM> class Reweighted;
+template <class ALGORITHM>
+class Reweighted;
 
 //! Factory function to create an l0-approximation by reweighting an l1 norm
 template <class ALGORITHM>
-Reweighted<ALGORITHM>
-reweighted(ALGORITHM const &algo, typename Reweighted<ALGORITHM>::t_SetWeights const &set_weights,
-           typename Reweighted<ALGORITHM>::t_Reweightee const &reweightee);
+Reweighted<ALGORITHM> reweighted(ALGORITHM const &algo,
+                                 typename Reweighted<ALGORITHM>::t_SetWeights const &set_weights,
+                                 typename Reweighted<ALGORITHM>::t_Reweightee const &reweightee);
 
 //! \brief L0-approximation algorithm, through reweighting
 //! \details This algorithm approximates \f$min_x ||Ψ^Tx||_0 + f(x)\f$ by solving the set of
@@ -25,8 +26,9 @@ reweighted(ALGORITHM const &algo, typename Reweighted<ALGORITHM>::t_SetWeights c
 //! - the inner algorithm, e.g. ImagingProximalADMM
 //! - a function returning Ψ^Tx given x
 //! - a function to modify the inner algorithm with new weights
-template <class ALGORITHM> class Reweighted {
-public:
+template <class ALGORITHM>
+class Reweighted {
+ public:
   //! Inner-loop algorithm
   typedef ALGORITHM Algorithm;
   //! Scalar type
@@ -62,8 +64,12 @@ public:
   };
 
   Reweighted(Algorithm const &algo, t_SetWeights const &setweights, t_Reweightee const &reweightee)
-      : algo_(algo), setweights_(setweights), reweightee_(reweightee),
-        itermax_(std::numeric_limits<t_uint>::max()), min_delta_(0e0), is_converged_(),
+      : algo_(algo),
+        setweights_(setweights),
+        reweightee_(reweightee),
+        itermax_(std::numeric_limits<t_uint>::max()),
+        min_delta_(0e0),
+        is_converged_(),
         update_delta_([](Real delta) { return 1e-1 * delta; }) {}
 
   //! Underlying "inner-loop" algorithm
@@ -127,8 +133,8 @@ public:
   //! \brief Performs reweighting
   //! \details This overload will compute an initial result without initial weights set to one.
   template <class INPUT>
-  typename std::enable_if<not(std::is_same<INPUT, typename Algorithm::DiagnosticAndResult>::value
-                              or std::is_same<INPUT, ReweightedResult>::value),
+  typename std::enable_if<not(std::is_same<INPUT, typename Algorithm::DiagnosticAndResult>::value or
+                              std::is_same<INPUT, ReweightedResult>::value),
                           ReweightedResult>::type
   operator()(INPUT const &input) const;
   //! \brief Performs reweighting
@@ -146,7 +152,7 @@ public:
   //! Updates delta
   Reweighted<Algorithm> update_delta(t_DeltaUpdate const &ud) const { return update_delta_ = ud; }
 
-protected:
+ protected:
   //! Inner loop algorithm
   Algorithm algo_;
   //! Function to set weights
@@ -166,11 +172,11 @@ protected:
 
 template <class ALGORITHM>
 template <class INPUT>
-typename std::
-    enable_if<not(std::is_same<INPUT, typename ALGORITHM::DiagnosticAndResult>::value
-                  or std::is_same<INPUT, typename Reweighted<ALGORITHM>::ReweightedResult>::value),
-              typename Reweighted<ALGORITHM>::ReweightedResult>::type
-    Reweighted<ALGORITHM>::operator()(INPUT const &input) const {
+typename std::enable_if<
+    not(std::is_same<INPUT, typename ALGORITHM::DiagnosticAndResult>::value or
+        std::is_same<INPUT, typename Reweighted<ALGORITHM>::ReweightedResult>::value),
+    typename Reweighted<ALGORITHM>::ReweightedResult>::type
+Reweighted<ALGORITHM>::operator()(INPUT const &input) const {
   Algorithm algo = algorithm();
   set_weights(algo, WeightVector::Ones(1));
   return operator()(algo(input));
@@ -184,8 +190,8 @@ typename Reweighted<ALGORITHM>::ReweightedResult Reweighted<ALGORITHM>::operator
 }
 
 template <class ALGORITHM>
-typename Reweighted<ALGORITHM>::ReweightedResult Reweighted<ALGORITHM>::
-operator()(typename Algorithm::DiagnosticAndResult const &warm) const {
+typename Reweighted<ALGORITHM>::ReweightedResult Reweighted<ALGORITHM>::operator()(
+    typename Algorithm::DiagnosticAndResult const &warm) const {
   ReweightedResult result;
   result.algo = warm;
   result.weights = WeightVector::Ones(1);
@@ -193,8 +199,8 @@ operator()(typename Algorithm::DiagnosticAndResult const &warm) const {
 }
 
 template <class ALGORITHM>
-typename Reweighted<ALGORITHM>::ReweightedResult Reweighted<ALGORITHM>::
-operator()(ReweightedResult const &warm) const {
+typename Reweighted<ALGORITHM>::ReweightedResult Reweighted<ALGORITHM>::operator()(
+    ReweightedResult const &warm) const {
   SOPT_HIGH_LOG("Starting reweighted scheme");
   // Copies inner algorithm, so that operator() can be constant
   Algorithm algo(algorithm());
@@ -202,13 +208,13 @@ operator()(ReweightedResult const &warm) const {
 
   auto delta = std::max(standard_deviation(reweightee(warm.algo.x)), min_delta());
   SOPT_LOW_LOG("-   Initial delta: {}", delta);
-  for(result.niters = 0; result.niters < itermax(); ++result.niters) {
+  for (result.niters = 0; result.niters < itermax(); ++result.niters) {
     SOPT_LOW_LOG("Reweigting iteration {}/{} ", result.niters, itermax());
     SOPT_LOW_LOG("  - delta: {}", delta);
     result.weights = delta / (delta + reweightee(result.algo.x).array().abs());
     set_weights(algo, result.weights);
     result.algo = algo(result.algo);
-    if(is_converged(result.algo.x)) {
+    if (is_converged(result.algo.x)) {
       SOPT_MEDIUM_LOG("Reweighting scheme did converge in {} iterations", result.niters);
       result.good = true;
       break;
@@ -216,36 +222,37 @@ operator()(ReweightedResult const &warm) const {
     delta = std::max(min_delta(), update_delta(delta));
   }
   // result is always good if no convergence function is defined
-  if(not is_converged())
+  if (not is_converged())
     result.good = true;
-  else if(not result.good)
+  else if (not result.good)
     SOPT_ERROR("Reweighting scheme did *not* converge in {} iterations", itermax());
   return result;
 }
 
 //! Factory function to create an l0-approximation by reweighting an l1 norm
 template <class ALGORITHM>
-Reweighted<ALGORITHM>
-reweighted(ALGORITHM const &algo, typename Reweighted<ALGORITHM>::t_SetWeights const &set_weights,
-           typename Reweighted<ALGORITHM>::t_Reweightee const &reweightee) {
+Reweighted<ALGORITHM> reweighted(ALGORITHM const &algo,
+                                 typename Reweighted<ALGORITHM>::t_SetWeights const &set_weights,
+                                 typename Reweighted<ALGORITHM>::t_Reweightee const &reweightee) {
   return {algo, set_weights, reweightee};
 }
 
-template <class SCALAR> class ImagingProximalADMM;
-template <class ALGORITHM> class PositiveQuadrant;
+template <class SCALAR>
+class ImagingProximalADMM;
+template <class ALGORITHM>
+class PositiveQuadrant;
 template <class T>
 Eigen::CwiseUnaryOp<const details::ProjectPositiveQuadrant<typename T::Scalar>, const T>
 positive_quadrant(Eigen::DenseBase<T> const &input);
 
 template <class SCALAR>
-Reweighted<PositiveQuadrant<ImagingProximalADMM<SCALAR>>>
-reweighted(ImagingProximalADMM<SCALAR> const &algo) {
-
+Reweighted<PositiveQuadrant<ImagingProximalADMM<SCALAR>>> reweighted(
+    ImagingProximalADMM<SCALAR> const &algo) {
   auto const posq = positive_quadrant(algo);
   typedef typename std::remove_const<decltype(posq)>::type Algorithm;
   typedef Reweighted<Algorithm> RW;
-  auto const reweightee
-      = [](Algorithm const &posq, typename RW::XVector const &x) -> typename RW::XVector {
+  auto const reweightee = [](Algorithm const &posq, typename RW::XVector const &x) ->
+      typename RW::XVector {
     return posq.algorithm().Psi().adjoint() * x;
   };
   auto const set_weights = [](Algorithm &posq, typename RW::WeightVector const &weights) -> void {
@@ -254,21 +261,21 @@ reweighted(ImagingProximalADMM<SCALAR> const &algo) {
   return {posq, set_weights, reweightee};
 }
 
- template <class SCALAR> class PrimalDual;
-template <class ALGORITHM> class PositiveQuadrant;
+template <class SCALAR>
+class PrimalDual;
+template <class ALGORITHM>
+class PositiveQuadrant;
 template <class T>
 Eigen::CwiseUnaryOp<const details::ProjectPositiveQuadrant<typename T::Scalar>, const T>
 positive_quadrant(Eigen::DenseBase<T> const &input);
 
 template <class SCALAR>
-Reweighted<PositiveQuadrant<PrimalDual<SCALAR>>>
-reweighted(PrimalDual<SCALAR> const &algo) {
-
+Reweighted<PositiveQuadrant<PrimalDual<SCALAR>>> reweighted(PrimalDual<SCALAR> const &algo) {
   auto const posq = positive_quadrant(algo);
   typedef typename std::remove_const<decltype(posq)>::type Algorithm;
   typedef Reweighted<Algorithm> RW;
-  auto const reweightee
-      = [](Algorithm const &posq, typename RW::XVector const &x) -> typename RW::XVector {
+  auto const reweightee = [](Algorithm const &posq, typename RW::XVector const &x) ->
+      typename RW::XVector {
     return posq.algorithm().Psi().adjoint() * x;
   };
   auto const set_weights = [](Algorithm &posq, typename RW::WeightVector const &weights) -> void {
@@ -277,7 +284,6 @@ reweighted(PrimalDual<SCALAR> const &algo) {
   return {posq, set_weights, reweightee};
 }
 
-
-} // namespace algorithm
-} // namespace sopt
+}  // namespace algorithm
+}  // namespace sopt
 #endif

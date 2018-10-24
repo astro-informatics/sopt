@@ -24,8 +24,7 @@ TEST_CASE("Parallel vs serial inpainting") {
   auto const world = mpi::Communicator::World();
   // split into serial and parallel
   auto const split_comm = world.split(world.is_root());
-  if(world.size() < 2)
-    return;
+  if (world.size() < 2) return;
 
   // Some typedefs for simplicity
   typedef double Scalar;
@@ -34,22 +33,22 @@ TEST_CASE("Parallel vs serial inpainting") {
 
   std::string const input = "cameraman256";
   // Read input file
-  Image const image = world.is_root() ?
-                          world.broadcast(sopt::notinstalled::read_standard_tiff(input)) :
-                          world.broadcast<Image>();
+  Image const image = world.is_root()
+                          ? world.broadcast(sopt::notinstalled::read_standard_tiff(input))
+                          : world.broadcast<Image>();
 
   // Initializing sensing operator
   // The operator is obtained by world root proc and split across the procs in split_comm
   sopt::t_uint nmeasure = 0.33 * image.size();
-  auto indices = world.is_root() ?
-                     world.broadcast(sopt::Sampling(image.size(), nmeasure, *mersenne).indices()) :
-                     world.broadcast<std::vector<t_uint>>();
-  if(split_comm.size() > 1) {
+  auto indices = world.is_root()
+                     ? world.broadcast(sopt::Sampling(image.size(), nmeasure, *mersenne).indices())
+                     : world.broadcast<std::vector<t_uint>>();
+  if (split_comm.size() > 1) {
     auto const copy = indices;
-    auto const N = indices.size() / split_comm.size()
-                   + (split_comm.rank() < indices.size() % split_comm.size() ? 1 : 0);
-    auto const start = split_comm.rank() * (indices.size() / split_comm.size())
-                       + std::min(indices.size() % split_comm.size(), split_comm.rank());
+    auto const N = indices.size() / split_comm.size() +
+                   (split_comm.rank() < indices.size() % split_comm.size() ? 1 : 0);
+    auto const start = split_comm.rank() * (indices.size() / split_comm.size()) +
+                       std::min(indices.size() % split_comm.size(), split_comm.rank());
     indices.resize(N);
     std::copy(copy.begin() + start, copy.begin() + N + start, indices.begin());
   }
@@ -69,36 +68,35 @@ TEST_CASE("Parallel vs serial inpainting") {
   // Create dirty vector
   std::normal_distribution<> gaussian_dist(0, sigma);
   Vector y = world.is_root() ? y0 : world.broadcast<Vector>();
-  if(world.is_root()) {
-    for(sopt::t_int i = 0; i < y0.size(); i++)
-      y(i) += gaussian_dist(*mersenne);
+  if (world.is_root()) {
+    for (sopt::t_int i = 0; i < y0.size(); i++) y(i) += gaussian_dist(*mersenne);
     world.broadcast(y);
   }
-  if(split_comm.size() > 1) {
-    auto const N
-        = y.size() / split_comm.size() + (split_comm.rank() < y.size() % split_comm.size() ? 1 : 0);
-    auto const start = split_comm.rank() * (y.size() / split_comm.size())
-                       + std::min(y.size() % split_comm.size(), split_comm.rank());
+  if (split_comm.size() > 1) {
+    auto const N =
+        y.size() / split_comm.size() + (split_comm.rank() < y.size() % split_comm.size() ? 1 : 0);
+    auto const start = split_comm.rank() * (y.size() / split_comm.size()) +
+                       std::min(y.size() % split_comm.size(), split_comm.rank());
     y = y.segment(start, N).eval();
   }
   CHECK(y.size() == indices.size());
 
   // Creating proximal-ADMM Functor
-  auto padmm = sopt::algorithm::ImagingProximalADMM<Scalar>(y)
-                   .itermax(4)
-                   .gamma(1e-1)
-                   .relative_variation(5e-4)
-                   .l2ball_proximal(
-                       sopt::proximal::WeightedL2Ball<Scalar>(epsilon).communicator(split_comm))
-                   .tight_frame(false)
-                   .l1_proximal_tolerance(1e-2)
-                   .l1_proximal_nu(1)
-                   .l1_proximal_itermax(50)
-                   .l1_proximal_positivity_constraint(true)
-                   .l1_proximal_real_constraint(true)
-                   .lagrange_update_scale(0.9)
-                   .nu(1e0)
-                   .Psi(psi);
+  auto padmm =
+      sopt::algorithm::ImagingProximalADMM<Scalar>(y)
+          .itermax(4)
+          .gamma(1e-1)
+          .relative_variation(5e-4)
+          .l2ball_proximal(sopt::proximal::WeightedL2Ball<Scalar>(epsilon).communicator(split_comm))
+          .tight_frame(false)
+          .l1_proximal_tolerance(1e-2)
+          .l1_proximal_nu(1)
+          .l1_proximal_itermax(50)
+          .l1_proximal_positivity_constraint(true)
+          .l1_proximal_real_constraint(true)
+          .lagrange_update_scale(0.9)
+          .nu(1e0)
+          .Psi(psi);
   LinearTransform<Vector> const parallel_sampling(
       [&sampling](Vector &out, Vector const &input) { out = sampling * input; }, sampling.sizes(),
       [&sampling, split_comm](Vector &out, Vector const &input) {
@@ -109,8 +107,8 @@ TEST_CASE("Parallel vs serial inpainting") {
   padmm.Phi(parallel_sampling);
   padmm.residual_convergence([&padmm, split_comm, world](Vector const &,
                                                          Vector const &residual) mutable -> bool {
-    auto const residual_norm
-        = sopt::mpi::l2_norm(residual, padmm.l2ball_proximal_weights(), split_comm);
+    auto const residual_norm =
+        sopt::mpi::l2_norm(residual, padmm.l2ball_proximal_weights(), split_comm);
     SOPT_LOW_LOG("    - [PADMM] Residuals: {} <? {}", residual_norm, padmm.residual_tolerance());
     CHECK(residual_norm == Approx(world.broadcast(residual_norm, world.root_id())));
     return residual_norm < padmm.residual_tolerance();
@@ -119,8 +117,8 @@ TEST_CASE("Parallel vs serial inpainting") {
                                              "Objective function");
   padmm.objective_convergence(
       [&padmm, split_comm, conv, world](Vector const &x, Vector const &) mutable -> bool {
-        auto const result = conv(sopt::mpi::l1_norm(padmm.Psi().adjoint() * x,
-                                                    padmm.l1_proximal_weights(), split_comm));
+        auto const result = conv(
+            sopt::mpi::l1_norm(padmm.Psi().adjoint() * x, padmm.l1_proximal_weights(), split_comm));
         CHECK(result == (world.broadcast<int>(result, world.root_id()) != 0));
         return result;
       });
