@@ -47,12 +47,12 @@ TEST_CASE("Parallel WeightedL2Ball", "[proximal]") {
   proximal::WeightedL2Ball<t_real> wball(0.5, weights, world);
   proximal::L2Ball<t_real> ball(0.5, world);
 
-  Vector<t_real> const expected
-      = ball((x.array() * weights.array()).matrix()).array() / weights.array();
+  Vector<t_real> const expected =
+      ball((x.array() * weights.array()).matrix()).array() / weights.array();
   Vector<t_real> const actual = wball(x);
   CHECK(actual.isApprox(expected));
 
-  wball.epsilon(std::sqrt(world.all_sum_all((x.array() * weights.array()).matrix().squaredNorm()))
-                * 1.001);
+  wball.epsilon(std::sqrt(world.all_sum_all((x.array() * weights.array()).matrix().squaredNorm())) *
+                1.001);
   CHECK(x.isApprox(wball(x)));
 }

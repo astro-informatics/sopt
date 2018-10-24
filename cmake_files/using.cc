@@ -2,7 +2,7 @@
 
 //! Sparsity Averaging Reweighted Analysis
 class SARA : public std::vector<int> {
-public:
+ public:
   // Constructors
   using std::vector<int>::vector;
 };

@@ -21,7 +21,7 @@ auto const N = 4;
 
 // Makes members public so we can test one at a time
 class IntrospectSDMM : public sopt::algorithm::SDMM<Scalar> {
-public:
+ public:
   using sopt::algorithm::SDMM<Scalar>::initialization;
   using sopt::algorithm::SDMM<Scalar>::solve_for_xn;
   using sopt::algorithm::SDMM<Scalar>::update_directions;
@@ -40,8 +40,8 @@ TEST_CASE("Proximal translation", "[proximal]") {
   CHECK(g(gamma, input).isApprox((1e0 - gamma / input.stableNorm()) * input));
   CHECK(g(gamma * 2 + 1, input).isApprox(input.Zero(N)));
   CHECK(gT(0.1, input)
-            .isApprox((1e0 - 0.1 / (input - translation).stableNorm()) * (input - translation)
-                      + translation));
+            .isApprox((1e0 - 0.1 / (input - translation).stableNorm()) * (input - translation) +
+                      translation));
 }
 
 // Iterate through algorithm for special case where the L_i are identies and the objective functions
@@ -111,9 +111,9 @@ TEST_CASE("Introspect SDMM with L_i = Identity and Euclidian objectives", "[sdmm
     auto const diagnostic2 = sdmm.solve_for_xn(out, y, z);
     CHECK(diagnostic2.good);
     CHECK(out.isApprox(0.5 * (y[0] - z[0] + y[1] - z[1])));
-    t_Vector const x2 = g0(sdmm.gamma(), g1(sdmm.gamma(), input))
-                        + g1(sdmm.gamma(), g0(sdmm.gamma(), input)) - 0.5 * g1(sdmm.gamma(), input)
-                        - 0.5 * g0(sdmm.gamma(), input);
+    t_Vector const x2 = g0(sdmm.gamma(), g1(sdmm.gamma(), input)) +
+                        g1(sdmm.gamma(), g0(sdmm.gamma(), input)) - 0.5 * g1(sdmm.gamma(), input) -
+                        0.5 * g0(sdmm.gamma(), input);
     CHECK(out.isApprox(x2));
   }
 
@@ -131,19 +131,19 @@ TEST_CASE("Introspect SDMM with L_i = Identity and Euclidian objectives", "[sdmm
       auto const diagnostic = sdmm(out, input);
       CHECK(not diagnostic.good);
       CHECK(diagnostic.niters == 2);
-      t_Vector const x2 = g0(sdmm.gamma(), g1(sdmm.gamma(), input))
-                          + g1(sdmm.gamma(), g0(sdmm.gamma(), input))
-                          - 0.5 * g1(sdmm.gamma(), input) - 0.5 * g0(sdmm.gamma(), input);
+      t_Vector const x2 = g0(sdmm.gamma(), g1(sdmm.gamma(), input)) +
+                          g1(sdmm.gamma(), g0(sdmm.gamma(), input)) -
+                          0.5 * g1(sdmm.gamma(), input) - 0.5 * g0(sdmm.gamma(), input);
       CHECK(out.isApprox(x2));
     }
 
     SECTION("Nth Iterations") {
       sdmm.gamma(1);
-      for(t_uint itermax(0); itermax < 10; ++itermax) {
+      for (t_uint itermax(0); itermax < 10; ++itermax) {
         t_Vector x = input;
         t_Vector y[2] = {x, x};
         t_Vector z[2] = {t_Vector::Zero(N).eval(), t_Vector::Zero(N).eval()};
-        for(t_uint i(0); i < itermax; ++i) {
+        for (t_uint i(0); i < itermax; ++i) {
           y[0] = g0(sdmm.gamma(), x + z[0]);
           y[1] = g1(sdmm.gamma(), x + z[1]);
           z[0] += x - g0(sdmm.gamma(), x + z[0]);
@@ -200,7 +200,7 @@ TEST_CASE("SDMM with ||x - x0||_2 functions", "[sdmm][integration]") {
     auto const func = [&target0, &target1, &target2](t_Vector const &x) {
       return (x - target0).stableNorm() + (x - target1).stableNorm() + (x - target2).stableNorm();
     };
-    for(int i(0); i < N; ++i) {
+    for (int i(0); i < N; ++i) {
       t_Vector epsilon = t_Vector::Zero(N);
       epsilon(i) = 1e-6;
       CHECK(func(result) < func(result + epsilon));
@@ -222,7 +222,7 @@ TEST_CASE("SDMM with ||x - x0||_2 functions", "[sdmm][integration]") {
     auto const func = [&target0, &target1, &L0, &L1](t_Vector const &x) {
       return (L0 * x - target0).stableNorm() + (L1 * x - target1).stableNorm();
     };
-    for(int i(0); i < N; ++i) {
+    for (int i(0); i < N; ++i) {
       t_Vector epsilon = t_Vector::Zero(N);
       epsilon(i) = 1e-4;
       CAPTURE(epsilon.transpose());

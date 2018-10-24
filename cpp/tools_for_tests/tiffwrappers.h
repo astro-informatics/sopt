@@ -9,6 +9,6 @@ namespace sopt {
 namespace notinstalled {
 //! Reads tiff image from sopt data directory if it exists
 sopt::Image<> read_standard_tiff(std::string const &name);
-}
-} /* sopt::notinstalled */
+}  // namespace notinstalled
+}  // namespace sopt
 #endif

@@ -40,12 +40,13 @@ int main(int argc, char const **argv) {
 
   std::string const input = argc >= 2 ? argv[1] : "cameraman256";
   std::string const output = argc == 3 ? argv[2] : "none";
-  if(argc > 3) {
+  if (argc > 3) {
     std::cout << "Usage:\n"
                  "$ "
-              << argv[0] << " [input [output]]\n\n"
-                            "- input: path to the image to clean (or name of standard SOPT image)\n"
-                            "- output: filename pattern for output image\n";
+              << argv[0]
+              << " [input [output]]\n\n"
+                 "- input: path to the image to clean (or name of standard SOPT image)\n"
+                 "- output: filename pattern for output image\n";
     exit(0);
   }
   // Set up random numbers for C and C++
@@ -62,8 +63,8 @@ int main(int argc, char const **argv) {
 
   SOPT_MEDIUM_LOG("Initializing sensing operator");
   sopt::t_uint nmeasure = 0.33 * image.size();
-  auto const sampling
-      = sopt::linear_transform<Scalar>(sopt::Sampling(image.size(), nmeasure, mersenne));
+  auto const sampling =
+      sopt::linear_transform<Scalar>(sopt::Sampling(image.size(), nmeasure, mersenne));
 
   SOPT_MEDIUM_LOG("Initializing wavelets");
   sopt::wavelets::SARA const sara{
@@ -83,10 +84,9 @@ int main(int argc, char const **argv) {
   SOPT_MEDIUM_LOG("Create dirty vector");
   std::normal_distribution<> gaussian_dist(0, sigma);
   Vector y(y0.size());
-  for(sopt::t_int i = 0; i < y0.size(); i++)
-    y(i) = y0(i) + gaussian_dist(mersenne);
+  for (sopt::t_int i = 0; i < y0.size(); i++) y(i) = y0(i) + gaussian_dist(mersenne);
   // Write dirty imagte to file
-  if(output != "none") {
+  if (output != "none") {
     Vector const dirty = sampling.adjoint() * y;
     sopt::utilities::write_tiff(Matrix::Map(dirty.data(), image.rows(), image.cols()),
                                 "dirty_" + output + ".tiff");
@@ -137,8 +137,8 @@ int main(int argc, char const **argv) {
   SOPT_MEDIUM_LOG("Creating the reweighted algorithm");
   // This follows the reweighted algorithm for SDMM
   auto const min_delta = sigma * std::sqrt(y.size()) / std::sqrt(8 * image.size());
-  auto const reweighted
-      = sopt::algorithm::reweighted(pd).itermax(5).min_delta(min_delta).is_converged(
+  auto const reweighted =
+      sopt::algorithm::reweighted(pd).itermax(5).min_delta(min_delta).is_converged(
           sopt::RelativeVariation<Scalar>(1e-3));
 
   SOPT_MEDIUM_LOG("Starting primal dual");
@@ -148,7 +148,7 @@ int main(int argc, char const **argv) {
   SOPT_MEDIUM_LOG("primal-dual returned {}", diagnostic.good);
 
   SOPT_MEDIUM_LOG("SOPT-primal-dual converged in {} iterations", diagnostic.niters);
-  if(output != "none")
+  if (output != "none")
     sopt::utilities::write_tiff(Matrix::Map(diagnostic.algo.x.data(), image.rows(), image.cols()),
                                 output + ".tiff");
 

@@ -40,7 +40,6 @@ ExternalProject_Add(
       -DCMAKE_BUILD_TYPE=${Sopt_BUILD_TYPE}
       -DNOEXPORT=TRUE
       -Dtests=FALSE
-      -Dpython=FALSE
       -Dexamples=FALSE
       -Dlogging=FALSE
       -Dregressions=FALSE

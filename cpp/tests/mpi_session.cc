@@ -2,9 +2,9 @@
 #include <iterator>
 #include <regex>
 #include <vector>
+#include "catch.hpp"
 #include <sopt/logging.h>
 #include <sopt/mpi/session.h>
-#include "catch.hpp"
 using namespace sopt;
 
 std::vector<char const *> cargs;
@@ -20,22 +20,22 @@ TEST_CASE("Create/delete session") {
 }
 
 int main(int argc, const char **argv) {
-  Catch::Session session; // There must be exactly once instance
+  Catch::Session session;  // There must be exactly once instance
 
   // Removes output qualifiers from arguments
   auto avoid = false;
   auto const N = std::string("--out=").size();
   std::vector<std::string> args(argv, argv + argc);
-  for(auto const &arg : args)
-    if(avoid)
+  for (auto const &arg : args)
+    if (avoid)
       avoid = false;
-    else if(arg == "-o" or arg == "--out")
+    else if (arg == "-o" or arg == "--out")
       avoid = true;
-    else if(arg.size() < N or arg.substr(0, N) != "--out=")
+    else if (arg.size() < N or arg.substr(0, N) != "--out=")
       cargs.push_back(arg.c_str());
 
   auto const returnCode = session.applyCommandLine(cargs.size(), const_cast<char **>(cargs.data()));
-  if(returnCode != 0) // Indicates a command line error
+  if (returnCode != 0)  // Indicates a command line error
     return returnCode;
 
   sopt::logging::initialize();

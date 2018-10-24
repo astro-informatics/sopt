@@ -20,7 +20,7 @@ namespace wavelets {
 
 //! Sparsity Averaging Reweighted Analysis
 class SARA : public std::vector<Wavelet> {
-public:
+ public:
 #ifndef SOPT_HAS_NOT_USING
   // Constructors
   using std::vector<Wavelet>::vector;
@@ -32,15 +32,14 @@ public:
   SARA(std::initializer_list<std::tuple<std::string, t_uint>> const &init)
       : SARA(init.begin(), init.end()) {}
   //! Construct from any iterator over a (std:string, t_uint) tuple
-  template <
-      class ITERATOR,
-      class T = typename std::enable_if<
-          std::is_convertible<decltype(std::get<0>(*std::declval<ITERATOR>())), std::string>::value
-          and std::is_convertible<decltype(std::get<1>(*std::declval<ITERATOR>())),
-                                  t_uint>::value>::type>
+  template <class ITERATOR,
+            class T = typename std::enable_if<
+                std::is_convertible<decltype(std::get<0>(*std::declval<ITERATOR>())),
+                                    std::string>::value and
+                std::is_convertible<decltype(std::get<1>(*std::declval<ITERATOR>())),
+                                    t_uint>::value>::type>
   SARA(ITERATOR first, ITERATOR last) {
-    for(; first != last; ++first)
-      emplace_back(std::get<0>(*first), std::get<1>(*first));
+    for (; first != last; ++first) emplace_back(std::get<0>(*first), std::get<1>(*first));
   }
 
   SARA(const_iterator first, const_iterator last) : std::vector<Wavelet>(first, last) {}
@@ -54,7 +53,8 @@ public:
   //! \return wavelets coefficients arranged by columns: if the input is n by m, then the output
   //! is n by m * d, with d the number of wavelets.
   //! \details Supports 1 and 2 dimensional tranforms for real and complex data.
-  template <class T0> typename T0::PlainObject direct(Eigen::ArrayBase<T0> const &signal) const;
+  template <class T0>
+  typename T0::PlainObject direct(Eigen::ArrayBase<T0> const &signal) const;
   //! \brief Direct transform
   //! \param[inout] coefficients: Output wavelet coefficients. Must be of the type as the input.
   //! If the input is n by m, and d is the number of wavelets, then the output should be n by (m *
@@ -84,7 +84,8 @@ public:
   //! where $l$ is the number of levels. Can be a matrix (2d-transform) or a column vector (1-d
   //! transform).
   //! \details Supports 1 and 2 dimensional tranforms for real and complex data.
-  template <class T0> typename T0::PlainObject indirect(Eigen::ArrayBase<T0> const &coeffs) const;
+  template <class T0>
+  typename T0::PlainObject indirect(Eigen::ArrayBase<T0> const &coeffs) const;
   //! \brief Indirect transform
   //! \param[in] coefficients: Input wavelet coefficients. Its size must be a multiple of $2^l$
   //! where $l$ is the number of levels. Can be a matrix (2d-transform) or a column vector (1-d
@@ -106,8 +107,7 @@ public:
 
   //! Number of levels over which to do transform
   t_uint max_levels() const {
-    if(size() == 0)
-      return 0;
+    if (size() == 0) return 0;
     auto cmp = [](Wavelet const &a, Wavelet const &b) { return a.levels() < b.levels(); };
     return std::max_element(begin(), end(), cmp)->levels();
   }
@@ -118,27 +118,26 @@ public:
   }
 };
 
-#define SOPT_WAVELET_ERROR_MACRO(INPUT)                                                            \
-  if(INPUT.rows() % (1u << max_levels()) != 0)                                                     \
-    throw std::length_error("Inconsistent number of columns and wavelet levels");                  \
-  else if(INPUT.cols() != 1 and INPUT.cols() % (1u << max_levels()))                               \
+#define SOPT_WAVELET_ERROR_MACRO(INPUT)                                           \
+  if (INPUT.rows() % (1u << max_levels()) != 0)                                   \
+    throw std::length_error("Inconsistent number of columns and wavelet levels"); \
+  else if (INPUT.cols() != 1 and INPUT.cols() % (1u << max_levels()))             \
     throw std::length_error("Inconsistent number of rows and wavelet levels");
 
 template <class T0, class T1>
 void SARA::direct(Eigen::ArrayBase<T1> &coeffs, Eigen::ArrayBase<T0> const &signal) const {
   SOPT_WAVELET_ERROR_MACRO(signal);
-  if(coeffs.rows() != signal.rows() or coeffs.cols() != signal.cols() * static_cast<t_int>(size()))
+  if (coeffs.rows() != signal.rows() or coeffs.cols() != signal.cols() * static_cast<t_int>(size()))
     coeffs.derived().resize(signal.rows(), signal.cols() * size());
-  if(coeffs.rows() != signal.rows() or coeffs.cols() != signal.cols() * static_cast<t_int>(size()))
+  if (coeffs.rows() != signal.rows() or coeffs.cols() != signal.cols() * static_cast<t_int>(size()))
     throw std::length_error("Incorrect size for output matrix(or could not resize)");
-  if(size() == 0)
-    return;
+  if (size() == 0) return;
   auto const Ncols = signal.cols();
   {
 #ifndef SOPT_OPENMP
     SOPT_TRACE("Calling direct sara without threads");
 #endif
-    for(size_type i = 0; i < size(); ++i)
+    for (size_type i = 0; i < size(); ++i)
       at(i).direct(coeffs.leftCols((i + 1) * Ncols).rightCols(Ncols), signal);
   }
 
@@ -147,15 +146,14 @@ void SARA::direct(Eigen::ArrayBase<T1> &coeffs, Eigen::ArrayBase<T0> const &sign
 
 template <class T0, class T1>
 void SARA::indirect(Eigen::ArrayBase<T1> const &coeffs, Eigen::ArrayBase<T0> &signal) const {
-  if(size() == 0)
-    throw std::runtime_error("Empty wavelets: adjoint operation undefined");
+  if (size() == 0) throw std::runtime_error("Empty wavelets: adjoint operation undefined");
   SOPT_WAVELET_ERROR_MACRO(coeffs);
-  if(coeffs.cols() % size() != 0)
+  if (coeffs.cols() % size() != 0)
     throw std::length_error(
         "Columns of coefficient matrix and number of wavelets are inconsistent");
-  if(coeffs.rows() != signal.rows() or coeffs.cols() != signal.cols() * static_cast<t_int>(size()))
+  if (coeffs.rows() != signal.rows() or coeffs.cols() != signal.cols() * static_cast<t_int>(size()))
     signal.derived().resize(coeffs.rows(), coeffs.cols() / size());
-  if(coeffs.rows() != signal.rows() or coeffs.cols() != signal.cols() * static_cast<t_int>(size()))
+  if (coeffs.rows() != signal.rows() or coeffs.cols() != signal.cols() * static_cast<t_int>(size()))
     throw std::length_error("Incorrect size for output matrix(or could not resize)");
   auto priv_image = Image<typename T0::Scalar>::Zero(signal.rows(), signal.cols()).eval();
   auto const Ncols = signal.cols();
@@ -163,7 +161,7 @@ void SARA::indirect(Eigen::ArrayBase<T1> const &coeffs, Eigen::ArrayBase<T0> &si
 #ifndef SOPT_OPENMP
     SOPT_TRACE("Calling indirect sara without threads");
 #endif
-    for(size_type i = 0; i < size(); ++i)
+    for (size_type i = 0; i < size(); ++i)
       priv_image += at(i).indirect(coeffs.leftCols((i + 1) * Ncols).rightCols(Ncols));
   }
   signal = priv_image / std::sqrt(size());
@@ -196,6 +194,6 @@ inline SARA distribute_sara(SARA const &all_wavelets, mpi::Communicator const &c
   return distribute_sara(all_wavelets, comm.size(), comm.rank());
 }
 #endif
-} // namespace wavelets
-} // namespace sopt
+}  // namespace wavelets
+}  // namespace sopt
 #endif

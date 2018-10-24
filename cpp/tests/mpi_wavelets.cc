@@ -14,10 +14,10 @@ TEST_CASE("Wavelet transform innards with integer data", "[wavelet]") {
   CAPTURE(serial.size());
   CAPTURE(world.size());
   auto const leftover = serial.size() % world.size();
-  auto const start
-      = world.rank() * (serial.size() / world.size()) + std::min(world.rank(), leftover);
-  auto const end = start + (serial.size() / world.size())
-                   + ((1 <= leftover and leftover > world.rank()) ? 1 : 0);
+  auto const start =
+      world.rank() * (serial.size() / world.size()) + std::min(world.rank(), leftover);
+  auto const end = start + (serial.size() / world.size()) +
+                   ((1 <= leftover and leftover > world.rank()) ? 1 : 0);
 
   sopt::wavelets::SARA const parallel(serial.begin() + start, serial.begin() + end);
 
@@ -28,8 +28,8 @@ TEST_CASE("Wavelet transform innards with integer data", "[wavelet]") {
 
   SECTION("Signal to Coefficients") {
     auto const signal = world.broadcast<Vector<t_real>>(Vector<t_real>::Random(Nx * Ny));
-    Vector<t_real> const serial_coeffs
-        = (psi_serial.adjoint() * signal).segment(start * Nx * Ny, (end - start) * Nx * Ny);
+    Vector<t_real> const serial_coeffs =
+        (psi_serial.adjoint() * signal).segment(start * Nx * Ny, (end - start) * Nx * Ny);
     Vector<t_real> const para_coeffs = psi_parallel.adjoint() * signal;
     CAPTURE(start);
     CAPTURE(end);
@@ -37,11 +37,11 @@ TEST_CASE("Wavelet transform innards with integer data", "[wavelet]") {
   }
 
   SECTION("Coefficients to Signal") {
-    auto const coefficients
-        = world.broadcast<Vector<t_real>>(Vector<t_real>::Random(Nx * Ny * serial.size()));
+    auto const coefficients =
+        world.broadcast<Vector<t_real>>(Vector<t_real>::Random(Nx * Ny * serial.size()));
     Vector<t_real> const serial_signal = (psi_serial * coefficients);
-    Vector<t_real> const para_signal
-        = psi_parallel * coefficients.segment(start * Nx * Ny, (end - start) * Nx * Ny);
+    Vector<t_real> const para_signal =
+        psi_parallel * coefficients.segment(start * Nx * Ny, (end - start) * Nx * Ny);
     CHECK(serial_signal.isApprox(para_signal));
   }
 }

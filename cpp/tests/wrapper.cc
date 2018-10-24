@@ -38,8 +38,9 @@ TEST_CASE("Function wrappers", "[utility]") {
   }
 
   SECTION("Fixed output-size functions") {
-    auto func
-        = [](t_RefArray output, t_ConstRefArray const &input) { output = input.head(3) * 2 + 1; };
+    auto func = [](t_RefArray output, t_ConstRefArray const &input) {
+      output = input.head(3) * 2 + 1;
+    };
 
     t_Array const x = t_Array::Random(5);
     auto const A = details::wrap<t_Array>(func, {{0, 1, 3}});
