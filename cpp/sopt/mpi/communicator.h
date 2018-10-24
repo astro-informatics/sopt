@@ -363,7 +363,7 @@ Communicator::all_to_allv(const std::vector<T> &vec, std::vector<t_int> const &s
     total += size;
   }
   std::vector<T> output = std::vector<T>(total, 0);
-  MPI_Alltoallv(vec.data(), ssizes_.data(), sdispls.data(), registered_type(T(0)), output.data(),
+  MPI_Alltoallv(const_cast<void *>(reinterpret_cast<const void *>(vec.data())), ssizes_.data(), sdispls.data(), registered_type(T(0)), output.data(),
                 rsizes_.data(), rdispls.data(), registered_type(T(0)), **this);
   return output;
 };
@@ -399,7 +399,7 @@ Communicator::all_to_allv(const Vector<T> &vec, std::vector<t_int> const &send_s
     total += size;
   }
   Vector<T> output = Vector<T>::Zero(total);
-  MPI_Alltoallv(vec.data(), ssizes_.data(), sdispls.data(), registered_type(T(0)), output.data(),
+  MPI_Alltoallv(const_cast<void *>(reinterpret_cast<const void *>(vec.data())), ssizes_.data(), sdispls.data(), registered_type(T(0)), output.data(),
                 rsizes_.data(), rdispls.data(), registered_type(T(0)), **this);
   return output;
 };
