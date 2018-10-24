@@ -207,6 +207,9 @@ public:
   template <class T>
   typename std::enable_if<is_registered_type<T>::value, Vector<T>>::type
   all_to_allv(const Vector<T> &vec, std::vector<t_int> const &send_sizes) const;
+  template <class T>
+  typename std::enable_if<is_registered_type<T>::value, std::vector<T>>::type
+  all_to_allv(const std::vector<T> &vec, std::vector<t_int> const &send_sizes) const;
 
   //! Split current communicator
   Communicator split(t_int color) const { return split(color, rank()); }
@@ -328,6 +331,42 @@ Communicator::scatterv(t_int local_size, t_uint const root) const {
                registered_type(T(0)), root, **this);
   return result;
 }
+
+template <class T>
+typename std::enable_if<is_registered_type<T>::value, std::vector<T>>::type
+Communicator::all_to_allv(const std::vector<T> &vec, std::vector<t_int> const &send_sizes) const {
+  if(size() == 1) {
+    if(send_sizes.size() == 1 and vec.size() != send_sizes.front())
+      throw std::runtime_error("Input vector size and sizes are inconsistent on root");
+    return vec;
+  }
+  std::vector<t_int> rec_sizes(send_sizes.size(), 0);
+  for(t_int i = 0; i < size(); i++) {
+    if(i == rank())
+      rec_sizes = gather<t_int>(send_sizes[i], i);
+    else
+      gather<t_int>(send_sizes[i], i);
+  }
+
+  int i = 0;
+  std::vector<int> ssizes_, sdispls;
+  for(auto const size : send_sizes) {
+    ssizes_.push_back(static_cast<int>(size));
+    sdispls.push_back(i);
+    i += size;
+  }
+  int total = 0;
+  std::vector<int> rsizes_, rdispls;
+  for(auto const size : rec_sizes) {
+    rsizes_.push_back(static_cast<int>(size));
+    rdispls.push_back(total);
+    total += size;
+  }
+  std::vector<T> output = std::vector<T>(total, 0);
+  MPI_Alltoallv(vec.data(), ssizes_.data(), sdispls.data(), registered_type(T(0)), output.data(),
+                rsizes_.data(), rdispls.data(), registered_type(T(0)), **this);
+  return output;
+};
 
 template <class T>
 typename std::enable_if<is_registered_type<T>::value, Vector<T>>::type
