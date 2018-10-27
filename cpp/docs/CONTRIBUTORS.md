@@ -10,7 +10,6 @@ have since been made by a number of others. The full list of contributors is as 
 Dr. Mayeul D'Avezac <br> [website](https://github.com/mdavezac)
 </div>
 
-
 ![](photo_rafael.jpg)
 <div class="text">
 Dr. Rafael Carrillo <br> [website](https://www.researchgate.net/profile/Rafael_Carrillo2)
@@ -43,7 +42,7 @@ Dr. David Perez-Suarez <br> [website](https://dpshelio.github.io)
 
 ![](photo_luke.jpg)
 <div class="text">
- Mr. Luke Pratley <br> [website](https://aboutme.luke.pratley)
+ Mr. Luke Pratley <br> [website](https://www.lukepratley.com)
 </div>
 
 ![](photo_yves.jpg)
