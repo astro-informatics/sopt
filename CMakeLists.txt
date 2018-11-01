@@ -21,6 +21,12 @@ option(openmp         "Enable OpenMP"                          on)
 option(dompi          "Enable MPI"                             on)
 option(docs           "Build documentation"                    off)
 
+if(NOT CMAKE_BUILD_TYPE)
+  message(STATUS "Setting build type to 'Release' as none was specified.")
+  set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Build Type" FORCE)
+endif()
+message(STATUS "Building sopt in ${CMAKE_BUILD_TYPE} mode")
+
 if(regressions)
   enable_language(C)
 endif()
