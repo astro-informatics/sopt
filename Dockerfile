@@ -1,18 +1,7 @@
-FROM ubuntu:18.10
+FROM uclrits/cppdev:18.10
 
 USER root
 WORKDIR /build
-
-# Install.
-RUN \
-  sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list && \
-  apt-get update && \
-  apt-get -y upgrade && \
-  apt-get install -y build-essential && \
-  apt-get install -y software-properties-common && \
-  apt-get install -y byobu curl git htop man unzip vim wget cmake  g++ zsh && \
-  apt-get install -y libopenmpi3 libtiff5-dev libgomp1 libfftw3-dev libboost-all-dev libeigen3-dev
-
 ENV LD_LIBRARY_PATH /usr/local/lib
 
 # Build sopt
@@ -30,6 +19,8 @@ RUN useradd -ms /bin/bash purifier
 
 USER purifier
 ENV HOME /home/purifier
+RUN cp /etc/zsh/newuser.zshrc.recommended /home/purifier/.zshrc
 WORKDIR /mydata
 CMD ["zsh"]
 
+# docker build -t uclrits/sopt:18.10
