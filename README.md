@@ -82,6 +82,24 @@ cd /path/to/code/build
 ctest .
 ```
 
+Docker
+-------
+
+If you want to use Docker instead, you can build an image using the Dockerfile
+available in the repository or pulling it from
+[DockerHub](https://hub.docker.com/r/uclrits/sopt).
+
+```
+docker build -t sopt .
+```
+
+or
+
+```
+docker pull uclrits/sopt
+```
+
+
 Matlab
 ------
 
