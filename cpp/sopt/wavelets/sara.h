@@ -167,7 +167,7 @@ void SARA::indirect(Eigen::ArrayBase<T1> const &coeffs, Eigen::ArrayBase<T0> &si
 #ifndef SOPT_OPENMP
     SOPT_TRACE("Calling indirect sara without threads");
 #endif
-
+    signal = T0::Zero(signal.rows(), signal.cols());
     if (Ncols == 1)
       for (size_type i = 0; i < size(); ++i) signal.col(0) += at(i).indirect(coeffs.col(i));
     else
