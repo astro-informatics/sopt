@@ -31,7 +31,6 @@ LinearTransform<Vector<T>> linear_transform(OP const &op) {
 template <class T, class OP>
 LinearTransform<Vector<T>> linear_transform(OP const &op, t_uint rows, t_uint cols,
                                             t_uint factor = 1) {
-  if (rows == 1 or cols == 1) return linear_transform<T, OP>(op);
   return LinearTransform<Vector<T>>(
       [op, rows, cols, factor](Vector<T> &out, Vector<T> const &x) {
         assert(static_cast<t_uint>(x.size()) == rows * cols * factor);
