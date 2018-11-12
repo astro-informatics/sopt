@@ -137,8 +137,11 @@ void SARA::direct(Eigen::ArrayBase<T1> &coeffs, Eigen::ArrayBase<T0> const &sign
 #ifndef SOPT_OPENMP
     SOPT_TRACE("Calling direct sara without threads");
 #endif
-    for (size_type i = 0; i < size(); ++i)
-      at(i).direct(coeffs.leftCols((i + 1) * Ncols).rightCols(Ncols), signal);
+    if (Ncols == 1)
+      for (size_type i = 0; i < size(); ++i) at(i).direct(coeffs.col(i), signal.col(0));
+    else
+      for (size_type i = 0; i < size(); ++i)
+        at(i).direct(coeffs.leftCols((i + 1) * Ncols).rightCols(Ncols), signal);
   }
 
   coeffs /= std::sqrt(size());
@@ -147,7 +150,11 @@ void SARA::direct(Eigen::ArrayBase<T1> &coeffs, Eigen::ArrayBase<T0> const &sign
 template <class T0, class T1>
 void SARA::indirect(Eigen::ArrayBase<T1> const &coeffs, Eigen::ArrayBase<T0> &signal) const {
   if (size() == 0) throw std::runtime_error("Empty wavelets: adjoint operation undefined");
-  SOPT_WAVELET_ERROR_MACRO(coeffs);
+  if (signal.cols() == 1) {
+    if (coeffs.rows() % (1u << max_levels()) != 0)
+      throw std::length_error("Inconsistent number of columns and wavelet levels");
+  } else
+    SOPT_WAVELET_ERROR_MACRO(coeffs);
   if (coeffs.cols() % size() != 0)
     throw std::length_error(
         "Columns of coefficient matrix and number of wavelets are inconsistent");
@@ -155,16 +162,19 @@ void SARA::indirect(Eigen::ArrayBase<T1> const &coeffs, Eigen::ArrayBase<T0> &si
     signal.derived().resize(coeffs.rows(), coeffs.cols() / size());
   if (coeffs.rows() != signal.rows() or coeffs.cols() != signal.cols() * static_cast<t_int>(size()))
     throw std::length_error("Incorrect size for output matrix(or could not resize)");
-  auto priv_image = Image<typename T0::Scalar>::Zero(signal.rows(), signal.cols()).eval();
   auto const Ncols = signal.cols();
   {
 #ifndef SOPT_OPENMP
     SOPT_TRACE("Calling indirect sara without threads");
 #endif
-    for (size_type i = 0; i < size(); ++i)
-      priv_image += at(i).indirect(coeffs.leftCols((i + 1) * Ncols).rightCols(Ncols));
+
+    if (Ncols == 1)
+      for (size_type i = 0; i < size(); ++i) signal.col(0) += at(i).indirect(coeffs.col(i));
+    else
+      for (size_type i = 0; i < size(); ++i)
+        signal += at(i).indirect(coeffs.leftCols((i + 1) * Ncols).rightCols(Ncols));
   }
-  signal = priv_image / std::sqrt(size());
+  signal /= std::sqrt(size());
 }
 
 #undef SOPT_WAVELET_ERROR_MACRO
