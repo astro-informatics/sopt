@@ -260,14 +260,14 @@ deploy:
 
 before_install:
   - echo "Travis Run!"
-  - if [[ $TRAVIS_OS_NAME == osx ]]; then brew update; brew install gcc@7; fi
-  - if [[ $TRAVIS_OS_NAME == osx]];  then git clone https://github.com/spack/spack.git; ./spack/bin/spack install -v openmpi@3.0.0; ./spack/bin/spack load openmpi@3.0.0; fi;
-  - if [[ $TRAVIS_OS_NAME == linux ]]; then ClangVer="-5.0"; fi
-  - if [[ ${TITLE} == *GCC* ]]; then CC=gcc-7; else CC=clang${ClangVer}; fi
-  - if [[ ${TITLE} == *GCC* ]]; then CXX=g++-7; else CXX=clang++${ClangVer}; fi
+  - if [[ $TRAVIS_OS_NAME = osx ]]; then brew update; brew install gcc@7; fi
+  - if [[ $TRAVIS_OS_NAME = osx ]];  then git clone https://github.com/spack/spack.git; ./spack/bin/spack install -v openmpi; ./spack/bin/spack load openmpi; fi
+  - if [[ $TRAVIS_OS_NAME = linux ]]; then ClangVer="-5.0"; fi
+  - if [[ ${TITLE} = *GCC* ]]; then CC=gcc-7; else CC=clang${ClangVer}; fi
+  - if [[ ${TITLE} = *GCC* ]]; then CXX=g++-7; else CXX=clang++${ClangVer}; fi
   # As MPI is not installed already, this variable is not set properly; this
   # way is set up for all the jobs in the same manner.
-  - if [[ $MPI == ON ]]; then eval $MPI_CONFIG; fi
+  - if [[ $MPI = ON ]]; then eval $MPI_CONFIG; fi
   - echo "==================== ${TITLE} ====================="
 
 install:
