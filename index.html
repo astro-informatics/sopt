@@ -120,6 +120,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <h2>Testing </h2>
 <p>To check everything went all right, run the test suite:</p>
 <p>``` cd /path/to/code/build ctest . ```</p>
+<h2>Docker </h2>
+<p>If you want to use Docker instead, you can build an image using the Dockerfile available in the repository or pulling it from <a href="https://hub.docker.com/r/uclrits/sopt">DockerHub</a>.</p>
+<p>``` docker build -t sopt . ```</p>
+<p>or</p>
+<p>``` docker pull uclrits/sopt ```</p>
 <h2>Matlab </h2>
 <p>A separate Matlab implementation is provided with <b>SOPT</b>. This implementation includes some (but not all) of the optimisation algorithms implemented in the <code>C++</code> code, including the SARA algorithm.</p>
 <p>The Matlab implementation is contained in the matlab directory. This is a stand-alone implementation and does not call any of the <code>C++</code> code. In future, Matlab interfaces to the <code>C++</code> code may also be included in <b>SOPT</b>.</p>
