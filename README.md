@@ -1,6 +1,5 @@
-
 Sparse OPTimisation Library
----------------------------------
+===========================
 
 [![Build Status](https://travis-ci.com/astro-informatics/sopt.svg?branch=development)](https://travis-ci.com/astro-informatics/sopt)
 
