@@ -107,6 +107,7 @@ matrix:
             - *native_deps
             - *all_deps
             - openmpi-bin # Version 1.6.5-8
+            - lcov
 
       env:
         - TITLE="All dependencies - GCC - MPI"
@@ -299,4 +300,4 @@ script:
   - eval $TEST_CMD
 
 after_success:
-
+  - if [ ${TITLE} = "All dependencies - GCC - MPI" ]; then bash .ci/coverage.sh; fi
