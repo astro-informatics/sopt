@@ -34,7 +34,7 @@ Dependencies installation
 - [OpenMP](http://openmp.org/wp/) v4.8.4 (Trusty) - Optional - Speeds up some of the operations.
 - [spdlog](https://github.com/gabime/spdlog) v* - Optional - Logging library. Downloaded automatically if
   absent.
-- [philsquared/Catch](https://github.com/philsquared/Catch) v2.2.3 - Optional -  A `C++`
+- [Catch2](https://github.com/catchorg/Catch2) v2.2.3 - Optional -  A `C++`
   unit-testing framework only needed for testing. Downloaded automatically if absent.
 - [google/benchmark](https://github.com/google/benchmark) - Optional - A `C++`
   micro-benchmarking framework only needed for benchmarks. Downloaded automatically if absent.
