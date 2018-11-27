@@ -300,4 +300,4 @@ script:
   - eval $TEST_CMD
 
 after_success:
-  - if [ "${TITLE}" = "All dependencies - GCC - MPI" ]; then bash .ci/coverage.sh; fi
+  - if [ "${TITLE}" = "All dependencies - GCC - MPI" ]; then cd ..; bash .ci/coverage.sh; fi
