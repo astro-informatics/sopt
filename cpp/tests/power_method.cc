@@ -71,13 +71,14 @@ TEST_CASE("Power Method (from Purify)") {
 
   SECTION("Power Method") {
     const sopt::LinearTransform<Vector<t_complex>> op = {forward, backward};
-    auto const result = algorithm::power_method<Vector<t_complex>>(op, power_iters,
-                                                                   power_tol, input);
+    auto const result =
+        algorithm::power_method<Vector<t_complex>>(op, power_iters, power_tol, input);
     const t_real op_norm = std::get<0>(result);
     const Vector<t_complex> op_eigen_vector_c = std::get<1>(result);
     CHECK(op_eigen_vector_c.unaryExpr([](t_complex x) { return std::arg(x); })
               .isApprox(Vector<t_complex>::Constant(op_eigen_vector_c.size(),
-                                                    std::arg(op_eigen_vector_c(0)))));
+                                                    std::arg(op_eigen_vector_c(0))),
+                        power_tol));
     const Vector<t_complex> op_eigen_vector =
         op_eigen_vector_c * std::polar<t_real>(1, -std::arg(op_eigen_vector_c(0)));
     CAPTURE(eigenvalue);
@@ -86,10 +87,12 @@ TEST_CASE("Power Method (from Purify)") {
     CAPTURE(eigenvector);
     CHECK(std::abs(op_norm * op_norm - eigenvalue) < power_tol * power_tol);
     CHECK(op_eigen_vector.isApprox(eigenvector, power_tol));
-    auto const norm_operator_result = algorithm::normalise_operator<Vector<t_complex>>(op, power_iters,
-                                                                   power_tol, input);
+    auto const norm_operator_result =
+        algorithm::normalise_operator<Vector<t_complex>>(op, power_iters, power_tol, input);
     CHECK(std::get<0>(norm_operator_result) == Approx(op_norm).epsilon(1e-12));
     CHECK(std::get<1>(norm_operator_result).isApprox(op_eigen_vector_c, 1e-12));
-    CHECK(((op * input)/op_norm).eval().isApprox((std::get<2>(norm_operator_result) * input).eval(), 1e-12));
+    CHECK(((op * input) / op_norm)
+              .eval()
+              .isApprox((std::get<2>(norm_operator_result) * input).eval(), 1e-12));
   }
 }
