@@ -23,42 +23,51 @@ addons:
   homebrew:
     packages: &osx_sources
       - gcc@7
-      - open-mpi
     update: true
+
+cache:
+  directories:
+    - $HOME/spack
 
 matrix:
   fast_finish: true
 
   include:
     - os: osx
-      osx_image: xcode8
+      osx_image: xcode10.1
       env:
-        - TITLE="Who knows - GCC"
+        - TITLE="XCode 10.1 - GCC"
         - MPI=OFF
         - openMP=OFF
         - DOCS=OFF
 
     - os: osx
-      osx_image: xcode8
+      osx_image: xcode10.1
       env:
-        - TITLE="Who knows - GCC - OMP"
+        - TITLE="XCode 10.1 - GCC - OMP"
         - MPI=OFF
         - openMP=ON
         - DOCS=OFF
 
     - os: osx
-      osx_image: xcode8
+      osx_image: xcode10.1
       env:
-        - TITLE="Who knows - GCC - MPI"
+        - TITLE="XCode 10.1 - GCC - MPI"
         - MPI=ON
         - openMP=ON
         - DOCS=OFF
         - MPI_PROCS=2
+      addons:
+        homebrew:
+          packages:
+            - *osx_sources
+            - modules
+            - lmod
 
     - os: osx
-      osx_image: xcode8
+      osx_image: xcode10.1
       env:
-        - TITLE="Who knows - Clang"
+        - TITLE="XCode 10.1 - Clang"
         - MPI=OFF
         - openMP=OFF
         - DOCS=OFF
@@ -267,6 +276,7 @@ before_install:
   - if [ $TRAVIS_OS_NAME = linux ]; then ClangVer="-5.0"; fi
   - if [[ ${TITLE} = *GCC* ]]; then CC=gcc-7; else CC=clang${ClangVer}; fi
   - if [[ ${TITLE} = *GCC* ]]; then CXX=g++-7; else CXX=clang++${ClangVer}; fi
+  - if [ $TRAVIS_OS_NAME = osx ] && [[ $MPI = ON ]]; then bash .ci/install_spack.sh; source $(brew --prefix modules)/init/bash; source .ci/spack_env.sh ;fi
   # As MPI is not installed already, this variable is not set properly; this
   # way is set up for all the jobs in the same manner.
   - if [[ $MPI = ON ]]; then eval $MPI_CONFIG; fi
