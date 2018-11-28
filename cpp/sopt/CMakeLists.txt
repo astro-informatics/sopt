@@ -1,7 +1,7 @@
 # list of headers
 set(headers
   bisection_method.h chained_operators.h credible_region.h
-  imaging_forward_backward.h forward_backward.h primal_dual.h imaging_padmm.h logging.disabled.h 
+  primal_dual.h imaging_padmm.h logging.disabled.h 
   maths.h proximal.h relative_variation.h sdmm.h
   wavelets.h conjugate_gradient.h l1_proximal.h logging.enabled.h padmm.h proximal_expression.h
   reweighted.h types.h wrapper.h exception.h linear_transform.h logging.h positive_quadrant.h
