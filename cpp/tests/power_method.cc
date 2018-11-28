@@ -94,5 +94,8 @@ TEST_CASE("Power Method (from Purify)") {
     CHECK(((op * input) / op_norm)
               .eval()
               .isApprox((std::get<2>(norm_operator_result) * input).eval(), 1e-12));
+    CHECK(((op.adjoint() * input) / op_norm)
+              .eval()
+              .isApprox((std::get<2>(norm_operator_result).adjoint() * input).eval(), 1e-12));
   }
 }

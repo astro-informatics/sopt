@@ -56,12 +56,12 @@ std::tuple<t_real, T, std::shared_ptr<sopt::LinearTransform<T>>> normalise_opera
     const t_real &relative_difference, const T &initial_vector) {
   const auto result = power_method<T>(*op, niters, relative_difference, initial_vector);
   const t_real norm = std::get<0>(result);
-  const sopt::LinearTransform<T> normed_op = {
-      [op, norm](T &output, const T &input) { output = (*op * input) / norm; },
-      [op, norm](T &output, const T &input) { output = (op->adjoint() * input) / norm; }};
-
-  return std::make_tuple(std::get<0>(result), std::get<1>(result),
-                         std::make_shared<sopt::LinearTransform<T>>(std::move(normed_op)));
+  return std::make_tuple(
+      std::get<0>(result), std::get<1>(result),
+      std::make_shared<sopt::LinearTransform<T>>(
+          [op, norm](T &output, const T &input) { output = (*op * input) / norm; }, op->sizes(),
+          [op, norm](T &output, const T &input) { output = (op->adjoint() * input) / norm; },
+          op->adjoint().sizes()));
 }
 template <class T>
 std::tuple<t_real, T, sopt::LinearTransform<T>> normalise_operator(
