@@ -32,7 +32,7 @@ class ForwardBackward {
   //! Type of the proximal operator
   typedef ProximalFunction<Scalar> t_Proximal;
   //! Type of the gradient
-  typedef std::function<void(t_Vector, t_Vector)> t_Gradient;
+  typedef typename std::function<void(t_Vector &, const t_Vector &)> t_Gradient;
 
   //! Values indicating how the algorithm ran
   struct Diagnostic {
@@ -58,7 +58,7 @@ class ForwardBackward {
   //! \param[in] f_gradient: gradient of the \f$f\f$ function.
   //! \param[in] g_proximal: proximal operator of the \f$g\f$ function
   template <class DERIVED>
-  ForwardBackward(t_Proximal const &f_gradient, t_Proximal const &g_proximal,
+  ForwardBackward(t_Gradient const &f_gradient, t_Proximal const &g_proximal,
                   Eigen::MatrixBase<DERIVED> const &target)
       : itermax_(std::numeric_limits<t_uint>::max()),
         gamma_(1e-8),
@@ -201,7 +201,8 @@ class ForwardBackward {
   }
 
  protected:
-  void iteration_step(t_Vector &out, t_Vector &residual, t_Vector &lambda, t_Vector &z) const;
+  void iteration_step(t_Vector &out, t_Vector &residual, t_Vector &z, t_Vector &p,
+                      const t_real lambda) const;
 
   //! Checks input makes sense
   void sanity_check(t_Vector const &x_guess, t_Vector const &res_guess) const {
