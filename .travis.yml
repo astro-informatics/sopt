@@ -116,6 +116,7 @@ matrix:
             - *native_deps
             - *all_deps
             - openmpi-bin # Version 1.6.5-8
+            - lcov
 
       env:
         - TITLE="All dependencies - GCC - MPI"
@@ -125,6 +126,7 @@ matrix:
         - openMP=ON
         - DOCS=OFF
         - MPI_PROCS=4
+        - COVERAGE=ON
 
     - os: linux
       addons:
@@ -304,9 +306,10 @@ script:
     -Dopenmp=${openMP} \
     -Ddocs=${DOCS} \
     -Dbenchmarks=${Benchmarks-OFF} \
+    -Dcoverage=${COVERAGE-OFF} \
     ${CMAKE_CMD_EXTRA}
   - eval $BUILD_CMD
   - eval $TEST_CMD
 
 after_success:
-
+  - if [ "${TITLE}" = "All dependencies - GCC - MPI" ]; then cd ..; bash .ci/coverage.sh; fi
