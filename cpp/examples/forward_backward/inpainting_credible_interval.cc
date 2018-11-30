@@ -62,7 +62,6 @@ int main(int argc, char const **argv) {
   sopt::t_uint nmeasure = std::floor(0.33 * image.size());
   sopt::LinearTransform<Vector> const sampling =
       sopt::linear_transform<Scalar>(sopt::Sampling(image.size(), nmeasure, mersenne));
-  auto phiTphi = [=](Vector &out, const Vector &in) { out = sampling.adjoint() * (sampling * in); };
   SOPT_HIGH_LOG("Initializing wavelets");
   auto const wavelet = sopt::wavelets::factory("DB4", 4);
 
@@ -89,15 +88,15 @@ int main(int argc, char const **argv) {
                                 "dirty_" + output + ".tiff");
   }
 
-  sopt::t_real const mu =
-      (psi.adjoint() * (sampling.adjoint() * y)).cwiseAbs().maxCoeff() * 1e-2 * nmeasure;
+  sopt::t_real const gamma =
+      (psi.adjoint() * (sampling.adjoint() * y)).cwiseAbs().maxCoeff() * 1e-1 * nmeasure;
   sopt::t_real const beta = 1. / static_cast<sopt::t_real>(nmeasure);
   SOPT_HIGH_LOG("Creating Foward Backward Functor");
   auto const fb = sopt::algorithm::ImagingForwardBackward<Scalar>(sampling.adjoint() * y)
                       .itermax(500)
                       .beta(beta)
                       .sigma(sigma)
-                      .mu(mu)
+                      .gamma(gamma)
                       .relative_variation(5e-4)
                       .residual_tolerance(0)
                       .tight_frame(true)
@@ -107,7 +106,7 @@ int main(int argc, char const **argv) {
                       .l1_proximal_positivity_constraint(true)
                       .l1_proximal_real_constraint(true)
                       .Psi(psi)
-                      .PhiTPhi(phiTphi);
+                      .Phi(sampling);
 
   SOPT_HIGH_LOG("Starting Forward Backward");
   // Alternatively, forward-backward can be called with a tuple (x, residual) as argument
@@ -128,7 +127,10 @@ int main(int argc, char const **argv) {
   const sopt::t_real alpha = 0.99;
   const sopt::t_uint grid_pixel_size = image.rows() / 16;
   SOPT_HIGH_LOG("Finding credible interval");
-  const std::function<Scalar(Vector)> objective_function = fb.objective_function();
+  const std::function<Scalar(Vector)> objective_function = [gamma, sigma, &y, &sampling, &psi](const Vector &x) {
+    return sopt::l1_norm(psi.adjoint() * x) * gamma +
+           0.5 * std::pow(sopt::l2_norm(sampling * x - y), 2) / (sigma * sigma);
+  };
 
   sopt::Image<sopt::t_real> lower_error, upper_error, mean_solution;
   std::tie(lower_error, mean_solution, upper_error) =
