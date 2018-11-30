@@ -7,11 +7,8 @@
 #include <sopt/imaging_forward_backward.h>
 #include <sopt/logging.h>
 #include <sopt/maths.h>
-#include <sopt/relative_variation.h>
-#include <sopt/sampling.h>
 #include <sopt/types.h>
-#include <sopt/utilities.h>
-#include <sopt/wavelets.h>
+#include <sopt/proximal.h>
 
 // This header is not part of the installed sopt interface
 // It is only present in tests
@@ -31,6 +28,27 @@ typedef sopt::t_uint t_uint;
 typedef sopt::t_int t_int;
 typedef sopt::Image<Scalar> t_Image;
 auto const N = 5;
+
+TEST_CASE("Forward Backward with ||x - x0||_2^2 function", "[fb]") {
+  using namespace sopt;
+  t_Vector const target0 = t_Vector::Random(N);
+  auto const g0 = [](t_Vector &out, const t_real gamma, const t_Vector &x) {
+    proximal::id(out, gamma, x);
+  };
+  auto const grad = [](t_Vector &out, const t_Vector &x) { out = x; };
+  const t_Vector x_guess = t_Vector::Random(target0.size());
+  const t_Vector res = x_guess - target0;
+  auto const fb =
+      algorithm::ForwardBackward<Scalar>(grad, g0, target0).itermax(300000).gamma(0.1).beta(1);
+  auto const result = fb(std::make_tuple(x_guess, res));
+  CAPTURE(result.niters);
+  CAPTURE(x_guess);
+  CAPTURE(result.x);
+  CAPTURE(result.residual);
+  CAPTURE(target0);
+  CHECK(result.x.isApprox(target0, 1e-9));
+}
+
 
 template <class T>
 struct is_imaging_proximal_ref
