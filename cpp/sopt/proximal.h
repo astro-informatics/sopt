@@ -74,6 +74,14 @@ void l1_norm(Vector<S> &out, typename real_type<S>::type gamma, Vector<S> const 
   l1_norm<Vector<S>, Vector<S>>(out, gamma, x);
 }
 
+//! Proximal of a function that is always zero, the identity
+template <class T0, class T1>
+void id(Eigen::DenseBase<T0> &out, typename real_type<typename T0::Scalar>::type gamma,
+             Eigen::DenseBase<T1> const &x) {
+  out = x;
+}
+
+
 //! \brief Proximal of l1 norm
 //! \details For more complex version involving linear transforms and weights, see L1TightFrame and
 //! L1 classes. In practice, this is an alias for soft_threshhold.
