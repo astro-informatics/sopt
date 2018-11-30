@@ -296,8 +296,9 @@ typename ImagingForwardBackward<SCALAR>::Diagnostic ImagingForwardBackward<SCALA
   auto const g_proximal = [this, &result](t_Vector &out, Real gamma, t_Vector const &x) {
     result.l1_diagnostic = this->l1_proximal(out, gamma, x);
   };
-  auto const f_gradient = [this](t_Vector &out, t_Vector const &x) {
-    this->l2_gradient()(out, x / (this->sigma() * this->sigma_()));
+  const Real sigma_factor = sigma() * sigma();
+  auto const f_gradient = [this, sigma_factor](t_Vector &out, t_Vector const &x) {
+    this->l2_gradient()(out, x / sigma_factor);
   };
   ScalarRelativeVariation<Scalar> scalvar(relative_variation(), relative_variation(),
                                           "Objective function");
