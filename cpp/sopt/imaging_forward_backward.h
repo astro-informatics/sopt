@@ -124,6 +124,8 @@ class ImagingForwardBackward {
 #undef SOPT_MACRO
   //! Vector of target measurements
   t_Vector const &target() const { return target_; }
+  //! Minimun of objective_function
+  Real objmin() const { return objmin_; };
   //! Sets the vector of target measurements
   template <class DERIVED>
   ImagingForwardBackward<Scalar> &target(Eigen::MatrixBase<DERIVED> const &target) {
@@ -245,9 +247,12 @@ class ImagingForwardBackward {
     return is_converged([func](t_Vector const &x, t_Vector const &) { return func(x); });
   }
 
+
  protected:
   //! Vector of measurements
   t_Vector target_;
+  //! Mininum of objective function
+  mutable Real objmin_;
 
   //! \brief Calls Forward Backward
   //! \param[out] out: Output vector x
@@ -303,7 +308,9 @@ typename ImagingForwardBackward<SCALAR>::Diagnostic ImagingForwardBackward<SCALA
   ScalarRelativeVariation<Scalar> scalvar(relative_variation(), relative_variation(),
                                           "Objective function");
   auto const convergence = [this, scalvar](t_Vector const &x, t_Vector const &residual) mutable {
-    return this->is_converged(scalvar, x, residual);
+   const bool result = this->is_converged(scalvar, x, residual);
+   this->objmin_ = scalvar.previous();
+   return result;
   };
   auto const fb = ForwardBackward<SCALAR>(f_gradient, g_proximal, target())
                       .itermax(itermax())
