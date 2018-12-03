@@ -307,7 +307,7 @@ typename ImagingForwardBackward<SCALAR>::Diagnostic ImagingForwardBackward<SCALA
   };
   ScalarRelativeVariation<Scalar> scalvar(relative_variation(), relative_variation(),
                                           "Objective function");
-  auto const convergence = [this, scalvar](t_Vector const &x, t_Vector const &residual) mutable {
+  auto const convergence = [this, &scalvar](t_Vector const &x, t_Vector const &residual) mutable {
    const bool result = this->is_converged(scalvar, x, residual);
    this->objmin_ = scalvar.previous();
    return result;
