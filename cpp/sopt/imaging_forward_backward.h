@@ -131,30 +131,30 @@ class ImagingForwardBackward {
     return *this;
   }
 
-  //! \brief Calls Proximal ADMM
+  //! \brief Calls Forward Backward
   //! \param[out] out: Output vector x
   Diagnostic operator()(t_Vector &out) const {
     return operator()(out, ForwardBackward<SCALAR>::initial_guess(target(), Phi(), nu()));
   }
-  //! \brief Calls Proximal ADMM
+  //! \brief Calls Forward Backward
   //! \param[out] out: Output vector x
   //! \param[in] guess: initial guess
   Diagnostic operator()(t_Vector &out, std::tuple<t_Vector, t_Vector> const &guess) const {
     return operator()(out, std::get<0>(guess), std::get<1>(guess));
   }
-  //! \brief Calls Proximal ADMM
+  //! \brief Calls Forward Backward
   //! \param[out] out: Output vector x
   //! \param[in] guess: initial guess
   Diagnostic operator()(t_Vector &out,
                         std::tuple<t_Vector const &, t_Vector const &> const &guess) const {
     return operator()(out, std::get<0>(guess), std::get<1>(guess));
   }
-  //! \brief Calls Proximal ADMM
+  //! \brief Calls Forward Backward
   //! \param[in] guess: initial guess
   DiagnosticAndResult operator()(std::tuple<t_Vector, t_Vector> const &guess) const {
     return operator()(std::tie(std::get<0>(guess), std::get<1>(guess)));
   }
-  //! \brief Calls Proximal ADMM
+  //! \brief Calls Forward Backward
   //! \param[in] guess: initial guess
   DiagnosticAndResult operator()(
       std::tuple<t_Vector const &, t_Vector const &> const &guess) const {
@@ -162,7 +162,7 @@ class ImagingForwardBackward {
     static_cast<Diagnostic &>(result) = operator()(result.x, guess);
     return result;
   }
-  //! \brief Calls Proximal ADMM
+  //! \brief Calls Forward Backward
   //! \param[in] guess: initial guess
   DiagnosticAndResult operator()() const {
     DiagnosticAndResult result;
@@ -249,7 +249,7 @@ class ImagingForwardBackward {
   //! Vector of measurements
   t_Vector target_;
 
-  //! \brief Calls Proximal ADMM
+  //! \brief Calls Forward Backward
   //! \param[out] out: Output vector x
   //! \param[in] guess: initial guess
   //! \param[in] residuals: initial residuals
@@ -290,7 +290,7 @@ class ImagingForwardBackward {
 template <class SCALAR>
 typename ImagingForwardBackward<SCALAR>::Diagnostic ImagingForwardBackward<SCALAR>::operator()(
     t_Vector &out, t_Vector const &guess, t_Vector const &res) const {
-  SOPT_HIGH_LOG("Performing Proximal ADMM with L1 and L2 operators");
+  SOPT_HIGH_LOG("Performing Forward Backward with L1 and L2 norms");
   // The f proximal is an L1 proximal that stores some diagnostic result
   Diagnostic result;
   auto const g_proximal = [this, &result](t_Vector &out, Real gamma, t_Vector const &x) {
