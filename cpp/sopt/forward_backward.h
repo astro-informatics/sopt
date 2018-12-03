@@ -231,8 +231,8 @@ void ForwardBackward<SCALAR>::iteration_step(t_Vector &out, t_Vector &residual, 
                                              t_Vector &z, const t_real lambda) const {
   p = out;
   f_gradient(z, residual);
-  g_proximal(out, gamma() * beta(), out - beta() / nu() * (Phi().adjoint() * residual));
-  out = (1. - lambda) * out + lambda * p;
+  g_proximal(out, gamma() * beta(), out - beta() / nu() * (Phi().adjoint() * z));
+  out = out + lambda * (out - p);
   residual = (Phi() * out) / nu() - target();
 }
 
@@ -249,11 +249,11 @@ typename ForwardBackward<SCALAR>::Diagnostic ForwardBackward<SCALAR>::operator()
 
   t_uint niters(0);
   bool converged = false;
-  Real t = 0;
+  Real t = 1;
   for (; (not converged) && (niters < itermax()); ++niters) {
     SOPT_LOW_LOG("    - [FB] Iteration {}/{}", niters, itermax());
     const Real t_new = (1 + std::sqrt(1 + 4 * t * t)) / 2.;
-    iteration_step(out, residual, p, z, (1 - t) / (t_new));
+    iteration_step(out, residual, p, z, (t - 1) / (t_new));
     t = t_new;
     SOPT_LOW_LOG("      - [FB] Sum of residuals: {}", residual.array().abs().sum());
     converged = is_converged(out, residual);
