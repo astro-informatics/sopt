@@ -95,7 +95,7 @@ int main(int argc, char const **argv) {
       .beta(beta)    // stepsize
       .sigma(sigma)  // sigma
       .gamma(gamma)  // regularisation paramater
-      .relative_variation(1e-4)
+      .relative_variation(1e-3)
       .residual_tolerance(0)
       .tight_frame(false)
       .l1_proximal_tolerance(1e-5)
