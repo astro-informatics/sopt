@@ -12,8 +12,8 @@
 namespace sopt {
 namespace algorithm {
 
-//! \brief Proximal Alternate Direction method of mutltipliers
-//! \details \f$\min_{x, z} f(x) + h(z)\f$ subject to \f$Φx + z = y\f$. \f$y\f$ is a target vector.
+//! \brief Forward Backward Splitting
+//! \details \f$\min_{x} f(\Phi x - y) + g(z)\f$. \f$y\f$ is a target vector.
 template <class SCALAR>
 class ForwardBackward {
  public:
@@ -129,28 +129,28 @@ class ForwardBackward {
     return static_cast<bool>(is_converged()) and is_converged()(x, residual);
   }
 
-  //! \brief Calls Proximal ADMM
+  //! \brief Calls Forward Backward
   //! \param[out] out: Output vector x
   Diagnostic operator()(t_Vector &out) const { return operator()(out, initial_guess()); }
-  //! \brief Calls Proximal ADMM
+  //! \brief Calls Forward Backward
   //! \param[out] out: Output vector x
   //! \param[in] guess: initial guess
   Diagnostic operator()(t_Vector &out, std::tuple<t_Vector, t_Vector> const &guess) const {
     return operator()(out, std::get<0>(guess), std::get<1>(guess));
   }
-  //! \brief Calls Proximal ADMM
+  //! \brief Calls Forward Backward
   //! \param[out] out: Output vector x
   //! \param[in] guess: initial guess
   Diagnostic operator()(t_Vector &out,
                         std::tuple<t_Vector const &, t_Vector const &> const &guess) const {
     return operator()(out, std::get<0>(guess), std::get<1>(guess));
   }
-  //! \brief Calls Proximal ADMM
+  //! \brief Calls Forward Backward
   //! \param[in] guess: initial guess
   DiagnosticAndResult operator()(std::tuple<t_Vector, t_Vector> const &guess) const {
     return operator()(std::tie(std::get<0>(guess), std::get<1>(guess)));
   }
-  //! \brief Calls Proximal ADMM
+  //! \brief Calls Forward Backward
   //! \param[in] guess: initial guess
   DiagnosticAndResult operator()(
       std::tuple<t_Vector const &, t_Vector const &> const &guess) const {
@@ -158,7 +158,7 @@ class ForwardBackward {
     static_cast<Diagnostic &>(result) = operator()(result.x, guess);
     return result;
   }
-  //! \brief Calls Proximal ADMM
+  //! \brief Calls Forward Backward
   //! \param[in] guess: initial guess
   DiagnosticAndResult operator()() const {
     DiagnosticAndResult result;
@@ -216,7 +216,7 @@ class ForwardBackward {
       SOPT_WARN("No convergence function was provided: algorithm will run for {} steps", itermax());
   }
 
-  //! \brief Calls Proximal ADMM
+  //! \brief Calls Forward Backward
   //! \param[out] out: Output vector x
   //! \param[in] guess: initial guess
   //! \param[in] residuals: initial residuals
