@@ -41,15 +41,9 @@ typename std::enable_if<not T1::IsVectorAtCompileTime, void>::type direct_transf
   assert(coeffs.rows() == signal.rows());
   assert(coeffs.cols() == signal.cols());
   assert(wavelet.direct_filter.low.size() == wavelet.direct_filter.high.size());
-#ifdef SOPT_OPENMP
-#pragma omp parallel for
-#endif
   for (t_uint i = 0; i < static_cast<t_uint>(coeffs.rows()); ++i)
     direct_transform_impl(coeffs.row(i).transpose(), signal.row(i).transpose(), wavelet);
 
-#ifdef SOPT_OPENMP
-#pragma omp parallel for
-#endif
   for (t_uint i = 0; i < static_cast<t_uint>(coeffs.cols()); ++i) {
     signal.col(i) = coeffs.col(i);
     direct_transform_impl(coeffs.col(i), signal.col(i), wavelet);
