@@ -103,6 +103,7 @@ typename JointMAP<Algo>::DiagnosticAndResultReg JointMAP<Algo>::operator()() con
                                           "Regularisation Parameter");
   ScalarRelativeVariation<t_real> objvar(objective_variation(), objective_variation(),
                                           "Joint Objective Function");
+  sanity_check(this->algo_ptr_->gamma(), beta(), alpha());
   t_uint niters(0);
   bool converged = false;
   typedef typename Algo::DiagnosticAndResult ResultType;
