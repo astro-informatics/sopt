@@ -40,21 +40,22 @@ class JointMAP {
         beta_(1),
         k_(1),
         number_of_wavelet_coeffs_(number_of_wavelet_coeffs),
+        is_converged_([](t_Vector const &, t_Vector const &, t_real const) { return true; }),
         relative_variation_(1e-3),
         objective_variation_(1e-3),
         gamma_guess_(algo_ptr->gamma()),
         itermax_(std::numeric_limits<t_uint>::max()){};
 
-#define SOPT_MACRO(NAME, TYPE)                      \
-  TYPE const &NAME() const { return NAME##_; }      \
+#define SOPT_MACRO(NAME, TYPE)                  \
+  TYPE const &NAME() const { return NAME##_; }  \
   JointMAP<ALGORITHM> &NAME(TYPE const &NAME) { \
-    NAME##_ = NAME;                                 \
-    return *this;                                   \
-  }                                                 \
-                                                    \
- protected:                                         \
-  TYPE NAME##_;                                     \
-                                                    \
+    NAME##_ = NAME;                             \
+    return *this;                               \
+  }                                             \
+                                                \
+ protected:                                     \
+  TYPE NAME##_;                                 \
+                                                \
  public:
 
   //! Maximum number of iterations
@@ -77,6 +78,9 @@ class JointMAP {
   SOPT_MACRO(relative_variation, t_real);
   //! relative variation of objective_function
   SOPT_MACRO(objective_variation, t_real);
+  //! \brief A function verifying convergence
+  //! \details It takes as input two arguments: the current solution x and the current residual.
+  SOPT_MACRO(is_converged, t_IsConverged);
 #undef SOPT_MACRO
  protected:
   //! Checks input makes sense
@@ -113,7 +117,8 @@ typename JointMAP<Algo>::DiagnosticAndResultReg JointMAP<Algo>::operator()() con
     result = (*algo_ptr_)(result);
     gamma = (static_cast<t_real>(number_of_wavelet_coeffs()) / k() + alpha()) / (this->reg_term()(result.x) + beta());
     SOPT_LOW_LOG("    - [JMAP] Regularisation Parameter Value {}", gamma);
-    converged = result.good and scalvar(gamma) and objvar(algo_ptr_->objmin());
+    converged = result.good and scalvar(gamma) and objvar(algo_ptr_->objmin()) and
+                this->is_converged()(result.x, result.residual, gamma);
     algo_iters += result.niters;
   }
 
