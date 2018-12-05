@@ -7,6 +7,7 @@
 #include <tuple>
 #include "sopt/exception.h"
 #include "sopt/linear_transform.h"
+#include "sopt/relative_variation.h"
 #include "sopt/logging.h"
 #include "sopt/types.h"
 
@@ -15,8 +16,8 @@ namespace algorithm {
 //! \brief Returns the eigenvalue and eigenvector for eigenvalue of the Linear Transform with
 //! largest magnitude
 template <class T>
-std::tuple<t_real, T> power_method(const sopt::LinearTransform<T> &op, const t_uint &niters,
-                                   const t_real &relative_difference, const T &initial_vector) {
+std::tuple<t_real, T> power_method(const sopt::LinearTransform<T> &op, const t_uint niters,
+                                   const t_real relative_difference, const T &initial_vector) {
   /*
      Attempt at coding the power method, returns the sqrt of the largest eigen value of a linear
      operator composed with its adjoint niters:: max number of iterations relative_difference::
@@ -29,6 +30,8 @@ std::tuple<t_real, T> power_method(const sopt::LinearTransform<T> &op, const t_u
   estimate_eigen_vector = estimate_eigen_vector / estimate_eigen_vector.matrix().stableNorm();
   SOPT_DEBUG("Starting power method");
   SOPT_DEBUG(" -[PM] Iteration: 0, norm = {}", estimate_eigen_value);
+  bool converged = false;
+  ScalarRelativeVariation<t_real> scalvar(relative_difference, 0., "Eigenvalue");
   for (t_int i = 0; i < niters; ++i) {
     estimate_eigen_vector = op.adjoint() * (op * estimate_eigen_vector);
     estimate_eigen_value = estimate_eigen_vector.matrix().stableNorm();
@@ -36,10 +39,9 @@ std::tuple<t_real, T> power_method(const sopt::LinearTransform<T> &op, const t_u
     if (estimate_eigen_value != estimate_eigen_value)
       throw std::runtime_error("Error in operator or data corrupted.");
     estimate_eigen_vector = estimate_eigen_vector / estimate_eigen_value;
-    t_real const rel_diff = std::abs(old_value - estimate_eigen_value) / old_value;
     SOPT_DEBUG(" -[PM] Iteration: {}, norm = {}", i + 1, estimate_eigen_value);
-    SOPT_DEBUG(" -[PM] Relative Difference = {} ( < {})", std::sqrt(rel_diff), relative_difference);
-    if (relative_difference * relative_difference > rel_diff) {
+    converged = scalvar(std::sqrt(estimate_eigen_value));
+    if (converged) {
       old_value = estimate_eigen_value;
       SOPT_DEBUG("Converged to norm = {}, relative difference < {}", std::sqrt(old_value),
                  relative_difference);
