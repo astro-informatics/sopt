@@ -48,8 +48,8 @@ TEST_CASE("Power Method (from Purify)") {
   using namespace sopt;
   typedef t_real Scalar;
   auto const N = 10;
-  const t_uint power_iters = 1000;
-  const t_real power_tol = 1e-4;
+  const t_uint power_iters = 100000;
+  const t_real power_tol = 1e-6;
   Eigen::EigenSolver<Matrix<Scalar>> es;
   Matrix<Scalar> A(N, N);
   std::iota(A.data(), A.data() + A.size(), 0);
@@ -68,11 +68,34 @@ TEST_CASE("Power Method (from Purify)") {
   const auto backward = [=](Vector<t_complex> &out, const Vector<t_complex> &in) {
     out = A.adjoint() * in;
   };
+
   SECTION("Power Method") {
-    auto op_norm = algorithm::power_method<Vector<t_complex>>({forward, backward}, power_iters,
-                                                              power_tol, input);
+    const sopt::LinearTransform<Vector<t_complex>> op = {forward, backward};
+    auto const result =
+        algorithm::power_method<Vector<t_complex>>(op, power_iters, power_tol, input);
+    const t_real op_norm = std::get<0>(result);
+    const Vector<t_complex> op_eigen_vector_c = std::get<1>(result);
+    CHECK(op_eigen_vector_c.unaryExpr([](t_complex x) { return std::arg(x); })
+              .isApprox(Vector<t_complex>::Constant(op_eigen_vector_c.size(),
+                                                    std::arg(op_eigen_vector_c(0))),
+                        power_tol));
+    const Vector<t_complex> op_eigen_vector =
+        op_eigen_vector_c * std::polar<t_real>(1, -std::arg(op_eigen_vector_c(0)));
     CAPTURE(eigenvalue);
     CAPTURE(op_norm * op_norm);
-    CHECK(std::abs(op_norm * op_norm - eigenvalue) < power_tol * power_tol);
+    CAPTURE(op_eigen_vector);
+    CAPTURE(eigenvector);
+    CHECK(op_norm == Approx(std::sqrt(std::abs(eigenvalue))).epsilon(power_tol));
+    CHECK(op_eigen_vector.isApprox(eigenvector, power_tol));
+    auto const norm_operator_result =
+        algorithm::normalise_operator<Vector<t_complex>>(op, power_iters, power_tol, input);
+    CHECK(std::get<0>(norm_operator_result) == Approx(op_norm).epsilon(1e-12));
+    CHECK(std::get<1>(norm_operator_result).isApprox(op_eigen_vector_c, 1e-12));
+    CHECK(((op * input) / op_norm)
+              .eval()
+              .isApprox((std::get<2>(norm_operator_result) * input).eval(), 1e-12));
+    CHECK(((op.adjoint() * input) / op_norm)
+              .eval()
+              .isApprox((std::get<2>(norm_operator_result).adjoint() * input).eval(), 1e-12));
   }
 }
