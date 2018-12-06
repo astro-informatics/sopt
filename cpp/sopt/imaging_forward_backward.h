@@ -14,6 +14,11 @@
 #include "sopt/relative_variation.h"
 #include "sopt/types.h"
 
+#ifdef SOPT_MPI
+#include "sopt/mpi/communicator.h"
+#include "sopt/mpi/utilities.h"
+#endif
+
 namespace sopt {
 namespace algorithm {
 template <class SCALAR>
@@ -376,7 +381,7 @@ bool ImagingForwardBackward<SCALAR>::is_converged(ScalarRelativeVariation<Scalar
   auto const user = static_cast<bool>(is_converged()) == false or is_converged()(x, residual);
   auto const res = residual_convergence(x, residual);
 #ifdef SOPT_MPI
-  auto const obj = objective_convergence(obj_comm, scalvar, x, residual);
+  auto const obj = objective_convergence(obj_comm(), scalvar, x, residual);
 #else
   auto const obj = objective_convergence(scalvar, x, residual);
 #endif
