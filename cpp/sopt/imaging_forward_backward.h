@@ -289,6 +289,12 @@ class ImagingForwardBackward {
   //! Helper function to simplify checking convergence
   bool objective_convergence(ScalarRelativeVariation<Scalar> &scalvar, t_Vector const &x,
                              t_Vector const &residual) const;
+#ifdef SOPT_MPI
+  //! Helper function to simplify checking convergence
+  bool objective_convergence(mpi::Communicator const &obj_comm,
+                             ScalarRelativeVariation<Scalar> &scalvar, t_Vector const &x,
+                             t_Vector const &residual) const;
+#endif
 
   //! Helper function to simplify checking convergence
   bool is_converged(ScalarRelativeVariation<Scalar> &scalvar, t_Vector const &x,
