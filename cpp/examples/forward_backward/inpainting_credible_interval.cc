@@ -91,7 +91,7 @@ int main(int argc, char const **argv) {
   sopt::t_real const gamma = 18;
   sopt::t_real const beta = sigma * sigma;
   SOPT_HIGH_LOG("Creating Foward Backward Functor");
-  auto const fb = sopt::algorithm::ImagingForwardBackward<Scalar>(sampling.adjoint() * y)
+  auto const fb = sopt::algorithm::ImagingForwardBackward<Scalar>(y)
                       .itermax(500)
                       .beta(beta)
                       .sigma(sigma)
