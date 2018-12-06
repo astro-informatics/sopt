@@ -128,12 +128,12 @@ void up_convolve_sum(Eigen::ArrayBase<T0> &result, Eigen::ArrayBase<T1> const &c
 #ifdef SOPT_OPENMP
 #pragma omp parallel for
 #endif
-  for (t_uint i = 0; i < result.size()/2; i++) {
-    result(2 *i + index_place_even) =
+  for (t_uint i = 0; i < result.size() / 2; i++) {
+    result(2 * i + index_place_even) =
         periodic_scalar_product(coeffs.head(Nlow), low_even, i + even_offset) +
-        periodic_scalar_product(coeffs.tail(Nhigh), high_even, i  + even_offset);
-    result(2 *i + index_place_odd) =
-        periodic_scalar_product(coeffs.head(Nlow), low_odd, i  + odd_offset) +
+        periodic_scalar_product(coeffs.tail(Nhigh), high_even, i + even_offset);
+    result(2 * i + index_place_odd) =
+        periodic_scalar_product(coeffs.head(Nlow), low_odd, i + odd_offset) +
         periodic_scalar_product(coeffs.tail(Nhigh), high_odd, i + odd_offset);
   }
 }
