@@ -62,10 +62,10 @@ int main(int argc, char const **argv) {
   sopt::LinearTransform<Vector> const sampling =
       sopt::linear_transform<Scalar>(sopt::Sampling(image.size(), nmeasure, mersenne));
   SOPT_HIGH_LOG("Initializing wavelets");
-  //auto const wavelet = sopt::wavelets::factory("DB8", 4);
+  auto const wavelet = sopt::wavelets::factory("DB8", 4);
 
-  sopt::wavelets::SARA const wavelet{std::make_tuple("db1", 4u), std::make_tuple("db2", 4u),
-                                      std::make_tuple("db3", 4u), std::make_tuple("db4", 4u)};
+ // sopt::wavelets::SARA const wavelet{std::make_tuple("db1", 4u), std::make_tuple("db2", 4u),
+ //                                     std::make_tuple("db3", 4u), std::make_tuple("db4", 4u)};
 
   auto const psi = sopt::linear_transform<Scalar>(wavelet, image.rows(), image.cols());
   SOPT_LOW_LOG("Wavelet coefficients: {}", (psi.adjoint() * image).size());
@@ -110,7 +110,7 @@ int main(int argc, char const **argv) {
   // Alternatively, forward-backward can be called with a tuple (x, residual) as argument
   // Here, we default to (y, Φx/ν - y)
   auto l1_norm = [psi](const Vector &x) { return sopt::l1_norm(psi.adjoint() * x); };
-  const sopt::t_uint number_of_wavelet_coefficients = image.size() * wavelet.size();
+  const sopt::t_uint number_of_wavelet_coefficients = image.size();
   auto joint_map = sopt::algorithm::JointMAP<sopt::algorithm::ImagingForwardBackward<Scalar>>(
       fb, l1_norm, number_of_wavelet_coefficients).alpha(1).beta(1).k(1).relative_variation(1e-3).objective_variation(1e-3);
   auto diagnostic = joint_map();
