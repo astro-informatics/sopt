@@ -41,13 +41,12 @@ std::tuple<t_real, T> power_method(const sopt::LinearTransform<T> &op, const t_u
     estimate_eigen_vector = estimate_eigen_vector / estimate_eigen_value;
     SOPT_DEBUG(" -[PM] Iteration: {}, norm = {}", i + 1, estimate_eigen_value);
     converged = scalvar(std::sqrt(estimate_eigen_value));
+    old_value = estimate_eigen_value;
     if (converged) {
-      old_value = estimate_eigen_value;
       SOPT_DEBUG("Converged to norm = {}, relative difference < {}", std::sqrt(old_value),
                  relative_difference);
       break;
     }
-    old_value = estimate_eigen_value;
   }
   return std::make_tuple(std::sqrt(old_value), estimate_eigen_vector);
 }

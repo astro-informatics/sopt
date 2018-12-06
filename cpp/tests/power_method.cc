@@ -48,8 +48,8 @@ TEST_CASE("Power Method (from Purify)") {
   using namespace sopt;
   typedef t_real Scalar;
   auto const N = 10;
-  const t_uint power_iters = 1000;
-  const t_real power_tol = 1e-4;
+  const t_uint power_iters = 100000;
+  const t_real power_tol = 1e-6;
   Eigen::EigenSolver<Matrix<Scalar>> es;
   Matrix<Scalar> A(N, N);
   std::iota(A.data(), A.data() + A.size(), 0);
@@ -85,7 +85,7 @@ TEST_CASE("Power Method (from Purify)") {
     CAPTURE(op_norm * op_norm);
     CAPTURE(op_eigen_vector);
     CAPTURE(eigenvector);
-    CHECK(std::abs(op_norm * op_norm - eigenvalue) < power_tol * power_tol);
+    CHECK(op_norm == Approx(std::sqrt(std::abs(eigenvalue))).epsilon(power_tol));
     CHECK(op_eigen_vector.isApprox(eigenvector, power_tol));
     auto const norm_operator_result =
         algorithm::normalise_operator<Vector<t_complex>>(op, power_iters, power_tol, input);
