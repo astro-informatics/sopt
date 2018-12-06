@@ -120,6 +120,10 @@ class ImagingForwardBackward {
   SOPT_MACRO(is_converged, t_IsConverged);
   //! Measurement operator
   SOPT_MACRO(Phi, t_LinearTransform);
+#ifdef SOPT_MPI
+  //! Communicator for summing objective_function
+  SOPT_MACRO(obj_comm, mpi::Communicator);
+#endif
 
 #undef SOPT_MACRO
   //! Vector of target measurements
@@ -247,7 +251,6 @@ class ImagingForwardBackward {
     return is_converged([func](t_Vector const &x, t_Vector const &) { return func(x); });
   }
 
-
  protected:
   //! Vector of measurements
   t_Vector target_;
@@ -308,9 +311,9 @@ typename ImagingForwardBackward<SCALAR>::Diagnostic ImagingForwardBackward<SCALA
   ScalarRelativeVariation<Scalar> scalvar(relative_variation(), relative_variation(),
                                           "Objective function");
   auto const convergence = [this, &scalvar](t_Vector const &x, t_Vector const &residual) mutable {
-   const bool result = this->is_converged(scalvar, x, residual);
-   this->objmin_ = scalvar.previous();
-   return result;
+    const bool result = this->is_converged(scalvar, x, residual);
+    this->objmin_ = scalvar.previous();
+    return result;
   };
   auto const fb = ForwardBackward<SCALAR>(f_gradient, g_proximal, target())
                       .itermax(itermax())
@@ -345,13 +348,32 @@ bool ImagingForwardBackward<SCALAR>::objective_convergence(ScalarRelativeVariati
   return scalvar(current);
 };
 
+#ifdef SOPT_MPI
+template <class SCALAR>
+bool ImagingForwardBackward<SCALAR>::objective_convergence(mpi::Communicator const &obj_comm,
+                                                           ScalarRelativeVariation<Scalar> &scalvar,
+                                                           t_Vector const &x,
+                                                           t_Vector const &residual) const {
+  if (static_cast<bool>(objective_convergence())) return objective_convergence()(x, residual);
+  if (scalvar.relative_tolerance() <= 0e0) return true;
+  auto const current = obj_comm.all_sum_all<t_real>(
+      sopt::l1_norm(Psi().adjoint() * x, l1_proximal_weights()) * gamma() +
+      std::pow(sopt::l2_norm(residual), 2) / (2 * sigma() * sigma()));
+  return scalvar(current);
+};
+#endif
+
 template <class SCALAR>
 bool ImagingForwardBackward<SCALAR>::is_converged(ScalarRelativeVariation<Scalar> &scalvar,
                                                   t_Vector const &x,
                                                   t_Vector const &residual) const {
   auto const user = static_cast<bool>(is_converged()) == false or is_converged()(x, residual);
   auto const res = residual_convergence(x, residual);
+#ifdef SOPT_MPI
+  auto const obj = objective_convergence(obj_comm, scalvar, x, residual);
+#else
   auto const obj = objective_convergence(scalvar, x, residual);
+#endif
   // beware of short-circuiting!
   // better evaluate each convergence function everytime, especially with mpi
   return user and res and obj;
