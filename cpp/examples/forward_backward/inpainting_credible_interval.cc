@@ -63,7 +63,7 @@ int main(int argc, char const **argv) {
   sopt::LinearTransform<Vector> const sampling =
       sopt::linear_transform<Scalar>(sopt::Sampling(image.size(), nmeasure, mersenne));
   SOPT_HIGH_LOG("Initializing wavelets");
-  auto const wavelet = sopt::wavelets::factory("DB4", 4);
+  auto const wavelet = sopt::wavelets::factory("DB8", 4);
 
   //  sopt::wavelets::SARA const wavelet{std::make_tuple("db1", 4u), std::make_tuple("db2", 4u),
   //                                   std::make_tuple("db3", 4u), std::make_tuple("db4", 4u)};
@@ -88,9 +88,8 @@ int main(int argc, char const **argv) {
                                 "dirty_" + output + ".tiff");
   }
 
-  sopt::t_real const gamma =
-      (psi.adjoint() * (sampling.adjoint() * y)).cwiseAbs().maxCoeff() * 1e-1 * nmeasure;
-  sopt::t_real const beta = 1. / static_cast<sopt::t_real>(nmeasure);
+  sopt::t_real const gamma = 18;
+  sopt::t_real const beta = sigma * sigma;
   SOPT_HIGH_LOG("Creating Foward Backward Functor");
   auto const fb = sopt::algorithm::ImagingForwardBackward<Scalar>(sampling.adjoint() * y)
                       .itermax(500)
