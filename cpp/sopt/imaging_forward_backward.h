@@ -65,7 +65,7 @@ class ImagingForwardBackward {
           output = x;
         }),  // gradient of 1/2 * x^2 = x;
         tight_frame_(false),
-        residual_tolerance_(1e-4),
+        residual_tolerance_(0.),
         relative_variation_(1e-4),
         residual_convergence_(nullptr),
         objective_convergence_(nullptr),
