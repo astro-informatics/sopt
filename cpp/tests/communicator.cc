@@ -156,11 +156,11 @@ TEST_CASE("Creates an mpi communicator") {
     SECTION("all_to_allv") {
       //
       std::vector<t_int> sizes(world.size(), world.rank());
-      const Vector<t_int> sendee
-          = Vector<t_int>::Constant(std::accumulate(sizes.begin(), sizes.end(), 0), world.rank());
+      const Vector<t_int> sendee =
+          Vector<t_int>::Constant(std::accumulate(sizes.begin(), sizes.end(), 0), world.rank());
       const Vector<t_int> output = world.all_to_allv(sendee, sizes);
       t_int sum = 0;
-      for(t_int i = 0; i < world.size() - 1; i++) {
+      for (t_int i = 0; i < world.size() - 1; i++) {
         const Vector<t_int> expected = Vector<t_int>::Constant(i + 1, i + 1);
         CAPTURE(sum);
         CAPTURE(i);

@@ -251,8 +251,8 @@ Reweighted<PositiveQuadrant<ImagingProximalADMM<SCALAR>>> reweighted(
   auto const posq = positive_quadrant(algo);
   typedef typename std::remove_const<decltype(posq)>::type Algorithm;
   typedef Reweighted<Algorithm> RW;
-  auto const reweightee = [](Algorithm const &posq, typename RW::XVector const &x) ->
-      typename RW::XVector {
+  auto const reweightee =
+      [](Algorithm const &posq, typename RW::XVector const &x) -> typename RW::XVector {
     return posq.algorithm().Psi().adjoint() * x;
   };
   auto const set_weights = [](Algorithm &posq, typename RW::WeightVector const &weights) -> void {
@@ -274,8 +274,8 @@ Reweighted<PositiveQuadrant<PrimalDual<SCALAR>>> reweighted(PrimalDual<SCALAR> c
   auto const posq = positive_quadrant(algo);
   typedef typename std::remove_const<decltype(posq)>::type Algorithm;
   typedef Reweighted<Algorithm> RW;
-  auto const reweightee = [](Algorithm const &posq, typename RW::XVector const &x) ->
-      typename RW::XVector {
+  auto const reweightee =
+      [](Algorithm const &posq, typename RW::XVector const &x) -> typename RW::XVector {
     return posq.algorithm().Psi().adjoint() * x;
   };
   auto const set_weights = [](Algorithm &posq, typename RW::WeightVector const &weights) -> void {
