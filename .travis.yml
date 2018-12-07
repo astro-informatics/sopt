@@ -218,25 +218,15 @@ matrix:
         - TRAVIS_ALLOW_FAILURE=true
 
     - os: linux
-      addons:
-        apt:
-          sources:
-            - *basic_sources
-          packages:
-            - *native_deps
-            - *all_deps
-            - doxygen # version 1.8.6-2
-            - graphviz # version 2.36.0
-
+      services:
+        - docker
       env:
         - TITLE="Documentation - GCC"
-        - DEBUG=True
-        - LDFLAGS='-pthread'
-        - MPI=OFF
-        - openMP=OFF
         - DOCS=ON
         - BUILD_CMD='make doc VERBOSE=1'
-        - TEST_CMD=''
+      script:
+        - chmod o+w . # To allow docker to create the build directory
+        - docker run --rm -v $(pwd):/mydata uclrits/sopt /bin/sh -c "mkdir build; cd build; cmake .. -Ddocs=${DOCS}; eval ${BUILD_CMD}"
 
     - os: linux
       addons:
@@ -276,6 +266,8 @@ before_install:
   # way is set up for all the jobs in the same manner.
   - if [[ $MPI = ON ]]; then eval $MPI_CONFIG; fi
   - echo "==================== ${TITLE} ====================="
+  - if [[ ${TITLE} = *Documentation* ]]; then docker pull uclrits/sopt; fi
+
 
 install:
 
