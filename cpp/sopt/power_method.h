@@ -7,8 +7,8 @@
 #include <tuple>
 #include "sopt/exception.h"
 #include "sopt/linear_transform.h"
-#include "sopt/relative_variation.h"
 #include "sopt/logging.h"
+#include "sopt/relative_variation.h"
 #include "sopt/types.h"
 
 namespace sopt {
