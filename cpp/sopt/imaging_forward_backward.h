@@ -323,7 +323,7 @@ typename ImagingForwardBackward<SCALAR>::Diagnostic ImagingForwardBackward<SCALA
                                           "Objective function");
   auto const convergence = [this, &scalvar](t_Vector const &x, t_Vector const &residual) mutable {
     const bool result = this->is_converged(scalvar, x, residual);
-    this->objmin_ = scalvar.previous();
+    this->objmin_ = std::real(scalvar.previous());
     return result;
   };
   auto const fb = ForwardBackward<SCALAR>(f_gradient, g_proximal, target())
