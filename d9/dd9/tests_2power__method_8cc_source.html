@@ -147,8 +147,8 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'Search');
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <span class="keyword">using namespace </span>sopt;</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <span class="keyword">typedef</span> t_real Scalar;</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> N = 10;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  <span class="keyword">const</span> t_uint power_iters = 1000;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <span class="keyword">const</span> t_real power_tol = 1e-4;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  <span class="keyword">const</span> t_uint power_iters = 100000;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <span class="keyword">const</span> t_real power_tol = 1e-6;</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  Eigen::EigenSolver&lt;Matrix&lt;Scalar&gt;&gt; es;</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  Matrix&lt;Scalar&gt; A(N, N);</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  std::iota(A.data(), A.data() + A.size(), 0);</div>
@@ -167,15 +167,39 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'Search');
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  <span class="keyword">const</span> <span class="keyword">auto</span> backward = [=](Vector&lt;t_complex&gt; &amp;out, <span class="keyword">const</span> Vector&lt;t_complex&gt; &amp;in) {</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    out = A.adjoint() * in;</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  };</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  SECTION(<span class="stringliteral">&quot;Power Method&quot;</span>) {</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keyword">auto</span> op_norm = algorithm::power_method&lt;Vector&lt;t_complex&gt;&gt;({forward, backward}, power_iters,</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                                                              power_tol, input);</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    CAPTURE(eigenvalue);</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    CAPTURE(op_norm * op_norm);</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    CHECK(std::abs(op_norm * op_norm - eigenvalue) &lt; power_tol * power_tol);</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  }</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;}</div>
-<div class="ttc" id="classsopt_1_1algorithm_1_1PowerMethod_html"><div class="ttname"><a href="../../d3/d22/classsopt_1_1algorithm_1_1PowerMethod.html">sopt::algorithm::PowerMethod</a></div><div class="ttdoc">Eigenvalue and eigenvector for eigenvalue with largest magnitude. </div><div class="ttdef"><b>Definition:</b> <a href="../../d5/dd2/power__method_8h_source.html#l00052">power_method.h:52</a></div></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  SECTION(<span class="stringliteral">&quot;Power Method&quot;</span>) {</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keyword">const</span> <a class="code" href="../../d9/d6e/classsopt_1_1LinearTransform.html">sopt::LinearTransform&lt;Vector&lt;t_complex&gt;</a>&gt; op = {forward, backward};</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keyword">auto</span> <span class="keyword">const</span> result =</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        algorithm::power_method&lt;Vector&lt;t_complex&gt;&gt;(op, power_iters, power_tol, input);</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keyword">const</span> t_real op_norm = std::get&lt;0&gt;(result);</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keyword">const</span> Vector&lt;t_complex&gt; op_eigen_vector_c = std::get&lt;1&gt;(result);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    CHECK(op_eigen_vector_c.unaryExpr([](t_complex x) { <span class="keywordflow">return</span> std::arg(x); })</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;              .isApprox(Vector&lt;t_complex&gt;::Constant(op_eigen_vector_c.size(),</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                                                    std::arg(op_eigen_vector_c(0))),</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                        power_tol));</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keyword">const</span> Vector&lt;t_complex&gt; op_eigen_vector =</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        op_eigen_vector_c * std::polar&lt;t_real&gt;(1, -std::arg(op_eigen_vector_c(0)));</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    CAPTURE(eigenvalue);</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    CAPTURE(op_norm * op_norm);</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    CAPTURE(op_eigen_vector);</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    CAPTURE(eigenvector);</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    CHECK(op_norm == Approx(std::sqrt(std::abs(eigenvalue))).epsilon(power_tol));</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    CHECK(op_eigen_vector.isApprox(eigenvector, power_tol));</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keyword">auto</span> <span class="keyword">const</span> norm_operator_result =</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        algorithm::normalise_operator&lt;Vector&lt;t_complex&gt;&gt;(op, power_iters, power_tol, input);</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    CHECK(std::get&lt;0&gt;(norm_operator_result) == Approx(op_norm).epsilon(1e-12));</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    CHECK(std::get&lt;1&gt;(norm_operator_result).isApprox(op_eigen_vector_c, 1e-12));</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    CHECK(((op * input) / op_norm)</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;              .eval()</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;              .isApprox((std::get&lt;2&gt;(norm_operator_result) * input).eval(), 1e-12));</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    CHECK(((op.adjoint() * input) / op_norm)</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;              .eval()</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;              .isApprox((std::get&lt;2&gt;(norm_operator_result).adjoint() * input).eval(), 1e-12));</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;  }</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;}</div>
+<div class="ttc" id="classsopt_1_1algorithm_1_1PowerMethod_html"><div class="ttname"><a href="../../d3/d22/classsopt_1_1algorithm_1_1PowerMethod.html">sopt::algorithm::PowerMethod</a></div><div class="ttdoc">Eigenvalue and eigenvector for eigenvalue with largest magnitude. </div><div class="ttdef"><b>Definition:</b> <a href="../../d5/dd2/power__method_8h_source.html#l00079">power_method.h:79</a></div></div>
+<div class="ttc" id="classsopt_1_1LinearTransform_html"><div class="ttname"><a href="../../d9/d6e/classsopt_1_1LinearTransform.html">sopt::LinearTransform</a></div><div class="ttdoc">Joins together direct and indirect operators. </div><div class="ttdef"><b>Definition:</b> <a href="../../d7/dd7/linear__transform_8h_source.html#l00029">linear_transform.h:29</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
