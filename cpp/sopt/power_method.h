@@ -4,29 +4,34 @@
 #include "sopt/config.h"
 #include <functional>
 #include <limits>
+#include <tuple>
 #include "sopt/exception.h"
 #include "sopt/linear_transform.h"
+#include "sopt/relative_variation.h"
 #include "sopt/logging.h"
 #include "sopt/types.h"
 
 namespace sopt {
 namespace algorithm {
-
+//! \brief Returns the eigenvalue and eigenvector for eigenvalue of the Linear Transform with
+//! largest magnitude
 template <class T>
-t_real power_method(const sopt::LinearTransform<T> &op, const t_uint &niters,
-                    const t_real &relative_difference, const T &initial_vector) {
+std::tuple<t_real, T> power_method(const sopt::LinearTransform<T> &op, const t_uint niters,
+                                   const t_real relative_difference, const T &initial_vector) {
   /*
-     Attempt at coding the power method, returns thesqrt of the largest eigen value of a linear
+     Attempt at coding the power method, returns the sqrt of the largest eigen value of a linear
      operator composed with its adjoint niters:: max number of iterations relative_difference::
      percentage difference at which eigen value has converged
      */
-  if (niters <= 0) return 1;
+  if (niters <= 0) return std::make_tuple(1., initial_vector);
   t_real estimate_eigen_value = 1;
   t_real old_value = 0;
   T estimate_eigen_vector = initial_vector;
   estimate_eigen_vector = estimate_eigen_vector / estimate_eigen_vector.matrix().stableNorm();
   SOPT_DEBUG("Starting power method");
   SOPT_DEBUG(" -[PM] Iteration: 0, norm = {}", estimate_eigen_value);
+  bool converged = false;
+  ScalarRelativeVariation<t_real> scalvar(relative_difference, 0., "Eigenvalue");
   for (t_int i = 0; i < niters; ++i) {
     estimate_eigen_vector = op.adjoint() * (op * estimate_eigen_vector);
     estimate_eigen_value = estimate_eigen_vector.matrix().stableNorm();
@@ -34,18 +39,40 @@ t_real power_method(const sopt::LinearTransform<T> &op, const t_uint &niters,
     if (estimate_eigen_value != estimate_eigen_value)
       throw std::runtime_error("Error in operator or data corrupted.");
     estimate_eigen_vector = estimate_eigen_vector / estimate_eigen_value;
-    t_real const rel_diff = std::abs(old_value - estimate_eigen_value) / old_value;
     SOPT_DEBUG(" -[PM] Iteration: {}, norm = {}", i + 1, estimate_eigen_value);
-    SOPT_DEBUG(" -[PM] Relative Difference = {} ( < {})", std::sqrt(rel_diff), relative_difference);
-    if (relative_difference * relative_difference > rel_diff) {
-      old_value = estimate_eigen_value;
+    converged = scalvar(std::sqrt(estimate_eigen_value));
+    old_value = estimate_eigen_value;
+    if (converged) {
       SOPT_DEBUG("Converged to norm = {}, relative difference < {}", std::sqrt(old_value),
                  relative_difference);
       break;
     }
-    old_value = estimate_eigen_value;
   }
-  return std::sqrt(old_value);
+  return std::make_tuple(std::sqrt(old_value), estimate_eigen_vector);
+}
+
+template <class T>
+std::tuple<t_real, T, std::shared_ptr<sopt::LinearTransform<T>>> normalise_operator(
+    const std::shared_ptr<sopt::LinearTransform<T> const> &op, const t_uint &niters,
+    const t_real &relative_difference, const T &initial_vector) {
+  const auto result = power_method<T>(*op, niters, relative_difference, initial_vector);
+  const t_real norm = std::get<0>(result);
+  return std::make_tuple(
+      std::get<0>(result), std::get<1>(result),
+      std::make_shared<sopt::LinearTransform<T>>(
+          [op, norm](T &output, const T &input) { output = (*op * input) / norm; }, op->sizes(),
+          [op, norm](T &output, const T &input) { output = (op->adjoint() * input) / norm; },
+          op->adjoint().sizes()));
+}
+template <class T>
+std::tuple<t_real, T, sopt::LinearTransform<T>> normalise_operator(
+    const sopt::LinearTransform<T> &op, const t_uint &niters, const t_real &relative_difference,
+    const T &initial_vector) {
+  const std::shared_ptr<sopt::LinearTransform<T>> shared_op =
+      std::make_shared<sopt::LinearTransform<T>>(std::move(op));
+  const auto result = normalise_operator<T>(shared_op, niters, relative_difference, initial_vector);
+  const auto normed_shared_op = std::get<2>(result);
+  return std::make_tuple(std::get<0>(result), std::get<1>(result), *normed_shared_op);
 }
 //! \brief Eigenvalue and eigenvector for eigenvalue with largest magnitude
 template <class SCALAR>
