@@ -11,15 +11,6 @@ env:
 
 
 addons:
-  apt:
-    sources: &basic_sources
-      - ubuntu-toolchain-r-test
-      - llvm-toolchain-trusty-5.0
-    packages: &native_deps
-      - g++-7
-      - clang-5.0
-      - libtiff5-dev # version 5 ?
-      - libgomp1 # version 4.8.4-2
   homebrew:
     packages: &osx_sources
       - gcc@7
@@ -75,10 +66,12 @@ matrix:
     - os: linux
       addons:
         apt:
-          sources:
-            - *basic_sources
+          sources: &basic_sources
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-trusty-5.0
           packages:
-            - *native_deps
+            - &native_deps [ g++-7, clang-5.0, libtiff5-dev, libgomp1]
+            # libtiff5-dev version 5 ?; libgomp1 # version 4.8.4-2
             - &all_deps [ libfftw3-dev, libboost-all-dev, libeigen3-dev ]
             # libfftw3 version 3.3.3; libboost-all-dev version 1.54; libeigen3-dev version 3.2.0
 
