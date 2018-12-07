@@ -1,5 +1,5 @@
-#ifndef SOPT_L1_PROXIMAL_ADMM_H
-#define SOPT_L1_PROXIMAL_ADMM_H
+#ifndef SOPT_L1_FORWARD_BACKWARD_H
+#define SOPT_L1_FORWARD_BACKWARD_H
 
 #include "sopt/config.h"
 #include <numeric>
