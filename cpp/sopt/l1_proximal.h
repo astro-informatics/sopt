@@ -206,6 +206,11 @@ class L1 : protected L1TightFrame<SCALAR> {
   template <class T0>
   Diagnostic operator()(Eigen::MatrixBase<T0> &out, Real gamma, Vector<Scalar> const &x) const {
     // Note that we *must* call eval on x, in case it is an expression involving out
+    if (gamma <= 0) {
+      apply_constraints(out, x);
+      return Diagnostic(0, 0, 0, true);
+    }
+
     if (fista_mixing())
       return operator()(out, gamma, x, FistaMixing());
     else
