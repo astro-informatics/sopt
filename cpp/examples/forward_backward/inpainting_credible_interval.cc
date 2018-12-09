@@ -126,7 +126,8 @@ int main(int argc, char const **argv) {
   const sopt::t_real alpha = 0.99;
   const sopt::t_uint grid_pixel_size = image.rows() / 16;
   SOPT_HIGH_LOG("Finding credible interval");
-  const std::function<Scalar(Vector)> objective_function = [gamma, sigma, &y, &sampling, &psi](const Vector &x) {
+  const std::function<Scalar(Vector)> objective_function = [gamma, sigma, &y, &sampling,
+                                                            &psi](const Vector &x) {
     return sopt::l1_norm(psi.adjoint() * x) * gamma +
            0.5 * std::pow(sopt::l2_norm(sampling * x - y), 2) / (sigma * sigma);
   };

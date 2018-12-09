@@ -7,8 +7,8 @@
 #include <sopt/imaging_forward_backward.h>
 #include <sopt/logging.h>
 #include <sopt/maths.h>
-#include <sopt/types.h>
 #include <sopt/proximal.h>
+#include <sopt/types.h>
 
 // This header is not part of the installed sopt interface
 // It is only present in tests
@@ -48,7 +48,6 @@ TEST_CASE("Forward Backward with ||x - x0||_2^2 function", "[fb]") {
   CAPTURE(target0);
   CHECK(result.x.isApprox(target0, 1e-9));
 }
-
 
 template <class T>
 struct is_imaging_proximal_ref

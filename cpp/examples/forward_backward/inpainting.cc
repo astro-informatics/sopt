@@ -63,8 +63,8 @@ int main(int argc, char const **argv) {
   SOPT_HIGH_LOG("Initializing wavelets");
   auto const wavelet = sopt::wavelets::factory("DB8", 4);
 
- // sopt::wavelets::SARA const wavelet{std::make_tuple("db1", 4u), std::make_tuple("db2", 4u),
- //                                    std::make_tuple("db3", 4u), std::make_tuple("db4", 4u)};
+  // sopt::wavelets::SARA const wavelet{std::make_tuple("db1", 4u), std::make_tuple("db2", 4u),
+  //                                    std::make_tuple("db3", 4u), std::make_tuple("db4", 4u)};
 
   auto const psi = sopt::linear_transform<Scalar>(wavelet, image.rows(), image.cols());
   SOPT_LOW_LOG("Wavelet coefficients: {}", (psi.adjoint() * image).size());
@@ -91,9 +91,9 @@ int main(int argc, char const **argv) {
   SOPT_HIGH_LOG("Creating Foward Backward Functor");
   auto const fb = sopt::algorithm::ImagingForwardBackward<Scalar>(y)
                       .itermax(50000)
-                      .beta(beta) //stepsize
-                      .sigma(sigma)//sigma
-                      .gamma(gamma)//regularisation paramater
+                      .beta(beta)    // stepsize
+                      .sigma(sigma)  // sigma
+                      .gamma(gamma)  // regularisation paramater
                       .relative_variation(1e-3)
                       .residual_tolerance(0)
                       .tight_frame(false)
