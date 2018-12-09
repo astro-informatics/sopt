@@ -290,8 +290,8 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'Search');
 <div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> posq = positive_quadrant(algo);</div>
 <div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;  <span class="keyword">typedef</span> <span class="keyword">typename</span> std::remove_const&lt;decltype(posq)&gt;::type Algorithm;</div>
 <div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;  <span class="keyword">typedef</span> Reweighted&lt;Algorithm&gt; RW;</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> reweightee = [](Algorithm <span class="keyword">const</span> &amp;posq, <span class="keyword">typename</span> RW::XVector <span class="keyword">const</span> &amp;x) -&gt;</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;      <span class="keyword">typename</span> RW::XVector {</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> reweightee =</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;      [](Algorithm <span class="keyword">const</span> &amp;posq, <span class="keyword">typename</span> RW::XVector <span class="keyword">const</span> &amp;x) -&gt; <span class="keyword">typename</span> RW::XVector {</div>
 <div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    <span class="keywordflow">return</span> posq.algorithm().Psi().adjoint() * x;</div>
 <div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;  };</div>
 <div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> set_weights = [](Algorithm &amp;posq, <span class="keyword">typename</span> RW::WeightVector <span class="keyword">const</span> &amp;weights) -&gt; <span class="keywordtype">void</span> {</div>
@@ -313,8 +313,8 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'Search');
 <div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> posq = positive_quadrant(algo);</div>
 <div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;  <span class="keyword">typedef</span> <span class="keyword">typename</span> std::remove_const&lt;decltype(posq)&gt;::type Algorithm;</div>
 <div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;  <span class="keyword">typedef</span> Reweighted&lt;Algorithm&gt; RW;</div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> reweightee = [](Algorithm <span class="keyword">const</span> &amp;posq, <span class="keyword">typename</span> RW::XVector <span class="keyword">const</span> &amp;x) -&gt;</div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;      <span class="keyword">typename</span> RW::XVector {</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> reweightee =</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;      [](Algorithm <span class="keyword">const</span> &amp;posq, <span class="keyword">typename</span> RW::XVector <span class="keyword">const</span> &amp;x) -&gt; <span class="keyword">typename</span> RW::XVector {</div>
 <div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;    <span class="keywordflow">return</span> posq.algorithm().Psi().adjoint() * x;</div>
 <div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;  };</div>
 <div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> set_weights = [](Algorithm &amp;posq, <span class="keyword">typename</span> RW::WeightVector <span class="keyword">const</span> &amp;weights) -&gt; <span class="keywordtype">void</span> {</div>

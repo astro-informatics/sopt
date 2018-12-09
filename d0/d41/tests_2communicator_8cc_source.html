@@ -255,11 +255,11 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'Search');
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    SECTION(<span class="stringliteral">&quot;all_to_allv&quot;</span>) {</div>
 <div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;      <span class="comment">//</span></div>
 <div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;      std::vector&lt;t_int&gt; sizes(world.size(), world.rank());</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;      <span class="keyword">const</span> Vector&lt;t_int&gt; sendee</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;          = Vector&lt;t_int&gt;::Constant(std::accumulate(sizes.begin(), sizes.end(), 0), world.rank());</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;      <span class="keyword">const</span> Vector&lt;t_int&gt; sendee =</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;          Vector&lt;t_int&gt;::Constant(std::accumulate(sizes.begin(), sizes.end(), 0), world.rank());</div>
 <div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;      <span class="keyword">const</span> Vector&lt;t_int&gt; output = world.all_to_allv(sendee, sizes);</div>
 <div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;      t_int sum = 0;</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;      <span class="keywordflow">for</span>(t_int i = 0; i &lt; world.size() - 1; i++) {</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;      <span class="keywordflow">for</span> (t_int i = 0; i &lt; world.size() - 1; i++) {</div>
 <div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;        <span class="keyword">const</span> Vector&lt;t_int&gt; expected = Vector&lt;t_int&gt;::Constant(i + 1, i + 1);</div>
 <div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;        CAPTURE(sum);</div>
 <div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;        CAPTURE(i);</div>
