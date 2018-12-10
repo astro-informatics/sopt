@@ -1,6 +1,6 @@
 <map id="sopt::algorithm::ImagingForwardBackward&lt; SCALAR &gt;::DiagnosticAndResult" name="sopt::algorithm::ImagingForwardBackward&lt; SCALAR &gt;::DiagnosticAndResult">
-<area shape="rect" id="node2" href="$d5/df4/structsopt_1_1algorithm_1_1ImagingForwardBackward_1_1Diagnostic.html" title="Values indicating how the algorithm ran. " alt="" coords="609,23,802,79"/>
-<area shape="rect" id="node3" href="$d9/d51/structsopt_1_1algorithm_1_1ForwardBackward_1_1Diagnostic.html" title="Values indicating how the algorithm ran. " alt="" coords="249,5,477,46"/>
-<area shape="rect" id="node4" href="$db/d2b/classsopt_1_1proximal_1_1L1.html" title="sopt::proximal::L1\l\&lt; Scalar \&gt;" alt="" coords="299,70,426,111"/>
-<area shape="rect" id="node5" href="$db/db3/classsopt_1_1proximal_1_1L1TightFrame.html" title="sopt::proximal::L1TightFrame\l\&lt; Scalar \&gt;" alt="" coords="5,70,197,111"/>
+<area shape="rect" id="node2" href="$d5/df4/structsopt_1_1algorithm_1_1ImagingForwardBackward_1_1Diagnostic.html" title="Values indicating how the algorithm ran. " alt="" coords="649,30,853,86"/>
+<area shape="rect" id="node3" href="$d9/d51/structsopt_1_1algorithm_1_1ForwardBackward_1_1Diagnostic.html" title="Values indicating how the algorithm ran. " alt="" coords="267,5,511,47"/>
+<area shape="rect" id="node4" href="$db/d2b/classsopt_1_1proximal_1_1L1.html" title="sopt::proximal::L1\l\&lt; Scalar \&gt;" alt="" coords="319,71,458,112"/>
+<area shape="rect" id="node5" href="$db/db3/classsopt_1_1proximal_1_1L1TightFrame.html" title="sopt::proximal::L1TightFrame\l\&lt; Scalar \&gt;" alt="" coords="5,71,217,112"/>
 </map>

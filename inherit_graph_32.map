@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$d4/dd4/classsopt_1_1details_1_1MatrixAdjointToLinearTransform.html" title="Wraps a tranposed matrix into a function and its conjugate transpose. " alt="" coords="5,5,203,46"/>
+<area shape="rect" id="node1" href="$db/d59/structsopt_1_1details_1_1HasValueType_1_1Fallback.html" title="sopt::details::HasValueType\l\&lt; T, Enable \&gt;::Fallback" alt="" coords="5,5,207,47"/>
+<area shape="rect" id="node2" href="$d3/d0a/structsopt_1_1details_1_1HasValueType_1_1Derived.html" title="sopt::details::HasValueType\l\&lt; T, Enable \&gt;::Derived" alt="" coords="255,35,456,76"/>
 </map>

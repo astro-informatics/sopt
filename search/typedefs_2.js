@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['enveloppeexpression',['EnveloppeExpression',['../da/d40/namespacesopt_1_1proximal.html#ae715bef93589cb738b0cc960cb099450',1,'sopt::proximal']]]
+  ['enveloppeexpression',['EnveloppeExpression',['../da/d40/namespacesopt_1_1proximal.html#a88919b4345cfb37ca55835bb09b1b1e2',1,'sopt::proximal']]]
 ];
