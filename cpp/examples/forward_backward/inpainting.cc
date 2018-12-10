@@ -57,15 +57,14 @@ int main(int argc, char const **argv) {
   SOPT_HIGH_LOG("Image size: {} x {} = {}", image.cols(), image.rows(), image.size());
 
   SOPT_HIGH_LOG("Initializing sensing operator");
-  sopt::t_uint nmeasure = std::floor(0.33 * image.size());
+  sopt::t_uint nmeasure = std::floor(0.5 * image.size());
   sopt::LinearTransform<Vector> const sampling =
       sopt::linear_transform<Scalar>(sopt::Sampling(image.size(), nmeasure, mersenne));
-  auto phiTphi = [=](Vector &out, const Vector &in) { out = sampling.adjoint() * (sampling * in); };
   SOPT_HIGH_LOG("Initializing wavelets");
-  // auto const wavelet = sopt::wavelets::factory("DB4", 4);
+  auto const wavelet = sopt::wavelets::factory("DB8", 4);
 
-  sopt::wavelets::SARA const wavelet{std::make_tuple("db1", 4u), std::make_tuple("db2", 4u),
-                                     std::make_tuple("db3", 4u), std::make_tuple("db4", 4u)};
+  // sopt::wavelets::SARA const wavelet{std::make_tuple("db1", 4u), std::make_tuple("db2", 4u),
+  //                                    std::make_tuple("db3", 4u), std::make_tuple("db4", 4u)};
 
   auto const psi = sopt::linear_transform<Scalar>(wavelet, image.rows(), image.cols());
   SOPT_LOW_LOG("Wavelet coefficients: {}", (psi.adjoint() * image).size());
@@ -87,13 +86,15 @@ int main(int argc, char const **argv) {
                                 "dirty_" + output + ".tiff");
   }
 
+  sopt::t_real const gamma = 18;
+  sopt::t_real const beta = sigma * sigma;
   SOPT_HIGH_LOG("Creating Foward Backward Functor");
-  auto const fb = sopt::algorithm::ImagingForwardBackward<Scalar>(sampling.adjoint() * y)
-                      .itermax(500)
-                      .beta(1)
-                      .sigma(1.)
-                      .mu(0.01)
-                      .relative_variation(5e-4)
+  auto const fb = sopt::algorithm::ImagingForwardBackward<Scalar>(y)
+                      .itermax(50000)
+                      .beta(beta)    // stepsize
+                      .sigma(sigma)  // sigma
+                      .gamma(gamma)  // regularisation paramater
+                      .relative_variation(1e-3)
                       .residual_tolerance(0)
                       .tight_frame(false)
                       .l1_proximal_tolerance(1e-4)
@@ -102,11 +103,11 @@ int main(int argc, char const **argv) {
                       .l1_proximal_positivity_constraint(true)
                       .l1_proximal_real_constraint(true)
                       .Psi(psi)
-                      .PhiTPhi(phiTphi);
+                      .Phi(sampling);
 
   SOPT_HIGH_LOG("Starting Forward Backward");
   // Alternatively, forward-backward can be called with a tuple (x, residual) as argument
-  // Here, we default to (Φ^Ty/ν, ΦΦ^Ty/ν - y)
+  // Here, we default to (y, Φx/ν - y)
   auto const diagnostic = fb();
   SOPT_HIGH_LOG("Forward backward returned {}", diagnostic.good);
 

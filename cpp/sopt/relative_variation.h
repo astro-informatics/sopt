@@ -96,6 +96,8 @@ class ScalarRelativeVariation {
     name_ = name;
     return *this;
   }
+  //!
+  Scalar previous() const { return previous_; }
 
  protected:
   std::string name_;

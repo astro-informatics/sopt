@@ -7,11 +7,8 @@
 #include <sopt/imaging_forward_backward.h>
 #include <sopt/logging.h>
 #include <sopt/maths.h>
-#include <sopt/relative_variation.h>
-#include <sopt/sampling.h>
+#include <sopt/proximal.h>
 #include <sopt/types.h>
-#include <sopt/utilities.h>
-#include <sopt/wavelets.h>
 
 // This header is not part of the installed sopt interface
 // It is only present in tests
@@ -32,51 +29,26 @@ typedef sopt::t_int t_int;
 typedef sopt::Image<Scalar> t_Image;
 auto const N = 5;
 
-TEST_CASE("Forward Backward with ||x - x0||_2 function", "[fb][integration]") {
+TEST_CASE("Forward Backward with ||x - x0||_2^2 function", "[fb]") {
   using namespace sopt;
   t_Vector const target0 = t_Vector::Random(N);
-  auto const g0 = proximal::translate(proximal::EuclidianNorm(), -target0);
-
-  t_Matrix const mId = -t_Matrix::Identity(N, N);
-
-  auto const fb = algorithm::ForwardBackward<Scalar>(g0, t_Vector::Zero(N))
-                      .Phi(mId)
-                      .itermax(3000)
-                      .mu(0.01)
-                      .sigma(1.)
-                      .beta(0.1);
-  auto const result = fb();
-}
-TEST_CASE("Forward Backward imaging objective function") {
-  t_Vector const y = t_Vector::Random(N);
-  auto const phiTphi = [](t_Vector &out, t_Vector const &x) { out = x; };
-  auto const Psi = t_Matrix::Identity(N, N);
-  auto const fb = sopt::algorithm::ImagingForwardBackward<Scalar>(y)
-                      .itermax(500)
-                      .beta(1)
-                      .sigma(1.)
-                      .mu(0.01)
-                      .relative_variation(5e-4)
-                      .residual_tolerance(0)
-                      .tight_frame(false)
-                      .l1_proximal_tolerance(1e-4)
-                      .l1_proximal_nu(1)
-                      .l1_proximal_itermax(50)
-                      .l1_proximal_positivity_constraint(true)
-                      .l1_proximal_real_constraint(true)
-                      .Psi(Psi)
-                      .PhiTPhi(phiTphi);
-  t_Vector const input = t_Vector::Random(N);
-  const std::function<t_real(t_Vector)> objective_function = fb.objective_function();
-  auto const expected = [&](t_Vector const &x) {
-    return 0.01 * x.cwiseAbs().sum() + 0.5 * std::pow((y - x).norm(), 2);
+  auto const g0 = [](t_Vector &out, const t_real gamma, const t_Vector &x) {
+    proximal::id(out, gamma, x);
   };
-  auto const energy = objective_function(input);
-  auto const energy_expected = expected(input);
-  CAPTURE(energy);
-  CAPTURE(energy_expected);
-  CHECK(std::abs(energy - energy_expected) < 1e-6);
+  auto const grad = [](t_Vector &out, const t_Vector &x) { out = x; };
+  const t_Vector x_guess = t_Vector::Random(target0.size());
+  const t_Vector res = x_guess - target0;
+  auto const fb =
+      algorithm::ForwardBackward<Scalar>(grad, g0, target0).itermax(300000).gamma(0.1).beta(1);
+  auto const result = fb(std::make_tuple(x_guess, res));
+  CAPTURE(result.niters);
+  CAPTURE(x_guess);
+  CAPTURE(result.x);
+  CAPTURE(result.residual);
+  CAPTURE(target0);
+  CHECK(result.x.isApprox(target0, 1e-9));
 }
+
 template <class T>
 struct is_imaging_proximal_ref
     : public std::is_same<sopt::algorithm::ImagingForwardBackward<double> &, T> {};
@@ -84,10 +56,10 @@ TEST_CASE("Check type returned on setting variables") {
   // Yeah, could be static asserts
   using namespace sopt;
   using namespace sopt::algorithm;
-  ImagingForwardBackward<double> fb(Vector<double>::Zero(0));
+  ImagingForwardBackward<double> fb(Vector<double>::Zero(0).eval());
   CHECK(is_imaging_proximal_ref<decltype(fb.itermax(500))>::value);
   CHECK(is_imaging_proximal_ref<decltype(fb.beta(1e-1))>::value);
-  CHECK(is_imaging_proximal_ref<decltype(fb.mu(1e-1))>::value);
+  CHECK(is_imaging_proximal_ref<decltype(fb.gamma(1e-1))>::value);
   CHECK(is_imaging_proximal_ref<decltype(fb.sigma(1e-1))>::value);
   CHECK(is_imaging_proximal_ref<decltype(fb.relative_variation(5e-4))>::value);
   CHECK(is_imaging_proximal_ref<decltype(fb.tight_frame(false))>::value);
@@ -96,6 +68,8 @@ TEST_CASE("Check type returned on setting variables") {
   CHECK(is_imaging_proximal_ref<decltype(fb.l1_proximal_itermax(50))>::value);
   CHECK(is_imaging_proximal_ref<decltype(fb.l1_proximal_positivity_constraint(true))>::value);
   CHECK(is_imaging_proximal_ref<decltype(fb.l1_proximal_real_constraint(true))>::value);
+  std::function<void(Vector<double> &, const Vector<double> &)> grad;
+  CHECK(is_imaging_proximal_ref<decltype(fb.l2_gradient(grad))>::value);
   CHECK(is_imaging_proximal_ref<decltype(fb.residual_convergence(1.001))>::value);
   CHECK(is_imaging_proximal_ref<decltype(fb.target(Vector<double>::Zero(0)))>::value);
   typedef ConvergenceFunction<double> ConvFunc;
@@ -110,6 +84,4 @@ TEST_CASE("Check type returned on setting variables") {
   CHECK(is_imaging_proximal_ref<decltype(fb.Psi(std::declval<LinTrans &&>()))>::value);
   CHECK(is_imaging_proximal_ref<decltype(fb.Psi(std::declval<LinTrans &>()))>::value);
   CHECK(is_imaging_proximal_ref<decltype(fb.Psi(std::declval<LinTrans const &>()))>::value);
-  auto phiTphi = [](Vector<double> &out, const Vector<double> &in) { out = in; };
-  CHECK(is_imaging_proximal_ref<decltype(fb.PhiTPhi(phiTphi))>::value);
 }
