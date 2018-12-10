@@ -20,6 +20,7 @@ option(regressions    "Enable regressions"                     off)
 option(openmp         "Enable OpenMP"                          on)
 option(dompi          "Enable MPI"                             on)
 option(docs           "Build documentation"                    off)
+option(coverage       "Build coverage"                         off)
 
 if(NOT CMAKE_BUILD_TYPE)
   message(STATUS "Setting build type to 'Release' as none was specified.")
@@ -73,6 +74,16 @@ if(benchmarks)
 endif()
 if(regressions)
   include(AddRegression)
+endif()
+if(tests AND coverage)
+  # Enable code coverage.
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage")
+
+	# Build with debugging information to make the output meaningful.
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
+
+	# Disable optimizations to get the most accurate results.
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0")
 endif()
 
 add_subdirectory(cpp)

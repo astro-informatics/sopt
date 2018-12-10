@@ -11,15 +11,6 @@ env:
 
 
 addons:
-  apt:
-    sources: &basic_sources
-      - ubuntu-toolchain-r-test
-      - llvm-toolchain-trusty-5.0
-    packages: &native_deps
-      - g++-7
-      - clang-5.0
-      - libtiff5-dev # version 5 ?
-      - libgomp1 # version 4.8.4-2
   homebrew:
     packages: &osx_sources
       - gcc@7
@@ -75,10 +66,12 @@ matrix:
     - os: linux
       addons:
         apt:
-          sources:
-            - *basic_sources
+          sources: &basic_sources
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-trusty-5.0
           packages:
-            - *native_deps
+            - &native_deps [ g++-7, clang-5.0, libtiff5-dev, libgomp1]
+            # libtiff5-dev version 5 ?; libgomp1 # version 4.8.4-2
             - &all_deps [ libfftw3-dev, libboost-all-dev, libeigen3-dev ]
             # libfftw3 version 3.3.3; libboost-all-dev version 1.54; libeigen3-dev version 3.2.0
 
@@ -116,6 +109,7 @@ matrix:
             - *native_deps
             - *all_deps
             - openmpi-bin # Version 1.6.5-8
+            - lcov
 
       env:
         - TITLE="All dependencies - GCC - MPI"
@@ -125,6 +119,7 @@ matrix:
         - openMP=ON
         - DOCS=OFF
         - MPI_PROCS=4
+        - COVERAGE=ON
 
     - os: linux
       addons:
@@ -223,25 +218,15 @@ matrix:
         - TRAVIS_ALLOW_FAILURE=true
 
     - os: linux
-      addons:
-        apt:
-          sources:
-            - *basic_sources
-          packages:
-            - *native_deps
-            - *all_deps
-            - doxygen # version 1.8.6-2
-            - graphviz # version 2.36.0
-
+      services:
+        - docker
       env:
         - TITLE="Documentation - GCC"
-        - DEBUG=True
-        - LDFLAGS='-pthread'
-        - MPI=OFF
-        - openMP=OFF
         - DOCS=ON
         - BUILD_CMD='make doc VERBOSE=1'
-        - TEST_CMD=''
+      script:
+        - chmod o+w . # To allow docker to create the build directory
+        - docker run --rm -v $(pwd):/mydata uclrits/sopt /bin/sh -c "mkdir build; cd build; cmake .. -Ddocs=${DOCS}; eval ${BUILD_CMD}"
 
     - os: linux
       addons:
@@ -257,8 +242,8 @@ matrix:
         - MPI=OFF
         - openMP=OFF
         - DOCS=OFF
-        - BUILD_CMD="find ../ -regex '.*\.\(cc\|h\)' -not -iname '*.in.h' | xargs -I{} -P 10 clang-format -i -style=file {}; git diff"
-        - TEST_CMD='[[ $(git ls-files --modified) ]] && return 1 || return 0'
+        - BUILD_CMD="find ../ -regex '.*\.\(cc\|h\)' -not -iname '*.in.h' | xargs -I{} -P 10 clang-format-7 -i -style=file {}; git diff"
+        - TEST_CMD="git diff --exit-code || (echo '## NOTE: your code is not linted properly - fix the above'; false)"
 
 deploy:
   provider: pages
@@ -281,6 +266,8 @@ before_install:
   # way is set up for all the jobs in the same manner.
   - if [[ $MPI = ON ]]; then eval $MPI_CONFIG; fi
   - echo "==================== ${TITLE} ====================="
+  - if [[ ${TITLE} = *Documentation* ]]; then docker pull uclrits/sopt; fi
+
 
 install:
 
@@ -304,9 +291,10 @@ script:
     -Dopenmp=${openMP} \
     -Ddocs=${DOCS} \
     -Dbenchmarks=${Benchmarks-OFF} \
+    -Dcoverage=${COVERAGE-OFF} \
     ${CMAKE_CMD_EXTRA}
   - eval $BUILD_CMD
   - eval $TEST_CMD
 
 after_success:
-
+  - if [ "${TITLE}" = "All dependencies - GCC - MPI" ]; then cd ..; bash .ci/coverage.sh; fi

@@ -39,15 +39,9 @@ typename std::enable_if<not T1::IsVectorAtCompileTime, void>::type indirect_tran
   assert(coeffs.rows() == signal.rows() and coeffs.cols() == signal.cols());
   assert(coeffs.rows() % 2 == 0 and coeffs.cols() % 2 == 0);
 
-#ifdef SOPT_OPENMP
-#pragma omp parallel for
-#endif
   for (t_uint i = 0; i < signal.rows(); ++i)
     indirect_transform_impl(coeffs.row(i).transpose(), signal.row(i).transpose(), wavelet);
   coeffs = signal;
-#ifdef SOPT_OPENMP
-#pragma omp parallel for
-#endif
   for (t_uint j = 0; j < signal.cols(); ++j)
     indirect_transform_impl(coeffs.col(j), signal.col(j), wavelet);
 }

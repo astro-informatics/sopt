@@ -63,12 +63,19 @@ template <class T0, class T1, class T2>
 void down_convolve(Eigen::ArrayBase<T0> &result, Eigen::ArrayBase<T1> const &signal,
                    Eigen::ArrayBase<T2> const &filter) {
   assert(result.size() * 2 <= signal.size());
-  if (signal.rows() == 1)
-    for (typename T0::Index i(0); i < result.size(); ++i)
+  if (signal.rows() == 1) {
+#ifdef SOPT_OPENMP
+#pragma omp parallel for
+#endif
+    for (t_uint i = 0; i < result.size(); ++i)
       result(i) = periodic_scalar_product(signal.transpose(), filter, 2 * i);
-  else
-    for (typename T0::Index i(0); i < result.size(); ++i)
+  } else {
+#ifdef SOPT_OPENMP
+#pragma omp parallel for
+#endif
+    for (t_uint i = 0; i < result.size(); ++i)
       result(i) = periodic_scalar_product(signal, filter, 2 * i);
+  }
 }
 //! \brief Dowsampling + convolve variation for vector blocks
 template <class T0, class T1, class T2>
@@ -116,13 +123,18 @@ void up_convolve_sum(Eigen::ArrayBase<T0> &result, Eigen::ArrayBase<T1> const &c
   auto const is_even = size % 2 == 0;
   auto const even_offset = (1 - size) / 2;
   auto const odd_offset = (1 - size) / 2 + (is_even ? 0 : 1);
-  for (typename T0::Index i(0); i + 1 < result.size(); i += 2) {
-    result(i + (is_even ? 1 : 0)) =
-        periodic_scalar_product(coeffs.head(Nlow), low_even, i / 2 + even_offset) +
-        periodic_scalar_product(coeffs.tail(Nhigh), high_even, i / 2 + even_offset);
-    result(i + (is_even ? 0 : 1)) =
-        periodic_scalar_product(coeffs.head(Nlow), low_odd, i / 2 + odd_offset) +
-        periodic_scalar_product(coeffs.tail(Nhigh), high_odd, i / 2 + odd_offset);
+  auto const index_place_even = (is_even ? 1 : 0);
+  auto const index_place_odd = (is_even ? 0 : 1);
+#ifdef SOPT_OPENMP
+#pragma omp parallel for
+#endif
+  for (t_uint i = 0; i < result.size() / 2; i++) {
+    result(2 * i + index_place_even) =
+        periodic_scalar_product(coeffs.head(Nlow), low_even, i + even_offset) +
+        periodic_scalar_product(coeffs.tail(Nhigh), high_even, i + even_offset);
+    result(2 * i + index_place_odd) =
+        periodic_scalar_product(coeffs.head(Nlow), low_odd, i + odd_offset) +
+        periodic_scalar_product(coeffs.tail(Nhigh), high_odd, i + odd_offset);
   }
 }
 }  // namespace
