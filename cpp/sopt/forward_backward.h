@@ -232,8 +232,8 @@ void ForwardBackward<SCALAR>::iteration_step(t_Vector &out, t_Vector &residual, 
   p = out;
   f_gradient(z, residual);
   g_proximal(out, gamma() * beta(), out - beta() / nu() * (Phi().adjoint() * z));
-  out = out + lambda * (out - p);
-  residual = (Phi() * out) / nu() - target();
+  p = out + lambda * (out - p);
+  residual = (Phi() * p) / nu() - target();
 }
 
 template <class SCALAR>
