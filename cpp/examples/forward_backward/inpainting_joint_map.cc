@@ -87,17 +87,17 @@ int main(int argc, char const **argv) {
                                 "dirty_" + output + ".tiff");
   }
 
-  sopt::t_real const gamma = 18;
-  sopt::t_real const beta = sigma * sigma;
+  sopt::t_real const gamma = 0;
+  sopt::t_real const beta = sigma * sigma * 0.5;
   SOPT_HIGH_LOG("Creating Foward Backward Functor");
   auto const fb = std::make_shared<sopt::algorithm::ImagingForwardBackward<Scalar>>(y);
-  fb->itermax(50000)
+  fb->itermax(500)
       .beta(beta)    // stepsize
       .sigma(sigma)  // sigma
       .gamma(gamma)  // regularisation paramater
       .relative_variation(1e-3)
       .residual_tolerance(0)
-      .tight_frame(false)
+      .tight_frame(true)
       .l1_proximal_tolerance(1e-5)
       .l1_proximal_nu(1)
       .l1_proximal_itermax(50)
