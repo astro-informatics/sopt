@@ -208,7 +208,7 @@ class L1 : protected L1TightFrame<SCALAR> {
     // Note that we *must* call eval on x, in case it is an expression involving out
     if (gamma <= 0) {
       apply_constraints(out, x);
-      return Diagnostic(0, 0, 0, true);
+      return Diagnostic(0, 0, 0.5 * (out - x).squaredNorm(), true);
     }
 
     if (fista_mixing())

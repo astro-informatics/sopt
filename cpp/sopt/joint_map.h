@@ -85,7 +85,7 @@ class JointMAP {
  protected:
   //! Checks input makes sense
   void sanity_check(t_real const &gamma, t_real const beta, t_real const alpha) const {
-    if (gamma <= 0) SOPT_THROW("Starting regularisation parameter not positive.");
+    if (gamma < 0) SOPT_THROW("Starting regularisation parameter not positive.");
     if (alpha <= 0) SOPT_THROW("Alpha parameter not positive.");
     if (beta <= 0) SOPT_THROW("Beta not positive.");
   }
