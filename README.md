@@ -112,7 +112,7 @@ See `matlab/README.txt` for an overview of the Matlab implementation. The stand-
 Contributors
 ------------
 
-Check the [contributors](@ref contributors) page.
+Check the [contributors](@ref contributors) page ([github](cpp/docs/CONTRIBUTORS.md)).
 
 References and citation
 -----------------------
@@ -133,7 +133,7 @@ License
 -------
 
 >    SOPT: Sparse OPTimisation package
->    Copyright (C) 2013 Rafael Carrillo, Jason McEwen, Yves Wiaux
+>    Copyright (C) 2013-2019
 >
 >    This program is free software; you can redistribute it and/or
 >    modify it under the terms of the GNU General Public License as
@@ -153,13 +153,13 @@ License
 Webpage
 -------
 
-http://astro-informatics.github.io/sopt/
-
+[documentation](http://astro-informatics.github.io/sopt)
+[repository](https://github.com/astro-informatics/sopt)
 
 Support
 -------
 
-For any questions or comments, feel free to contact [Jason McEwen](jason.mcewen@gmail.com), or add
+For any questions or comments, feel free to contact [Jason McEwen](http://www.jasonmcewen.org), or add
 an issue to the [issue tracker](https://github.com/astro-informatics/sopt/issues).
 
 Notes
