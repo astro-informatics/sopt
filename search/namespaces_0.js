@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['proximal',['proximal',['../da/d40/namespacesopt_1_1proximal.html',1,'sopt']]]
+  ['eigen',['Eigen',['../namespaceEigen.html',1,'']]],
+  ['internal',['internal',['../namespaceEigen_1_1internal.html',1,'Eigen']]]
 ];

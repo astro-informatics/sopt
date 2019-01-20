@@ -1,0 +1,14 @@
+<map id="/mydata/cpp/examples/sdmm/euclidian_norm.cc" name="/mydata/cpp/examples/sdmm/euclidian_norm.cc">
+<area shape="rect" id="node3" href="$sdmm_8h.html" title="sopt/sdmm.h" alt="" coords="413,95,520,121"/>
+<area shape="rect" id="node20" href="$types_8h.html" title="sopt/types.h" alt="" coords="954,393,1056,420"/>
+<area shape="rect" id="node8" href="$conjugate__gradient_8h.html" title="sopt/conjugate_gradient.h" alt="" coords="438,169,628,196"/>
+<area shape="rect" id="node10" href="$logging_8h.html" title="sopt/logging.h" alt="" coords="562,244,677,271"/>
+<area shape="rect" id="node18" href="$exception_8h.html" title="sopt/exception.h" alt="" coords="610,393,741,420"/>
+<area shape="rect" id="node23" href="$wrapper_8h.html" title="sopt/wrapper.h" alt="" coords="854,244,972,271"/>
+<area shape="rect" id="node25" href="$linear__transform_8h.html" title="sopt/linear_transform.h" alt="" coords="882,169,1056,196"/>
+<area shape="rect" id="node26" href="$proximal_8h.html" title="sopt/proximal.h" alt="" coords="1434,169,1558,196"/>
+<area shape="rect" id="node27" href="$proximal__expression_8h.html" title="sopt/proximal_expression.h" alt="" coords="1600,244,1802,271"/>
+<area shape="rect" id="node14" href="$maths_8h.html" title="sopt/maths.h" alt="" coords="1200,319,1306,345"/>
+<area shape="rect" id="node11" href="$logging_8disabled_8h.html" title="sopt/logging.disabled.h" alt="" coords="365,319,538,345"/>
+<area shape="rect" id="node22" href="$real__type_8h.html" title="sopt/real_type.h" alt="" coords="1131,468,1258,495"/>
+</map>

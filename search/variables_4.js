@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['high',['high',['../d1/d4b/structsopt_1_1wavelets_1_1WaveletData_1_1DirectFilter.html#aab76e2c0194364a8bc9bf1b2e641cb88',1,'sopt::wavelets::WaveletData::DirectFilter']]]
+  ['eigenvector',['eigenvector',['../structsopt_1_1algorithm_1_1PowerMethod_1_1DiagnosticAndResult.html#ac06d7ff0fee55a96eff4106693dbc8d3',1,'sopt::algorithm::PowerMethod::DiagnosticAndResult']]]
 ];

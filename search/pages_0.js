@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['contributors',['Contributors',['../de/df6/contributors.html',1,'']]]
+  ['contributors',['Contributors',['../contributors.html',1,'']]]
 ];

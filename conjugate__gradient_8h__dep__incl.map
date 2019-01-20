@@ -1,0 +1,13 @@
+<map id="/mydata/cpp/sopt/conjugate_gradient.h" name="/mydata/cpp/sopt/conjugate_gradient.h">
+<area shape="rect" id="node2" href="$benchmarks_2conjugate__gradient_8cc.html" title="/mydata/cpp/benchmarks\l/conjugate_gradient.cc" alt="" coords="199,95,385,136"/>
+<area shape="rect" id="node3" href="$examples_2conjugate__gradient_8cc.html" title="/mydata/cpp/examples\l/conjugate_gradient.cc" alt="" coords="409,95,580,136"/>
+<area shape="rect" id="node4" href="$sdmm_8h.html" title="/mydata/cpp/sopt/sdmm.h" alt="" coords="604,102,796,129"/>
+<area shape="rect" id="node12" href="$tests_2conjugate__gradient_8cc.html" title="/mydata/cpp/tests/conjugate\l_gradient.cc" alt="" coords="821,95,1027,136"/>
+<area shape="rect" id="node5" href="$sdmm_2euclidian__norm_8cc.html" title="/mydata/cpp/examples\l/sdmm/euclidian_norm.cc" alt="" coords="5,184,195,225"/>
+<area shape="rect" id="node6" href="$sdmm_2inpainting_8cc.html" title="/mydata/cpp/examples\l/sdmm/inpainting.cc" alt="" coords="219,184,389,225"/>
+<area shape="rect" id="node7" href="$examples_2sdmm_2reweighted_8cc.html" title="/mydata/cpp/examples\l/sdmm/reweighted.cc" alt="" coords="413,184,584,225"/>
+<area shape="rect" id="node8" href="$reweighted__sdmm_8cc.html" title="/mydata/cpp/regressions\l/reweighted_sdmm.cc" alt="" coords="609,184,791,225"/>
+<area shape="rect" id="node9" href="$sdmm__inpainting_8cc.html" title="/mydata/cpp/regressions\l/sdmm_inpainting.cc" alt="" coords="815,184,998,225"/>
+<area shape="rect" id="node10" href="$sdmm_8cc.html" title="/mydata/cpp/tests/sdmm.cc" alt="" coords="1023,191,1225,218"/>
+<area shape="rect" id="node11" href="$sdmm__warm__start_8cc.html" title="/mydata/cpp/tests/sdmm\l_warm_start.cc" alt="" coords="1249,184,1433,225"/>
+</map>

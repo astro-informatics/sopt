@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['enveloppeexpression',['EnveloppeExpression',['../da/d40/namespacesopt_1_1proximal.html#a88919b4345cfb37ca55835bb09b1b1e2',1,'sopt::proximal']]]
+  ['diagnostic',['Diagnostic',['../classsopt_1_1algorithm_1_1PositiveQuadrant.html#a66f58aaf856f33aef8d16a9cf1c3af0a',1,'sopt::algorithm::PositiveQuadrant']]],
+  ['diagnosticandresult',['DiagnosticAndResult',['../classsopt_1_1algorithm_1_1PositiveQuadrant.html#a3e1562def8d85880669f02ad43ddbb14',1,'sopt::algorithm::PositiveQuadrant']]]
 ];

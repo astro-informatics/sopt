@@ -1,0 +1,26 @@
+<map id="/mydata/cpp/sopt/relative_variation.h" name="/mydata/cpp/sopt/relative_variation.h">
+<area shape="rect" id="node2" href="$forward__backward_2inpainting_8cc.html" title="/mydata/cpp/examples\l/forward_backward/inpainting.cc" alt="" coords="5,206,239,247"/>
+<area shape="rect" id="node3" href="$inpainting__credible__interval_8cc.html" title="/mydata/cpp/examples\l/forward_backward/inpainting\l_credible_interval.cc" alt="" coords="263,199,477,255"/>
+<area shape="rect" id="node4" href="$inpainting__joint__map_8cc.html" title="/mydata/cpp/examples\l/forward_backward/inpainting\l_joint_map.cc" alt="" coords="817,303,1032,359"/>
+<area shape="rect" id="node5" href="$primal__dual_2inpainting_8cc.html" title="/mydata/cpp/examples\l/primal_dual/inpainting.cc" alt="" coords="1013,206,1204,247"/>
+<area shape="rect" id="node6" href="$examples_2primal__dual_2reweighted_8cc.html" title="/mydata/cpp/examples\l/primal_dual/reweighted.cc" alt="" coords="1228,206,1427,247"/>
+<area shape="rect" id="node7" href="$proximal__admm_2euclidian__norm_8cc.html" title="/mydata/cpp/examples\l/proximal_admm/euclidian\l_norm.cc" alt="" coords="1729,95,1925,151"/>
+<area shape="rect" id="node8" href="$proximal__admm_2inpainting_8cc.html" title="/mydata/cpp/examples\l/proximal_admm/inpainting.cc" alt="" coords="1853,206,2073,247"/>
+<area shape="rect" id="node9" href="$examples_2proximal__admm_2reweighted_8cc.html" title="/mydata/cpp/examples\l/proximal_admm/reweighted.cc" alt="" coords="2097,206,2325,247"/>
+<area shape="rect" id="node10" href="$sdmm_2inpainting_8cc.html" title="/mydata/cpp/examples\l/sdmm/inpainting.cc" alt="" coords="2369,102,2539,143"/>
+<area shape="rect" id="node11" href="$examples_2sdmm_2reweighted_8cc.html" title="/mydata/cpp/examples\l/sdmm/reweighted.cc" alt="" coords="2563,102,2734,143"/>
+<area shape="rect" id="node12" href="$padmm__inpainting_8cc.html" title="/mydata/cpp/regressions\l/padmm_inpainting.cc" alt="" coords="2349,206,2532,247"/>
+<area shape="rect" id="node13" href="$reweighted__sdmm_8cc.html" title="/mydata/cpp/regressions\l/reweighted_sdmm.cc" alt="" coords="2759,102,2941,143"/>
+<area shape="rect" id="node14" href="$sdmm__inpainting_8cc.html" title="/mydata/cpp/regressions\l/sdmm_inpainting.cc" alt="" coords="2965,102,3148,143"/>
+<area shape="rect" id="node15" href="$imaging__forward__backward_8h.html" title="/mydata/cpp/sopt/imaging\l_forward_backward.h" alt="" coords="645,102,837,143"/>
+<area shape="rect" id="node18" href="$imaging__padmm_8h.html" title="/mydata/cpp/sopt/imaging\l_padmm.h" alt="" coords="2102,102,2294,143"/>
+<area shape="rect" id="node21" href="$serial__vs__parallel__padmm_8cc.html" title="/mydata/cpp/tests/serial\l_vs_parallel_padmm.cc" alt="" coords="3050,206,3229,247"/>
+<area shape="rect" id="node22" href="$power__method_8h.html" title="/mydata/cpp/sopt/power\l_method.h" alt="" coords="1447,102,1626,143"/>
+<area shape="rect" id="node25" href="$maths_8cc.html" title="/mydata/cpp/tests/maths.cc" alt="" coords="3173,109,3375,136"/>
+<area shape="rect" id="node16" href="$joint__map_8h.html" title="/mydata/cpp/sopt/joint\l_map.h" alt="" coords="719,206,887,247"/>
+<area shape="rect" id="node17" href="$forward__backward_8cc.html" title="/mydata/cpp/tests/forward\l_backward.cc" alt="" coords="501,206,695,247"/>
+<area shape="rect" id="node19" href="$padmm_8cc.html" title="/mydata/cpp/tests/padmm.cc" alt="" coords="2557,213,2767,240"/>
+<area shape="rect" id="node20" href="$tests_2reweighted_8cc.html" title="/mydata/cpp/tests/reweighted.cc" alt="" coords="2791,213,3026,240"/>
+<area shape="rect" id="node23" href="$examples_2power__method_8cc.html" title="/mydata/cpp/examples\l/power_method.cc" alt="" coords="1451,206,1622,247"/>
+<area shape="rect" id="node24" href="$tests_2power__method_8cc.html" title="/mydata/cpp/tests/power\l_method.cc" alt="" coords="1647,206,1829,247"/>
+</map>

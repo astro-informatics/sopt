@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['magnitude',['magnitude',['../d4/df8/structsopt_1_1algorithm_1_1PowerMethod_1_1DiagnosticAndResult.html#acef7d75639f61d6558c1a82ee07f0742',1,'sopt::algorithm::PowerMethod::DiagnosticAndResult']]]
+  ['indirect_5ffilter',['indirect_filter',['../structsopt_1_1wavelets_1_1WaveletData.html#ac70b408207b67fb67820d48d85a7ce3e',1,'sopt::wavelets::WaveletData']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['objective',['objective',['../d2/d02/structsopt_1_1proximal_1_1L1_1_1Diagnostic.html#a9ba8552c5d49581098dcaf0524b4244a',1,'sopt::proximal::L1::Diagnostic']]]
+  ['magnitude',['magnitude',['../structsopt_1_1algorithm_1_1PowerMethod_1_1DiagnosticAndResult.html#acef7d75639f61d6558c1a82ee07f0742',1,'sopt::algorithm::PowerMethod::DiagnosticAndResult']]]
 ];

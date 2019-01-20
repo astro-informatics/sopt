@@ -1,0 +1,26 @@
+<map id="/mydata/cpp/regressions/sdmm_inpainting.cc" name="/mydata/cpp/regressions/sdmm_inpainting.cc">
+<area shape="rect" id="node8" href="$cdata_8h.html" title="tools_for_tests/cdata.h" alt="" coords="3023,169,3193,196"/>
+<area shape="rect" id="node14" href="$logging_8h.html" title="sopt/logging.h" alt="" coords="2599,319,2713,345"/>
+<area shape="rect" id="node27" href="$inpainting_8h.html" title="tools_for_tests/inpainting.h" alt="" coords="1762,169,1961,196"/>
+<area shape="rect" id="node28" href="$tiffwrappers_8h.html" title="tools_for_tests/tiffwrappers.h" alt="" coords="1067,401,1279,427"/>
+<area shape="rect" id="node29" href="$proximal_8h.html" title="sopt/proximal.h" alt="" coords="434,244,558,271"/>
+<area shape="rect" id="node31" href="$relative__variation_8h.html" title="sopt/relative_variation.h" alt="" coords="2887,244,3068,271"/>
+<area shape="rect" id="node32" href="$sampling_8h.html" title="sopt/sampling.h" alt="" coords="2587,169,2714,196"/>
+<area shape="rect" id="node34" href="$sdmm_8h.html" title="sopt/sdmm.h" alt="" coords="1052,169,1159,196"/>
+<area shape="rect" id="node39" href="$wavelets_8h.html" title="sopt/wavelets.h" alt="" coords="2160,95,2285,121"/>
+<area shape="rect" id="node11" href="$linear__transform_8h.html" title="sopt/linear_transform.h" alt="" coords="1774,244,1949,271"/>
+<area shape="rect" id="node17" href="$maths_8h.html" title="sopt/maths.h" alt="" coords="684,401,791,427"/>
+<area shape="rect" id="node22" href="$types_8h.html" title="sopt/types.h" alt="" coords="1446,483,1549,509"/>
+<area shape="rect" id="node25" href="$wrapper_8h.html" title="sopt/wrapper.h" alt="" coords="1021,319,1139,345"/>
+<area shape="rect" id="node15" href="$logging_8disabled_8h.html" title="sopt/logging.disabled.h" alt="" coords="2489,401,2663,427"/>
+<area shape="rect" id="node19" href="$exception_8h.html" title="sopt/exception.h" alt="" coords="672,483,803,509"/>
+<area shape="rect" id="node24" href="$real__type_8h.html" title="sopt/real_type.h" alt="" coords="858,557,985,584"/>
+<area shape="rect" id="node30" href="$proximal__expression_8h.html" title="sopt/proximal_expression.h" alt="" coords="407,319,609,345"/>
+<area shape="rect" id="node38" href="$conjugate__gradient_8h.html" title="sopt/conjugate_gradient.h" alt="" coords="802,244,993,271"/>
+<area shape="rect" id="node41" href="$sara_8h.html" title="sopt/wavelets/sara.h" alt="" coords="2216,169,2373,196"/>
+<area shape="rect" id="node44" href="$wavelets_2wavelets_8h.html" title="sopt/wavelets/wavelets.h" alt="" coords="1973,244,2161,271"/>
+<area shape="rect" id="node45" href="$direct_8h.html" title="sopt/wavelets/direct.h" alt="" coords="2245,319,2411,345"/>
+<area shape="rect" id="node46" href="$wavelet__data_8h.html" title="sopt/wavelets/wavelet\l_data.h" alt="" coords="2143,393,2313,435"/>
+<area shape="rect" id="node48" href="$indirect_8h.html" title="sopt/wavelets/indirect.h" alt="" coords="1991,319,2169,345"/>
+<area shape="rect" id="node47" href="$innards_8impl_8h.html" title="sopt/wavelets/innards.impl.h" alt="" coords="2092,483,2303,509"/>
+</map>

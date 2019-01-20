@@ -1,0 +1,5 @@
+<map id="sopt::algorithm::ImagingForwardBackward&lt; SCALAR &gt;::Diagnostic" name="sopt::algorithm::ImagingForwardBackward&lt; SCALAR &gt;::Diagnostic">
+<area shape="rect" id="node2" href="$structsopt_1_1algorithm_1_1ForwardBackward_1_1Diagnostic.html" title="Values indicating how the algorithm ran. " alt="" coords="267,5,511,47"/>
+<area shape="rect" id="node3" href="$classsopt_1_1proximal_1_1L1.html" title="sopt::proximal::L1\l\&lt; Scalar \&gt;" alt="" coords="319,71,458,112"/>
+<area shape="rect" id="node4" href="$classsopt_1_1proximal_1_1L1TightFrame.html" title="sopt::proximal::L1TightFrame\l\&lt; Scalar \&gt;" alt="" coords="5,71,217,112"/>
+</map>
