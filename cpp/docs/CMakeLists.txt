@@ -11,3 +11,9 @@ configure_file(
 add_custom_target(doc ALL
   COMMAND doxygen
   WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
+
+if (web)
+   add_custom_target(docweb
+     COMMAND sed -i -e 's@namespacesopt@http://astro-informatics.github.io/sopt/&@g' -e 's@<filename>@&http://astro-informatics.github.io/sopt/@g' ${CMAKE_CURRENT_BINARY_DIR}/html/sopt.tag
+     DEPENDS doc)
+endif()
