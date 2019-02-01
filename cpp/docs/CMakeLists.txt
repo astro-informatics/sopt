@@ -8,6 +8,12 @@ configure_file(
   ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
 )
 
+file(COPY
+  ${CMAKE_CURRENT_SOURCE_DIR}/DoxygenLayout.xml
+  DESTINATION ${CMAKE_CURRENT_BINARY_DIR}
+)
+
+
 add_custom_target(doc ALL
   COMMAND doxygen
   WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
