@@ -5,7 +5,7 @@ WORKDIR /build
 ENV LD_LIBRARY_PATH /usr/local/lib
 
 # Build sopt
-RUN git clone https://github.com/astro-informatics/sopt.git
+RUN git clone --single-branch --branch stable https://github.com/astro-informatics/sopt.git
 RUN mkdir -p /build/sopt/build && cd /build/sopt/build && \
     cmake .. -DCMAKE_BUILD_TYPE=Release \
     -Dtests=ON \
