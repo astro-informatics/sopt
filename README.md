@@ -153,8 +153,8 @@ License
 Webpage
 -------
 
-[documentation](http://astro-informatics.github.io/sopt)
-[repository](https://github.com/astro-informatics/sopt)
+- [Documentation](http://astro-informatics.github.io/sopt)
+- [Repository](https://github.com/astro-informatics/sopt)
 
 Support
 -------
