@@ -459,14 +459,14 @@
     </member>
   </compound>
   <compound kind="file">
-    <name>CONTRIBUTORS.md</name>
-    <path>/mydata/cpp/docs/</path>
-    <filename>http://astro-informatics.github.io/sopt/CONTRIBUTORS_8md</filename>
-  </compound>
-  <compound kind="file">
     <name>README.md</name>
     <path>/mydata/cpp/docs/</path>
     <filename>http://astro-informatics.github.io/sopt/README_8md</filename>
+  </compound>
+  <compound kind="file">
+    <name>SOPT_CONTRIBUTORS.md</name>
+    <path>/mydata/cpp/docs/</path>
+    <filename>http://astro-informatics.github.io/sopt/SOPT__CONTRIBUTORS_8md</filename>
   </compound>
   <compound kind="file">
     <name>inpainting.cc</name>
@@ -10274,9 +10274,9 @@
     </member>
   </compound>
   <compound kind="page">
-    <name>contributors</name>
+    <name>sopt_contributors</name>
     <title>Contributors</title>
-    <filename>http://astro-informatics.github.io/sopt/contributors</filename>
+    <filename>http://astro-informatics.github.io/sopt/sopt_contributors</filename>
   </compound>
   <compound kind="page">
     <name>index</name>

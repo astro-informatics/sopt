@@ -10,7 +10,6 @@ var searchData=
   ['config_2ein_2eh',['config.in.h',['../config_8in_8h.html',1,'']]],
   ['conjugate_5fgradient_2ecc',['conjugate_gradient.cc',['../benchmarks_2conjugate__gradient_8cc.html',1,'(Global Namespace)'],['../examples_2conjugate__gradient_8cc.html',1,'(Global Namespace)'],['../tests_2conjugate__gradient_8cc.html',1,'(Global Namespace)']]],
   ['conjugate_5fgradient_2eh',['conjugate_gradient.h',['../conjugate__gradient_8h.html',1,'']]],
-  ['contributors_2emd',['CONTRIBUTORS.md',['../CONTRIBUTORS_8md.html',1,'']]],
   ['copy_5ftiff_2ecc',['copy_tiff.cc',['../copy__tiff_8cc.html',1,'']]],
   ['credible_5fregion_2ecc',['credible_region.cc',['../credible__region_8cc.html',1,'']]],
   ['credible_5fregion_2eh',['credible_region.h',['../credible__region_8h.html',1,'']]]

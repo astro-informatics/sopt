@@ -38,6 +38,7 @@ var searchData=
   ['softthreshhold',['SoftThreshhold',['../namespacesopt_1_1details.html#afb4d080f72ab33d8ac369ae1abf26bb9',1,'sopt::details']]],
   ['sopt',['sopt',['../namespacesopt.html',1,'']]],
   ['sopt_5fchar_5farch',['SOPT_CHAR_ARCH',['../config_8in_8h.html#aa55538046bd4e40bdb0aaef5f1bd03d5',1,'config.in.h']]],
+  ['sopt_5fcontributors_2emd',['SOPT_CONTRIBUTORS.md',['../SOPT__CONTRIBUTORS_8md.html',1,'']]],
   ['sopt_5fdebug',['SOPT_DEBUG',['../logging_8h.html#af43ef2984bde80ff9ff844540be74425',1,'logging.h']]],
   ['sopt_5fdo_5flogging',['SOPT_DO_LOGGING',['../config_8in_8h.html#a2709857aa231600f607ccd6e9030589f',1,'config.in.h']]],
   ['sopt_5ferror',['SOPT_ERROR',['../logging_8h.html#a647ff10c7a51d06f45a5cf5856f30ea8',1,'logging.h']]],

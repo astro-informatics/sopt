@@ -11,5 +11,6 @@ var searchData=
   ['serial_5fvs_5fparallel_5fpadmm_2ecc',['serial_vs_parallel_padmm.cc',['../serial__vs__parallel__padmm_8cc.html',1,'']]],
   ['session_2ecc',['session.cc',['../session_8cc.html',1,'']]],
   ['session_2eh',['session.h',['../session_8h.html',1,'']]],
-  ['soft_5fthreshhold_2ecc',['soft_threshhold.cc',['../soft__threshhold_8cc.html',1,'']]]
+  ['soft_5fthreshhold_2ecc',['soft_threshhold.cc',['../soft__threshhold_8cc.html',1,'']]],
+  ['sopt_5fcontributors_2emd',['SOPT_CONTRIBUTORS.md',['../SOPT__CONTRIBUTORS_8md.html',1,'']]]
 ];
