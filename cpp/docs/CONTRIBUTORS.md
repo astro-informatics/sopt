@@ -30,12 +30,6 @@ Dr. Roland Guichard <br/>
 [website](https://github.com/UCLGuichard)
 </div>
 
-![](photo_vijay.jpg)
-<div class="text">
-Dr. Vijay Kartik <br/>
-[website](https://people.epfl.ch/vijay.kartik)
-</div>
-
 ![](photo_jason.jpg)
 <div class="text">
 Dr. Jason D. McEwen <br/>
