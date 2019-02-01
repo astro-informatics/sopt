@@ -18,7 +18,7 @@ namespace details {
 template <class FUNCTION, class DERIVED>
 class DelayedProximalFunction
     : public Eigen::ReturnByValue<DelayedProximalFunction<FUNCTION, DERIVED>> {
-public:
+ public:
   typedef typename DERIVED::PlainObject PlainObject;
   typedef typename DERIVED::Index Index;
   typedef typename real_type<typename DERIVED::Scalar>::type Real;
@@ -30,7 +30,8 @@ public:
   DelayedProximalFunction(DelayedProximalFunction &&c)
       : func(std::move(c.func)), gamma(c.gamma), x(c.x) {}
 
-  template <class DESTINATION> void evalTo(DESTINATION &destination) const {
+  template <class DESTINATION>
+  void evalTo(DESTINATION &destination) const {
     destination.resizeLike(x);
     func(destination, gamma, x);
   }
@@ -38,7 +39,7 @@ public:
   Index rows() const { return x.rows(); }
   Index cols() const { return x.cols(); }
 
-private:
+ private:
   FUNCTION const func;
   Real const gamma;
   DERIVED const &x;
@@ -51,7 +52,7 @@ private:
 template <class FUNCTION, class DERIVED>
 class DelayedProximalEnveloppeFunction
     : public Eigen::ReturnByValue<DelayedProximalEnveloppeFunction<FUNCTION, DERIVED>> {
-public:
+ public:
   typedef typename DERIVED::PlainObject PlainObject;
   typedef typename DERIVED::Index Index;
   typedef typename real_type<typename DERIVED::Scalar>::type Real;
@@ -62,7 +63,8 @@ public:
   DelayedProximalEnveloppeFunction(DelayedProximalEnveloppeFunction &&c)
       : func(std::move(c.func)), x(c.x) {}
 
-  template <class DESTINATION> void evalTo(DESTINATION &destination) const {
+  template <class DESTINATION>
+  void evalTo(DESTINATION &destination) const {
     destination.resizeLike(x);
     func(destination, x);
   }
@@ -70,12 +72,12 @@ public:
   Index rows() const { return x.rows(); }
   Index cols() const { return x.cols(); }
 
-private:
+ private:
   FUNCTION const func;
   DERIVED const &x;
 };
 
-} /* details */
+}  // namespace details
 
 //! Eigen expression from proximal functions
 template <class FUNC, class T0>
@@ -83,8 +85,8 @@ using ProximalExpression = details::DelayedProximalFunction<FUNC, Eigen::MatrixB
 //! Eigen expression from proximal enveloppe functions
 template <class FUNC, class T0>
 using EnveloppeExpression = details::DelayedProximalEnveloppeFunction<FUNC, Eigen::MatrixBase<T0>>;
-}
-} /* sopt::proximal */
+}  // namespace proximal
+}  // namespace sopt
 
 namespace Eigen {
 namespace internal {
@@ -96,7 +98,7 @@ template <class FUNCTION, class VECTOR>
 struct traits<sopt::proximal::details::DelayedProximalEnveloppeFunction<FUNCTION, VECTOR>> {
   typedef typename VECTOR::PlainObject ReturnType;
 };
-}
-}
+}  // namespace internal
+}  // namespace Eigen
 
 #endif

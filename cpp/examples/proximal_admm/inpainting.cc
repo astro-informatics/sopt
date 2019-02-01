@@ -34,12 +34,13 @@ int main(int argc, char const **argv) {
 
   std::string const input = argc >= 2 ? argv[1] : "cameraman256";
   std::string const output = argc == 3 ? argv[2] : "none";
-  if(argc > 3) {
+  if (argc > 3) {
     std::cout << "Usage:\n"
                  "$ "
-              << argv[0] << " [input [output]]\n\n"
-                            "- input: path to the image to clean (or name of standard SOPT image)\n"
-                            "- output: filename pattern for output image\n";
+              << argv[0]
+              << " [input [output]]\n\n"
+                 "- input: path to the image to clean (or name of standard SOPT image)\n"
+                 "- output: filename pattern for output image\n";
     exit(0);
   }
   // Set up random numbers for C and C++
@@ -50,14 +51,15 @@ int main(int argc, char const **argv) {
   // Initializes and sets logger (if compiled with logging)
   // See set_level function for levels.
   sopt::logging::initialize();
+  sopt::logging::set_level("debug");
 
   SOPT_HIGH_LOG("Read input file {}", input);
   Image const image = sopt::notinstalled::read_standard_tiff(input);
 
   SOPT_HIGH_LOG("Initializing sensing operator");
   sopt::t_uint nmeasure = 0.33 * image.size();
-  auto const sampling
-      = sopt::linear_transform<Scalar>(sopt::Sampling(image.size(), nmeasure, mersenne));
+  auto const sampling =
+      sopt::linear_transform<Scalar>(sopt::Sampling(image.size(), nmeasure, mersenne));
 
   SOPT_HIGH_LOG("Initializing wavelets");
   auto const wavelet = sopt::wavelets::factory("DB4", 4);
@@ -72,10 +74,9 @@ int main(int argc, char const **argv) {
   SOPT_HIGH_LOG("Create dirty vector");
   std::normal_distribution<> gaussian_dist(0, sigma);
   Vector y(y0.size());
-  for(sopt::t_int i = 0; i < y0.size(); i++)
-    y(i) = y0(i) + gaussian_dist(mersenne);
+  for (sopt::t_int i = 0; i < y0.size(); i++) y(i) = y0(i) + gaussian_dist(mersenne);
   // Write dirty imagte to file
-  if(output != "none") {
+  if (output != "none") {
     Vector const dirty = sampling.adjoint() * y;
     sopt::utilities::write_tiff(Matrix::Map(dirty.data(), image.rows(), image.cols()),
                                 "dirty_" + output + ".tiff");
@@ -108,11 +109,10 @@ int main(int argc, char const **argv) {
   // diagnostic should tell us the function converged
   // it also contains diagnostic.niters - the number of iterations, and cg_diagnostic - the
   // diagnostic from the last call to the conjugate gradient.
-  if(not diagnostic.good)
-    throw std::runtime_error("Did not converge!");
+  if (not diagnostic.good) throw std::runtime_error("Did not converge!");
 
   SOPT_HIGH_LOG("SOPT-proximal-ADMM converged in {} iterations", diagnostic.niters);
-  if(output != "none")
+  if (output != "none")
     sopt::utilities::write_tiff(Matrix::Map(diagnostic.x.data(), image.rows(), image.cols()),
                                 output + ".tiff");
 

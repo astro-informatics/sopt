@@ -9,13 +9,12 @@
 namespace sopt {
 //! Root exception for sopt
 class Exception : public std::exception {
-
-protected:
+ protected:
   //! Constructor for derived classes
   Exception(std::string const &name, std::string const &filename, size_t lineno)
       : std::exception(), message(header(name, filename, lineno)) {}
 
-public:
+ public:
   //! Creates exception
   Exception(std::string const &filename, size_t lineno)
       : Exception("sopt::Exception", filename, lineno) {}
@@ -31,19 +30,20 @@ public:
   }
 
   //! Adds to message
-  template <class OBJECT> Exception &operator<<(OBJECT const &object) {
+  template <class OBJECT>
+  Exception &operator<<(OBJECT const &object) {
     std::ostringstream msg;
     msg << message << object;
     message = msg.str();
     return *this;
   }
 
-private:
+ private:
   //! Message to issue
   std::string message;
 };
 
 #define SOPT_THROW(MSG) throw(sopt::Exception(__FILE__, __LINE__) << "\n" << MSG)
 
-} /* sopt */
+}  // namespace sopt
 #endif

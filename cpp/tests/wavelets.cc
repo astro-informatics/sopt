@@ -1,4 +1,5 @@
 #include <catch.hpp>
+#include <memory>
 #include <random>
 
 #include "sopt/types.h"
@@ -10,22 +11,20 @@
 typedef sopt::Array<sopt::t_uint> t_iVector;
 t_iVector even(t_iVector const &x) {
   t_iVector result((x.size() + 1) / 2);
-  for(t_iVector::Index i(0); i < x.size(); i += 2)
-    result(i / 2) = x(i);
+  for (t_iVector::Index i(0); i < x.size(); i += 2) result(i / 2) = x(i);
   return result;
 };
 t_iVector odd(t_iVector const &x) {
   t_iVector result(x.size() / 2);
-  for(t_iVector::Index i(1); i < x.size(); i += 2)
-    result(i / 2) = x(i);
+  for (t_iVector::Index i(1); i < x.size(); i += 2) result(i / 2) = x(i);
   return result;
 };
 template <class T>
-Eigen::Array<typename T::Scalar, T::RowsAtCompileTime, T::ColsAtCompileTime>
-upsample(Eigen::ArrayBase<T> const &input) {
+Eigen::Array<typename T::Scalar, T::RowsAtCompileTime, T::ColsAtCompileTime> upsample(
+    Eigen::ArrayBase<T> const &input) {
   typedef Eigen::Array<typename T::Scalar, T::RowsAtCompileTime, T::ColsAtCompileTime> Matrix;
   Matrix result(input.size() * 2);
-  for(t_iVector::Index i(0); i < input.size(); ++i) {
+  for (t_iVector::Index i(0); i < input.size(); ++i) {
     result(2 * i) = input(i);
     result(2 * i + 1) = 0;
   }
@@ -41,8 +40,7 @@ t_iVector random_ivector(sopt::t_int size, sopt::t_int min, sopt::t_int max) {
   extern std::unique_ptr<std::mt19937_64> mersenne;
   t_iVector result(size);
   std::uniform_int_distribution<sopt::t_int> uniform_dist(min, max);
-  for(t_iVector::Index i(0); i < result.size(); ++i)
-    result(i) = uniform_dist(*mersenne);
+  for (t_iVector::Index i(0); i < result.size(); ++i) result(i) = uniform_dist(*mersenne);
   return result;
 };
 
@@ -70,7 +68,6 @@ TEST_CASE("Wavelet transform innards with integer data", "[wavelet]") {
   large << 4, 5, 6, 7, 8, 9;
 
   SECTION("Periodic scalar product") {
-
     // no wrapping
     CHECK(periodic_scalar_product(large, small, 0) == 1 * 4 + 2 * 5 + 3 * 6);
     CHECK(periodic_scalar_product(large, small, 1) == 1 * 5 + 2 * 6 + 3 * 7);
@@ -137,7 +134,7 @@ TEST_CASE("Wavelet transform innards with integer data", "[wavelet]") {
     convolve(expected, large, small);
     t_iVector actual(large.size() / 2);
     down_convolve(actual, large, small);
-    for(size_t i(0); i < static_cast<size_t>(actual.size()); ++i)
+    for (size_t i(0); i < static_cast<size_t>(actual.size()); ++i)
       CHECK(expected(i * 2) == actual(i));
   }
 
@@ -159,7 +156,7 @@ TEST_CASE("Wavelet transform innards with integer data", "[wavelet]") {
   }
 
   SECTION("Convolve, Sum and Up-sample simultaneously") {
-    for(sopt::t_int i(0); i < 100; ++i) {
+    for (sopt::t_int i(0); i < 100; ++i) {
       auto const Ncoeffs = random_integer(2, 10) * 2;
       auto const Nfilters = random_integer(2, 5);
       auto const Nhead = Ncoeffs / 2;
@@ -211,7 +208,7 @@ TEST_CASE("1D wavelet transform with floating point data", "[wavelet]") {
   }
 
   SECTION("Round-trip test for single level") {
-    for(t_int i(0); i < 20; ++i) {
+    for (t_int i(0); i < 20; ++i) {
       check_round_trip(Array<>::Random(random_integer(2, 100) * 2), random_integer(1, 38), 1);
     }
   }
@@ -225,7 +222,7 @@ TEST_CASE("1D wavelet transform with floating point data", "[wavelet]") {
 
   t_uint nlevels = 5;
   SECTION("Round-trip test for multiple levels") {
-    for(t_int i(0); i < 10; ++i) {
+    for (t_int i(0); i < 10; ++i) {
       auto const n = random_integer(2, nlevels);
       check_round_trip(Array<>::Random(random_integer(2, 100) * (1u << n)), random_integer(1, 38),
                        n);
@@ -258,7 +255,7 @@ TEST_CASE("2D wavelet transform with real data", "[wavelet]") {
     check_round_trip(Image<>::Random(Nx, Ny), random_integer(1, 38), 1);
   }
   SECTION("Round-trip test for multiple levels") {
-    for(t_int i(0); i < 10; ++i) {
+    for (t_int i(0); i < 10; ++i) {
       auto const n = random_integer(2, 5);
       auto const Nx = random_integer(2, 5) * (1u << n);
       auto const Ny = random_integer(2, 5) * (1u << n);

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.0)
 project(Sopt CXX)
 
 # Location of extra cmake includes for the project
@@ -13,12 +13,20 @@ set_version(2.0.0)
 get_gitref()
 
 option(tests          "Enable testing"                         on)
-option(python         "Enable python"                          off)
 option(benchmarks     "Enable benchmarking"                    off)
 option(examples       "Enable Examples"                        on)
 option(logging        "Enable logging"                         on)
 option(regressions    "Enable regressions"                     off)
 option(openmp         "Enable OpenMP"                          on)
+option(dompi          "Enable MPI"                             on)
+option(docs           "Build documentation"                    off)
+option(coverage       "Build coverage"                         off)
+
+if(NOT CMAKE_BUILD_TYPE)
+  message(STATUS "Setting build type to 'Release' as none was specified.")
+  set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Build Type" FORCE)
+endif()
+message(STATUS "Building sopt in ${CMAKE_BUILD_TYPE} mode")
 
 if(regressions)
   enable_language(C)
@@ -30,20 +38,24 @@ endif()
 # Add c++11 stuff
 include(AddCPP11Flags)
 include(CheckCXX11Features)
-if(tests AND python)
-  include(AddPyTest)
-endif()
 cxx11_feature_check(REQUIRED unique_ptr nullptr override constructor_delegate)
 include(compilations)
 
 # search/install dependencies
 include(dependencies)
+
 # sets rpath policy explicitly
 if(CMAKE_VERSION VERSION_LESS 3.0)
     set_property(GLOBAL PROPERTY MACOSX_RPATH ON)
 else()
     cmake_policy(SET CMP0042 NEW)
 endif()
+
+if(SOPT_MPI)
+  include(DetectIntegerArchitecture)
+  DetectIntegerArchitecture(SOPT)
+endif()
+
 
 if(tests OR examples)
   enable_testing()
@@ -57,18 +69,21 @@ if(examples)
 endif()
 
 if(benchmarks)
+  set(GBenchmark_GIT_TAG "v1.3.0")
   include(AddBenchmark)
 endif()
 if(regressions)
   include(AddRegression)
 endif()
-if(python)
-  include(python_dependencies)
-  include(PythonModule)
-endif()
+if(tests AND coverage)
+  # Enable code coverage.
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage")
 
-if(python)
-  add_subdirectory(python)
+	# Build with debugging information to make the output meaningful.
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
+
+	# Disable optimizations to get the most accurate results.
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0")
 endif()
 
 add_subdirectory(cpp)

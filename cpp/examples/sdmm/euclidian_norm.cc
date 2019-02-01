@@ -38,7 +38,7 @@ int main(int, char const **) {
   // The example below assumes convergence when the candidate vector does not change anymore.
   std::shared_ptr<t_Vector> previous;
   auto relative = [&previous](t_Vector const &candidate) {
-    if(not previous) {
+    if (not previous) {
       previous = std::make_shared<t_Vector>(candidate);
       return false;
     }
@@ -52,7 +52,7 @@ int main(int, char const **) {
   // Now we can create the sdmm convex minimizer
   // Its parameters are set by calling member functions with appropriate names.
   auto sdmm = sopt::algorithm::SDMM<t_Scalar>()
-                  .itermax(500) // maximum number of iterations
+                  .itermax(500)  // maximum number of iterations
                   .gamma(1)
                   .conjugate_gradient(std::numeric_limits<sopt::t_uint>::max(), 1e-12)
                   .is_converged(relative)
@@ -69,21 +69,19 @@ int main(int, char const **) {
   // diagnostic should tell us the function converged
   // it also contains diagnostic.niters - the number of iterations, and cg_diagnostic - the
   // diagnostic from the last call to the conjugate gradient.
-  if(not diagnostic.good)
-    throw std::runtime_error("Did not converge!");
+  if (not diagnostic.good) throw std::runtime_error("Did not converge!");
 
   // Lets test we are at a minimum by recreating the objective function
   // and checking that stepping in any direction raises its value
   auto const objective = [&target0, &target1, &L0, &L1](t_Vector const &x) {
-    return (L0 * x - target0).stableNorm() + (L1 * x - target1).stableNorm();
+    return (L0 * x - target0).norm() + (L1 * x - target1).norm();
   };
   auto const minimum = objective(result);
-  for(int i(0); i < N; ++i) {
+  for (int i(0); i < N; ++i) {
     t_Vector epsilon = t_Vector::Zero(N);
     epsilon(i) = 1e-4;
     auto const at_x_plus_epsilon = objective(input + epsilon);
-    if(minimum >= at_x_plus_epsilon)
-      throw std::runtime_error("That's no minimum!");
+    if (minimum >= at_x_plus_epsilon) throw std::runtime_error("That's no minimum!");
   }
 
   return 0;

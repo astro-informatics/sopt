@@ -15,7 +15,7 @@ TEST_CASE("Conjugate gradient", "[cg]") {
     auto const actual = cg(AtA, (A.transpose().matrix() * expected.matrix()).eval());
 
     CHECK(actual.niters > 0);
-    CHECK(actual.residual == Approx(0));
+    CHECK(std::abs(actual.residual) < 1e-6);
     CAPTURE(actual.residual);
     CAPTURE((A.matrix() * actual.result).transpose());
     CAPTURE(expected.transpose());
@@ -30,7 +30,7 @@ TEST_CASE("Conjugate gradient", "[cg]") {
     auto const actual = cg(AhA, (A.conjugate().transpose().matrix() * expected.matrix()).eval());
 
     CHECK(actual.niters > 0);
-    CHECK(actual.residual == Approx(0));
+    CHECK(std::abs(actual.residual) < 1e-6);
     CAPTURE(actual.residual);
     CAPTURE((A.matrix() * actual.result).transpose());
     CAPTURE(expected.transpose());

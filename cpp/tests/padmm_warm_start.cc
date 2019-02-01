@@ -26,8 +26,8 @@ SCENARIO("ProximalADMM with warm start", "[padmm][integration]") {
       t_Vector const segment = (target1 - target0).normalized();
       t_real const alpha = (x - target0).transpose() * segment;
       SOPT_TRACE(" {} {}", alpha, (x - target0 - alpha * segment).stableNorm());
-      return alpha >= 0e0 and (target1 - target0).transpose() * segment >= alpha
-             and (x - target0 - alpha * segment).stableNorm() < 1e-8;
+      return alpha >= 0e0 and (target1 - target0).transpose() * segment >= alpha and
+             (x - target0 - alpha * segment).stableNorm() < 1e-8;
     };
 
     auto padmm = algorithm::ProximalADMM<Scalar>(g0, g1, t_Vector::Zero(N))
