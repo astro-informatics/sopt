@@ -1,4 +1,4 @@
-Contributors {#contributors}
+Contributors {#sopt_contributors}
 ----------------------------------
 
 **SOPT** was initially created by Rafael Carrillo, Jason McEwen and Yves Wiaux but major contributions

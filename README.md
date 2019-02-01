@@ -112,7 +112,7 @@ See `matlab/README.txt` for an overview of the Matlab implementation. The stand-
 Contributors
 ------------
 
-Check the [contributors](@ref contributors) page ([github](cpp/docs/CONTRIBUTORS.md)).
+Check the [contributors](@ref sopt_contributors) page ([github](cpp/docs/SOPT_CONTRIBUTORS.md)).
 
 References and citation
 -----------------------
