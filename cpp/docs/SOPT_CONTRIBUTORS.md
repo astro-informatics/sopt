@@ -1,4 +1,4 @@
-Contributors {#contributors}
+Contributors {#sopt_contributors}
 ----------------------------------
 
 **SOPT** was initially created by Rafael Carrillo, Jason McEwen and Yves Wiaux but major contributions
@@ -28,12 +28,6 @@ Dr. Ilektra Christidi <br/>
 <div class="text">
 Dr. Roland Guichard <br/>
 [website](https://github.com/UCLGuichard)
-</div>
-
-![](photo_vijay.jpg)
-<div class="text">
-Dr. Vijay Kartik <br/>
-[website](https://people.epfl.ch/vijay.kartik)
 </div>
 
 ![](photo_jason.jpg)
