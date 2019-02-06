@@ -29,6 +29,8 @@ class PrimalDual {
   typedef LinearTransform<t_Vector> t_LinearTransform;
   //! Type of the convergence function
   typedef std::function<bool(t_Vector const &, t_Vector const &)> t_IsConverged;
+  //! Type of the constraint function
+  typedef std::function<void(t_Vector &)> t_Constraint;
   //! Type of the convergence function
   typedef ProximalFunction<Scalar> t_Proximal;
 
@@ -66,6 +68,7 @@ class PrimalDual {
         nu_(1),
         lagrange_update_scale_(0.9),
         is_converged_(),
+        constraint_([](t_Vector &){}),
         Phi_(linear_transform_identity<Scalar>()),
         f_proximal_(f_proximal),
         g_proximal_(g_proximal),
