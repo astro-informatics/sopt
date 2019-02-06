@@ -66,10 +66,10 @@ class PrimalDual {
         update_scale_(0.9),
         beta_(0.5),
         nu_(1),
-        lagrange_update_scale_(0.9),
         is_converged_(),
         constraint_([](t_Vector &){}),
         Phi_(linear_transform_identity<Scalar>()),
+        Psi_(linear_transform_identity<Scalar>()),
         f_proximal_(f_proximal),
         g_proximal_(g_proximal),
         target_(target) {}
