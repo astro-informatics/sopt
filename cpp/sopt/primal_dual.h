@@ -101,11 +101,11 @@ class PrimalDual {
   SOPT_MACRO(beta, Real);
   //! ν parameter
   SOPT_MACRO(nu, Real);
-  //! Lagrange update scale β
-  SOPT_MACRO(lagrange_update_scale, Real);
   //! \brief A function verifying convergence
   //! \details It takes as input two arguments: the current solution x and the current residual.
   SOPT_MACRO(is_converged, t_IsConverged);
+  //! \brief A function applying a simple constraint
+  SOPT_MACRO(constraint, t_Constraint);
   //! Measurement operator
   SOPT_MACRO(Phi, t_LinearTransform);
   //! Wavelet operator
