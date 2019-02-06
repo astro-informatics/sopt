@@ -57,9 +57,12 @@ class PrimalDual {
   //! \param[in] g_proximal: proximal operator of the \f$g\f$ function
   template <class DERIVED>
   PrimalDual(t_Proximal const &f_proximal, t_Proximal const &g_proximal,
-               Eigen::MatrixBase<DERIVED> const &target)
+             Eigen::MatrixBase<DERIVED> const &target)
       : itermax_(std::numeric_limits<t_uint>::max()),
-        gamma_(1e-8),
+        sigma_(1e-8),
+        tau_(1e-8),
+        update_scale_(0.9),
+        beta_(0.5),
         nu_(1),
         lagrange_update_scale_(0.9),
         is_converged_(),
@@ -71,22 +74,28 @@ class PrimalDual {
 
 // Macro helps define properties that can be initialized as in
 // auto sdmm  = PrimalDual<float>().prop0(value).prop1(value);
-#define SOPT_MACRO(NAME, TYPE)                   \
-  TYPE const &NAME() const { return NAME##_; }   \
+#define SOPT_MACRO(NAME, TYPE)                 \
+  TYPE const &NAME() const { return NAME##_; } \
   PrimalDual<SCALAR> &NAME(TYPE const &NAME) { \
-    NAME##_ = NAME;                              \
-    return *this;                                \
-  }                                              \
-                                                 \
- protected:                                      \
-  TYPE NAME##_;                                  \
-                                                 \
+    NAME##_ = NAME;                            \
+    return *this;                              \
+  }                                            \
+                                               \
+ protected:                                    \
+  TYPE NAME##_;                                \
+                                               \
  public:
 
   //! Maximum number of iterations
   SOPT_MACRO(itermax, t_uint);
+  //! Update parameter
+  SOPT_MACRO(update_scale, Real);
   //! γ parameter
-  SOPT_MACRO(gamma, Real);
+  SOPT_MACRO(sigma, Real);
+  //! γ parameter
+  SOPT_MACRO(tau, Real);
+  //! γ parameter
+  SOPT_MACRO(beta, Real);
   //! ν parameter
   SOPT_MACRO(nu, Real);
   //! Lagrange update scale β
@@ -96,6 +105,8 @@ class PrimalDual {
   SOPT_MACRO(is_converged, t_IsConverged);
   //! Measurement operator
   SOPT_MACRO(Phi, t_LinearTransform);
+  //! Wavelet operator
+  SOPT_MACRO(Psi, t_LinearTransform);
   //! First proximal
   SOPT_MACRO(f_proximal, t_Proximal);
   //! Second proximal
@@ -177,6 +188,12 @@ class PrimalDual {
     Phi_ = linear_transform(std::forward<ARGS>(args)...);
     return *this;
   }
+  //! Set Φ and Φ^† using arguments that sopt::linear_transform understands
+  template <class... ARGS>
+  typename std::enable_if<sizeof...(ARGS) >= 1, PrimalDual &>::type Psi(ARGS &&... args) {
+    Psi_ = linear_transform(std::forward<ARGS>(args)...);
+    return *this;
+  }
 
   //! \brief Computes initial guess for x and the residual using the targets
   //! \details with y the vector of measurements
@@ -201,7 +218,8 @@ class PrimalDual {
   }
 
  protected:
-  void iteration_step(t_Vector &out, t_Vector &residual, t_Vector &lambda, t_Vector &z) const;
+  void iteration_step(t_Vector &out, t_Vector &out_hold, t_Vector &u, t_Vector &u_hold, t_Vector &v,
+                      t_Vector &v_hold, t_Vector &p, t_Vector &q, t_Vector &r) const;
 
   //! Checks input makes sense
   void sanity_check(t_Vector const &x_guess, t_Vector const &res_guess) const {
@@ -226,12 +244,25 @@ class PrimalDual {
 };
 
 template <class SCALAR>
-void PrimalDual<SCALAR>::iteration_step(t_Vector &out, t_Vector &residual, t_Vector &lambda,
-                                          t_Vector &z) const {
-  g_proximal(z, gamma(), -lambda - residual);
-  f_proximal(out, gamma() / nu(), out - Phi().adjoint() * (residual + lambda + z) / nu());
-  residual = Phi() * out - target();
-  lambda += lagrange_update_scale() * (residual + z);
+void PrimalDual<SCALAR>::iteration_step(t_Vector &out, t_Vector &out_hold, t_Vector &u,
+                                        t_Vector &u_hold, t_Vector &v, t_Vector &v_hold,
+                                        t_Vector &p, t_Vector &q, t_Vector &r) const {
+  // dual calculations for measurements
+  p = Phi() * out_hold;
+  g_proximal(v_hold, sigma(), v + p);
+  v_hold = v + p - v_hold;
+  v = v + update_scale() * (v_hold - v);
+
+  // dual calculations for wavelet
+  q = Psi().adjoint() * out_hold;
+  f_proximal(u_hold, tau(), u + q);
+  u_hold = u + q - u_hold;
+  u = u + update_scale() * (u_hold - u);
+  // primal calculations
+  out_hold = constraint(out - beta() * (Psi() * u + Phi().adjoint() * v));
+  r = out;
+  out = out + update_scale() * (out_hold - r);
+  out_hold = 2 * out_hold - r;
 }
 
 template <class SCALAR>
@@ -240,16 +271,23 @@ typename PrimalDual<SCALAR>::Diagnostic PrimalDual<SCALAR>::operator()(
   SOPT_HIGH_LOG("Performing Primal Dual");
   sanity_check(x_guess, res_guess);
 
-  t_Vector lambda = t_Vector::Zero(target().size());
-  t_Vector z = t_Vector::Zero(target().size());
   t_Vector residual = res_guess;
   out = x_guess;
+  t_Vector out_hold = x_guess;
+  t_Vector r = out;
+  t_Vector v = t_Vector::Zero(target().size());
+  t_Vector v_hold = t_Vector::Zero(target().size());
+  t_Vector u = Psi() * t_Vector::Zero(out.size());
+  t_Vector u_hold = u;
+  t_Vector q = u;
+  t_Vector p = t_Vector::Zero(target().size());
 
   t_uint niters(0);
   bool converged = false;
   for (; (not converged) && (niters < itermax()); ++niters) {
     SOPT_LOW_LOG("    - [Primal Dual] Iteration {}/{}", niters, itermax());
-    iteration_step(out, residual, lambda, z);
+    iteration_step(out, out_hold, u, u_hold, v, v_hold, p, q, r);
+    residual = Psi() * out;
     SOPT_LOW_LOG("      - [Primal Dual] Sum of residuals: {}", residual.array().abs().sum());
     converged = is_converged(out, residual);
   }
