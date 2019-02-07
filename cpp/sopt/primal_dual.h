@@ -290,7 +290,7 @@ typename PrimalDual<SCALAR>::Diagnostic PrimalDual<SCALAR>::operator()(
   for (; (not converged) && (niters < itermax()); ++niters) {
     SOPT_LOW_LOG("    - [Primal Dual] Iteration {}/{}", niters, itermax());
     iteration_step(out, out_hold, u, u_hold, v, v_hold, p, q, r);
-    residual = Psi() * out;
+    residual = Psi() * out - target();
     SOPT_LOW_LOG("      - [Primal Dual] Sum of residuals: {}", residual.array().abs().sum());
     converged = is_converged(out, residual);
   }
