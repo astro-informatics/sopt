@@ -30,7 +30,7 @@ class PrimalDual {
   //! Type of the convergence function
   typedef std::function<bool(t_Vector const &, t_Vector const &)> t_IsConverged;
   //! Type of the constraint function
-  typedef std::function<void(t_Vector &)> t_Constraint;
+  typedef std::function<void(t_Vector &, const t_Vector &)> t_Constraint;
   //! Type of the convergence function
   typedef ProximalFunction<Scalar> t_Proximal;
 
@@ -67,7 +67,7 @@ class PrimalDual {
         beta_(0.5),
         nu_(1),
         is_converged_(),
-        constraint_([](t_Vector &){}),
+        constraint_([](t_Vector &out, t_Vector const &x) { out = x; }),
         Phi_(linear_transform_identity<Scalar>()),
         Psi_(linear_transform_identity<Scalar>()),
         f_proximal_(f_proximal),
@@ -262,7 +262,7 @@ void PrimalDual<SCALAR>::iteration_step(t_Vector &out, t_Vector &out_hold, t_Vec
   u_hold = u + q - u_hold;
   u = u + update_scale() * (u_hold - u);
   // primal calculations
-  out_hold = constraint(out - beta() * (Psi() * u + Phi().adjoint() * v));
+  constraint()(out_hold, out - beta() * (Psi() * u + Phi().adjoint() * v));
   r = out;
   out = out + update_scale() * (out_hold - r);
   out_hold = 2 * out_hold - r;

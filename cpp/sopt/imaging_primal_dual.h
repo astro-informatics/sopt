@@ -9,7 +9,7 @@
 #include "sopt/l1_proximal.h"
 #include "sopt/linear_transform.h"
 #include "sopt/logging.h"
-#include "sopt/padmm.h"
+#include "sopt/primal_dual.h"
 #include "sopt/proximal.h"
 #include "sopt/relative_variation.h"
 #include "sopt/types.h"
@@ -19,28 +19,29 @@ namespace algorithm {
 template <class SCALAR>
 class ImagingPrimalDual {
   //! Underlying algorithm
-  typedef PrimalDual<SCALAR> PrimalDual;
+  typedef PrimalDual<SCALAR> PD;
 
  public:
-  typedef typename PrimalDual::value_type value_type;
-  typedef typename PrimalDual::Scalar Scalar;
-  typedef typename PrimalDual::Real Real;
-  typedef typename PrimalDual::t_Vector t_Vector;
-  typedef typename PrimalDual::t_LinearTransform t_LinearTransform;
-  typedef typename PrimalDual::t_Proximal t_Proximal;
-  typedef typename PrimalDual::t_IsConverged t_IsConverged;
+  typedef typename PD::value_type value_type;
+  typedef typename PD::Scalar Scalar;
+  typedef typename PD::Real Real;
+  typedef typename PD::t_Vector t_Vector;
+  typedef typename PD::t_LinearTransform t_LinearTransform;
+  typedef typename PD::t_Proximal t_Proximal;
+  typedef typename PD::t_IsConverged t_IsConverged;
+  typedef typename PD::t_Constraint t_Constraint;
 
   //! Values indicating how the algorithm ran
-  struct Diagnostic : public PrimalDual::Diagnostic {
+  struct Diagnostic : public PD::Diagnostic {
     //! Diagnostic from calling L1 proximal
     typename proximal::L1<Scalar>::Diagnostic l1_diagnostic;
     Diagnostic(t_uint niters = 0u, bool good = false,
                typename proximal::L1<Scalar>::Diagnostic const &l1diag =
                    typename proximal::L1<Scalar>::Diagnostic())
-        : PrimalDual::Diagnostic(niters, good), l1_diagnostic(l1diag) {}
+        : PD::Diagnostic(niters, good), l1_diagnostic(l1diag) {}
     Diagnostic(t_uint niters, bool good, typename proximal::L1<Scalar>::Diagnostic const &l1diag,
                t_Vector &&residual)
-        : PrimalDual::Diagnostic(niters, good, std::move(residual)), l1_diagnostic(l1diag) {}
+        : PD::Diagnostic(niters, good, std::move(residual)), l1_diagnostic(l1diag) {}
   };
   //! Holds result vector as well
   struct DiagnosticAndResult : public Diagnostic {
@@ -48,7 +49,7 @@ class ImagingPrimalDual {
     t_Vector x;
   };
 
-  //! Setups imaging wrapper for PrimalDual
+  //! Setups imaging wrapper for PD
   //! \param[in] f_proximal: proximal operator of the \f$f\f$ function.
   //! \param[in] g_proximal: proximal operator of the \f$g\f$ function
   template <class DERIVED>
@@ -67,6 +68,7 @@ class ImagingPrimalDual {
         beta_(0.5),
         is_converged_(),
         Phi_(linear_transform_identity<Scalar>()),
+        Psi_(linear_transform_identity<Scalar>()),
         target_(target) {}
   virtual ~ImagingPrimalDual() {}
 
@@ -136,7 +138,7 @@ class ImagingPrimalDual {
   //! \brief Calls Primal Dual
   //! \param[out] out: Output vector x
   Diagnostic operator()(t_Vector &out) const {
-    return operator()(out, PrimalDual::initial_guess(target(), Phi(), nu()));
+    return operator()(out, PD::initial_guess(target(), Phi(), nu()));
   }
   //! \brief Calls Primal Dual
   //! \param[out] out: Output vector x
@@ -168,11 +170,11 @@ class ImagingPrimalDual {
   //! \param[in] guess: initial guess
   DiagnosticAndResult operator()() const {
     DiagnosticAndResult result;
-    static_cast<Diagnostic &>(result) = operator()(
-        result.x, PrimalDual::initial_guess(target(), Phi(), nu()));
+    static_cast<Diagnostic &>(result) = operator()(result.x,
+                                                   PD::initial_guess(target(), Phi(), nu()));
     return result;
   }
-  //! Makes it simple to chain different calls to PrimalDual
+  //! Makes it simple to chain different calls to PD
   DiagnosticAndResult operator()(DiagnosticAndResult const &warmstart) const {
     DiagnosticAndResult result = warmstart;
     static_cast<Diagnostic &>(result) = operator()(result.x, warmstart.x, warmstart.residual);
@@ -193,13 +195,10 @@ class ImagingPrimalDual {
   //! \details Non-const version to setup the object.
   proximal::WeightedL2Ball<Scalar> &l2ball_proximal() { return l2ball_proximal_; }
 
-  //! \brief Analysis operator Ψ
-  //! \details Under-the-hood, the object is actually owned by the L1 proximal.
-  t_LinearTransform const &Psi() const { return Psi_; }
   //! Analysis operator Ψ
   template <class... ARGS>
-  typename std::enable_if<sizeof...(ARGS) >= 1, ImagingPrimalDual &>::type Phi(ARGS &&... args) {
-    Phi_ = linear_transform(std::forward<ARGS>(args)...);
+  typename std::enable_if<sizeof...(ARGS) >= 1, ImagingPrimalDual &>::type Psi(ARGS &&... args) {
+    Psi_ = linear_transform(std::forward<ARGS>(args)...);
     return *this;
   }
 
@@ -297,13 +296,13 @@ typename ImagingPrimalDual<SCALAR>::Diagnostic ImagingPrimalDual<SCALAR>::operat
   auto const convergence = [this, scalvar](t_Vector const &x, t_Vector const &residual) mutable {
     return this->is_converged(scalvar, x, residual);
   };
-  auto constraint = [positivity_constraint_, real_constraint_](t_Vector &x) {
-    if (real_constraint_)
-      x = x.real();
-    else if (positivity_constraint_)
-      x.unaryExpr([](t_Vector::Scalar value) { return (std::real(x) > 0) x.real() : 0; });
+  const bool positive = positivity_constraint();
+  const bool real = real_constraint();
+  t_Constraint constraint = [real, positive](t_Vector &out, const t_Vector &x) {
+    if (real) out = x.real();
+    if (positive) out = sopt::positive_quadrant(x);
   };
-  auto const pd = PrimalDual(f_proximal, g_proximal, target())
+  auto const pd = PD(f_proximal, g_proximal, target())
                       .itermax(itermax())
                       .constraint(constraint)
                       .sigma(sigma())
@@ -315,7 +314,7 @@ typename ImagingPrimalDual<SCALAR>::Diagnostic ImagingPrimalDual<SCALAR>::operat
                       .Phi(Phi())
                       .Psi(Psi())
                       .is_converged(convergence);
-  static_cast<typename PrimalDual::Diagnostic &>(result) = pd(out, std::tie(guess, res));
+  static_cast<typename PD::Diagnostic &>(result) = pd(out, std::tie(guess, res));
   return result;
 }
 
