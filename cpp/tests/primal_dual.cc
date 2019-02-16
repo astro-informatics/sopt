@@ -22,7 +22,7 @@ typedef sopt::Matrix<Scalar> t_Matrix;
 
 auto const N = 5;
 
-TEST_CASE("Primal Dual", "[primaldual]") {
+TEST_CASE("Primal Dual Imaging", "[primaldual]") {
   using namespace sopt;
 
   t_Matrix const mId = t_Matrix::Identity(N, N);
@@ -37,11 +37,9 @@ TEST_CASE("Primal Dual", "[primaldual]") {
                               .Phi(mId)
                               .Psi(mId)
                               .itermax(5000)
-                              .sigma(0.1)
                               .tau(0.1)
-                              .beta(0.05)
+                              .gamma(0.4)
                               .l2ball_proximal_epsilon(epsilon)
-                              .update_scale(0.03)
                               .relative_variation(1e-4)
                               .residual_convergence(epsilon);
 
