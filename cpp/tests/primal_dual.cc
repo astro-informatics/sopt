@@ -61,5 +61,5 @@ TEST_CASE("Check type returned on setting variables") {
   CHECK(is_primal_dual_ref<decltype(pd.itermax(500))>::value);
   CHECK(is_primal_dual_ref<decltype(pd.sigma(1))>::value);
   CHECK(is_primal_dual_ref<decltype(pd.tau(1))>::value);
-  CHECK(is_primal_dual_ref<decltype(pd.update_scale(1e0))>::value);
+  CHECK(is_primal_dual_ref<decltype(pd.gamma(1e0))>::value);
 }
