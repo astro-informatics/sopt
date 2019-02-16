@@ -61,11 +61,13 @@ class ImagingPrimalDual {
         residual_convergence_(nullptr),
         objective_convergence_(nullptr),
         itermax_(std::numeric_limits<t_uint>::max()),
+        sigma_(1),
+        tau_(0.5),
+        gamma_(0.5),
+        update_scale_(0.1),
+        xi_(1),
+        rho_(1),
         nu_(1),
-        sigma_(1e-8),
-        tau_(1e-8),
-        update_scale_(0.9),
-        beta_(0.5),
         is_converged_(),
         Phi_(linear_transform_identity<Scalar>()),
         Psi_(linear_transform_identity<Scalar>()),
@@ -104,7 +106,9 @@ class ImagingPrimalDual {
   SOPT_MACRO(objective_convergence, t_IsConverged);
   //! Maximum number of iterations
   SOPT_MACRO(itermax, t_uint);
-  //! Update parameter
+  //! gamma parameter
+  SOPT_MACRO(gamma, Real);
+  //! update parameter
   SOPT_MACRO(update_scale, Real);
   //! Apply positivity constraint
   SOPT_MACRO(positivity_constraint, bool);
@@ -115,7 +119,9 @@ class ImagingPrimalDual {
   //! γ parameter
   SOPT_MACRO(tau, Real);
   //! γ parameter
-  SOPT_MACRO(beta, Real);
+  SOPT_MACRO(xi, Real);
+  //! γ parameter
+  SOPT_MACRO(rho, Real);
   //! ν parameter
   SOPT_MACRO(nu, Real);
   //! A function verifying convergence
@@ -307,10 +313,12 @@ typename ImagingPrimalDual<SCALAR>::Diagnostic ImagingPrimalDual<SCALAR>::operat
                       .constraint(constraint)
                       .sigma(sigma())
                       .tau(tau())
+                      .gamma(gamma())
                       .update_scale(update_scale())
-                      .beta(beta())
+                      .xi(xi())
+                      .rho(rho())
                       .nu(nu())
-                      .update_scale(update_scale())
+                      .gamma(gamma())
                       .Phi(Phi())
                       .Psi(Psi())
                       .is_converged(convergence);

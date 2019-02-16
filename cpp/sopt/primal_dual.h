@@ -61,10 +61,12 @@ class PrimalDual {
   PrimalDual(t_Proximal const &f_proximal, t_Proximal const &g_proximal,
              Eigen::MatrixBase<DERIVED> const &target)
       : itermax_(std::numeric_limits<t_uint>::max()),
-        sigma_(1e-8),
-        tau_(1e-8),
-        update_scale_(0.9),
-        beta_(0.5),
+        sigma_(1),
+        tau_(0.5),
+        gamma_(0.5),
+        update_scale_(0.1),
+        xi_(1),
+        rho_(1),
         nu_(1),
         is_converged_(),
         constraint_([](t_Vector &out, t_Vector const &x) { out = x; }),
@@ -94,11 +96,15 @@ class PrimalDual {
   //! Update parameter
   SOPT_MACRO(update_scale, Real);
   //! γ parameter
+  SOPT_MACRO(gamma, Real);
+  //! γ parameter
   SOPT_MACRO(sigma, Real);
   //! γ parameter
-  SOPT_MACRO(tau, Real);
+  SOPT_MACRO(xi, Real);
   //! γ parameter
-  SOPT_MACRO(beta, Real);
+  SOPT_MACRO(rho, Real);
+  //! γ parameter
+  SOPT_MACRO(tau, Real);
   //! ν parameter
   SOPT_MACRO(nu, Real);
   //! \brief A function verifying convergence
@@ -252,19 +258,19 @@ void PrimalDual<SCALAR>::iteration_step(t_Vector &out, t_Vector &out_hold, t_Vec
                                         t_Vector &p, t_Vector &q, t_Vector &r) const {
   // dual calculations for measurements
   p = Phi() * out_hold;
-  g_proximal(v_hold, sigma(), v + p);
+  g_proximal(v_hold, rho(), v + p);
   v_hold = v + p - v_hold;
   v = v + update_scale() * (v_hold - v);
 
   // dual calculations for wavelet
   q = Psi().adjoint() * out_hold;
-  f_proximal(u_hold, tau(), u + q);
+  f_proximal(u_hold, gamma(), u + q);
   u_hold = u + q - u_hold;
   u = u + update_scale() * (u_hold - u);
   // primal calculations
-  constraint()(out_hold, out - beta() * (Psi() * u + Phi().adjoint() * v));
   r = out;
-  out = out + update_scale() * (out_hold - r);
+  constraint()(out_hold, r - tau() * ((Psi() * u) * sigma() + (Phi().adjoint() * v) * xi()));
+  out = r + update_scale() * (out_hold - r);
   out_hold = 2 * out_hold - r;
 }
 
@@ -280,7 +286,7 @@ typename PrimalDual<SCALAR>::Diagnostic PrimalDual<SCALAR>::operator()(
   t_Vector r = out;
   t_Vector v = t_Vector::Zero(target().size());
   t_Vector v_hold = t_Vector::Zero(target().size());
-  t_Vector u = Psi() * t_Vector::Zero(out.size());
+  t_Vector u = Psi().adjoint() * t_Vector::Zero(out.size());
   t_Vector u_hold = u;
   t_Vector q = u;
   t_Vector p = t_Vector::Zero(target().size());
