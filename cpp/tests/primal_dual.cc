@@ -48,6 +48,36 @@ TEST_CASE("Primal Dual Imaging", "[primaldual]") {
   CHECK((result.x - target).stableNorm() <= epsilon);
   CHECK(result.good);
 }
+TEST_CASE("Primal Dual with 0.5 * ||x - x0||_2^2 function", "[primaldual]") {
+  using namespace sopt;
+  t_Vector const target0 = t_Vector::Random(N);
+  auto const f = [](t_Vector &out, const t_real gamma, const t_Vector &x) {
+    proximal::id(out, gamma, x);
+  };
+  auto const g = proximal::Translation<proximal::L2Norm<Scalar>, t_Vector>(
+      proximal::L2Norm<Scalar>(), -target0);
+  const t_Vector x_guess = t_Vector::Random(target0.size());
+  const t_Vector res = x_guess - target0;
+  auto const convergence = [&target0](const t_Vector &x, const t_Vector &res) -> bool {
+    return x.isApprox(target0, 1e-9);
+  };
+  CAPTURE(target0);
+  CAPTURE(x_guess);
+  CAPTURE(res);
+  auto const pd = algorithm::PrimalDual<Scalar>(f, g, target0)
+                      .itermax(3000)
+                      .gamma(0.9)
+                      .rho(0.5)
+                      .update_scale(0.5)
+                      .is_converged(convergence);
+  auto const result = pd(std::make_tuple(x_guess, res));
+  CAPTURE(result.niters);
+  CAPTURE(result.x);
+  CAPTURE(result.residual);
+  CHECK(result.x.isApprox(target0, 1e-9));
+  CHECK(result.good);
+  CHECK(result.niters < 200);
+}
 
 template <class T>
 struct is_primal_dual_ref : public std::is_same<sopt::algorithm::ImagingPrimalDual<double> &, T> {};
