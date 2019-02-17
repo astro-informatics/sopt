@@ -60,7 +60,7 @@ class ImagingPrimalDual {
         sigma_(1),
         tau_(0.5),
         gamma_(0.5),
-        update_scale_(0.9),
+        update_scale_(1),
         xi_(1),
         rho_(1),
         nu_(1),
