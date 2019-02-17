@@ -277,7 +277,7 @@ typename ImagingPrimalDual<SCALAR>::Diagnostic ImagingPrimalDual<SCALAR>::operat
   const bool positive = positivity_constraint();
   const bool real = real_constraint();
   t_Constraint constraint = [real, positive](t_Vector &out, const t_Vector &x) {
-    if (real) out = x.real();
+    if (real) out.real() = x.real();
     if (positive) out = sopt::positive_quadrant(x);
   };
   auto const pd = PD(f_proximal, g_proximal, target())
