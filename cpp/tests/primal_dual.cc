@@ -54,8 +54,7 @@ TEST_CASE("Primal Dual with 0.5 * ||x - x0||_2^2 function", "[primaldual]") {
   auto const f = [](t_Vector &out, const t_real gamma, const t_Vector &x) {
     proximal::id(out, gamma, x);
   };
-  auto const g = proximal::Translation<proximal::L2Norm<Scalar>, t_Vector>(
-      proximal::L2Norm<Scalar>(), -target0);
+  auto const g = proximal::L2Norm<Scalar>();
   const t_Vector x_guess = t_Vector::Random(target0.size());
   const t_Vector res = x_guess - target0;
   auto const convergence = [&target0](const t_Vector &x, const t_Vector &res) -> bool {
