@@ -33,15 +33,10 @@ class ImagingPrimalDual {
 
   //! Values indicating how the algorithm ran
   struct Diagnostic : public PD::Diagnostic {
-    //! Diagnostic from calling L1 proximal
-    typename proximal::L1<Scalar>::Diagnostic l1_diagnostic;
-    Diagnostic(t_uint niters = 0u, bool good = false,
-               typename proximal::L1<Scalar>::Diagnostic const &l1diag =
-                   typename proximal::L1<Scalar>::Diagnostic())
-        : PD::Diagnostic(niters, good), l1_diagnostic(l1diag) {}
-    Diagnostic(t_uint niters, bool good, typename proximal::L1<Scalar>::Diagnostic const &l1diag,
-               t_Vector &&residual)
-        : PD::Diagnostic(niters, good, std::move(residual)), l1_diagnostic(l1diag) {}
+    Diagnostic(t_uint niters = 0u, bool good = false)
+        : PD::Diagnostic(niters, good) {}
+    Diagnostic(t_uint niters, bool good, t_Vector &&residual)
+        : PD::Diagnostic(niters, good, std::move(residual)) {}
   };
   //! Holds result vector as well
   struct DiagnosticAndResult : public Diagnostic {
@@ -54,7 +49,8 @@ class ImagingPrimalDual {
   //! \param[in] g_proximal: proximal operator of the \f$g\f$ function
   template <class DERIVED>
   ImagingPrimalDual(Eigen::MatrixBase<DERIVED> const &target)
-      : l1_proximal_(),
+      : l1norm_proximal_(
+            [](t_Vector &out, Real gamma, const t_Vector &x) { proximal::l1_norm(out, gamma, x); }),
         l2ball_proximal_(1e0),
         residual_tolerance_(1e-4),
         relative_variation_(1e-4),
@@ -64,7 +60,7 @@ class ImagingPrimalDual {
         sigma_(1),
         tau_(0.5),
         gamma_(0.5),
-        update_scale_(0.1),
+        update_scale_(0.9),
         xi_(1),
         rho_(1),
         nu_(1),
@@ -87,9 +83,8 @@ class ImagingPrimalDual {
   TYPE NAME##_;                                       \
                                                       \
  public:
-
-  //! Maximum number of iterations
-  SOPT_MACRO(l1_proximal, proximal::L1<Scalar>);
+  //! The l1 prox functioning as f
+  SOPT_MACRO(l1norm_proximal, t_Proximal);
   //! The weighted L2 proximal functioning as g
   SOPT_MACRO(l2ball_proximal, proximal::WeightedL2Ball<Scalar>);
   //! \brief Convergence of the relative variation of the objective functions
@@ -194,9 +189,6 @@ class ImagingPrimalDual {
     return *this;
   }
 
-  //! \brief L1 proximal used during calculation
-  //! \details Non-const version to setup the object.
-  proximal::L1<Scalar> &l1_proximal() { return l1_proximal_; }
   //! \brief Proximal of the L2 ball
   //! \details Non-const version to setup the object.
   proximal::WeightedL2Ball<Scalar> &l2ball_proximal() { return l2ball_proximal_; }
@@ -224,14 +216,10 @@ class ImagingPrimalDual {
     NAME##_proximal().VAR(VAR);                                                                    \
     return *this;                                                                                  \
   }
-  SOPT_MACRO(nu, l1, L1);
-  SOPT_MACRO(weights, l1, L1);
   SOPT_MACRO(epsilon, l2ball, WeightedL2Ball);
   SOPT_MACRO(weights, l2ball, WeightedL2Ball);
 #ifdef SOPT_MPI
   SOPT_MACRO(communicator, l2ball, WeightedL2Ball);
-  SOPT_MACRO(direct_space_comm, l1, L1);
-  SOPT_MACRO(adjoint_space_comm, l1, L1);
 #endif
 #undef SOPT_MACRO
 
@@ -258,21 +246,6 @@ class ImagingPrimalDual {
   //! \param[in] residuals: initial residuals
   Diagnostic operator()(t_Vector &out, t_Vector const &guess, t_Vector const &res) const;
 
-  //! Calls l1 proximal operator
-  template <class T0, class T1>
-  typename proximal::L1<Scalar>::Diagnostic l1_proximal(Eigen::MatrixBase<T0> &out, Real gamma,
-                                                        Eigen::MatrixBase<T1> const &x) const {
-    return call_l1_proximal(out, gamma, x);
-  }
-
-  //! Calls l1 proximal operator, checking for thight frame
-  template <class T0, class T1>
-  typename proximal::L1<Scalar>::Diagnostic call_l1_proximal(Eigen::MatrixBase<T0> &out, Real gamma,
-                                                             Eigen::MatrixBase<T1> const &x) const {
-    l1_proximal().tight_frame(out, gamma, x);
-    return {0, 0, l1_proximal().objective(x, out, gamma), true};
-  }
-
   //! Helper function to simplify checking convergence
   bool residual_convergence(t_Vector const &x, t_Vector const &residual) const;
 
@@ -290,9 +263,8 @@ typename ImagingPrimalDual<SCALAR>::Diagnostic ImagingPrimalDual<SCALAR>::operat
     t_Vector &out, t_Vector const &guess, t_Vector const &res) const {
   SOPT_HIGH_LOG("Performing Primal Dual with L1 and L2 operators");
   // The f proximal is an L1 proximal that stores some diagnostic result
-  Diagnostic result;
-  auto const f_proximal = [this, &result](t_Vector &out, Real gamma, t_Vector const &x) {
-    result.l1_diagnostic = this->l1_proximal(out, gamma, x);
+  auto const f_proximal = [this](t_Vector &out, Real gamma, t_Vector const &x) {
+    this->l1norm_proximal()(out, gamma, x);
   };
   auto const g_proximal = [this](t_Vector &out, Real gamma, t_Vector const &x) {
     this->l2ball_proximal()(out, gamma, x);
@@ -322,6 +294,7 @@ typename ImagingPrimalDual<SCALAR>::Diagnostic ImagingPrimalDual<SCALAR>::operat
                       .Phi(Phi())
                       .Psi(Psi())
                       .is_converged(convergence);
+  Diagnostic result;
   static_cast<typename PD::Diagnostic &>(result) = pd(out, std::tie(guess, res));
   return result;
 }
@@ -342,7 +315,7 @@ bool ImagingPrimalDual<SCALAR>::objective_convergence(ScalarRelativeVariation<Sc
                                                       t_Vector const &residual) const {
   if (static_cast<bool>(objective_convergence())) return objective_convergence()(x, residual);
   if (scalvar.relative_tolerance() <= 0e0) return true;
-  auto const current = sopt::l1_norm(Psi().adjoint() * x, l1_proximal_weights());
+  auto const current = sopt::l1_norm(Psi().adjoint() * x);
   return scalvar(current);
 };
 
