@@ -73,6 +73,9 @@ int main(int argc, char const **argv) {
   // Below we define a simple wavelet set for testing
   auto const wavelet = sopt::wavelets::factory("DB4", 4);
 
+  // sopt::wavelets::SARA const wavelet{std::make_tuple("db1", 4u), std::make_tuple("db2", 4u),
+  //                                    std::make_tuple("db3", 4u), std::make_tuple("db4", 4u)};
+
   auto const psi = sopt::linear_transform<Scalar>(wavelet, image.rows(), image.cols());
 
   SOPT_HIGH_LOG("Computing primal-dual parameters");
@@ -93,7 +96,6 @@ int main(int argc, char const **argv) {
                                 "dirty_" + output + ".tiff");
   }
   sopt::t_real gamma = (psi.adjoint() * (sampling.adjoint() * y)).real().maxCoeff() * 1e-2;
-
 
   SOPT_HIGH_LOG("Creating primal-dual Functor");
   auto const pd = sopt::algorithm::ImagingPrimalDual<Scalar>(y)
