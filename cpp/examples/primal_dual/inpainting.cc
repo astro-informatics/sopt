@@ -71,7 +71,7 @@ int main(int argc, char const **argv) {
 
   SOPT_HIGH_LOG("Initializing wavelets");
   // Below we define a simple wavelet set for testing
-  auto const wavelet = sopt::wavelets::factory("DB8", 4);
+  auto const wavelet = sopt::wavelets::factory("DB4", 4);
 
   auto const psi = sopt::linear_transform<Scalar>(wavelet, image.rows(), image.cols());
 
@@ -92,18 +92,17 @@ int main(int argc, char const **argv) {
     sopt::utilities::write_tiff(Matrix::Map(dirty.data(), image.rows(), image.cols()),
                                 "dirty_" + output + ".tiff");
   }
-  sopt::t_real gamma = (psi.adjoint() * (sampling.adjoint() * y)).real().maxCoeff() * 1e-3;
+  sopt::t_real gamma = (psi.adjoint() * (sampling.adjoint() * y)).real().maxCoeff() * 1e-2;
 
-  //  Vector rand = Vector::Random(image.size());
-  SOPT_HIGH_LOG("Setting up power method to calculate sigma values");
-  Eigen::EigenSolver<Matrix> es;
-  SOPT_HIGH_LOG("Setting up matrix A");
 
   SOPT_HIGH_LOG("Creating primal-dual Functor");
   auto const pd = sopt::algorithm::ImagingPrimalDual<Scalar>(y)
                       .itermax(500)
                       .gamma(gamma)
+                      .update_scale(0.5)
                       .tau(0.5)
+                      .xi(1)
+                      .sigma(1)
                       .l2ball_proximal_epsilon(epsilon)
                       .Psi(psi)
                       .Phi(sampling)
