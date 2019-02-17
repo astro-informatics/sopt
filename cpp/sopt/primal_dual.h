@@ -228,7 +228,7 @@ class PrimalDual {
 
  protected:
   void iteration_step(t_Vector &out, t_Vector &out_hold, t_Vector &u, t_Vector &u_hold, t_Vector &v,
-                      t_Vector &v_hold, t_Vector &p, t_Vector &q, t_Vector &r) const;
+                      t_Vector &v_hold, t_Vector &residual, t_Vector &q, t_Vector &r) const;
 
   //! Checks input makes sense
   void sanity_check(t_Vector const &x_guess, t_Vector const &res_guess) const {
@@ -255,11 +255,10 @@ class PrimalDual {
 template <class SCALAR>
 void PrimalDual<SCALAR>::iteration_step(t_Vector &out, t_Vector &out_hold, t_Vector &u,
                                         t_Vector &u_hold, t_Vector &v, t_Vector &v_hold,
-                                        t_Vector &p, t_Vector &q, t_Vector &r) const {
+                                        t_Vector &residual, t_Vector &q, t_Vector &r) const {
   // dual calculations for measurements
-  p = Phi() * out_hold;
-  g_proximal(v_hold, rho(), v + p);
-  v_hold = v + p - v_hold;
+  g_proximal(v_hold, rho(), v + residual);
+  v_hold = v + residual - v_hold;
   v = v + update_scale() * (v_hold - v);
 
   // dual calculations for wavelet
@@ -272,6 +271,8 @@ void PrimalDual<SCALAR>::iteration_step(t_Vector &out, t_Vector &out_hold, t_Vec
   constraint()(out_hold, r - tau() * ((Psi() * u) * sigma() + (Phi().adjoint() * v) * xi()));
   out = r + update_scale() * (out_hold - r);
   out_hold = 2 * out_hold - r;
+  // update residual
+  residual = Phi() * out_hold - target();
 }
 
 template <class SCALAR>
@@ -289,14 +290,12 @@ typename PrimalDual<SCALAR>::Diagnostic PrimalDual<SCALAR>::operator()(
   t_Vector u = Psi().adjoint() * t_Vector::Zero(out.size());
   t_Vector u_hold = u;
   t_Vector q = u;
-  t_Vector p = t_Vector::Zero(target().size());
 
   t_uint niters(0);
   bool converged = false;
   for (; (not converged) && (niters < itermax()); ++niters) {
     SOPT_LOW_LOG("    - [Primal Dual] Iteration {}/{}", niters, itermax());
-    iteration_step(out, out_hold, u, u_hold, v, v_hold, p, q, r);
-    residual = Psi() * out - target();
+    iteration_step(out, out_hold, u, u_hold, v, v_hold, residual, q, r);
     SOPT_LOW_LOG("      - [Primal Dual] Sum of residuals: {}", residual.array().abs().sum());
     converged = is_converged(out, residual);
   }
