@@ -10,12 +10,6 @@
 #include "sopt/proximal.h"
 #include "sopt/types.h"
 
-sopt::t_int random_integer(sopt::t_int min, sopt::t_int max) {
-  extern std::unique_ptr<std::mt19937_64> mersenne;
-  std::uniform_int_distribution<sopt::t_int> uniform_dist(min, max);
-  return uniform_dist(*mersenne);
-};
-
 typedef sopt::t_real Scalar;
 typedef sopt::Vector<Scalar> t_Vector;
 typedef sopt::Matrix<Scalar> t_Matrix;
@@ -88,5 +82,10 @@ TEST_CASE("Check type returned on setting variables") {
   CHECK(is_primal_dual_ref<decltype(pd.itermax(500))>::value);
   CHECK(is_primal_dual_ref<decltype(pd.sigma(1))>::value);
   CHECK(is_primal_dual_ref<decltype(pd.tau(1))>::value);
+  CHECK(is_primal_dual_ref<decltype(pd.rho(1))>::value);
+  CHECK(is_primal_dual_ref<decltype(pd.xi(1))>::value);
   CHECK(is_primal_dual_ref<decltype(pd.gamma(1e0))>::value);
+  CHECK(is_primal_dual_ref<decltype(pd.update_scale(1e0))>::value);
+  CHECK(is_primal_dual_ref<decltype(pd.positivity_constraint(true))>::value);
+  CHECK(is_primal_dual_ref<decltype(pd.real_constraint(true))>::value);
 }
