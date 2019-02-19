@@ -33,8 +33,7 @@ class ImagingPrimalDual {
 
   //! Values indicating how the algorithm ran
   struct Diagnostic : public PD::Diagnostic {
-    Diagnostic(t_uint niters = 0u, bool good = false)
-        : PD::Diagnostic(niters, good) {}
+    Diagnostic(t_uint niters = 0u, bool good = false) : PD::Diagnostic(niters, good) {}
     Diagnostic(t_uint niters, bool good, t_Vector &&residual)
         : PD::Diagnostic(niters, good, std::move(residual)) {}
   };
