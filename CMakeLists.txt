@@ -9,7 +9,7 @@ include(LookUp-GreatCMakeCookOff)
 
 # Version and git hash id
 include(VersionAndGitRef)
-set_version(3.0.0)
+set_version(3.0.1)
 get_gitref()
 
 option(tests          "Enable testing"                         on)
