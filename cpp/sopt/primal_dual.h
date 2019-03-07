@@ -68,6 +68,7 @@ class PrimalDual {
         xi_(1),
         rho_(1),
         nu_(1),
+        precondition_weights_(t_Vector::Ones(target.size())),
         is_converged_(),
         constraint_([](t_Vector &out, t_Vector const &x) { out = x; }),
         Phi_(linear_transform_identity<Scalar>()),
@@ -97,16 +98,18 @@ class PrimalDual {
   SOPT_MACRO(update_scale, Real);
   //! γ parameter
   SOPT_MACRO(gamma, Real);
-  //! γ parameter
+  //! sigma parameter
   SOPT_MACRO(sigma, Real);
-  //! γ parameter
+  //! xi parameter
   SOPT_MACRO(xi, Real);
-  //! γ parameter
+  //! rho parameter
   SOPT_MACRO(rho, Real);
-  //! γ parameter
+  //! tau parameter
   SOPT_MACRO(tau, Real);
   //! ν parameter
   SOPT_MACRO(nu, Real);
+  //! precondition weights parameter
+  SOPT_MACRO(precondition_weights, t_Vector);
   //! \brief A function verifying convergence
   //! \details It takes as input two arguments: the current solution x and the current residual.
   SOPT_MACRO(is_converged, t_IsConverged);
@@ -257,8 +260,8 @@ void PrimalDual<SCALAR>::iteration_step(t_Vector &out, t_Vector &out_hold, t_Vec
                                         t_Vector &u_hold, t_Vector &v, t_Vector &v_hold,
                                         t_Vector &residual, t_Vector &q, t_Vector &r) const {
   // dual calculations for measurements
-  g_proximal(v_hold, rho(), v + residual);
-  v_hold = v + residual - v_hold;
+  g_proximal(v_hold, rho(), (v.array() / precondition_weights().array()).matrix() + residual);
+  v_hold = v + residual - (v_hold.array() * precondition_weights().array().cwiseAbs().sqrt()).matrix();
   v = v + update_scale() * (v_hold - v);
 
   // dual calculations for wavelet
