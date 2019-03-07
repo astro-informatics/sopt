@@ -60,10 +60,12 @@ class ImagingPrimalDual {
         tau_(0.5),
         gamma_(0.5),
         update_scale_(1),
+        precondition_stepsize_(0.5),
+        precondition_weights_(t_Vector::Ones(target.size())),
+        precondition_iters_(0),
         xi_(1),
         rho_(1),
         nu_(1),
-        precondition_weights_(t_Vector::Ones(target.size())),
         is_converged_(),
         Phi_(linear_transform_identity<Scalar>()),
         Psi_(linear_transform_identity<Scalar>()),
@@ -119,8 +121,12 @@ class ImagingPrimalDual {
   SOPT_MACRO(rho, Real);
   //! ν parameter
   SOPT_MACRO(nu, Real);
+  //! precondtion step size parameter
+  SOPT_MACRO(precondition_stepsize, Real);
   //! precondition weights parameter
   SOPT_MACRO(precondition_weights, t_Vector);
+  //! precondition iterations parameter
+  SOPT_MACRO(precondition_iters, t_uint);
   //! A function verifying convergence
   SOPT_MACRO(is_converged, t_IsConverged);
   //! Measurement operator
@@ -293,6 +299,8 @@ typename ImagingPrimalDual<SCALAR>::Diagnostic ImagingPrimalDual<SCALAR>::operat
                       .rho(rho())
                       .nu(nu())
                       .gamma(gamma())
+                      .precondition_iters(precondition_iters())
+                      .precondition_stepsize(precondition_stepsize())
                       .precondition_weights(precondition_weights())
                       .Phi(Phi())
                       .Psi(Psi())

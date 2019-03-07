@@ -68,7 +68,9 @@ class PrimalDual {
         xi_(1),
         rho_(1),
         nu_(1),
+        precondition_stepsize_(0.5),
         precondition_weights_(t_Vector::Ones(target.size())),
+        precondition_iters_(0),
         is_converged_(),
         constraint_([](t_Vector &out, t_Vector const &x) { out = x; }),
         Phi_(linear_transform_identity<Scalar>()),
@@ -108,8 +110,12 @@ class PrimalDual {
   SOPT_MACRO(tau, Real);
   //! ν parameter
   SOPT_MACRO(nu, Real);
+  //! precondtion step size parameter
+  SOPT_MACRO(precondition_stepsize, Real);
   //! precondition weights parameter
   SOPT_MACRO(precondition_weights, t_Vector);
+  //! precondition iterations parameter
+  SOPT_MACRO(precondition_iters, t_uint);
   //! \brief A function verifying convergence
   //! \details It takes as input two arguments: the current solution x and the current residual.
   SOPT_MACRO(is_converged, t_IsConverged);
@@ -243,6 +249,8 @@ class PrimalDual {
       SOPT_THROW("target, measurement operator and input vector have inconsistent sizes");
     if (not static_cast<bool>(is_converged()))
       SOPT_WARN("No convergence function was provided: algorithm will run for {} steps", itermax());
+    if (precondition_weights().size() != target().size())
+      SOPT_WARN("precondition weights are not the same size as the input vector");
   }
 
   //! \brief Calls Primal Dual
@@ -260,8 +268,16 @@ void PrimalDual<SCALAR>::iteration_step(t_Vector &out, t_Vector &out_hold, t_Vec
                                         t_Vector &u_hold, t_Vector &v, t_Vector &v_hold,
                                         t_Vector &residual, t_Vector &q, t_Vector &r) const {
   // dual calculations for measurements
-  g_proximal(v_hold, rho(), (v.array() / precondition_weights().array()).matrix() + residual);
-  v_hold = v + residual - (v_hold.array() * precondition_weights().array().cwiseAbs().sqrt()).matrix();
+  g_proximal(v_hold, rho(), v + residual);
+  // applying preconditioning
+  for (t_int i = 0; i < precondition_iters(); i++)
+    g_proximal(
+        v_hold, rho(),
+        v_hold + precondition_stepsize() *
+                     (v + ((residual - v_hold).array() * precondition_weights().array()).matrix()));
+
+  if (precondition_iters() > 0) v_hold = v_hold.array() * precondition_weights().array();
+  v_hold = v + residual - v_hold;
   v = v + update_scale() * (v_hold - v);
 
   // dual calculations for wavelet
