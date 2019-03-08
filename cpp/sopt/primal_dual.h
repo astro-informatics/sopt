@@ -271,13 +271,15 @@ void PrimalDual<SCALAR>::iteration_step(t_Vector &out, t_Vector &out_hold, t_Vec
   g_proximal(v_hold, rho(), v + residual);
   // applying preconditioning
   for (t_int i = 0; i < precondition_iters(); i++)
-    g_proximal(
-        v_hold, rho(),
-        v_hold + precondition_stepsize() *
-                     (v + ((residual - v_hold).array() * precondition_weights().array()).matrix()));
+    g_proximal(v_hold, rho(),
+               v_hold - precondition_stepsize() * (v_hold.array() * precondition_weights().array() -
+                                                   ((residual + v_hold).array())).matrix());
 
-  if (precondition_iters() > 0) v_hold = v_hold.array() * precondition_weights().array();
-  v_hold = v + residual - v_hold;
+  if (precondition_iters() > 0)
+    v_hold = (v + residual).array() / precondition_weights().array() -
+             v_hold.array() * precondition_weights().array();
+  else
+    v_hold = v + residual - v_hold;
   v = v + update_scale() * (v_hold - v);
 
   // dual calculations for wavelet
