@@ -273,10 +273,11 @@ void PrimalDual<SCALAR>::iteration_step(t_Vector &out, t_Vector &out_hold, t_Vec
   for (t_int i = 0; i < precondition_iters(); i++)
     g_proximal(v_hold, rho(),
                v_hold - precondition_stepsize() * (v_hold.array() * precondition_weights().array() -
-                                                   ((residual + v_hold).array())).matrix());
+                                                   ((residual + v_hold).array()))
+                                                      .matrix());
 
   if (precondition_iters() > 0)
-    v_hold = (v + residual).array() / precondition_weights().array() -
+    v_hold = (v + residual).array() -
              v_hold.array() * precondition_weights().array();
   else
     v_hold = v + residual - v_hold;
