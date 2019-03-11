@@ -276,6 +276,14 @@ typename ImagingPrimalDual<SCALAR>::Diagnostic ImagingPrimalDual<SCALAR>::operat
   };
   auto const g_proximal = [this](t_Vector &out, Real gamma, t_Vector const &x) {
     this->l2ball_proximal()(out, gamma, x);
+    // applying preconditioning
+    for (t_int i = 0; i < this->precondition_iters(); i++)
+      this->l2ball_proximal()(
+          out, gamma,
+          out - this->precondition_stepsize() *
+                    (out.array() * this->precondition_weights().array() - x.array()).matrix());
+
+    if (this->precondition_iters() > 0) out = out.array() * this->precondition_weights().array();
   };
   ScalarRelativeVariation<Scalar> scalvar(relative_variation(), relative_variation(),
                                           "Objective function");
@@ -299,9 +307,6 @@ typename ImagingPrimalDual<SCALAR>::Diagnostic ImagingPrimalDual<SCALAR>::operat
                       .rho(rho())
                       .nu(nu())
                       .gamma(gamma())
-                      .precondition_iters(precondition_iters())
-                      .precondition_stepsize(precondition_stepsize())
-                      .precondition_weights(precondition_weights())
                       .Phi(Phi())
                       .Psi(Psi())
                       .is_converged(convergence);
