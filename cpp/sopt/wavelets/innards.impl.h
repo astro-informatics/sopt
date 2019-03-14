@@ -67,13 +67,13 @@ void down_convolve(Eigen::ArrayBase<T0> &result, Eigen::ArrayBase<T1> const &sig
 #ifdef SOPT_OPENMP
 #pragma omp parallel for
 #endif
-    for (Eigen::Index i = 0; i < result.size(); ++i)
+    for (typename decltype(result)::Index i = 0; i < result.size(); ++i)
       result(i) = periodic_scalar_product(signal.transpose(), filter, 2 * i);
   } else {
 #ifdef SOPT_OPENMP
 #pragma omp parallel for
 #endif
-    for (Eigen::Index i = 0; i < result.size(); ++i)
+    for (typename decltype(result)::Index i = 0; i < result.size(); ++i)
       result(i) = periodic_scalar_product(signal, filter, 2 * i);
   }
 }
@@ -128,7 +128,7 @@ void up_convolve_sum(Eigen::ArrayBase<T0> &result, Eigen::ArrayBase<T1> const &c
 #ifdef SOPT_OPENMP
 #pragma omp parallel for
 #endif
-  for (Eigen::Index i = 0; i < result.size() / 2; i++) {
+  for (typename decltype(result)::Index i = 0; i < result.size() / 2; i++) {
     result(2 * i + index_place_even) =
         periodic_scalar_product(coeffs.head(Nlow), low_even, i + even_offset) +
         periodic_scalar_product(coeffs.tail(Nhigh), high_even, i + even_offset);
