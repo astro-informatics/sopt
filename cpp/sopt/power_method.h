@@ -35,7 +35,7 @@ std::tuple<t_real, T> power_method(const sopt::LinearTransform<T> &op, const t_u
   ScalarRelativeVariation<t_real> scalvar(relative_difference, 0., "Eigenvalue");
   for (t_int i = 0; i < niters; ++i) {
     buffer_vector = estimate_eigen_vector;
-    estimate_eigen_vector = op.adjoint() * (op * buffer_vector);
+    estimate_eigen_vector = op.adjoint() * (op * buffer_vector).eval();
     estimate_eigen_value = estimate_eigen_vector.matrix().stableNorm();
     if (estimate_eigen_value <= 0) throw std::runtime_error("Error in operator.");
     if (estimate_eigen_value != estimate_eigen_value)
