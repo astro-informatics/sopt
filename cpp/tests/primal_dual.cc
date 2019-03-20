@@ -27,9 +27,6 @@ TEST_CASE("Primal Dual, testing norm(output - target()) < l2ball_epsilon()",
 
   t_Matrix const mId = t_Matrix::Identity(N, N);
 
-  auto const sigma1 = 1.0;
-  auto const sigma2 = 1.0;
-
   t_Vector target = t_Vector::Random(N);
 
   target = sopt::positive_quadrant(target);
@@ -57,9 +54,6 @@ TEST_CASE("Primal Dual, testing norm(output - target()) < l2ball_epsilon() no po
 
   t_Matrix const mId = t_Matrix::Identity(N, N);
 
-  auto const sigma1 = 1.0;
-  auto const sigma2 = 1.0;
-
   t_Vector target = t_Vector::Random(N);
 
   auto const epsilon = target.stableNorm() / 2;
@@ -86,22 +80,9 @@ TEST_CASE(
     "[primaldual][integration]") {
   using namespace sopt;
 
-  auto const seed = std::time(0);
-  std::srand((unsigned int)seed);
-  std::mt19937 mersenne(std::time(0));
-
   t_Matrix const mId = t_Matrix::Identity(N, N);
 
-  auto const sigma1 = 1.0;
-  auto const sigma2 = 1.0;
-
   t_Vector target = t_Vector::Zero(N);
-
-  t_uint non_random_element = 1;
-
-  // Check that the element chosen to be the non-random element in the array is within the array
-  // bounds
-  assert(non_random_element < N && non_random_element >= 0);
 
   target(1) = random_integer(1, 10);
 

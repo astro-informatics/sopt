@@ -1,17 +1,16 @@
-if(logging)
-  add_library(common_catch_main_object OBJECT "common_catch_main.cc")
-  if(SPDLOG_INCLUDE_DIR)
-    target_include_directories(common_catch_main_object SYSTEM PUBLIC ${SPDLOG_INCLUDE_DIR})
-  endif()
-  if(CATCH_INCLUDE_DIR)
-    target_include_directories(common_catch_main_object SYSTEM PUBLIC ${CATCH_INCLUDE_DIR})
-  endif()
-  target_include_directories(common_catch_main_object PUBLIC
-    "${PROJECT_BINARY_DIR}/include/"
-    "${CMAKE_CURRENT_SOURCE_DIR}/.."
-    )
-  add_dependencies(common_catch_main_object lookup_dependencies)
+add_library(common_catch_main_object OBJECT "common_catch_main.cc")
+if(SPDLOG_INCLUDE_DIR)
+  target_include_directories(common_catch_main_object SYSTEM PUBLIC ${SPDLOG_INCLUDE_DIR})
 endif()
+if(CATCH_INCLUDE_DIR)
+  target_include_directories(common_catch_main_object SYSTEM PUBLIC ${CATCH_INCLUDE_DIR})
+endif()
+target_include_directories(common_catch_main_object PUBLIC
+  "${EXTERNAL_ROOT}/include/"
+  "${PROJECT_BINARY_DIR}/include/"
+  "${CMAKE_CURRENT_SOURCE_DIR}/.."
+  )
+add_dependencies(common_catch_main_object lookup_dependencies)
 if(CATCH_HAS_THROWS_AS)
   add_definitions(-DCATCH_HAS_THROWS_AS)
 endif()
