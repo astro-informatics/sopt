@@ -60,8 +60,8 @@ std::tuple<t_real, T, std::shared_ptr<sopt::LinearTransform<T>>> normalise_opera
   return std::make_tuple(
       std::get<0>(result), std::get<1>(result),
       std::make_shared<sopt::LinearTransform<T>>(
-          [op, norm](T &output, const T &input) { output = (*op * input) / norm; }, op->sizes(),
-          [op, norm](T &output, const T &input) { output = (op->adjoint() * input) / norm; },
+          [op, norm](T &output, const T &input) { output = (*op * input).eval() / norm; }, op->sizes(),
+          [op, norm](T &output, const T &input) { output = (op->adjoint() * input).eval() / norm; },
           op->adjoint().sizes()));
 }
 template <class T>
