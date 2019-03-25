@@ -54,20 +54,20 @@ std::tuple<t_real, T> power_method(const sopt::LinearTransform<T> &op, const t_u
 template <class T>
 std::tuple<t_real, T, std::shared_ptr<sopt::LinearTransform<T>>> normalise_operator(
     const std::shared_ptr<sopt::LinearTransform<T> const> &op, const t_uint &niters,
-    const t_real &relative_difference, const T &initial_vector) {
+    const t_real &relative_difference, const Eigen::MatrixBase<T> &initial_vector) {
   const auto result = power_method<T>(*op, niters, relative_difference, initial_vector);
   const t_real norm = std::get<0>(result);
   return std::make_tuple(
       std::get<0>(result), std::get<1>(result),
       std::make_shared<sopt::LinearTransform<T>>(
-          [op, norm](T &output, const T &input) { output = (*op * input) / norm; }, op->sizes(),
-          [op, norm](T &output, const T &input) { output = (op->adjoint() * input) / norm; },
+          [op, norm](T &output, const T &input) { output = *op * (input / norm); }, op->sizes(),
+          [op, norm](T &output, const T &input) { output = op->adjoint() * (input / norm); },
           op->adjoint().sizes()));
 }
 template <class T>
 std::tuple<t_real, T, sopt::LinearTransform<T>> normalise_operator(
     const sopt::LinearTransform<T> &op, const t_uint &niters, const t_real &relative_difference,
-    const T &initial_vector) {
+    const Eigen::MatrixBase<T> &initial_vector) {
   const std::shared_ptr<sopt::LinearTransform<T>> shared_op =
       std::make_shared<sopt::LinearTransform<T>>(std::move(op));
   const auto result = normalise_operator<T>(shared_op, niters, relative_difference, initial_vector);
