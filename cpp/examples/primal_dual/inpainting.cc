@@ -1,3 +1,6 @@
+#include "sopt/config.h"
+#include "sopt/types.h"
+
 #include <algorithm>
 #include <exception>
 #include <functional>
@@ -6,10 +9,10 @@
 #include <vector>
 #include <Eigen/Eigenvalues>
 
+#include <sopt/imaging_primal_dual.h>
 #include <sopt/logging.h>
 #include <sopt/maths.h>
 #include <sopt/power_method.h>
-#include <sopt/primal_dual.h>
 #include <sopt/relative_variation.h>
 #include <sopt/sampling.h>
 #include <sopt/types.h>
@@ -69,18 +72,9 @@ int main(int argc, char const **argv) {
   SOPT_HIGH_LOG("Initializing wavelets");
   // Below we define a simple wavelet set for testing
   auto const wavelet = sopt::wavelets::factory("DB4", 4);
-  auto const nlevels = 1;
 
-  // The commented out code below allows running the example with a set of SARA wavelets instead of
-  // the simpler
-  // wavelet setup above.  You cannot use this and the wavelet defined above at the same time, so if
-  // you
-  // uncomment the code below ensure you comment out the wavelet definition above.
-  //  sopt::wavelets::SARA const wavelet{std::make_tuple(std::string{"DB3"}, 1u),
-  //    std::make_tuple(std::string{"DB1"}, 2u),
-  //    std::make_tuple(std::string{"DB1"}, 3u),
-  //   std::make_tuple(std::string{"DB1"}, 4u)};
-  //  auto const nlevels = wavelet.size();
+  // sopt::wavelets::SARA const wavelet{std::make_tuple("db1", 4u), std::make_tuple("db2", 4u),
+  //                                    std::make_tuple("db3", 4u), std::make_tuple("db4", 4u)};
 
   auto const psi = sopt::linear_transform<Scalar>(wavelet, image.rows(), image.cols());
 
@@ -101,45 +95,18 @@ int main(int argc, char const **argv) {
     sopt::utilities::write_tiff(Matrix::Map(dirty.data(), image.rows(), image.cols()),
                                 "dirty_" + output + ".tiff");
   }
-
-  //  Vector rand = Vector::Random(image.size());
-  SOPT_HIGH_LOG("Setting up power method to calculate sigma values");
-  Eigen::EigenSolver<Matrix> es;
-  SOPT_HIGH_LOG("Setting up matrix A");
-
-  Vector rand = Vector::Random(image.size() * nlevels);
-
-  auto const pm = sopt::algorithm::PowerMethod<sopt::t_real>().tolerance(1e-12);
-
-  auto const tau = 0.49;
-  auto const kappa = 0.1;
-
-  SOPT_HIGH_LOG("Calculating sigma1");
-  auto const nu1data = pm.AtA(psi, rand);
-  auto const nu1 = nu1data.magnitude;
-  auto sigma1 = 1e0 / nu1;
-
-  rand = Vector::Random(image.size());
-
-  SOPT_HIGH_LOG("Calculating sigma2");
-  auto const nu2data = pm.AtA(sampling, rand);
-  auto const nu2 = nu2data.magnitude;
-  auto sigma2 = 1e0 / nu2;
+  sopt::t_real gamma = (psi.adjoint() * (sampling.adjoint() * y)).real().maxCoeff() * 1e-2;
 
   SOPT_HIGH_LOG("Creating primal-dual Functor");
-  auto const pd = sopt::algorithm::PrimalDual<Scalar>(y)
+  auto const pd = sopt::algorithm::ImagingPrimalDual<Scalar>(y)
                       .itermax(500)
-                      .tau(tau)
-                      .kappa(kappa)
-                      .sigma1(sigma1)
-                      .sigma2(sigma2)
-                      .levels(nlevels)
-                      .l2ball_epsilon(epsilon)
-                      .nu(nu2)
+                      .gamma(gamma)
+                      .tau(0.5)
+                      .l2ball_proximal_epsilon(epsilon)
                       .Psi(psi)
                       .Phi(sampling)
                       .relative_variation(5e-4)
-                      .residual_convergence(epsilon * 1.001)
+                      .residual_convergence(epsilon)
                       .positivity_constraint(true);
 
   SOPT_HIGH_LOG("Starting primal dual");

@@ -74,6 +74,13 @@ void l1_norm(Vector<S> &out, typename real_type<S>::type gamma, Vector<S> const 
   l1_norm<Vector<S>, Vector<S>>(out, gamma, x);
 }
 
+//! Proximal of the l2 norm (note this is different from the l2 ball indicator function)
+template <class T0, class T1>
+void l2_norm(Eigen::DenseBase<T0> &out, typename real_type<typename T0::Scalar>::type gamma,
+             Eigen::DenseBase<T1> const &x) {
+  out = x.derived() * 1. / (1. + gamma);
+}
+
 //! Proximal of a function that is always zero, the identity
 template <class T0, class T1>
 void id(Eigen::DenseBase<T0> &out, typename real_type<typename T0::Scalar>::type gamma,
@@ -94,6 +101,31 @@ auto l1_norm(typename real_type<typename T::Scalar>::type gamma, Eigen::DenseBas
 template <class T>
 void positive_quadrant(Vector<T> &out, typename real_type<T>::type, Vector<T> const &x) {
   out = sopt::positive_quadrant(x);
+};
+
+//! Proximal for the L2 norm
+template <class T>
+class L2Norm {
+ public:
+  typedef typename real_type<T>::type Real;
+  //! Constructs an L2 ball proximal of size gamma
+  L2Norm() {}
+
+  //! Calls proximal function
+  void operator()(Vector<T> &out, const Real gamma, Vector<T> const &x) const {
+    proximal::l2_norm(out, gamma, x);
+  }
+  //! Lazy version
+  template <class T0>
+  EnveloppeExpression<L2Norm, T0> operator()(Real const &, Eigen::MatrixBase<T0> const &x) const {
+    return {*this, x};
+  }
+
+  //! Lazy version
+  template <class T0>
+  EnveloppeExpression<L2Norm, T0> operator()(Eigen::MatrixBase<T0> const &x) const {
+    return {*this, x};
+  }
 };
 
 //! Proximal for indicator function of L2 ball

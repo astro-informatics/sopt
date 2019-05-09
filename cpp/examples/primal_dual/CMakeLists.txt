@@ -1,4 +1,2 @@
 add_example(pd_inpainting inpainting.cc LIBRARIES sopt tools_for_tests LABELS pd)
 set_target_properties(example_pd_inpainting PROPERTIES OUTPUT_NAME inpainting)
-add_example(pd_reweighted NOTEST reweighted.cc LIBRARIES sopt tools_for_tests LABELS pd)
-set_target_properties(example_pd_reweighted PROPERTIES OUTPUT_NAME reweighted)

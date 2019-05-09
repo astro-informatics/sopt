@@ -32,7 +32,7 @@ std::shared_ptr<details::initializer> init(int argc, const char **argv) {
     std::shared_ptr<details::initializer> ptr(new details::initializer,
                                               &details::initializer::deleter);
 #ifdef SOPT_OPENMP
-    t_int provided;
+    int provided;
     if (MPI_Init_thread(&argc, const_cast<char ***>(&argv), MPI_THREAD_FUNNELED, &provided) ==
         MPI_SUCCESS)
 #else

@@ -201,6 +201,14 @@ class Communicator {
   typename std::enable_if<is_registered_type<T>::value, Vector<T>>::type all_to_allv(
       const Vector<T> &vec, std::vector<t_int> const &send_sizes) const;
   template <class T>
+  typename std::enable_if<is_registered_type<T>::value, Vector<T>>::type all_to_allv(
+      const Vector<T> &vec, std::vector<t_int> const &send_sizes,
+      std::vector<t_int> const &rec_sizes) const;
+  template <class T>
+  typename std::enable_if<is_registered_type<T>::value, std::vector<T>>::type all_to_allv(
+      const std::vector<T> &vec, std::vector<t_int> const &send_sizes,
+      std::vector<t_int> const &rec_sizes) const;
+  template <class T>
   typename std::enable_if<is_registered_type<T>::value, std::vector<T>>::type all_to_allv(
       const std::vector<T> &vec, std::vector<t_int> const &send_sizes) const;
 
@@ -333,6 +341,18 @@ Communicator::all_to_allv(const std::vector<T> &vec, std::vector<t_int> const &s
       gather<t_int>(send_sizes[i], i);
   }
 
+  return all_to_allv<T>(vec, send_sizes, rec_sizes);
+};
+template <class T>
+typename std::enable_if<is_registered_type<T>::value, std::vector<T>>::type
+Communicator::all_to_allv(const std::vector<T> &vec, std::vector<t_int> const &send_sizes,
+                          std::vector<t_int> const &rec_sizes) const {
+  if (size() == 1) {
+    if (send_sizes.size() == 1 and vec.size() != send_sizes.front())
+      throw std::runtime_error("Input vector size and sizes are inconsistent on root");
+    return vec;
+  }
+
   int i = 0;
   std::vector<int> ssizes_, sdispls;
   for (auto const size : send_sizes) {
@@ -368,6 +388,19 @@ typename std::enable_if<is_registered_type<T>::value, Vector<T>>::type Communica
       rec_sizes = gather<t_int>(send_sizes[i], i);
     else
       gather<t_int>(send_sizes[i], i);
+  }
+
+  return all_to_allv<T>(vec, send_sizes, rec_sizes);
+};
+
+template <class T>
+typename std::enable_if<is_registered_type<T>::value, Vector<T>>::type Communicator::all_to_allv(
+    const Vector<T> &vec, std::vector<t_int> const &send_sizes,
+    std::vector<t_int> const &rec_sizes) const {
+  if (size() == 1) {
+    if (send_sizes.size() == 1 and vec.size() != send_sizes.front())
+      throw std::runtime_error("Input vector size and sizes are inconsistent on root");
+    return vec;
   }
 
   int i = 0;

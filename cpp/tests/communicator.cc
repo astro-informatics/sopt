@@ -72,7 +72,7 @@ TEST_CASE("Creates an mpi communicator") {
 
   SECTION("Gather an eigen vector") {
     auto const size = [](t_int n) { return n * 2 + 10; };
-    auto const totsize = [](t_int n) { return std::max(0, n * (9 + n)); };
+    auto const totsize = [](t_int n) { return std::max<t_int>(0, n * (9 + n)); };
     Vector<t_int> const sendee = Vector<t_int>::Constant(size(world.rank()), world.rank());
     std::vector<t_int> sizes(world.size());
     int n(0);
