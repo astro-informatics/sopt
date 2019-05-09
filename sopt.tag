@@ -493,13 +493,13 @@
     <name>inpainting.cc</name>
     <path>/mydata/cpp/examples/primal_dual/</path>
     <filename>http://astro-informatics.github.io/sopt/primal__dual_2inpainting_8cc</filename>
+    <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
+    <includes id="imaging__primal__dual_8h" name="imaging_primal_dual.h" local="no" imported="no">sopt/imaging_primal_dual.h</includes>
     <includes id="logging_8h" name="logging.h" local="no" imported="no">sopt/logging.h</includes>
     <includes id="maths_8h" name="maths.h" local="no" imported="no">sopt/maths.h</includes>
     <includes id="power__method_8h" name="power_method.h" local="no" imported="no">sopt/power_method.h</includes>
-    <includes id="primal__dual_8h" name="primal_dual.h" local="no" imported="no">sopt/primal_dual.h</includes>
     <includes id="relative__variation_8h" name="relative_variation.h" local="no" imported="no">sopt/relative_variation.h</includes>
     <includes id="sampling_8h" name="sampling.h" local="no" imported="no">sopt/sampling.h</includes>
-    <includes id="types_8h" name="types.h" local="no" imported="no">sopt/types.h</includes>
     <includes id="utilities_8h" name="utilities.h" local="no" imported="no">sopt/utilities.h</includes>
     <includes id="wavelets_8h" name="wavelets.h" local="no" imported="no">sopt/wavelets.h</includes>
     <includes id="sara_8h" name="sara.h" local="no" imported="no">sopt/wavelets/sara.h</includes>
@@ -660,28 +660,33 @@
     </member>
   </compound>
   <compound kind="file">
-    <name>reweighted.cc</name>
-    <path>/mydata/cpp/examples/primal_dual/</path>
-    <filename>http://astro-informatics.github.io/sopt/examples_2primal__dual_2reweighted_8cc</filename>
-    <includes id="logging_8h" name="logging.h" local="no" imported="no">sopt/logging.h</includes>
-    <includes id="maths_8h" name="maths.h" local="no" imported="no">sopt/maths.h</includes>
-    <includes id="positive__quadrant_8h" name="positive_quadrant.h" local="no" imported="no">sopt/positive_quadrant.h</includes>
-    <includes id="power__method_8h" name="power_method.h" local="no" imported="no">sopt/power_method.h</includes>
-    <includes id="primal__dual_8h" name="primal_dual.h" local="no" imported="no">sopt/primal_dual.h</includes>
+    <name>euclidian_norm.cc</name>
+    <path>/mydata/cpp/examples/proximal_admm/</path>
+    <filename>http://astro-informatics.github.io/sopt/proximal__admm_2euclidian__norm_8cc</filename>
+    <includes id="padmm_8h" name="padmm.h" local="no" imported="no">sopt/padmm.h</includes>
+    <includes id="proximal_8h" name="proximal.h" local="no" imported="no">sopt/proximal.h</includes>
     <includes id="relative__variation_8h" name="relative_variation.h" local="no" imported="no">sopt/relative_variation.h</includes>
-    <includes id="reweighted_8h" name="reweighted.h" local="no" imported="no">sopt/reweighted.h</includes>
-    <includes id="sampling_8h" name="sampling.h" local="no" imported="no">sopt/sampling.h</includes>
     <includes id="types_8h" name="types.h" local="no" imported="no">sopt/types.h</includes>
-    <includes id="utilities_8h" name="utilities.h" local="no" imported="no">sopt/utilities.h</includes>
-    <includes id="wavelets_8h" name="wavelets.h" local="no" imported="no">sopt/wavelets.h</includes>
-    <includes id="sara_8h" name="sara.h" local="no" imported="no">sopt/wavelets/sara.h</includes>
-    <includes id="tiffwrappers_8h" name="tiffwrappers.h" local="no" imported="no">tools_for_tests/tiffwrappers.h</includes>
     <member kind="function">
       <type>int</type>
       <name>main</name>
-      <anchorfile>examples_2primal__dual_2reweighted_8cc.html</anchorfile>
-      <anchor>a790aa8b99fa3d90918361b8936af0b14</anchor>
-      <arglist>(int argc, char const **argv)</arglist>
+      <anchorfile>proximal__admm_2euclidian__norm_8cc.html</anchorfile>
+      <anchor>a2b760810e5bb0cfb55f0c7d6d74d4438</anchor>
+      <arglist>(int, char const **)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>euclidian_norm.cc</name>
+    <path>/mydata/cpp/examples/sdmm/</path>
+    <filename>http://astro-informatics.github.io/sopt/sdmm_2euclidian__norm_8cc</filename>
+    <includes id="sdmm_8h" name="sdmm.h" local="no" imported="no">sopt/sdmm.h</includes>
+    <includes id="types_8h" name="types.h" local="no" imported="no">sopt/types.h</includes>
+    <member kind="function">
+      <type>int</type>
+      <name>main</name>
+      <anchorfile>sdmm_2euclidian__norm_8cc.html</anchorfile>
+      <anchor>a2b760810e5bb0cfb55f0c7d6d74d4438</anchor>
+      <arglist>(int, char const **)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -745,36 +750,6 @@
       <anchorfile>tests_2reweighted_8cc.html</anchorfile>
       <anchor>ad9c56601bdc12659c0138b11e796c9a7</anchor>
       <arglist>(&quot;L0-Approximation&quot;)</arglist>
-    </member>
-  </compound>
-  <compound kind="file">
-    <name>euclidian_norm.cc</name>
-    <path>/mydata/cpp/examples/proximal_admm/</path>
-    <filename>http://astro-informatics.github.io/sopt/proximal__admm_2euclidian__norm_8cc</filename>
-    <includes id="padmm_8h" name="padmm.h" local="no" imported="no">sopt/padmm.h</includes>
-    <includes id="proximal_8h" name="proximal.h" local="no" imported="no">sopt/proximal.h</includes>
-    <includes id="relative__variation_8h" name="relative_variation.h" local="no" imported="no">sopt/relative_variation.h</includes>
-    <includes id="types_8h" name="types.h" local="no" imported="no">sopt/types.h</includes>
-    <member kind="function">
-      <type>int</type>
-      <name>main</name>
-      <anchorfile>proximal__admm_2euclidian__norm_8cc.html</anchorfile>
-      <anchor>a2b760810e5bb0cfb55f0c7d6d74d4438</anchor>
-      <arglist>(int, char const **)</arglist>
-    </member>
-  </compound>
-  <compound kind="file">
-    <name>euclidian_norm.cc</name>
-    <path>/mydata/cpp/examples/sdmm/</path>
-    <filename>http://astro-informatics.github.io/sopt/sdmm_2euclidian__norm_8cc</filename>
-    <includes id="sdmm_8h" name="sdmm.h" local="no" imported="no">sopt/sdmm.h</includes>
-    <includes id="types_8h" name="types.h" local="no" imported="no">sopt/types.h</includes>
-    <member kind="function">
-      <type>int</type>
-      <name>main</name>
-      <anchorfile>sdmm_2euclidian__norm_8cc.html</anchorfile>
-      <anchor>a2b760810e5bb0cfb55f0c7d6d74d4438</anchor>
-      <arglist>(int, char const **)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -1298,6 +1273,38 @@
       <type>#define</type>
       <name>SOPT_MACRO</name>
       <anchorfile>imaging__padmm_8h.html</anchorfile>
+      <anchor>aad24c91e578b23e3517f2a44b2cd1d32</anchor>
+      <arglist>(VAR, NAME, PROXIMAL)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>imaging_primal_dual.h</name>
+    <path>/mydata/cpp/sopt/</path>
+    <filename>http://astro-informatics.github.io/sopt/imaging__primal__dual_8h</filename>
+    <includes id="exception_8h" name="exception.h" local="yes" imported="no">sopt/exception.h</includes>
+    <includes id="l1__proximal_8h" name="l1_proximal.h" local="yes" imported="no">sopt/l1_proximal.h</includes>
+    <includes id="linear__transform_8h" name="linear_transform.h" local="yes" imported="no">sopt/linear_transform.h</includes>
+    <includes id="logging_8h" name="logging.h" local="yes" imported="no">sopt/logging.h</includes>
+    <includes id="primal__dual_8h" name="primal_dual.h" local="yes" imported="no">sopt/primal_dual.h</includes>
+    <includes id="proximal_8h" name="proximal.h" local="yes" imported="no">sopt/proximal.h</includes>
+    <includes id="relative__variation_8h" name="relative_variation.h" local="yes" imported="no">sopt/relative_variation.h</includes>
+    <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
+    <class kind="class">sopt::algorithm::ImagingPrimalDual</class>
+    <class kind="struct">sopt::algorithm::ImagingPrimalDual::Diagnostic</class>
+    <class kind="struct">sopt::algorithm::ImagingPrimalDual::DiagnosticAndResult</class>
+    <namespace>sopt</namespace>
+    <namespace>sopt::algorithm</namespace>
+    <member kind="define">
+      <type>#define</type>
+      <name>SOPT_MACRO</name>
+      <anchorfile>imaging__primal__dual_8h.html</anchorfile>
+      <anchor>acc08c2e01b4beda3b86b0ad0e358476b</anchor>
+      <arglist>(NAME, TYPE)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>SOPT_MACRO</name>
+      <anchorfile>imaging__primal__dual_8h.html</anchorfile>
       <anchor>aad24c91e578b23e3517f2a44b2cd1d32</anchor>
       <arglist>(VAR, NAME, PROXIMAL)</arglist>
     </member>
@@ -1983,15 +1990,15 @@
       <type>std::tuple&lt; t_real, T, std::shared_ptr&lt; sopt::LinearTransform&lt; T &gt; &gt; &gt;</type>
       <name>normalise_operator</name>
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1algorithm.html</anchorfile>
-      <anchor>a24d048a91054bfe01cf3b345c8783e9a</anchor>
-      <arglist>(const std::shared_ptr&lt; sopt::LinearTransform&lt; T &gt; const &gt; &amp;op, const t_uint &amp;niters, const t_real &amp;relative_difference, const T &amp;initial_vector)</arglist>
+      <anchor>a1459a1dac71882848ea3509b007c5b8a</anchor>
+      <arglist>(const std::shared_ptr&lt; sopt::LinearTransform&lt; T &gt; const &gt; &amp;op, const t_uint &amp;niters, const t_real &amp;relative_difference, const Eigen::MatrixBase&lt; T &gt; &amp;initial_vector)</arglist>
     </member>
     <member kind="function">
       <type>std::tuple&lt; t_real, T, sopt::LinearTransform&lt; T &gt; &gt;</type>
       <name>normalise_operator</name>
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1algorithm.html</anchorfile>
-      <anchor>a565417b5171e614cc9faa5d503ee0a25</anchor>
-      <arglist>(const sopt::LinearTransform&lt; T &gt; &amp;op, const t_uint &amp;niters, const t_real &amp;relative_difference, const T &amp;initial_vector)</arglist>
+      <anchor>a7db7761676258710a9d118bbe6be9284</anchor>
+      <arglist>(const sopt::LinearTransform&lt; T &gt; &amp;op, const t_uint &amp;niters, const t_real &amp;relative_difference, const Eigen::MatrixBase&lt; T &gt; &amp;initial_vector)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -1999,12 +2006,9 @@
     <path>/mydata/cpp/sopt/</path>
     <filename>http://astro-informatics.github.io/sopt/primal__dual_8h</filename>
     <includes id="exception_8h" name="exception.h" local="yes" imported="no">sopt/exception.h</includes>
-    <includes id="l1__proximal_8h" name="l1_proximal.h" local="yes" imported="no">sopt/l1_proximal.h</includes>
     <includes id="linear__transform_8h" name="linear_transform.h" local="yes" imported="no">sopt/linear_transform.h</includes>
     <includes id="logging_8h" name="logging.h" local="yes" imported="no">sopt/logging.h</includes>
-    <includes id="proximal_8h" name="proximal.h" local="yes" imported="no">sopt/proximal.h</includes>
     <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
-    <includes id="utilities_8h" name="utilities.h" local="yes" imported="no">sopt/utilities.h</includes>
     <class kind="class">sopt::algorithm::PrimalDual</class>
     <class kind="struct">sopt::algorithm::PrimalDual::Diagnostic</class>
     <class kind="struct">sopt::algorithm::PrimalDual::DiagnosticAndResult</class>
@@ -2025,6 +2029,7 @@
     <includes id="maths_8h" name="maths.h" local="yes" imported="no">sopt/maths.h</includes>
     <includes id="proximal__expression_8h" name="proximal_expression.h" local="yes" imported="no">sopt/proximal_expression.h</includes>
     <class kind="class">sopt::proximal::EuclidianNorm</class>
+    <class kind="class">sopt::proximal::L2Norm</class>
     <class kind="class">sopt::proximal::L2Ball</class>
     <class kind="class">sopt::proximal::WeightedL2Ball</class>
     <class kind="class">sopt::proximal::Translation</class>
@@ -2050,6 +2055,13 @@
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1proximal.html</anchorfile>
       <anchor>a539249fec2aa941ca7eb05a2c781cf2f</anchor>
       <arglist>(Vector&lt; S &gt; &amp;out, typename real_type&lt; S &gt;::type gamma, Vector&lt; S &gt; const &amp;x)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>l2_norm</name>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1proximal.html</anchorfile>
+      <anchor>a0a6be3a9f2561a2052ce5c360050d3eb</anchor>
+      <arglist>(Eigen::DenseBase&lt; T0 &gt; &amp;out, typename real_type&lt; typename T0::Scalar &gt;::type gamma, Eigen::DenseBase&lt; T1 &gt; const &amp;x)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
@@ -3456,6 +3468,7 @@
     <name>primal_dual.cc</name>
     <path>/mydata/cpp/tests/</path>
     <filename>http://astro-informatics.github.io/sopt/primal__dual_8cc</filename>
+    <includes id="imaging__primal__dual_8h" name="imaging_primal_dual.h" local="yes" imported="no">sopt/imaging_primal_dual.h</includes>
     <includes id="primal__dual_8h" name="primal_dual.h" local="yes" imported="no">sopt/primal_dual.h</includes>
     <includes id="proximal_8h" name="proximal.h" local="yes" imported="no">sopt/proximal.h</includes>
     <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
@@ -3482,18 +3495,18 @@
       <arglist></arglist>
     </member>
     <member kind="function">
-      <type>sopt::t_int</type>
-      <name>random_integer</name>
+      <type></type>
+      <name>TEST_CASE</name>
       <anchorfile>primal__dual_8cc.html</anchorfile>
-      <anchor>a2b78fa46a1e414e56828982c20223ced</anchor>
-      <arglist>(sopt::t_int min, sopt::t_int max)</arglist>
+      <anchor>aa16eb3fffa70bcc98d5c6d3100dfe065</anchor>
+      <arglist>(&quot;Primal Dual Imaging&quot;, &quot;[primaldual]&quot;)</arglist>
     </member>
     <member kind="function">
       <type></type>
       <name>TEST_CASE</name>
       <anchorfile>primal__dual_8cc.html</anchorfile>
-      <anchor>a80a001d722a3e11efc993eb56e2e7022</anchor>
-      <arglist>(&quot;Primal Dual, testing norm(output - target()) &lt; l2ball_epsilon()&quot;, &quot;[primaldual][integration]&quot;)</arglist>
+      <anchor>a8345d5e28748fc0c3bc0b39cf4f00927</anchor>
+      <arglist>(&quot;Primal Dual with 0.5 * ||x - x0||_2^2 function&quot;, &quot;[primaldual]&quot;)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -4247,41 +4260,41 @@
     <base>sopt::details::HasValueType::Fallback</base>
   </compound>
   <compound kind="struct">
-    <name>sopt::proximal::L1::Diagnostic</name>
-    <filename>http://astro-informatics.github.io/sopt/structsopt_1_1proximal_1_1L1_1_1Diagnostic.html</filename>
+    <name>sopt::algorithm::ProximalADMM::Diagnostic</name>
+    <filename>http://astro-informatics.github.io/sopt/structsopt_1_1algorithm_1_1ProximalADMM_1_1Diagnostic.html</filename>
     <member kind="function">
       <type></type>
       <name>Diagnostic</name>
-      <anchorfile>structsopt_1_1proximal_1_1L1_1_1Diagnostic.html</anchorfile>
-      <anchor>aafee2918e48b18a75a1003c23c8c79f4</anchor>
-      <arglist>(t_uint niters=0, Real relative_variation=0, Real objective=0, bool good=false)</arglist>
+      <anchorfile>structsopt_1_1algorithm_1_1ProximalADMM_1_1Diagnostic.html</anchorfile>
+      <anchor>aa0dddba0ed8a408b6db1e0ef2d574e8e</anchor>
+      <arglist>(t_uint niters=0u, bool good=false)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>Diagnostic</name>
+      <anchorfile>structsopt_1_1algorithm_1_1ProximalADMM_1_1Diagnostic.html</anchorfile>
+      <anchor>aa680f3230e830dea32e6709c2596d5f0</anchor>
+      <arglist>(t_uint niters, bool good, t_Vector &amp;&amp;residual)</arglist>
     </member>
     <member kind="variable">
       <type>t_uint</type>
       <name>niters</name>
-      <anchorfile>structsopt_1_1proximal_1_1L1_1_1Diagnostic.html</anchorfile>
-      <anchor>a02493df14b3f80a6fe8e85f558ed2fef</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>Real</type>
-      <name>relative_variation</name>
-      <anchorfile>structsopt_1_1proximal_1_1L1_1_1Diagnostic.html</anchorfile>
-      <anchor>ac8214487a4c75dcb1c116c6f9e905f29</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>Real</type>
-      <name>objective</name>
-      <anchorfile>structsopt_1_1proximal_1_1L1_1_1Diagnostic.html</anchorfile>
-      <anchor>a9ba8552c5d49581098dcaf0524b4244a</anchor>
+      <anchorfile>structsopt_1_1algorithm_1_1ProximalADMM_1_1Diagnostic.html</anchorfile>
+      <anchor>aa5c9c93f55e44eb408714d3d98bdd387</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
       <type>bool</type>
       <name>good</name>
-      <anchorfile>structsopt_1_1proximal_1_1L1_1_1Diagnostic.html</anchorfile>
-      <anchor>ac833272559efe39d4a43b32696ec289d</anchor>
+      <anchorfile>structsopt_1_1algorithm_1_1ProximalADMM_1_1Diagnostic.html</anchorfile>
+      <anchor>a3315cf4a15c1d3af23efb1e530daa920</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>t_Vector</type>
+      <name>residual</name>
+      <anchorfile>structsopt_1_1algorithm_1_1ProximalADMM_1_1Diagnostic.html</anchorfile>
+      <anchor>ae952f971d08be8e337622c24fd0cbe4d</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -4350,6 +4363,25 @@
     </member>
   </compound>
   <compound kind="struct">
+    <name>sopt::algorithm::ImagingPrimalDual::Diagnostic</name>
+    <filename>http://astro-informatics.github.io/sopt/structsopt_1_1algorithm_1_1ImagingPrimalDual_1_1Diagnostic.html</filename>
+    <base>sopt::algorithm::PrimalDual::Diagnostic</base>
+    <member kind="function">
+      <type></type>
+      <name>Diagnostic</name>
+      <anchorfile>structsopt_1_1algorithm_1_1ImagingPrimalDual_1_1Diagnostic.html</anchorfile>
+      <anchor>a70a2ef25889e05527ae3e2e899ee6170</anchor>
+      <arglist>(t_uint niters=0u, bool good=false)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>Diagnostic</name>
+      <anchorfile>structsopt_1_1algorithm_1_1ImagingPrimalDual_1_1Diagnostic.html</anchorfile>
+      <anchor>a60612577de054b15a2f620030c563eb1</anchor>
+      <arglist>(t_uint niters, bool good, t_Vector &amp;&amp;residual)</arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
     <name>sopt::algorithm::ImagingForwardBackward::Diagnostic</name>
     <filename>http://astro-informatics.github.io/sopt/structsopt_1_1algorithm_1_1ImagingForwardBackward_1_1Diagnostic.html</filename>
     <base>sopt::algorithm::ForwardBackward::Diagnostic</base>
@@ -4372,6 +4404,45 @@
       <name>l1_diagnostic</name>
       <anchorfile>structsopt_1_1algorithm_1_1ImagingForwardBackward_1_1Diagnostic.html</anchorfile>
       <anchor>ad4e7d138ffe53eb0d3b770c5f915625b</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>sopt::proximal::L1::Diagnostic</name>
+    <filename>http://astro-informatics.github.io/sopt/structsopt_1_1proximal_1_1L1_1_1Diagnostic.html</filename>
+    <member kind="function">
+      <type></type>
+      <name>Diagnostic</name>
+      <anchorfile>structsopt_1_1proximal_1_1L1_1_1Diagnostic.html</anchorfile>
+      <anchor>aafee2918e48b18a75a1003c23c8c79f4</anchor>
+      <arglist>(t_uint niters=0, Real relative_variation=0, Real objective=0, bool good=false)</arglist>
+    </member>
+    <member kind="variable">
+      <type>t_uint</type>
+      <name>niters</name>
+      <anchorfile>structsopt_1_1proximal_1_1L1_1_1Diagnostic.html</anchorfile>
+      <anchor>a02493df14b3f80a6fe8e85f558ed2fef</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>Real</type>
+      <name>relative_variation</name>
+      <anchorfile>structsopt_1_1proximal_1_1L1_1_1Diagnostic.html</anchorfile>
+      <anchor>ac8214487a4c75dcb1c116c6f9e905f29</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>Real</type>
+      <name>objective</name>
+      <anchorfile>structsopt_1_1proximal_1_1L1_1_1Diagnostic.html</anchorfile>
+      <anchor>a9ba8552c5d49581098dcaf0524b4244a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>good</name>
+      <anchorfile>structsopt_1_1proximal_1_1L1_1_1Diagnostic.html</anchorfile>
+      <anchor>ac833272559efe39d4a43b32696ec289d</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -4466,41 +4537,15 @@
     </member>
   </compound>
   <compound kind="struct">
-    <name>sopt::algorithm::ProximalADMM::Diagnostic</name>
-    <filename>http://astro-informatics.github.io/sopt/structsopt_1_1algorithm_1_1ProximalADMM_1_1Diagnostic.html</filename>
-    <member kind="function">
-      <type></type>
-      <name>Diagnostic</name>
-      <anchorfile>structsopt_1_1algorithm_1_1ProximalADMM_1_1Diagnostic.html</anchorfile>
-      <anchor>aa0dddba0ed8a408b6db1e0ef2d574e8e</anchor>
-      <arglist>(t_uint niters=0u, bool good=false)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>Diagnostic</name>
-      <anchorfile>structsopt_1_1algorithm_1_1ProximalADMM_1_1Diagnostic.html</anchorfile>
-      <anchor>aa680f3230e830dea32e6709c2596d5f0</anchor>
-      <arglist>(t_uint niters, bool good, t_Vector &amp;&amp;residual)</arglist>
-    </member>
+    <name>sopt::ConjugateGradient::DiagnosticAndResult</name>
+    <filename>http://astro-informatics.github.io/sopt/structsopt_1_1ConjugateGradient_1_1DiagnosticAndResult.html</filename>
+    <templarg>T</templarg>
+    <base>sopt::ConjugateGradient::Diagnostic</base>
     <member kind="variable">
-      <type>t_uint</type>
-      <name>niters</name>
-      <anchorfile>structsopt_1_1algorithm_1_1ProximalADMM_1_1Diagnostic.html</anchorfile>
-      <anchor>aa5c9c93f55e44eb408714d3d98bdd387</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>bool</type>
-      <name>good</name>
-      <anchorfile>structsopt_1_1algorithm_1_1ProximalADMM_1_1Diagnostic.html</anchorfile>
-      <anchor>a3315cf4a15c1d3af23efb1e530daa920</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>t_Vector</type>
-      <name>residual</name>
-      <anchorfile>structsopt_1_1algorithm_1_1ProximalADMM_1_1Diagnostic.html</anchorfile>
-      <anchor>ae952f971d08be8e337622c24fd0cbe4d</anchor>
+      <type>Vector&lt; T &gt;</type>
+      <name>result</name>
+      <anchorfile>structsopt_1_1ConjugateGradient_1_1DiagnosticAndResult.html</anchorfile>
+      <anchor>a66fef260423cc5e76cbdfc7f3bd5734a</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -4513,6 +4558,30 @@
       <name>x</name>
       <anchorfile>structsopt_1_1algorithm_1_1ForwardBackward_1_1DiagnosticAndResult.html</anchorfile>
       <anchor>a6bebb7483ac2747d9adedbb21d06c7d0</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>sopt::algorithm::ImagingPrimalDual::DiagnosticAndResult</name>
+    <filename>http://astro-informatics.github.io/sopt/structsopt_1_1algorithm_1_1ImagingPrimalDual_1_1DiagnosticAndResult.html</filename>
+    <base>sopt::algorithm::ImagingPrimalDual::Diagnostic</base>
+    <member kind="variable">
+      <type>t_Vector</type>
+      <name>x</name>
+      <anchorfile>structsopt_1_1algorithm_1_1ImagingPrimalDual_1_1DiagnosticAndResult.html</anchorfile>
+      <anchor>a62cbf5984fc0c9d53d51fa5e43696a13</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>sopt::algorithm::ProximalADMM::DiagnosticAndResult</name>
+    <filename>http://astro-informatics.github.io/sopt/structsopt_1_1algorithm_1_1ProximalADMM_1_1DiagnosticAndResult.html</filename>
+    <base>sopt::algorithm::ProximalADMM::Diagnostic</base>
+    <member kind="variable">
+      <type>t_Vector</type>
+      <name>x</name>
+      <anchorfile>structsopt_1_1algorithm_1_1ProximalADMM_1_1DiagnosticAndResult.html</anchorfile>
+      <anchor>a9e0c014425960579731d31ec46d40187</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -4561,15 +4630,13 @@
     </member>
   </compound>
   <compound kind="struct">
-    <name>sopt::ConjugateGradient::DiagnosticAndResult</name>
-    <filename>http://astro-informatics.github.io/sopt/structsopt_1_1ConjugateGradient_1_1DiagnosticAndResult.html</filename>
-    <templarg>T</templarg>
-    <base>sopt::ConjugateGradient::Diagnostic</base>
-    <member kind="variable">
-      <type>Vector&lt; T &gt;</type>
-      <name>result</name>
-      <anchorfile>structsopt_1_1ConjugateGradient_1_1DiagnosticAndResult.html</anchorfile>
-      <anchor>a66fef260423cc5e76cbdfc7f3bd5734a</anchor>
+    <name>DummyAlgorithm::DiagnosticAndResult</name>
+    <filename>http://astro-informatics.github.io/sopt/structDummyAlgorithm_1_1DiagnosticAndResult.html</filename>
+    <member kind="variable" static="yes">
+      <type>static t_Vector</type>
+      <name>x</name>
+      <anchorfile>structDummyAlgorithm_1_1DiagnosticAndResult.html</anchorfile>
+      <anchor>a2bf7fe3b6c83d0838f2792d289cc4241</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -4586,13 +4653,14 @@
     </member>
   </compound>
   <compound kind="struct">
-    <name>DummyAlgorithm::DiagnosticAndResult</name>
-    <filename>http://astro-informatics.github.io/sopt/structDummyAlgorithm_1_1DiagnosticAndResult.html</filename>
-    <member kind="variable" static="yes">
-      <type>static t_Vector</type>
+    <name>sopt::algorithm::ImagingForwardBackward::DiagnosticAndResult</name>
+    <filename>http://astro-informatics.github.io/sopt/structsopt_1_1algorithm_1_1ImagingForwardBackward_1_1DiagnosticAndResult.html</filename>
+    <base>sopt::algorithm::ImagingForwardBackward::Diagnostic</base>
+    <member kind="variable">
+      <type>t_Vector</type>
       <name>x</name>
-      <anchorfile>structDummyAlgorithm_1_1DiagnosticAndResult.html</anchorfile>
-      <anchor>a2bf7fe3b6c83d0838f2792d289cc4241</anchor>
+      <anchorfile>structsopt_1_1algorithm_1_1ImagingForwardBackward_1_1DiagnosticAndResult.html</anchorfile>
+      <anchor>abe9409cf0991268c5c12d7c020e2af51</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -4609,18 +4677,6 @@
     </member>
   </compound>
   <compound kind="struct">
-    <name>sopt::algorithm::ImagingForwardBackward::DiagnosticAndResult</name>
-    <filename>http://astro-informatics.github.io/sopt/structsopt_1_1algorithm_1_1ImagingForwardBackward_1_1DiagnosticAndResult.html</filename>
-    <base>sopt::algorithm::ImagingForwardBackward::Diagnostic</base>
-    <member kind="variable">
-      <type>t_Vector</type>
-      <name>x</name>
-      <anchorfile>structsopt_1_1algorithm_1_1ImagingForwardBackward_1_1DiagnosticAndResult.html</anchorfile>
-      <anchor>abe9409cf0991268c5c12d7c020e2af51</anchor>
-      <arglist></arglist>
-    </member>
-  </compound>
-  <compound kind="struct">
     <name>sopt::algorithm::ImagingProximalADMM::DiagnosticAndResult</name>
     <filename>http://astro-informatics.github.io/sopt/structsopt_1_1algorithm_1_1ImagingProximalADMM_1_1DiagnosticAndResult.html</filename>
     <base>sopt::algorithm::ImagingProximalADMM::Diagnostic</base>
@@ -4629,18 +4685,6 @@
       <name>x</name>
       <anchorfile>structsopt_1_1algorithm_1_1ImagingProximalADMM_1_1DiagnosticAndResult.html</anchorfile>
       <anchor>a5a071a3eadebc3013d766d18c72c29e3</anchor>
-      <arglist></arglist>
-    </member>
-  </compound>
-  <compound kind="struct">
-    <name>sopt::algorithm::ProximalADMM::DiagnosticAndResult</name>
-    <filename>http://astro-informatics.github.io/sopt/structsopt_1_1algorithm_1_1ProximalADMM_1_1DiagnosticAndResult.html</filename>
-    <base>sopt::algorithm::ProximalADMM::Diagnostic</base>
-    <member kind="variable">
-      <type>t_Vector</type>
-      <name>x</name>
-      <anchorfile>structsopt_1_1algorithm_1_1ProximalADMM_1_1DiagnosticAndResult.html</anchorfile>
-      <anchor>a9e0c014425960579731d31ec46d40187</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -5519,6 +5563,356 @@
       <name>is_converged</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
       <anchor>a70d6aad850eaabad5242183c52f52851</anchor>
+      <arglist>(std::function&lt; bool(t_Vector const &amp;x)&gt; const &amp;func)</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>sopt::algorithm::ImagingPrimalDual</name>
+    <filename>http://astro-informatics.github.io/sopt/classsopt_1_1algorithm_1_1ImagingPrimalDual.html</filename>
+    <templarg>SCALAR</templarg>
+    <class kind="struct">sopt::algorithm::ImagingPrimalDual::Diagnostic</class>
+    <class kind="struct">sopt::algorithm::ImagingPrimalDual::DiagnosticAndResult</class>
+    <member kind="typedef">
+      <type>PD::value_type</type>
+      <name>value_type</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>a914c2d826117c0d2ef12b1ed956678a6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>PD::Scalar</type>
+      <name>Scalar</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>a2c8b1ae0a90cf4227f669b887a151e51</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>PD::Real</type>
+      <name>Real</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>a29cc8ed3d46609ab885719531d517285</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>PD::t_Vector</type>
+      <name>t_Vector</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>a33d8f7b9cc0c133263e24dc5715acb5c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>PD::t_LinearTransform</type>
+      <name>t_LinearTransform</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>aac0e1205915a7dcc11bd27ec077d08cf</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>PD::t_Proximal</type>
+      <name>t_Proximal</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>ae10894a8a8e4edd66104e69aae54b6a2</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>PD::t_IsConverged</type>
+      <name>t_IsConverged</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>ae70857353d44c8ba5a09ae82d82284df</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>PD::t_Constraint</type>
+      <name>t_Constraint</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>ae817bbf4c8d9a8f490f810ec87e9fdb7</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>ImagingPrimalDual</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>ac2878678c004392203d6441feedaef2b</anchor>
+      <arglist>(Eigen::MatrixBase&lt; DERIVED &gt; const &amp;target)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual</type>
+      <name>~ImagingPrimalDual</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>a3c3df825f7a6ef2d0e2992d088e9a862</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SOPT_MACRO</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>a47b92ada0f52b831ee8dda7d68db2710</anchor>
+      <arglist>(l1norm_proximal, t_Proximal)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SOPT_MACRO</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>a3203b91c858e365d9ddc1630c3a3aec8</anchor>
+      <arglist>(l2ball_proximal, proximal::WeightedL2Ball&lt; Scalar &gt;)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SOPT_MACRO</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>a0e22a137f6b41de2c48844875a11fc80</anchor>
+      <arglist>(residual_tolerance, Real)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SOPT_MACRO</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>a7955208e788f8169d0fb13de21eadeb4</anchor>
+      <arglist>(relative_variation, Real)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SOPT_MACRO</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>a2a5393a6817b1218cc24acab93aa62ae</anchor>
+      <arglist>(residual_convergence, t_IsConverged)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SOPT_MACRO</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>ad18738f3c0c7302727f5e5a737f2a912</anchor>
+      <arglist>(objective_convergence, t_IsConverged)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SOPT_MACRO</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>a221a1e0f162a724d5fd5f445587b9f8f</anchor>
+      <arglist>(itermax, t_uint)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SOPT_MACRO</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>a1978addd19d0d783e8e88932ab44b4c4</anchor>
+      <arglist>(gamma, Real)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SOPT_MACRO</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>a56abf597fcb75c6ce455b9fa80c0671d</anchor>
+      <arglist>(update_scale, Real)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SOPT_MACRO</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>a956b101c5df328e99252f17d5a3e3b2f</anchor>
+      <arglist>(positivity_constraint, bool)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SOPT_MACRO</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>a1820a21b077904b5b9cbc46479018cd5</anchor>
+      <arglist>(real_constraint, bool)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SOPT_MACRO</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>a968a8e7fa461c345c6f727fa9c9e41cf</anchor>
+      <arglist>(sigma, Real)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SOPT_MACRO</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>ad7c4ddd40d3841e5d79b29951c4f7f26</anchor>
+      <arglist>(tau, Real)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SOPT_MACRO</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>acedc4899d9f5c3e7b27ae67d4a5622fd</anchor>
+      <arglist>(xi, Real)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SOPT_MACRO</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>a87cf7ff4b86ed7f87c5f3d2cd217967a</anchor>
+      <arglist>(rho, Real)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SOPT_MACRO</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>aa18fff7542906be32f597d0646438d8a</anchor>
+      <arglist>(nu, Real)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SOPT_MACRO</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>a9154f17456583b5f419bcc27aa61ab5a</anchor>
+      <arglist>(precondition_stepsize, Real)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SOPT_MACRO</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>accf9a4d1839d44c8aff9010cd0af6e47</anchor>
+      <arglist>(precondition_weights, t_Vector)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SOPT_MACRO</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>ac2b1b229d63a30ee8bf9ccf0e30e0b98</anchor>
+      <arglist>(precondition_iters, t_uint)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SOPT_MACRO</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>abc1eb617466597152d6da202e90a4a44</anchor>
+      <arglist>(is_converged, t_IsConverged)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SOPT_MACRO</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>a1ab39b382e269450a84e3dc88cb07bd9</anchor>
+      <arglist>(Phi, t_LinearTransform)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SOPT_MACRO</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>a0af23b20a235659c3d6b80389ec435c7</anchor>
+      <arglist>(Psi, t_LinearTransform)</arglist>
+    </member>
+    <member kind="function">
+      <type>t_Vector const  &amp;</type>
+      <name>target</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>a89ae5f99cff5770bce1240c014f019eb</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>ImagingPrimalDual&lt; Scalar &gt; &amp;</type>
+      <name>target</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>acb68f75e101bc48a7f94583c06f1f231</anchor>
+      <arglist>(Eigen::MatrixBase&lt; DERIVED &gt; const &amp;target)</arglist>
+    </member>
+    <member kind="function">
+      <type>Diagnostic</type>
+      <name>operator()</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>acc9f411a5a111491999787b8a4f05d1c</anchor>
+      <arglist>(t_Vector &amp;out) const</arglist>
+    </member>
+    <member kind="function">
+      <type>Diagnostic</type>
+      <name>operator()</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>a114036dd2c640b761349d90fbeb5a016</anchor>
+      <arglist>(t_Vector &amp;out, std::tuple&lt; t_Vector, t_Vector &gt; const &amp;guess) const</arglist>
+    </member>
+    <member kind="function">
+      <type>Diagnostic</type>
+      <name>operator()</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>a6ded1b21963a829d38167390add1d74d</anchor>
+      <arglist>(t_Vector &amp;out, std::tuple&lt; t_Vector const &amp;, t_Vector const &amp;&gt; const &amp;guess) const</arglist>
+    </member>
+    <member kind="function">
+      <type>DiagnosticAndResult</type>
+      <name>operator()</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>a4efb653dbdb3cdefcdd18e904f0a100c</anchor>
+      <arglist>(std::tuple&lt; t_Vector, t_Vector &gt; const &amp;guess) const</arglist>
+    </member>
+    <member kind="function">
+      <type>DiagnosticAndResult</type>
+      <name>operator()</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>a855fc676c8aa4ca94a8c28a9e3d490d0</anchor>
+      <arglist>(std::tuple&lt; t_Vector const &amp;, t_Vector const &amp;&gt; const &amp;guess) const</arglist>
+    </member>
+    <member kind="function">
+      <type>DiagnosticAndResult</type>
+      <name>operator()</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>a8759cc95811fae0ecb47511735b3dfbd</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>DiagnosticAndResult</type>
+      <name>operator()</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>af0ec33ec50dd6971de6984cc8f63eebf</anchor>
+      <arglist>(DiagnosticAndResult const &amp;warmstart) const</arglist>
+    </member>
+    <member kind="function">
+      <type>ImagingPrimalDual &amp;::type</type>
+      <name>Phi</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>ac4a558bd46a05bce4bb61628441a53fe</anchor>
+      <arglist>(ARGS &amp;&amp;... args)</arglist>
+    </member>
+    <member kind="function">
+      <type>proximal::WeightedL2Ball&lt; Scalar &gt; &amp;</type>
+      <name>l2ball_proximal</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>ac54a3103f5c9badffa19baa702828fc1</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>ImagingPrimalDual &amp;::type</type>
+      <name>Psi</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>ad32c4803a684e64330fbc16f0a058cae</anchor>
+      <arglist>(ARGS &amp;&amp;... args)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SOPT_MACRO</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>a4c760a9a961ea0779408dbc8ad081046</anchor>
+      <arglist>(epsilon, l2ball, WeightedL2Ball)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SOPT_MACRO</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>a5453d838791d46209a1f60403d642dad</anchor>
+      <arglist>(weights, l2ball, WeightedL2Ball)</arglist>
+    </member>
+    <member kind="function">
+      <type>ImagingPrimalDual&lt; Scalar &gt; &amp;</type>
+      <name>residual_convergence</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>ac50916dbeaaf6d1ce5ca2f38057a4856</anchor>
+      <arglist>(Real const &amp;tolerance)</arglist>
+    </member>
+    <member kind="function">
+      <type>ImagingPrimalDual&lt; Scalar &gt; &amp;</type>
+      <name>objective_convergence</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>a6895c34a3b28663ac62f5e2c23e0eb8e</anchor>
+      <arglist>(Real const &amp;tolerance)</arglist>
+    </member>
+    <member kind="function">
+      <type>ImagingPrimalDual&lt; Scalar &gt; &amp;</type>
+      <name>is_converged</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>ab0ca2f78a78f768fa6495f037765b6dc</anchor>
       <arglist>(std::function&lt; bool(t_Vector const &amp;x)&gt; const &amp;func)</arglist>
     </member>
   </compound>
@@ -6495,6 +6889,46 @@
     </member>
   </compound>
   <compound kind="class">
+    <name>sopt::proximal::L2Norm</name>
+    <filename>http://astro-informatics.github.io/sopt/classsopt_1_1proximal_1_1L2Norm.html</filename>
+    <templarg>T</templarg>
+    <member kind="typedef">
+      <type>real_type&lt; T &gt;::type</type>
+      <name>Real</name>
+      <anchorfile>classsopt_1_1proximal_1_1L2Norm.html</anchorfile>
+      <anchor>acbcdd73c0ba5a02f2aeaaed98c85ea01</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>L2Norm</name>
+      <anchorfile>classsopt_1_1proximal_1_1L2Norm.html</anchorfile>
+      <anchor>ad40bec56fd94db8fbedcf9165a661270</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>operator()</name>
+      <anchorfile>classsopt_1_1proximal_1_1L2Norm.html</anchorfile>
+      <anchor>a5fd6ac4291060ca743140f6a6fe73ffa</anchor>
+      <arglist>(Vector&lt; T &gt; &amp;out, const Real gamma, Vector&lt; T &gt; const &amp;x) const</arglist>
+    </member>
+    <member kind="function">
+      <type>EnveloppeExpression&lt; L2Norm, T0 &gt;</type>
+      <name>operator()</name>
+      <anchorfile>classsopt_1_1proximal_1_1L2Norm.html</anchorfile>
+      <anchor>a0b08bc0d467feed77214f8344b3aaa5b</anchor>
+      <arglist>(Real const &amp;, Eigen::MatrixBase&lt; T0 &gt; const &amp;x) const</arglist>
+    </member>
+    <member kind="function">
+      <type>EnveloppeExpression&lt; L2Norm, T0 &gt;</type>
+      <name>operator()</name>
+      <anchorfile>classsopt_1_1proximal_1_1L2Norm.html</anchorfile>
+      <anchor>a9070d33eef20001b4a6ff900f8be4a39</anchor>
+      <arglist>(Eigen::MatrixBase&lt; T0 &gt; const &amp;x) const</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
     <name>sopt::LinearTransform</name>
     <filename>http://astro-informatics.github.io/sopt/classsopt_1_1LinearTransform.html</filename>
     <templarg>VECTOR</templarg>
@@ -6929,10 +7363,17 @@
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>ConvergenceFunction&lt; Scalar &gt;</type>
+      <type>std::function&lt; bool(t_Vector const &amp;, t_Vector const &amp;)&gt;</type>
       <name>t_IsConverged</name>
       <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
-      <anchor>a0de8dbf89d8af4cba618302095cb206a</anchor>
+      <anchor>adbaf20471267b0d22b3e3af914dc7d14</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>std::function&lt; void(t_Vector &amp;, const t_Vector &amp;)&gt;</type>
+      <name>t_Constraint</name>
+      <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
+      <anchor>acbfddce9878793083a9a1dc9ef062b9d</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
@@ -6942,19 +7383,12 @@
       <anchor>a622e8bf20c291f6b740f3590434f7463</anchor>
       <arglist></arglist>
     </member>
-    <member kind="typedef">
-      <type>sopt::Matrix&lt; Scalar &gt;</type>
-      <name>Matrix</name>
-      <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
-      <anchor>a190423b96a53038c5c0b35e3818bb9e7</anchor>
-      <arglist></arglist>
-    </member>
     <member kind="function">
       <type></type>
       <name>PrimalDual</name>
       <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
-      <anchor>a5f0fe1824d01df044644c28e184cbc5d</anchor>
-      <arglist>(Eigen::MatrixBase&lt; DERIVED &gt; const &amp;target)</arglist>
+      <anchor>ab62e2b3245b7be909624b8076b412e04</anchor>
+      <arglist>(t_Proximal const &amp;f_proximal, t_Proximal const &amp;g_proximal, Eigen::MatrixBase&lt; DERIVED &gt; const &amp;target)</arglist>
     </member>
     <member kind="function" virtualness="virtual">
       <type>virtual</type>
@@ -6974,15 +7408,36 @@
       <type></type>
       <name>SOPT_MACRO</name>
       <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
-      <anchor>a9c8e9a8721f2903dd7cf62f654f7f099</anchor>
-      <arglist>(nu, Real)</arglist>
+      <anchor>aff18cf637f0c4ab9ccbe14c308cb1065</anchor>
+      <arglist>(update_scale, Real)</arglist>
     </member>
     <member kind="function">
       <type></type>
       <name>SOPT_MACRO</name>
       <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
-      <anchor>a09f3193f9749d7708a3c7b6cc9c7dc22</anchor>
-      <arglist>(kappa, Real)</arglist>
+      <anchor>aa1b6b8b193c60aa3e5004b7165acc011</anchor>
+      <arglist>(gamma, Real)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SOPT_MACRO</name>
+      <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
+      <anchor>af632cbf54789f78e60329c062c621d5a</anchor>
+      <arglist>(sigma, Real)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SOPT_MACRO</name>
+      <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
+      <anchor>a54316a191b2058d34e8ebd945e018b4b</anchor>
+      <arglist>(xi, Real)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SOPT_MACRO</name>
+      <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
+      <anchor>a7e9163cdcd4ffd2d250f5d05ff237171</anchor>
+      <arglist>(rho, Real)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -6995,36 +7450,8 @@
       <type></type>
       <name>SOPT_MACRO</name>
       <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
-      <anchor>a0b3237529fb5929a734facf2969b031d</anchor>
-      <arglist>(sigma1, Real)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>SOPT_MACRO</name>
-      <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
-      <anchor>af95a1d4561fa837ce983c436959db5b6</anchor>
-      <arglist>(sigma2, Real)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>SOPT_MACRO</name>
-      <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
-      <anchor>a58476f1c8cf3d546476c2b852de9e6bc</anchor>
-      <arglist>(levels, t_uint)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>SOPT_MACRO</name>
-      <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
-      <anchor>aef7122cd433eb11dc5975947b335e13a</anchor>
-      <arglist>(l1_proximal_weights, Vector&lt; Real &gt;)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>SOPT_MACRO</name>
-      <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
-      <anchor>a2236b7c3b6139a524773106aceffa653</anchor>
-      <arglist>(l2ball_epsilon, Real)</arglist>
+      <anchor>a9c8e9a8721f2903dd7cf62f654f7f099</anchor>
+      <arglist>(nu, Real)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -7032,6 +7459,13 @@
       <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
       <anchor>a6f804bfd6a04525eb2bab2f529b8b2e4</anchor>
       <arglist>(is_converged, t_IsConverged)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SOPT_MACRO</name>
+      <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
+      <anchor>a8ed50ad6ef62aa1d44d18e6f0fd2671f</anchor>
+      <arglist>(constraint, t_Constraint)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -7051,22 +7485,36 @@
       <type></type>
       <name>SOPT_MACRO</name>
       <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
-      <anchor>a52a2bf12dac36b5ce5efa4f275ab39c5</anchor>
-      <arglist>(residual_convergence, Real)</arglist>
+      <anchor>a37077b108426cf26380896f51d2923a2</anchor>
+      <arglist>(f_proximal, t_Proximal)</arglist>
     </member>
     <member kind="function">
       <type></type>
       <name>SOPT_MACRO</name>
       <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
-      <anchor>a0005335aed86418c00c1043ed13ebd64</anchor>
-      <arglist>(relative_variation, Real)</arglist>
+      <anchor>aa046a47a5c66efb222a9cbaeb31acd6d</anchor>
+      <arglist>(g_proximal, t_Proximal)</arglist>
     </member>
     <member kind="function">
-      <type></type>
-      <name>SOPT_MACRO</name>
+      <type>void</type>
+      <name>f_proximal</name>
       <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
-      <anchor>af3d61e00b8bd8efbe9d2f82e189c86c9</anchor>
-      <arglist>(positivity_constraint, bool)</arglist>
+      <anchor>aa68279f9bc2127ea66e52012022d86d9</anchor>
+      <arglist>(t_Vector &amp;out, Real gamma, t_Vector const &amp;x) const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>g_proximal</name>
+      <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
+      <anchor>ac422e051ec531e547a854cbab7cb004a</anchor>
+      <arglist>(t_Vector &amp;out, Real gamma, t_Vector const &amp;x) const</arglist>
+    </member>
+    <member kind="function">
+      <type>PrimalDual&lt; Scalar &gt; &amp;</type>
+      <name>is_converged</name>
+      <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
+      <anchor>ab0030a6f46b8d9225e77a616051449ce</anchor>
+      <arglist>(std::function&lt; bool(t_Vector const &amp;x)&gt; const &amp;func)</arglist>
     </member>
     <member kind="function">
       <type>t_Vector const  &amp;</type>
@@ -7076,18 +7524,18 @@
       <arglist>() const</arglist>
     </member>
     <member kind="function">
-      <type>PrimalDual&lt; DERIVED &gt; &amp;</type>
+      <type>PrimalDual&lt; Scalar &gt; &amp;</type>
       <name>target</name>
       <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
-      <anchor>ab061f0618942a94827ea5b104900ae24</anchor>
+      <anchor>a0dcd471d25a8aedf80ddfb91929e46f8</anchor>
       <arglist>(Eigen::MatrixBase&lt; DERIVED &gt; const &amp;target)</arglist>
     </member>
     <member kind="function">
       <type>bool</type>
       <name>is_converged</name>
       <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
-      <anchor>a26754d9320568bf43849bcba4e8ae4f7</anchor>
-      <arglist>(t_Vector const &amp;x) const</arglist>
+      <anchor>a54969111d9f5fd24577e2d1b71459b49</anchor>
+      <arglist>(t_Vector const &amp;x, t_Vector const &amp;residual) const</arglist>
     </member>
     <member kind="function">
       <type>Diagnostic</type>
@@ -7104,11 +7552,25 @@
       <arglist>(t_Vector &amp;out, std::tuple&lt; t_Vector, t_Vector &gt; const &amp;guess) const</arglist>
     </member>
     <member kind="function">
+      <type>Diagnostic</type>
+      <name>operator()</name>
+      <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
+      <anchor>a186455c5ef3c8e7c6933ab4856b53f3e</anchor>
+      <arglist>(t_Vector &amp;out, std::tuple&lt; t_Vector const &amp;, t_Vector const &amp;&gt; const &amp;guess) const</arglist>
+    </member>
+    <member kind="function">
       <type>DiagnosticAndResult</type>
       <name>operator()</name>
       <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
       <anchor>ad1e41ca50be73682a811e0c833619a85</anchor>
       <arglist>(std::tuple&lt; t_Vector, t_Vector &gt; const &amp;guess) const</arglist>
+    </member>
+    <member kind="function">
+      <type>DiagnosticAndResult</type>
+      <name>operator()</name>
+      <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
+      <anchor>a0872b724f4562ef0227f0f33993d9a32</anchor>
+      <arglist>(std::tuple&lt; t_Vector const &amp;, t_Vector const &amp;&gt; const &amp;guess) const</arglist>
     </member>
     <member kind="function">
       <type>DiagnosticAndResult</type>
@@ -7126,16 +7588,16 @@
     </member>
     <member kind="function">
       <type>PrimalDual &amp;::type</type>
-      <name>Psi</name>
+      <name>Phi</name>
       <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
-      <anchor>af6ecdb7e888a35d447b109c20d13178c</anchor>
+      <anchor>a1a809631d8b1a919037c68f2d4085b17</anchor>
       <arglist>(ARGS &amp;&amp;... args)</arglist>
     </member>
     <member kind="function">
       <type>PrimalDual &amp;::type</type>
-      <name>Phi</name>
+      <name>Psi</name>
       <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
-      <anchor>a1a809631d8b1a919037c68f2d4085b17</anchor>
+      <anchor>af6ecdb7e888a35d447b109c20d13178c</anchor>
       <arglist>(ARGS &amp;&amp;... args)</arglist>
     </member>
     <member kind="function">
@@ -7144,6 +7606,13 @@
       <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
       <anchor>aea449fd612f6063653b3bf224a3c16a7</anchor>
       <arglist>() const</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static std::tuple&lt; t_Vector, t_Vector &gt;</type>
+      <name>initial_guess</name>
+      <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
+      <anchor>a0039c6b90f2c469f38fed3a90b62f7a0</anchor>
+      <arglist>(t_Vector const &amp;target, t_LinearTransform const &amp;phi, Real nu)</arglist>
     </member>
   </compound>
   <compound kind="class">
@@ -9465,6 +9934,7 @@
     <filename>http://astro-informatics.github.io/sopt/http://astro-informatics.github.io/sopt/namespacesopt_1_1algorithm.html</filename>
     <class kind="class">sopt::algorithm::ForwardBackward</class>
     <class kind="class">sopt::algorithm::ImagingForwardBackward</class>
+    <class kind="class">sopt::algorithm::ImagingPrimalDual</class>
     <class kind="class">sopt::algorithm::ImagingProximalADMM</class>
     <class kind="class">sopt::algorithm::JointMAP</class>
     <class kind="class">sopt::algorithm::PositiveQuadrant</class>
@@ -9491,15 +9961,15 @@
       <type>std::tuple&lt; t_real, T, std::shared_ptr&lt; sopt::LinearTransform&lt; T &gt; &gt; &gt;</type>
       <name>normalise_operator</name>
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1algorithm.html</anchorfile>
-      <anchor>a24d048a91054bfe01cf3b345c8783e9a</anchor>
-      <arglist>(const std::shared_ptr&lt; sopt::LinearTransform&lt; T &gt; const &gt; &amp;op, const t_uint &amp;niters, const t_real &amp;relative_difference, const T &amp;initial_vector)</arglist>
+      <anchor>a1459a1dac71882848ea3509b007c5b8a</anchor>
+      <arglist>(const std::shared_ptr&lt; sopt::LinearTransform&lt; T &gt; const &gt; &amp;op, const t_uint &amp;niters, const t_real &amp;relative_difference, const Eigen::MatrixBase&lt; T &gt; &amp;initial_vector)</arglist>
     </member>
     <member kind="function">
       <type>std::tuple&lt; t_real, T, sopt::LinearTransform&lt; T &gt; &gt;</type>
       <name>normalise_operator</name>
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1algorithm.html</anchorfile>
-      <anchor>a565417b5171e614cc9faa5d503ee0a25</anchor>
-      <arglist>(const sopt::LinearTransform&lt; T &gt; &amp;op, const t_uint &amp;niters, const t_real &amp;relative_difference, const T &amp;initial_vector)</arglist>
+      <anchor>a7db7761676258710a9d118bbe6be9284</anchor>
+      <arglist>(const sopt::LinearTransform&lt; T &gt; &amp;op, const t_uint &amp;niters, const t_real &amp;relative_difference, const Eigen::MatrixBase&lt; T &gt; &amp;initial_vector)</arglist>
     </member>
     <member kind="function">
       <type>Reweighted&lt; ALGORITHM &gt;</type>
@@ -9791,6 +10261,7 @@
     <class kind="class">sopt::proximal::L1</class>
     <class kind="class">sopt::proximal::L1TightFrame</class>
     <class kind="class">sopt::proximal::L2Ball</class>
+    <class kind="class">sopt::proximal::L2Norm</class>
     <class kind="class">sopt::proximal::Translation</class>
     <class kind="class">sopt::proximal::WeightedL2Ball</class>
     <member kind="typedef">
@@ -9827,6 +10298,13 @@
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1proximal.html</anchorfile>
       <anchor>a539249fec2aa941ca7eb05a2c781cf2f</anchor>
       <arglist>(Vector&lt; S &gt; &amp;out, typename real_type&lt; S &gt;::type gamma, Vector&lt; S &gt; const &amp;x)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>l2_norm</name>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1proximal.html</anchorfile>
+      <anchor>a0a6be3a9f2561a2052ce5c360050d3eb</anchor>
+      <arglist>(Eigen::DenseBase&lt; T0 &gt; &amp;out, typename real_type&lt; typename T0::Scalar &gt;::type gamma, Eigen::DenseBase&lt; T1 &gt; const &amp;x)</arglist>
     </member>
     <member kind="function">
       <type>void</type>

@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structsopt_1_1CData.html" title="sopt::CData\&lt; T \&gt;" alt="" coords="5,5,141,32"/>
+<area shape="rect" id="node1" href="$structsopt_1_1algorithm_1_1SDMM_1_1Diagnostic.html" title="Values indicating how the algorithm ran. " alt="" coords="5,5,185,47"/>
+<area shape="rect" id="node2" href="$structsopt_1_1algorithm_1_1SDMM_1_1DiagnosticAndResult.html" title="sopt::algorithm::SDMM\l\&lt; SCALAR \&gt;::DiagnosticAndResult" alt="" coords="233,5,479,47"/>
 </map>

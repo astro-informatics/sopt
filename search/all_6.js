@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['g_5fproximal',['g_proximal',['../classsopt_1_1algorithm_1_1ForwardBackward.html#aded1ee9c25417d1f0f5333e7c6b833b0',1,'sopt::algorithm::ForwardBackward::g_proximal()'],['../classsopt_1_1algorithm_1_1ProximalADMM.html#a463d5fe15218df71370f16b70e22472a',1,'sopt::algorithm::ProximalADMM::g_proximal()']]],
+  ['g_5fproximal',['g_proximal',['../classsopt_1_1algorithm_1_1ForwardBackward.html#aded1ee9c25417d1f0f5333e7c6b833b0',1,'sopt::algorithm::ForwardBackward::g_proximal()'],['../classsopt_1_1algorithm_1_1ProximalADMM.html#a463d5fe15218df71370f16b70e22472a',1,'sopt::algorithm::ProximalADMM::g_proximal()'],['../classsopt_1_1algorithm_1_1PrimalDual.html#ac422e051ec531e547a854cbab7cb004a',1,'sopt::algorithm::PrimalDual::g_proximal()']]],
   ['gcd',['gcd',['../namespacesopt_1_1details.html#a19d03d9b49ed12e7f7b91cb8b19e1db2',1,'sopt::details']]],
   ['get',['get',['../namespacesopt_1_1logging.html#a9f0cee3c49d8f62c122e5f83dddd610d',1,'sopt::logging::get(std::string const &amp;name=&quot;&quot;)'],['../namespacesopt_1_1logging.html#a5109e37f29d40ef6695c4291fcbb063d',1,'sopt::logging::get()']]],
   ['get_5fname',['get_name',['../benchmarks_2wavelets_8cc.html#ade757ed93840b7fd18371602a9456962',1,'wavelets.cc']]],

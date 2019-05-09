@@ -1,6 +1,7 @@
 var searchData=
 [
   ['imagingforwardbackward',['ImagingForwardBackward',['../classsopt_1_1algorithm_1_1ImagingForwardBackward.html',1,'sopt::algorithm']]],
+  ['imagingprimaldual',['ImagingPrimalDual',['../classsopt_1_1algorithm_1_1ImagingPrimalDual.html',1,'sopt::algorithm']]],
   ['imagingproximaladmm',['ImagingProximalADMM',['../classsopt_1_1algorithm_1_1ImagingProximalADMM.html',1,'sopt::algorithm']]],
   ['introspectsdmm',['IntrospectSDMM',['../classIntrospectSDMM.html',1,'']]],
   ['is_5fcomplex',['is_complex',['../structsopt_1_1is__complex.html',1,'sopt']]],

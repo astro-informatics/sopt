@@ -1,15 +1,16 @@
 <map id="/mydata/cpp/tests/primal_dual.cc" name="/mydata/cpp/tests/primal_dual.cc">
-<area shape="rect" id="node6" href="$primal__dual_8h.html" title="sopt/primal_dual.h" alt="" coords="1258,95,1401,121"/>
-<area shape="rect" id="node25" href="$types_8h.html" title="sopt/types.h" alt="" coords="965,468,1067,495"/>
-<area shape="rect" id="node29" href="$proximal_8h.html" title="sopt/proximal.h" alt="" coords="271,244,395,271"/>
-<area shape="rect" id="node10" href="$exception_8h.html" title="sopt/exception.h" alt="" coords="1143,468,1273,495"/>
-<area shape="rect" id="node14" href="$l1__proximal_8h.html" title="sopt/l1_proximal.h" alt="" coords="615,169,758,196"/>
-<area shape="rect" id="node18" href="$linear__transform_8h.html" title="sopt/linear_transform.h" alt="" coords="970,244,1145,271"/>
-<area shape="rect" id="node20" href="$logging_8h.html" title="sopt/logging.h" alt="" coords="1515,319,1629,345"/>
-<area shape="rect" id="node30" href="$utilities_8h.html" title="sopt/utilities.h" alt="" coords="724,393,839,420"/>
-<area shape="rect" id="node22" href="$maths_8h.html" title="sopt/maths.h" alt="" coords="492,393,599,420"/>
-<area shape="rect" id="node28" href="$proximal__expression_8h.html" title="sopt/proximal_expression.h" alt="" coords="244,319,447,345"/>
-<area shape="rect" id="node27" href="$wrapper_8h.html" title="sopt/wrapper.h" alt="" coords="1095,319,1214,345"/>
-<area shape="rect" id="node21" href="$logging_8disabled_8h.html" title="sopt/logging.disabled.h" alt="" coords="1500,393,1673,420"/>
-<area shape="rect" id="node26" href="$real__type_8h.html" title="sopt/real_type.h" alt="" coords="661,543,787,569"/>
+<area shape="rect" id="node6" href="$imaging__primal__dual_8h.html" title="sopt/imaging_primal\l_dual.h" alt="" coords="1103,95,1259,136"/>
+<area shape="rect" id="node26" href="$types_8h.html" title="sopt/types.h" alt="" coords="1565,483,1667,509"/>
+<area shape="rect" id="node31" href="$primal__dual_8h.html" title="sopt/primal_dual.h" alt="" coords="1841,184,1983,211"/>
+<area shape="rect" id="node33" href="$proximal_8h.html" title="sopt/proximal.h" alt="" coords="222,259,346,285"/>
+<area shape="rect" id="node11" href="$exception_8h.html" title="sopt/exception.h" alt="" coords="1740,483,1871,509"/>
+<area shape="rect" id="node15" href="$l1__proximal_8h.html" title="sopt/l1_proximal.h" alt="" coords="643,184,786,211"/>
+<area shape="rect" id="node19" href="$linear__transform_8h.html" title="sopt/linear_transform.h" alt="" coords="1169,259,1343,285"/>
+<area shape="rect" id="node21" href="$logging_8h.html" title="sopt/logging.h" alt="" coords="1075,408,1189,435"/>
+<area shape="rect" id="node34" href="$relative__variation_8h.html" title="sopt/relative_variation.h" alt="" coords="912,333,1093,360"/>
+<area shape="rect" id="node23" href="$maths_8h.html" title="sopt/maths.h" alt="" coords="680,408,787,435"/>
+<area shape="rect" id="node30" href="$proximal__expression_8h.html" title="sopt/proximal_expression.h" alt="" coords="195,333,397,360"/>
+<area shape="rect" id="node29" href="$wrapper_8h.html" title="sopt/wrapper.h" alt="" coords="1371,333,1490,360"/>
+<area shape="rect" id="node22" href="$logging_8disabled_8h.html" title="sopt/logging.disabled.h" alt="" coords="1115,483,1288,509"/>
+<area shape="rect" id="node28" href="$real__type_8h.html" title="sopt/real_type.h" alt="" coords="1401,557,1527,584"/>
 </map>

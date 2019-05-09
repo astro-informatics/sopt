@@ -103,6 +103,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsopt_1_1proximal_1_1L2Ball.html">L2Ball</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Proximal for indicator function of L2 ball.  <a href="classsopt_1_1proximal_1_1L2Ball.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsopt_1_1proximal_1_1L2Norm.html">L2Norm</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Proximal for the L2 norm.  <a href="classsopt_1_1proximal_1_1L2Norm.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsopt_1_1proximal_1_1Translation.html">Translation</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classsopt_1_1proximal_1_1Translation.html" title="Translation over proximal function. ">Translation</a> over proximal function.  <a href="classsopt_1_1proximal_1_1Translation.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -134,6 +137,10 @@ Functions</h2></td></tr>
 <tr class="memitem:a539249fec2aa941ca7eb05a2c781cf2f"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacesopt_1_1proximal.html#a539249fec2aa941ca7eb05a2c781cf2f">l1_norm</a> (<a class="el" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">Vector</a>&lt; S &gt; &amp;out, typename <a class="el" href="namespacesopt.html#a7ee75936aaae93251b12abb77c3e02aa">real_type</a>&lt; S &gt;::type gamma, <a class="el" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">Vector</a>&lt; S &gt; const &amp;x)</td></tr>
 <tr class="memdesc:a539249fec2aa941ca7eb05a2c781cf2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Proximal of the l1 norm  This specialization makes it easier to use in algorithms, e.g. within <code>SDMM::append</code>.  <a href="#a539249fec2aa941ca7eb05a2c781cf2f">More...</a><br /></td></tr>
 <tr class="separator:a539249fec2aa941ca7eb05a2c781cf2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a6be3a9f2561a2052ce5c360050d3eb"><td class="memTemplParams" colspan="2">template&lt;class T0 , class T1 &gt; </td></tr>
+<tr class="memitem:a0a6be3a9f2561a2052ce5c360050d3eb"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacesopt_1_1proximal.html#a0a6be3a9f2561a2052ce5c360050d3eb">l2_norm</a> (Eigen::DenseBase&lt; T0 &gt; &amp;out, typename <a class="el" href="namespacesopt.html#a7ee75936aaae93251b12abb77c3e02aa">real_type</a>&lt; typename <a class="el" href="sdmm__warm__start_8cc.html#aaa5809f25d167ed398d63ae4dbc63648">T0::Scalar</a> &gt;::type gamma, Eigen::DenseBase&lt; T1 &gt; const &amp;x)</td></tr>
+<tr class="memdesc:a0a6be3a9f2561a2052ce5c360050d3eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Proximal of the l2 norm (note this is different from the l2 ball indicator function)  <a href="#a0a6be3a9f2561a2052ce5c360050d3eb">More...</a><br /></td></tr>
+<tr class="separator:a0a6be3a9f2561a2052ce5c360050d3eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a22e3b74782df4c0aa0058babbc4ddd89"><td class="memTemplParams" colspan="2">template&lt;class T0 , class T1 &gt; </td></tr>
 <tr class="memitem:a22e3b74782df4c0aa0058babbc4ddd89"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacesopt_1_1proximal.html#a22e3b74782df4c0aa0058babbc4ddd89">id</a> (Eigen::DenseBase&lt; T0 &gt; &amp;out, typename <a class="el" href="namespacesopt.html#a7ee75936aaae93251b12abb77c3e02aa">real_type</a>&lt; typename <a class="el" href="sdmm__warm__start_8cc.html#aaa5809f25d167ed398d63ae4dbc63648">T0::Scalar</a> &gt;::type gamma, Eigen::DenseBase&lt; T1 &gt; const &amp;x)</td></tr>
 <tr class="memdesc:a22e3b74782df4c0aa0058babbc4ddd89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Proximal of a function that is always zero, the identity.  <a href="#a22e3b74782df4c0aa0058babbc4ddd89">More...</a><br /></td></tr>
@@ -265,10 +272,10 @@ template&lt;class T0 , class T1 &gt; </div>
 
 <p>Proximal of a function that is always zero, the identity. </p>
 
-<p class="definition">Definition at line <a class="el" href="proximal_8h_source.html#l00079">79</a> of file <a class="el" href="proximal_8h_source.html">proximal.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="proximal_8h_source.html#l00086">86</a> of file <a class="el" href="proximal_8h_source.html">proximal.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="forward__backward_8cc_source.html#l00032">TEST_CASE()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                                     {</div><div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  out = x;</div><div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;}</div></div><!-- fragment -->
+<div class="fragment"><div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                                     {</div><div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;  out = x;</div><div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;}</div></div><!-- fragment -->
 </div>
 </div>
 <a id="acaa892cd8aec7d5e6c4f24192cbca062"></a>
@@ -311,7 +318,7 @@ template&lt;class T0 , class T1 &gt; </div>
 
 <p class="reference">References <a class="el" href="maths_8h_source.html#l00029">sopt::soft_threshhold()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="primal__dual_8h_source.html#l00191">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::initial_guess()</a>, and <a class="el" href="proximal_8cc_source.html#l00087">TEST_CASE()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="imaging__primal__dual_8h_source.html#l00050">sopt::algorithm::ImagingPrimalDual&lt; SCALAR &gt;::ImagingPrimalDual()</a>, and <a class="el" href="proximal_8cc_source.html#l00087">TEST_CASE()</a>.</p>
 <div class="fragment"><div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                                          {</div><div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  out = <a class="code" href="namespacesopt.html#a6494afff8ee7f1196ff67ce646359d3e">sopt::soft_threshhold</a>(x, gamma);</div><div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;}</div><div class="ttc" id="namespacesopt_html_a6494afff8ee7f1196ff67ce646359d3e"><div class="ttname"><a href="namespacesopt.html#a6494afff8ee7f1196ff67ce646359d3e">sopt::soft_threshhold</a></div><div class="ttdeci">std::enable_if&lt; std::is_arithmetic&lt; SCALAR &gt;::value or is_complex&lt; SCALAR &gt;::value, SCALAR &gt;::type soft_threshhold(SCALAR const &amp;x, typename real_type&lt; SCALAR &gt;::type const &amp;threshhold)</div><div class="ttdoc">abs(x) &lt; threshhold ? 0: x - sgn(x) * threshhold </div><div class="ttdef"><b>Definition:</b> <a href="maths_8h_source.html#l00029">maths.h:29</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -387,11 +394,53 @@ template&lt;class T &gt; </div>
 <p>Proximal of l1 norm. </p>
 <p>For more complex version involving linear transforms and weights, see <a class="el" href="classsopt_1_1proximal_1_1L1TightFrame.html" title="L1 proximal, including linear transform. ">L1TightFrame</a> and <a class="el" href="classsopt_1_1proximal_1_1L1.html" title="L1 proximal, including linear transform. ">L1</a> classes. In practice, this is an alias for soft_threshhold. </p>
 
-<p class="definition">Definition at line <a class="el" href="proximal_8h_source.html#l00088">88</a> of file <a class="el" href="proximal_8h_source.html">proximal.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="proximal_8h_source.html#l00095">95</a> of file <a class="el" href="proximal_8h_source.html">proximal.h</a>.</p>
 
 <p class="reference">References <a class="el" href="maths_8h_source.html#l00029">sopt::soft_threshhold()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                                               {</div><div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="namespacesopt.html#a6494afff8ee7f1196ff67ce646359d3e">sopt::soft_threshhold</a>(x, gamma);</div><div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;}</div><div class="ttc" id="namespacesopt_html_a6494afff8ee7f1196ff67ce646359d3e"><div class="ttname"><a href="namespacesopt.html#a6494afff8ee7f1196ff67ce646359d3e">sopt::soft_threshhold</a></div><div class="ttdeci">std::enable_if&lt; std::is_arithmetic&lt; SCALAR &gt;::value or is_complex&lt; SCALAR &gt;::value, SCALAR &gt;::type soft_threshhold(SCALAR const &amp;x, typename real_type&lt; SCALAR &gt;::type const &amp;threshhold)</div><div class="ttdoc">abs(x) &lt; threshhold ? 0: x - sgn(x) * threshhold </div><div class="ttdef"><b>Definition:</b> <a href="maths_8h_source.html#l00029">maths.h:29</a></div></div>
+<div class="fragment"><div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                                               {</div><div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="namespacesopt.html#a6494afff8ee7f1196ff67ce646359d3e">sopt::soft_threshhold</a>(x, gamma);</div><div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;}</div><div class="ttc" id="namespacesopt_html_a6494afff8ee7f1196ff67ce646359d3e"><div class="ttname"><a href="namespacesopt.html#a6494afff8ee7f1196ff67ce646359d3e">sopt::soft_threshhold</a></div><div class="ttdeci">std::enable_if&lt; std::is_arithmetic&lt; SCALAR &gt;::value or is_complex&lt; SCALAR &gt;::value, SCALAR &gt;::type soft_threshhold(SCALAR const &amp;x, typename real_type&lt; SCALAR &gt;::type const &amp;threshhold)</div><div class="ttdoc">abs(x) &lt; threshhold ? 0: x - sgn(x) * threshhold </div><div class="ttdef"><b>Definition:</b> <a href="maths_8h_source.html#l00029">maths.h:29</a></div></div>
 </div><!-- fragment -->
+</div>
+</div>
+<a id="a0a6be3a9f2561a2052ce5c360050d3eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a6be3a9f2561a2052ce5c360050d3eb">&#9670;&nbsp;</a></span>l2_norm()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T0 , class T1 &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void sopt::proximal::l2_norm </td>
+          <td>(</td>
+          <td class="paramtype">Eigen::DenseBase&lt; T0 &gt; &amp;&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">typename <a class="el" href="namespacesopt.html#a7ee75936aaae93251b12abb77c3e02aa">real_type</a>&lt; typename <a class="el" href="sdmm__warm__start_8cc.html#aaa5809f25d167ed398d63ae4dbc63648">T0::Scalar</a> &gt;::type&#160;</td>
+          <td class="paramname"><em>gamma</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Eigen::DenseBase&lt; T1 &gt; const &amp;&#160;</td>
+          <td class="paramname"><em>x</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Proximal of the l2 norm (note this is different from the l2 ball indicator function) </p>
+
+<p class="definition">Definition at line <a class="el" href="proximal_8h_source.html#l00079">79</a> of file <a class="el" href="proximal_8h_source.html">proximal.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="proximal_8h_source.html#l00030">sopt::proximal::EuclidianNorm::operator()()</a>, <a class="el" href="proximal_8h_source.html#l00115">sopt::proximal::L2Norm&lt; T &gt;::operator()()</a>, <a class="el" href="proximal_8h_source.html#l00149">sopt::proximal::L2Ball&lt; T &gt;::operator()()</a>, and <a class="el" href="proximal_8h_source.html#l00228">sopt::proximal::WeightedL2Ball&lt; T &gt;::operator()()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                                          {</div><div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  out = x.derived() * 1. / (1. + gamma);</div><div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;}</div></div><!-- fragment -->
 </div>
 </div>
 <a id="a53e4faa743a776d115e18d70de58e9eb"></a>
@@ -430,10 +479,10 @@ template&lt;class T &gt; </div>
 
 <p>Proximal for projection on the positive quadrant. </p>
 
-<p class="definition">Definition at line <a class="el" href="proximal_8h_source.html#l00095">95</a> of file <a class="el" href="proximal_8h_source.html">proximal.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="proximal_8h_source.html#l00102">102</a> of file <a class="el" href="proximal_8h_source.html">proximal.h</a>.</p>
 
 <p class="reference">References <a class="el" href="maths_8h_source.html#l00060">sopt::positive_quadrant()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                                                                                      {</div><div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  out = <a class="code" href="namespacesopt.html#a430768559bd58eab9a93942fb99d1918">sopt::positive_quadrant</a>(x);</div><div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;};</div><div class="ttc" id="namespacesopt_html_a430768559bd58eab9a93942fb99d1918"><div class="ttname"><a href="namespacesopt.html#a430768559bd58eab9a93942fb99d1918">sopt::positive_quadrant</a></div><div class="ttdeci">Eigen::CwiseUnaryOp&lt; const details::ProjectPositiveQuadrant&lt; typename T::Scalar &gt;, const T &gt; positive_quadrant(Eigen::DenseBase&lt; T &gt; const &amp;input)</div><div class="ttdoc">Expression to create projection onto positive quadrant. </div><div class="ttdef"><b>Definition:</b> <a href="maths_8h_source.html#l00060">maths.h:60</a></div></div>
+<div class="fragment"><div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;                                                                                      {</div><div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;  out = <a class="code" href="namespacesopt.html#a430768559bd58eab9a93942fb99d1918">sopt::positive_quadrant</a>(x);</div><div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;};</div><div class="ttc" id="namespacesopt_html_a430768559bd58eab9a93942fb99d1918"><div class="ttname"><a href="namespacesopt.html#a430768559bd58eab9a93942fb99d1918">sopt::positive_quadrant</a></div><div class="ttdeci">Eigen::CwiseUnaryOp&lt; const details::ProjectPositiveQuadrant&lt; typename T::Scalar &gt;, const T &gt; positive_quadrant(Eigen::DenseBase&lt; T &gt; const &amp;input)</div><div class="ttdoc">Expression to create projection onto positive quadrant. </div><div class="ttdef"><b>Definition:</b> <a href="maths_8h_source.html#l00060">maths.h:60</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -467,10 +516,10 @@ template&lt;class FUNCTION , class VECTOR &gt; </div>
 
 <p>Translates given proximal by given vector. </p>
 
-<p class="definition">Definition at line <a class="el" href="proximal_8h_source.html#l00281">281</a> of file <a class="el" href="proximal_8h_source.html">proximal.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="proximal_8h_source.html#l00313">313</a> of file <a class="el" href="proximal_8h_source.html">proximal.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="reweighted__sdmm_8cc_source.html#l00025">create_sdmm()</a>, <a class="el" href="sdmm_2inpainting_8cc_source.html#l00022">main()</a>, <a class="el" href="padmm__warm__start_8cc_source.html#l00015">SCENARIO()</a>, and <a class="el" href="padmm_8cc_source.html#l00023">TEST_CASE()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;                                                                                         {</div><div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;  <span class="keywordflow">return</span> Translation&lt;FUNCTION, VECTOR&gt;(func, translation);</div><div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;}</div></div><!-- fragment -->
+<div class="fragment"><div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;                                                                                         {</div><div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;  <span class="keywordflow">return</span> Translation&lt;FUNCTION, VECTOR&gt;(func, translation);</div><div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;}</div></div><!-- fragment -->
 </div>
 </div>
 </div><!-- contents -->
