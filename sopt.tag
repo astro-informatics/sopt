@@ -1990,15 +1990,15 @@
       <type>std::tuple&lt; t_real, T, std::shared_ptr&lt; sopt::LinearTransform&lt; T &gt; &gt; &gt;</type>
       <name>normalise_operator</name>
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1algorithm.html</anchorfile>
-      <anchor>a1459a1dac71882848ea3509b007c5b8a</anchor>
-      <arglist>(const std::shared_ptr&lt; sopt::LinearTransform&lt; T &gt; const &gt; &amp;op, const t_uint &amp;niters, const t_real &amp;relative_difference, const Eigen::MatrixBase&lt; T &gt; &amp;initial_vector)</arglist>
+      <anchor>a24d048a91054bfe01cf3b345c8783e9a</anchor>
+      <arglist>(const std::shared_ptr&lt; sopt::LinearTransform&lt; T &gt; const &gt; &amp;op, const t_uint &amp;niters, const t_real &amp;relative_difference, const T &amp;initial_vector)</arglist>
     </member>
     <member kind="function">
       <type>std::tuple&lt; t_real, T, sopt::LinearTransform&lt; T &gt; &gt;</type>
       <name>normalise_operator</name>
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1algorithm.html</anchorfile>
-      <anchor>a7db7761676258710a9d118bbe6be9284</anchor>
-      <arglist>(const sopt::LinearTransform&lt; T &gt; &amp;op, const t_uint &amp;niters, const t_real &amp;relative_difference, const Eigen::MatrixBase&lt; T &gt; &amp;initial_vector)</arglist>
+      <anchor>a565417b5171e614cc9faa5d503ee0a25</anchor>
+      <arglist>(const sopt::LinearTransform&lt; T &gt; &amp;op, const t_uint &amp;niters, const t_real &amp;relative_difference, const T &amp;initial_vector)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -9961,15 +9961,15 @@
       <type>std::tuple&lt; t_real, T, std::shared_ptr&lt; sopt::LinearTransform&lt; T &gt; &gt; &gt;</type>
       <name>normalise_operator</name>
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1algorithm.html</anchorfile>
-      <anchor>a1459a1dac71882848ea3509b007c5b8a</anchor>
-      <arglist>(const std::shared_ptr&lt; sopt::LinearTransform&lt; T &gt; const &gt; &amp;op, const t_uint &amp;niters, const t_real &amp;relative_difference, const Eigen::MatrixBase&lt; T &gt; &amp;initial_vector)</arglist>
+      <anchor>a24d048a91054bfe01cf3b345c8783e9a</anchor>
+      <arglist>(const std::shared_ptr&lt; sopt::LinearTransform&lt; T &gt; const &gt; &amp;op, const t_uint &amp;niters, const t_real &amp;relative_difference, const T &amp;initial_vector)</arglist>
     </member>
     <member kind="function">
       <type>std::tuple&lt; t_real, T, sopt::LinearTransform&lt; T &gt; &gt;</type>
       <name>normalise_operator</name>
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1algorithm.html</anchorfile>
-      <anchor>a7db7761676258710a9d118bbe6be9284</anchor>
-      <arglist>(const sopt::LinearTransform&lt; T &gt; &amp;op, const t_uint &amp;niters, const t_real &amp;relative_difference, const Eigen::MatrixBase&lt; T &gt; &amp;initial_vector)</arglist>
+      <anchor>a565417b5171e614cc9faa5d503ee0a25</anchor>
+      <arglist>(const sopt::LinearTransform&lt; T &gt; &amp;op, const t_uint &amp;niters, const t_real &amp;relative_difference, const T &amp;initial_vector)</arglist>
     </member>
     <member kind="function">
       <type>Reweighted&lt; ALGORITHM &gt;</type>
