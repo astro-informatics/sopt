@@ -6308,13 +6308,6 @@
       <type></type>
       <name>SOPT_MACRO</name>
       <anchorfile>classsopt_1_1algorithm_1_1JointMAP.html</anchorfile>
-      <anchor>a105430f8a18dc6930904d7f13a1892e8</anchor>
-      <arglist>(gamma_guess, t_real)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>SOPT_MACRO</name>
-      <anchorfile>classsopt_1_1algorithm_1_1JointMAP.html</anchorfile>
       <anchor>a7e642245497933017075699aa83fab7e</anchor>
       <arglist>(alpha, t_real)</arglist>
     </member>
@@ -6378,8 +6371,8 @@
       <type>DiagnosticAndResultReg</type>
       <name>operator()</name>
       <anchorfile>classsopt_1_1algorithm_1_1JointMAP.html</anchorfile>
-      <anchor>a061f39258c458207a7666adb61465c34</anchor>
-      <arglist>() const</arglist>
+      <anchor>ad9861024dc6dc10c0e03292b374722d8</anchor>
+      <arglist>(ARGS &amp;&amp;... args) const</arglist>
     </member>
   </compound>
   <compound kind="class">
