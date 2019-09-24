@@ -43,7 +43,6 @@ class JointMAP {
         is_converged_([](t_Vector const &, t_Vector const &, t_real const) { return true; }),
         relative_variation_(1e-3),
         objective_variation_(1e-3),
-        gamma_guess_(algo_ptr->gamma()),
         itermax_(std::numeric_limits<t_uint>::max()){};
 
 #define SOPT_MACRO(NAME, TYPE)                  \
@@ -60,8 +59,6 @@ class JointMAP {
 
   //! Maximum number of iterations
   SOPT_MACRO(itermax, t_uint);
-  //! Initial gamma
-  SOPT_MACRO(gamma_guess, t_real);
   //! Alpha parameter
   SOPT_MACRO(alpha, t_real);
   //! Beta parameter
@@ -86,57 +83,56 @@ class JointMAP {
   //! Checks input makes sense
   void sanity_check(t_real const &gamma, t_real const beta, t_real const alpha) const {
     if (gamma < 0) SOPT_THROW("Starting regularisation parameter not positive.");
-    if (alpha <= 0) SOPT_THROW("Alpha parameter not positive.");
+    if (alpha < 0) SOPT_THROW("Alpha parameter not positive.");
     if (beta <= 0) SOPT_THROW("Beta not positive.");
   }
 
  public:
   //! \brief Calls Joint MAP estimation
   //! \param[out] out: Diagnostic and Solution
-  DiagnosticAndResultReg operator()() const;
-};
+  template <class... ARGS>
+  DiagnosticAndResultReg operator()(ARGS &&... args) const {
+    SOPT_HIGH_LOG("Performing Joint MAP estimation");
 
-template <class Algo>
-typename JointMAP<Algo>::DiagnosticAndResultReg JointMAP<Algo>::operator()() const {
-  SOPT_HIGH_LOG("Performing Joint MAP estimation");
+    ScalarRelativeVariation<t_real> scalvar(relative_variation(), relative_variation(),
+                                            "Regularisation Parameter");
+    ScalarRelativeVariation<t_real> objvar(objective_variation(), objective_variation(),
+                                           "Joint Objective Function");
+    sanity_check(this->algo_ptr_->gamma(), beta(), alpha());
+    t_uint niters(0);
+    bool converged = false;
+    typedef typename ALGORITHM::DiagnosticAndResult ResultType;
+    ResultType result = (*(this->algo_ptr_))(std::forward<ARGS>(args)...);
+    t_real gamma = 0;
+    niters++;
+    t_uint algo_iters(result.niters);
+    for (; (not converged) && (niters < itermax()); ++niters) {
+      SOPT_LOW_LOG("    - [JMAP] Iteration {}/{}", niters, itermax());
+      gamma = (static_cast<t_real>(number_of_wavelet_coeffs()) / k() + alpha()) /
+              (this->reg_term()(result.x) + beta());
+      SOPT_LOW_LOG("    - [JMAP] Regularisation Parameter Value {}", gamma);
+      algo_ptr_->gamma(gamma);
+      result = (*algo_ptr_)(result);
+      converged = result.good and scalvar(gamma) and objvar(algo_ptr_->objmin()) and
+                  this->is_converged()(result.x, result.residual, gamma);
+      algo_iters += result.niters;
+    }
 
-  ScalarRelativeVariation<t_real> scalvar(relative_variation(), relative_variation(),
-                                          "Regularisation Parameter");
-  ScalarRelativeVariation<t_real> objvar(objective_variation(), objective_variation(),
-                                         "Joint Objective Function");
-  sanity_check(this->algo_ptr_->gamma(), beta(), alpha());
-  t_uint niters(0);
-  bool converged = false;
-  typedef typename Algo::DiagnosticAndResult ResultType;
-  ResultType result = (*(this->algo_ptr_))();
-  t_real gamma = 0;
-  niters++;
-  t_uint algo_iters(result.niters);
-  for (; (not converged) && (niters < itermax()); ++niters) {
-    SOPT_LOW_LOG("    - [JMAP] Iteration {}/{}", niters, itermax());
-    gamma = (static_cast<t_real>(number_of_wavelet_coeffs()) / k() + alpha()) /
-            (this->reg_term()(result.x) + beta());
-    SOPT_LOW_LOG("    - [JMAP] Regularisation Parameter Value {}", gamma);
-    algo_ptr_->gamma(gamma);
-    result = (*algo_ptr_)(result);
-    converged = result.good and scalvar(gamma) and objvar(algo_ptr_->objmin()) and
-                this->is_converged()(result.x, result.residual, gamma);
-    algo_iters += result.niters;
-  }
-
-  if (converged) {
-    SOPT_MEDIUM_LOG("    - [JMAP] converged in {} of {} iterations", niters, itermax());
-  } else {
-    // not meaningful if not convergence function
-    SOPT_ERROR("    - [JMAP] did not converge within {} iterations", itermax());
-  }
-  SOPT_MEDIUM_LOG("    - Total Algorithm iterations {} ", algo_iters);
-  DiagnosticAndResultReg diagnostic;
-  static_cast<ResultType &>(diagnostic) = result;
-  diagnostic.reg_good = converged;
-  diagnostic.reg_niters = niters;
-  diagnostic.reg_term = gamma;
-  return diagnostic;
+    if (converged) {
+      SOPT_MEDIUM_LOG("    - [JMAP] converged in {} of {} iterations", niters, itermax());
+    } else {
+      // not meaningful if not convergence function
+      SOPT_ERROR("    - [JMAP] did not converge within {} iterations", itermax());
+    }
+    SOPT_MEDIUM_LOG("    - Total Algorithm iterations {} ", algo_iters);
+    DiagnosticAndResultReg diagnostic;
+    static_cast<ResultType &>(diagnostic) = result;
+    diagnostic.niters = algo_iters;
+    diagnostic.reg_good = converged;
+    diagnostic.reg_niters = niters;
+    diagnostic.reg_term = gamma;
+    return diagnostic;
+  };
 };
 
 }  // namespace algorithm
