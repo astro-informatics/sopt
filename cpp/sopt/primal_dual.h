@@ -287,7 +287,7 @@ typename PrimalDual<SCALAR>::Diagnostic PrimalDual<SCALAR>::operator()(
   t_Vector r = out;
   t_Vector v = t_Vector::Zero(target().size());
   t_Vector v_hold = t_Vector::Zero(target().size());
-  t_Vector u = t_Vector::Zero(Psi().adjoint().sizes()[2]);
+  t_Vector u = Psi().adjoint() * t_Vector::Zero(x_guess.size());
   t_Vector u_hold = u;
   t_Vector q = u;
 
