@@ -39,7 +39,7 @@ TEST_CASE("Primal Dual Imaging", "[primaldual]") {
 
   auto const result = primaldual();
 
-  CHECK((result.x - target).stableNorm() <= epsilon);
+  CHECK((result.x - target).stableNorm() <= Approx(epsilon));
   CHECK(result.good);
 }
 TEST_CASE("Primal Dual with 0.5 * ||x - x0||_2^2 function", "[primaldual]") {
