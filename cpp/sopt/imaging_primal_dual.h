@@ -295,6 +295,7 @@ typename ImagingPrimalDual<SCALAR>::Diagnostic ImagingPrimalDual<SCALAR>::operat
   t_Constraint constraint = [real, positive](t_Vector &out, const t_Vector &x) {
     if (real) out.real() = x.real();
     if (positive) out = sopt::positive_quadrant(x);
+    if (not real and not positive) out = x;
   };
   auto const pd = PD(f_proximal, g_proximal, target())
                       .itermax(itermax())
