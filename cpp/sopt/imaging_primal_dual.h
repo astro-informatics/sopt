@@ -27,7 +27,8 @@ class ImagingPrimalDual {
   typedef typename PD::Real Real;
   typedef typename PD::t_Vector t_Vector;
   typedef typename PD::t_LinearTransform t_LinearTransform;
-  typedef typename PD::t_Proximal t_Proximal;
+  template <class T>
+  using t_Proximal = std::function<void(t_Vector &, const T &, const t_Vector &)>;
   typedef typename PD::t_IsConverged t_IsConverged;
   typedef typename PD::t_Constraint t_Constraint;
 
@@ -48,8 +49,13 @@ class ImagingPrimalDual {
   //! \param[in] g_proximal: proximal operator of the \f$g\f$ function
   template <class DERIVED>
   ImagingPrimalDual(Eigen::MatrixBase<DERIVED> const &target)
-      : l1norm_proximal_(
-            [](t_Vector &out, Real gamma, const t_Vector &x) { proximal::l1_norm(out, gamma, x); }),
+      : l1_proximal_([](t_Vector &out, const Real &gamma, const t_Vector &x) {
+          proximal::l1_norm(out, gamma, x);
+        }),
+        l1_proximal_weighted_([](t_Vector &out, const Vector<Real> &gamma, const t_Vector &x) {
+          proximal::l1_norm(out, gamma, x);
+        }),
+        l1_proximal_weights_(Vector<Real>::Ones(1)),
         l2ball_proximal_(1e0),
         residual_tolerance_(1e-4),
         relative_variation_(1e-4),
@@ -86,7 +92,11 @@ class ImagingPrimalDual {
                                                       \
  public:
   //! The l1 prox functioning as f
-  SOPT_MACRO(l1norm_proximal, t_Proximal);
+  SOPT_MACRO(l1_proximal, t_Proximal<Real>);
+  //! The l1 prox with weights functioning as f
+  SOPT_MACRO(l1_proximal_weighted, t_Proximal<Vector<Real>>);
+  //! The l1 prox weights functioning
+  SOPT_MACRO(l1_proximal_weights, Vector<Real>);
   //! The weighted L2 proximal functioning as g
   SOPT_MACRO(l2ball_proximal, proximal::WeightedL2Ball<Scalar>);
   //! \brief Convergence of the relative variation of the objective functions
@@ -264,6 +274,17 @@ class ImagingPrimalDual {
   //! Helper function to simplify checking convergence
   bool is_converged(ScalarRelativeVariation<Scalar> &scalvar, t_Vector const &x,
                     t_Vector const &residual) const;
+  //! check that l1 and weighted l1 proximal operators are the same function (except for weights)
+  bool check_l1_weight_proximal(const t_Proximal<Real> &no_weights,
+                                const t_Proximal<Vector<Real>> &with_weights) const {
+    Vector<SCALAR> output;
+    Vector<SCALAR> outputw;
+
+    const Vector<SCALAR> x = Vector<SCALAR>::Ones(this->l1_proximal_weights().size());
+    no_weights(output, 1, x);
+    with_weights(outputw, Vector<Real>::Ones(1), x);
+    return output.isApprox(outputw);
+  };
 };
 
 template <class SCALAR>
@@ -271,8 +292,15 @@ typename ImagingPrimalDual<SCALAR>::Diagnostic ImagingPrimalDual<SCALAR>::operat
     t_Vector &out, t_Vector const &guess, t_Vector const &res) const {
   SOPT_HIGH_LOG("Performing Primal Dual with L1 and L2 operators");
   // The f proximal is an L1 proximal that stores some diagnostic result
+  if (not check_l1_weight_proximal(l1_proximal(), l1_proximal_weighted()))
+    SOPT_THROW(
+        "l1 proximal and weighted l1 proximal appear to be different functions. Please make sure "
+        "both are the same function.");
   auto const f_proximal = [this](t_Vector &out, Real gamma, t_Vector const &x) {
-    this->l1norm_proximal()(out, gamma, x);
+    if (this->l1_proximal_weights().size() > 1)
+      this->l1_proximal_weighted()(out, this->l1_proximal_weights() * gamma, x);
+    else
+      this->l1_proximal()(out, this->l1_proximal_weights()(0) * gamma, x);
   };
   auto const g_proximal = [this](t_Vector &out, Real gamma, t_Vector const &x) {
     this->l2ball_proximal()(out, gamma, x);
@@ -332,7 +360,10 @@ bool ImagingPrimalDual<SCALAR>::objective_convergence(ScalarRelativeVariation<Sc
                                                       t_Vector const &residual) const {
   if (static_cast<bool>(objective_convergence())) return objective_convergence()(x, residual);
   if (scalvar.relative_tolerance() <= 0e0) return true;
-  auto const current = sopt::l1_norm(Psi().adjoint() * x);
+  auto const current =
+      (l1_proximal_weights().size() > 1)
+          ? sopt::l1_norm(l1_proximal_weights().array() * (Psi().adjoint() * x).array())
+          : sopt::l1_norm(l1_proximal_weights()(0) * (Psi().adjoint() * x));
   return scalvar(current);
 };
 
