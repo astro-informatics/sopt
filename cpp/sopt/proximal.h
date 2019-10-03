@@ -67,8 +67,8 @@ void l1_norm(Eigen::DenseBase<T0> &out, typename real_type<typename T0::Scalar>:
   out = sopt::soft_threshhold(x, gamma);
 }
 //! Proxmal of the weighted l1 norm
-template <class T0, class T1>
-void l1_norm(Eigen::DenseBase<T0> &out, Eigen::DenseBase<T1> const &gamma,
+template <class T0, class T1, class T2>
+void l1_norm(Eigen::DenseBase<T0> &out, Eigen::DenseBase<T2> const &gamma,
              Eigen::DenseBase<T1> const &x) {
   out = sopt::soft_threshhold(x, gamma);
 }
