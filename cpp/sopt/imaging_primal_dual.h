@@ -50,10 +50,10 @@ class ImagingPrimalDual {
   template <class DERIVED>
   ImagingPrimalDual(Eigen::MatrixBase<DERIVED> const &target)
       : l1_proximal_([](t_Vector &out, const Real &gamma, const t_Vector &x) {
-          proximal::l1_norm(out, gamma, x);
+          proximal::l1_norm<Real>(out, gamma, x);
         }),
         l1_proximal_weighted_([](t_Vector &out, const Vector<Real> &gamma, const t_Vector &x) {
-          proximal::l1_norm(out, gamma, x);
+          proximal::l1_norm<Vector<Real>>(out, gamma, x);
         }),
         l1_proximal_weights_(Vector<Real>::Ones(1)),
         l2ball_proximal_(1e0),
