@@ -31,6 +31,8 @@ class PrimalDual {
   typedef std::function<bool(t_Vector const &, t_Vector const &)> t_IsConverged;
   //! Type of the constraint function
   typedef std::function<void(t_Vector &, const t_Vector &)> t_Constraint;
+  //! Type of random update function
+  typedef std::function<bool()> t_Random_Updater;
   //! Type of the convergence function
   typedef ProximalFunction<Scalar> t_Proximal;
 
@@ -74,7 +76,14 @@ class PrimalDual {
         Psi_(linear_transform_identity<Scalar>()),
         f_proximal_(f_proximal),
         g_proximal_(g_proximal),
-        target_(target) {}
+        random_measurement_updater_([]() { return true; }),
+        random_wavelet_updater_([]() { return true; }),
+#ifdef SOPT_MPI
+        v_all_sum_all_comm_(mpi::Communicator()),
+        u_all_sum_all_comm_(mpi::Communicator()),
+#endif
+        target_(target) {
+  }
   virtual ~PrimalDual() {}
 
 // Macro helps define properties that can be initialized as in
@@ -120,6 +129,16 @@ class PrimalDual {
   SOPT_MACRO(f_proximal, t_Proximal);
   //! Second proximal
   SOPT_MACRO(g_proximal, t_Proximal);
+  //! lambda that determines if to update measurements
+  SOPT_MACRO(random_measurement_updater, t_Random_Updater);
+  //! lambda that determines if to update wavelets
+  SOPT_MACRO(random_wavelet_updater, t_Random_Updater);
+#ifdef SOPT_MPI
+  //! v space communicator
+  SOPT_MACRO(v_all_sum_all_comm, mpi::Communicator);
+  //! u space communicator
+  SOPT_MACRO(u_all_sum_all_comm, mpi::Communicator);
+#endif
 #undef SOPT_MACRO
   //! \brief Simplifies calling the proximal of f.
   void f_proximal(t_Vector &out, Real gamma, t_Vector const &x) const {
@@ -228,7 +247,9 @@ class PrimalDual {
 
  protected:
   void iteration_step(t_Vector &out, t_Vector &out_hold, t_Vector &u, t_Vector &u_hold, t_Vector &v,
-                      t_Vector &v_hold, t_Vector &residual, t_Vector &q, t_Vector &r) const;
+                      t_Vector &v_hold, t_Vector &residual, t_Vector &q, t_Vector &r,
+                      bool &random_measurement_update, bool &random_wavelet_update,
+                      t_Vector &u_update, t_Vector &v_update) const;
 
   //! Checks input makes sense
   void sanity_check(t_Vector const &x_guess, t_Vector const &res_guess) const {
@@ -255,24 +276,43 @@ class PrimalDual {
 template <class SCALAR>
 void PrimalDual<SCALAR>::iteration_step(t_Vector &out, t_Vector &out_hold, t_Vector &u,
                                         t_Vector &u_hold, t_Vector &v, t_Vector &v_hold,
-                                        t_Vector &residual, t_Vector &q, t_Vector &r) const {
+                                        t_Vector &residual, t_Vector &q, t_Vector &r,
+                                        bool &random_measurement_update,
+                                        bool &random_wavelet_update, t_Vector &u_update,
+                                        t_Vector &v_update) const {
   // dual calculations for measurements
-  g_proximal(v_hold, rho(), v + residual);
-  v_hold = v + residual - v_hold;
-  v = v + update_scale() * (v_hold - v);
-
+  if (random_measurement_update) {
+    g_proximal(v_hold, rho(), v + residual);
+    v_hold = v + residual - v_hold;
+    v = v + update_scale() * (v_hold - v);
+    v_update = Phi().adjoint() * v;
+  }
+#ifdef SOPT_MPI
+  else
+    v_all_sum_all_comm().all_sum_all(v_update);
+#endif
   // dual calculations for wavelet
-  q = Psi().adjoint() * out_hold;
-  f_proximal(u_hold, gamma(), u + q);
-  u_hold = u + q - u_hold;
-  u = u + update_scale() * (u_hold - u);
+  if (random_wavelet_update) {
+    q = Psi().adjoint() * out_hold;
+    f_proximal(u_hold, gamma(), u + q);
+    u_hold = u + q - u_hold;
+    u = u + update_scale() * (u_hold - u);
+    u_update = Psi() * u;
+  }
+
+#ifdef SOPT_MPI
+  else
+    u_all_sum_all_comm().all_sum_all(u_update);
+#endif
   // primal calculations
   r = out;
-  constraint()(out_hold, r - tau() * ((Psi() * u) * sigma() + (Phi().adjoint() * v) * xi()));
+  constraint()(out_hold, r - tau() * (u_update * sigma() + v_update * xi()));
   out = r + update_scale() * (out_hold - r);
   out_hold = 2 * out_hold - r;
+  random_measurement_update = random_measurement_updater_();
+  random_wavelet_update = random_wavelet_updater_();
   // update residual
-  residual = Phi() * out_hold - target();
+  if (random_measurement_update) residual = Phi() * out_hold - target();
 }
 
 template <class SCALAR>
@@ -280,22 +320,26 @@ typename PrimalDual<SCALAR>::Diagnostic PrimalDual<SCALAR>::operator()(
     t_Vector &out, t_Vector const &x_guess, t_Vector const &res_guess) const {
   SOPT_HIGH_LOG("Performing Primal Dual");
   sanity_check(x_guess, res_guess);
-
+  bool random_measurement_update = random_measurement_updater_();
+  bool random_wavelet_update = random_wavelet_updater_();
   t_Vector residual = res_guess;
   out = x_guess;
   t_Vector out_hold = x_guess;
   t_Vector r = out;
   t_Vector v = t_Vector::Zero(target().size());
   t_Vector v_hold = t_Vector::Zero(target().size());
+  t_Vector v_update = v;
   t_Vector u = Psi().adjoint() * t_Vector::Zero(x_guess.size());
   t_Vector u_hold = u;
+  t_Vector u_update = u;
   t_Vector q = u;
 
   t_uint niters(0);
   bool converged = false;
   for (; (not converged) && (niters < itermax()); ++niters) {
     SOPT_LOW_LOG("    - [Primal Dual] Iteration {}/{}", niters, itermax());
-    iteration_step(out, out_hold, u, u_hold, v, v_hold, residual, q, r);
+    iteration_step(out, out_hold, u, u_hold, v, v_hold, residual, q, r, random_measurement_update,
+                   random_wavelet_update, u_update, v_update);
     SOPT_LOW_LOG("      - [Primal Dual] Sum of residuals: {}", residual.array().abs().sum());
     converged = is_converged(out, residual);
   }
