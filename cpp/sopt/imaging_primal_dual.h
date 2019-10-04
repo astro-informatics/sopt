@@ -31,6 +31,7 @@ class ImagingPrimalDual {
   using t_Proximal = std::function<void(t_Vector &, const T &, const t_Vector &)>;
   typedef typename PD::t_IsConverged t_IsConverged;
   typedef typename PD::t_Constraint t_Constraint;
+  typedef typename PD::t_Random_Updater t_Random_Updater;
 
   //! Values indicating how the algorithm ran
   struct Diagnostic : public PD::Diagnostic {
@@ -75,6 +76,8 @@ class ImagingPrimalDual {
         is_converged_(),
         Phi_(linear_transform_identity<Scalar>()),
         Psi_(linear_transform_identity<Scalar>()),
+        random_measurement_updater_([]() { return true; }),
+        random_wavelet_updater_([]() { return true; }),
         target_(target) {}
   virtual ~ImagingPrimalDual() {}
 
@@ -143,6 +146,16 @@ class ImagingPrimalDual {
   SOPT_MACRO(Phi, t_LinearTransform);
   //! Wavelet operator
   SOPT_MACRO(Psi, t_LinearTransform);
+  //! lambda that determines if to update measurements
+  SOPT_MACRO(random_measurement_updater, t_Random_Updater);
+  //! lambda that determines if to update wavelets
+  SOPT_MACRO(random_wavelet_updater, t_Random_Updater);
+#ifdef SOPT_MPI
+  //!
+  SOPT_MACRO(v_all_sum_all_comm, mpi::Communicator);
+  //!
+  SOPT_MACRO(u_all_sum_all_comm, mpi::Communicator);
+#endif
 
 #undef SOPT_MACRO
   //! Vector of target measurements
@@ -338,6 +351,12 @@ typename ImagingPrimalDual<SCALAR>::Diagnostic ImagingPrimalDual<SCALAR>::operat
                       .gamma(gamma())
                       .Phi(Phi())
                       .Psi(Psi())
+                      .random_measurement_updater(random_measurement_updater())
+                      .random_wavelet_updater(random_wavelet_updater())
+#ifdef SOPT_MPI
+                      .v_all_sum_all_comm(v_all_sum_all_comm())
+                      .u_all_sum_all_comm(u_all_sum_all_comm())
+#endif
                       .is_converged(convergence);
   Diagnostic result;
   static_cast<typename PD::Diagnostic &>(result) = pd(out, std::tie(guess, res));
