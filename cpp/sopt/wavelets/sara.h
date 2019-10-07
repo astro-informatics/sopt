@@ -199,9 +199,18 @@ typename T0::PlainObject SARA::direct(Eigen::ArrayBase<T0> const &signal) const 
 //! \brief Creates a sara transform distributed across processors
 //! \details This is a convenience function for creating a distributed linear transform above. It
 //! does not perform any mpi operation itself.
-SARA distribute_sara(SARA const &all_wavelets, t_uint size, t_uint rank);
-inline SARA distribute_sara(SARA const &all_wavelets, mpi::Communicator const &comm) {
-  return distribute_sara(all_wavelets, comm.size(), comm.rank());
+template <class T>
+T distribute_sara(T const &sara, t_uint size, t_uint rank) {
+  auto const start = [](t_uint size, t_uint ncomms, t_uint rank) {
+    return std::min(size, rank * (size / ncomms) + std::min(rank, size % ncomms));
+  };
+  auto const startw = start(sara.size(), size, rank);
+  auto const endw = start(sara.size(), size, rank + 1);
+  return T(sara.begin() + startw, sara.begin() + endw);
+}
+template <class T>
+T distribute_sara(T const &all_wavelets, mpi::Communicator const &comm) {
+  return distribute_sara<T>(all_wavelets, comm.size(), comm.rank());
 }
 #endif
 }  // namespace wavelets
