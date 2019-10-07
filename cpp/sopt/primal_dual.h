@@ -287,10 +287,6 @@ void PrimalDual<SCALAR>::iteration_step(t_Vector &out, t_Vector &out_hold, t_Vec
     v = v + update_scale() * (v_hold - v);
     v_update = Phi().adjoint() * v;
   }
-#ifdef SOPT_MPI
-  else
-    v_all_sum_all_comm().all_sum_all(v_update);
-#endif
   // dual calculations for wavelet
   if (random_wavelet_update) {
     q = Psi().adjoint() * out_hold;
@@ -299,14 +295,18 @@ void PrimalDual<SCALAR>::iteration_step(t_Vector &out, t_Vector &out_hold, t_Vec
     u = u + update_scale() * (u_hold - u);
     u_update = Psi() * u;
   }
-
-#ifdef SOPT_MPI
-  else
-    u_all_sum_all_comm().all_sum_all(u_update);
-#endif
   // primal calculations
   r = out;
-  constraint()(out_hold, r - tau() * (u_update * sigma() + v_update * xi()));
+#ifdef SOPT_MPI
+  if (v_all_sum_all_comm().size() > 0 and u_all_sum_all_comm().size() > 0)
+    constraint()(
+        out_hold,
+        r - tau() *
+                (u_all_sum_all_comm().all_sum_all(static_cast<const t_Vector>(u_update)) * sigma() +
+                 v_all_sum_all_comm().all_sum_all(static_cast<const t_Vector>(v_update)) * xi()));
+#endif
+  else
+    constraint()(out_hold, r - tau() * (u_update * sigma() + v_update * xi()));
   out = r + update_scale() * (out_hold - r);
   out_hold = 2 * out_hold - r;
   random_measurement_update = random_measurement_updater_();
@@ -328,10 +328,10 @@ typename PrimalDual<SCALAR>::Diagnostic PrimalDual<SCALAR>::operator()(
   t_Vector r = out;
   t_Vector v = t_Vector::Zero(target().size());
   t_Vector v_hold = t_Vector::Zero(target().size());
-  t_Vector v_update = v;
+  t_Vector v_update = x_guess;
   t_Vector u = Psi().adjoint() * t_Vector::Zero(x_guess.size());
   t_Vector u_hold = u;
-  t_Vector u_update = u;
+  t_Vector u_update = x_guess;
   t_Vector q = u;
 
   t_uint niters(0);
