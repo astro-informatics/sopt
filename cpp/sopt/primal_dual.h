@@ -304,8 +304,8 @@ void PrimalDual<SCALAR>::iteration_step(t_Vector &out, t_Vector &out_hold, t_Vec
         r - tau() *
                 (u_all_sum_all_comm().all_sum_all(static_cast<const t_Vector>(u_update)) * sigma() +
                  v_all_sum_all_comm().all_sum_all(static_cast<const t_Vector>(v_update)) * xi()));
-#endif
   else
+#endif
     constraint()(out_hold, r - tau() * (u_update * sigma() + v_update * xi()));
   out = r + update_scale() * (out_hold - r);
   out_hold = 2 * out_hold - r;
