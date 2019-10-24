@@ -27,20 +27,28 @@ TEST_CASE("Primal Dual Imaging", "[primaldual]") {
 
   auto const epsilon = target.stableNorm() / 2;
 
-  auto const primaldual = algorithm::ImagingPrimalDual<Scalar>(target)
-                              .Phi(mId)
-                              .Psi(mId)
-                              .itermax(5000)
-                              .tau(0.1)
-                              .gamma(0.4)
-                              .l2ball_proximal_epsilon(epsilon)
-                              .relative_variation(1e-4)
-                              .residual_convergence(epsilon);
+  auto primaldual = algorithm::ImagingPrimalDual<Scalar>(target)
+                        .Phi(mId)
+                        .Psi(mId)
+                        .itermax(5000)
+                        .tau(0.1)
+                        .gamma(0.4)
+                        .l2ball_proximal_epsilon(epsilon)
+                        .relative_variation(1e-4)
+                        .residual_convergence(epsilon);
 
   auto const result = primaldual();
-
-  CHECK((result.x - target).stableNorm() <= epsilon);
+  CHECK((result.x - target).stableNorm() <= Approx(epsilon));
   CHECK(result.good);
+  primaldual
+      .l1_proximal([](t_Vector &output, const t_real &gamma, const t_Vector &input) {
+        output = gamma * input;
+      })
+      .l1_proximal_weighted(
+          [](t_Vector &output, const Vector<t_real> &gamma, const t_Vector &input) {
+            output = 10 * gamma.array() * input.array();
+          });
+  CHECK_THROWS(primaldual());
 }
 TEST_CASE("Primal Dual with 0.5 * ||x - x0||_2^2 function", "[primaldual]") {
   using namespace sopt;

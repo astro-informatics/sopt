@@ -10,6 +10,9 @@
 #include "sopt/logging.h"
 #include "sopt/relative_variation.h"
 #include "sopt/types.h"
+#ifdef SOPT_MPI
+#include "sopt/mpi/communicator.h"
+#endif
 
 namespace sopt {
 namespace algorithm {
@@ -75,6 +78,41 @@ std::tuple<t_real, T, sopt::LinearTransform<T>> normalise_operator(
   const auto normed_shared_op = std::get<2>(result);
   return std::make_tuple(std::get<0>(result), std::get<1>(result), *normed_shared_op);
 }
+#ifdef SOPT_MPI
+//! Performs an all sum all operation to collectively normalise different serial operators
+template <class T>
+std::tuple<t_real, T, std::shared_ptr<sopt::LinearTransform<T>>> all_sum_all_normalise_operator(
+    const sopt::mpi::Communicator &comm, const std::shared_ptr<sopt::LinearTransform<T> const> &op,
+    const t_uint &niters, const t_real &relative_difference, const T &initial_vector) {
+  const auto all_sum_all_op = sopt::LinearTransform<T>(
+      [op](T &output, const T &input) { output = (*op * input).eval(); }, op->sizes(),
+      [op, comm](T &output, const T &input) {
+        output = comm.all_sum_all((op->adjoint() * input).eval());
+      },
+      op->adjoint().sizes());
+  const auto result =
+      power_method(all_sum_all_op, niters, relative_difference, initial_vector.derived());
+  const t_real norm = std::get<0>(result);
+  return std::make_tuple(
+      std::get<0>(result), std::get<1>(result),
+      std::make_shared<sopt::LinearTransform<T>>(
+          [op, norm](T &output, const T &input) { output = (*op * input).eval() / norm; },
+          op->sizes(),
+          [op, norm](T &output, const T &input) { output = (op->adjoint() * input).eval() / norm; },
+          op->adjoint().sizes()));
+}
+template <class T>
+std::tuple<t_real, T, sopt::LinearTransform<T>> all_sum_all_normalise_operator(
+    const sopt::mpi::Communicator &comm, const sopt::LinearTransform<T> &op, const t_uint &niters,
+    const t_real &relative_difference, const T &initial_vector) {
+  const std::shared_ptr<sopt::LinearTransform<T>> shared_op =
+      std::make_shared<sopt::LinearTransform<T>>(std::move(op));
+  const auto result =
+      normalise_operator<T>(comm, shared_op, niters, relative_difference, initial_vector);
+  const auto normed_shared_op = std::get<2>(result);
+  return std::make_tuple(std::get<0>(result), std::get<1>(result), *normed_shared_op);
+}
+#endif
 //! \brief Eigenvalue and eigenvector for eigenvalue with largest magnitude
 template <class SCALAR>
 class PowerMethod {
