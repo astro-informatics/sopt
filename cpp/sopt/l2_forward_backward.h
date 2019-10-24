@@ -38,8 +38,13 @@ class ImagingForwardBackward {
   typedef typename FB::t_IsConverged t_IsConverged;
 
   //! Values indicating how the algorithm ran
+  struct Diagnostic : public FB::Diagnostic {
+    Diagnostic(t_uint niters = 0u, bool good = false) : FB::Diagnostic(niters, good) {}
+    Diagnostic(t_uint niters, bool good, t_Vector &&residual)
+        : PD::Diagnostic(niters, good, std::move(residual)) {}
+  };
   //! Holds result vector as well
-  struct DiagnosticAndResult : public ForwardBackward<SCALAR>::Diagnostic {
+  struct DiagnosticAndResult : public Diagnostic {
     //! Output x
     t_Vector x;
   };
