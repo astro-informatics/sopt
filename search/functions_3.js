@@ -11,6 +11,5 @@ var searchData=
   ['direct_5fmatrix',['direct_matrix',['../benchmarks_2wavelets_8cc.html#a599ffff9462018cefe07365d21be4854',1,'wavelets.cc']]],
   ['direct_5ftransform',['direct_transform',['../namespacesopt_1_1wavelets.html#a378f59ac3ce43c1f2e81fc6480efc8df',1,'sopt::wavelets::direct_transform(Eigen::ArrayBase&lt; T0 &gt; &amp;coeffs, Eigen::ArrayBase&lt; T1 &gt; const &amp;signal, t_uint levels, WaveletData const &amp;wavelet)'],['../namespacesopt_1_1wavelets.html#acfff953dbab406985efac546d60c5edc',1,'sopt::wavelets::direct_transform(Eigen::ArrayBase&lt; T0 &gt; const &amp;coeffs_, Eigen::ArrayBase&lt; T1 &gt; const &amp;signal, t_uint levels, WaveletData const &amp;wavelet)'],['../namespacesopt_1_1wavelets.html#a3c43c452d5929aff9d653d27ac25a7d1',1,'sopt::wavelets::direct_transform(Eigen::ArrayBase&lt; T0 &gt; const &amp;signal, t_uint levels, WaveletData const &amp;wavelet) -&gt; decltype(copy(signal))'],['../namespacesopt.html#a1f816b885c3c1e6e59760df6436c8111',1,'sopt::direct_transform()']]],
   ['direct_5fvector',['direct_vector',['../benchmarks_2wavelets_8cc.html#a516101964bf095729c3a8b81883d3174',1,'wavelets.cc']]],
-  ['dirty',['dirty',['../namespacesopt.html#a52a813b13ba02590f41062b84996e0d5',1,'sopt']]],
-  ['distribute_5fsara',['distribute_sara',['../namespacesopt_1_1wavelets.html#ab9737357a4056306f3b6feca0f55b6c3',1,'sopt::wavelets']]]
+  ['dirty',['dirty',['../namespacesopt.html#a52a813b13ba02590f41062b84996e0d5',1,'sopt']]]
 ];

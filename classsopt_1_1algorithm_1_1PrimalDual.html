@@ -119,6 +119,9 @@ Public Types</h2></td></tr>
 <tr class="memitem:acbfddce9878793083a9a1dc9ef062b9d"><td class="memItemLeft" align="right" valign="top">typedef std::function&lt; void(<a class="el" href="classsopt_1_1algorithm_1_1PrimalDual.html#a1c2ff92022ae69b6b873643219e3b2c3">t_Vector</a> &amp;, const <a class="el" href="classsopt_1_1algorithm_1_1PrimalDual.html#a1c2ff92022ae69b6b873643219e3b2c3">t_Vector</a> &amp;)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsopt_1_1algorithm_1_1PrimalDual.html#acbfddce9878793083a9a1dc9ef062b9d">t_Constraint</a></td></tr>
 <tr class="memdesc:acbfddce9878793083a9a1dc9ef062b9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of the constraint function.  <a href="#acbfddce9878793083a9a1dc9ef062b9d">More...</a><br /></td></tr>
 <tr class="separator:acbfddce9878793083a9a1dc9ef062b9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74ee6a689aa677cb6e119909568cbaf9"><td class="memItemLeft" align="right" valign="top">typedef std::function&lt; bool()&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsopt_1_1algorithm_1_1PrimalDual.html#a74ee6a689aa677cb6e119909568cbaf9">t_Random_Updater</a></td></tr>
+<tr class="memdesc:a74ee6a689aa677cb6e119909568cbaf9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of random update function.  <a href="#a74ee6a689aa677cb6e119909568cbaf9">More...</a><br /></td></tr>
+<tr class="separator:a74ee6a689aa677cb6e119909568cbaf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a622e8bf20c291f6b740f3590434f7463"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="namespacesopt.html#af924da011a36e574306ab72f9f423834">ProximalFunction</a>&lt; <a class="el" href="classsopt_1_1algorithm_1_1PrimalDual.html#a02375c0ffe0773f78739a533b53a7325">Scalar</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsopt_1_1algorithm_1_1PrimalDual.html#a622e8bf20c291f6b740f3590434f7463">t_Proximal</a></td></tr>
 <tr class="memdesc:a622e8bf20c291f6b740f3590434f7463"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of the convergence function.  <a href="#a622e8bf20c291f6b740f3590434f7463">More...</a><br /></td></tr>
 <tr class="separator:a622e8bf20c291f6b740f3590434f7463"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -172,6 +175,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa046a47a5c66efb222a9cbaeb31acd6d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsopt_1_1algorithm_1_1PrimalDual.html#aa046a47a5c66efb222a9cbaeb31acd6d">SOPT_MACRO</a> (<a class="el" href="classsopt_1_1algorithm_1_1PrimalDual.html#ac422e051ec531e547a854cbab7cb004a">g_proximal</a>, <a class="el" href="classsopt_1_1algorithm_1_1PrimalDual.html#a622e8bf20c291f6b740f3590434f7463">t_Proximal</a>)</td></tr>
 <tr class="memdesc:aa046a47a5c66efb222a9cbaeb31acd6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Second proximal.  <a href="#aa046a47a5c66efb222a9cbaeb31acd6d">More...</a><br /></td></tr>
 <tr class="separator:aa046a47a5c66efb222a9cbaeb31acd6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac344a77876268295c0cd91dd9b148029"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsopt_1_1algorithm_1_1PrimalDual.html#ac344a77876268295c0cd91dd9b148029">SOPT_MACRO</a> (random_measurement_updater, <a class="el" href="classsopt_1_1algorithm_1_1PrimalDual.html#a74ee6a689aa677cb6e119909568cbaf9">t_Random_Updater</a>)</td></tr>
+<tr class="memdesc:ac344a77876268295c0cd91dd9b148029"><td class="mdescLeft">&#160;</td><td class="mdescRight">lambda that determines if to update measurements  <a href="#ac344a77876268295c0cd91dd9b148029">More...</a><br /></td></tr>
+<tr class="separator:ac344a77876268295c0cd91dd9b148029"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a417b91d5e24362b858211a25df1b37e2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsopt_1_1algorithm_1_1PrimalDual.html#a417b91d5e24362b858211a25df1b37e2">SOPT_MACRO</a> (random_wavelet_updater, <a class="el" href="classsopt_1_1algorithm_1_1PrimalDual.html#a74ee6a689aa677cb6e119909568cbaf9">t_Random_Updater</a>)</td></tr>
+<tr class="memdesc:a417b91d5e24362b858211a25df1b37e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">lambda that determines if to update wavelets  <a href="#a417b91d5e24362b858211a25df1b37e2">More...</a><br /></td></tr>
+<tr class="separator:a417b91d5e24362b858211a25df1b37e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa68279f9bc2127ea66e52012022d86d9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsopt_1_1algorithm_1_1PrimalDual.html#aa68279f9bc2127ea66e52012022d86d9">f_proximal</a> (<a class="el" href="classsopt_1_1algorithm_1_1PrimalDual.html#a1c2ff92022ae69b6b873643219e3b2c3">t_Vector</a> &amp;out, <a class="el" href="classsopt_1_1algorithm_1_1PrimalDual.html#a12ba8253a9e3fa968d0cc2c5f366ee4a">Real</a> gamma, <a class="el" href="classsopt_1_1algorithm_1_1PrimalDual.html#a1c2ff92022ae69b6b873643219e3b2c3">t_Vector</a> const &amp;x) const</td></tr>
 <tr class="memdesc:aa68279f9bc2127ea66e52012022d86d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simplifies calling the proximal of f.  <a href="#aa68279f9bc2127ea66e52012022d86d9">More...</a><br /></td></tr>
 <tr class="separator:aa68279f9bc2127ea66e52012022d86d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -353,6 +362,26 @@ template&lt;class SCALAR&gt; </div>
 
 <p>Type of the convergence function. </p>
 
+<p class="definition">Definition at line <a class="el" href="primal__dual_8h_source.html#l00037">37</a> of file <a class="el" href="primal__dual_8h_source.html">primal_dual.h</a>.</p>
+
+</div>
+</div>
+<a id="a74ee6a689aa677cb6e119909568cbaf9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74ee6a689aa677cb6e119909568cbaf9">&#9670;&nbsp;</a></span>t_Random_Updater</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class SCALAR&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::function&lt;bool()&gt; <a class="el" href="classsopt_1_1algorithm_1_1PrimalDual.html">sopt::algorithm::PrimalDual</a>&lt; SCALAR &gt;::<a class="el" href="classsopt_1_1algorithm_1_1PrimalDual.html#a74ee6a689aa677cb6e119909568cbaf9">t_Random_Updater</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Type of random update function. </p>
+
 <p class="definition">Definition at line <a class="el" href="primal__dual_8h_source.html#l00035">35</a> of file <a class="el" href="primal__dual_8h_source.html">primal_dual.h</a>.</p>
 
 </div>
@@ -449,13 +478,14 @@ template&lt;class DERIVED &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="primal__dual_8h_source.html#l00061">61</a> of file <a class="el" href="primal__dual_8h_source.html">primal_dual.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="primal__dual_8h_source.html#l00063">63</a> of file <a class="el" href="primal__dual_8h_source.html">primal_dual.h</a>.</p>
 
-<p class="reference">References <a class="el" href="primal__dual_8h_source.html#l00125">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::f_proximal()</a>, <a class="el" href="primal__dual_8h_source.html#l00129">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::g_proximal()</a>, and <a class="el" href="primal__dual_8h_source.html#l00139">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::target()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;      : itermax_(std::numeric_limits&lt;t_uint&gt;::max()),</div><div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        sigma_(1),</div><div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        tau_(0.5),</div><div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        gamma_(0.5),</div><div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        update_scale_(1),</div><div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        xi_(1),</div><div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        rho_(1),</div><div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        nu_(1),</div><div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        is_converged_(),</div><div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        constraint_([](<a class="code" href="padmm__inpainting_8cc.html#a4aacec93fc3bad0dfbec9fa2912c1aaf">t_Vector</a> &amp;out, <a class="code" href="padmm__inpainting_8cc.html#a4aacec93fc3bad0dfbec9fa2912c1aaf">t_Vector</a> <span class="keyword">const</span> &amp;x) { out = x; }),</div><div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        Phi_(linear_transform_identity&lt;Scalar&gt;()),</div><div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        Psi_(linear_transform_identity&lt;Scalar&gt;()),</div><div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        f_proximal_(<a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#aa68279f9bc2127ea66e52012022d86d9">f_proximal</a>),</div><div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        g_proximal_(<a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#ac422e051ec531e547a854cbab7cb004a">g_proximal</a>),</div><div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        target_(<a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#a39f1e56c6b33fabe54ba519f47bc1f5a">target</a>) {}</div><div class="ttc" id="classsopt_1_1algorithm_1_1PrimalDual_html_aa68279f9bc2127ea66e52012022d86d9"><div class="ttname"><a href="classsopt_1_1algorithm_1_1PrimalDual.html#aa68279f9bc2127ea66e52012022d86d9">sopt::algorithm::PrimalDual::f_proximal</a></div><div class="ttdeci">void f_proximal(t_Vector &amp;out, Real gamma, t_Vector const &amp;x) const</div><div class="ttdoc">Simplifies calling the proximal of f. </div><div class="ttdef"><b>Definition:</b> <a href="primal__dual_8h_source.html#l00125">primal_dual.h:125</a></div></div>
+<p class="reference">References <a class="el" href="primal__dual_8h_source.html#l00144">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::f_proximal()</a>, <a class="el" href="primal__dual_8h_source.html#l00148">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::g_proximal()</a>, <a class="el" href="config_8in_8h_source.html#l00017">SOPT_MPI</a>, and <a class="el" href="primal__dual_8h_source.html#l00158">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::target()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;      : itermax_(std::numeric_limits&lt;t_uint&gt;::max()),</div><div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        sigma_(1),</div><div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        tau_(0.5),</div><div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        gamma_(0.5),</div><div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        update_scale_(1),</div><div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        xi_(1),</div><div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        rho_(1),</div><div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        nu_(1),</div><div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        is_converged_(),</div><div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        constraint_([](<a class="code" href="padmm__inpainting_8cc.html#a4aacec93fc3bad0dfbec9fa2912c1aaf">t_Vector</a> &amp;out, <a class="code" href="padmm__inpainting_8cc.html#a4aacec93fc3bad0dfbec9fa2912c1aaf">t_Vector</a> <span class="keyword">const</span> &amp;x) { out = x; }),</div><div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        Phi_(linear_transform_identity&lt;Scalar&gt;()),</div><div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        Psi_(linear_transform_identity&lt;Scalar&gt;()),</div><div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        f_proximal_(<a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#aa68279f9bc2127ea66e52012022d86d9">f_proximal</a>),</div><div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        g_proximal_(<a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#ac422e051ec531e547a854cbab7cb004a">g_proximal</a>),</div><div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        random_measurement_updater_([]() { <span class="keywordflow">return</span> <span class="keyword">true</span>; }),</div><div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        random_wavelet_updater_([]() { <span class="keywordflow">return</span> <span class="keyword">true</span>; }),</div><div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;#ifdef <a class="code" href="config_8in_8h.html#a4826d863659dcf6bd750eb31eb150107">SOPT_MPI</a></div><div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        v_all_sum_all_comm_(mpi::Communicator()),</div><div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        u_all_sum_all_comm_(mpi::Communicator()),</div><div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="preprocessor">#endif</span></div><div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        target_(<a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#a39f1e56c6b33fabe54ba519f47bc1f5a">target</a>) {</div><div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  }</div><div class="ttc" id="classsopt_1_1algorithm_1_1PrimalDual_html_aa68279f9bc2127ea66e52012022d86d9"><div class="ttname"><a href="classsopt_1_1algorithm_1_1PrimalDual.html#aa68279f9bc2127ea66e52012022d86d9">sopt::algorithm::PrimalDual::f_proximal</a></div><div class="ttdeci">void f_proximal(t_Vector &amp;out, Real gamma, t_Vector const &amp;x) const</div><div class="ttdoc">Simplifies calling the proximal of f. </div><div class="ttdef"><b>Definition:</b> <a href="primal__dual_8h_source.html#l00144">primal_dual.h:144</a></div></div>
 <div class="ttc" id="padmm__inpainting_8cc_html_a4aacec93fc3bad0dfbec9fa2912c1aaf"><div class="ttname"><a href="padmm__inpainting_8cc.html#a4aacec93fc3bad0dfbec9fa2912c1aaf">t_Vector</a></div><div class="ttdeci">sopt::Vector&lt; Scalar &gt; t_Vector</div><div class="ttdef"><b>Definition:</b> <a href="padmm__inpainting_8cc_source.html#l00019">padmm_inpainting.cc:19</a></div></div>
-<div class="ttc" id="classsopt_1_1algorithm_1_1PrimalDual_html_ac422e051ec531e547a854cbab7cb004a"><div class="ttname"><a href="classsopt_1_1algorithm_1_1PrimalDual.html#ac422e051ec531e547a854cbab7cb004a">sopt::algorithm::PrimalDual::g_proximal</a></div><div class="ttdeci">void g_proximal(t_Vector &amp;out, Real gamma, t_Vector const &amp;x) const</div><div class="ttdoc">Simplifies calling the proximal of f. </div><div class="ttdef"><b>Definition:</b> <a href="primal__dual_8h_source.html#l00129">primal_dual.h:129</a></div></div>
-<div class="ttc" id="classsopt_1_1algorithm_1_1PrimalDual_html_a39f1e56c6b33fabe54ba519f47bc1f5a"><div class="ttname"><a href="classsopt_1_1algorithm_1_1PrimalDual.html#a39f1e56c6b33fabe54ba519f47bc1f5a">sopt::algorithm::PrimalDual::target</a></div><div class="ttdeci">t_Vector const  &amp; target() const</div><div class="ttdoc">Vector of target measurements. </div><div class="ttdef"><b>Definition:</b> <a href="primal__dual_8h_source.html#l00139">primal_dual.h:139</a></div></div>
+<div class="ttc" id="config_8in_8h_html_a4826d863659dcf6bd750eb31eb150107"><div class="ttname"><a href="config_8in_8h.html#a4826d863659dcf6bd750eb31eb150107">SOPT_MPI</a></div><div class="ttdeci">#define SOPT_MPI</div><div class="ttdoc">Whether or not to include mpi. </div><div class="ttdef"><b>Definition:</b> <a href="config_8in_8h_source.html#l00017">config.in.h:17</a></div></div>
+<div class="ttc" id="classsopt_1_1algorithm_1_1PrimalDual_html_ac422e051ec531e547a854cbab7cb004a"><div class="ttname"><a href="classsopt_1_1algorithm_1_1PrimalDual.html#ac422e051ec531e547a854cbab7cb004a">sopt::algorithm::PrimalDual::g_proximal</a></div><div class="ttdeci">void g_proximal(t_Vector &amp;out, Real gamma, t_Vector const &amp;x) const</div><div class="ttdoc">Simplifies calling the proximal of f. </div><div class="ttdef"><b>Definition:</b> <a href="primal__dual_8h_source.html#l00148">primal_dual.h:148</a></div></div>
+<div class="ttc" id="classsopt_1_1algorithm_1_1PrimalDual_html_a39f1e56c6b33fabe54ba519f47bc1f5a"><div class="ttname"><a href="classsopt_1_1algorithm_1_1PrimalDual.html#a39f1e56c6b33fabe54ba519f47bc1f5a">sopt::algorithm::PrimalDual::target</a></div><div class="ttdeci">t_Vector const  &amp; target() const</div><div class="ttdoc">Vector of target measurements. </div><div class="ttdef"><b>Definition:</b> <a href="primal__dual_8h_source.html#l00158">primal_dual.h:158</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -484,8 +514,8 @@ template&lt;class SCALAR&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="primal__dual_8h_source.html#l00078">78</a> of file <a class="el" href="primal__dual_8h_source.html">primal_dual.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;{}</div></div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="primal__dual_8h_source.html#l00087">87</a> of file <a class="el" href="primal__dual_8h_source.html">primal_dual.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;{}</div></div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -533,10 +563,10 @@ template&lt;class SCALAR&gt; </div>
 
 <p>Simplifies calling the proximal of f. </p>
 
-<p class="definition">Definition at line <a class="el" href="primal__dual_8h_source.html#l00125">125</a> of file <a class="el" href="primal__dual_8h_source.html">primal_dual.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="primal__dual_8h_source.html#l00144">144</a> of file <a class="el" href="primal__dual_8h_source.html">primal_dual.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="primal__dual_8h_source.html#l00221">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::initial_guess()</a>, and <a class="el" href="primal__dual_8h_source.html#l00061">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::PrimalDual()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;                                                                      {</div><div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#aa68279f9bc2127ea66e52012022d86d9">f_proximal</a>()(out, gamma, x);</div><div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;  }</div><div class="ttc" id="classsopt_1_1algorithm_1_1PrimalDual_html_aa68279f9bc2127ea66e52012022d86d9"><div class="ttname"><a href="classsopt_1_1algorithm_1_1PrimalDual.html#aa68279f9bc2127ea66e52012022d86d9">sopt::algorithm::PrimalDual::f_proximal</a></div><div class="ttdeci">void f_proximal(t_Vector &amp;out, Real gamma, t_Vector const &amp;x) const</div><div class="ttdoc">Simplifies calling the proximal of f. </div><div class="ttdef"><b>Definition:</b> <a href="primal__dual_8h_source.html#l00125">primal_dual.h:125</a></div></div>
+<p class="reference">Referenced by <a class="el" href="primal__dual_8h_source.html#l00240">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::initial_guess()</a>, and <a class="el" href="primal__dual_8h_source.html#l00063">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::PrimalDual()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;                                                                      {</div><div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    <a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#aa68279f9bc2127ea66e52012022d86d9">f_proximal</a>()(out, gamma, x);</div><div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;  }</div><div class="ttc" id="classsopt_1_1algorithm_1_1PrimalDual_html_aa68279f9bc2127ea66e52012022d86d9"><div class="ttname"><a href="classsopt_1_1algorithm_1_1PrimalDual.html#aa68279f9bc2127ea66e52012022d86d9">sopt::algorithm::PrimalDual::f_proximal</a></div><div class="ttdeci">void f_proximal(t_Vector &amp;out, Real gamma, t_Vector const &amp;x) const</div><div class="ttdoc">Simplifies calling the proximal of f. </div><div class="ttdef"><b>Definition:</b> <a href="primal__dual_8h_source.html#l00144">primal_dual.h:144</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -584,10 +614,10 @@ template&lt;class SCALAR&gt; </div>
 
 <p>Simplifies calling the proximal of f. </p>
 
-<p class="definition">Definition at line <a class="el" href="primal__dual_8h_source.html#l00129">129</a> of file <a class="el" href="primal__dual_8h_source.html">primal_dual.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="primal__dual_8h_source.html#l00148">148</a> of file <a class="el" href="primal__dual_8h_source.html">primal_dual.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="primal__dual_8h_source.html#l00221">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::initial_guess()</a>, and <a class="el" href="primal__dual_8h_source.html#l00061">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::PrimalDual()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;                                                                      {</div><div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#ac422e051ec531e547a854cbab7cb004a">g_proximal</a>()(out, gamma, x);</div><div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;  }</div><div class="ttc" id="classsopt_1_1algorithm_1_1PrimalDual_html_ac422e051ec531e547a854cbab7cb004a"><div class="ttname"><a href="classsopt_1_1algorithm_1_1PrimalDual.html#ac422e051ec531e547a854cbab7cb004a">sopt::algorithm::PrimalDual::g_proximal</a></div><div class="ttdeci">void g_proximal(t_Vector &amp;out, Real gamma, t_Vector const &amp;x) const</div><div class="ttdoc">Simplifies calling the proximal of f. </div><div class="ttdef"><b>Definition:</b> <a href="primal__dual_8h_source.html#l00129">primal_dual.h:129</a></div></div>
+<p class="reference">Referenced by <a class="el" href="primal__dual_8h_source.html#l00240">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::initial_guess()</a>, and <a class="el" href="primal__dual_8h_source.html#l00063">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::PrimalDual()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;                                                                      {</div><div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    <a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#ac422e051ec531e547a854cbab7cb004a">g_proximal</a>()(out, gamma, x);</div><div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;  }</div><div class="ttc" id="classsopt_1_1algorithm_1_1PrimalDual_html_ac422e051ec531e547a854cbab7cb004a"><div class="ttname"><a href="classsopt_1_1algorithm_1_1PrimalDual.html#ac422e051ec531e547a854cbab7cb004a">sopt::algorithm::PrimalDual::g_proximal</a></div><div class="ttdeci">void g_proximal(t_Vector &amp;out, Real gamma, t_Vector const &amp;x) const</div><div class="ttdoc">Simplifies calling the proximal of f. </div><div class="ttdef"><b>Definition:</b> <a href="primal__dual_8h_source.html#l00148">primal_dual.h:148</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -622,14 +652,14 @@ template&lt;class SCALAR&gt; </div>
 <li>residuals = Φ x - y </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="primal__dual_8h_source.html#l00211">211</a> of file <a class="el" href="primal__dual_8h_source.html">primal_dual.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="primal__dual_8h_source.html#l00230">230</a> of file <a class="el" href="primal__dual_8h_source.html">primal_dual.h</a>.</p>
 
-<p class="reference">References <a class="el" href="primal__dual_8h_source.html#l00196">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::Phi()</a>, and <a class="el" href="primal__dual_8h_source.html#l00139">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::target()</a>.</p>
+<p class="reference">References <a class="el" href="primal__dual_8h_source.html#l00215">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::Phi()</a>, and <a class="el" href="primal__dual_8h_source.html#l00158">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::target()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="imaging__primal__dual_8h_source.html#l00149">sopt::algorithm::ImagingPrimalDual&lt; SCALAR &gt;::operator()()</a>, and <a class="el" href="primal__dual_8h_source.html#l00154">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::operator()()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;                                                     {</div><div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#aea449fd612f6063653b3bf224a3c16a7">PrimalDual&lt;SCALAR&gt;::initial_guess</a>(<a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#a39f1e56c6b33fabe54ba519f47bc1f5a">target</a>(), <a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#a1a809631d8b1a919037c68f2d4085b17">Phi</a>(), nu());</div><div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;  }</div><div class="ttc" id="classsopt_1_1algorithm_1_1PrimalDual_html_aea449fd612f6063653b3bf224a3c16a7"><div class="ttname"><a href="classsopt_1_1algorithm_1_1PrimalDual.html#aea449fd612f6063653b3bf224a3c16a7">sopt::algorithm::PrimalDual::initial_guess</a></div><div class="ttdeci">std::tuple&lt; t_Vector, t_Vector &gt; initial_guess() const</div><div class="ttdoc">Computes initial guess for x and the residual using the targets. </div><div class="ttdef"><b>Definition:</b> <a href="primal__dual_8h_source.html#l00211">primal_dual.h:211</a></div></div>
-<div class="ttc" id="classsopt_1_1algorithm_1_1PrimalDual_html_a1a809631d8b1a919037c68f2d4085b17"><div class="ttname"><a href="classsopt_1_1algorithm_1_1PrimalDual.html#a1a809631d8b1a919037c68f2d4085b17">sopt::algorithm::PrimalDual::Phi</a></div><div class="ttdeci">PrimalDual &amp;::type Phi(ARGS &amp;&amp;... args)</div><div class="ttdef"><b>Definition:</b> <a href="primal__dual_8h_source.html#l00196">primal_dual.h:196</a></div></div>
-<div class="ttc" id="classsopt_1_1algorithm_1_1PrimalDual_html_a39f1e56c6b33fabe54ba519f47bc1f5a"><div class="ttname"><a href="classsopt_1_1algorithm_1_1PrimalDual.html#a39f1e56c6b33fabe54ba519f47bc1f5a">sopt::algorithm::PrimalDual::target</a></div><div class="ttdeci">t_Vector const  &amp; target() const</div><div class="ttdoc">Vector of target measurements. </div><div class="ttdef"><b>Definition:</b> <a href="primal__dual_8h_source.html#l00139">primal_dual.h:139</a></div></div>
+<p class="reference">Referenced by <a class="el" href="imaging__primal__dual_8h_source.html#l00172">sopt::algorithm::ImagingPrimalDual&lt; SCALAR &gt;::operator()()</a>, and <a class="el" href="primal__dual_8h_source.html#l00173">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::operator()()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;                                                     {</div><div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#aea449fd612f6063653b3bf224a3c16a7">PrimalDual&lt;SCALAR&gt;::initial_guess</a>(<a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#a39f1e56c6b33fabe54ba519f47bc1f5a">target</a>(), <a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#a1a809631d8b1a919037c68f2d4085b17">Phi</a>(), nu());</div><div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;  }</div><div class="ttc" id="classsopt_1_1algorithm_1_1PrimalDual_html_aea449fd612f6063653b3bf224a3c16a7"><div class="ttname"><a href="classsopt_1_1algorithm_1_1PrimalDual.html#aea449fd612f6063653b3bf224a3c16a7">sopt::algorithm::PrimalDual::initial_guess</a></div><div class="ttdeci">std::tuple&lt; t_Vector, t_Vector &gt; initial_guess() const</div><div class="ttdoc">Computes initial guess for x and the residual using the targets. </div><div class="ttdef"><b>Definition:</b> <a href="primal__dual_8h_source.html#l00230">primal_dual.h:230</a></div></div>
+<div class="ttc" id="classsopt_1_1algorithm_1_1PrimalDual_html_a1a809631d8b1a919037c68f2d4085b17"><div class="ttname"><a href="classsopt_1_1algorithm_1_1PrimalDual.html#a1a809631d8b1a919037c68f2d4085b17">sopt::algorithm::PrimalDual::Phi</a></div><div class="ttdeci">PrimalDual &amp;::type Phi(ARGS &amp;&amp;... args)</div><div class="ttdef"><b>Definition:</b> <a href="primal__dual_8h_source.html#l00215">primal_dual.h:215</a></div></div>
+<div class="ttc" id="classsopt_1_1algorithm_1_1PrimalDual_html_a39f1e56c6b33fabe54ba519f47bc1f5a"><div class="ttname"><a href="classsopt_1_1algorithm_1_1PrimalDual.html#a39f1e56c6b33fabe54ba519f47bc1f5a">sopt::algorithm::PrimalDual::target</a></div><div class="ttdeci">t_Vector const  &amp; target() const</div><div class="ttdoc">Vector of target measurements. </div><div class="ttdef"><b>Definition:</b> <a href="primal__dual_8h_source.html#l00158">primal_dual.h:158</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -682,10 +712,10 @@ template&lt;class SCALAR&gt; </div>
 </ul>
 <p>This function simplifies creating overloads for operator() in PD wrappers. </p>
 
-<p class="definition">Definition at line <a class="el" href="primal__dual_8h_source.html#l00221">221</a> of file <a class="el" href="primal__dual_8h_source.html">primal_dual.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="primal__dual_8h_source.html#l00240">240</a> of file <a class="el" href="primal__dual_8h_source.html">primal_dual.h</a>.</p>
 
-<p class="reference">References <a class="el" href="linear__transform_8h_source.html#l00078">sopt::LinearTransform&lt; VECTOR &gt;::adjoint()</a>, <a class="el" href="primal__dual_8h_source.html#l00125">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::f_proximal()</a>, <a class="el" href="primal__dual_8h_source.html#l00129">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::g_proximal()</a>, <a class="el" href="primal__dual_8h_source.html#l00134">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::is_converged()</a>, <a class="el" href="primal__dual_8h_source.html#l00040">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::Diagnostic::niters</a>, <a class="el" href="primal__dual_8h_source.html#l00183">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::operator()()</a>, <a class="el" href="primal__dual_8h_source.html#l00196">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::Phi()</a>, <a class="el" href="primal__dual_8h_source.html#l00202">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::Psi()</a>, <a class="el" href="primal__dual_8h_source.html#l00044">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::Diagnostic::residual</a>, <a class="el" href="inpainting_8h_source.html#l00017">sopt::sigma()</a>, <a class="el" href="logging_8h_source.html#l00015">SOPT_ERROR</a>, <a class="el" href="logging_8h_source.html#l00027">SOPT_HIGH_LOG</a>, <a class="el" href="logging_8h_source.html#l00031">SOPT_LOW_LOG</a>, <a class="el" href="logging_8h_source.html#l00029">SOPT_MEDIUM_LOG</a>, <a class="el" href="exception_8h_source.html#l00046">SOPT_THROW</a>, <a class="el" href="logging_8h_source.html#l00017">SOPT_WARN</a>, and <a class="el" href="primal__dual_8h_source.html#l00139">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::target()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;                                                                                             {</div><div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    std::tuple&lt;t_Vector, t_Vector&gt; guess;</div><div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    std::get&lt;0&gt;(guess) = phi.adjoint() * <a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#a39f1e56c6b33fabe54ba519f47bc1f5a">target</a> / nu;</div><div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    std::get&lt;1&gt;(guess) = phi * std::get&lt;0&gt;(guess) - <a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#a39f1e56c6b33fabe54ba519f47bc1f5a">target</a>;</div><div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    <span class="keywordflow">return</span> guess;</div><div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;  }</div><div class="ttc" id="classsopt_1_1algorithm_1_1PrimalDual_html_a39f1e56c6b33fabe54ba519f47bc1f5a"><div class="ttname"><a href="classsopt_1_1algorithm_1_1PrimalDual.html#a39f1e56c6b33fabe54ba519f47bc1f5a">sopt::algorithm::PrimalDual::target</a></div><div class="ttdeci">t_Vector const  &amp; target() const</div><div class="ttdoc">Vector of target measurements. </div><div class="ttdef"><b>Definition:</b> <a href="primal__dual_8h_source.html#l00139">primal_dual.h:139</a></div></div>
+<p class="reference">References <a class="el" href="linear__transform_8h_source.html#l00078">sopt::LinearTransform&lt; VECTOR &gt;::adjoint()</a>, <a class="el" href="primal__dual_8h_source.html#l00144">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::f_proximal()</a>, <a class="el" href="primal__dual_8h_source.html#l00148">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::g_proximal()</a>, <a class="el" href="primal__dual_8h_source.html#l00153">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::is_converged()</a>, <a class="el" href="primal__dual_8h_source.html#l00042">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::Diagnostic::niters</a>, <a class="el" href="primal__dual_8h_source.html#l00202">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::operator()()</a>, <a class="el" href="primal__dual_8h_source.html#l00215">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::Phi()</a>, <a class="el" href="primal__dual_8h_source.html#l00221">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::Psi()</a>, <a class="el" href="primal__dual_8h_source.html#l00046">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::Diagnostic::residual</a>, <a class="el" href="inpainting_8h_source.html#l00017">sopt::sigma()</a>, <a class="el" href="logging_8h_source.html#l00015">SOPT_ERROR</a>, <a class="el" href="logging_8h_source.html#l00027">SOPT_HIGH_LOG</a>, <a class="el" href="logging_8h_source.html#l00031">SOPT_LOW_LOG</a>, <a class="el" href="logging_8h_source.html#l00029">SOPT_MEDIUM_LOG</a>, <a class="el" href="exception_8h_source.html#l00046">SOPT_THROW</a>, <a class="el" href="logging_8h_source.html#l00017">SOPT_WARN</a>, and <a class="el" href="primal__dual_8h_source.html#l00158">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::target()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;                                                                                             {</div><div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;    std::tuple&lt;t_Vector, t_Vector&gt; guess;</div><div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;    std::get&lt;0&gt;(guess) = phi.adjoint() * <a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#a39f1e56c6b33fabe54ba519f47bc1f5a">target</a> / nu;</div><div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    std::get&lt;1&gt;(guess) = phi * std::get&lt;0&gt;(guess) - <a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#a39f1e56c6b33fabe54ba519f47bc1f5a">target</a>;</div><div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    <span class="keywordflow">return</span> guess;</div><div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;  }</div><div class="ttc" id="classsopt_1_1algorithm_1_1PrimalDual_html_a39f1e56c6b33fabe54ba519f47bc1f5a"><div class="ttname"><a href="classsopt_1_1algorithm_1_1PrimalDual.html#a39f1e56c6b33fabe54ba519f47bc1f5a">sopt::algorithm::PrimalDual::target</a></div><div class="ttdeci">t_Vector const  &amp; target() const</div><div class="ttdoc">Vector of target measurements. </div><div class="ttdef"><b>Definition:</b> <a href="primal__dual_8h_source.html#l00158">primal_dual.h:158</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -717,11 +747,11 @@ template&lt;class SCALAR&gt; </div>
 
 <p>Convergence function that takes only the output as argument. </p>
 
-<p class="definition">Definition at line <a class="el" href="primal__dual_8h_source.html#l00134">134</a> of file <a class="el" href="primal__dual_8h_source.html">primal_dual.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="primal__dual_8h_source.html#l00153">153</a> of file <a class="el" href="primal__dual_8h_source.html">primal_dual.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="primal__dual_8h_source.html#l00221">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::initial_guess()</a>, <a class="el" href="primal__dual_8h_source.html#l00148">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::is_converged()</a>, and <a class="el" href="primal__dual_8cc_source.html#l00045">TEST_CASE()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;                                                                                     {</div><div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#ab0030a6f46b8d9225e77a616051449ce">is_converged</a>([func](<a class="code" href="padmm__inpainting_8cc.html#a4aacec93fc3bad0dfbec9fa2912c1aaf">t_Vector</a> <span class="keyword">const</span> &amp;x, <a class="code" href="padmm__inpainting_8cc.html#a4aacec93fc3bad0dfbec9fa2912c1aaf">t_Vector</a> <span class="keyword">const</span> &amp;) { <span class="keywordflow">return</span> func(x); });</div><div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;  }</div><div class="ttc" id="padmm__inpainting_8cc_html_a4aacec93fc3bad0dfbec9fa2912c1aaf"><div class="ttname"><a href="padmm__inpainting_8cc.html#a4aacec93fc3bad0dfbec9fa2912c1aaf">t_Vector</a></div><div class="ttdeci">sopt::Vector&lt; Scalar &gt; t_Vector</div><div class="ttdef"><b>Definition:</b> <a href="padmm__inpainting_8cc_source.html#l00019">padmm_inpainting.cc:19</a></div></div>
-<div class="ttc" id="classsopt_1_1algorithm_1_1PrimalDual_html_ab0030a6f46b8d9225e77a616051449ce"><div class="ttname"><a href="classsopt_1_1algorithm_1_1PrimalDual.html#ab0030a6f46b8d9225e77a616051449ce">sopt::algorithm::PrimalDual::is_converged</a></div><div class="ttdeci">PrimalDual&lt; Scalar &gt; &amp; is_converged(std::function&lt; bool(t_Vector const &amp;x)&gt; const &amp;func)</div><div class="ttdoc">Convergence function that takes only the output as argument. </div><div class="ttdef"><b>Definition:</b> <a href="primal__dual_8h_source.html#l00134">primal_dual.h:134</a></div></div>
+<p class="reference">Referenced by <a class="el" href="primal__dual_8h_source.html#l00240">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::initial_guess()</a>, <a class="el" href="primal__dual_8h_source.html#l00167">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::is_converged()</a>, and <a class="el" href="primal__dual_8cc_source.html#l00053">TEST_CASE()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;                                                                                     {</div><div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#ab0030a6f46b8d9225e77a616051449ce">is_converged</a>([func](<a class="code" href="padmm__inpainting_8cc.html#a4aacec93fc3bad0dfbec9fa2912c1aaf">t_Vector</a> <span class="keyword">const</span> &amp;x, <a class="code" href="padmm__inpainting_8cc.html#a4aacec93fc3bad0dfbec9fa2912c1aaf">t_Vector</a> <span class="keyword">const</span> &amp;) { <span class="keywordflow">return</span> func(x); });</div><div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;  }</div><div class="ttc" id="padmm__inpainting_8cc_html_a4aacec93fc3bad0dfbec9fa2912c1aaf"><div class="ttname"><a href="padmm__inpainting_8cc.html#a4aacec93fc3bad0dfbec9fa2912c1aaf">t_Vector</a></div><div class="ttdeci">sopt::Vector&lt; Scalar &gt; t_Vector</div><div class="ttdef"><b>Definition:</b> <a href="padmm__inpainting_8cc_source.html#l00019">padmm_inpainting.cc:19</a></div></div>
+<div class="ttc" id="classsopt_1_1algorithm_1_1PrimalDual_html_ab0030a6f46b8d9225e77a616051449ce"><div class="ttname"><a href="classsopt_1_1algorithm_1_1PrimalDual.html#ab0030a6f46b8d9225e77a616051449ce">sopt::algorithm::PrimalDual::is_converged</a></div><div class="ttdeci">PrimalDual&lt; Scalar &gt; &amp; is_converged(std::function&lt; bool(t_Vector const &amp;x)&gt; const &amp;func)</div><div class="ttdoc">Convergence function that takes only the output as argument. </div><div class="ttdef"><b>Definition:</b> <a href="primal__dual_8h_source.html#l00153">primal_dual.h:153</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -763,10 +793,10 @@ template&lt;class SCALAR&gt; </div>
 
 <p>Facilitates call to user-provided convergence function. </p>
 
-<p class="definition">Definition at line <a class="el" href="primal__dual_8h_source.html#l00148">148</a> of file <a class="el" href="primal__dual_8h_source.html">primal_dual.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="primal__dual_8h_source.html#l00167">167</a> of file <a class="el" href="primal__dual_8h_source.html">primal_dual.h</a>.</p>
 
-<p class="reference">References <a class="el" href="primal__dual_8h_source.html#l00134">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::is_converged()</a>, and <a class="el" href="primal__dual_8h_source.html#l00044">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::Diagnostic::residual</a>.</p>
-<div class="fragment"><div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;                                                                       {</div><div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">bool</span><span class="keyword">&gt;</span>(<a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#ab0030a6f46b8d9225e77a616051449ce">is_converged</a>()) and <a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#ab0030a6f46b8d9225e77a616051449ce">is_converged</a>()(x, residual);</div><div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;  }</div><div class="ttc" id="classsopt_1_1algorithm_1_1PrimalDual_html_ab0030a6f46b8d9225e77a616051449ce"><div class="ttname"><a href="classsopt_1_1algorithm_1_1PrimalDual.html#ab0030a6f46b8d9225e77a616051449ce">sopt::algorithm::PrimalDual::is_converged</a></div><div class="ttdeci">PrimalDual&lt; Scalar &gt; &amp; is_converged(std::function&lt; bool(t_Vector const &amp;x)&gt; const &amp;func)</div><div class="ttdoc">Convergence function that takes only the output as argument. </div><div class="ttdef"><b>Definition:</b> <a href="primal__dual_8h_source.html#l00134">primal_dual.h:134</a></div></div>
+<p class="reference">References <a class="el" href="primal__dual_8h_source.html#l00153">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::is_converged()</a>, and <a class="el" href="primal__dual_8h_source.html#l00046">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::Diagnostic::residual</a>.</p>
+<div class="fragment"><div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;                                                                       {</div><div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">bool</span><span class="keyword">&gt;</span>(<a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#ab0030a6f46b8d9225e77a616051449ce">is_converged</a>()) and <a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#ab0030a6f46b8d9225e77a616051449ce">is_converged</a>()(x, residual);</div><div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;  }</div><div class="ttc" id="classsopt_1_1algorithm_1_1PrimalDual_html_ab0030a6f46b8d9225e77a616051449ce"><div class="ttname"><a href="classsopt_1_1algorithm_1_1PrimalDual.html#ab0030a6f46b8d9225e77a616051449ce">sopt::algorithm::PrimalDual::is_converged</a></div><div class="ttdeci">PrimalDual&lt; Scalar &gt; &amp; is_converged(std::function&lt; bool(t_Vector const &amp;x)&gt; const &amp;func)</div><div class="ttdoc">Convergence function that takes only the output as argument. </div><div class="ttdef"><b>Definition:</b> <a href="primal__dual_8h_source.html#l00153">primal_dual.h:153</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -804,13 +834,13 @@ template&lt;class SCALAR&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="primal__dual_8h_source.html#l00154">154</a> of file <a class="el" href="primal__dual_8h_source.html">primal_dual.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="primal__dual_8h_source.html#l00173">173</a> of file <a class="el" href="primal__dual_8h_source.html">primal_dual.h</a>.</p>
 
-<p class="reference">References <a class="el" href="primal__dual_8h_source.html#l00211">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::initial_guess()</a>, and <a class="el" href="primal__dual_8h_source.html#l00154">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::operator()()</a>.</p>
+<p class="reference">References <a class="el" href="primal__dual_8h_source.html#l00230">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::initial_guess()</a>, and <a class="el" href="primal__dual_8h_source.html#l00173">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::operator()()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="primal__dual_8h_source.html#l00154">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::operator()()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#a3ad0a358ab0424067dc7b92d4b86d8c9">operator()</a>(out, <a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#aea449fd612f6063653b3bf224a3c16a7">initial_guess</a>()); }</div><div class="ttc" id="classsopt_1_1algorithm_1_1PrimalDual_html_aea449fd612f6063653b3bf224a3c16a7"><div class="ttname"><a href="classsopt_1_1algorithm_1_1PrimalDual.html#aea449fd612f6063653b3bf224a3c16a7">sopt::algorithm::PrimalDual::initial_guess</a></div><div class="ttdeci">std::tuple&lt; t_Vector, t_Vector &gt; initial_guess() const</div><div class="ttdoc">Computes initial guess for x and the residual using the targets. </div><div class="ttdef"><b>Definition:</b> <a href="primal__dual_8h_source.html#l00211">primal_dual.h:211</a></div></div>
-<div class="ttc" id="classsopt_1_1algorithm_1_1PrimalDual_html_a3ad0a358ab0424067dc7b92d4b86d8c9"><div class="ttname"><a href="classsopt_1_1algorithm_1_1PrimalDual.html#a3ad0a358ab0424067dc7b92d4b86d8c9">sopt::algorithm::PrimalDual::operator()</a></div><div class="ttdeci">DiagnosticAndResult operator()() const</div><div class="ttdoc">Calls Primal Dual. </div><div class="ttdef"><b>Definition:</b> <a href="primal__dual_8h_source.html#l00183">primal_dual.h:183</a></div></div>
+<p class="reference">Referenced by <a class="el" href="primal__dual_8h_source.html#l00173">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::operator()()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#a3ad0a358ab0424067dc7b92d4b86d8c9">operator()</a>(out, <a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#aea449fd612f6063653b3bf224a3c16a7">initial_guess</a>()); }</div><div class="ttc" id="classsopt_1_1algorithm_1_1PrimalDual_html_aea449fd612f6063653b3bf224a3c16a7"><div class="ttname"><a href="classsopt_1_1algorithm_1_1PrimalDual.html#aea449fd612f6063653b3bf224a3c16a7">sopt::algorithm::PrimalDual::initial_guess</a></div><div class="ttdeci">std::tuple&lt; t_Vector, t_Vector &gt; initial_guess() const</div><div class="ttdoc">Computes initial guess for x and the residual using the targets. </div><div class="ttdef"><b>Definition:</b> <a href="primal__dual_8h_source.html#l00230">primal_dual.h:230</a></div></div>
+<div class="ttc" id="classsopt_1_1algorithm_1_1PrimalDual_html_a3ad0a358ab0424067dc7b92d4b86d8c9"><div class="ttname"><a href="classsopt_1_1algorithm_1_1PrimalDual.html#a3ad0a358ab0424067dc7b92d4b86d8c9">sopt::algorithm::PrimalDual::operator()</a></div><div class="ttdeci">DiagnosticAndResult operator()() const</div><div class="ttdoc">Calls Primal Dual. </div><div class="ttdef"><b>Definition:</b> <a href="primal__dual_8h_source.html#l00202">primal_dual.h:202</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -859,10 +889,10 @@ template&lt;class SCALAR&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="primal__dual_8h_source.html#l00158">158</a> of file <a class="el" href="primal__dual_8h_source.html">primal_dual.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="primal__dual_8h_source.html#l00177">177</a> of file <a class="el" href="primal__dual_8h_source.html">primal_dual.h</a>.</p>
 
-<p class="reference">References <a class="el" href="primal__dual_8h_source.html#l00183">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::operator()()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;                                                                                        {</div><div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#a3ad0a358ab0424067dc7b92d4b86d8c9">operator()</a>(out, std::get&lt;0&gt;(guess), std::get&lt;1&gt;(guess));</div><div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;  }</div><div class="ttc" id="classsopt_1_1algorithm_1_1PrimalDual_html_a3ad0a358ab0424067dc7b92d4b86d8c9"><div class="ttname"><a href="classsopt_1_1algorithm_1_1PrimalDual.html#a3ad0a358ab0424067dc7b92d4b86d8c9">sopt::algorithm::PrimalDual::operator()</a></div><div class="ttdeci">DiagnosticAndResult operator()() const</div><div class="ttdoc">Calls Primal Dual. </div><div class="ttdef"><b>Definition:</b> <a href="primal__dual_8h_source.html#l00183">primal_dual.h:183</a></div></div>
+<p class="reference">References <a class="el" href="primal__dual_8h_source.html#l00202">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::operator()()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;                                                                                        {</div><div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#a3ad0a358ab0424067dc7b92d4b86d8c9">operator()</a>(out, std::get&lt;0&gt;(guess), std::get&lt;1&gt;(guess));</div><div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;  }</div><div class="ttc" id="classsopt_1_1algorithm_1_1PrimalDual_html_a3ad0a358ab0424067dc7b92d4b86d8c9"><div class="ttname"><a href="classsopt_1_1algorithm_1_1PrimalDual.html#a3ad0a358ab0424067dc7b92d4b86d8c9">sopt::algorithm::PrimalDual::operator()</a></div><div class="ttdeci">DiagnosticAndResult operator()() const</div><div class="ttdoc">Calls Primal Dual. </div><div class="ttdef"><b>Definition:</b> <a href="primal__dual_8h_source.html#l00202">primal_dual.h:202</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -911,10 +941,10 @@ template&lt;class SCALAR&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="primal__dual_8h_source.html#l00164">164</a> of file <a class="el" href="primal__dual_8h_source.html">primal_dual.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="primal__dual_8h_source.html#l00183">183</a> of file <a class="el" href="primal__dual_8h_source.html">primal_dual.h</a>.</p>
 
-<p class="reference">References <a class="el" href="primal__dual_8h_source.html#l00183">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::operator()()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;                                                                                         {</div><div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#a3ad0a358ab0424067dc7b92d4b86d8c9">operator()</a>(out, std::get&lt;0&gt;(guess), std::get&lt;1&gt;(guess));</div><div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;  }</div><div class="ttc" id="classsopt_1_1algorithm_1_1PrimalDual_html_a3ad0a358ab0424067dc7b92d4b86d8c9"><div class="ttname"><a href="classsopt_1_1algorithm_1_1PrimalDual.html#a3ad0a358ab0424067dc7b92d4b86d8c9">sopt::algorithm::PrimalDual::operator()</a></div><div class="ttdeci">DiagnosticAndResult operator()() const</div><div class="ttdoc">Calls Primal Dual. </div><div class="ttdef"><b>Definition:</b> <a href="primal__dual_8h_source.html#l00183">primal_dual.h:183</a></div></div>
+<p class="reference">References <a class="el" href="primal__dual_8h_source.html#l00202">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::operator()()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;                                                                                         {</div><div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#a3ad0a358ab0424067dc7b92d4b86d8c9">operator()</a>(out, std::get&lt;0&gt;(guess), std::get&lt;1&gt;(guess));</div><div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;  }</div><div class="ttc" id="classsopt_1_1algorithm_1_1PrimalDual_html_a3ad0a358ab0424067dc7b92d4b86d8c9"><div class="ttname"><a href="classsopt_1_1algorithm_1_1PrimalDual.html#a3ad0a358ab0424067dc7b92d4b86d8c9">sopt::algorithm::PrimalDual::operator()</a></div><div class="ttdeci">DiagnosticAndResult operator()() const</div><div class="ttdoc">Calls Primal Dual. </div><div class="ttdef"><b>Definition:</b> <a href="primal__dual_8h_source.html#l00202">primal_dual.h:202</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -952,10 +982,10 @@ template&lt;class SCALAR&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="primal__dual_8h_source.html#l00170">170</a> of file <a class="el" href="primal__dual_8h_source.html">primal_dual.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="primal__dual_8h_source.html#l00189">189</a> of file <a class="el" href="primal__dual_8h_source.html">primal_dual.h</a>.</p>
 
-<p class="reference">References <a class="el" href="primal__dual_8h_source.html#l00183">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::operator()()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;                                                                                  {</div><div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#a3ad0a358ab0424067dc7b92d4b86d8c9">operator()</a>(std::tie(std::get&lt;0&gt;(guess), std::get&lt;1&gt;(guess)));</div><div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;  }</div><div class="ttc" id="classsopt_1_1algorithm_1_1PrimalDual_html_a3ad0a358ab0424067dc7b92d4b86d8c9"><div class="ttname"><a href="classsopt_1_1algorithm_1_1PrimalDual.html#a3ad0a358ab0424067dc7b92d4b86d8c9">sopt::algorithm::PrimalDual::operator()</a></div><div class="ttdeci">DiagnosticAndResult operator()() const</div><div class="ttdoc">Calls Primal Dual. </div><div class="ttdef"><b>Definition:</b> <a href="primal__dual_8h_source.html#l00183">primal_dual.h:183</a></div></div>
+<p class="reference">References <a class="el" href="primal__dual_8h_source.html#l00202">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::operator()()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;                                                                                  {</div><div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#a3ad0a358ab0424067dc7b92d4b86d8c9">operator()</a>(std::tie(std::get&lt;0&gt;(guess), std::get&lt;1&gt;(guess)));</div><div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;  }</div><div class="ttc" id="classsopt_1_1algorithm_1_1PrimalDual_html_a3ad0a358ab0424067dc7b92d4b86d8c9"><div class="ttname"><a href="classsopt_1_1algorithm_1_1PrimalDual.html#a3ad0a358ab0424067dc7b92d4b86d8c9">sopt::algorithm::PrimalDual::operator()</a></div><div class="ttdeci">DiagnosticAndResult operator()() const</div><div class="ttdoc">Calls Primal Dual. </div><div class="ttdef"><b>Definition:</b> <a href="primal__dual_8h_source.html#l00202">primal_dual.h:202</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -993,10 +1023,10 @@ template&lt;class SCALAR&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="primal__dual_8h_source.html#l00175">175</a> of file <a class="el" href="primal__dual_8h_source.html">primal_dual.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="primal__dual_8h_source.html#l00194">194</a> of file <a class="el" href="primal__dual_8h_source.html">primal_dual.h</a>.</p>
 
-<p class="reference">References <a class="el" href="primal__dual_8h_source.html#l00054">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::DiagnosticAndResult::x</a>.</p>
-<div class="fragment"><div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;                                                                       {</div><div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    DiagnosticAndResult result;</div><div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    <span class="keyword">static_cast&lt;</span>Diagnostic &amp;<span class="keyword">&gt;</span>(result) = <span class="keyword">operator</span>()(result.x, guess);</div><div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    <span class="keywordflow">return</span> result;</div><div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;  }</div></div><!-- fragment -->
+<p class="reference">References <a class="el" href="primal__dual_8h_source.html#l00056">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::DiagnosticAndResult::x</a>.</p>
+<div class="fragment"><div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;                                                                       {</div><div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    DiagnosticAndResult result;</div><div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    <span class="keyword">static_cast&lt;</span>Diagnostic &amp;<span class="keyword">&gt;</span>(result) = <span class="keyword">operator</span>()(result.x, guess);</div><div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    <span class="keywordflow">return</span> result;</div><div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;  }</div></div><!-- fragment -->
 </div>
 </div>
 <a id="a3ad0a358ab0424067dc7b92d4b86d8c9"></a>
@@ -1032,12 +1062,12 @@ template&lt;class SCALAR&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="primal__dual_8h_source.html#l00183">183</a> of file <a class="el" href="primal__dual_8h_source.html">primal_dual.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="primal__dual_8h_source.html#l00202">202</a> of file <a class="el" href="primal__dual_8h_source.html">primal_dual.h</a>.</p>
 
-<p class="reference">References <a class="el" href="primal__dual_8h_source.html#l00211">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::initial_guess()</a>, and <a class="el" href="primal__dual_8h_source.html#l00054">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::DiagnosticAndResult::x</a>.</p>
+<p class="reference">References <a class="el" href="primal__dual_8h_source.html#l00230">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::initial_guess()</a>, and <a class="el" href="primal__dual_8h_source.html#l00056">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::DiagnosticAndResult::x</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="primal__dual_8h_source.html#l00221">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::initial_guess()</a>, and <a class="el" href="primal__dual_8h_source.html#l00158">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::operator()()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;                                         {</div><div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    DiagnosticAndResult result;</div><div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    <span class="keyword">static_cast&lt;</span>Diagnostic &amp;<span class="keyword">&gt;</span>(result) = <span class="keyword">operator</span>()(result.x, <a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#aea449fd612f6063653b3bf224a3c16a7">initial_guess</a>());</div><div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    <span class="keywordflow">return</span> result;</div><div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;  }</div><div class="ttc" id="classsopt_1_1algorithm_1_1PrimalDual_html_aea449fd612f6063653b3bf224a3c16a7"><div class="ttname"><a href="classsopt_1_1algorithm_1_1PrimalDual.html#aea449fd612f6063653b3bf224a3c16a7">sopt::algorithm::PrimalDual::initial_guess</a></div><div class="ttdeci">std::tuple&lt; t_Vector, t_Vector &gt; initial_guess() const</div><div class="ttdoc">Computes initial guess for x and the residual using the targets. </div><div class="ttdef"><b>Definition:</b> <a href="primal__dual_8h_source.html#l00211">primal_dual.h:211</a></div></div>
+<p class="reference">Referenced by <a class="el" href="primal__dual_8h_source.html#l00240">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::initial_guess()</a>, and <a class="el" href="primal__dual_8h_source.html#l00177">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::operator()()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;                                         {</div><div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    DiagnosticAndResult result;</div><div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    <span class="keyword">static_cast&lt;</span>Diagnostic &amp;<span class="keyword">&gt;</span>(result) = <span class="keyword">operator</span>()(result.x, <a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#aea449fd612f6063653b3bf224a3c16a7">initial_guess</a>());</div><div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    <span class="keywordflow">return</span> result;</div><div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;  }</div><div class="ttc" id="classsopt_1_1algorithm_1_1PrimalDual_html_aea449fd612f6063653b3bf224a3c16a7"><div class="ttname"><a href="classsopt_1_1algorithm_1_1PrimalDual.html#aea449fd612f6063653b3bf224a3c16a7">sopt::algorithm::PrimalDual::initial_guess</a></div><div class="ttdeci">std::tuple&lt; t_Vector, t_Vector &gt; initial_guess() const</div><div class="ttdoc">Computes initial guess for x and the residual using the targets. </div><div class="ttdef"><b>Definition:</b> <a href="primal__dual_8h_source.html#l00230">primal_dual.h:230</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1069,10 +1099,10 @@ template&lt;class SCALAR&gt; </div>
 
 <p>Makes it simple to chain different calls to PD. </p>
 
-<p class="definition">Definition at line <a class="el" href="primal__dual_8h_source.html#l00189">189</a> of file <a class="el" href="primal__dual_8h_source.html">primal_dual.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="primal__dual_8h_source.html#l00208">208</a> of file <a class="el" href="primal__dual_8h_source.html">primal_dual.h</a>.</p>
 
-<p class="reference">References <a class="el" href="primal__dual_8h_source.html#l00044">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::Diagnostic::residual</a>, and <a class="el" href="primal__dual_8h_source.html#l00054">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::DiagnosticAndResult::x</a>.</p>
-<div class="fragment"><div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;                                                                             {</div><div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    DiagnosticAndResult result = warmstart;</div><div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    <span class="keyword">static_cast&lt;</span>Diagnostic &amp;<span class="keyword">&gt;</span>(result) = <span class="keyword">operator</span>()(result.x, warmstart.x, warmstart.residual);</div><div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    <span class="keywordflow">return</span> result;</div><div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;  }</div></div><!-- fragment -->
+<p class="reference">References <a class="el" href="primal__dual_8h_source.html#l00046">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::Diagnostic::residual</a>, and <a class="el" href="primal__dual_8h_source.html#l00056">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::DiagnosticAndResult::x</a>.</p>
+<div class="fragment"><div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;                                                                             {</div><div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    DiagnosticAndResult result = warmstart;</div><div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    <span class="keyword">static_cast&lt;</span>Diagnostic &amp;<span class="keyword">&gt;</span>(result) = <span class="keyword">operator</span>()(result.x, warmstart.x, warmstart.residual);</div><div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    <span class="keywordflow">return</span> result;</div><div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;  }</div></div><!-- fragment -->
 </div>
 </div>
 <a id="a1a809631d8b1a919037c68f2d4085b17"></a>
@@ -1103,12 +1133,12 @@ template&lt;class... ARGS&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="primal__dual_8h_source.html#l00196">196</a> of file <a class="el" href="primal__dual_8h_source.html">primal_dual.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="primal__dual_8h_source.html#l00215">215</a> of file <a class="el" href="primal__dual_8h_source.html">primal_dual.h</a>.</p>
 
 <p class="reference">References <a class="el" href="linear__transform_8h_source.html#l00100">sopt::linear_transform()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="primal__dual_8h_source.html#l00211">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::initial_guess()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;                                                                                     {</div><div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    Phi_ = <a class="code" href="namespacesopt.html#a27b8391ddefe157e732bebe05696170e">linear_transform</a>(std::forward&lt;ARGS&gt;(args)...);</div><div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div><div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;  }</div><div class="ttc" id="namespacesopt_html_a27b8391ddefe157e732bebe05696170e"><div class="ttname"><a href="namespacesopt.html#a27b8391ddefe157e732bebe05696170e">sopt::linear_transform</a></div><div class="ttdeci">LinearTransform&lt; VECTOR &gt; linear_transform(OperatorFunction&lt; VECTOR &gt; const &amp;direct, OperatorFunction&lt; VECTOR &gt; const &amp;indirect, std::array&lt; t_int, 3 &gt; const &amp;sizes={{1, 1, 0}})</div><div class="ttdef"><b>Definition:</b> <a href="linear__transform_8h_source.html#l00100">linear_transform.h:100</a></div></div>
+<p class="reference">Referenced by <a class="el" href="primal__dual_8h_source.html#l00230">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::initial_guess()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;                                                                                     {</div><div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    Phi_ = <a class="code" href="namespacesopt.html#a27b8391ddefe157e732bebe05696170e">linear_transform</a>(std::forward&lt;ARGS&gt;(args)...);</div><div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div><div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;  }</div><div class="ttc" id="namespacesopt_html_a27b8391ddefe157e732bebe05696170e"><div class="ttname"><a href="namespacesopt.html#a27b8391ddefe157e732bebe05696170e">sopt::linear_transform</a></div><div class="ttdeci">LinearTransform&lt; VECTOR &gt; linear_transform(OperatorFunction&lt; VECTOR &gt; const &amp;direct, OperatorFunction&lt; VECTOR &gt; const &amp;indirect, std::array&lt; t_int, 3 &gt; const &amp;sizes={{1, 1, 0}})</div><div class="ttdef"><b>Definition:</b> <a href="linear__transform_8h_source.html#l00100">linear_transform.h:100</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1140,17 +1170,17 @@ template&lt;class... ARGS&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="primal__dual_8h_source.html#l00202">202</a> of file <a class="el" href="primal__dual_8h_source.html">primal_dual.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="primal__dual_8h_source.html#l00221">221</a> of file <a class="el" href="primal__dual_8h_source.html">primal_dual.h</a>.</p>
 
 <p class="reference">References <a class="el" href="linear__transform_8h_source.html#l00100">sopt::linear_transform()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="primal__dual_8h_source.html#l00221">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::initial_guess()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;                                                                                     {</div><div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    Psi_ = <a class="code" href="namespacesopt.html#a27b8391ddefe157e732bebe05696170e">linear_transform</a>(std::forward&lt;ARGS&gt;(args)...);</div><div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div><div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;  }</div><div class="ttc" id="namespacesopt_html_a27b8391ddefe157e732bebe05696170e"><div class="ttname"><a href="namespacesopt.html#a27b8391ddefe157e732bebe05696170e">sopt::linear_transform</a></div><div class="ttdeci">LinearTransform&lt; VECTOR &gt; linear_transform(OperatorFunction&lt; VECTOR &gt; const &amp;direct, OperatorFunction&lt; VECTOR &gt; const &amp;indirect, std::array&lt; t_int, 3 &gt; const &amp;sizes={{1, 1, 0}})</div><div class="ttdef"><b>Definition:</b> <a href="linear__transform_8h_source.html#l00100">linear_transform.h:100</a></div></div>
+<p class="reference">Referenced by <a class="el" href="primal__dual_8h_source.html#l00240">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::initial_guess()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;                                                                                     {</div><div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    Psi_ = <a class="code" href="namespacesopt.html#a27b8391ddefe157e732bebe05696170e">linear_transform</a>(std::forward&lt;ARGS&gt;(args)...);</div><div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div><div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;  }</div><div class="ttc" id="namespacesopt_html_a27b8391ddefe157e732bebe05696170e"><div class="ttname"><a href="namespacesopt.html#a27b8391ddefe157e732bebe05696170e">sopt::linear_transform</a></div><div class="ttdeci">LinearTransform&lt; VECTOR &gt; linear_transform(OperatorFunction&lt; VECTOR &gt; const &amp;direct, OperatorFunction&lt; VECTOR &gt; const &amp;indirect, std::array&lt; t_int, 3 &gt; const &amp;sizes={{1, 1, 0}})</div><div class="ttdef"><b>Definition:</b> <a href="linear__transform_8h_source.html#l00100">linear_transform.h:100</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
 <a id="ac2a74575cb12345fb744341ad99a1097"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac2a74575cb12345fb744341ad99a1097">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[1/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac2a74575cb12345fb744341ad99a1097">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[1/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1182,7 +1212,7 @@ template&lt;class SCALAR&gt; </div>
 </div>
 </div>
 <a id="aff18cf637f0c4ab9ccbe14c308cb1065"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aff18cf637f0c4ab9ccbe14c308cb1065">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[2/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aff18cf637f0c4ab9ccbe14c308cb1065">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[2/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1214,7 +1244,7 @@ template&lt;class SCALAR&gt; </div>
 </div>
 </div>
 <a id="aa1b6b8b193c60aa3e5004b7165acc011"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa1b6b8b193c60aa3e5004b7165acc011">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[3/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1b6b8b193c60aa3e5004b7165acc011">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[3/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1246,7 +1276,7 @@ template&lt;class SCALAR&gt; </div>
 </div>
 </div>
 <a id="af632cbf54789f78e60329c062c621d5a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af632cbf54789f78e60329c062c621d5a">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[4/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af632cbf54789f78e60329c062c621d5a">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[4/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1278,7 +1308,7 @@ template&lt;class SCALAR&gt; </div>
 </div>
 </div>
 <a id="a54316a191b2058d34e8ebd945e018b4b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a54316a191b2058d34e8ebd945e018b4b">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[5/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a54316a191b2058d34e8ebd945e018b4b">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[5/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1310,7 +1340,7 @@ template&lt;class SCALAR&gt; </div>
 </div>
 </div>
 <a id="a7e9163cdcd4ffd2d250f5d05ff237171"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7e9163cdcd4ffd2d250f5d05ff237171">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[6/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e9163cdcd4ffd2d250f5d05ff237171">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[6/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1342,7 +1372,7 @@ template&lt;class SCALAR&gt; </div>
 </div>
 </div>
 <a id="aa6dede0dc35a453659b06606f9f914af"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa6dede0dc35a453659b06606f9f914af">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[7/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa6dede0dc35a453659b06606f9f914af">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[7/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1374,7 +1404,7 @@ template&lt;class SCALAR&gt; </div>
 </div>
 </div>
 <a id="a9c8e9a8721f2903dd7cf62f654f7f099"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9c8e9a8721f2903dd7cf62f654f7f099">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[8/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c8e9a8721f2903dd7cf62f654f7f099">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[8/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1406,7 +1436,7 @@ template&lt;class SCALAR&gt; </div>
 </div>
 </div>
 <a id="a6f804bfd6a04525eb2bab2f529b8b2e4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6f804bfd6a04525eb2bab2f529b8b2e4">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[9/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f804bfd6a04525eb2bab2f529b8b2e4">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[9/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1439,7 +1469,7 @@ template&lt;class SCALAR&gt; </div>
 </div>
 </div>
 <a id="a8ed50ad6ef62aa1d44d18e6f0fd2671f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8ed50ad6ef62aa1d44d18e6f0fd2671f">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[10/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ed50ad6ef62aa1d44d18e6f0fd2671f">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[10/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1471,7 +1501,7 @@ template&lt;class SCALAR&gt; </div>
 </div>
 </div>
 <a id="a6e11ebe461a99d21b7aca34c973a191c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6e11ebe461a99d21b7aca34c973a191c">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[11/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e11ebe461a99d21b7aca34c973a191c">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[11/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1503,7 +1533,7 @@ template&lt;class SCALAR&gt; </div>
 </div>
 </div>
 <a id="ab7fd1d8ee0dfbb8ac69bd7d4dd5544c0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab7fd1d8ee0dfbb8ac69bd7d4dd5544c0">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[12/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7fd1d8ee0dfbb8ac69bd7d4dd5544c0">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[12/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1535,7 +1565,7 @@ template&lt;class SCALAR&gt; </div>
 </div>
 </div>
 <a id="a37077b108426cf26380896f51d2923a2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a37077b108426cf26380896f51d2923a2">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[13/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a37077b108426cf26380896f51d2923a2">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[13/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1567,7 +1597,7 @@ template&lt;class SCALAR&gt; </div>
 </div>
 </div>
 <a id="aa046a47a5c66efb222a9cbaeb31acd6d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa046a47a5c66efb222a9cbaeb31acd6d">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[14/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa046a47a5c66efb222a9cbaeb31acd6d">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[14/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1598,6 +1628,70 @@ template&lt;class SCALAR&gt; </div>
 
 </div>
 </div>
+<a id="ac344a77876268295c0cd91dd9b148029"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac344a77876268295c0cd91dd9b148029">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[15/16]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class SCALAR&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classsopt_1_1algorithm_1_1PrimalDual.html">sopt::algorithm::PrimalDual</a>&lt; SCALAR &gt;::SOPT_MACRO </td>
+          <td>(</td>
+          <td class="paramtype">random_measurement_updater&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classsopt_1_1algorithm_1_1PrimalDual.html#a74ee6a689aa677cb6e119909568cbaf9">t_Random_Updater</a>&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>lambda that determines if to update measurements </p>
+
+</div>
+</div>
+<a id="a417b91d5e24362b858211a25df1b37e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a417b91d5e24362b858211a25df1b37e2">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[16/16]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class SCALAR&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classsopt_1_1algorithm_1_1PrimalDual.html">sopt::algorithm::PrimalDual</a>&lt; SCALAR &gt;::SOPT_MACRO </td>
+          <td>(</td>
+          <td class="paramtype">random_wavelet_updater&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classsopt_1_1algorithm_1_1PrimalDual.html#a74ee6a689aa677cb6e119909568cbaf9">t_Random_Updater</a>&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>lambda that determines if to update wavelets </p>
+
+</div>
+</div>
 <a id="a39f1e56c6b33fabe54ba519f47bc1f5a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a39f1e56c6b33fabe54ba519f47bc1f5a">&#9670;&nbsp;</a></span>target() <span class="overload">[1/2]</span></h2>
 
@@ -1625,10 +1719,10 @@ template&lt;class SCALAR&gt; </div>
 
 <p>Vector of target measurements. </p>
 
-<p class="definition">Definition at line <a class="el" href="primal__dual_8h_source.html#l00139">139</a> of file <a class="el" href="primal__dual_8h_source.html">primal_dual.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="primal__dual_8h_source.html#l00158">158</a> of file <a class="el" href="primal__dual_8h_source.html">primal_dual.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="primal__dual_8h_source.html#l00211">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::initial_guess()</a>, <a class="el" href="primal__dual_8h_source.html#l00061">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::PrimalDual()</a>, and <a class="el" href="primal__dual_8h_source.html#l00142">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::target()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;{ <span class="keywordflow">return</span> target_; }</div></div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="primal__dual_8h_source.html#l00230">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::initial_guess()</a>, <a class="el" href="primal__dual_8h_source.html#l00063">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::PrimalDual()</a>, and <a class="el" href="primal__dual_8h_source.html#l00161">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::target()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;{ <span class="keywordflow">return</span> target_; }</div></div><!-- fragment -->
 </div>
 </div>
 <a id="a0dcd471d25a8aedf80ddfb91929e46f8"></a>
@@ -1661,10 +1755,10 @@ template&lt;class DERIVED &gt; </div>
 
 <p>Sets the vector of target measurements. </p>
 
-<p class="definition">Definition at line <a class="el" href="primal__dual_8h_source.html#l00142">142</a> of file <a class="el" href="primal__dual_8h_source.html">primal_dual.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="primal__dual_8h_source.html#l00161">161</a> of file <a class="el" href="primal__dual_8h_source.html">primal_dual.h</a>.</p>
 
-<p class="reference">References <a class="el" href="primal__dual_8h_source.html#l00139">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::target()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;                                                                     {</div><div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    target_ = <a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#a39f1e56c6b33fabe54ba519f47bc1f5a">target</a>;</div><div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div><div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;  }</div><div class="ttc" id="classsopt_1_1algorithm_1_1PrimalDual_html_a39f1e56c6b33fabe54ba519f47bc1f5a"><div class="ttname"><a href="classsopt_1_1algorithm_1_1PrimalDual.html#a39f1e56c6b33fabe54ba519f47bc1f5a">sopt::algorithm::PrimalDual::target</a></div><div class="ttdeci">t_Vector const  &amp; target() const</div><div class="ttdoc">Vector of target measurements. </div><div class="ttdef"><b>Definition:</b> <a href="primal__dual_8h_source.html#l00139">primal_dual.h:139</a></div></div>
+<p class="reference">References <a class="el" href="primal__dual_8h_source.html#l00158">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::target()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;                                                                     {</div><div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    target_ = <a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#a39f1e56c6b33fabe54ba519f47bc1f5a">target</a>;</div><div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div><div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;  }</div><div class="ttc" id="classsopt_1_1algorithm_1_1PrimalDual_html_a39f1e56c6b33fabe54ba519f47bc1f5a"><div class="ttname"><a href="classsopt_1_1algorithm_1_1PrimalDual.html#a39f1e56c6b33fabe54ba519f47bc1f5a">sopt::algorithm::PrimalDual::target</a></div><div class="ttdeci">t_Vector const  &amp; target() const</div><div class="ttdoc">Vector of target measurements. </div><div class="ttdef"><b>Definition:</b> <a href="primal__dual_8h_source.html#l00158">primal_dual.h:158</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>

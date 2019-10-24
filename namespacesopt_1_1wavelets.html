@@ -116,8 +116,6 @@ Functions</h2></td></tr>
 <tr class="memitem:a808c93ad7353dbae45321d9163d8541f"><td class="memTemplParams" colspan="2">template&lt;class T0 &gt; </td></tr>
 <tr class="memitem:a808c93ad7353dbae45321d9163d8541f"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacesopt_1_1wavelets.html#a808c93ad7353dbae45321d9163d8541f">indirect_transform</a> (Eigen::ArrayBase&lt; T0 &gt; const &amp;coeffs, <a class="el" href="namespacesopt.html#a96a6515fd2aa0c9f5789d33e09fa6477">t_uint</a> levels, <a class="el" href="structsopt_1_1wavelets_1_1WaveletData.html">WaveletData</a> const &amp;wavelet) -&gt; decltype(copy(coeffs))</td></tr>
 <tr class="separator:a808c93ad7353dbae45321d9163d8541f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab9737357a4056306f3b6feca0f55b6c3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsopt_1_1wavelets_1_1SARA.html">SARA</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesopt_1_1wavelets.html#ab9737357a4056306f3b6feca0f55b6c3">distribute_sara</a> (<a class="el" href="classsopt_1_1wavelets_1_1SARA.html">SARA</a> const &amp;sara, <a class="el" href="namespacesopt.html#a96a6515fd2aa0c9f5789d33e09fa6477">t_uint</a> size, <a class="el" href="namespacesopt.html#a96a6515fd2aa0c9f5789d33e09fa6477">t_uint</a> rank)</td></tr>
-<tr class="separator:ab9737357a4056306f3b6feca0f55b6c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af0f39f4e221905d07739109a7f89cdd2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structsopt_1_1wavelets_1_1WaveletData.html">WaveletData</a> const  &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesopt_1_1wavelets.html#af0f39f4e221905d07739109a7f89cdd2">daubechies_data</a> (<a class="el" href="namespacesopt.html#a96a6515fd2aa0c9f5789d33e09fa6477">t_uint</a>)</td></tr>
 <tr class="memdesc:af0f39f4e221905d07739109a7f89cdd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Factory function returning specific daubechie wavelet data.  <a href="#af0f39f4e221905d07739109a7f89cdd2">More...</a><br /></td></tr>
 <tr class="separator:af0f39f4e221905d07739109a7f89cdd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -425,45 +423,6 @@ template&lt;class T0 &gt; </div>
 
 <p class="reference">References <a class="el" href="direct_8h_source.html#l00061">direct_transform()</a>.</p>
 <div class="fragment"><div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;                              {</div><div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;  <span class="keyword">auto</span> result = copy(signal);</div><div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;  <a class="code" href="namespacesopt_1_1wavelets.html#a3c43c452d5929aff9d653d27ac25a7d1">direct_transform</a>(result, signal, levels, wavelet);</div><div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;  <span class="keywordflow">return</span> result;</div><div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;}</div><div class="ttc" id="namespacesopt_1_1wavelets_html_a3c43c452d5929aff9d653d27ac25a7d1"><div class="ttname"><a href="namespacesopt_1_1wavelets.html#a3c43c452d5929aff9d653d27ac25a7d1">sopt::wavelets::direct_transform</a></div><div class="ttdeci">auto direct_transform(Eigen::ArrayBase&lt; T0 &gt; const &amp;signal, t_uint levels, WaveletData const &amp;wavelet) -&gt; decltype(copy(signal))</div><div class="ttdoc">Direct 1d and 2d transform. </div><div class="ttdef"><b>Definition:</b> <a href="direct_8h_source.html#l00107">direct.h:107</a></div></div>
-</div><!-- fragment -->
-</div>
-</div>
-<a id="ab9737357a4056306f3b6feca0f55b6c3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab9737357a4056306f3b6feca0f55b6c3">&#9670;&nbsp;</a></span>distribute_sara()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classsopt_1_1wavelets_1_1SARA.html">SARA</a> sopt::wavelets::distribute_sara </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classsopt_1_1wavelets_1_1SARA.html">SARA</a> const &amp;&#160;</td>
-          <td class="paramname"><em>sara</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="namespacesopt.html#a96a6515fd2aa0c9f5789d33e09fa6477">t_uint</a>&#160;</td>
-          <td class="paramname"><em>size</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="namespacesopt.html#a96a6515fd2aa0c9f5789d33e09fa6477">t_uint</a>&#160;</td>
-          <td class="paramname"><em>rank</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="sopt_2wavelets_2sara_8cc_source.html#l00006">6</a> of file <a class="el" href="sopt_2wavelets_2sara_8cc_source.html">sara.cc</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="sara_8h_source.html#l00191">sopt::wavelets::SARA::direct()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;                                                                 {</div><div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> start = [](<a class="code" href="forward__backward_8cc.html#acfe2131b3838108e05c6fcd5319e4275">t_uint</a> size, <a class="code" href="forward__backward_8cc.html#acfe2131b3838108e05c6fcd5319e4275">t_uint</a> ncomms, <a class="code" href="forward__backward_8cc.html#acfe2131b3838108e05c6fcd5319e4275">t_uint</a> rank) {</div><div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    <span class="keywordflow">return</span> std::min(size, rank * (size / ncomms) + std::min(rank, size % ncomms));</div><div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;  };</div><div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> startw = start(sara.size(), size, rank);</div><div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> endw = start(sara.size(), size, rank + 1);</div><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;  <span class="keywordflow">return</span> SARA(sara.begin() + startw, sara.begin() + endw);</div><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;}</div><div class="ttc" id="forward__backward_8cc_html_acfe2131b3838108e05c6fcd5319e4275"><div class="ttname"><a href="forward__backward_8cc.html#acfe2131b3838108e05c6fcd5319e4275">t_uint</a></div><div class="ttdeci">sopt::t_uint t_uint</div><div class="ttdef"><b>Definition:</b> <a href="forward__backward_8cc_source.html#l00027">forward_backward.cc:27</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>

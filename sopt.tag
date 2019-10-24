@@ -772,13 +772,6 @@
     <includes id="sara_8h" name="sara.h" local="yes" imported="no">sara.h</includes>
     <namespace>sopt</namespace>
     <namespace>sopt::wavelets</namespace>
-    <member kind="function">
-      <type>SARA</type>
-      <name>distribute_sara</name>
-      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1wavelets.html</anchorfile>
-      <anchor>ab9737357a4056306f3b6feca0f55b6c3</anchor>
-      <arglist>(SARA const &amp;sara, t_uint size, t_uint rank)</arglist>
-    </member>
   </compound>
   <compound kind="file">
     <name>sara.cc</name>
@@ -2048,6 +2041,13 @@
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1proximal.html</anchorfile>
       <anchor>acaa892cd8aec7d5e6c4f24192cbca062</anchor>
       <arglist>(Eigen::DenseBase&lt; T0 &gt; &amp;out, typename real_type&lt; typename T0::Scalar &gt;::type gamma, Eigen::DenseBase&lt; T1 &gt; const &amp;x)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>l1_norm</name>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1proximal.html</anchorfile>
+      <anchor>ad54f6b698f54216589e33fa3a524952e</anchor>
+      <arglist>(Eigen::DenseBase&lt; T0 &gt; &amp;out, Eigen::DenseBase&lt; T2 &gt; const &amp;gamma, Eigen::DenseBase&lt; T1 &gt; const &amp;x)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
@@ -5608,10 +5608,10 @@
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>PD::t_Proximal</type>
+      <type>std::function&lt; void(t_Vector &amp;, const T &amp;, const t_Vector &amp;)&gt;</type>
       <name>t_Proximal</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
-      <anchor>ae10894a8a8e4edd66104e69aae54b6a2</anchor>
+      <anchor>a0ccd6061cf5b488893aa56903121b834</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
@@ -5626,6 +5626,13 @@
       <name>t_Constraint</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
       <anchor>ae817bbf4c8d9a8f490f810ec87e9fdb7</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>PD::t_Random_Updater</type>
+      <name>t_Random_Updater</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>a8fa101c13b38ae6c440aa51003f49d94</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -5646,8 +5653,22 @@
       <type></type>
       <name>SOPT_MACRO</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
-      <anchor>a47b92ada0f52b831ee8dda7d68db2710</anchor>
-      <arglist>(l1norm_proximal, t_Proximal)</arglist>
+      <anchor>a12ba253e12643fe12c1ba544f256c4b8</anchor>
+      <arglist>(l1_proximal, t_Proximal&lt; Real &gt;)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SOPT_MACRO</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>ab59131a837a406c455568460a093751f</anchor>
+      <arglist>(l1_proximal_weighted, t_Proximal&lt; Vector&lt; Real &gt;&gt;)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SOPT_MACRO</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>a5798abb03ad358525c39933f94d74419</anchor>
+      <arglist>(l1_proximal_weights, Vector&lt; Real &gt;)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -5795,6 +5816,20 @@
       <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
       <anchor>a0af23b20a235659c3d6b80389ec435c7</anchor>
       <arglist>(Psi, t_LinearTransform)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SOPT_MACRO</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>a3dc166c1f9d6f02ea84ee3f6949c808f</anchor>
+      <arglist>(random_measurement_updater, t_Random_Updater)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SOPT_MACRO</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>af86250c269e4328b60cc7442fc1a5249</anchor>
+      <arglist>(random_wavelet_updater, t_Random_Updater)</arglist>
     </member>
     <member kind="function">
       <type>t_Vector const  &amp;</type>
@@ -7370,6 +7405,13 @@
       <arglist></arglist>
     </member>
     <member kind="typedef">
+      <type>std::function&lt; bool()&gt;</type>
+      <name>t_Random_Updater</name>
+      <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
+      <anchor>a74ee6a689aa677cb6e119909568cbaf9</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
       <type>ProximalFunction&lt; Scalar &gt;</type>
       <name>t_Proximal</name>
       <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
@@ -7487,6 +7529,20 @@
       <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
       <anchor>aa046a47a5c66efb222a9cbaeb31acd6d</anchor>
       <arglist>(g_proximal, t_Proximal)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SOPT_MACRO</name>
+      <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
+      <anchor>ac344a77876268295c0cd91dd9b148029</anchor>
+      <arglist>(random_measurement_updater, t_Random_Updater)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SOPT_MACRO</name>
+      <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
+      <anchor>a417b91d5e24362b858211a25df1b37e2</anchor>
+      <arglist>(random_wavelet_updater, t_Random_Updater)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
@@ -10289,6 +10345,13 @@
       <type>void</type>
       <name>l1_norm</name>
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1proximal.html</anchorfile>
+      <anchor>ad54f6b698f54216589e33fa3a524952e</anchor>
+      <arglist>(Eigen::DenseBase&lt; T0 &gt; &amp;out, Eigen::DenseBase&lt; T2 &gt; const &amp;gamma, Eigen::DenseBase&lt; T1 &gt; const &amp;x)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>l1_norm</name>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1proximal.html</anchorfile>
       <anchor>a539249fec2aa941ca7eb05a2c781cf2f</anchor>
       <arglist>(Vector&lt; S &gt; &amp;out, typename real_type&lt; S &gt;::type gamma, Vector&lt; S &gt; const &amp;x)</arglist>
     </member>
@@ -10455,13 +10518,6 @@
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1wavelets.html</anchorfile>
       <anchor>a808c93ad7353dbae45321d9163d8541f</anchor>
       <arglist>(Eigen::ArrayBase&lt; T0 &gt; const &amp;coeffs, t_uint levels, WaveletData const &amp;wavelet) -&gt; decltype(copy(coeffs))</arglist>
-    </member>
-    <member kind="function">
-      <type>SARA</type>
-      <name>distribute_sara</name>
-      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1wavelets.html</anchorfile>
-      <anchor>ab9737357a4056306f3b6feca0f55b6c3</anchor>
-      <arglist>(SARA const &amp;sara, t_uint size, t_uint rank)</arglist>
     </member>
     <member kind="function">
       <type>WaveletData const  &amp;</type>

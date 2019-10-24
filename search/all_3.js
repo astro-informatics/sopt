@@ -58,6 +58,5 @@ var searchData=
   ['directfilter',['DirectFilter',['../structsopt_1_1wavelets_1_1WaveletData_1_1DirectFilter.html',1,'sopt::wavelets::WaveletData']]],
   ['directories_2ein_2eh',['directories.in.h',['../directories_8in_8h.html',1,'']]],
   ['dirty',['dirty',['../namespacesopt.html#a52a813b13ba02590f41062b84996e0d5',1,'sopt']]],
-  ['distribute_5fsara',['distribute_sara',['../namespacesopt_1_1wavelets.html#ab9737357a4056306f3b6feca0f55b6c3',1,'sopt::wavelets']]],
   ['dummyalgorithm',['DummyAlgorithm',['../structDummyAlgorithm.html',1,'']]]
 ];
