@@ -379,10 +379,7 @@ bool ImagingPrimalDual<SCALAR>::objective_convergence(ScalarRelativeVariation<Sc
                                                       t_Vector const &residual) const {
   if (static_cast<bool>(objective_convergence())) return objective_convergence()(x, residual);
   if (scalvar.relative_tolerance() <= 0e0) return true;
-  auto const current =
-      (l1_proximal_weights().size() > 1)
-          ? sopt::l1_norm(l1_proximal_weights().array() * (Psi().adjoint() * x).array())
-          : sopt::l1_norm(l1_proximal_weights()(0) * (Psi().adjoint() * x));
+  auto const current = sopt::l1_norm((Psi().adjoint() * x).eval(), l1_proximal_weights());
   return scalvar(current);
 };
 
