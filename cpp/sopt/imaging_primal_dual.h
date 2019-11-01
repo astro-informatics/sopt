@@ -51,10 +51,10 @@ class ImagingPrimalDual {
   template <class DERIVED>
   ImagingPrimalDual(Eigen::MatrixBase<DERIVED> const &target)
       : l1_proximal_([](t_Vector &out, const Real &gamma, const t_Vector &x) {
-          proximal::l1_norm(out, gamma, x);
+          proximal::l1_norm<t_Vector, t_Vector>(out, gamma, x);
         }),
         l1_proximal_weighted_([](t_Vector &out, const Vector<Real> &gamma, const t_Vector &x) {
-          proximal::l1_norm(out, gamma, x);
+          proximal::l1_norm<t_Vector, t_Vector, Vector<Real>>(out, gamma, x);
         }),
         l1_proximal_weights_(Vector<Real>::Ones(1)),
         l2ball_proximal_(1e0),
@@ -290,12 +290,12 @@ class ImagingPrimalDual {
   //! check that l1 and weighted l1 proximal operators are the same function (except for weights)
   bool check_l1_weight_proximal(const t_Proximal<Real> &no_weights,
                                 const t_Proximal<Vector<Real>> &with_weights) const {
-    Vector<SCALAR> output;
-    Vector<SCALAR> outputw;
 
     const Vector<SCALAR> x = Vector<SCALAR>::Ones(this->l1_proximal_weights().size());
+    Vector<SCALAR> output = Vector<SCALAR>::Zero(this->l1_proximal_weights().size());
+    Vector<SCALAR> outputw = Vector<SCALAR>::Zero(this->l1_proximal_weights().size());
     no_weights(output, 1, x);
-    with_weights(outputw, Vector<Real>::Ones(1), x);
+    with_weights(outputw, Vector<Real>::Ones(this->l1_proximal_weights().size()), x);
     return output.isApprox(outputw);
   };
 };
