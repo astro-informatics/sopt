@@ -225,23 +225,23 @@ class PrimalDual {
 
   //! \brief Computes initial guess for x and the residual using the targets
   //! \details with y the vector of measurements
-  //! - x = Φ^T y / ν
+  //! - x = Φ^T y * xi * tau
   //! - residuals = Φ x - y
   std::tuple<t_Vector, t_Vector> initial_guess() const {
-    return PrimalDual<SCALAR>::initial_guess(target(), Phi(), nu());
+    return PrimalDual<SCALAR>::initial_guess(target(), Phi(), xi());
   }
 
   //! \brief Computes initial guess for x and the residual using the targets
   //! \details with y the vector of measurements
-  //! - x = Φ^T y / ν
+  //! - x = Φ^T y * xi * tau
   //! - residuals = Φ x - y
   //!
   //! This function simplifies creating overloads for operator() in PD wrappers.
   static std::tuple<t_Vector, t_Vector> initial_guess(t_Vector const &target,
                                                       t_LinearTransform const &phi, Real nu) {
     std::tuple<t_Vector, t_Vector> guess;
-    std::get<0>(guess) = phi.adjoint() * target / nu;
-    std::get<1>(guess) = phi * std::get<0>(guess) - target;
+    std::get<0>(guess) = (phi.adjoint() * t_Vector::Zero(target.size())).eval();
+    std::get<1>(guess) = target;
     return guess;
   }
 
@@ -289,8 +289,8 @@ void PrimalDual<SCALAR>::iteration_step(t_Vector &out, t_Vector &out_hold, t_Vec
   }
   // dual calculations for wavelet
   if (random_wavelet_update) {
-    q = Psi().adjoint() * out_hold;
-    f_proximal(u_hold, gamma(), u + q);
+    q = (Psi().adjoint() * out_hold) * sigma();
+    f_proximal(u_hold, gamma(), (u + q));
     u_hold = u + q - u_hold;
     u = u + update_scale() * (u_hold - u);
     u_update = Psi() * u;
@@ -301,18 +301,17 @@ void PrimalDual<SCALAR>::iteration_step(t_Vector &out, t_Vector &out_hold, t_Vec
   if (v_all_sum_all_comm().size() > 0 and u_all_sum_all_comm().size() > 0)
     constraint()(
         out_hold,
-        r - tau() *
-                (u_all_sum_all_comm().all_sum_all(static_cast<const t_Vector>(u_update)) * sigma() +
-                 v_all_sum_all_comm().all_sum_all(static_cast<const t_Vector>(v_update)) * xi()));
+        r - tau() * (u_all_sum_all_comm().all_sum_all(static_cast<const t_Vector>(u_update)) +
+                     v_all_sum_all_comm().all_sum_all(static_cast<const t_Vector>(v_update))));
   else
 #endif
-    constraint()(out_hold, r - tau() * (u_update * sigma() + v_update * xi()));
+    constraint()(out_hold, r - tau() * (u_update + v_update));
   out = r + update_scale() * (out_hold - r);
   out_hold = 2 * out_hold - r;
   random_measurement_update = random_measurement_updater_();
   random_wavelet_update = random_wavelet_updater_();
   // update residual
-  if (random_measurement_update) residual = Phi() * out_hold - target();
+  if (random_measurement_update) residual = ((Phi() * out_hold) * xi() - target());
 }
 
 template <class SCALAR>
@@ -325,13 +324,13 @@ typename PrimalDual<SCALAR>::Diagnostic PrimalDual<SCALAR>::operator()(
   t_Vector residual = res_guess;
   out = x_guess;
   t_Vector out_hold = x_guess;
-  t_Vector r = out;
-  t_Vector v = t_Vector::Zero(target().size());
-  t_Vector v_hold = t_Vector::Zero(target().size());
+  t_Vector r = x_guess;
+  t_Vector v = residual;
+  t_Vector v_hold = residual;
   t_Vector v_update = x_guess;
-  t_Vector u = Psi().adjoint() * t_Vector::Zero(x_guess.size());
+  t_Vector u = Psi().adjoint() * out;
   t_Vector u_hold = u;
-  t_Vector u_update = x_guess;
+  t_Vector u_update = out;
   t_Vector q = u;
 
   t_uint niters(0);
