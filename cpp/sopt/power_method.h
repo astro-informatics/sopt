@@ -81,6 +81,20 @@ std::tuple<t_real, T, sopt::LinearTransform<T>> normalise_operator(
 #ifdef SOPT_MPI
 //! Performs an all sum all operation to collectively normalise different serial operators
 template <class T>
+std::tuple<t_real, T> all_sum_all_power_method(const sopt::mpi::Communicator &comm,
+                                               const sopt::LinearTransform<T> &op,
+                                               const t_uint &niters,
+                                               const t_real &relative_difference,
+                                               const T &initial_vector) {
+  const auto all_sum_all_op = sopt::LinearTransform<T>(
+      [&op](T &output, const T &input) { output = (op * input).eval(); }, op.sizes(),
+      [&op, comm](T &output, const T &input) {
+        output = comm.all_sum_all((op.adjoint() * input).eval());
+      },
+      op.adjoint().sizes());
+  return power_method(all_sum_all_op, niters, relative_difference, initial_vector.derived());
+}
+template <class T>
 std::tuple<t_real, T, std::shared_ptr<sopt::LinearTransform<T>>> all_sum_all_normalise_operator(
     const sopt::mpi::Communicator &comm, const std::shared_ptr<sopt::LinearTransform<T> const> &op,
     const t_uint &niters, const t_real &relative_difference, const T &initial_vector) {
