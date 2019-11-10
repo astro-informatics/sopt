@@ -87,6 +87,12 @@ void l2_norm(Eigen::DenseBase<T0> &out, typename real_type<typename T0::Scalar>:
   out = x.derived() * 1. / (1. + gamma);
 }
 
+template <class T0, class T1, class T2>
+void l2_norm(Eigen::DenseBase<T0> &out, Eigen::DenseBase<T2> const &gamma,
+             Eigen::DenseBase<T1> const &x) {
+  out = x.derived().array() * 1. / (1. + gamma).array();
+}
+
 //! Proximal of a function that is always zero, the identity
 template <class T0, class T1>
 void id(Eigen::DenseBase<T0> &out, typename real_type<typename T0::Scalar>::type gamma,
