@@ -59,6 +59,11 @@ void check_round_trip(Eigen::ArrayBase<T0> const &input_, sopt::t_uint db,
   CHECK(not transform.isApprox(sopt::wavelets::direct_transform(input, nlevels - 1, dbwave), 1e-4));
 }
 
+TEST_CASE("wavelet data") {
+  for (sopt::t_int num = 1; num < 31; num++)
+    REQUIRE(sopt::wavelets::daubechies_data(num).coefficients.size() == 2 * num);
+}
+
 TEST_CASE("Wavelet transform innards with integer data", "[wavelet]") {
   using namespace sopt::wavelets;
 

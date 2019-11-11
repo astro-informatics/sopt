@@ -28,6 +28,7 @@ TEST_CASE("Primal Dual Imaging", "[primaldual]") {
   auto const epsilon = target.stableNorm() / 2;
 
   auto primaldual = algorithm::ImagingPrimalDual<Scalar>(target)
+                        .l1_proximal_weights(t_Vector::Ones(target.size()))
                         .Phi(mId)
                         .Psi(mId)
                         .itermax(5000)
