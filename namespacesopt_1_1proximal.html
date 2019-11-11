@@ -323,11 +323,8 @@ template&lt;class T0 , class T1 &gt; </div>
 
 <p class="definition">Definition at line <a class="el" href="proximal_8h_source.html#l00065">65</a> of file <a class="el" href="proximal_8h_source.html">proximal.h</a>.</p>
 
-<p class="reference">References <a class="el" href="maths_8h_source.html#l00029">sopt::soft_threshhold()</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="imaging__primal__dual_8h_source.html#l00052">sopt::algorithm::ImagingPrimalDual&lt; SCALAR &gt;::ImagingPrimalDual()</a>, and <a class="el" href="proximal_8cc_source.html#l00087">TEST_CASE()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                                          {</div><div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  out = <a class="code" href="namespacesopt.html#a6494afff8ee7f1196ff67ce646359d3e">sopt::soft_threshhold</a>(x, gamma);</div><div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;}</div><div class="ttc" id="namespacesopt_html_a6494afff8ee7f1196ff67ce646359d3e"><div class="ttname"><a href="namespacesopt.html#a6494afff8ee7f1196ff67ce646359d3e">sopt::soft_threshhold</a></div><div class="ttdeci">std::enable_if&lt; std::is_arithmetic&lt; SCALAR &gt;::value or is_complex&lt; SCALAR &gt;::value, SCALAR &gt;::type soft_threshhold(SCALAR const &amp;x, typename real_type&lt; SCALAR &gt;::type const &amp;threshhold)</div><div class="ttdoc">abs(x) &lt; threshhold ? 0: x - sgn(x) * threshhold </div><div class="ttdef"><b>Definition:</b> <a href="maths_8h_source.html#l00029">maths.h:29</a></div></div>
-</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="proximal_8cc_source.html#l00087">TEST_CASE()</a>.</p>
+<div class="fragment"><div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                                          {</div><div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  out = sopt::soft_threshhold&lt;T0&gt;(x, gamma);</div><div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;}</div></div><!-- fragment -->
 </div>
 </div>
 <a id="ad54f6b698f54216589e33fa3a524952e"></a>
@@ -367,10 +364,7 @@ template&lt;class T0 , class T1 , class T2 &gt; </div>
 <p>Proxmal of the weighted l1 norm. </p>
 
 <p class="definition">Definition at line <a class="el" href="proximal_8h_source.html#l00071">71</a> of file <a class="el" href="proximal_8h_source.html">proximal.h</a>.</p>
-
-<p class="reference">References <a class="el" href="maths_8h_source.html#l00029">sopt::soft_threshhold()</a>.</p>
-<div class="fragment"><div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                                          {</div><div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  out = <a class="code" href="namespacesopt.html#a6494afff8ee7f1196ff67ce646359d3e">sopt::soft_threshhold</a>(x, gamma);</div><div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;}</div><div class="ttc" id="namespacesopt_html_a6494afff8ee7f1196ff67ce646359d3e"><div class="ttname"><a href="namespacesopt.html#a6494afff8ee7f1196ff67ce646359d3e">sopt::soft_threshhold</a></div><div class="ttdeci">std::enable_if&lt; std::is_arithmetic&lt; SCALAR &gt;::value or is_complex&lt; SCALAR &gt;::value, SCALAR &gt;::type soft_threshhold(SCALAR const &amp;x, typename real_type&lt; SCALAR &gt;::type const &amp;threshhold)</div><div class="ttdoc">abs(x) &lt; threshhold ? 0: x - sgn(x) * threshhold </div><div class="ttdef"><b>Definition:</b> <a href="maths_8h_source.html#l00029">maths.h:29</a></div></div>
-</div><!-- fragment -->
+<div class="fragment"><div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                                          {</div><div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  out = sopt::soft_threshhold&lt;T0, T2&gt;(x, gamma);</div><div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;}</div></div><!-- fragment -->
 </div>
 </div>
 <a id="a539249fec2aa941ca7eb05a2c781cf2f"></a>

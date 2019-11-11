@@ -412,6 +412,13 @@
       <type></type>
       <name>TEST_CASE</name>
       <anchorfile>tests_2wavelets_8cc.html</anchorfile>
+      <anchor>ab2b66cf16b9b74419c8d381158d73906</anchor>
+      <arglist>(&quot;wavelet data&quot;)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST_CASE</name>
+      <anchorfile>tests_2wavelets_8cc.html</anchorfile>
       <anchor>a81238bde1e31d33921ffb3e7d79ee62d</anchor>
       <arglist>(&quot;Wavelet transform innards with integer data&quot;, &quot;[wavelet]&quot;)</arglist>
     </member>

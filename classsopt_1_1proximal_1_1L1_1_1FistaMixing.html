@@ -106,7 +106,7 @@ Static Public Member Functions</h2></td></tr>
 class sopt::proximal::L1&lt; SCALAR &gt;::FistaMixing</h3>
 
 
-<p class="definition">Definition at line <a class="el" href="l1__proximal_8h_source.html#l00384">384</a> of file <a class="el" href="l1__proximal_8h_source.html">l1_proximal.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="l1__proximal_8h_source.html#l00386">386</a> of file <a class="el" href="l1__proximal_8h_source.html">l1_proximal.h</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="a866b176369c8c152b0e1ead477a2f0fa"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a866b176369c8c152b0e1ead477a2f0fa">&#9670;&nbsp;</a></span>Real</h2>
@@ -122,7 +122,7 @@ template&lt;class SCALAR&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="l1__proximal_8h_source.html#l00386">386</a> of file <a class="el" href="l1__proximal_8h_source.html">l1_proximal.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="l1__proximal_8h_source.html#l00388">388</a> of file <a class="el" href="l1__proximal_8h_source.html">l1_proximal.h</a>.</p>
 
 </div>
 </div>
@@ -152,8 +152,8 @@ template&lt;class SCALAR&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="l1__proximal_8h_source.html#l00387">387</a> of file <a class="el" href="l1__proximal_8h_source.html">l1_proximal.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;: t(1){};</div></div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="l1__proximal_8h_source.html#l00389">389</a> of file <a class="el" href="l1__proximal_8h_source.html">l1_proximal.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;: t(1){};</div></div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -183,8 +183,8 @@ template&lt;class SCALAR&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="l1__proximal_8h_source.html#l00401">401</a> of file <a class="el" href="l1__proximal_8h_source.html">l1_proximal.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;{ <span class="keywordflow">return</span> 0.5 + 0.5 * std::sqrt(1e0 + 4e0 * t * t); }</div></div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="l1__proximal_8h_source.html#l00403">403</a> of file <a class="el" href="l1__proximal_8h_source.html">l1_proximal.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;{ <span class="keywordflow">return</span> 0.5 + 0.5 * std::sqrt(1e0 + 4e0 * t * t); }</div></div><!-- fragment -->
 </div>
 </div>
 <a id="a2b6683eae9287ea7838860084f5da7a4"></a>
@@ -231,8 +231,8 @@ template&lt;class T1 &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="l1__proximal_8h_source.html#l00389">389</a> of file <a class="el" href="l1__proximal_8h_source.html">l1_proximal.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;                                                                                             {</div><div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;    <span class="comment">// reset</span></div><div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;    <span class="keywordflow">if</span> (iter == 0) {</div><div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;      previous = unmixed;</div><div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;      <span class="keywordflow">return</span>;</div><div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;    }</div><div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;    <span class="keywordflow">if</span> (iter &lt;= 1) t = <a class="code" href="classsopt_1_1proximal_1_1L1_1_1FistaMixing.html#a7b34cce30496dd214c093438647e64c8">next</a>(1);</div><div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;    <span class="keyword">auto</span> <span class="keyword">const</span> prior_t = t;</div><div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;    t = <a class="code" href="classsopt_1_1proximal_1_1L1_1_1FistaMixing.html#a7b34cce30496dd214c093438647e64c8">next</a>(t);</div><div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;    <span class="keyword">auto</span> <span class="keyword">const</span> alpha = (prior_t - 1) / t;</div><div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;    previous = (1e0 + alpha) * unmixed.derived() - alpha * previous;</div><div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;  }</div><div class="ttc" id="classsopt_1_1proximal_1_1L1_1_1FistaMixing_html_a7b34cce30496dd214c093438647e64c8"><div class="ttname"><a href="classsopt_1_1proximal_1_1L1_1_1FistaMixing.html#a7b34cce30496dd214c093438647e64c8">sopt::proximal::L1::FistaMixing::next</a></div><div class="ttdeci">static Real next(Real t)</div><div class="ttdef"><b>Definition:</b> <a href="l1__proximal_8h_source.html#l00401">l1_proximal.h:401</a></div></div>
+<p class="definition">Definition at line <a class="el" href="l1__proximal_8h_source.html#l00391">391</a> of file <a class="el" href="l1__proximal_8h_source.html">l1_proximal.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;                                                                                             {</div><div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;    <span class="comment">// reset</span></div><div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;    <span class="keywordflow">if</span> (iter == 0) {</div><div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;      previous = unmixed;</div><div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;      <span class="keywordflow">return</span>;</div><div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;    }</div><div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;    <span class="keywordflow">if</span> (iter &lt;= 1) t = <a class="code" href="classsopt_1_1proximal_1_1L1_1_1FistaMixing.html#a7b34cce30496dd214c093438647e64c8">next</a>(1);</div><div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;    <span class="keyword">auto</span> <span class="keyword">const</span> prior_t = t;</div><div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;    t = <a class="code" href="classsopt_1_1proximal_1_1L1_1_1FistaMixing.html#a7b34cce30496dd214c093438647e64c8">next</a>(t);</div><div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;    <span class="keyword">auto</span> <span class="keyword">const</span> alpha = (prior_t - 1) / t;</div><div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;    previous = (1e0 + alpha) * unmixed.derived() - alpha * previous;</div><div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;  }</div><div class="ttc" id="classsopt_1_1proximal_1_1L1_1_1FistaMixing_html_a7b34cce30496dd214c093438647e64c8"><div class="ttname"><a href="classsopt_1_1proximal_1_1L1_1_1FistaMixing.html#a7b34cce30496dd214c093438647e64c8">sopt::proximal::L1::FistaMixing::next</a></div><div class="ttdeci">static Real next(Real t)</div><div class="ttdef"><b>Definition:</b> <a href="l1__proximal_8h_source.html#l00403">l1_proximal.h:403</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
