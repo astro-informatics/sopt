@@ -60,8 +60,12 @@ void check_round_trip(Eigen::ArrayBase<T0> const &input_, sopt::t_uint db,
 }
 
 TEST_CASE("wavelet data") {
-  for (sopt::t_int num = 1; num < 31; num++)
-    REQUIRE(sopt::wavelets::daubechies_data(num).coefficients.size() == 2 * num);
+  for (sopt::t_int num = 1; num < 100; num++) {
+    if (num < 39)
+      REQUIRE(sopt::wavelets::daubechies_data(num).coefficients.size() == 2 * num);
+    else
+      REQUIRE_THROWS(sopt::wavelets::daubechies_data(num));
+  }
 }
 
 TEST_CASE("Wavelet transform innards with integer data", "[wavelet]") {
