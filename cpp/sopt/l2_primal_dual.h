@@ -236,11 +236,11 @@ class ImagingPrimalDual {
 // E.g.: `paddm.l2_proximal_itermax(100).l2ball_epsilon(1e-2).l2_proximal_tolerance(1e-4)`.
 // ~~~
 #define SOPT_MACRO(VAR, NAME, PROXIMAL)                                                            \
-  /** \brief Forwards to l2ball_proximal **/                                                           \
+  /** \brief Forwards to l2ball_proximal **/                                                       \
   decltype(std::declval<proximal::PROXIMAL<Scalar> const>().VAR()) NAME##_proximal_##VAR() const { \
     return NAME##_proximal().VAR();                                                                \
   }                                                                                                \
-  /** \brief Forwards to l2ball_proximal **/                                                           \
+  /** \brief Forwards to l2ball_proximal **/                                                       \
   ImagingPrimalDual<Scalar> &NAME##_proximal_##VAR(                                                \
       decltype(std::declval<proximal::PROXIMAL<Scalar> const>().VAR()) VAR) {                      \
     NAME##_proximal().VAR(VAR);                                                                    \

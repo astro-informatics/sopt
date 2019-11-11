@@ -64,13 +64,13 @@ auto euclidian_norm(typename real_type<typename T0::Scalar>::type const &t,
 template <class T0, class T1>
 void l1_norm(Eigen::DenseBase<T0> &out, typename real_type<typename T0::Scalar>::type gamma,
              Eigen::DenseBase<T1> const &x) {
-  out = sopt::soft_threshhold(x, gamma);
+  out = sopt::soft_threshhold<T0>(x, gamma);
 }
 //! Proxmal of the weighted l1 norm
 template <class T0, class T1, class T2>
 void l1_norm(Eigen::DenseBase<T0> &out, Eigen::DenseBase<T2> const &gamma,
              Eigen::DenseBase<T1> const &x) {
-  out = sopt::soft_threshhold(x, gamma);
+  out = sopt::soft_threshhold<T0, T2>(x, gamma);
 }
 
 //! \brief Proximal of the l1 norm
