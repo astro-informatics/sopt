@@ -9,6 +9,11 @@
 #include "sopt/logging.h"
 #include "sopt/types.h"
 
+#ifdef SOPT_MPI
+#include "sopt/mpi/communicator.h"
+#include "sopt/mpi/utilities.h"
+#endif
+
 namespace sopt {
 namespace algorithm {
 
