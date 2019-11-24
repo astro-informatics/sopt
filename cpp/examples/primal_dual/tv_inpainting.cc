@@ -91,7 +91,7 @@ int main(int argc, char const **argv) {
   }
   const Vector grad = psi.adjoint() * (sampling.adjoint() * y);
   const sopt::t_real gamma = (grad.segment(0, image.size()).array().square() 
-      + grad.segment(image.size(), image.size()).array().square()).sqrt().real().maxCoeff() * 1e-2;
+      + grad.segment(image.size(), image.size()).array().square()).sqrt().real().maxCoeff() * 2e-2;
 
   SOPT_HIGH_LOG("Creating primal-dual Functor");
   auto const pd = sopt::algorithm::TVPrimalDual<Scalar>(y)
