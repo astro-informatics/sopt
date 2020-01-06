@@ -11,13 +11,13 @@
 
 #include <sopt/types.h>
 
-#include <sopt/tv_primal_dual.h>
+#include <sopt/gradient_operator.h>
 #include <sopt/maths.h>
 #include <sopt/power_method.h>
 #include <sopt/relative_variation.h>
 #include <sopt/sampling.h>
+#include <sopt/tv_primal_dual.h>
 #include <sopt/utilities.h>
-#include <sopt/gradient_operator.h>
 
 // This header is not part of the installed sopt interface
 // It is only present in tests
@@ -90,14 +90,18 @@ int main(int argc, char const **argv) {
                                 "dirty_" + output + ".tiff");
   }
   const Vector grad = psi.adjoint() * (sampling.adjoint() * y);
-  const sopt::t_real gamma = (grad.segment(0, image.size()).array().square() 
-      + grad.segment(image.size(), image.size()).array().square()).sqrt().real().maxCoeff() * 2e-2;
+  const sopt::t_real gamma = (grad.segment(0, image.size()).array().square() +
+                              grad.segment(image.size(), image.size()).array().square())
+                                 .sqrt()
+                                 .real()
+                                 .maxCoeff() *
+                             2e-2;
 
   SOPT_HIGH_LOG("Creating primal-dual Functor");
   auto const pd = sopt::algorithm::TVPrimalDual<Scalar>(y)
                       .itermax(2000)
                       .gamma(gamma)
-                      .tau(0.5/(1. + 1.))
+                      .tau(0.5 / (1. + 1.))
                       .l2ball_proximal_epsilon(epsilon)
                       .Psi(psi)
                       .Phi(sampling)
