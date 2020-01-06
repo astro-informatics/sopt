@@ -316,7 +316,7 @@ void PrimalDual<SCALAR>::iteration_step(t_Vector &out, t_Vector &out_hold, t_Vec
   random_measurement_update = random_measurement_updater_();
   random_wavelet_update = random_wavelet_updater_();
   // update residual
-  if (random_measurement_update) residual = ((Phi() * out_hold) * xi() - target());
+  if (random_measurement_update) residual = ((Phi() * out_hold).eval() * xi() - target()).eval();
 }
 
 template <class SCALAR>
@@ -344,7 +344,7 @@ typename PrimalDual<SCALAR>::Diagnostic PrimalDual<SCALAR>::operator()(
     SOPT_LOW_LOG("    - [Primal Dual] Iteration {}/{}", niters, itermax());
     iteration_step(out, out_hold, u, u_hold, v, v_hold, residual, q, r, random_measurement_update,
                    random_wavelet_update, u_update, v_update);
-    SOPT_LOW_LOG("      - [Primal Dual] Sum of residuals: {}", residual.array().abs().sum());
+    SOPT_LOW_LOG("      - [Primal Dual] Sum of residuals: {}", residual.eval().array().abs().sum());
     converged = is_converged(out, residual);
   }
 

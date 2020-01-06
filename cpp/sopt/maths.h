@@ -169,8 +169,8 @@ typename real_type<typename T0::Scalar>::type tv_norm(Eigen::ArrayBase<T0> const
                                                       Eigen::ArrayBase<T1> const &weights) {
   const auto size = input.size() / 2;
   if (weights.size() == 1) return (input.segment(0, size).square() 
-      + input.segment(size, size).square()).sqrt().matrix().eval().sum() * std::abs(weights(0));
-  return ((input.segment(0, size).square() + input.segment(size, size).square()).sqrt() * weights).matrix().eval().sum();
+      + input.segment(size, size).square()).cwiseAbs().sqrt().matrix().eval().sum() * std::abs(weights(0));
+  return std::abs(((input.segment(0, size).square() + input.segment(size, size).square()).cwiseAbs().sqrt() * weights).matrix().eval().sum());
 }
 //! Computes weighted TV norm
 template <class T0, class T1>
