@@ -13,7 +13,6 @@
 #include "sopt/relative_variation.h"
 #include "sopt/types.h"
 
-
 namespace sopt {
 namespace algorithm {
 template <class SCALAR>
@@ -83,16 +82,16 @@ class TVPrimalDual {
 
 // Macro helps define properties that can be initialized as in
 // auto padmm = TVPrimalDual<float>().prop0(value).prop1(value);
-#define SOPT_MACRO(NAME, TYPE)                        \
-  TYPE const &NAME() const { return NAME##_; }        \
+#define SOPT_MACRO(NAME, TYPE)                   \
+  TYPE const &NAME() const { return NAME##_; }   \
   TVPrimalDual<SCALAR> &NAME(TYPE const &NAME) { \
-    NAME##_ = NAME;                                   \
-    return *this;                                     \
-  }                                                   \
-                                                      \
- protected:                                           \
-  TYPE NAME##_;                                       \
-                                                      \
+    NAME##_ = NAME;                              \
+    return *this;                                \
+  }                                              \
+                                                 \
+ protected:                                      \
+  TYPE NAME##_;                                  \
+                                                 \
  public:
   //! The tv prox functioning as f
   SOPT_MACRO(tv_proximal, t_Proximal<Real>);
@@ -242,7 +241,7 @@ class TVPrimalDual {
     return NAME##_proximal().VAR();                                                                \
   }                                                                                                \
   /** \brief Forwards to l1_proximal **/                                                           \
-  TVPrimalDual<Scalar> &NAME##_proximal_##VAR(                                                \
+  TVPrimalDual<Scalar> &NAME##_proximal_##VAR(                                                     \
       decltype(std::declval<proximal::PROXIMAL<Scalar> const>().VAR()) VAR) {                      \
     NAME##_proximal().VAR(VAR);                                                                    \
     return *this;                                                                                  \
@@ -363,8 +362,7 @@ typename TVPrimalDual<SCALAR>::Diagnostic TVPrimalDual<SCALAR>::operator()(
 }
 
 template <class SCALAR>
-bool TVPrimalDual<SCALAR>::residual_convergence(t_Vector const &x,
-                                                     t_Vector const &residual) const {
+bool TVPrimalDual<SCALAR>::residual_convergence(t_Vector const &x, t_Vector const &residual) const {
   if (static_cast<bool>(residual_convergence())) return residual_convergence()(x, residual);
   if (residual_tolerance() <= 0e0) return true;
   auto const residual_norm = sopt::l2_norm(residual, l2ball_proximal_weights());
@@ -374,17 +372,18 @@ bool TVPrimalDual<SCALAR>::residual_convergence(t_Vector const &x,
 
 template <class SCALAR>
 bool TVPrimalDual<SCALAR>::objective_convergence(ScalarRelativeVariation<Scalar> &scalvar,
-                                                      t_Vector const &x,
-                                                      t_Vector const &residual) const {
+                                                 t_Vector const &x,
+                                                 t_Vector const &residual) const {
   if (static_cast<bool>(objective_convergence())) return objective_convergence()(x, residual);
   if (scalvar.relative_tolerance() <= 0e0) return true;
-  auto const current = sopt::tv_norm((Psi().adjoint() * x).eval(), tv_proximal_weights());
+  auto const current =
+      sopt::tv_norm(static_cast<t_Vector>(Psi().adjoint() * x), tv_proximal_weights());
   return scalvar(current);
 };
 
 template <class SCALAR>
-bool TVPrimalDual<SCALAR>::is_converged(ScalarRelativeVariation<Scalar> &scalvar,
-                                             t_Vector const &x, t_Vector const &residual) const {
+bool TVPrimalDual<SCALAR>::is_converged(ScalarRelativeVariation<Scalar> &scalvar, t_Vector const &x,
+                                        t_Vector const &residual) const {
   auto const user = static_cast<bool>(is_converged()) == false or is_converged()(x, residual);
   auto const res = residual_convergence(x, residual);
   auto const obj = objective_convergence(scalvar, x, residual);
