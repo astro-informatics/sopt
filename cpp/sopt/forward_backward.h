@@ -195,7 +195,7 @@ class ForwardBackward {
   static std::tuple<t_Vector, t_Vector> initial_guess(t_Vector const &target,
                                                       t_LinearTransform const &phi, Real nu) {
     std::tuple<t_Vector, t_Vector> guess;
-    std::get<0>(guess) = phi.adjoint() * target / nu;
+    std::get<0>(guess) = static_cast<t_Vector>(phi.adjoint() * target) / nu;
     std::get<1>(guess) = phi * std::get<0>(guess) - target;
     return guess;
   }

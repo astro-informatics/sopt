@@ -143,13 +143,13 @@ typename std::enable_if<is_complex<SCALAR>::value == is_complex<typename T0::Sca
 L1TightFrame<SCALAR>::objective(Eigen::MatrixBase<T0> const &x, Eigen::MatrixBase<T1> const &z,
                                 Real const &gamma) const {
 #ifdef SOPT_MPI
-  auto const adj =
-      gamma * sopt::mpi::l1_norm((Psi().adjoint() * z).eval(), weights(), adjoint_space_comm());
+  auto const adj = gamma * sopt::mpi::l1_norm(static_cast<T1>(Psi().adjoint() * z), weights(),
+                                              adjoint_space_comm());
   auto const dir = direct_space_comm().all_sum_all(0.5 * (x - z).squaredNorm());
   return adj + dir;
 #else
   return 0.5 * (x - z).squaredNorm() +
-         gamma * sopt::l1_norm((Psi().adjoint() * z).eval(), weights());
+         gamma * sopt::l1_norm(static_cast<T1>(Psi().adjoint() * z), weights());
 #endif
 }
 

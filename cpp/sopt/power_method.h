@@ -36,7 +36,7 @@ std::tuple<t_real, T> power_method(const sopt::LinearTransform<T> &op, const t_u
   bool converged = false;
   ScalarRelativeVariation<t_real> scalvar(relative_difference, 0., "Eigenvalue");
   for (t_int i = 0; i < niters; ++i) {
-    estimate_eigen_vector = op.adjoint() * (op * estimate_eigen_vector).eval();
+    estimate_eigen_vector = op.adjoint() * static_cast<T>(op * estimate_eigen_vector);
     estimate_eigen_value = estimate_eigen_vector.matrix().stableNorm();
     if (estimate_eigen_value <= 0) throw std::runtime_error("Error in operator.");
     if (estimate_eigen_value != estimate_eigen_value)
@@ -63,9 +63,11 @@ std::tuple<t_real, T, std::shared_ptr<sopt::LinearTransform<T>>> normalise_opera
   return std::make_tuple(
       std::get<0>(result), std::get<1>(result),
       std::make_shared<sopt::LinearTransform<T>>(
-          [op, norm](T &output, const T &input) { output = (*op * input).eval() / norm; },
+          [op, norm](T &output, const T &input) { output = static_cast<T>(*op * input) / norm; },
           op->sizes(),
-          [op, norm](T &output, const T &input) { output = (op->adjoint() * input).eval() / norm; },
+          [op, norm](T &output, const T &input) {
+            output = static_cast<T>(op->adjoint() * input) / norm;
+          },
           op->adjoint().sizes()));
 }
 template <class T>
@@ -87,9 +89,9 @@ std::tuple<t_real, T> all_sum_all_power_method(const sopt::mpi::Communicator &co
                                                const t_real &relative_difference,
                                                const T &initial_vector) {
   const auto all_sum_all_op = sopt::LinearTransform<T>(
-      [&op](T &output, const T &input) { output = (op * input).eval(); }, op.sizes(),
+      [&op](T &output, const T &input) { output = static_cast<T>(op * input); }, op.sizes(),
       [&op, comm](T &output, const T &input) {
-        output = comm.all_sum_all((op.adjoint() * input).eval());
+        output = comm.all_sum_all(static_cast<T>(op.adjoint() * input));
       },
       op.adjoint().sizes());
   return power_method(all_sum_all_op, niters, relative_difference, initial_vector.derived());
@@ -99,9 +101,9 @@ std::tuple<t_real, T, std::shared_ptr<sopt::LinearTransform<T>>> all_sum_all_nor
     const sopt::mpi::Communicator &comm, const std::shared_ptr<sopt::LinearTransform<T> const> &op,
     const t_uint &niters, const t_real &relative_difference, const T &initial_vector) {
   const auto all_sum_all_op = sopt::LinearTransform<T>(
-      [op](T &output, const T &input) { output = (*op * input).eval(); }, op->sizes(),
+      [op](T &output, const T &input) { output = static_cast<T>(*op * input); }, op->sizes(),
       [op, comm](T &output, const T &input) {
-        output = comm.all_sum_all((op->adjoint() * input).eval());
+        output = comm.all_sum_all(static_cast<T>(op->adjoint() * input));
       },
       op->adjoint().sizes());
   const auto result =
@@ -110,9 +112,11 @@ std::tuple<t_real, T, std::shared_ptr<sopt::LinearTransform<T>>> all_sum_all_nor
   return std::make_tuple(
       std::get<0>(result), std::get<1>(result),
       std::make_shared<sopt::LinearTransform<T>>(
-          [op, norm](T &output, const T &input) { output = (*op * input).eval() / norm; },
+          [op, norm](T &output, const T &input) { output = static_cast<T>(*op * input) / norm; },
           op->sizes(),
-          [op, norm](T &output, const T &input) { output = (op->adjoint() * input).eval() / norm; },
+          [op, norm](T &output, const T &input) {
+            output = static_cast<T>(op->adjoint() * input) / norm;
+          },
           op->adjoint().sizes()));
 }
 template <class T>
@@ -194,7 +198,7 @@ template <class SCALAR>
 typename PowerMethod<SCALAR>::DiagnosticAndResult PowerMethod<SCALAR>::AtA(
     t_LinearTransform const &A, t_Vector const &input) const {
   auto const op = [&A](t_Vector &out, t_Vector const &input) -> void {
-    out = A.adjoint() * (A * input).eval();
+    out = A.adjoint() * static_cast<t_Vector>(A * input);
   };
   return operator()(op, input);
 }

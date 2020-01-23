@@ -326,7 +326,8 @@ bool ImagingProximalADMM<SCALAR>::objective_convergence(ScalarRelativeVariation<
                                                         t_Vector const &residual) const {
   if (static_cast<bool>(objective_convergence())) return objective_convergence()(x, residual);
   if (scalvar.relative_tolerance() <= 0e0) return true;
-  auto const current = sopt::l1_norm((Psi().adjoint() * x).eval(), l1_proximal_weights());
+  auto const current =
+      sopt::l1_norm(static_cast<t_Vector>(Psi().adjoint() * x), l1_proximal_weights());
   return scalvar(current);
 };
 
