@@ -90,7 +90,7 @@ void l2_norm(Eigen::DenseBase<T0> &out, typename real_type<typename T0::Scalar>:
 template <class T0, class T1, class T2>
 void l2_norm(Eigen::DenseBase<T0> &out, Eigen::DenseBase<T2> const &gamma,
              Eigen::DenseBase<T1> const &x) {
-  out = x.derived().array() * 1. / (1. + gamma).array();
+  out = x.derived().array() * 1. / (1. + gamma.derived().array()).array();
 }
 
 //! Proximal of the l1,2 norm that is used in the TV norm

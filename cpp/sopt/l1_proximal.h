@@ -129,9 +129,15 @@ L1TightFrame<SCALAR>::operator()(Eigen::MatrixBase<T0> &out, Real gamma,
                                  Eigen::MatrixBase<T1> const &x) const {
   Vector<Scalar> const psit_x = Psi().adjoint() * x;
   if (weights().size() == 1)
-    out = Psi() * (soft_threshhold(psit_x, nu() * gamma * weights()(0)) - psit_x) / nu() + x;
+    out = static_cast<Vector<Scalar>>(
+              Psi() * (soft_threshhold(psit_x, nu() * gamma * weights()(0)) - psit_x)) /
+              nu() +
+          x;
   else
-    out = Psi() * (soft_threshhold(psit_x, nu() * gamma * weights()) - psit_x) / nu() + x;
+    out = static_cast<Vector<Scalar>>(
+              Psi() * (soft_threshhold(psit_x, nu() * gamma * weights()) - psit_x)) /
+              nu() +
+          x;
   SOPT_LOW_LOG("Prox L1: objective = {}", objective(x, out, gamma));
 }
 

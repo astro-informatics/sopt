@@ -290,7 +290,7 @@ void PrimalDual<SCALAR>::iteration_step(t_Vector &out, t_Vector &out_hold, t_Vec
     g_proximal(v_hold, rho(), v + residual);
     v_hold = v + residual - v_hold;
     v = v + update_scale() * (v_hold - v);
-    v_update = Phi().adjoint() * v;
+    v_update = static_cast<t_Vector>(Phi().adjoint() * v);
   }
   // dual calculations for wavelet
   if (random_wavelet_update) {
@@ -298,7 +298,7 @@ void PrimalDual<SCALAR>::iteration_step(t_Vector &out, t_Vector &out_hold, t_Vec
     f_proximal(u_hold, gamma(), (u + q));
     u_hold = u + q - u_hold;
     u = u + update_scale() * (u_hold - u);
-    u_update = Psi() * u;
+    u_update = static_cast<t_Vector>(Psi() * u);
   }
   // primal calculations
   r = out;
