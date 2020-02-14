@@ -354,10 +354,11 @@ bool ImagingForwardBackward<SCALAR>::objective_convergence(ScalarRelativeVariati
                                                            t_Vector const &residual) const {
   if (static_cast<bool>(objective_convergence())) return objective_convergence()(x, residual);
   if (scalvar.relative_tolerance() <= 0e0) return true;
-  auto const current =
-      ((gamma() > 0) ? sopt::l1_norm((Psi().adjoint() * x).eval(), l1_proximal_weights()) * gamma()
-                     : 0) +
-      std::pow(sopt::l2_norm(residual), 2) / (2 * sigma() * sigma());
+  auto const current = ((gamma() > 0) ? sopt::l1_norm(static_cast<t_Vector>(Psi().adjoint() * x),
+                                                      l1_proximal_weights()) *
+                                            gamma()
+                                      : 0) +
+                       std::pow(sopt::l2_norm(residual), 2) / (2 * sigma() * sigma());
   return scalvar(current);
 };
 
@@ -370,8 +371,10 @@ bool ImagingForwardBackward<SCALAR>::objective_convergence(mpi::Communicator con
   if (static_cast<bool>(objective_convergence())) return objective_convergence()(x, residual);
   if (scalvar.relative_tolerance() <= 0e0) return true;
   auto const current = obj_comm.all_sum_all<t_real>(
-      ((gamma() > 0) ? sopt::l1_norm((Psi().adjoint() * x).eval(), l1_proximal_weights()) * gamma()
-                     : 0) +
+      ((gamma() > 0)
+           ? sopt::l1_norm(static_cast<t_Vector>(Psi().adjoint() * x), l1_proximal_weights()) *
+                 gamma()
+           : 0) +
       std::pow(sopt::l2_norm(residual), 2) / (2 * sigma() * sigma()));
   return scalvar(current);
 };

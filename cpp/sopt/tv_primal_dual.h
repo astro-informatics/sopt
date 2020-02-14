@@ -1,12 +1,11 @@
-#ifndef SOPT_L1_PRIMAL_DUAL_H
-#define SOPT_L1_PRIMAL_DUAL_H
+#ifndef SOPT_TV_PRIMAL_DUAL_H
+#define SOPT_TV_PRIMAL_DUAL_H
 
 #include "sopt/config.h"
 #include <numeric>
 #include <tuple>
 #include <utility>
 #include "sopt/exception.h"
-#include "sopt/l1_proximal.h"
 #include "sopt/linear_transform.h"
 #include "sopt/logging.h"
 #include "sopt/primal_dual.h"
@@ -17,7 +16,7 @@
 namespace sopt {
 namespace algorithm {
 template <class SCALAR>
-class ImagingPrimalDual {
+class TVPrimalDual {
   //! Underlying algorithm
   typedef PrimalDual<SCALAR> PD;
 
@@ -49,14 +48,14 @@ class ImagingPrimalDual {
   //! \param[in] f_proximal: proximal operator of the \f$f\f$ function.
   //! \param[in] g_proximal: proximal operator of the \f$g\f$ function
   template <class DERIVED>
-  ImagingPrimalDual(Eigen::MatrixBase<DERIVED> const &target)
-      : l1_proximal_([](t_Vector &out, const Real &gamma, const t_Vector &x) {
-          proximal::l1_norm<t_Vector, t_Vector>(out, gamma, x);
+  TVPrimalDual(Eigen::MatrixBase<DERIVED> const &target)
+      : tv_proximal_([](t_Vector &out, const Real &gamma, const t_Vector &x) {
+          proximal::tv_norm<t_Vector, t_Vector>(out, gamma, x);
         }),
-        l1_proximal_weighted_([](t_Vector &out, const Vector<Real> &gamma, const t_Vector &x) {
-          proximal::l1_norm<t_Vector, t_Vector, Vector<Real>>(out, gamma, x);
+        tv_proximal_weighted_([](t_Vector &out, const Vector<Real> &gamma, const t_Vector &x) {
+          proximal::tv_norm<t_Vector, t_Vector, Vector<Real>>(out, gamma, x);
         }),
-        l1_proximal_weights_(Vector<Real>::Ones(1)),
+        tv_proximal_weights_(Vector<Real>::Ones(1)),
         l2ball_proximal_(1e0),
         residual_tolerance_(1e-4),
         relative_variation_(1e-4),
@@ -79,27 +78,27 @@ class ImagingPrimalDual {
         random_measurement_updater_([]() { return true; }),
         random_wavelet_updater_([]() { return true; }),
         target_(target) {}
-  virtual ~ImagingPrimalDual() {}
+  virtual ~TVPrimalDual() {}
 
 // Macro helps define properties that can be initialized as in
-// auto padmm = ImagingPrimalDual<float>().prop0(value).prop1(value);
-#define SOPT_MACRO(NAME, TYPE)                        \
-  TYPE const &NAME() const { return NAME##_; }        \
-  ImagingPrimalDual<SCALAR> &NAME(TYPE const &NAME) { \
-    NAME##_ = NAME;                                   \
-    return *this;                                     \
-  }                                                   \
-                                                      \
- protected:                                           \
-  TYPE NAME##_;                                       \
-                                                      \
+// auto padmm = TVPrimalDual<float>().prop0(value).prop1(value);
+#define SOPT_MACRO(NAME, TYPE)                   \
+  TYPE const &NAME() const { return NAME##_; }   \
+  TVPrimalDual<SCALAR> &NAME(TYPE const &NAME) { \
+    NAME##_ = NAME;                              \
+    return *this;                                \
+  }                                              \
+                                                 \
+ protected:                                      \
+  TYPE NAME##_;                                  \
+                                                 \
  public:
-  //! The l1 prox functioning as f
-  SOPT_MACRO(l1_proximal, t_Proximal<Real>);
-  //! The l1 prox with weights functioning as f
-  SOPT_MACRO(l1_proximal_weighted, t_Proximal<Vector<Real>>);
-  //! The l1 prox weights functioning
-  SOPT_MACRO(l1_proximal_weights, Vector<Real>);
+  //! The tv prox functioning as f
+  SOPT_MACRO(tv_proximal, t_Proximal<Real>);
+  //! The tv prox with weights functioning as f
+  SOPT_MACRO(tv_proximal_weighted, t_Proximal<Vector<Real>>);
+  //! The tv prox weights functioning
+  SOPT_MACRO(tv_proximal_weights, Vector<Real>);
   //! The weighted L2 proximal functioning as g
   SOPT_MACRO(l2ball_proximal, proximal::WeightedL2Ball<Scalar>);
   //! \brief Convergence of the relative variation of the objective functions
@@ -162,7 +161,7 @@ class ImagingPrimalDual {
   t_Vector const &target() const { return target_; }
   //! Sets the vector of target measurements
   template <class DERIVED>
-  ImagingPrimalDual<Scalar> &target(Eigen::MatrixBase<DERIVED> const &target) {
+  TVPrimalDual<Scalar> &target(Eigen::MatrixBase<DERIVED> const &target) {
     target_ = target;
     return *this;
   }
@@ -215,7 +214,7 @@ class ImagingPrimalDual {
 
   //! Set Φ and Φ^† using arguments that sopt::linear_transform understands
   template <class... ARGS>
-  typename std::enable_if<sizeof...(ARGS) >= 1, ImagingPrimalDual &>::type Phi(ARGS &&... args) {
+  typename std::enable_if<sizeof...(ARGS) >= 1, TVPrimalDual &>::type Phi(ARGS &&... args) {
     Phi_ = linear_transform(std::forward<ARGS>(args)...);
     return *this;
   }
@@ -226,7 +225,7 @@ class ImagingPrimalDual {
 
   //! Analysis operator Ψ
   template <class... ARGS>
-  typename std::enable_if<sizeof...(ARGS) >= 1, ImagingPrimalDual &>::type Psi(ARGS &&... args) {
+  typename std::enable_if<sizeof...(ARGS) >= 1, TVPrimalDual &>::type Psi(ARGS &&... args) {
     Psi_ = linear_transform(std::forward<ARGS>(args)...);
     return *this;
   }
@@ -234,7 +233,7 @@ class ImagingPrimalDual {
 // Forwards get/setters to L1 and L2Ball proximals
 // In practice, we end up with a bunch of functions that make it simpler to set or get values
 // associated with the two proximal operators.
-// E.g.: `paddm.l1_proximal_itermax(100).l2ball_epsilon(1e-2).l1_proximal_tolerance(1e-4)`.
+// E.g.: `paddm.tv_proximal_itermax(100).l2ball_epsilon(1e-2).tv_proximal_tolerance(1e-4)`.
 // ~~~
 #define SOPT_MACRO(VAR, NAME, PROXIMAL)                                                            \
   /** \brief Forwards to l1_proximal **/                                                           \
@@ -242,7 +241,7 @@ class ImagingPrimalDual {
     return NAME##_proximal().VAR();                                                                \
   }                                                                                                \
   /** \brief Forwards to l1_proximal **/                                                           \
-  ImagingPrimalDual<Scalar> &NAME##_proximal_##VAR(                                                \
+  TVPrimalDual<Scalar> &NAME##_proximal_##VAR(                                                     \
       decltype(std::declval<proximal::PROXIMAL<Scalar> const>().VAR()) VAR) {                      \
     NAME##_proximal().VAR(VAR);                                                                    \
     return *this;                                                                                  \
@@ -255,15 +254,15 @@ class ImagingPrimalDual {
 #undef SOPT_MACRO
 
   //! Helper function to set-up default residual convergence function
-  ImagingPrimalDual<Scalar> &residual_convergence(Real const &tolerance) {
+  TVPrimalDual<Scalar> &residual_convergence(Real const &tolerance) {
     return residual_convergence(nullptr).residual_tolerance(tolerance);
   }
   //! Helper function to set-up default residual convergence function
-  ImagingPrimalDual<Scalar> &objective_convergence(Real const &tolerance) {
+  TVPrimalDual<Scalar> &objective_convergence(Real const &tolerance) {
     return objective_convergence(nullptr).relative_variation(tolerance);
   }
   //! Convergence function that takes only the output as argument
-  ImagingPrimalDual<Scalar> &is_converged(std::function<bool(t_Vector const &x)> const &func) {
+  TVPrimalDual<Scalar> &is_converged(std::function<bool(t_Vector const &x)> const &func) {
     return is_converged([func](t_Vector const &x, t_Vector const &) { return func(x); });
   }
 
@@ -287,32 +286,32 @@ class ImagingPrimalDual {
   //! Helper function to simplify checking convergence
   bool is_converged(ScalarRelativeVariation<Scalar> &scalvar, t_Vector const &x,
                     t_Vector const &residual) const;
-  //! check that l1 and weighted l1 proximal operators are the same function (except for weights)
-  bool check_l1_weight_proximal(const t_Proximal<Real> &no_weights,
+  //! check that tv and weighted tv proximal operators are the same function (except for weights)
+  bool check_tv_weight_proximal(const t_Proximal<Real> &no_weights,
                                 const t_Proximal<Vector<Real>> &with_weights) const {
-    const Vector<SCALAR> x = Vector<SCALAR>::Ones(this->l1_proximal_weights().size());
-    Vector<SCALAR> output = Vector<SCALAR>::Zero(this->l1_proximal_weights().size());
-    Vector<SCALAR> outputw = Vector<SCALAR>::Zero(this->l1_proximal_weights().size());
+    const Vector<SCALAR> x = Vector<SCALAR>::Ones(this->tv_proximal_weights().size());
+    Vector<SCALAR> output = Vector<SCALAR>::Zero(this->tv_proximal_weights().size());
+    Vector<SCALAR> outputw = Vector<SCALAR>::Zero(this->tv_proximal_weights().size());
     no_weights(output, 1, x);
-    with_weights(outputw, Vector<Real>::Ones(this->l1_proximal_weights().size()), x);
+    with_weights(outputw, Vector<Real>::Ones(this->tv_proximal_weights().size()), x);
     return output.isApprox(outputw);
   };
 };
 
 template <class SCALAR>
-typename ImagingPrimalDual<SCALAR>::Diagnostic ImagingPrimalDual<SCALAR>::operator()(
+typename TVPrimalDual<SCALAR>::Diagnostic TVPrimalDual<SCALAR>::operator()(
     t_Vector &out, t_Vector const &guess, t_Vector const &res) const {
-  SOPT_HIGH_LOG("Performing Primal Dual with L1 and L2 operators");
+  SOPT_HIGH_LOG("Performing Primal Dual with TV and L2 operators");
   // The f proximal is an L1 proximal that stores some diagnostic result
-  if (not check_l1_weight_proximal(l1_proximal(), l1_proximal_weighted()))
+  if (not check_tv_weight_proximal(tv_proximal(), tv_proximal_weighted()))
     SOPT_THROW(
-        "l1 proximal and weighted l1 proximal appear to be different functions. Please make sure "
+        "tv proximal and weighted tv proximal appear to be different functions. Please make sure "
         "both are the same function.");
   auto const f_proximal = [this](t_Vector &out, Real gamma, t_Vector const &x) {
-    if (this->l1_proximal_weights().size() > 1)
-      this->l1_proximal_weighted()(out, this->l1_proximal_weights() * gamma, x);
+    if (this->tv_proximal_weights().size() > 1)
+      this->tv_proximal_weighted()(out, this->tv_proximal_weights() * gamma, x);
     else
-      this->l1_proximal()(out, this->l1_proximal_weights()(0) * gamma, x);
+      this->tv_proximal()(out, this->tv_proximal_weights()(0) * gamma, x);
   };
   auto const g_proximal = [this](t_Vector &out, Real gamma, t_Vector const &x) {
     this->l2ball_proximal()(out, gamma, x);
@@ -363,8 +362,7 @@ typename ImagingPrimalDual<SCALAR>::Diagnostic ImagingPrimalDual<SCALAR>::operat
 }
 
 template <class SCALAR>
-bool ImagingPrimalDual<SCALAR>::residual_convergence(t_Vector const &x,
-                                                     t_Vector const &residual) const {
+bool TVPrimalDual<SCALAR>::residual_convergence(t_Vector const &x, t_Vector const &residual) const {
   if (static_cast<bool>(residual_convergence())) return residual_convergence()(x, residual);
   if (residual_tolerance() <= 0e0) return true;
   auto const residual_norm = sopt::l2_norm(residual, l2ball_proximal_weights());
@@ -373,19 +371,19 @@ bool ImagingPrimalDual<SCALAR>::residual_convergence(t_Vector const &x,
 };
 
 template <class SCALAR>
-bool ImagingPrimalDual<SCALAR>::objective_convergence(ScalarRelativeVariation<Scalar> &scalvar,
-                                                      t_Vector const &x,
-                                                      t_Vector const &residual) const {
+bool TVPrimalDual<SCALAR>::objective_convergence(ScalarRelativeVariation<Scalar> &scalvar,
+                                                 t_Vector const &x,
+                                                 t_Vector const &residual) const {
   if (static_cast<bool>(objective_convergence())) return objective_convergence()(x, residual);
   if (scalvar.relative_tolerance() <= 0e0) return true;
   auto const current =
-      sopt::l1_norm(static_cast<t_Vector>(Psi().adjoint() * x), l1_proximal_weights());
+      sopt::tv_norm(static_cast<t_Vector>(Psi().adjoint() * x), tv_proximal_weights());
   return scalvar(current);
 };
 
 template <class SCALAR>
-bool ImagingPrimalDual<SCALAR>::is_converged(ScalarRelativeVariation<Scalar> &scalvar,
-                                             t_Vector const &x, t_Vector const &residual) const {
+bool TVPrimalDual<SCALAR>::is_converged(ScalarRelativeVariation<Scalar> &scalvar, t_Vector const &x,
+                                        t_Vector const &residual) const {
   auto const user = static_cast<bool>(is_converged()) == false or is_converged()(x, residual);
   auto const res = residual_convergence(x, residual);
   auto const obj = objective_convergence(scalvar, x, residual);

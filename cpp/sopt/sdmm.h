@@ -248,7 +248,7 @@ ConjugateGradient::Diagnostic SDMM<SCALAR>::solve_for_xn(t_Vector &out, t_Vector
   auto A = [this](t_Vector &out, t_Vector const &input) {
     out = out.Zero(input.size());
     for (auto const &transform : this->transforms())
-      out += transform.adjoint() * (transform * input).eval();
+      out += transform.adjoint() * static_cast<t_Vector>(transform * input);
   };
 
   // Call conjugate gradient

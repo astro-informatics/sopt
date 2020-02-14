@@ -9,6 +9,11 @@
 #include "sopt/logging.h"
 #include "sopt/types.h"
 
+#ifdef SOPT_MPI
+#include "sopt/mpi/communicator.h"
+#include "sopt/mpi/utilities.h"
+#endif
+
 namespace sopt {
 namespace algorithm {
 
@@ -240,7 +245,7 @@ class PrimalDual {
   static std::tuple<t_Vector, t_Vector> initial_guess(t_Vector const &target,
                                                       t_LinearTransform const &phi, Real nu) {
     std::tuple<t_Vector, t_Vector> guess;
-    std::get<0>(guess) = (phi.adjoint() * t_Vector::Zero(target.size())).eval();
+    std::get<0>(guess) = static_cast<t_Vector>(phi.adjoint() * target);
     std::get<1>(guess) = target;
     return guess;
   }
@@ -285,15 +290,15 @@ void PrimalDual<SCALAR>::iteration_step(t_Vector &out, t_Vector &out_hold, t_Vec
     g_proximal(v_hold, rho(), v + residual);
     v_hold = v + residual - v_hold;
     v = v + update_scale() * (v_hold - v);
-    v_update = Phi().adjoint() * v;
+    v_update = static_cast<t_Vector>(Phi().adjoint() * v);
   }
   // dual calculations for wavelet
   if (random_wavelet_update) {
-    q = (Psi().adjoint() * out_hold) * sigma();
+    q = static_cast<t_Vector>(Psi().adjoint() * out_hold) * sigma();
     f_proximal(u_hold, gamma(), (u + q));
     u_hold = u + q - u_hold;
     u = u + update_scale() * (u_hold - u);
-    u_update = Psi() * u;
+    u_update = static_cast<t_Vector>(Psi() * u);
   }
   // primal calculations
   r = out;
@@ -311,7 +316,8 @@ void PrimalDual<SCALAR>::iteration_step(t_Vector &out, t_Vector &out_hold, t_Vec
   random_measurement_update = random_measurement_updater_();
   random_wavelet_update = random_wavelet_updater_();
   // update residual
-  if (random_measurement_update) residual = ((Phi() * out_hold) * xi() - target());
+  if (random_measurement_update)
+    residual = static_cast<t_Vector>(Phi() * out_hold) * xi() - target();
 }
 
 template <class SCALAR>
@@ -339,7 +345,8 @@ typename PrimalDual<SCALAR>::Diagnostic PrimalDual<SCALAR>::operator()(
     SOPT_LOW_LOG("    - [Primal Dual] Iteration {}/{}", niters, itermax());
     iteration_step(out, out_hold, u, u_hold, v, v_hold, residual, q, r, random_measurement_update,
                    random_wavelet_update, u_update, v_update);
-    SOPT_LOW_LOG("      - [Primal Dual] Sum of residuals: {}", residual.array().abs().sum());
+    SOPT_LOW_LOG("      - [Primal Dual] Sum of residuals: {}",
+                 static_cast<t_Vector>(residual).array().abs().sum());
     converged = is_converged(out, residual);
   }
 

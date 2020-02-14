@@ -16,6 +16,7 @@ if(CATCH_HAS_THROWS_AS)
 endif()
 
 add_catch_test(wavelets LIBRARIES sopt)
+add_catch_test(gradient_operator LIBRARIES sopt tools_for_tests)
 add_catch_test(sara LIBRARIES sopt)
 add_catch_test(maths LIBRARIES sopt)
 add_catch_test(wrapper LIBRARIES sopt)

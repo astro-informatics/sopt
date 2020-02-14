@@ -8,6 +8,7 @@ set(headers
   maths.h proximal.h relative_variation.h sdmm.h
   wavelets.h conjugate_gradient.h l1_proximal.h logging.enabled.h padmm.h proximal_expression.h
   reweighted.h types.h wrapper.h exception.h linear_transform.h logging.h positive_quadrant.h
+  tv_primal_dual.h gradient_operator.h
   l2_forward_backward.h l2_primal_dual.h
   real_type.h sampling.h power_method.h objective_functions.h ${PROJECT_BINARY_DIR}/include/sopt/config.h
   )

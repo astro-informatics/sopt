@@ -116,7 +116,7 @@ template <class T0, class T1>
 typename real_type<typename T0::Scalar>::type l1_norm(Eigen::ArrayBase<T0> const &input,
                                                       Eigen::ArrayBase<T1> const &weights) {
   if (weights.size() == 1) return input.cwiseAbs().sum() * std::abs(weights(0));
-  return (input.cwiseAbs() * weights).real().sum();
+  return (input * weights).cwiseAbs().sum();
 }
 //! Computes weighted L1 norm
 template <class T0, class T1>
@@ -139,8 +139,8 @@ typename real_type<typename T0::Scalar>::type l1_norm(Eigen::MatrixBase<T0> cons
 template <class T0, class T1>
 typename real_type<typename T0::Scalar>::type l2_norm(Eigen::ArrayBase<T0> const &input,
                                                       Eigen::ArrayBase<T1> const &weights) {
-  if (weights.size() == 1) return input.matrix().eval().stableNorm() * std::abs(weights(0));
-  return (input * weights).matrix().eval().stableNorm();
+  if (weights.size() == 1) return input.matrix().stableNorm() * std::abs(weights(0));
+  return (input * weights).matrix().stableNorm();
 }
 //! Computes weighted L2 norm
 template <class T0, class T1>
@@ -161,6 +161,45 @@ typename real_type<typename T0::Scalar>::type l2_norm(Eigen::MatrixBase<T0> cons
   typename T0::PlainObject w(1);
   w(0) = 1;
   return l2_norm(input.derived().array(), w.array());
+}
+
+//! Computes weighted TV norm
+template <class T0, class T1>
+typename real_type<typename T0::Scalar>::type tv_norm(Eigen::ArrayBase<T0> const &input,
+                                                      Eigen::ArrayBase<T1> const &weights) {
+  const auto size = input.size() / 2;
+  if (weights.size() == 1)
+    return (input.segment(0, size).square() + input.segment(size, size).square())
+               .cwiseAbs()
+               .sqrt()
+               .matrix()
+               .sum() *
+           std::abs(weights(0));
+  return std::abs(
+      ((input.segment(0, size).square() + input.segment(size, size).square()).cwiseAbs().sqrt() *
+       weights)
+          .matrix()
+          .sum());
+}
+//! Computes weighted TV norm
+template <class T0, class T1>
+typename real_type<typename T0::Scalar>::type tv_norm(Eigen::MatrixBase<T0> const &input,
+                                                      Eigen::MatrixBase<T1> const &weights) {
+  return tv_norm(input.derived().array(), weights.derived().array());
+}
+//! Computes weighted tv norm
+template <class T0>
+typename real_type<typename T0::Scalar>::type tv_norm(Eigen::ArrayBase<T0> const &input) {
+  typename T0::PlainObject w(1);
+  w(0) = 1;
+  return tv_norm(input, w);
+}
+//! Computes weighted TV norm
+template <class T0>
+typename real_type<typename T0::Scalar>::type tv_norm(Eigen::MatrixBase<T0> const &input) {
+  typename T0::PlainObject w(1);
+  w(0) = 1;
+  return tv_norm(input.derived().array(), w.array());
 }
 
 namespace details {
