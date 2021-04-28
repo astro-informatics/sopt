@@ -1,6 +1,6 @@
 include(PackageLookup)  # check for existence, or install external projects
 
-lookup_package(Eigen3 REQUIRED)
+lookup_package(Eigen3 REQUIRED ARGUMENTS MD5 9e30f67e8531477de4117506fe44669b URL https://gitlab.com/libeigen/eigen/-/archive/3.3.7/eigen-3.3.7.tar.gz)
 if(logging)
   lookup_package(spdlog REQUIRED)
 endif()
