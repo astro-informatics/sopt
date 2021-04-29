@@ -62,6 +62,7 @@ if(tests OR examples)
 endif()
 
 if(tests)
+  find_package(Catch 2.3.0 EXACT)
   include(AddCatchTest)
 endif()
 if(examples)
