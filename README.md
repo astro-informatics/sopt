@@ -3,7 +3,7 @@ Sparse OPTimisation Library
 
 [![Build Status](https://travis-ci.com/astro-informatics/sopt.svg?branch=development)](https://travis-ci.com/astro-informatics/sopt)
 [![codecov](https://codecov.io/gh/astro-informatics/sopt/branch/development/graph/badge.svg)](https://codecov.io/gh/astro-informatics/sopt)
-[![DOI](http://img.shields.io/badge/DOI-Planar-blue.svg?style=flat)](https://doi.org/10.5281/zenodo.2584256)
+[![DOI](http://img.shields.io/badge/DOI-10.5281/zenodo.2584256-blue.svg?style=flat)](https://doi.org/10.5281/zenodo.2584256)
 
 Description
 -------------
