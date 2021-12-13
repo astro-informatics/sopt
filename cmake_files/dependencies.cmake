@@ -48,14 +48,19 @@ if(openmp)
     set_target_properties(openmp::openmp PROPERTIES
       INTERFACE_COMPILE_OPTIONS "${OpenMP_CXX_FLAGS}"
       INTERFACE_LINK_LIBRARIES  "${OpenMP_CXX_FLAGS}")
-  else()
+  else()    
     message(STATUS "Could not find OpenMP. Compiling without.")
+    find_package(Threads REQUIRED)
+    add_library(threads::threads INTERFACE IMPORTED GLOBAL)
+    set_target_properties(threads::threads PROPERTIES
+      INTERFACE_COMPILE_OPTIONS "-pthread"
+      INTERFACE_LINK_LIBRARIES  "${CMAKE_THREAD_LIBS_INIT}")
     set(SOPT_OPENMP FALSE)
   endif()
 endif()
 
 set(SOPT_MPI FALSE)
 if(dompi)
-	find_package(MPI)
+  find_package(MPI)
 endif()
 set(SOPT_MPI ${MPI_FOUND})
