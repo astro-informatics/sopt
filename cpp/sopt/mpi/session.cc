@@ -1,6 +1,6 @@
 #include "sopt/mpi/session.h"
 #include "sopt/config.h"
-#include <exception>
+#include "sopt/exception.h"
 #include <mpi.h>
 #include "sopt/logging.h"
 #include "sopt/types.h"
