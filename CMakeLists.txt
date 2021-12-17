@@ -42,7 +42,11 @@ cxx11_feature_check(REQUIRED unique_ptr nullptr override constructor_delegate)
 include(compilations)
 
 # search/install dependencies
+# with find_package calls commented out
 include(dependencies)
+
+include(${PROJECT_SOURCE_DIR}/build/conanbuildinfo.cmake)
+conan_basic_setup()
 
 # sets rpath policy explicitly
 if(CMAKE_VERSION VERSION_LESS 3.0)
@@ -62,7 +66,8 @@ if(tests OR examples)
 endif()
 
 if(tests)
-  find_package(Catch 2.3.0 EXACT)
+  #find_package(Catch 2.3.0 EXACT)
+  find_package(Catch)
   include(AddCatchTest)
 endif()
 if(examples)
