@@ -48,7 +48,7 @@ if(openmp)
     set_target_properties(openmp::openmp PROPERTIES
       INTERFACE_COMPILE_OPTIONS "${OpenMP_CXX_FLAGS}"
       INTERFACE_LINK_LIBRARIES  "${OpenMP_CXX_FLAGS}")
-  else()    
+  else()
     message(STATUS "Could not find OpenMP. Compiling without.")
     set(SOPT_OPENMP FALSE)
   endif()
