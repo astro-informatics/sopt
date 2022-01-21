@@ -1,0 +1,36 @@
+name: Documentation
+
+on:
+  push:
+    branches: [ development ]
+  pull_request:
+    branches: [ development ]
+  
+jobs:
+  make-documentation:
+    runs-on: ubuntu-20.04
+    steps:
+    
+      - name: Check out sopt
+        uses: actions/checkout@v2
+    
+      - name: Install dependencies
+        run: sudo apt install libtiff5-dev openmpi-bin libopenmpi-dev libeigen3-dev libyaml-cpp-dev doxygen graphviz
+        
+      - name: Configure and build docs
+        run: | 
+          mkdir build
+          cd build
+          cmake .. \
+          -Ddompi=OFF \
+          -Dopenmp=OFF \
+          -Ddocs=ON \
+          -Dweb=ON 
+          make docweb VERBOSE=1
+        
+      - name: Deploy to GH pages
+        if: ${{github.event_name == 'push'}}
+        uses: JamesIves/github-pages-deploy-action@4.1.6
+        with:
+          branch: gh-pages # The branch the action should deploy to.
+          folder: build/cpp/docs/html # The folder the action should deploy.
