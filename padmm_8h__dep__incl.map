@@ -1,11 +1,12 @@
-<map id="/mydata/cpp/sopt/padmm.h" name="/mydata/cpp/sopt/padmm.h">
-<area shape="rect" id="node2" href="$proximal__admm_2euclidian__norm_8cc.html" title="/mydata/cpp/examples\l/proximal_admm/euclidian\l_norm.cc" alt="" coords="509,80,705,136"/>
-<area shape="rect" id="node3" href="$imaging__padmm_8h.html" title="/mydata/cpp/sopt/imaging\l_padmm.h" alt="" coords="730,87,922,129"/>
-<area shape="rect" id="node7" href="$padmm_8cc.html" title="/mydata/cpp/tests/padmm.cc" alt="" coords="1170,191,1381,218"/>
-<area shape="rect" id="node10" href="$padmm__warm__start_8cc.html" title="/mydata/cpp/tests/padmm\l_warm_start.cc" alt="" coords="997,87,1191,129"/>
-<area shape="rect" id="node4" href="$proximal__admm_2inpainting_8cc.html" title="/mydata/cpp/examples\l/proximal_admm/inpainting.cc" alt="" coords="5,184,225,225"/>
-<area shape="rect" id="node5" href="$examples_2proximal__admm_2reweighted_8cc.html" title="/mydata/cpp/examples\l/proximal_admm/reweighted.cc" alt="" coords="249,184,477,225"/>
-<area shape="rect" id="node6" href="$padmm__inpainting_8cc.html" title="/mydata/cpp/regressions\l/padmm_inpainting.cc" alt="" coords="501,184,684,225"/>
-<area shape="rect" id="node8" href="$tests_2reweighted_8cc.html" title="/mydata/cpp/tests/reweighted.cc" alt="" coords="709,191,943,218"/>
-<area shape="rect" id="node9" href="$serial__vs__parallel__padmm_8cc.html" title="/mydata/cpp/tests/serial\l_vs_parallel_padmm.cc" alt="" coords="967,184,1146,225"/>
+<map id="/home/runner/work/sopt/sopt/cpp/sopt/padmm.h" name="/home/runner/work/sopt/sopt/cpp/sopt/padmm.h">
+<area shape="rect" id="node1" title=" " alt="" coords="756,5,935,47"/>
+<area shape="rect" id="node2" href="$proximal__admm_2euclidian__norm_8cc.html" title=" " alt="" coords="459,95,669,151"/>
+<area shape="rect" id="node3" href="$imaging__padmm_8h.html" title=" " alt="" coords="694,95,871,151"/>
+<area shape="rect" id="node7" href="$padmm_8cc.html" title=" " alt="" coords="1115,206,1304,247"/>
+<area shape="rect" id="node10" href="$padmm__warm__start_8cc.html" title=" " alt="" coords="947,95,1125,151"/>
+<area shape="rect" id="node4" href="$proximal__admm_2inpainting_8cc.html" title=" " alt="" coords="5,199,216,255"/>
+<area shape="rect" id="node5" href="$examples_2proximal__admm_2reweighted_8cc.html" title=" " alt="" coords="240,199,451,255"/>
+<area shape="rect" id="node6" href="$padmm__inpainting_8cc.html" title=" " alt="" coords="475,199,653,255"/>
+<area shape="rect" id="node8" href="$tests_2reweighted_8cc.html" title=" " alt="" coords="677,206,889,247"/>
+<area shape="rect" id="node9" href="$serial__vs__parallel__padmm_8cc.html" title=" " alt="" coords="913,199,1090,255"/>
 </map>

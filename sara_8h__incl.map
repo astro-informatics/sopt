@@ -1,11 +1,23 @@
-<map id="/mydata/cpp/sopt/wavelets/sara.h" name="/mydata/cpp/sopt/wavelets/sara.h">
-<area shape="rect" id="node7" href="$logging_8h.html" title="sopt/logging.h" alt="" coords="115,333,229,360"/>
-<area shape="rect" id="node11" href="$wavelets_2wavelets_8h.html" title="sopt/wavelets/wavelets.h" alt="" coords="461,95,649,121"/>
-<area shape="rect" id="node8" href="$logging_8disabled_8h.html" title="sopt/logging.disabled.h" alt="" coords="5,408,179,435"/>
-<area shape="rect" id="node12" href="$types_8h.html" title="sopt/types.h" alt="" coords="641,333,743,360"/>
-<area shape="rect" id="node18" href="$direct_8h.html" title="sopt/wavelets/direct.h" alt="" coords="693,169,859,196"/>
-<area shape="rect" id="node19" href="$wavelet__data_8h.html" title="sopt/wavelets/wavelet\l_data.h" alt="" coords="422,244,591,285"/>
-<area shape="rect" id="node21" href="$indirect_8h.html" title="sopt/wavelets/indirect.h" alt="" coords="339,169,517,196"/>
-<area shape="rect" id="node16" href="$real__type_8h.html" title="sopt/real_type.h" alt="" coords="921,408,1047,435"/>
-<area shape="rect" id="node20" href="$innards_8impl_8h.html" title="sopt/wavelets/innards.impl.h" alt="" coords="355,333,565,360"/>
+<map id="/home/runner/work/sopt/sopt/cpp/sopt/wavelets/sara.h" name="/home/runner/work/sopt/sopt/cpp/sopt/wavelets/sara.h">
+<area shape="rect" id="node1" title=" " alt="" coords="615,5,793,61"/>
+<area shape="rect" id="node2" title=" " alt="" coords="373,497,478,524"/>
+<area shape="rect" id="node3" title=" " alt="" coords="673,109,735,136"/>
+<area shape="rect" id="node4" title=" " alt="" coords="759,109,870,136"/>
+<area shape="rect" id="node5" title=" " alt="" coords="894,109,949,136"/>
+<area shape="rect" id="node6" title=" " alt="" coords="973,109,1035,136"/>
+<area shape="rect" id="node7" href="$logging_8h.html" title=" " alt="" coords="115,348,229,375"/>
+<area shape="rect" id="node11" href="$wavelets_2wavelets_8h.html" title=" " alt="" coords="461,109,649,136"/>
+<area shape="rect" id="node8" href="$logging_8disabled_8h.html" title=" " alt="" coords="5,423,179,449"/>
+<area shape="rect" id="node9" title=" " alt="" coords="8,497,85,524"/>
+<area shape="rect" id="node10" title=" " alt="" coords="109,497,168,524"/>
+<area shape="rect" id="node12" href="$types_8h.html" title=" " alt="" coords="641,348,743,375"/>
+<area shape="rect" id="node18" href="$direct_8h.html" title=" " alt="" coords="693,184,859,211"/>
+<area shape="rect" id="node19" href="$wavelet__data_8h.html" title=" " alt="" coords="422,259,591,300"/>
+<area shape="rect" id="node21" href="$indirect_8h.html" title=" " alt="" coords="339,184,517,211"/>
+<area shape="rect" id="node13" title=" " alt="" coords="814,497,893,524"/>
+<area shape="rect" id="node14" title=" " alt="" coords="657,423,743,449"/>
+<area shape="rect" id="node15" title=" " alt="" coords="489,423,581,449"/>
+<area shape="rect" id="node16" href="$real__type_8h.html" title=" " alt="" coords="921,423,1047,449"/>
+<area shape="rect" id="node17" title=" " alt="" coords="989,497,1081,524"/>
+<area shape="rect" id="node20" href="$innards_8impl_8h.html" title=" " alt="" coords="355,348,565,375"/>
 </map>

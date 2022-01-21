@@ -1,8 +1,14 @@
-<map id="/mydata/cpp/sopt/wavelets/wavelets.h" name="/mydata/cpp/sopt/wavelets/wavelets.h">
-<area shape="rect" id="node3" href="$types_8h.html" title="sopt/types.h" alt="" coords="410,259,513,285"/>
-<area shape="rect" id="node9" href="$direct_8h.html" title="sopt/wavelets/direct.h" alt="" coords="497,95,663,121"/>
-<area shape="rect" id="node10" href="$wavelet__data_8h.html" title="sopt/wavelets/wavelet\l_data.h" alt="" coords="254,169,423,211"/>
-<area shape="rect" id="node12" href="$indirect_8h.html" title="sopt/wavelets/indirect.h" alt="" coords="124,95,303,121"/>
-<area shape="rect" id="node7" href="$real__type_8h.html" title="sopt/real_type.h" alt="" coords="667,333,794,360"/>
-<area shape="rect" id="node11" href="$innards_8impl_8h.html" title="sopt/wavelets/innards.impl.h" alt="" coords="93,259,304,285"/>
+<map id="/home/runner/work/sopt/sopt/cpp/sopt/wavelets/wavelets.h" name="/home/runner/work/sopt/sopt/cpp/sopt/wavelets/wavelets.h">
+<area shape="rect" id="node1" title=" " alt="" coords="251,5,429,61"/>
+<area shape="rect" id="node2" title=" " alt="" coords="197,423,302,449"/>
+<area shape="rect" id="node3" href="$types_8h.html" title=" " alt="" coords="410,273,513,300"/>
+<area shape="rect" id="node9" href="$direct_8h.html" title=" " alt="" coords="497,109,663,136"/>
+<area shape="rect" id="node10" href="$wavelet__data_8h.html" title=" " alt="" coords="254,184,423,225"/>
+<area shape="rect" id="node12" href="$indirect_8h.html" title=" " alt="" coords="124,109,303,136"/>
+<area shape="rect" id="node4" title=" " alt="" coords="613,423,691,449"/>
+<area shape="rect" id="node5" title=" " alt="" coords="403,348,490,375"/>
+<area shape="rect" id="node6" title=" " alt="" coords="287,348,379,375"/>
+<area shape="rect" id="node7" href="$real__type_8h.html" title=" " alt="" coords="667,348,794,375"/>
+<area shape="rect" id="node8" title=" " alt="" coords="762,423,854,449"/>
+<area shape="rect" id="node11" href="$innards_8impl_8h.html" title=" " alt="" coords="93,273,304,300"/>
 </map>

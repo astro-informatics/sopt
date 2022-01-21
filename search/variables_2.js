@@ -1,11 +1,11 @@
 var searchData=
 [
-  ['called_5freweightee',['called_reweightee',['../structDummyAlgorithm.html#a51d5fc98b0c619cb27179f19505ef177',1,'DummyAlgorithm']]],
-  ['called_5fweights',['called_weights',['../structDummyAlgorithm.html#a7a35ce223d5b8c94770c64d247c78c2f',1,'DummyAlgorithm']]],
-  ['called_5fwith_5fwarm',['called_with_warm',['../structDummyAlgorithm.html#a0456033c487b83518bb96cafa4e357dd',1,'DummyAlgorithm']]],
-  ['called_5fwith_5fx',['called_with_x',['../structDummyAlgorithm.html#a0870fea967158b666d2366a4e84062f6',1,'DummyAlgorithm']]],
-  ['cargs',['cargs',['../mpi__session_8cc.html#a8a6282f51259c130e01e0e59e8201cf7',1,'mpi_session.cc']]],
-  ['cg_5fdiagnostic',['cg_diagnostic',['../structsopt_1_1algorithm_1_1SDMM_1_1Diagnostic.html#a87355eabe5ef6860ef847be3f61fab5b',1,'sopt::algorithm::SDMM::Diagnostic']]],
-  ['coefficients',['coefficients',['../structsopt_1_1wavelets_1_1WaveletData.html#ab0ddff45005d827193093764f085429f',1,'sopt::wavelets::WaveletData']]],
-  ['cols',['cols',['../credible__region_8cc.html#a4f8d1cebdd1d0572b0f5ff58464b9216',1,'credible_region.cc']]]
+  ['called_5freweightee_844',['called_reweightee',['../structDummyAlgorithm.html#a51d5fc98b0c619cb27179f19505ef177',1,'DummyAlgorithm']]],
+  ['called_5fweights_845',['called_weights',['../structDummyAlgorithm.html#a7a35ce223d5b8c94770c64d247c78c2f',1,'DummyAlgorithm']]],
+  ['called_5fwith_5fwarm_846',['called_with_warm',['../structDummyAlgorithm.html#a0456033c487b83518bb96cafa4e357dd',1,'DummyAlgorithm']]],
+  ['called_5fwith_5fx_847',['called_with_x',['../structDummyAlgorithm.html#a0870fea967158b666d2366a4e84062f6',1,'DummyAlgorithm']]],
+  ['cargs_848',['cargs',['../mpi__session_8cc.html#a8a6282f51259c130e01e0e59e8201cf7',1,'mpi_session.cc']]],
+  ['cg_5fdiagnostic_849',['cg_diagnostic',['../structsopt_1_1algorithm_1_1SDMM_1_1Diagnostic.html#a87355eabe5ef6860ef847be3f61fab5b',1,'sopt::algorithm::SDMM::Diagnostic']]],
+  ['coefficients_850',['coefficients',['../structsopt_1_1wavelets_1_1WaveletData.html#a16fa9561d38bbc42f65c7daa19b89f3d',1,'sopt::wavelets::WaveletData']]],
+  ['cols_851',['cols',['../credible__region_8cc.html#a4f8d1cebdd1d0572b0f5ff58464b9216',1,'credible_region.cc']]]
 ];

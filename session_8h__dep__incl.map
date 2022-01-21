@@ -1,9 +1,10 @@
-<map id="/mydata/cpp/sopt/mpi/session.h" name="/mydata/cpp/sopt/mpi/session.h">
-<area shape="rect" id="node2" href="$sopt_2mpi_2communicator_8cc.html" title="/mydata/cpp/sopt/mpi\l/communicator.cc" alt="" coords="5,184,169,225"/>
-<area shape="rect" id="node3" href="$communicator_8h.html" title="/mydata/cpp/sopt/mpi\l/communicator.h" alt="" coords="209,95,373,136"/>
-<area shape="rect" id="node6" href="$session_8cc.html" title="/mydata/cpp/sopt/mpi\l/session.cc" alt="" coords="397,95,561,136"/>
-<area shape="rect" id="node7" href="$common__mpi__catch__main_8cc.html" title="/mydata/cpp/tests/common\l_mpi_catch_main.cc" alt="" coords="586,95,786,136"/>
-<area shape="rect" id="node8" href="$mpi__session_8cc.html" title="/mydata/cpp/tests/mpi\l_session.cc" alt="" coords="810,95,978,136"/>
-<area shape="rect" id="node4" href="$tests_2communicator_8cc.html" title="/mydata/cpp/tests/communicator.cc" alt="" coords="193,191,448,218"/>
-<area shape="rect" id="node5" href="$serial__vs__parallel__padmm_8cc.html" title="/mydata/cpp/tests/serial\l_vs_parallel_padmm.cc" alt="" coords="473,184,651,225"/>
+<map id="/home/runner/work/sopt/sopt/cpp/sopt/mpi/session.h" name="/home/runner/work/sopt/sopt/cpp/sopt/mpi/session.h">
+<area shape="rect" id="node1" title=" " alt="" coords="529,5,736,47"/>
+<area shape="rect" id="node2" href="$sopt_2mpi_2communicator_8cc.html" title=" " alt="" coords="5,206,263,247"/>
+<area shape="rect" id="node3" href="$communicator_8h.html" title=" " alt="" coords="251,102,502,143"/>
+<area shape="rect" id="node6" href="$session_8cc.html" title=" " alt="" coords="526,102,739,143"/>
+<area shape="rect" id="node7" href="$common__mpi__catch__main_8cc.html" title=" " alt="" coords="763,95,942,151"/>
+<area shape="rect" id="node8" href="$mpi__session_8cc.html" title=" " alt="" coords="967,102,1187,143"/>
+<area shape="rect" id="node4" href="$tests_2communicator_8cc.html" title=" " alt="" coords="287,206,519,247"/>
+<area shape="rect" id="node5" href="$serial__vs__parallel__padmm_8cc.html" title=" " alt="" coords="544,199,721,255"/>
 </map>

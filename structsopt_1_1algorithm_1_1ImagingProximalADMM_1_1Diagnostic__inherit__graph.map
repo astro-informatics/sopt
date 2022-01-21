@@ -1,4 +1,5 @@
 <map id="sopt::algorithm::ImagingProximalADMM&lt; SCALAR &gt;::Diagnostic" name="sopt::algorithm::ImagingProximalADMM&lt; SCALAR &gt;::Diagnostic">
-<area shape="rect" id="node3" href="$structsopt_1_1algorithm_1_1ImagingProximalADMM_1_1DiagnosticAndResult.html" title="Holds result vector as well. " alt="" coords="15,199,217,255"/>
-<area shape="rect" id="node2" href="$structsopt_1_1algorithm_1_1ProximalADMM_1_1Diagnostic.html" title="Values indicating how the algorithm ran. " alt="" coords="5,5,227,47"/>
+<area shape="rect" id="node1" title="Values indicating how the algorithm ran." alt="" coords="15,95,220,151"/>
+<area shape="rect" id="node3" href="$structsopt_1_1algorithm_1_1ImagingProximalADMM_1_1DiagnosticAndResult.html" title="Holds result vector as well." alt="" coords="15,199,220,255"/>
+<area shape="rect" id="node2" href="$structsopt_1_1algorithm_1_1ProximalADMM_1_1Diagnostic.html" title="Values indicating how the algorithm ran." alt="" coords="5,5,229,47"/>
 </map>
