@@ -8,14 +8,14 @@ on:
   
 jobs:
   make-documentation:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
     
       - name: Check out sopt
         uses: actions/checkout@v2
     
       - name: Install dependencies
-        run: sudo apt install libfftw3-dev libtiff5-dev libboost-all-dev libeigen3-dev libyaml-cpp-dev libcfitsio-dev casacore-dev doxygen graphviz
+        run: sudo apt install libtiff5-dev openmpi-bin libopenmpi-dev libeigen3-dev libyaml-cpp-dev doxygen graphviz
         
       - name: Configure and build docs
         run: | 
