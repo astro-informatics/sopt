@@ -5,6 +5,7 @@ on:
     branches: [ development ]
   pull_request:
     branches: [ development ]
+    types: [review_requested, ready_for_review]
   
 jobs:
   make-documentation:
