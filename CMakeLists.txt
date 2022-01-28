@@ -60,6 +60,10 @@ if(SOPT_MPI)
   DetectIntegerArchitecture(SOPT)
 endif()
 
+if(NOT SOPT_OPENMP)
+  set(CMAKE_THREAD_LIBS_INIT "-lpthread")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
+endif()
 
 if(tests OR examples)
   enable_testing()
