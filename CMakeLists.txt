@@ -42,7 +42,7 @@ cxx11_feature_check(REQUIRED unique_ptr nullptr override constructor_delegate)
 include(compilations)
 
 # search/install dependencies
-# with find_package calls commented out
+# with lookup_package calls commented out
 include(dependencies)
 
 include(${PROJECT_SOURCE_DIR}/build/conanbuildinfo.cmake)

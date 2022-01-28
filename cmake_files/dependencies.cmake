@@ -15,12 +15,12 @@ if(docs)
 endif()
 
 
-# find_package(TIFF)
-# if(examples OR regression)
-#   if(NOT TIFF_FOUND)
-#     message(FATAL_ERROR "Examples and regressions require TIFF")
-#   endif()
-# endif()
+find_package(TIFF)
+if(examples OR regression)
+  if(NOT TIFF_FOUND)
+    message(FATAL_ERROR "Examples and regressions require TIFF")
+  endif()
+endif()
 
 
 if(regressions)
