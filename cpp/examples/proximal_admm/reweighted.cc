@@ -4,6 +4,7 @@
 #include <iostream>
 #include <random>
 #include <vector>
+#include <ctime>
 
 #include <sopt/imaging_padmm.h>
 #include <sopt/logging.h>
