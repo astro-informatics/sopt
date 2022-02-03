@@ -4,6 +4,7 @@
 #include "sopt/config.h"
 #include <spdlog/fmt/ostr.h>
 #include <spdlog/spdlog.h>
+#include <spdlog/sinks/stdout_sinks.h>
 #include "sopt/exception.h"
 
 namespace sopt {
