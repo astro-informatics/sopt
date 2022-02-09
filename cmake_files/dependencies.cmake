@@ -20,7 +20,6 @@ endif()
 
 
 if(regressions)
-  #find_package(FFTW3 REQUIRED DOUBLE)
   set(REGRESSION_ORACLE_ID "last_of_c"
     CACHE STRING "Commmit/tag/branch againts which to run regressions")
 
