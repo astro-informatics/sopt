@@ -5,7 +5,8 @@ on:
     branches: [ development ]
   pull_request:
     branches: [ development ]
-    types: [review_requested, ready_for_review]
+    if: github.event.pull_request.draft == false
+    #types: [review_requested, ready_for_review]
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
