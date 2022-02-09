@@ -84,9 +84,14 @@ jobs:
           ${{ matrix.os }}-${{ matrix.cxx }}
           ${{ matrix.os }}
 
-    - name: Conan install
+    - name: Conan install on gcc
+      if: ${{ contains(matrix.cxx, 'g++-9') }}
       run: conan install ${{github.workspace}} -if ${{github.workspace}}/build -s compiler.libcxx=libstdc++11 --build missing
-          
+
+    - name: Conan install on apple-clang
+      if: ${{ contains(matrix.cxx, 'clang++') }}
+      run: conan install ${{github.workspace}} -if ${{github.workspace}}/build --build missing
+
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory.
       # `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
