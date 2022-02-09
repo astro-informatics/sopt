@@ -84,7 +84,7 @@ jobs:
           ${{ matrix.os }}
 
     - name: Conan install
-      run: conan install ${{github.workspace}} -if ${{github.workspace}}/build
+      run: conan install ${{github.workspace}} -if ${{github.workspace}}/build -s compiler.libcxx=libstdc++11
           
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory.
