@@ -42,7 +42,9 @@ class SoptConan(ConanFile):
       cmake.definitions['openmp'] = self.options.openmp
       cmake.definitions['dompi'] = self.options.mpi
       cmake.definitions['coverage'] = self.options.coverage
-      
+
+      cmake.definitions['CMAKE_C_COMPILER_LAUNCHER'] = "ccache"
+      cmake.definitions['CMAKE_CXX_COMPILER_LAUNCHER'] = "ccache"
       
       cmake.configure()
       cmake.build()
