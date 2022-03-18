@@ -92,7 +92,7 @@ jobs:
 
     - name: Conan install on apple-clang
       if: ${{ contains(matrix.cxx, 'clang++') }}
-      run: conan install ${{github.workspace}} -if ${{github.workspace}}/build --build missing -o mpi=${{matrix.mpi}} openmp=${{matrix.omp}}
+      run: conan install ${{github.workspace}} -if ${{github.workspace}}/build --build missing -o mpi=${{matrix.mpi}} -o openmp=${{matrix.omp}}
 
     - name: Build
       # Build your program with the given configuration.
