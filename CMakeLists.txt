@@ -46,7 +46,7 @@ include(compilations)
 include(dependencies)
 
 include(${PROJECT_SOURCE_DIR}/build/conanbuildinfo.cmake)
-conan_basic_setup()
+conan_basic_setup(KEEP_RPATHS)
 
 # sets rpath policy explicitly
 if(CMAKE_VERSION VERSION_LESS 3.0)
