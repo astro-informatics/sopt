@@ -30,27 +30,23 @@ Dependencies installation
 - [GCC](https://gcc.gnu.org) v7.3.0 GNU compiler for `C++`
 - [UCL/GreatCMakeCookOff](https://github.com/UCL/GreatCMakeCookOff) Collection of `CMake` recipes.
   Downloaded automatically if absent.
-- [Eigen3](http://eigen.tuxfamily.org/index.php?title=Main_Page) v3.2.0 (Trusty) Modern `C++` linear algebra.
-  Downloaded automatically if absent.
-- [tiff](http://www.libtiff.org/) v4.0.3 (Trusty) Tag Image File Format library
 - [OpenMP](http://openmp.org/wp/) v4.8.4 (Trusty) - Optional - Speeds up some of the operations.
-- [spdlog](https://github.com/gabime/spdlog) v* - Optional - Logging library. Downloaded automatically if
-  absent.
-- [Catch2](https://github.com/catchorg/Catch2) v2.2.3 - Optional -  A `C++`
-  unit-testing framework only needed for testing. Downloaded automatically if absent.
-- [google/benchmark](https://github.com/google/benchmark) - Optional - A `C++`
-  micro-benchmarking framework only needed for benchmarks. Downloaded automatically if absent.
+- [Conan](https://docs.conan.io/en/latest/installation.html) - C++ package manager which installs the following:
+    - [Eigen3](http://eigen.tuxfamily.org/index.php?title=Main_Page) v3.2.0 (Trusty) Modern `C++` linear algebra.
+      Downloaded automatically if absent.
+    - [spdlog](https://github.com/gabime/spdlog) v* - Optional - Logging library. Downloaded automatically if
+      absent.
+    - [Catch2](https://github.com/catchorg/Catch2) v2.2.3 - Optional -  A `C++`
+      unit-testing framework only needed for testing. Downloaded automatically if absent.
+    - [google/benchmark](https://github.com/google/benchmark) - Optional - A `C++`
+      micro-benchmarking framework only needed for benchmarks. Downloaded automatically if absent.
+    - [tiff](http://www.libtiff.org/) v4.0.3 (Trusty) Tag Image File Format library - only installed if needed.
+
 
 Installing and building SOPT
 ----------------------------
 
-**SOPT** can be installed through the software packet manager on Linux Debian distributions:
-
-```
-apt-get install sopt
-```
-
-Alternatively, you can build **SOPT** entirely from the source code. Once the mandatory dependencies are present, `git clone` from the [GitHub repository](https://github.com/astro-informatics/sopt):
+You can build **SOPT** entirely from the source code. Once the mandatory dependencies are present, `git clone` from the [GitHub repository](https://github.com/astro-informatics/sopt):
 
 ```
 git clone https://github.com/astro-informatics/sopt.git
@@ -62,17 +58,21 @@ Then, the program can be built with standard `CMake` command:
 cd /path/to/code
 mkdir build
 cd build
-cmake -DCMAKE_BUILD_TYPE=Release ..
-make
+conan install --build-missing
+conan build
 ```
 
-To install in directory `/X`, with libraries going to `X/lib` do:
+To install in directory `BUILD_FOLDER`, add the following options to the conan install and build commands:
 
 ```
-cd /path/to/code/build
-cmake -DCMAKE_INSTALL_PREFIX=/X ..
-make install
+conan install --build-missing -if BUILD_FOLDER
+conan build -bf BUILD_FOLDER
 ```
+
+Common errors
+-------
+If you are using the g++ compiler and get an error to do with the package `spdlog`, try adding the option `-s compiler.libcxx=libstdc++11` to the `conan build` command.
+
 
 Testing
 -------
