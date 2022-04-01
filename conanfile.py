@@ -45,6 +45,6 @@ class SoptConan(ConanFile):
 
       cmake.definitions['CMAKE_C_COMPILER_LAUNCHER'] = "ccache"
       cmake.definitions['CMAKE_CXX_COMPILER_LAUNCHER'] = "ccache"
-      
+      cmake.definitions['CMAKE_VERBOSE_MAKEFILE:BOOL'] = "OFF"
       cmake.configure()
       cmake.build()
