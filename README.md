@@ -62,11 +62,10 @@ conan install .. --build missing
 conan build ..
 ```
 
-To install in directory `BUILD_FOLDER`, add the following options to the conan install and build commands:
+To install in directory `INSTALL_FOLDER`, add the following options to the conan build command:
 
 ```
-conan install .. --build-missing
-conan build .. -bf BUILD_FOLDER -if .
+conan build .. -bf INSTALL_FOLDER -if .
 ```
 
 Common errors
