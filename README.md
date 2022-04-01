@@ -58,15 +58,15 @@ Then, the program can be built with standard `CMake` command:
 cd /path/to/code
 mkdir build
 cd build
-conan install --build-missing
-conan build
+conan install .. --build missing
+conan build ..
 ```
 
 To install in directory `BUILD_FOLDER`, add the following options to the conan install and build commands:
 
 ```
-conan install --build-missing -if BUILD_FOLDER
-conan build -bf BUILD_FOLDER
+conan install .. --build-missing
+conan build .. -bf BUILD_FOLDER -if .
 ```
 
 Common errors
