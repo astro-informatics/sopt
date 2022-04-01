@@ -42,7 +42,6 @@ cxx11_feature_check(REQUIRED unique_ptr nullptr override constructor_delegate)
 include(compilations)
 
 # search/install dependencies
-# with lookup_package calls commented out
 include(dependencies)
 
 include(${PROJECT_SOURCE_DIR}/build/conanbuildinfo.cmake)
@@ -70,7 +69,6 @@ if(tests OR examples)
 endif()
 
 if(tests)
-  #find_package(Catch 2.3.0 EXACT)
   find_package(Catch)
   include(AddCatchTest)
 endif()
