@@ -5,6 +5,7 @@ on:
     branches: [ development ]
   pull_request:
     branches: [ development ]
+    types: [review_requested, ready_for_review]
   
 jobs:
   make-documentation:
@@ -15,12 +16,15 @@ jobs:
         uses: actions/checkout@v2
     
       - name: Install dependencies
-        run: sudo apt install libtiff5-dev openmpi-bin libopenmpi-dev libeigen3-dev libyaml-cpp-dev doxygen graphviz
+        run: |
+          sudo apt install libtiff5-dev openmpi-bin libopenmpi-dev libeigen3-dev libyaml-cpp-dev doxygen graphviz
+          pip install conan
         
       - name: Configure and build docs
-        run: | 
+        run: |
           mkdir build
           cd build
+          conan install ..
           cmake .. \
           -Ddompi=OFF \
           -Dopenmp=OFF \

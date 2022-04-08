@@ -37,6 +37,8 @@ target_include_directories(sopt PUBLIC
   $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/include>
   $<INSTALL_INTERFACE:include/>)
 
+target_link_libraries(sopt ${CONAN_LIBS})
+
 if(TIFF_FOUND)
   target_link_libraries(sopt ${TIFF_LIBRARY})
   target_include_directories(sopt SYSTEM PUBLIC ${TIFF_INCLUDE_DIR})

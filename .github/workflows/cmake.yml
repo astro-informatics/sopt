@@ -5,11 +5,15 @@ on:
     branches: [ development ]
   pull_request:
     branches: [ development ]
+    if: github.event.pull_request.draft == false
+    #types: [review_requested, ready_for_review]
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
-  OMP_NUM_THREADS: 4
+  OMP_NUM_THREADS: 2
+  CONAN_PRINT_RUN_COMMANDS: 1
+  CONAN_CPU_COUNT: 2
 
 jobs:
   build:
@@ -35,11 +39,11 @@ jobs:
             - g++-9
             - clang++
           mpi:
-            - "ON"
-            - "OFF"
+            - "on"
+            - "off"
           omp:
-            - "ON"
-            - "OFF"
+            - "on"
+            - "off"
           exclude:
             - cc: gcc-9
               cxx: clang++
@@ -54,11 +58,13 @@ jobs:
 
     - name: Install Dependencies on Ubunutu
       if: ${{ contains(matrix.os, 'ubuntu') }}
-      run: sudo apt install libtiff5-dev openmpi-bin libopenmpi-dev libeigen3-dev libyaml-cpp-dev ccache
+      run: |
+        sudo apt install libtiff5-dev openmpi-bin libopenmpi-dev libeigen3-dev libyaml-cpp-dev ccache
+        pip install conan
 
     - name: Install Dependencies on MacOS
       if: ${{ contains(matrix.os, 'macos') }}
-      run: brew install libtiff open-mpi libyaml ccache
+      run: brew install libtiff open-mpi libyaml ccache conan
 
     - name: Prepare ccache timestamp
       id: ccache_cache_timestamp
@@ -80,23 +86,21 @@ jobs:
           ${{ matrix.os }}-${{ matrix.cxx }}
           ${{ matrix.os }}
 
-    - name: Configure CMake
-      # Configure CMake in a 'build' subdirectory.
-      # `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
-      # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
-      run: |
-        cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} \
-        -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache \
-        -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
-        -Ddompi=${{matrix.mpi}} -Dopenmp=${{matrix.omp}}
+    - name: Conan install on gcc
+      if: ${{ contains(matrix.cxx, 'g++-9') }}
+      run: conan install ${{github.workspace}} -if ${{github.workspace}}/build -s compiler.libcxx=libstdc++11 --build missing -o mpi=${{matrix.mpi}} -o openmp=${{matrix.omp}}
+
+    - name: Conan install on apple-clang
+      if: ${{ contains(matrix.cxx, 'clang++') }}
+      run: conan install ${{github.workspace}} -if ${{github.workspace}}/build --build missing -o mpi=${{matrix.mpi}} -o openmp=${{matrix.omp}}
 
     - name: Build
       # Build your program with the given configuration.
       # The Github Actions machines are dual-core so we can build faster using 2 parallel processes
-      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} --parallel 2
+      run: conan build ${{github.workspace}} -bf ${{github.workspace}}/build
 
     - name: Test
       working-directory: ${{github.workspace}}/build
       # Execute tests defined by the CMake configuration.
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
-      run: ctest -C ${{env.BUILD_TYPE}}
+      run: ctest -C ${{env.BUILD_TYPE}} --output-on-failure

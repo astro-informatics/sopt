@@ -44,6 +44,9 @@ include(compilations)
 # search/install dependencies
 include(dependencies)
 
+include(${PROJECT_SOURCE_DIR}/build/conanbuildinfo.cmake)
+conan_basic_setup(KEEP_RPATHS)
+
 # sets rpath policy explicitly
 if(CMAKE_VERSION VERSION_LESS 3.0)
     set_property(GLOBAL PROPERTY MACOSX_RPATH ON)
@@ -66,7 +69,7 @@ if(tests OR examples)
 endif()
 
 if(tests)
-  find_package(Catch 2.3.0 EXACT)
+  find_package(Catch)
   include(AddCatchTest)
 endif()
 if(examples)

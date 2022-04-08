@@ -5,6 +5,7 @@
 #include <tiffio.h>
 #include "sopt/exception.h"
 #include "sopt/logging.h"
+#include <vector>
 #include "sopt/types.h"
 
 namespace {

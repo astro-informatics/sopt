@@ -4,6 +4,7 @@
 #include <iostream>
 #include <random>
 #include <vector>
+#include <ctime>
 
 #include <sopt/credible_region.h>
 #include <sopt/imaging_forward_backward.h>
