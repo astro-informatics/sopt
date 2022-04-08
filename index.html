@@ -89,29 +89,30 @@ $(function() {
 <li><a href="http://www.cmake.org/">CMake</a> v3.9.2 A free software that allows cross-platform compilation</li>
 <li><a href="https://gcc.gnu.org">GCC</a> v7.3.0 GNU compiler for <code>C++</code></li>
 <li><a href="https://github.com/UCL/GreatCMakeCookOff">UCL/GreatCMakeCookOff</a> Collection of <code>CMake</code> recipes. Downloaded automatically if absent.</li>
-<li><a href="http://eigen.tuxfamily.org/index.php?title=Main_Page">Eigen3</a> v3.2.0 (Trusty) Modern <code>C++</code> linear algebra. Downloaded automatically if absent.</li>
-<li><a href="http://www.libtiff.org/">tiff</a> v4.0.3 (Trusty) Tag Image File Format library</li>
 <li><a href="http://openmp.org/wp/">OpenMP</a> v4.8.4 (Trusty) - Optional - Speeds up some of the operations.</li>
+<li><a href="https://docs.conan.io/en/latest/installation.html">Conan</a> - C++ package manager which installs the following:<ul>
+<li><a href="http://eigen.tuxfamily.org/index.php?title=Main_Page">Eigen3</a> v3.2.0 (Trusty) Modern <code>C++</code> linear algebra. Downloaded automatically if absent.</li>
 <li><a href="https://github.com/gabime/spdlog">spdlog</a> v* - Optional - Logging library. Downloaded automatically if absent.</li>
 <li><a href="https://github.com/catchorg/Catch2">Catch2</a> v2.2.3 - Optional - A <code>C++</code> unit-testing framework only needed for testing. Downloaded automatically if absent.</li>
 <li><a href="https://github.com/google/benchmark">google/benchmark</a> - Optional - A <code>C++</code> micro-benchmarking framework only needed for benchmarks. Downloaded automatically if absent.</li>
+<li><a href="http://www.libtiff.org/">tiff</a> v4.0.3 (Trusty) Tag Image File Format library - only installed if needed.</li>
+</ul>
+</li>
 </ul>
 <h1>Installing and building SOPT </h1>
-<p><b>SOPT</b> can be installed through the software packet manager on Linux Debian distributions:</p>
-<div class="fragment"><div class="line">apt-get install sopt</div>
-</div><!-- fragment --><p>Alternatively, you can build <b>SOPT</b> entirely from the source code. Once the mandatory dependencies are present, <code>git clone</code> from the <a href="https://github.com/astro-informatics/sopt">GitHub repository</a>:</p>
+<p>You can build <b>SOPT</b> entirely from the source code. Once the mandatory dependencies are present, <code>git clone</code> from the <a href="https://github.com/astro-informatics/sopt">GitHub repository</a>:</p>
 <div class="fragment"><div class="line">git clone https://github.com/astro-informatics/sopt.git</div>
 </div><!-- fragment --><p>Then, the program can be built with standard <code>CMake</code> command:</p>
 <div class="fragment"><div class="line">cd /path/to/code</div>
 <div class="line">mkdir build</div>
 <div class="line">cd build</div>
-<div class="line">cmake -DCMAKE_BUILD_TYPE=Release ..</div>
-<div class="line">make</div>
-</div><!-- fragment --><p>To install in directory <code>/X</code>, with libraries going to <code>X/lib</code> do:</p>
-<div class="fragment"><div class="line">cd /path/to/code/build</div>
-<div class="line">cmake -DCMAKE_INSTALL_PREFIX=/X ..</div>
-<div class="line">make install</div>
-</div><!-- fragment --><h1>Testing </h1>
+<div class="line">conan install .. --build missing</div>
+<div class="line">conan build ..</div>
+</div><!-- fragment --><p>To install in directory <code>INSTALL_FOLDER</code>, add the following options to the conan build command:</p>
+<div class="fragment"><div class="line">conan build .. -bf INSTALL_FOLDER -if .</div>
+</div><!-- fragment --><h1>Common errors </h1>
+<p>If you are using the g++ compiler and get an error to do with the package <code>spdlog</code>, try adding the option <code>-s compiler.libcxx=libstdc++11</code> to the <code>conan build</code> command.</p>
+<h1>Testing </h1>
 <p>To check everything went all right, run the test suite:</p>
 <div class="fragment"><div class="line">cd /path/to/code/build</div>
 <div class="line">ctest .</div>

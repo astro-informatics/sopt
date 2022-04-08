@@ -1841,6 +1841,7 @@
     <path>/home/runner/work/sopt/sopt/cpp/sopt/mpi/</path>
     <filename>http://astro-informatics.github.io/sopt/session_8cc.html</filename>
     <includes id="session_8h" name="session.h" local="yes" imported="no">sopt/mpi/session.h</includes>
+    <includes id="exception_8h" name="exception.h" local="yes" imported="no">sopt/exception.h</includes>
     <includes id="logging_8h" name="logging.h" local="yes" imported="no">sopt/logging.h</includes>
     <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
     <namespace>sopt</namespace>
