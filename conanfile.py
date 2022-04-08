@@ -1,7 +1,7 @@
 from conans import ConanFile, CMake
 
 class SoptConan(ConanFile):
-    requires = ["eigen/3.3.7","spdlog/1.9.2","catch2/2.13.7","benchmark/1.6.0",]
+    requires = ["eigen/3.3.7","catch2/2.13.7","benchmark/1.6.0",]
     generators = "cmake"
     options = {"regressions": ['on','off'],
                "docs":['on','off'],
@@ -29,7 +29,11 @@ class SoptConan(ConanFile):
         if self.options.examples == 'on' or self.options.regressions == 'on':
             self.requires("libtiff/4.0.9")
 
+        if self.options.logging == 'on':
+            self.requires("spdlog/1.9.2")
 
+        if self.options.docs == 'on':
+            self.requires("doxygen/1.9.2")
     def build(self):
       cmake = CMake(self)
       
