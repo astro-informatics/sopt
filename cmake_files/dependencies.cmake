@@ -1,8 +1,12 @@
+# GCMCO: ./scripts/PackageLookup.cmake
+# Can be removed once regressions is gone
 include(PackageLookup)  # check for existence, or install external projects
 
 
 if(docs)
+  # Looks important, https://cmake.org/cmake/help/latest/policy/CMP0057.html
   cmake_policy(SET CMP0057 NEW)
+  # Find_package can be removed with conan
   find_package(Doxygen REQUIRED dot)
   if(NOT DOXYGEN_FOUND)
     mesage(STATUS "Could not find Doxygen or dot. No building documentation")
@@ -10,7 +14,7 @@ if(docs)
   endif()
 endif()
 
-
+# Can be removed with conan
 find_package(TIFF)
 if(examples OR regression)
   if(NOT TIFF_FOUND)
@@ -19,6 +23,7 @@ if(examples OR regression)
 endif()
 
 
+# Can be removed per issue #275
 if(regressions)
   set(REGRESSION_ORACLE_ID "last_of_c"
     CACHE STRING "Commmit/tag/branch againts which to run regressions")
@@ -34,6 +39,7 @@ if(regressions)
   )
 endif()
 
+# TODO: Rewrite according to https://cliutils.gitlab.io/modern-cmake/chapters/packages/OpenMP.html
 if(openmp)
   find_package(OpenMP)
   if(OPENMP_FOUND)
@@ -49,7 +55,10 @@ if(openmp)
   endif()
 endif()
 
+# Seems unnecessary
 set(SOPT_MPI FALSE)
+
+# Keep this in some form. See https://cliutils.gitlab.io/modern-cmake/chapters/packages/MPI.html
 if(dompi)
   find_package(MPI)
 endif()
