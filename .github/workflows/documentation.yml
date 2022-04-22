@@ -23,13 +23,9 @@ jobs:
       - name: Configure and build docs
         run: |
           mkdir build
+          conan install ${{github.workspace}} -if ${{github.workspace}}/build --build missing -o mpi=off -o openmp=off -o docs=on
+          conan build ${{github.workspace}} -bf ${{github.workspace}}/build
           cd build
-          conan install ..
-          cmake .. \
-          -Ddompi=OFF \
-          -Dopenmp=OFF \
-          -Ddocs=ON \
-          -Dweb=ON 
           make docweb VERBOSE=1
         
       - name: Deploy to GH pages
