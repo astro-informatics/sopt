@@ -6,28 +6,35 @@ on:
   pull_request:
     branches: [ development ]
     if: github.event.pull_request.draft == false
-  
+
+env:
+  CONAN_PRINT_RUN_COMMANDS: 1
+  OMP_NUM_THREADS: 2
+  CONAN_CPU_COUNT: 2
+
 jobs:
   make-documentation:
     runs-on: ubuntu-20.04
     steps:
-    
       - name: Check out sopt
         uses: actions/checkout@v2
-    
+
       - name: Install dependencies
         run: |
           sudo apt install libtiff5-dev openmpi-bin libopenmpi-dev libeigen3-dev libyaml-cpp-dev doxygen graphviz
           pip install conan
-        
-      - name: Configure and build docs
+
+      - name: Configure
+        run: conan install ${{github.workspace}} -if ${{github.workspace}}/build --build missing  -s compiler.libcxx=libstdc++11 -o mpi=off -o openmp=off -o docs=on
+
+      - name: Build
+        run: conan build ${{github.workspace}} -bf ${{github.workspace}}/build
+
+      - name: Make Docweb
         run: |
-          mkdir build
-          conan install ${{github.workspace}} -if ${{github.workspace}}/build --build missing -o mpi=off -o openmp=off -o docs=on
-          conan build ${{github.workspace}} -bf ${{github.workspace}}/build
           cd build
           make docweb VERBOSE=1
-        
+
       - name: Deploy to GH pages
         if: ${{github.event_name == 'push'}}
         uses: JamesIves/github-pages-deploy-action@4.1.6
