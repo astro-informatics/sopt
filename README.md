@@ -74,7 +74,6 @@ CMake build options should be passed as options to `conan install` using the `-o
 - benchmarks (default off)
 - examples (default on)
 - logging (default on)
-- regressions (default off)
 - openmp (default on)
 - mpi (default on)
 - docs (default off)
