@@ -68,9 +68,52 @@ To install in directory `INSTALL_FOLDER`, add the following options to the conan
 conan build .. -bf INSTALL_FOLDER -if .
 ```
 
+CMake build options should be passed as options to `conan install` using the `-o` flag with a value `on` or `off`. Possible options are
+
+- tests (default on)
+- benchmarks (default off)
+- examples (default on)
+- logging (default on)
+- regressions (default off)
+- openmp (default on)
+- mpi (default on)
+- docs (default off)
+- coverage (default off)
+
+For example, to build with both MPI and OpenMP off you would use
+
+```
+conan install .. --build missing -o openmp=off -o mpi=off
+conan build ..
+```
+
 Common errors
 -------
-If you are using the g++ compiler and get an error to do with the package `spdlog`, try adding the option `-s compiler.libcxx=libstdc++11` to the `conan build` command.
+If you are using the g++ compiler and get an error to do with the package `spdlog`, try adding the option `-s compiler.libcxx=libstdc++11` to the `conan build` command. This option is also necessary when building with gcc on MacOS.
+
+Conan tips
+-------
+
+You can set commonly used options, choices of compilers, etc. in a [conan profile](https://docs.conan.io/en/latest/reference/profiles.html). You can list profiles available on your system using `conan profile list` and select the profile you want to use with `conan install` with `conan install .. -pr my_profile`. CMake build options can also be added to the profile under `[options]`. Here is an example of a conan profile for building with a homebrew installed gcc 11 on MacOS.
+
+```
+GCC_PATH=/usr/local/Cellar/gcc/11.2.0_3/bin/
+
+[settings]
+os=Macos
+os_build=Macos
+arch=x86_64
+arch_build=x86_64
+compiler=gcc
+compiler.version=11
+compiler.libcxx=libstdc++11
+build_type=Release
+[options]
+[build_requires]
+[env]
+CC=$GCC_PATH/gcc-11
+CXX=$GCC_PATH/g++-11
+```
 
 
 Testing
