@@ -54,8 +54,11 @@ class SoptConan(ConanFile):
       cmake.definitions['dompi'] = self.options.mpi
       cmake.definitions['coverage'] = self.options.coverage
 
-      cmake.definitions['CMAKE_C_COMPILER_LAUNCHER'] = "ccache"
-      cmake.definitions['CMAKE_CXX_COMPILER_LAUNCHER'] = "ccache"
+      # List cases where we don't use ccache
+      if self.options.docs == 'off':
+          cmake.definitions['CMAKE_C_COMPILER_LAUNCHER'] = "ccache"
+          cmake.definitions['CMAKE_CXX_COMPILER_LAUNCHER'] = "ccache"
+
       cmake.definitions['CMAKE_VERBOSE_MAKEFILE:BOOL'] = "ON"
       cmake.configure()
       cmake.build()
