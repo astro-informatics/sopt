@@ -110,9 +110,42 @@ $(function() {
 <div class="line">conan build ..</div>
 </div><!-- fragment --><p>To install in directory <code>INSTALL_FOLDER</code>, add the following options to the conan build command:</p>
 <div class="fragment"><div class="line">conan build .. -bf INSTALL_FOLDER -if .</div>
+</div><!-- fragment --><p>CMake build options should be passed as options to <code>conan install</code> using the <code>-o</code> flag with a value <code>on</code> or <code>off</code>. Possible options are</p>
+<ul>
+<li>tests (default on)</li>
+<li>benchmarks (default off)</li>
+<li>examples (default on)</li>
+<li>logging (default on)</li>
+<li>regressions (default off)</li>
+<li>openmp (default on)</li>
+<li>mpi (default on)</li>
+<li>docs (default off)</li>
+<li>coverage (default off)</li>
+</ul>
+<p>For example, to build with both MPI and OpenMP off you would use</p>
+<div class="fragment"><div class="line">conan install .. --build missing -o openmp=off -o mpi=off</div>
+<div class="line">conan build ..</div>
 </div><!-- fragment --><h1>Common errors </h1>
-<p>If you are using the g++ compiler and get an error to do with the package <code>spdlog</code>, try adding the option <code>-s compiler.libcxx=libstdc++11</code> to the <code>conan build</code> command.</p>
-<h1>Testing </h1>
+<p>If you are using the g++ compiler and get an error to do with the package <code>spdlog</code>, try adding the option <code>-s compiler.libcxx=libstdc++11</code> to the <code>conan build</code> command. This option is also necessary when building with gcc on MacOS.</p>
+<h1>Conan tips </h1>
+<p>You can set commonly used options, choices of compilers, etc. in a <a href="https://docs.conan.io/en/latest/reference/profiles.html">conan profile</a>. You can list profiles available on your system using <code>conan profile list</code> and select the profile you want to use with <code>conan install</code> with <code>conan install .. -pr my_profile</code>. CMake build options can also be added to the profile under <code>[options]</code>. Here is an example of a conan profile for building with a homebrew installed gcc 11 on MacOS.</p>
+<div class="fragment"><div class="line">GCC_PATH=/usr/local/Cellar/gcc/11.2.0_3/bin/</div>
+<div class="line"> </div>
+<div class="line">[settings]</div>
+<div class="line">os=Macos</div>
+<div class="line">os_build=Macos</div>
+<div class="line">arch=x86_64</div>
+<div class="line">arch_build=x86_64</div>
+<div class="line">compiler=gcc</div>
+<div class="line">compiler.version=11</div>
+<div class="line">compiler.libcxx=libstdc++11</div>
+<div class="line">build_type=Release</div>
+<div class="line">[options]</div>
+<div class="line">[build_requires]</div>
+<div class="line">[env]</div>
+<div class="line">CC=$GCC_PATH/gcc-11</div>
+<div class="line">CXX=$GCC_PATH/g++-11</div>
+</div><!-- fragment --><h1>Testing </h1>
 <p>To check everything went all right, run the test suite:</p>
 <div class="fragment"><div class="line">cd /path/to/code/build</div>
 <div class="line">ctest .</div>
