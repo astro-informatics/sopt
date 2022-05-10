@@ -1,6 +1,8 @@
 from conans import ConanFile, CMake
 
 class SoptConan(ConanFile):
+    name = "sopt"
+    version = "4.0.0"
     requires = ["eigen/3.3.7","catch2/2.13.7","benchmark/1.6.0",]
     generators = "cmake"
     options = {"regressions": ['on','off'],
@@ -22,6 +24,29 @@ class SoptConan(ConanFile):
                        "mpi": 'on',
                        "coverage": 'off',}
 
+    def cmake_setup(self):
+
+        cmake = CMake(self)
+
+        cmake.definitions['regressions'] = self.options.regressions
+        cmake.definitions['docs'] = self.options.docs
+        cmake.definitions['examples'] = self.options.examples
+        cmake.definitions['tests'] = self.options.tests
+        cmake.definitions['benchmarks'] = self.options.benchmarks
+        cmake.definitions['logging'] = self.options.logging
+        cmake.definitions['openmp'] = self.options.openmp
+        cmake.definitions['dompi'] = self.options.mpi
+        cmake.definitions['coverage'] = self.options.coverage
+
+        # List cases where we don't use ccache
+        if self.options.docs == 'off':
+            cmake.definitions['CMAKE_C_COMPILER_LAUNCHER'] = "ccache"
+            cmake.definitions['CMAKE_CXX_COMPILER_LAUNCHER'] = "ccache"
+
+        cmake.definitions['CMAKE_VERBOSE_MAKEFILE:BOOL'] = "ON"
+
+        return cmake
+
     def requirements(self):
 
         if self.options.regressions == 'on':
@@ -41,24 +66,20 @@ class SoptConan(ConanFile):
         if self.options.docs == 'on':
             self.requires("doxygen/1.9.2")
 
+
+    def source(self):
+        self.run("git clone https://github.com/astro-informatics/sopt.git")
+        self.run("cd sopt")
+    
     def build(self):
-      cmake = CMake(self)
+        cmake = self.cmake_setup()
+        cmake.configure()
+        cmake.build()
 
-      cmake.definitions['regressions'] = self.options.regressions
-      cmake.definitions['docs'] = self.options.docs
-      cmake.definitions['examples'] = self.options.examples
-      cmake.definitions['tests'] = self.options.tests
-      cmake.definitions['benchmarks'] = self.options.benchmarks
-      cmake.definitions['logging'] = self.options.logging
-      cmake.definitions['openmp'] = self.options.openmp
-      cmake.definitions['dompi'] = self.options.mpi
-      cmake.definitions['coverage'] = self.options.coverage
+    def package(self):
+        cmake = self.cmake_setup()
+        cmake.configure()
+        cmake.install()
 
-      # List cases where we don't use ccache
-      if self.options.docs == 'off':
-          cmake.definitions['CMAKE_C_COMPILER_LAUNCHER'] = "ccache"
-          cmake.definitions['CMAKE_CXX_COMPILER_LAUNCHER'] = "ccache"
-
-      cmake.definitions['CMAKE_VERBOSE_MAKEFILE:BOOL'] = "ON"
-      cmake.configure()
-      cmake.build()
+    def package_info(self):
+        self.cpp_info.libs = ["sopt"]
