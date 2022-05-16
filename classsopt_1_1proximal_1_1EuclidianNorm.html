@@ -192,14 +192,14 @@ template&lt;class T0 &gt; </div>
 
 <p class="definition">Definition at line <a class="el" href="proximal_8h_source.html#l00030">30</a> of file <a class="el" href="proximal_8h_source.html">proximal.h</a>.</p>
 <div class="fragment"><div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                                                      {</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">typedef</span> <span class="keyword">typename</span> <a class="code" href="padmm__inpainting_8cc.html#a508fc58b5dc3c81865305f6498457063">T0::Scalar</a> <a class="code" href="padmm__inpainting_8cc.html#a508fc58b5dc3c81865305f6498457063">Scalar</a>;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">typedef</span> <span class="keyword">typename</span> <a class="code" href="bisection__method_8cc.html#aaa5809f25d167ed398d63ae4dbc63648">T0::Scalar</a> <a class="code" href="bisection__method_8cc.html#aaa5809f25d167ed398d63ae4dbc63648">Scalar</a>;</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#ifdef SOPT_MPI</span></div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keyword">auto</span> <span class="keyword">const</span> norm = <a class="code" href="namespacesopt_1_1proximal.html#ae20cac74655c396bc0d68bdbc32dfcc4">mpi::l2_norm</a>(x, comm_);</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#else</span></div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keyword">auto</span> <span class="keyword">const</span> norm = x.norm();</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordflow">if</span> (norm &gt; t)</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;      out = (<a class="code" href="padmm__inpainting_8cc.html#a508fc58b5dc3c81865305f6498457063">Scalar</a>(1) - t / norm) * x;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;      out = (<a class="code" href="bisection__method_8cc.html#aaa5809f25d167ed398d63ae4dbc63648">Scalar</a>(1) - t / norm) * x;</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordflow">else</span></div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;      out.fill(0);</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  }</div>
@@ -212,7 +212,7 @@ template&lt;class T0 &gt; </div>
 <li>/home/runner/work/sopt/sopt/cpp/sopt/<a class="el" href="proximal_8h_source.html">proximal.h</a></li>
 </ul>
 </div><!-- contents -->
-<div class="ttc" id="apadmm__inpainting_8cc_html_a508fc58b5dc3c81865305f6498457063"><div class="ttname"><a href="padmm__inpainting_8cc.html#a508fc58b5dc3c81865305f6498457063">Scalar</a></div><div class="ttdeci">double Scalar</div><div class="ttdef"><b>Definition:</b> <a href="padmm__inpainting_8cc_source.html#l00018">padmm_inpainting.cc:18</a></div></div>
+<div class="ttc" id="abisection__method_8cc_html_aaa5809f25d167ed398d63ae4dbc63648"><div class="ttname"><a href="bisection__method_8cc.html#aaa5809f25d167ed398d63ae4dbc63648">Scalar</a></div><div class="ttdeci">sopt::t_real Scalar</div><div class="ttdef"><b>Definition:</b> <a href="bisection__method_8cc_source.html#l00009">bisection_method.cc:9</a></div></div>
 <div class="ttc" id="anamespacesopt_1_1proximal_html_ae20cac74655c396bc0d68bdbc32dfcc4"><div class="ttname"><a href="namespacesopt_1_1proximal.html#ae20cac74655c396bc0d68bdbc32dfcc4">sopt::proximal::l2_norm</a></div><div class="ttdeci">void l2_norm(Eigen::DenseBase&lt; T0 &gt; &amp;out, Eigen::DenseBase&lt; T2 &gt; const &amp;gamma, Eigen::DenseBase&lt; T1 &gt; const &amp;x)</div><div class="ttdef"><b>Definition:</b> <a href="proximal_8h_source.html#l00091">proximal.h:91</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

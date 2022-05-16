@@ -605,8 +605,8 @@ template&lt;class T &gt; </div>
 <p class="definition">Definition at line <a class="el" href="cdata_8h_source.html#l00027">27</a> of file <a class="el" href="cdata_8h_source.html">cdata.h</a>.</p>
 <div class="fragment"><div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;                                                         {</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  CData&lt;T&gt; <span class="keyword">const</span> &amp;cdata = *(CData&lt;T&gt; *)data;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  <span class="keyword">typedef</span> Eigen::Matrix&lt;T, Eigen::Dynamic, 1&gt; <a class="code" href="padmm__inpainting_8cc.html#a4aacec93fc3bad0dfbec9fa2912c1aaf">t_Vector</a>;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  <a class="code" href="padmm__inpainting_8cc.html#a4aacec93fc3bad0dfbec9fa2912c1aaf">t_Vector</a> <span class="keyword">const</span> eval = cdata.transform.adjoint() * t_Vector::Map((T *)in, cdata.nout);</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  <span class="keyword">typedef</span> Eigen::Matrix&lt;T, Eigen::Dynamic, 1&gt; <a class="code" href="bisection__method_8cc.html#a4aacec93fc3bad0dfbec9fa2912c1aaf">t_Vector</a>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  <a class="code" href="bisection__method_8cc.html#a4aacec93fc3bad0dfbec9fa2912c1aaf">t_Vector</a> <span class="keyword">const</span> eval = cdata.transform.adjoint() * t_Vector::Map((T *)in, cdata.nout);</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  ++(((CData&lt;T&gt; *)data)-&gt;adjoint_calls);</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  t_Vector::Map((T *)out, cdata.nin) = eval;</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;}</div>
@@ -896,8 +896,8 @@ template&lt;class T &gt; </div>
 <p class="definition">Definition at line <a class="el" href="cdata_8h_source.html#l00019">19</a> of file <a class="el" href="cdata_8h_source.html">cdata.h</a>.</p>
 <div class="fragment"><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;                                                        {</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;  CData&lt;T&gt; <span class="keyword">const</span> &amp;cdata = *(CData&lt;T&gt; *)data;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  <span class="keyword">typedef</span> Eigen::Matrix&lt;T, Eigen::Dynamic, 1&gt; <a class="code" href="padmm__inpainting_8cc.html#a4aacec93fc3bad0dfbec9fa2912c1aaf">t_Vector</a>;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  <a class="code" href="padmm__inpainting_8cc.html#a4aacec93fc3bad0dfbec9fa2912c1aaf">t_Vector</a> <span class="keyword">const</span> eval = cdata.transform * t_Vector::Map((T *)in, cdata.nin);</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  <span class="keyword">typedef</span> Eigen::Matrix&lt;T, Eigen::Dynamic, 1&gt; <a class="code" href="bisection__method_8cc.html#a4aacec93fc3bad0dfbec9fa2912c1aaf">t_Vector</a>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  <a class="code" href="bisection__method_8cc.html#a4aacec93fc3bad0dfbec9fa2912c1aaf">t_Vector</a> <span class="keyword">const</span> eval = cdata.transform * t_Vector::Map((T *)in, cdata.nin);</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  ++(((CData&lt;T&gt; *)data)-&gt;direct_calls);</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  t_Vector::Map((T *)out, cdata.nout) = eval;</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;}</div>
@@ -954,7 +954,7 @@ template&lt;class T , class RANDOM &gt; </div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="common__catch__main_8cc.html#afd7b13def75c5d7feb77ac1ea2df5d0b">mersenne()</a>, <a class="el" href="inpainting_8h_source.html#l00017">sigma()</a>, and <a class="el" href="inpainting_8h_source.html#l00012">target()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="forward__backward_2inpainting_8cc_source.html#l00023">main()</a>, and <a class="el" href="padmm__inpainting_8cc_source.html#l00048">TEST_CASE()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="forward__backward_2inpainting_8cc_source.html#l00023">main()</a>.</p>
 
 </div>
 </div>
@@ -1786,7 +1786,7 @@ template&lt;class T &gt; </div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  <span class="keywordflow">return</span> UnaryOp(input.derived(), Projector());</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="examples_2l1__proximal_8cc_source.html#l00005">main()</a>, <a class="el" href="proximal_8h_source.html#l00114">sopt::proximal::positive_quadrant()</a>, and <a class="el" href="reweighted__sdmm_8cc_source.html#l00058">TEST_CASE()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="examples_2l1__proximal_8cc_source.html#l00005">main()</a>, <a class="el" href="proximal_8h_source.html#l00114">sopt::proximal::positive_quadrant()</a>, and <a class="el" href="maths_8cc_source.html#l00011">TEST_CASE()</a>.</p>
 
 </div>
 </div>
@@ -1827,7 +1827,7 @@ template&lt;class T &gt; </div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="inpainting_8h_source.html#l00012">target()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="inpainting_8h_source.html#l00025">dirty()</a>, <a class="el" href="inpainting_8h_source.html#l00038">epsilon()</a>, <a class="el" href="forward__backward_2inpainting_8cc_source.html#l00023">main()</a>, and <a class="el" href="reweighted__sdmm_8cc_source.html#l00058">TEST_CASE()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="inpainting_8h_source.html#l00025">dirty()</a>, <a class="el" href="inpainting_8h_source.html#l00038">epsilon()</a>, <a class="el" href="forward__backward_2inpainting_8cc_source.html#l00023">main()</a>, and <a class="el" href="serial__vs__parallel__padmm_8cc_source.html#l00021">TEST_CASE()</a>.</p>
 
 </div>
 </div>
@@ -1863,7 +1863,7 @@ template&lt;class T &gt; </div>
 
 <p class="definition">Definition at line <a class="el" href="maths_8h_source.html#l00068">68</a> of file <a class="el" href="maths_8h_source.html">maths.h</a>.</p>
 <div class="fragment"><div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                                                                {</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  <span class="keyword">typedef</span> <span class="keyword">typename</span> <a class="code" href="padmm__inpainting_8cc.html#a508fc58b5dc3c81865305f6498457063">T::Scalar</a> <a class="code" href="padmm__inpainting_8cc.html#a508fc58b5dc3c81865305f6498457063">Scalar</a>;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  <span class="keyword">typedef</span> <span class="keyword">typename</span> <a class="code" href="bisection__method_8cc.html#aaa5809f25d167ed398d63ae4dbc63648">T::Scalar</a> <a class="code" href="bisection__method_8cc.html#aaa5809f25d167ed398d63ae4dbc63648">Scalar</a>;</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  <span class="keyword">typedef</span> <span class="keyword">typename</span> real_type&lt;Scalar&gt;::type Real;</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  <span class="keywordflow">return</span> Eigen::CwiseUnaryOp&lt;const details::SoftThreshhold&lt;typename T::Scalar&gt;, <span class="keyword">const</span> T&gt;{</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;      input.derived(), std::bind(soft_threshhold&lt;Scalar&gt;, std::placeholders::_1, Real(threshhold))};</div>
@@ -1949,7 +1949,7 @@ template&lt;class T0 , class T1 &gt; </div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;  <span class="keywordflow">if</span> (input.size() != threshhold.size())</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <a class="code" href="exception_8h.html#a57974308768f9fafc7107b626a394f4f">SOPT_THROW</a>(<span class="stringliteral">&quot;Threshhold and input should have the same size: &quot;</span>)</div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        &lt;&lt; threshhold.size() &lt;&lt; <span class="stringliteral">&quot; vs &quot;</span> &lt;&lt; input.size();</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;  <span class="keyword">typedef</span> <span class="keyword">typename</span> <a class="code" href="padmm__inpainting_8cc.html#a508fc58b5dc3c81865305f6498457063">T0::Scalar</a> Complex;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;  <span class="keyword">typedef</span> <span class="keyword">typename</span> <a class="code" href="bisection__method_8cc.html#aaa5809f25d167ed398d63ae4dbc63648">T0::Scalar</a> Complex;</div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> func = [](Complex <span class="keyword">const</span> &amp;x, Complex <span class="keyword">const</span> &amp;t) -&gt; Complex {</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="namespacesopt.html#aa14309c45de330f8915e1ffd75fa8164">soft_threshhold</a>(x, t.real());</div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;  };</div>
@@ -1996,7 +1996,7 @@ template&lt;class SCALAR &gt; </div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <span class="keywordflow">return</span> normalized &lt; threshhold ? SCALAR(0) : (x * (SCALAR(1) - threshhold / normalized));</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="reweighted__sdmm_8cc_source.html#l00040">create_rwsdmm()</a>, <a class="el" href="sdmm__inpainting_8cc_source.html#l00023">create_sdmm()</a>, <a class="el" href="proximal_8h_source.html#l00107">sopt::proximal::l1_norm()</a>, <a class="el" href="examples_2sdmm_2reweighted_8cc_source.html#l00027">main()</a>, <a class="el" href="l1__proximal_8h_source.html#l00128">sopt::proximal::L1TightFrame&lt; Scalar &gt;::operator()()</a>, <a class="el" href="maths_8h_source.html#l00103">soft_threshhold()</a>, and <a class="el" href="maths_8cc_source.html#l00070">TEST_CASE()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="proximal_8h_source.html#l00107">sopt::proximal::l1_norm()</a>, <a class="el" href="examples_2sdmm_2reweighted_8cc_source.html#l00027">main()</a>, <a class="el" href="l1__proximal_8h_source.html#l00128">sopt::proximal::L1TightFrame&lt; Scalar &gt;::operator()()</a>, <a class="el" href="maths_8h_source.html#l00103">soft_threshhold()</a>, and <a class="el" href="maths_8cc_source.html#l00070">TEST_CASE()</a>.</p>
 
 </div>
 </div>
@@ -2091,7 +2091,7 @@ template&lt;class T &gt; </div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;  <span class="keywordflow">return</span> sampling * Vector&lt;T&gt;::Map(image.data(), image.size());</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="padmm__inpainting_8cc_source.html#l00022">create_admm()</a>, <a class="el" href="inpainting_8h_source.html#l00025">dirty()</a>, <a class="el" href="inpainting_8h_source.html#l00038">epsilon()</a>, <a class="el" href="inpainting_8h_source.html#l00017">sigma()</a>, and <a class="el" href="primal__dual_8cc_source.html#l00019">TEST_CASE()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="inpainting_8h_source.html#l00025">dirty()</a>, <a class="el" href="inpainting_8h_source.html#l00038">epsilon()</a>, <a class="el" href="inpainting_8h_source.html#l00017">sigma()</a>, and <a class="el" href="primal__dual_8cc_source.html#l00019">TEST_CASE()</a>.</p>
 
 </div>
 </div>
@@ -2171,12 +2171,12 @@ template&lt;class T &gt; </div>
 <div class="ttc" id="anamespacesopt_html_a83a82628fe55e720accd252a72c7337c"><div class="ttname"><a href="namespacesopt.html#a83a82628fe55e720accd252a72c7337c">sopt::target</a></div><div class="ttdeci">Vector&lt; T &gt; target(sopt::LinearTransform&lt; Vector&lt; T &gt;&gt; const &amp;sampling, sopt::Image&lt; T &gt; const &amp;image)</div><div class="ttdef"><b>Definition:</b> <a href="inpainting_8h_source.html#l00012">inpainting.h:12</a></div></div>
 <div class="ttc" id="anamespacesopt_html_a009292a23363f1e290a92ce6a2786065"><div class="ttname"><a href="namespacesopt.html#a009292a23363f1e290a92ce6a2786065">sopt::standard_deviation</a></div><div class="ttdeci">real_type&lt; typename T::Scalar &gt;::type standard_deviation(Eigen::MatrixBase&lt; T &gt; const &amp;x)</div><div class="ttdoc">Computes the standard deviation of a vector.</div><div class="ttdef"><b>Definition:</b> <a href="maths_8h_source.html#l00021">maths.h:21</a></div></div>
 <div class="ttc" id="anamespacesopt_html_acc5e68fec339ce3ea64dd578483c1a19"><div class="ttname"><a href="namespacesopt.html#acc5e68fec339ce3ea64dd578483c1a19">sopt::l2_norm</a></div><div class="ttdeci">real_type&lt; typename T0::Scalar &gt;::type l2_norm(Eigen::MatrixBase&lt; T0 &gt; const &amp;input)</div><div class="ttdoc">Computes weighted L2 norm.</div><div class="ttdef"><b>Definition:</b> <a href="maths_8h_source.html#l00160">maths.h:160</a></div></div>
-<div class="ttc" id="apadmm__inpainting_8cc_html_a4aacec93fc3bad0dfbec9fa2912c1aaf"><div class="ttname"><a href="padmm__inpainting_8cc.html#a4aacec93fc3bad0dfbec9fa2912c1aaf">t_Vector</a></div><div class="ttdeci">sopt::Vector&lt; Scalar &gt; t_Vector</div><div class="ttdef"><b>Definition:</b> <a href="padmm__inpainting_8cc_source.html#l00019">padmm_inpainting.cc:19</a></div></div>
 <div class="ttc" id="anamespacesopt_html_aa14309c45de330f8915e1ffd75fa8164"><div class="ttname"><a href="namespacesopt.html#aa14309c45de330f8915e1ffd75fa8164">sopt::soft_threshhold</a></div><div class="ttdeci">std::enable_if&lt; is_complex&lt; typename T0::Scalar &gt;::value and std::is_arithmetic&lt; typename T1::Scalar &gt;::value, Eigen::CwiseBinaryOp&lt; typename T0::Scalar(*)(typename T0::Scalar const &amp;, typename T0::Scalar const &amp;), const T0, decltype(std::declval&lt; const T1 &gt;).template cast&lt; typename T0::Scalar &gt;))&gt; &gt;::type soft_threshhold(Eigen::DenseBase&lt; T0 &gt; const &amp;input, Eigen::DenseBase&lt; T1 &gt; const &amp;threshhold)</div><div class="ttdoc">Expression to create soft-threshhold with multiple parameters.</div><div class="ttdef"><b>Definition:</b> <a href="maths_8h_source.html#l00103">maths.h:103</a></div></div>
-<div class="ttc" id="apadmm__inpainting_8cc_html_a508fc58b5dc3c81865305f6498457063"><div class="ttname"><a href="padmm__inpainting_8cc.html#a508fc58b5dc3c81865305f6498457063">Scalar</a></div><div class="ttdeci">double Scalar</div><div class="ttdef"><b>Definition:</b> <a href="padmm__inpainting_8cc_source.html#l00018">padmm_inpainting.cc:18</a></div></div>
 <div class="ttc" id="abisection__method_8cc_html_a6d7237bd6650f7fc770cd55be22e4245"><div class="ttname"><a href="bisection__method_8cc.html#a6d7237bd6650f7fc770cd55be22e4245">a</a></div><div class="ttdeci">const Scalar a</div><div class="ttdef"><b>Definition:</b> <a href="bisection__method_8cc_source.html#l00013">bisection_method.cc:13</a></div></div>
 <div class="ttc" id="acredible__region_8cc_html_a4f8d1cebdd1d0572b0f5ff58464b9216"><div class="ttname"><a href="credible__region_8cc.html#a4f8d1cebdd1d0572b0f5ff58464b9216">cols</a></div><div class="ttdeci">t_uint cols</div><div class="ttdef"><b>Definition:</b> <a href="credible__region_8cc_source.html#l00012">credible_region.cc:12</a></div></div>
+<div class="ttc" id="abisection__method_8cc_html_aaa5809f25d167ed398d63ae4dbc63648"><div class="ttname"><a href="bisection__method_8cc.html#aaa5809f25d167ed398d63ae4dbc63648">Scalar</a></div><div class="ttdeci">sopt::t_real Scalar</div><div class="ttdef"><b>Definition:</b> <a href="bisection__method_8cc_source.html#l00009">bisection_method.cc:9</a></div></div>
 <div class="ttc" id="anamespacesopt_1_1details_html_a19d03d9b49ed12e7f7b91cb8b19e1db2"><div class="ttname"><a href="namespacesopt_1_1details.html#a19d03d9b49ed12e7f7b91cb8b19e1db2">sopt::details::gcd</a></div><div class="ttdeci">t_int gcd(t_int a, t_int b)</div><div class="ttdoc">Greatest common divisor.</div><div class="ttdef"><b>Definition:</b> <a href="maths_8h_source.html#l00168">maths.h:168</a></div></div>
+<div class="ttc" id="abisection__method_8cc_html_a4aacec93fc3bad0dfbec9fa2912c1aaf"><div class="ttname"><a href="bisection__method_8cc.html#a4aacec93fc3bad0dfbec9fa2912c1aaf">t_Vector</a></div><div class="ttdeci">sopt::Vector&lt; Scalar &gt; t_Vector</div><div class="ttdef"><b>Definition:</b> <a href="bisection__method_8cc_source.html#l00010">bisection_method.cc:10</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

@@ -1,14 +1,12 @@
 <map id="/home/runner/work/sopt/sopt/cpp/sopt/conjugate_gradient.h" name="/home/runner/work/sopt/sopt/cpp/sopt/conjugate_gradient.h">
-<area shape="rect" id="node1" title=" " alt="" coords="549,5,731,61"/>
-<area shape="rect" id="node2" href="$benchmarks_2conjugate__gradient_8cc.html" title=" " alt="" coords="163,109,397,165"/>
-<area shape="rect" id="node3" href="$examples_2conjugate__gradient_8cc.html" title=" " alt="" coords="421,109,638,165"/>
-<area shape="rect" id="node4" href="$sdmm_8h.html" title=" " alt="" coords="662,117,839,158"/>
-<area shape="rect" id="node12" href="$tests_2conjugate__gradient_8cc.html" title=" " alt="" coords="863,109,1049,165"/>
-<area shape="rect" id="node5" href="$sdmm_2euclidian__norm_8cc.html" title=" " alt="" coords="5,213,200,269"/>
-<area shape="rect" id="node6" href="$sdmm_2inpainting_8cc.html" title=" " alt="" coords="224,213,419,269"/>
-<area shape="rect" id="node7" href="$examples_2sdmm_2reweighted_8cc.html" title=" " alt="" coords="443,213,637,269"/>
-<area shape="rect" id="node8" href="$reweighted__sdmm_8cc.html" title=" " alt="" coords="662,213,839,269"/>
-<area shape="rect" id="node9" href="$sdmm__inpainting_8cc.html" title=" " alt="" coords="863,213,1041,269"/>
-<area shape="rect" id="node10" href="$sdmm_8cc.html" title=" " alt="" coords="1065,221,1245,262"/>
-<area shape="rect" id="node11" href="$sdmm__warm__start_8cc.html" title=" " alt="" coords="1269,213,1475,269"/>
+<area shape="rect" id="node1" title=" " alt="" coords="391,5,573,61"/>
+<area shape="rect" id="node2" href="$benchmarks_2conjugate__gradient_8cc.html" title=" " alt="" coords="5,109,239,165"/>
+<area shape="rect" id="node3" href="$examples_2conjugate__gradient_8cc.html" title=" " alt="" coords="263,109,480,165"/>
+<area shape="rect" id="node4" href="$sdmm_8h.html" title=" " alt="" coords="504,117,681,158"/>
+<area shape="rect" id="node10" href="$tests_2conjugate__gradient_8cc.html" title=" " alt="" coords="705,109,891,165"/>
+<area shape="rect" id="node5" href="$sdmm_2euclidian__norm_8cc.html" title=" " alt="" coords="58,213,253,269"/>
+<area shape="rect" id="node6" href="$sdmm_2inpainting_8cc.html" title=" " alt="" coords="277,213,471,269"/>
+<area shape="rect" id="node7" href="$examples_2sdmm_2reweighted_8cc.html" title=" " alt="" coords="495,213,690,269"/>
+<area shape="rect" id="node8" href="$sdmm_8cc.html" title=" " alt="" coords="715,221,895,262"/>
+<area shape="rect" id="node9" href="$sdmm__warm__start_8cc.html" title=" " alt="" coords="919,213,1125,269"/>
 </map>
