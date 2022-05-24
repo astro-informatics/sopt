@@ -63,7 +63,7 @@ jobs:
 
     - name: Install Dependencies on MacOS
       if: ${{ contains(matrix.os, 'macos') }}
-      run: brew install libtiff open-mpi libyaml ccache conan
+      run: brew install libtiff open-mpi libyaml ccache conan libomp
 
     - name: Prepare ccache timestamp
       id: ccache_cache_timestamp
