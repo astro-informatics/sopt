@@ -1,11 +1,6 @@
-name: CMake
+name: MacOSDebug
 
 on:
-  push:
-    branches: [ development ]
-  pull_request:
-    branches: [ development ]
-    if: github.event.pull_request.draft == false
   workflow_dispatch:
     inputs:
       debug_enabled:
