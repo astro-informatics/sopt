@@ -26,7 +26,6 @@ class SoptConan(ConanFile):
 
         cmake = CMake(self)
 
-        cmake.definitions['regressions'] = self.options.regressions
         cmake.definitions['docs'] = self.options.docs
         cmake.definitions['examples'] = self.options.examples
         cmake.definitions['tests'] = self.options.tests
@@ -86,5 +85,3 @@ class SoptConan(ConanFile):
         cmake.configure()
         cmake.install()
 
-    def package_info(self):
-        self.cpp_info.libs = ["sopt"]
