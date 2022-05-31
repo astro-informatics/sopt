@@ -5,8 +5,7 @@ class SoptConan(ConanFile):
     version = "4.0.0"
     requires = ["eigen/3.3.7","catch2/2.13.7","benchmark/1.6.0",]
     generators = "cmake"
-    options = {"regressions": ['on','off'],
-               "docs":['on','off'],
+    options = {"docs":['on','off'],
                "examples":['on','off'],
                "tests":['on','off'],
                "benchmarks":['on','off'],
@@ -14,8 +13,7 @@ class SoptConan(ConanFile):
                "openmp":['on','off'],
                "mpi":['on','off'],
                "coverage":['on','off'],}
-    default_options = {"regressions": 'off',
-                       "docs": 'off',
+    default_options = {"docs": 'off',
                        "examples":'on',
                        "tests": 'on',
                        "benchmarks": 'off',
@@ -49,15 +47,12 @@ class SoptConan(ConanFile):
 
     def requirements(self):
 
-        if self.options.regressions == 'on':
-            self.requires("fftw/3.3.9")
-
         if self.options.docs == 'on' or self.options.examples == 'on':
             # To prevent a conflict in the version of zlib required by libtiff and
             # doxygen, override the version of zlib when either of them is required
             self.requires("zlib/1.2.12", override=True)
 
-        if self.options.examples == 'on' or self.options.regressions == 'on':
+        if self.options.examples == 'on':
             self.requires("libtiff/4.0.9")
 
         if self.options.logging == 'on':
@@ -73,9 +68,19 @@ class SoptConan(ConanFile):
     
     def build(self):
         cmake = self.cmake_setup()
+
+        cmake.definitions['docs'] = self.options.docs
+        cmake.definitions['examples'] = self.options.examples
+        cmake.definitions['tests'] = self.options.tests
+        cmake.definitions['benchmarks'] = self.options.benchmarks
+        cmake.definitions['logging'] = self.options.logging
+        cmake.definitions['openmp'] = self.options.openmp
+        cmake.definitions['dompi'] = self.options.mpi
+        cmake.definitions['coverage'] = self.options.coverage
+        
         cmake.configure()
         cmake.build()
-
+        
     def package(self):
         cmake = self.cmake_setup()
         cmake.configure()
