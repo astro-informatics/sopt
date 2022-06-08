@@ -22,7 +22,7 @@ endif()
 if(openmp)
   find_package(OpenMP)
   if(OPENMP_FOUND)
-    set(SOPT_DEFAULT_OPENMP_THREADS 4 CACHE STRING "Number of threads used in testing")
+    set(SOPT_DEFAULT_OPENMP_THREADS 2 CACHE STRING "Number of threads used in testing")
     set(SOPT_OPENMP TRUE)
     add_library(openmp::openmp INTERFACE IMPORTED GLOBAL)
     set_target_properties(openmp::openmp PROPERTIES

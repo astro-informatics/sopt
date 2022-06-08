@@ -6,6 +6,12 @@ on:
   pull_request:
     branches: [ development ]
     if: github.event.pull_request.draft == false
+  workflow_dispatch:
+    inputs:
+      debug_enabled:
+        description: 'Run the build with tmate debugging enabled (https://github.com/marketplace/actions/debugging-with-tmate)'
+        required: false
+        default: false
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
@@ -51,13 +57,21 @@ jobs:
             - os: ubuntu-20.04
               cc: clang
               cxx: clang++
+            - os: macos-11
+              mpi: "on"
 
     steps:
     - uses: actions/checkout@v2
 
+   # Enable tmate debugging of manually-triggered workflows if the input option was provided
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
+      if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.debug_enabled }}
+
     - name: Install Dependencies on Ubunutu
       if: ${{ contains(matrix.os, 'ubuntu') }}
       run: |
+        sudo apt update
         sudo apt install libtiff5-dev openmpi-bin libopenmpi-dev libeigen3-dev libyaml-cpp-dev ccache
         pip install conan
 
