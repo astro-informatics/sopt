@@ -5,11 +5,11 @@ target_include_directories(tools_for_tests PUBLIC
   "${PROJECT_BINARY_DIR}/include/"
 )
 target_include_directories(tools_for_tests SYSTEM PUBLIC ${TIFF_INCLUDE_DIR})
-if(SPDLOG_INCLUDE_DIR)
-  target_include_directories(tools_for_tests SYSTEM PUBLIC ${SPDLOG_INCLUDE_DIR})
+if(spdlog_INCLUDE_DIR)
+  target_include_directories(tools_for_tests SYSTEM PUBLIC ${spdlog_INCLUDE_DIR})
 endif()
-if(EIGEN3_INCLUDE_DIR)
-  target_include_directories(tools_for_tests SYSTEM PUBLIC ${EIGEN3_INCLUDE_DIR})
+if(eigen_INCLUDE_DIR)
+  target_include_directories(tools_for_tests SYSTEM PUBLIC ${eigen_INCLUDE_DIR})
 endif()
 add_dependencies(tools_for_tests lookup_dependencies)
 
