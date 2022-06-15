@@ -44,7 +44,7 @@ if(NOT SOPT_OPENMP)
   target_link_libraries(sopt PRIVATE Threads::Threads)
 endif()
 if(TIFF_FOUND)
-  target_link_libraries(sopt ${TIFF_LIBRARY})
+  target_link_libraries(sopt TIFF::TIFF)
   target_include_directories(sopt SYSTEM PUBLIC ${TIFF_INCLUDE_DIR})
 endif()
 # Add spdlog as direct dependency if not downloaded
