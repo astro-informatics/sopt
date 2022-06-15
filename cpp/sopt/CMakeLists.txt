@@ -27,7 +27,6 @@ if(SOPT_MPI)
 endif()
 
 add_library(sopt SHARED ${sources})
-add_dependencies(sopt lookup_dependencies)
 set(version "${Sopt_VERSION_MAJOR}.${Sopt_VERSION_MINOR}.${Sopt_VERSION_PATCH}")
 set(soversion "${Sopt_VERSION_MAJOR}.${Sopt_VERSION_MINOR}")
 set_target_properties(sopt PROPERTIES VERSION ${version} SOVERSION ${soversion})

@@ -11,7 +11,6 @@ target_include_directories(common_catch_main_object PUBLIC
   "${PROJECT_BINARY_DIR}/include/"
   "${CMAKE_CURRENT_SOURCE_DIR}/.."
   )
-add_dependencies(common_catch_main_object lookup_dependencies)
 if(CATCH_HAS_THROWS_AS)
   add_definitions(-DCATCH_HAS_THROWS_AS)
 endif()
@@ -38,7 +37,6 @@ add_catch_test(bisection_method LIBRARIES sopt)
 
 if(SOPT_MPI)
   add_library(common_mpi_catch_main_object OBJECT common_mpi_catch_main.cc)
-  add_dependencies(common_mpi_catch_main_object lookup_dependencies)
   target_include_directories(common_mpi_catch_main_object
     PUBLIC ${PROJECT_SOURCE_DIR}/cpp ${PROJECT_BINARY_DIR}/include ${MPI_CXX_INCLUDE_PATH})
   if(spdlog_INCLUDE_DIR)

@@ -11,7 +11,6 @@ endif()
 if(eigen_INCLUDE_DIR)
   target_include_directories(tools_for_tests SYSTEM PUBLIC ${eigen_INCLUDE_DIR})
 endif()
-add_dependencies(tools_for_tests lookup_dependencies)
 
 # Simple manual tester of read/write tiff
 add_executable(copy_tiff copy_tiff.cc)

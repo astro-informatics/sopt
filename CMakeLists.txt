@@ -41,29 +41,6 @@ include(compilations)
 # search/install dependencies
 include(dependencies)
 
-#include(${PROJECT_SOURCE_DIR}/build/conanbuildinfo.cmake)
-#conan_basic_setup(KEEP_RPATHS)
-
-find_package(eigen)
-message("eigen_found: ${eigen_FOUND}")
-message("eigen_INCLUDE_DIR: ${eigen_INCLUDE_DIR}")
-#find_package(catch2)
-#find_package(benchmark)
-if(examples)
-  find_package(TIFF)
-endif()
-message("TIFF_FOUND: ${TIFF_FOUND}")
-message("TIFF_INCLUDE_DIR: ${TIFF_INCLUDE_DIR}")
-if(logging)
-  find_package(spdlog)
-endif()
-message("spdlog_FOUND: ${spdlog_FOUND}")
-message("spdlog_INCLUDE_DIR: ${spdlog_INCLUDE_DIR}")
-
-if(docs)
-  find_package(doxygen)
-endif()
-
 # sets rpath policy explicitly
 if(CMAKE_VERSION VERSION_LESS 3.0)
     set_property(GLOBAL PROPERTY MACOSX_RPATH ON)
