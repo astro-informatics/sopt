@@ -1,6 +1,13 @@
+# On different platforms the CMakeDeps generator in conan seems to install eigen
+# as either "eigen" or "Eigen3" because the recipe does not explicitly define the
+# name (yet). To work around this we have to check for both.
 find_package(eigen)
-if(NOT eigen_FOUND)
+find_package(Eigen3)
+if(NOT (eigen_FOUND OR Eigen3_FOUND))
   message(FATAL_ERROR "Eigen is required")
+else()
+  message("eigen_FOUND: ${eigen_FOUND}")
+  message("Eigen3_FOUND: ${Eigen3_FOUND}")
 endif()
 
 if(logging)
