@@ -1,4 +1,5 @@
 from conans import ConanFile, CMake
+import os
 
 class SoptConan(ConanFile):
     requires = ["eigen/3.3.7","catch2/2.13.7","benchmark/1.6.0",]
