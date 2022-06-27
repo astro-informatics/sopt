@@ -1,6 +1,7 @@
 from conan import ConanFile
 from conan.tools.cmake import CMake, CMakeToolchain, CMakeDeps
 from conan.tools.files import symlinks
+import os
 
 class SoptConan(ConanFile):
     name = "sopt"
@@ -60,7 +61,7 @@ class SoptConan(ConanFile):
         tc.variables['coverage'] = self.options.coverage
 
         # List cases where we don't use ccache
-        if self.options.docs == 'off':
+        if ('GITHUB_ACTIONS' in os.environ.keys() and self.options.docs == 'off'):
             tc.variables['CMAKE_C_COMPILER_LAUNCHER'] = "ccache"
             tc.variables['CMAKE_CXX_COMPILER_LAUNCHER'] = "ccache"
 
