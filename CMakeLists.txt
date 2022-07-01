@@ -56,8 +56,8 @@ if(SOPT_MPI)
 endif()
 
 if(NOT SOPT_OPENMP)
-  set(CMAKE_THREAD_LIBS_INIT "-lpthread")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
+  find_package(Threads REQUIRED)
+  target_link_libraries(my_app PRIVATE Threads::Threads)
 endif()
 
 if(tests OR examples)
