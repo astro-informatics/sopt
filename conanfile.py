@@ -1,4 +1,5 @@
 from conans import ConanFile, CMake
+import os
 
 class SoptConan(ConanFile):
     requires = ["eigen/3.3.7","catch2/2.13.7","benchmark/1.6.0",]
@@ -49,7 +50,7 @@ class SoptConan(ConanFile):
       cmake.definitions['coverage'] = self.options.coverage
 
       # List cases where we don't use ccache
-      if self.options.docs == 'off':
+      if ('GITHUB_ACTIONS' in os.environ.keys() and self.options.docs == 'off'):
           cmake.definitions['CMAKE_C_COMPILER_LAUNCHER'] = "ccache"
           cmake.definitions['CMAKE_CXX_COMPILER_LAUNCHER'] = "ccache"
 
