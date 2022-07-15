@@ -55,11 +55,6 @@ if(SOPT_MPI)
   DetectIntegerArchitecture(SOPT)
 endif()
 
-if(NOT SOPT_OPENMP)
-  find_package(Threads REQUIRED)
-  target_link_libraries(my_app PRIVATE Threads::Threads)
-endif()
-
 if(tests OR examples)
   enable_testing()
 endif()
