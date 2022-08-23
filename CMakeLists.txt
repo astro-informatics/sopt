@@ -3,6 +3,7 @@ project(Sopt CXX)
 
 # Location of extra cmake includes for the project
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake_files)
+list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/build)
 # Downloads and installs GreatCMakeCookOff
 # It contains a number of cmake recipes
 include(LookUp-GreatCMakeCookOff)
@@ -39,9 +40,6 @@ include(compilations)
 
 # search/install dependencies
 include(dependencies)
-
-include(${PROJECT_SOURCE_DIR}/build/conanbuildinfo.cmake)
-conan_basic_setup(KEEP_RPATHS)
 
 # sets rpath policy explicitly
 if(CMAKE_VERSION VERSION_LESS 3.0)
