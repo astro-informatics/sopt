@@ -41,7 +41,7 @@ target_link_libraries(sopt ${CONAN_LIBS})
 
 if(NOT SOPT_OPENMP)
   find_package(Threads REQUIRED)
-  target_link_libraries(sopt PRIVATE Threads::Threads)
+  target_link_libraries(sopt Threads::Threads)
 endif()
 if(TIFF_FOUND)
   target_link_libraries(sopt TIFF::TIFF)
