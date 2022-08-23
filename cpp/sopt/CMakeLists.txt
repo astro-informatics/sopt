@@ -25,10 +25,6 @@ if(SOPT_MPI)
   list(APPEND sources mpi/communicator.cc mpi/registered_types.cc mpi/session.cc wavelets/sara.cc)
   list(APPEND mpi_headers mpi/communicator.h mpi/registered_types.h mpi/utilities.h mpi/session.h)
 endif()
-if(NOT SOPT_OPENMP)
-  find_package(Threads REQUIRED)
-  target_link_libraries(sopt PRIVATE Threads::Threads)
-endif()
 
 add_library(sopt SHARED ${sources})
 add_dependencies(sopt lookup_dependencies)
@@ -43,6 +39,10 @@ target_include_directories(sopt PUBLIC
 
 target_link_libraries(sopt ${CONAN_LIBS})
 
+if(NOT SOPT_OPENMP)
+  find_package(Threads REQUIRED)
+  target_link_libraries(sopt PRIVATE Threads::Threads)
+endif()
 if(TIFF_FOUND)
   target_link_libraries(sopt ${TIFF_LIBRARY})
   target_include_directories(sopt SYSTEM PUBLIC ${TIFF_INCLUDE_DIR})
