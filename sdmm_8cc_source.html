@@ -305,7 +305,7 @@ $(function() {
 <div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    };</div>
 <div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i(0); i &lt; <a class="code" href="sdmm_8cc.html#a61a80266d367e479ef40417f4f681bea">N</a>; ++i) {</div>
 <div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;      <a class="code" href="bisection__method_8cc.html#a4aacec93fc3bad0dfbec9fa2912c1aaf">t_Vector</a> <a class="code" href="namespacesopt.html#a974f99e567f8ac05a0fe5e50fbfd215b">epsilon</a> = t_Vector::Zero(<a class="code" href="sdmm_8cc.html#a61a80266d367e479ef40417f4f681bea">N</a>);</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;      <a class="code" href="namespacesopt.html#a974f99e567f8ac05a0fe5e50fbfd215b">epsilon</a>(i) = 1e-4;</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;      <a class="code" href="namespacesopt.html#a974f99e567f8ac05a0fe5e50fbfd215b">epsilon</a>(i) = 1e-3;</div>
 <div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;      CAPTURE(<a class="code" href="namespacesopt.html#a974f99e567f8ac05a0fe5e50fbfd215b">epsilon</a>.transpose());</div>
 <div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;      CHECK(func(result) &lt;= func(result + <a class="code" href="namespacesopt.html#a974f99e567f8ac05a0fe5e50fbfd215b">epsilon</a>));</div>
 <div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;      CHECK(func(result) &lt;= func(result - <a class="code" href="namespacesopt.html#a974f99e567f8ac05a0fe5e50fbfd215b">epsilon</a>));</div>
