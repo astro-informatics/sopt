@@ -90,7 +90,45 @@ void l2_norm(Eigen::DenseBase<T0> &out, typename real_type<typename T0::Scalar>:
 template <class T0, class T1, class T2>
 void l2_norm(Eigen::DenseBase<T0> &out, Eigen::DenseBase<T2> const &gamma,
              Eigen::DenseBase<T1> const &x) {
-  out = x.derived().array() * 1. / (1. + gamma).array();
+  out = x.derived().array() * 1. / (1. + gamma.derived().array()).array();
+}
+
+//! Proximal of the l1,2 norm that is used in the TV norm
+template <class T0, class T1>
+void tv_norm(Eigen::DenseBase<T0> &out, typename real_type<typename T0::Scalar>::type gamma,
+             Eigen::DenseBase<T1> const &x) {
+  typename Eigen::Index const size = x.size() / 2;
+  typename T1::PlainObject const &u = x.segment(0, size);
+  typename T1::PlainObject const &v = x.segment(size, size);
+  out = T0::Zero(size * 2);
+  for (typename Eigen::Index i(0); i < size; i++) {
+    const t_real norm = std::sqrt(std::abs(u(i) * u(i) + v(i) * v(i)));
+    if (norm > gamma) {
+      out(i) = (1 - gamma / norm) * u(i);
+      out(size + i) = (1 - gamma / norm) * v(i);
+    } else {
+      out(i) = 0;
+      out(size + i) = 0;
+    }
+  }
+}
+template <class T0, class T1, class T2>
+void tv_norm(Eigen::DenseBase<T0> &out, Eigen::DenseBase<T2> const &gamma,
+             Eigen::DenseBase<T1> const &x) {
+  typename Eigen::Index const size = x.size() / 2;
+  typename T1::PlainObject const &u = x.segment(0, size);
+  typename T1::PlainObject const &v = x.segment(size, size);
+  out = T0::Zero(size * 2);
+  for (typename Eigen::Index i(0); i < size; i++) {
+    const t_real norm = std::sqrt(std::abs(u(i) * u(i) + v(i) * v(i)));
+    if (norm > gamma(i)) {
+      out(i) = (1 - gamma(i) / norm) * u(i);
+      out(size + i) = (1 - gamma(i) / norm) * v(i);
+    } else {
+      out(i) = 0;
+      out(size + i) = 0;
+    }
+  }
 }
 
 //! Proximal of a function that is always zero, the identity

@@ -18,6 +18,7 @@ endif()
 set(RAND_SEED "1449580491")
 
 add_catch_test(wavelets LIBRARIES sopt SEED ${RAND_SEED})
+add_catch_test(gradient_operator LIBRARIES sopt tools_for_tests SEED ${RAND_SEED})
 add_catch_test(sara LIBRARIES sopt SEED ${RAND_SEED})
 add_catch_test(maths LIBRARIES sopt SEED ${RAND_SEED})
 add_catch_test(wrapper LIBRARIES sopt SEED ${RAND_SEED})

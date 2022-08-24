@@ -195,7 +195,7 @@ class ProximalADMM {
   static std::tuple<t_Vector, t_Vector> initial_guess(t_Vector const &target,
                                                       t_LinearTransform const &phi, Real nu) {
     std::tuple<t_Vector, t_Vector> guess;
-    std::get<0>(guess) = (phi.adjoint() * target).eval() / nu;
+    std::get<0>(guess) = static_cast<t_Vector>(phi.adjoint() * target) / nu;
     std::get<1>(guess) = phi * std::get<0>(guess) - target;
     return guess;
   }
@@ -229,8 +229,9 @@ template <class SCALAR>
 void ProximalADMM<SCALAR>::iteration_step(t_Vector &out, t_Vector &residual, t_Vector &lambda,
                                           t_Vector &z) const {
   g_proximal(z, gamma(), -lambda - residual);
-  f_proximal(out, gamma() / nu(), out - Phi().adjoint() * (residual + lambda + z) / nu());
-  residual = Phi() * out - target();
+  f_proximal(out, gamma() / nu(),
+             out - static_cast<t_Vector>(Phi().adjoint() * (residual + lambda + z)) / nu());
+  residual = static_cast<t_Vector>(Phi() * out - target());
   lambda += lagrange_update_scale() * (residual + z);
 }
 
