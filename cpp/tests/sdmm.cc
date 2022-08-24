@@ -224,7 +224,7 @@ TEST_CASE("SDMM with ||x - x0||_2 functions", "[sdmm][integration]") {
     };
     for (int i(0); i < N; ++i) {
       t_Vector epsilon = t_Vector::Zero(N);
-      epsilon(i) = 1e-4;
+      epsilon(i) = 1e-3;
       CAPTURE(epsilon.transpose());
       CHECK(func(result) <= func(result + epsilon));
       CHECK(func(result) <= func(result - epsilon));

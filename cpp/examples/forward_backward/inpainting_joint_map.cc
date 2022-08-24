@@ -4,6 +4,7 @@
 #include <iostream>
 #include <random>
 #include <vector>
+#include <ctime>
 
 #include <sopt/imaging_forward_backward.h>
 #include <sopt/joint_map.h>

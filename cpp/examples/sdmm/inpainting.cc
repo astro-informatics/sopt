@@ -4,6 +4,7 @@
 #include <iostream>
 #include <random>
 #include <vector>
+#include <ctime>
 
 #include <sopt/logging.h>
 #include <sopt/maths.h>

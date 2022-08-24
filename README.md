@@ -1,9 +1,10 @@
 Sparse OPTimisation Library
 ===========================
 
-[![Build Status](https://travis-ci.com/astro-informatics/sopt.svg?branch=development)](https://travis-ci.com/astro-informatics/sopt)
+<!-- [![Build Status](https://travis-ci.com/astro-informatics/sopt.svg?branch=development)](https://github.com/astro-informatics/sopt/actions?query=workflow%3Acmake) -->
+[![build](https://github.com/astro-informatics/sopt/actions/workflows/cmake.yml/badge.svg?branch=development)](https://github.com/astro-informatics/sopt/actions/workflows/cmake.yml?query=branch%3Adevelopment+)
 [![codecov](https://codecov.io/gh/astro-informatics/sopt/branch/development/graph/badge.svg)](https://codecov.io/gh/astro-informatics/sopt)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2555234.svg)](https://doi.org/10.5281/zenodo.2555234)
+[![DOI](http://img.shields.io/badge/DOI-10.5281/zenodo.2584256-blue.svg?style=flat)](https://doi.org/10.5281/zenodo.2584256)
 
 Description
 -------------
@@ -29,27 +30,23 @@ Dependencies installation
 - [GCC](https://gcc.gnu.org) v7.3.0 GNU compiler for `C++`
 - [UCL/GreatCMakeCookOff](https://github.com/UCL/GreatCMakeCookOff) Collection of `CMake` recipes.
   Downloaded automatically if absent.
-- [Eigen3](http://eigen.tuxfamily.org/index.php?title=Main_Page) v3.2.0 (Trusty) Modern `C++` linear algebra.
-  Downloaded automatically if absent.
-- [tiff](http://www.libtiff.org/) v4.0.3 (Trusty) Tag Image File Format library
 - [OpenMP](http://openmp.org/wp/) v4.8.4 (Trusty) - Optional - Speeds up some of the operations.
-- [spdlog](https://github.com/gabime/spdlog) v* - Optional - Logging library. Downloaded automatically if
-  absent.
-- [Catch2](https://github.com/catchorg/Catch2) v2.2.3 - Optional -  A `C++`
-  unit-testing framework only needed for testing. Downloaded automatically if absent.
-- [google/benchmark](https://github.com/google/benchmark) - Optional - A `C++`
-  micro-benchmarking framework only needed for benchmarks. Downloaded automatically if absent.
+- [Conan](https://docs.conan.io/en/latest/installation.html) - C++ package manager which installs the following:
+    - [Eigen3](http://eigen.tuxfamily.org/index.php?title=Main_Page) v3.2.0 (Trusty) Modern `C++` linear algebra.
+      Downloaded automatically if absent.
+    - [spdlog](https://github.com/gabime/spdlog) v* - Optional - Logging library. Downloaded automatically if
+      absent.
+    - [Catch2](https://github.com/catchorg/Catch2) v2.2.3 - Optional -  A `C++`
+      unit-testing framework only needed for testing. Downloaded automatically if absent.
+    - [google/benchmark](https://github.com/google/benchmark) - Optional - A `C++`
+      micro-benchmarking framework only needed for benchmarks. Downloaded automatically if absent.
+    - [tiff](http://www.libtiff.org/) v4.0.3 (Trusty) Tag Image File Format library - only installed if needed.
+
 
 Installing and building SOPT
 ----------------------------
 
-**SOPT** can be installed through the software packet manager on Linux Debian distributions:
-
-```
-apt-get install sopt
-```
-
-Alternatively, you can build **SOPT** entirely from the source code. Once the mandatory dependencies are present, `git clone` from the [GitHub repository](https://github.com/astro-informatics/sopt):
+You can build **SOPT** entirely from the source code. Once the mandatory dependencies are present, `git clone` from the [GitHub repository](https://github.com/astro-informatics/sopt):
 
 ```
 git clone https://github.com/astro-informatics/sopt.git
@@ -61,17 +58,62 @@ Then, the program can be built with standard `CMake` command:
 cd /path/to/code
 mkdir build
 cd build
-cmake -DCMAKE_BUILD_TYPE=Release ..
-make
+conan install .. --build missing
+conan build ..
 ```
 
-To install in directory `/X`, with libraries going to `X/lib` do:
+To install in directory `INSTALL_FOLDER`, add the following options to the conan build command:
 
 ```
-cd /path/to/code/build
-cmake -DCMAKE_INSTALL_PREFIX=/X ..
-make install
+conan build .. -bf INSTALL_FOLDER -if .
 ```
+
+CMake build options should be passed as options to `conan install` using the `-o` flag with a value `on` or `off`. Possible options are
+
+- tests (default on)
+- benchmarks (default off)
+- examples (default on)
+- logging (default on)
+- openmp (default on)
+- mpi (default on)
+- docs (default off)
+- coverage (default off)
+
+For example, to build with both MPI and OpenMP off you would use
+
+```
+conan install .. --build missing -o openmp=off -o mpi=off
+conan build ..
+```
+
+Common errors
+-------
+If you are using the g++ compiler and get an error to do with the package `spdlog`, try adding the option `-s compiler.libcxx=libstdc++11` to the `conan build` command. This option is also necessary when building with gcc on MacOS.
+
+Conan tips
+-------
+
+You can set commonly used options, choices of compilers, etc. in a [conan profile](https://docs.conan.io/en/latest/reference/profiles.html). You can list profiles available on your system using `conan profile list` and select the profile you want to use with `conan install` with `conan install .. -pr my_profile`. CMake build options can also be added to the profile under `[options]`. Here is an example of a conan profile for building with a homebrew installed gcc 11 on MacOS.
+
+```
+GCC_PATH=/usr/local/Cellar/gcc/11.2.0_3/bin/
+
+[settings]
+os=Macos
+os_build=Macos
+arch=x86_64
+arch_build=x86_64
+compiler=gcc
+compiler.version=11
+compiler.libcxx=libstdc++11
+build_type=Release
+[options]
+[build_requires]
+[env]
+CC=$GCC_PATH/gcc-11
+CXX=$GCC_PATH/g++-11
+```
+
 
 Testing
 -------
