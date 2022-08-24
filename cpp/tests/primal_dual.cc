@@ -39,7 +39,7 @@ TEST_CASE("Primal Dual Imaging", "[primaldual]") {
                         .residual_convergence(epsilon);
 
   auto const result = primaldual();
-  CHECK((result.x - target).stableNorm() <= Approx(epsilon).margin(1e-12));
+  CHECK((result.x - target).stableNorm() <= Approx(epsilon).margin(1e-10));
   CHECK(result.good);
   primaldual
       .l1_proximal([](t_Vector &output, const t_real &gamma, const t_Vector &input) {

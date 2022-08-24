@@ -7,6 +7,7 @@
 #include <iostream>
 #include <random>
 #include <vector>
+#include <ctime>
 #include <Eigen/Eigenvalues>
 
 #include <sopt/imaging_primal_dual.h>

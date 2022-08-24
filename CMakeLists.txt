@@ -3,6 +3,7 @@ project(Sopt CXX)
 
 # Location of extra cmake includes for the project
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake_files)
+list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/build)
 # Downloads and installs GreatCMakeCookOff
 # It contains a number of cmake recipes
 include(LookUp-GreatCMakeCookOff)
@@ -16,7 +17,6 @@ option(tests          "Enable testing"                         on)
 option(benchmarks     "Enable benchmarking"                    off)
 option(examples       "Enable Examples"                        on)
 option(logging        "Enable logging"                         on)
-option(regressions    "Enable regressions"                     off)
 option(openmp         "Enable OpenMP"                          on)
 option(dompi          "Enable MPI"                             on)
 option(docs           "Build documentation"                    off)
@@ -28,9 +28,6 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 message(STATUS "Building sopt in ${CMAKE_BUILD_TYPE} mode")
 
-if(regressions)
-  enable_language(C)
-endif()
 if(tests)
   enable_testing()
 endif()
@@ -56,12 +53,12 @@ if(SOPT_MPI)
   DetectIntegerArchitecture(SOPT)
 endif()
 
-
 if(tests OR examples)
   enable_testing()
 endif()
 
 if(tests)
+  find_package(Catch)
   include(AddCatchTest)
 endif()
 if(examples)
@@ -72,9 +69,7 @@ if(benchmarks)
   set(GBenchmark_GIT_TAG "v1.3.0")
   include(AddBenchmark)
 endif()
-if(regressions)
-  include(AddRegression)
-endif()
+
 if(tests AND coverage)
   # Enable code coverage.
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage")

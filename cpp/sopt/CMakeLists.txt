@@ -28,7 +28,6 @@ if(SOPT_MPI)
 endif()
 
 add_library(sopt SHARED ${sources})
-add_dependencies(sopt lookup_dependencies)
 set(version "${Sopt_VERSION_MAJOR}.${Sopt_VERSION_MINOR}.${Sopt_VERSION_PATCH}")
 set(soversion "${Sopt_VERSION_MAJOR}.${Sopt_VERSION_MINOR}")
 set_target_properties(sopt PROPERTIES VERSION ${version} SOVERSION ${soversion})
@@ -38,21 +37,28 @@ target_include_directories(sopt PUBLIC
   $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/include>
   $<INSTALL_INTERFACE:include/>)
 
+if(NOT SOPT_OPENMP)
+  find_package(Threads REQUIRED)
+  target_link_libraries(sopt Threads::Threads)
+endif()
 if(TIFF_FOUND)
-  target_link_libraries(sopt ${TIFF_LIBRARY})
+  target_link_libraries(sopt TIFF::TIFF)
   target_include_directories(sopt SYSTEM PUBLIC ${TIFF_INCLUDE_DIR})
 endif()
-# Add spdlog as direct dependency if not downloaded
-if(SPDLOG_INCLUDE_DIR AND NOT spdlog_BUILT_AS_EXTERNAL_PROJECT)
-  target_include_directories(sopt SYSTEM PUBLIC ${SPDLOG_INCLUDE_DIR})
-elseif(SPDLOG_INCLUDE_DIR AND spdlog_BUILT_AS_EXTERNAL_PROJECT)
-  target_include_directories(sopt SYSTEM PUBLIC $<BUILD_INTERFACE:${SPDLOG_INCLUDE_DIR}>)
+# Add spdlog as direct dependency
+if(spdlog_FOUND)
+  target_link_libraries(sopt spdlog::spdlog)
+  target_include_directories(sopt SYSTEM PUBLIC ${spdlog_INCLUDE_DIR})
 endif()
-# Add eigen as direct dependency if not downloaded
-if(EIGEN3_INCLUDE_DIR AND NOT Eigen3_BUILT_AS_EXTERNAL_PROJECT)
-  target_include_directories(sopt SYSTEM PUBLIC ${EIGEN3_INCLUDE_DIR})
-elseif(EIGEN3_INCLUDE_DIR AND Eigen3_BUILT_AS_EXTERNAL_PROJECT)
-  target_include_directories(sopt SYSTEM PUBLIC $<BUILD_INTERFACE:${EIGEN3_INCLUDE_DIR}>)
+# Add Eigen3 as direct dependency
+# On different platforms the CMakeDeps generator in conan seems to install eigen
+# as either "eigen" or "Eigen3" because the recipe does not explicitly define the
+# name (yet). To work around this we have to check for both.
+if(eigen_FOUND)
+  target_include_directories(sopt SYSTEM PUBLIC ${eigen_INCLUDE_DIR})
+endif()
+if(Eigen3_FOUND)
+  target_include_directories(sopt SYSTEM PUBLIC ${Eigen3_INCLUDE_DIR})
 endif()
 if(TARGET openmp::openmp)
   target_link_libraries(sopt openmp::openmp)
@@ -61,6 +67,8 @@ if(SOPT_MPI)
   target_link_libraries(sopt ${MPI_CXX_LIBRARIES})
   target_include_directories(sopt SYSTEM PUBLIC ${MPI_CXX_INCLUDE_PATH})
 endif()
+
+target_link_libraries(sopt ${CONAN_LIBS}) 
 
 install(FILES ${headers} DESTINATION include/sopt)
 install(FILES ${wavelet_headers} DESTINATION include/sopt/wavelets)

@@ -235,7 +235,7 @@ TEST_CASE("L1 proximal", "[l1][proximal]") {
       // returns false if did not converge.
       // Looks like computing the proximal does not always work...
       auto const mini = l1.objective(input, proximal, gamma);
-      auto const eps = 1e-4;
+      auto const eps = 1e-3;
       // check alongst specific directions
       for (Vector<Scalar>::Index i(0); i < proximal.size(); ++i) {
         for (auto const dir : {Scalar(eps, 0), Scalar(0, eps), Scalar(-eps, 0), Scalar(0, -eps)}) {
