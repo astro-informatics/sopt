@@ -36,6 +36,10 @@ target_include_directories(sopt PUBLIC
   $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/include>
   $<INSTALL_INTERFACE:include/>)
 
+if(NOT SOPT_OPENMP)
+  find_package(Threads REQUIRED)
+  target_link_libraries(sopt Threads::Threads)
+endif()
 if(TIFF_FOUND)
   target_link_libraries(sopt TIFF::TIFF)
   target_include_directories(sopt SYSTEM PUBLIC ${TIFF_INCLUDE_DIR})
