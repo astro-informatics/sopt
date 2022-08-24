@@ -1,6 +1,8 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structsopt_1_1algorithm_1_1ForwardBackward_1_1Diagnostic.html" title="Values indicating how the algorithm ran." alt="" coords="5,53,251,94"/>
+<area shape="rect" id="node1" href="$structsopt_1_1algorithm_1_1ForwardBackward_1_1Diagnostic.html" title="Values indicating how the algorithm ran." alt="" coords="5,93,251,134"/>
 <area shape="rect" id="node2" href="$structsopt_1_1algorithm_1_1ForwardBackward_1_1DiagnosticAndResult.html" title="Holds result vector as well." alt="" coords="299,5,544,61"/>
 <area shape="rect" id="node3" href="$structsopt_1_1algorithm_1_1ImagingForwardBackward_1_1Diagnostic.html" title="Values indicating how the algorithm ran." alt="" coords="319,85,524,141"/>
-<area shape="rect" id="node4" href="$structsopt_1_1algorithm_1_1ImagingForwardBackward_1_1DiagnosticAndResult.html" title="Holds result vector as well." alt="" coords="592,85,797,141"/>
+<area shape="rect" id="node5" href="$structsopt_1_1algorithm_1_1L2ForwardBackward_1_1Diagnostic.html" title="Values indicating how the algorithm ran." alt="" coords="299,167,544,209"/>
+<area shape="rect" id="node4" href="$structsopt_1_1algorithm_1_1ImagingForwardBackward_1_1DiagnosticAndResult.html" title="Holds result vector as well." alt="" coords="612,83,817,139"/>
+<area shape="rect" id="node6" href="$structsopt_1_1algorithm_1_1L2ForwardBackward_1_1DiagnosticAndResult.html" title="Holds result vector as well." alt="" coords="592,163,837,219"/>
 </map>

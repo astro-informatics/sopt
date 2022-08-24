@@ -648,7 +648,7 @@ template&lt;class SCALAR &gt; </div>
 <p class="definition">Definition at line <a class="el" href="padmm_8h_source.html#l00195">195</a> of file <a class="el" href="padmm_8h_source.html">padmm.h</a>.</p>
 <div class="fragment"><div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;                                                                                             {</div>
 <div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    std::tuple&lt;t_Vector, t_Vector&gt; guess;</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    std::get&lt;0&gt;(guess) = (phi.adjoint() * <a class="code" href="classsopt_1_1algorithm_1_1ProximalADMM.html#a96e02c2fc2e6651fb0228e55368d7022">target</a>).eval() / nu;</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    std::get&lt;0&gt;(guess) = <span class="keyword">static_cast&lt;</span><a class="code" href="bisection__method_8cc.html#a4aacec93fc3bad0dfbec9fa2912c1aaf">t_Vector</a><span class="keyword">&gt;</span>(phi.adjoint() * <a class="code" href="classsopt_1_1algorithm_1_1ProximalADMM.html#a96e02c2fc2e6651fb0228e55368d7022">target</a>) / nu;</div>
 <div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    std::get&lt;1&gt;(guess) = phi * std::get&lt;0&gt;(guess) - <a class="code" href="classsopt_1_1algorithm_1_1ProximalADMM.html#a96e02c2fc2e6651fb0228e55368d7022">target</a>;</div>
 <div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    <span class="keywordflow">return</span> guess;</div>
 <div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;  }</div>

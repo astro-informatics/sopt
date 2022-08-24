@@ -280,7 +280,7 @@ $(function() {
 <div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;  <span class="keyword">auto</span> A = [<span class="keyword">this</span>](<a class="code" href="bisection__method_8cc.html#a4aacec93fc3bad0dfbec9fa2912c1aaf">t_Vector</a> &amp;out, <a class="code" href="bisection__method_8cc.html#a4aacec93fc3bad0dfbec9fa2912c1aaf">t_Vector</a> <span class="keyword">const</span> &amp;input) {</div>
 <div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;    out = out.Zero(input.size());</div>
 <div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> <span class="keyword">const</span> &amp;transform : this-&gt;transforms())</div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;      out += transform.adjoint() * (transform * input).eval();</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;      out += transform.adjoint() * <span class="keyword">static_cast&lt;</span><a class="code" href="bisection__method_8cc.html#a4aacec93fc3bad0dfbec9fa2912c1aaf">t_Vector</a><span class="keyword">&gt;</span>(transform * input);</div>
 <div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;  };</div>
 <div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160; </div>
 <div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;  <span class="comment">// Call conjugate gradient</span></div>

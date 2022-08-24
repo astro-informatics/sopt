@@ -1,12 +1,11 @@
 <map id="/home/runner/work/sopt/sopt/cpp/sopt/l1_proximal.h" name="/home/runner/work/sopt/sopt/cpp/sopt/l1_proximal.h">
-<area shape="rect" id="node1" title=" " alt="" coords="1298,5,1505,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="959,5,1166,47"/>
 <area shape="rect" id="node2" href="$benchmarks_2l1__proximal_8cc.html" title=" " alt="" coords="235,95,416,151"/>
 <area shape="rect" id="node3" href="$examples_2l1__proximal_8cc.html" title=" " alt="" coords="441,95,618,151"/>
 <area shape="rect" id="node4" href="$imaging__forward__backward_8h.html" title=" " alt="" coords="642,95,819,151"/>
 <area shape="rect" id="node10" href="$imaging__padmm_8h.html" title=" " alt="" coords="1313,95,1490,151"/>
-<area shape="rect" id="node16" href="$imaging__primal__dual_8h.html" title=" " alt="" coords="1514,95,1691,151"/>
-<area shape="rect" id="node19" href="$l2__forward__backward_8h.html" title=" " alt="" coords="1716,95,1903,151"/>
-<area shape="rect" id="node20" href="$proximal_8cc.html" title=" " alt="" coords="1927,102,2124,143"/>
+<area shape="rect" id="node16" href="$imaging__primal__dual_8h.html" title=" " alt="" coords="1853,95,2030,151"/>
+<area shape="rect" id="node19" href="$proximal_8cc.html" title=" " alt="" coords="2055,102,2252,143"/>
 <area shape="rect" id="node5" href="$forward__backward_2inpainting_8cc.html" title=" " alt="" coords="5,206,208,262"/>
 <area shape="rect" id="node6" href="$inpainting__credible__interval_8cc.html" title=" " alt="" coords="233,199,453,269"/>
 <area shape="rect" id="node7" href="$inpainting__joint__map_8cc.html" title=" " alt="" coords="432,317,683,373"/>

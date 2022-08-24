@@ -1,10 +1,11 @@
 <map id="/home/runner/work/sopt/sopt/cpp/sopt/forward_backward.h" name="/home/runner/work/sopt/sopt/cpp/sopt/forward_backward.h">
-<area shape="rect" id="node1" title=" " alt="" coords="665,5,842,61"/>
-<area shape="rect" id="node2" href="$imaging__forward__backward_8h.html" title=" " alt="" coords="465,109,642,165"/>
+<area shape="rect" id="node1" title=" " alt="" coords="739,5,917,61"/>
+<area shape="rect" id="node2" href="$imaging__forward__backward_8h.html" title=" " alt="" coords="466,109,643,165"/>
 <area shape="rect" id="node6" href="$joint__map_8h.html" title=" " alt="" coords="731,228,925,269"/>
-<area shape="rect" id="node8" href="$l2__forward__backward_8h.html" title=" " alt="" coords="791,109,977,165"/>
+<area shape="rect" id="node8" href="$l2__forward__backward_8h.html" title=" " alt="" coords="911,109,1097,165"/>
 <area shape="rect" id="node3" href="$forward__backward_2inpainting_8cc.html" title=" " alt="" coords="5,221,208,277"/>
 <area shape="rect" id="node4" href="$inpainting__credible__interval_8cc.html" title=" " alt="" coords="233,213,453,284"/>
 <area shape="rect" id="node5" href="$inpainting__joint__map_8cc.html" title=" " alt="" coords="533,332,784,388"/>
 <area shape="rect" id="node7" href="$forward__backward_8cc.html" title=" " alt="" coords="529,221,706,277"/>
+<area shape="rect" id="node9" href="$l2__inpainting_8cc.html" title=" " alt="" coords="949,221,1152,277"/>
 </map>

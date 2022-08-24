@@ -1,7 +1,9 @@
 <map id="/home/runner/work/sopt/sopt/cpp/sopt/primal_dual.h" name="/home/runner/work/sopt/sopt/cpp/sopt/primal_dual.h">
-<area shape="rect" id="node1" title=" " alt="" coords="225,5,402,61"/>
+<area shape="rect" id="node1" title=" " alt="" coords="287,5,465,61"/>
 <area shape="rect" id="node2" href="$imaging__primal__dual_8h.html" title=" " alt="" coords="98,109,275,165"/>
 <area shape="rect" id="node4" href="$primal__dual_8cc.html" title=" " alt="" coords="225,213,402,269"/>
 <area shape="rect" id="node5" href="$l2__primal__dual_8h.html" title=" " alt="" coords="351,109,529,165"/>
+<area shape="rect" id="node6" href="$tv__primal__dual_8h.html" title=" " alt="" coords="553,109,732,165"/>
 <area shape="rect" id="node3" href="$primal__dual_2inpainting_8cc.html" title=" " alt="" coords="5,213,200,269"/>
+<area shape="rect" id="node7" href="$tv__inpainting_8cc.html" title=" " alt="" coords="545,213,740,269"/>
 </map>

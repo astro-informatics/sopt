@@ -1,0 +1,5 @@
+<map id="sopt::algorithm::L2ForwardBackward&lt; SCALAR &gt;::Diagnostic" name="sopt::algorithm::L2ForwardBackward&lt; SCALAR &gt;::Diagnostic">
+<area shape="rect" id="node1" title="Values indicating how the algorithm ran." alt="" coords="5,95,251,136"/>
+<area shape="rect" id="node3" href="$structsopt_1_1algorithm_1_1L2ForwardBackward_1_1DiagnosticAndResult.html" title="Holds result vector as well." alt="" coords="5,184,251,240"/>
+<area shape="rect" id="node2" href="$structsopt_1_1algorithm_1_1ForwardBackward_1_1Diagnostic.html" title="Values indicating how the algorithm ran." alt="" coords="5,5,251,47"/>
+</map>
