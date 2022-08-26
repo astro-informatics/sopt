@@ -1,5 +1,5 @@
-#ifndef SOPT_L1_FORWARD_BACKWARD_H
-#define SOPT_L1_FORWARD_BACKWARD_H
+#ifndef SOPT_BASE_FORWARD_BACKWARD_H
+#define SOPT_BASE_FORWARD_BACKWARD_H
 
 #include "sopt/config.h"
 #include <numeric>
@@ -190,35 +190,6 @@ class ImagingForwardBackward {
   //! \details Non-const version to setup the object.
   t_Gradient &l2_graident() { return l2_gradient_; }
 
-// Forwards get/setters to L1 and L2Ball proximals
-// In practice, we end up with a bunch of functions that make it simpler to set or get values
-// associated with the two proximal operators.
-// E.g.: `paddm.l1_proximal_itermax(100).l2ball_epsilon(1e-2).l1_proximal_tolerance(1e-4)`.
-// ~~~
-#define SOPT_MACRO(VAR, NAME, PROXIMAL)                                                            \
-  /** \brief Forwards to l1_proximal **/                                                           \
-  decltype(std::declval<proximal::PROXIMAL<Scalar> const>().VAR()) NAME##_proximal_##VAR() const { \
-    return NAME##_proximal().VAR();                                                                \
-  }                                                                                                \
-  /** \brief Forwards to l1_proximal **/                                                           \
-  ImagingForwardBackward<Scalar> &NAME##_proximal_##VAR(                                           \
-      decltype(std::declval<proximal::PROXIMAL<Scalar> const>().VAR()) VAR) {                      \
-    NAME##_proximal().VAR(VAR);                                                                    \
-    return *this;                                                                                  \
-  }
-  SOPT_MACRO(itermax, l1, L1);
-  SOPT_MACRO(tolerance, l1, L1);
-  SOPT_MACRO(positivity_constraint, l1, L1);
-  SOPT_MACRO(real_constraint, l1, L1);
-  SOPT_MACRO(fista_mixing, l1, L1);
-  SOPT_MACRO(nu, l1, L1);
-  SOPT_MACRO(weights, l1, L1);
-#ifdef SOPT_MPI
-  SOPT_MACRO(direct_space_comm, l1, L1);
-  SOPT_MACRO(adjoint_space_comm, l1, L1);
-#endif
-#undef SOPT_MACRO
-
   //! Helper function to set-up default residual convergence function
   ImagingForwardBackward<Scalar> &residual_convergence(Real const &tolerance) {
     return residual_convergence(nullptr).residual_tolerance(tolerance);
@@ -271,38 +242,6 @@ bool ImagingForwardBackward<SCALAR>::residual_convergence(t_Vector const &x,
   SOPT_LOW_LOG("    - [FB] Residuals: {} <? {}", residual_norm, residual_tolerance());
   return residual_norm < residual_tolerance();
 };
-
-template <class SCALAR>
-bool ImagingForwardBackward<SCALAR>::objective_convergence(ScalarRelativeVariation<Scalar> &scalvar,
-                                                           t_Vector const &x,
-                                                           t_Vector const &residual) const {
-  if (static_cast<bool>(objective_convergence())) return objective_convergence()(x, residual);
-  if (scalvar.relative_tolerance() <= 0e0) return true;
-  auto const current = ((gamma() > 0) ? sopt::l1_norm(static_cast<t_Vector>(Psi().adjoint() * x),
-                                                      l1_proximal_weights()) *
-                                            gamma()
-                                      : 0) +
-                       std::pow(sopt::l2_norm(residual), 2) / (2 * sigma() * sigma());
-  return scalvar(current);
-};
-
-#ifdef SOPT_MPI
-template <class SCALAR>
-bool ImagingForwardBackward<SCALAR>::objective_convergence(mpi::Communicator const &obj_comm,
-                                                           ScalarRelativeVariation<Scalar> &scalvar,
-                                                           t_Vector const &x,
-                                                           t_Vector const &residual) const {
-  if (static_cast<bool>(objective_convergence())) return objective_convergence()(x, residual);
-  if (scalvar.relative_tolerance() <= 0e0) return true;
-  auto const current = obj_comm.all_sum_all<t_real>(
-      ((gamma() > 0)
-           ? sopt::l1_norm(static_cast<t_Vector>(Psi().adjoint() * x), l1_proximal_weights()) *
-                 gamma()
-           : 0) +
-      std::pow(sopt::l2_norm(residual), 2) / (2 * sigma() * sigma()));
-  return scalvar(current);
-};
-#endif
 
 template <class SCALAR>
 bool ImagingForwardBackward<SCALAR>::is_converged(ScalarRelativeVariation<Scalar> &scalvar,

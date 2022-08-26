@@ -6,7 +6,7 @@
 #include <vector>
 #include <ctime>
 
-#include <sopt/imaging_forward_backward.h>
+#include <sopt/l1_forward_backward.h>
 #include <sopt/logging.h>
 #include <sopt/maths.h>
 #include <sopt/relative_variation.h>
@@ -90,7 +90,7 @@ int main(int argc, char const **argv) {
   sopt::t_real const gamma = 18;
   sopt::t_real const beta = sigma * sigma * 0.5;
   SOPT_HIGH_LOG("Creating Foward Backward Functor");
-  auto const fb = sopt::algorithm::ImagingForwardBackward<Scalar>(y)
+  auto const fb = sopt::algorithm::L1ForwardBackward<Scalar>(y)
                       .itermax(500)
                       .beta(beta)    // stepsize
                       .sigma(sigma)  // sigma

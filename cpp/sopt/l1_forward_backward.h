@@ -60,7 +60,7 @@ public:
   }
 
   template <class SCALAR>
-  typename ImagingForwardBackward<SCALAR>::Diagnostic ImagingForwardBackward<SCALAR>::operator()(
+  typename IFB::Diagnostic IFB::operator()(
     t_Vector &out, t_Vector const &guess, t_Vector const &res) const {
   SOPT_HIGH_LOG("Performing Forward Backward with L1 and L2 norms");
   // The f proximal is an L1 proximal that stores some diagnostic result
@@ -89,8 +89,59 @@ public:
   static_cast<typename ForwardBackward<SCALAR>::Diagnostic &>(result) =
       fb(out, std::tie(guess, res));
   return result;
-}
+  }
 
+  template <class SCALAR>
+  bool IFB::objective_convergence(ScalarRelativeVariation<Scalar> &scalvar,
+                                                           t_Vector const &x,
+                                                           t_Vector const &residual) const {
+  if (static_cast<bool>(objective_convergence())) return objective_convergence()(x, residual);
+  if (scalvar.relative_tolerance() <= 0e0) return true;
+  auto const current = ((gamma() > 0) ? sopt::l1_norm(static_cast<t_Vector>(Psi().adjoint() * x),
+                                                      l1_proximal_weights()) *
+                                            gamma()
+                                      : 0) +
+                       std::pow(sopt::l2_norm(residual), 2) / (2 * sigma() * sigma());
+  return scalvar(current);
+};
+
+#ifdef SOPT_MPI
+  template <class SCALAR>
+  bool IFB::objective_convergence(mpi::Communicator const &obj_comm,
+							     ScalarRelativeVariation<Scalar> &scalvar,
+							     t_Vector const &x,
+							     t_Vector const &residual) const {
+    if (static_cast<bool>(objective_convergence())) return objective_convergence()(x, residual);
+    if (scalvar.relative_tolerance() <= 0e0) return true;
+    auto const current = obj_comm.all_sum_all<t_real>(
+      ((gamma() > 0)
+       ? sopt::l1_norm(static_cast<t_Vector>(Psi().adjoint() * x), l1_proximal_weights()) *
+       gamma() : 0) + std::pow(sopt::l2_norm(residual), 2) / (2 * sigma() * sigma()));
+    return scalvar(current);
+  };
+#endif
+  
+// Forwards get/setters to L1 and L2Ball proximals
+// In practice, we end up with a bunch of functions that make it simpler to set or get values
+// associated with the two proximal operators.
+// E.g.: `paddm.l1_proximal_itermax(100).l2ball_epsilon(1e-2).l1_proximal_tolerance(1e-4)`.
+// ~~~
+#define SOPT_MACRO(VAR, NAME, PROXIMAL)					\
+  /** \brief Forwards to l1_proximal **/				\
+  decltype(std::declval<proximal::PROXIMAL<Scalar> const>().VAR()) NAME##_proximal_##VAR() const { \
+    return NAME##_proximal().VAR();					\
+  }									\
+  /** \brief Forwards to l1_proximal **/				\
+  ImagingForwardBackward<Scalar> &NAME##_proximal_##VAR(		\
+      decltype(std::declval<proximal::PROXIMAL<Scalar> const>().VAR()) VAR) {                      \
+    NAME##_proximal().VAR(VAR);						\
+    return *this;							\
+  }
+  SOPT_MACRO(itermax, l1, L1);
+  SOPT_MACRO(tolerance, l1, L1);
+  SOPT_MACRO(real_constraint, l1, L1);
+  SOPT_MACRO(weights, l1, L1);
+#undef SOPT_MACRO
   
 protected:
 

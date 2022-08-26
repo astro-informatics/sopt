@@ -6,7 +6,7 @@
 #include <vector>
 #include <ctime>
 
-#include <sopt/imaging_forward_backward.h>
+#include <sopt/l1_forward_backward.h>
 #include <sopt/joint_map.h>
 #include <sopt/logging.h>
 #include <sopt/maths.h>
@@ -91,7 +91,7 @@ int main(int argc, char const **argv) {
   sopt::t_real const gamma = 0;
   sopt::t_real const beta = sigma * sigma * 0.5;
   SOPT_HIGH_LOG("Creating Foward Backward Functor");
-  auto const fb = std::make_shared<sopt::algorithm::ImagingForwardBackward<Scalar>>(y);
+  auto const fb = std::make_shared<sopt::algorithm::L1ForwardBackward<Scalar>>(y);
   fb->itermax(500)
       .beta(beta)    // stepsize
       .sigma(sigma)  // sigma
@@ -112,7 +112,7 @@ int main(int argc, char const **argv) {
   // Here, we default to (y, Φx/ν - y)
   auto l1_norm = [psi](const Vector &x) { return sopt::l1_norm(psi.adjoint() * x); };
   const sopt::t_uint number_of_wavelet_coefficients = image.size();
-  auto joint_map = sopt::algorithm::JointMAP<sopt::algorithm::ImagingForwardBackward<Scalar>>(
+  auto joint_map = sopt::algorithm::JointMAP<sopt::algorithm::L1ForwardBackward<Scalar>>(
                        fb, l1_norm, number_of_wavelet_coefficients)
                        .alpha(1)
                        .beta(1)
