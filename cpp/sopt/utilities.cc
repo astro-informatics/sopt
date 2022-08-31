@@ -41,7 +41,7 @@ Image<> read_tiff(std::string const &filename) {
   TIFF *tif = TIFFOpen(filename.c_str(), "r");
   if (not tif) SOPT_THROW("Could not open file ") << filename;
 
-  uint32 width, height, t;
+  uint32_t width, height, t;
 
   TIFFGetField(tif, TIFFTAG_IMAGEWIDTH, &width);
   TIFFGetField(tif, TIFFTAG_IMAGELENGTH, &height);
@@ -49,14 +49,14 @@ Image<> read_tiff(std::string const &filename) {
   SOPT_LOW_LOG("- image size {}, {} ", width, height);
   Image<> result = Image<>::Zero(height, width);
 
-  uint32 *raster = (uint32 *)_TIFFmalloc(width * height * sizeof(uint32));
+  uint32_t *raster = (uint32_t *)_TIFFmalloc(width * height * sizeof(uint32_t));
   if (not raster) SOPT_THROW("Could not allocate memory to read file ") << filename;
   if (not TIFFReadRGBAImage(tif, width, height, raster, 0))
     SOPT_THROW("Could not read file ") << filename;
 
   uint32_t *pixel = (uint32_t *)raster;
-  for (uint32 i(0); i < height; ++i)
-    for (uint32 j(0); j < width; ++j, ++pixel) result(i, j) = convert_to_greyscale(*pixel);
+  for (uint32_t i(0); i < height; ++i)
+    for (uint32_t j(0); j < width; ++j, ++pixel) result(i, j) = convert_to_greyscale(*pixel);
 
   _TIFFfree(raster);
 
@@ -70,8 +70,8 @@ void write_tiff(Image<> const &image, std::string const &filename) {
   TIFF *tif = TIFFOpen(filename.c_str(), "w");
   if (not tif) SOPT_THROW("Could not open file ") << filename;
 
-  uint32 const width = image.cols();
-  uint32 const height = image.rows();
+  uint32_t const width = image.cols();
+  uint32_t const height = image.rows();
 
   SOPT_TRACE("Allocating buffer");
   std::vector<uint32_t> raster(width * height);
@@ -88,8 +88,8 @@ void write_tiff(Image<> const &image, std::string const &filename) {
 
   SOPT_TRACE("Initializing buffer");
   auto pixel = raster.begin();
-  for (uint32 i(0); i < height; ++i)
-    for (uint32 j(0); j < width; ++j, ++pixel) *pixel = convert_from_greyscale(image(i, j));
+  for (uint32_t i(0); i < height; ++i)
+    for (uint32_t j(0); j < width; ++j, ++pixel) *pixel = convert_from_greyscale(image(i, j));
 
   SOPT_TRACE("Writing strip");
   TIFFWriteEncodedStrip(tif, 0, &raster[0], width * height * sizeof(decltype(raster)::value_type));
