@@ -41,7 +41,7 @@ class ImagingForwardBackward {
     Diagnostic(t_uint niters, bool good, t_Vector &&residual)
         : FB::Diagnostic(niters, good, std::move(residual)) {}
   };
-  
+
   //! Holds result vector as well
   struct DiagnosticAndResult : public Diagnostic {
     //! Output x
@@ -233,6 +233,39 @@ class ImagingForwardBackward {
                     t_Vector const &residual) const;
 };
 
+  template <class SCALAR>
+  typename IFB::Diagnostic IFB::operator()(t_Vector &out, t_Vector const &guess, t_Vector const &res) const {
+
+    operator_log_message();
+
+    // The f proximal is an L1 proximal that stores some diagnostic result
+    Diagnostic result;
+
+    auto const g_proximal = get_proximal(t_Vector &out, Real gamma, t_Vector &x)
+
+    const Real sigma_factor = sigma() * sigma();
+    auto const f_gradient = [this, sigma_factor](t_Vector &out, t_Vector const &x) {
+			      this->l2_gradient()(out, x / sigma_factor);
+			    };
+    ScalarRelativeVariation<Scalar> scalvar(relative_variation(), relative_variation(),
+					    "Objective function");
+    auto const convergence = [this, &scalvar](t_Vector const &x, t_Vector const &residual) mutable {
+			       const bool result = this->is_converged(scalvar, x, residual);
+			       this->objmin_ = std::real(scalvar.previous());
+			       return result;
+			     };
+    auto const fb = ForwardBackward<SCALAR>(f_gradient, g_proximal, target())
+      .itermax(itermax())
+      .beta(beta())
+      .gamma(gamma())
+      .nu(nu())
+      .Phi(Phi())
+      .is_converged(convergence);
+    static_cast<typename ForwardBackward<SCALAR>::Diagnostic &>(result) =
+      fb(out, std::tie(guess, res));
+    return result;
+  }
+
 template <class SCALAR>
 bool ImagingForwardBackward<SCALAR>::residual_convergence(t_Vector const &x,
                                                           t_Vector const &residual) const {
@@ -242,6 +275,39 @@ bool ImagingForwardBackward<SCALAR>::residual_convergence(t_Vector const &x,
   SOPT_LOW_LOG("    - [FB] Residuals: {} <? {}", residual_norm, residual_tolerance());
   return residual_norm < residual_tolerance();
 };
+
+  template <class SCALAR>
+  bool IFB::objective_convergence(ScalarRelativeVariation<Scalar> &scalvar,
+				  t_Vector const &x,
+				  t_Vector const &residual) const {
+    if (static_cast<bool>(objective_convergence())) return objective_convergence()(x, residual);
+    if (scalvar.relative_tolerance() <= 0e0) return true;
+    auto norm = get_proximal_norm();
+    auto proximal_weights = get_proximal_weights();
+    auto proximal_x = get_proximal_x();
+    auto const current = ((gamma() > 0) ? norm(static_cast<t_Vector>(proximal_x), proximal_weights()) * gamma() : 0) +
+                                          std::pow(sopt::l2_norm(residual), 2) / (2 * sigma() * sigma());
+    return scalvar(current);
+  };
+
+#ifdef SOPT_MPI
+  template <class SCALAR>
+  bool IFB::objective_convergence(mpi::Communicator const &obj_comm,
+							     ScalarRelativeVariation<Scalar> &scalvar,
+							     t_Vector const &x,
+							     t_Vector const &residual) const {
+    if (static_cast<bool>(objective_convergence())) return objective_convergence()(x, residual);
+    if (scalvar.relative_tolerance() <= 0e0) return true;
+    auto norm = get_proximal_norm();
+    auto proximal_weights = get_proximal_weights();
+    auto proximal_x = get_proximal_x();
+
+    auto const current = obj_comm.all_sum_all<t_real>( ( (gamma() > 0)
+       ? norm(static_cast<t_Vector>(proximal_x), proximal_weights()) * gamma() : 0) +
+      std::pow(sopt::l2_norm(residual), 2) / (2 * sigma() * sigma() ) );
+    return scalvar(current);
+  };
+#endif
 
 template <class SCALAR>
 bool ImagingForwardBackward<SCALAR>::is_converged(ScalarRelativeVariation<Scalar> &scalvar,
