@@ -143,6 +143,5 @@ protected:
   auto get_proximal_x() {
     return Psi().adjoint * x;
   }
-
 }
 #endif
