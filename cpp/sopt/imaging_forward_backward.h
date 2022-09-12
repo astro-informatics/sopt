@@ -231,17 +231,22 @@ class ImagingForwardBackward {
   //! Helper function to simplify checking convergence
   bool is_converged(ScalarRelativeVariation<Scalar> &scalvar, t_Vector const &x,
                     t_Vector const &residual) const;
+
+  virtual void operator_log_message() const;
+  virtual t_Proximal get_proximal(Diagnostic &result) const;
+  virtual Real get_proximal_norm(t_Vector const &x) const;
 };
 
   template <class SCALAR>
-  typename IFB::Diagnostic IFB::operator()(t_Vector &out, t_Vector const &guess, t_Vector const &res) const {
+  typename ImagingForwardBackward<SCALAR>::Diagnostic ImagingForwardBackward<SCALAR>::operator()
+    (t_Vector &out, t_Vector const &guess, t_Vector const &res) const {
 
     operator_log_message();
 
     // The f proximal is an L1 proximal that stores some diagnostic result
     Diagnostic result;
 
-    auto const g_proximal = get_proximal(t_Vector &out, Real gamma, t_Vector &x)
+    auto const g_proximal = get_proximal(result);
 
     const Real sigma_factor = sigma() * sigma();
     auto const f_gradient = [this, sigma_factor](t_Vector &out, t_Vector const &x) {
@@ -266,45 +271,39 @@ class ImagingForwardBackward {
     return result;
   }
 
-template <class SCALAR>
-bool ImagingForwardBackward<SCALAR>::residual_convergence(t_Vector const &x,
-                                                          t_Vector const &residual) const {
-  if (static_cast<bool>(residual_convergence())) return residual_convergence()(x, residual);
-  if (residual_tolerance() <= 0e0) return true;
-  auto const residual_norm = sopt::l2_norm(residual);
-  SOPT_LOW_LOG("    - [FB] Residuals: {} <? {}", residual_norm, residual_tolerance());
-  return residual_norm < residual_tolerance();
-};
-
   template <class SCALAR>
-  bool IFB::objective_convergence(ScalarRelativeVariation<Scalar> &scalvar,
-				  t_Vector const &x,
-				  t_Vector const &residual) const {
+  bool ImagingForwardBackward<SCALAR>::residual_convergence(t_Vector const &x,
+							    t_Vector const &residual) const {
+    if (static_cast<bool>(residual_convergence())) return residual_convergence()(x, residual);
+    if (residual_tolerance() <= 0e0) return true;
+    auto const residual_norm = sopt::l2_norm(residual);
+    SOPT_LOW_LOG("    - [FB] Residuals: {} <? {}", residual_norm, residual_tolerance());
+    return residual_norm < residual_tolerance();
+  };
+  
+  template <class SCALAR>
+  bool ImagingForwardBackward<SCALAR>::objective_convergence(ScalarRelativeVariation<Scalar> &scalvar,
+							     t_Vector const &x,
+							     t_Vector const &residual) const {
     if (static_cast<bool>(objective_convergence())) return objective_convergence()(x, residual);
     if (scalvar.relative_tolerance() <= 0e0) return true;
-    auto norm = get_proximal_norm();
-    auto proximal_weights = get_proximal_weights();
-    auto proximal_x = get_proximal_x();
-    auto const current = ((gamma() > 0) ? norm(static_cast<t_Vector>(proximal_x), proximal_weights()) * gamma() : 0) +
+    auto const current = ((gamma() > 0) ? get_proximal_norm(x) * gamma() : 0) +
                                           std::pow(sopt::l2_norm(residual), 2) / (2 * sigma() * sigma());
     return scalvar(current);
   };
 
 #ifdef SOPT_MPI
   template <class SCALAR>
-  bool IFB::objective_convergence(mpi::Communicator const &obj_comm,
+  bool ImagingForwardBackward<SCALAR>::objective_convergence(mpi::Communicator const &obj_comm,
 							     ScalarRelativeVariation<Scalar> &scalvar,
 							     t_Vector const &x,
 							     t_Vector const &residual) const {
     if (static_cast<bool>(objective_convergence())) return objective_convergence()(x, residual);
     if (scalvar.relative_tolerance() <= 0e0) return true;
-    auto norm = get_proximal_norm();
-    auto proximal_weights = get_proximal_weights();
-    auto proximal_x = get_proximal_x();
 
     auto const current = obj_comm.all_sum_all<t_real>( ( (gamma() > 0)
-       ? norm(static_cast<t_Vector>(proximal_x), proximal_weights()) * gamma() : 0) +
-      std::pow(sopt::l2_norm(residual), 2) / (2 * sigma() * sigma() ) );
+							 ? get_proximal_norm(x) * gamma() : 0) +
+						       std::pow(sopt::l2_norm(residual), 2) / (2 * sigma() * sigma() ) );
     return scalvar(current);
   };
 #endif

@@ -7,7 +7,6 @@
 #include <ctime>
 
 #include <sopt/credible_region.h>
-#include <sopt/imaging_forward_backward.h>
 #include <sopt/l1_forward_backward.h>
 #include <sopt/logging.h>
 #include <sopt/maths.h>
