@@ -104,7 +104,7 @@ $(function() {
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;}</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keywordtype">void</span> Communicator::abort(<span class="keyword">const</span> std::string &amp;reason)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  fprintf(stderr, <span class="stringliteral">&quot;MPI Error on Rank %i: %s\n&quot;</span>, rank(), reason.c_str());</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  fprintf(stderr, <span class="stringliteral">&quot;MPI Error on Rank %lu: %s\n&quot;</span>, rank(), reason.c_str());</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  MPI_Abort(**<span class="keyword">this</span>, MPI_ERR_OTHER);</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;}</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>

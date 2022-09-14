@@ -564,7 +564,7 @@ template&lt;class T &gt; </div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  TIFF *tif = TIFFOpen(filename.c_str(), <span class="stringliteral">&quot;r&quot;</span>);</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <span class="keywordflow">if</span> (not tif) <a class="code" href="exception_8h.html#a57974308768f9fafc7107b626a394f4f">SOPT_THROW</a>(<span class="stringliteral">&quot;Could not open file &quot;</span>) &lt;&lt; filename;</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  uint32 width, height, t;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  uint32_t width, height, t;</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  TIFFGetField(tif, TIFFTAG_IMAGEWIDTH, &amp;width);</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  TIFFGetField(tif, TIFFTAG_IMAGELENGTH, &amp;height);</div>
@@ -572,14 +572,14 @@ template&lt;class T &gt; </div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <a class="code" href="logging_8h.html#a4a497e6b273bf510772846ac52cef095">SOPT_LOW_LOG</a>(<span class="stringliteral">&quot;- image size {}, {} &quot;</span>, width, height);</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  Image&lt;&gt; result = Image&lt;&gt;::Zero(height, width);</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  uint32 *raster = (uint32 *)_TIFFmalloc(width * height * <span class="keyword">sizeof</span>(uint32));</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  uint32_t *raster = (uint32_t *)_TIFFmalloc(width * height * <span class="keyword">sizeof</span>(uint32_t));</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  <span class="keywordflow">if</span> (not raster) <a class="code" href="exception_8h.html#a57974308768f9fafc7107b626a394f4f">SOPT_THROW</a>(<span class="stringliteral">&quot;Could not allocate memory to read file &quot;</span>) &lt;&lt; filename;</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  <span class="keywordflow">if</span> (not TIFFReadRGBAImage(tif, width, height, raster, 0))</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <a class="code" href="exception_8h.html#a57974308768f9fafc7107b626a394f4f">SOPT_THROW</a>(<span class="stringliteral">&quot;Could not read file &quot;</span>) &lt;&lt; filename;</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  uint32_t *pixel = (uint32_t *)raster;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <span class="keywordflow">for</span> (uint32 i(0); i &lt; height; ++i)</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordflow">for</span> (uint32 j(0); j &lt; width; ++j, ++pixel) result(i, j) = convert_to_greyscale(*pixel);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <span class="keywordflow">for</span> (uint32_t i(0); i &lt; height; ++i)</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordflow">for</span> (uint32_t j(0); j &lt; width; ++j, ++pixel) result(i, j) = convert_to_greyscale(*pixel);</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  _TIFFfree(raster);</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
@@ -628,8 +628,8 @@ template&lt;class T &gt; </div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  TIFF *tif = TIFFOpen(filename.c_str(), <span class="stringliteral">&quot;w&quot;</span>);</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  <span class="keywordflow">if</span> (not tif) <a class="code" href="exception_8h.html#a57974308768f9fafc7107b626a394f4f">SOPT_THROW</a>(<span class="stringliteral">&quot;Could not open file &quot;</span>) &lt;&lt; filename;</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  uint32 <span class="keyword">const</span> width = image.cols();</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  uint32 <span class="keyword">const</span> height = image.rows();</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  uint32_t <span class="keyword">const</span> width = image.cols();</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  uint32_t <span class="keyword">const</span> height = image.rows();</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  <a class="code" href="logging_8h.html#a7409cc356d0a5c6a8ce41da7a680ff62">SOPT_TRACE</a>(<span class="stringliteral">&quot;Allocating buffer&quot;</span>);</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  std::vector&lt;uint32_t&gt; raster(width * height);</div>
@@ -646,8 +646,8 @@ template&lt;class T &gt; </div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;  <a class="code" href="logging_8h.html#a7409cc356d0a5c6a8ce41da7a680ff62">SOPT_TRACE</a>(<span class="stringliteral">&quot;Initializing buffer&quot;</span>);</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  <span class="keyword">auto</span> pixel = raster.begin();</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  <span class="keywordflow">for</span> (uint32 i(0); i &lt; height; ++i)</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keywordflow">for</span> (uint32 j(0); j &lt; width; ++j, ++pixel) *pixel = convert_from_greyscale(image(i, j));</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  <span class="keywordflow">for</span> (uint32_t i(0); i &lt; height; ++i)</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keywordflow">for</span> (uint32_t j(0); j &lt; width; ++j, ++pixel) *pixel = convert_from_greyscale(image(i, j));</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;  <a class="code" href="logging_8h.html#a7409cc356d0a5c6a8ce41da7a680ff62">SOPT_TRACE</a>(<span class="stringliteral">&quot;Writing strip&quot;</span>);</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  TIFFWriteEncodedStrip(tif, 0, &amp;raster[0], width * height * <span class="keyword">sizeof</span>(decltype(raster)::value_type));</div>
