@@ -31,7 +31,7 @@ typedef sopt::Image<Scalar> Image;
 TEST_CASE("Inpainting"){
   extern std::unique_ptr<std::mt19937_64> mersenne;
   std::string const input = "cameraman256";
-  std::string const output = "inpainting_test_output";
+  std::string const output = "none";
 
   Image const image = sopt::notinstalled::read_standard_tiff(input);
 
@@ -78,9 +78,15 @@ TEST_CASE("Inpainting"){
                       .Psi(psi)
                       .Phi(sampling);
 
-  // Alternatively, forward-backward can be called with a tuple (x, residual) as argument
-  // Here, we default to (y, Φx/ν - y)
   auto const diagnostic = fb();
+
+  // compare input image to cleaned output image
+  // calculate mean squared error sum_i ( ( x_true(i) - x_est(i) ) **2 ) 
+  // check this is less than the number of pixels * 0.01
+
+  auto mse = (image - diagnostic.x.array()).square().sum() / image.size();
+  CAPTURE(mse);
+  CHECK(mse < 0.01);
 
   if (output != "none")
     sopt::utilities::write_tiff(Matrix::Map(diagnostic.x.data(), image.rows(), image.cols()),
