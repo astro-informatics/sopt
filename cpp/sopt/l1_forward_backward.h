@@ -218,21 +218,21 @@ protected:
   }
 
   // Print log message with the correct norms
-  void operator_log_message() const {
+  void operator_log_message() const override {
     SOPT_HIGH_LOG("Performing Forward Backward with L1 and L2 norms");
   }
 
   // Return g_proximal as a lambda function. Used in operator() in base class.
-  t_Proximal get_proximal(Diagnostic &result) const {
+  t_Proximal get_proximal(IFB::Diagnostic &result) const override {
     return [this, &result](t_Vector &out, Real gamma, t_Vector const &x) {
 	     result.l1_diagnostic = this->l1_proximal(out, gamma, x);
 	   };
   }
 
-  Real get_proximal_norm(t_Vector const &x) const {
+  Real get_proximal_norm(t_Vector const &x) const override {
     return sopt::l1_norm(static_cast<t_Vector>(Psi().adjoint() * x), l1_proximal_weights());
   }
-};
+}; // class L1ForwardBackward
 }  // namespace algorithm
 }  // namespace sopt
 #endif
