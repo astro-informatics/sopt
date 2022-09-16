@@ -241,12 +241,12 @@ class ImagingForwardBackward {
   typename ImagingForwardBackward<SCALAR>::Diagnostic ImagingForwardBackward<SCALAR>::operator()
     (t_Vector &out, t_Vector const &guess, t_Vector const &res) const {
 
-    operator_log_message();
+    ImagingForwardBackward<SCALAR>::operator_log_message();
 
-    // The f proximal is an L1 proximal that stores some diagnostic result
+    // The f proximal is an implemented by a child class. It stores a diagnostic result
     Diagnostic result;
 
-    auto const g_proximal = get_proximal(result);
+    auto const g_proximal = ImagingForwardBackward<SCALAR>::get_proximal(result);
 
     const Real sigma_factor = sigma() * sigma();
     auto const f_gradient = [this, sigma_factor](t_Vector &out, t_Vector const &x) {
@@ -287,7 +287,7 @@ class ImagingForwardBackward {
 							     t_Vector const &residual) const {
     if (static_cast<bool>(objective_convergence())) return objective_convergence()(x, residual);
     if (scalvar.relative_tolerance() <= 0e0) return true;
-    auto const current = ((gamma() > 0) ? get_proximal_norm(x) * gamma() : 0) +
+    auto const current = ((gamma() > 0) ? ImagingForwardBackward<SCALAR>::get_proximal_norm(x) * gamma() : 0) +
                                           std::pow(sopt::l2_norm(residual), 2) / (2 * sigma() * sigma());
     return scalvar(current);
   };
@@ -302,7 +302,7 @@ class ImagingForwardBackward {
     if (scalvar.relative_tolerance() <= 0e0) return true;
 
     auto const current = obj_comm.all_sum_all<t_real>( ( (gamma() > 0)
-							 ? get_proximal_norm(x) * gamma() : 0) +
+							 ? ImagingForwardBackward<SCALAR>::get_proximal_norm(x) * gamma() : 0) +
 						       std::pow(sopt::l2_norm(residual), 2) / (2 * sigma() * sigma() ) );
     return scalvar(current);
   };
