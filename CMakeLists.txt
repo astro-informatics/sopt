@@ -28,10 +28,6 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 message(STATUS "Building sopt in ${CMAKE_BUILD_TYPE} mode")
 
-if(tests)
-  enable_testing()
-endif()
-
 # Add c++11 stuff
 include(AddCPP11Flags)
 include(CheckCXX11Features)
