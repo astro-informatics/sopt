@@ -41,21 +41,6 @@ public:
   typedef typename FB::t_Proximal t_Proximal;
   typedef typename FB::t_Gradient t_Gradient;
   typedef typename FB::t_IsConverged t_IsConverged;
-  // Diagnostic struct + its constructor
-  // Inherit Diagnostic from base class and add Diagnostic from calling L1 proximal
-  // Call base class constructors
-  struct Diagnostic : public IFB::Diagnostic {
-    typename proximal::L1<Scalar>::Diagnostic l1_diagnostic;
-
-    Diagnostic(t_uint niters = 0u, bool good = false,
-               typename proximal::L1<Scalar>::Diagnostic const &l1diag =
-	       typename proximal::L1<Scalar>::Diagnostic())
-      : IFB::Diagnostic(niters, good), l1_diagnostic(l1diag) {}
-    Diagnostic(t_uint niters, bool good, typename proximal::L1<Scalar>::Diagnostic const &l1diag,
-               t_Vector &&residual)
-      : IFB::Diagnostic(niters, good, std::move(residual)),
-	l1_diagnostic(l1diag) {}
-  };
 
   // Constructor for L1ForwardBackward.
   // Call constructor of base class and constructor of l1_proximal
@@ -223,9 +208,9 @@ protected:
   }
 
   // Return g_proximal as a lambda function. Used in operator() in base class.
-  t_Proximal get_proximal(IFB::Diagnostic &result) const override {
-    return [this, &result](t_Vector &out, Real gamma, t_Vector const &x) {
-	     result.l1_diagnostic = this->l1_proximal(out, gamma, x);
+  t_Proximal get_proximal() const override {
+    return [this](t_Vector &out, Real gamma, t_Vector const &x) {
+	     this -> l1_proximal(out, gamma, x);
 	   };
   }
 
