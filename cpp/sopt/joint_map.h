@@ -5,8 +5,6 @@
 #include <functional>
 #include <limits>
 #include "sopt/exception.h"
-#include "sopt/forward_backward.h"
-#include "sopt/l1_forward_backward.h"
 #include "sopt/linear_transform.h"
 #include "sopt/logging.h"
 #include "sopt/types.h"
