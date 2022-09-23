@@ -7,7 +7,7 @@
 #include <ctime>
 #include <catch.hpp>
 
-#include <sopt/imaging_forward_backward.h>
+#include <sopt/l1_forward_backward.h>
 #include <sopt/logging.h>
 #include <sopt/maths.h>
 #include <sopt/relative_variation.h>
@@ -54,7 +54,7 @@ TEST_CASE("Inpainting"){
   sopt::t_real const gamma = 18;
   sopt::t_real const beta = sigma * sigma * 0.5;
 
-  auto const fb = sopt::algorithm::ImagingForwardBackward<Scalar>(y)
+  auto const fb = sopt::algorithm::L1ForwardBackward<Scalar>(y)
                       .itermax(500)
                       .beta(beta)    // stepsize
                       .sigma(sigma)  // sigma
