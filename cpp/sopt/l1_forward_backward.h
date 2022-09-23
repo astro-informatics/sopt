@@ -142,6 +142,11 @@ public:
     IFB::Phi(arg);
     return *this;
   }
+  using IFB::target;
+  L1ForwardBackward<SCALAR>& target(t_Vector const &arg) {
+    IFB::target(arg);
+    return *this;
+  }
 #ifdef SOPT_MPI
   using IFB::obj_comm;
   L1ForwardBackward<SCALAR>& obj_comm(mpi::Communicator const &arg) {
