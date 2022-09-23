@@ -103,12 +103,16 @@ class ImagingForwardBackward {
   SOPT_MACRO(objective_convergence, t_IsConverged);
   //! Maximum number of iterations
   SOPT_MACRO(itermax, t_uint);
+  // TODO: What is this?
   //! γ parameter
   SOPT_MACRO(gamma, Real);
+  // TODO: What is this?
   //! γ parameter
   SOPT_MACRO(beta, Real);
+  // TODO: What is this?
   //! γ parameter
   SOPT_MACRO(sigma, Real);
+  // TODO: What is this?
   //! ν parameter
   SOPT_MACRO(nu, Real);
   //! A function verifying convergence
