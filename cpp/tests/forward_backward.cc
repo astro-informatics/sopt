@@ -14,6 +14,7 @@
 // It is only present in tests
 #include <tools_for_tests/directories.h>
 #include <tools_for_tests/tiffwrappers.h>
+
 sopt::t_int random_integer(sopt::t_int min, sopt::t_int max) {
   extern std::unique_ptr<std::mt19937_64> mersenne;
   std::uniform_int_distribution<sopt::t_int> uniform_dist(min, max);
@@ -22,11 +23,7 @@ sopt::t_int random_integer(sopt::t_int min, sopt::t_int max) {
 
 typedef sopt::t_real Scalar;
 typedef sopt::Vector<Scalar> t_Vector;
-typedef sopt::Matrix<Scalar> t_Matrix;
 typedef sopt::t_real t_real;
-typedef sopt::t_uint t_uint;
-typedef sopt::t_int t_int;
-typedef sopt::Image<Scalar> t_Image;
 auto const N = 5;
 
 TEST_CASE("Forward Backward with ||x - x0||_2^2 function", "[fb]") {
