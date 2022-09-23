@@ -331,11 +331,11 @@ template&lt;class T0 , class T1 &gt; </div>
 
 <p class="definition">Definition at line <a class="el" href="sampling_8h_source.html#l00069">69</a> of file <a class="el" href="sampling_8h_source.html">sampling.h</a>.</p>
 <div class="fragment"><div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                                                                                 {</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  assert(<span class="keyword">static_cast&lt;</span><a class="code" href="forward__backward_8cc.html#acfe2131b3838108e05c6fcd5319e4275">t_uint</a><span class="keyword">&gt;</span>(x.size()) == indices_.size());</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  assert(<span class="keyword">static_cast&lt;</span><a class="code" href="namespacesopt.html#a96a6515fd2aa0c9f5789d33e09fa6477">t_uint</a><span class="keyword">&gt;</span>(x.size()) == indices_.size());</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  out.resize(out.size());</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  out.fill(0);</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  <span class="keywordflow">for</span> (decltype(indices_.size()) i(0); i &lt; indices_.size(); ++i) {</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    assert(indices_[i] &lt; <span class="keyword">static_cast&lt;</span><a class="code" href="forward__backward_8cc.html#acfe2131b3838108e05c6fcd5319e4275">t_uint</a><span class="keyword">&gt;</span>(out.size()));</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    assert(indices_[i] &lt; <span class="keyword">static_cast&lt;</span><a class="code" href="namespacesopt.html#a96a6515fd2aa0c9f5789d33e09fa6477">t_uint</a><span class="keyword">&gt;</span>(out.size()));</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    out[indices_[i]] = x[i];</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  }</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;}</div>
@@ -485,7 +485,7 @@ template&lt;class T0 , class T1 &gt; </div>
 <div class="fragment"><div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                                                                                    {</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  out.resize(indices_.size());</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  <span class="keywordflow">for</span> (decltype(indices_.size()) i(0); i &lt; indices_.size(); ++i) {</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    assert(indices_[i] &lt; <span class="keyword">static_cast&lt;</span><a class="code" href="forward__backward_8cc.html#acfe2131b3838108e05c6fcd5319e4275">t_uint</a><span class="keyword">&gt;</span>(x.size()));</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    assert(indices_[i] &lt; <span class="keyword">static_cast&lt;</span><a class="code" href="namespacesopt.html#a96a6515fd2aa0c9f5789d33e09fa6477">t_uint</a><span class="keyword">&gt;</span>(x.size()));</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    out[i] = x[indices_[i]];</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  }</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;}</div>
@@ -531,10 +531,10 @@ template&lt;class T0 , class T1 &gt; </div>
 <li>/home/runner/work/sopt/sopt/cpp/sopt/<a class="el" href="sampling_8cc_source.html">sampling.cc</a></li>
 </ul>
 </div><!-- contents -->
-<div class="ttc" id="aforward__backward_8cc_html_acfe2131b3838108e05c6fcd5319e4275"><div class="ttname"><a href="forward__backward_8cc.html#acfe2131b3838108e05c6fcd5319e4275">t_uint</a></div><div class="ttdeci">sopt::t_uint t_uint</div><div class="ttdef"><b>Definition:</b> <a href="forward__backward_8cc_source.html#l00027">forward_backward.cc:27</a></div></div>
 <div class="ttc" id="aclasssopt_1_1Sampling_html_aa1d02cc7ff8e473d3b31f40b5cf83445"><div class="ttname"><a href="classsopt_1_1Sampling.html#aa1d02cc7ff8e473d3b31f40b5cf83445">sopt::Sampling::operator()</a></div><div class="ttdeci">void operator()(Eigen::DenseBase&lt; T0 &gt; &amp;out, Eigen::DenseBase&lt; T1 &gt; const &amp;x) const</div><div class="ttdef"><b>Definition:</b> <a href="sampling_8h_source.html#l00060">sampling.h:60</a></div></div>
 <div class="ttc" id="aclasssopt_1_1Sampling_html_a58d40df0109df82a9f55d86ebc8f7f06"><div class="ttname"><a href="classsopt_1_1Sampling.html#a58d40df0109df82a9f55d86ebc8f7f06">sopt::Sampling::adjoint</a></div><div class="ttdeci">void adjoint(Eigen::DenseBase&lt; T0 &gt; &amp;out, Eigen::DenseBase&lt; T1 &gt; const &amp;x) const</div><div class="ttdef"><b>Definition:</b> <a href="sampling_8h_source.html#l00069">sampling.h:69</a></div></div>
 <div class="ttc" id="aclasssopt_1_1Sampling_html_a09becc036c4d93d2d3c17bb09c76581f"><div class="ttname"><a href="classsopt_1_1Sampling.html#a09becc036c4d93d2d3c17bb09c76581f">sopt::Sampling::Sampling</a></div><div class="ttdeci">Sampling(t_uint size, std::vector&lt; t_uint &gt; const &amp;indices)</div><div class="ttdoc">Constructs from a vector.</div><div class="ttdef"><b>Definition:</b> <a href="sampling_8h_source.html#l00019">sampling.h:19</a></div></div>
+<div class="ttc" id="anamespacesopt_html_a96a6515fd2aa0c9f5789d33e09fa6477"><div class="ttname"><a href="namespacesopt.html#a96a6515fd2aa0c9f5789d33e09fa6477">sopt::t_uint</a></div><div class="ttdeci">size_t t_uint</div><div class="ttdoc">Root of the type hierarchy for unsigned integers.</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00015">types.h:15</a></div></div>
 <div class="ttc" id="aclasssopt_1_1Sampling_html_ad9fc79cd57d75ccdb4d0c28a71791e69"><div class="ttname"><a href="classsopt_1_1Sampling.html#ad9fc79cd57d75ccdb4d0c28a71791e69">sopt::Sampling::indices</a></div><div class="ttdeci">const std::vector&lt; t_uint &gt; &amp; indices() const</div><div class="ttdoc">Indices of sampled points.</div><div class="ttdef"><b>Definition:</b> <a href="sampling_8h_source.html#l00050">sampling.h:50</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

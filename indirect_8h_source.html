@@ -112,10 +112,10 @@ $(function() {
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  assert(coeffs.rows() == signal.rows() and coeffs.cols() == signal.cols());</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  assert(coeffs.rows() % 2 == 0 and coeffs.cols() % 2 == 0);</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <span class="keywordflow">for</span> (<a class="code" href="forward__backward_8cc.html#acfe2131b3838108e05c6fcd5319e4275">t_uint</a> i = 0; i &lt; signal.rows(); ++i)</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <span class="keywordflow">for</span> (<a class="code" href="namespacesopt.html#a96a6515fd2aa0c9f5789d33e09fa6477">t_uint</a> i = 0; i &lt; signal.rows(); ++i)</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    indirect_transform_impl(coeffs.row(i).transpose(), signal.row(i).transpose(), wavelet);</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  coeffs = signal;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  <span class="keywordflow">for</span> (<a class="code" href="forward__backward_8cc.html#acfe2131b3838108e05c6fcd5319e4275">t_uint</a> j = 0; j &lt; signal.cols(); ++j)</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  <span class="keywordflow">for</span> (<a class="code" href="namespacesopt.html#a96a6515fd2aa0c9f5789d33e09fa6477">t_uint</a> j = 0; j &lt; signal.cols(); ++j)</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    indirect_transform_impl(coeffs.col(j), signal.col(j), wavelet);</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;}</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;}  <span class="comment">// namespace</span></div>
@@ -176,7 +176,6 @@ $(function() {
 <div class="ttc" id="awavelet__data_8h_html"><div class="ttname"><a href="wavelet__data_8h.html">wavelet_data.h</a></div></div>
 <div class="ttc" id="anamespacesopt_html"><div class="ttname"><a href="namespacesopt.html">sopt</a></div><div class="ttdef"><b>Definition:</b> <a href="bisection__method_8h_source.html#l00010">bisection_method.h:10</a></div></div>
 <div class="ttc" id="atypes_8h_html"><div class="ttname"><a href="types_8h.html">types.h</a></div></div>
-<div class="ttc" id="aforward__backward_8cc_html_acfe2131b3838108e05c6fcd5319e4275"><div class="ttname"><a href="forward__backward_8cc.html#acfe2131b3838108e05c6fcd5319e4275">t_uint</a></div><div class="ttdeci">sopt::t_uint t_uint</div><div class="ttdef"><b>Definition:</b> <a href="forward__backward_8cc_source.html#l00027">forward_backward.cc:27</a></div></div>
 <div class="ttc" id="abenchmarks_2wavelets_8cc_html_a61a80266d367e479ef40417f4f681bea"><div class="ttname"><a href="benchmarks_2wavelets_8cc.html#a61a80266d367e479ef40417f4f681bea">N</a></div><div class="ttdeci">const auto N</div><div class="ttdef"><b>Definition:</b> <a href="benchmarks_2wavelets_8cc_source.html#l00057">wavelets.cc:57</a></div></div>
 <div class="ttc" id="anamespacesopt_html_a96a6515fd2aa0c9f5789d33e09fa6477"><div class="ttname"><a href="namespacesopt.html#a96a6515fd2aa0c9f5789d33e09fa6477">sopt::t_uint</a></div><div class="ttdeci">size_t t_uint</div><div class="ttdoc">Root of the type hierarchy for unsigned integers.</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00015">types.h:15</a></div></div>
 <div class="ttc" id="astructsopt_1_1wavelets_1_1WaveletData_html"><div class="ttname"><a href="structsopt_1_1wavelets_1_1WaveletData.html">sopt::wavelets::WaveletData</a></div><div class="ttdoc">Holds wavelets coefficients.</div><div class="ttdef"><b>Definition:</b> <a href="wavelet__data_8h_source.html#l00012">wavelet_data.h:12</a></div></div>

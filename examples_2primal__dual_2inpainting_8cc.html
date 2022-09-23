@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>SOPT: /home/runner/work/sopt/sopt/cpp/examples/primal_dual/inpainting.cc Source File</title>
+<title>SOPT: /home/runner/work/sopt/sopt/cpp/examples/primal_dual/inpainting.cc File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -75,53 +75,141 @@ $(function() {
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">inpainting.cc</div>  </div>
+<div class="title">inpainting.cc File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="primal__dual_2inpainting_8cc.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &quot;sopt/config.h&quot;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="types_8h.html">sopt/types.h</a>&quot;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;algorithm&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;exception&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;functional&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;iostream&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;random&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;ctime&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;Eigen/Eigenvalues&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="imaging__primal__dual_8h.html">sopt/imaging_primal_dual.h</a>&gt;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="logging_8h.html">sopt/logging.h</a>&gt;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="maths_8h.html">sopt/maths.h</a>&gt;</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="power__method_8h.html">sopt/power_method.h</a>&gt;</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="relative__variation_8h.html">sopt/relative_variation.h</a>&gt;</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="sampling_8h.html">sopt/sampling.h</a>&gt;</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="types_8h.html">sopt/types.h</a>&gt;</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="utilities_8h.html">sopt/utilities.h</a>&gt;</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="wavelets_8h.html">sopt/wavelets.h</a>&gt;</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="sara_8h.html">sopt/wavelets/sara.h</a>&gt;</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">// This header is not part of the installed sopt interface</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">// It is only present in tests</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &lt;tools_for_tests/directories.h&gt;</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="tiffwrappers_8h.html">tools_for_tests/tiffwrappers.h</a>&gt;</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">// \min_{x} ||\Psi^Tx||_1 \quad \mbox{s.t.} \quad ||y - Ax||_2 &lt; \epsilon and x \geq 0</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="primal__dual_2inpainting_8cc.html#a790aa8b99fa3d90918361b8936af0b14">   30</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="forward__backward_2inpainting_8cc.html#a790aa8b99fa3d90918361b8936af0b14">main</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> <span class="keyword">const</span> **argv) {</div>
+<div class="textblock"><code>#include &quot;sopt/config.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="types_8h_source.html">sopt/types.h</a>&quot;</code><br />
+<code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;exception&gt;</code><br />
+<code>#include &lt;functional&gt;</code><br />
+<code>#include &lt;iostream&gt;</code><br />
+<code>#include &lt;random&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;ctime&gt;</code><br />
+<code>#include &lt;Eigen/Eigenvalues&gt;</code><br />
+<code>#include &lt;<a class="el" href="imaging__primal__dual_8h_source.html">sopt/imaging_primal_dual.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="logging_8h_source.html">sopt/logging.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="maths_8h_source.html">sopt/maths.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="power__method_8h_source.html">sopt/power_method.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="relative__variation_8h_source.html">sopt/relative_variation.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="sampling_8h_source.html">sopt/sampling.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="utilities_8h_source.html">sopt/utilities.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="wavelets_8h_source.html">sopt/wavelets.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="sara_8h_source.html">sopt/wavelets/sara.h</a>&gt;</code><br />
+<code>#include &lt;tools_for_tests/directories.h&gt;</code><br />
+<code>#include &lt;<a class="el" href="tiffwrappers_8h_source.html">tools_for_tests/tiffwrappers.h</a>&gt;</code><br />
+</div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Include dependency graph for inpainting.cc:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><img src="examples_2primal__dual_2inpainting_8cc__incl.png" border="0" usemap="#_2home_2runner_2work_2sopt_2sopt_2cpp_2examples_2primal__dual_2inpainting_8cc" alt=""/></div>
+<map name="_2home_2runner_2work_2sopt_2sopt_2cpp_2examples_2primal__dual_2inpainting_8cc" id="_2home_2runner_2work_2sopt_2sopt_2cpp_2examples_2primal__dual_2inpainting_8cc">
+<area shape="rect" title=" " alt="" coords="2643,5,2837,61"/>
+<area shape="rect" title=" " alt="" coords="2195,661,2301,688"/>
+<area shape="rect" href="types_8h.html" title=" " alt="" coords="1349,512,1451,539"/>
+<area shape="rect" title=" " alt="" coords="2675,587,2762,613"/>
+<area shape="rect" title=" " alt="" coords="245,512,331,539"/>
+<area shape="rect" title=" " alt="" coords="3430,587,3517,613"/>
+<area shape="rect" title=" " alt="" coords="1036,199,1116,225"/>
+<area shape="rect" title=" " alt="" coords="1925,273,1997,300"/>
+<area shape="rect" title=" " alt="" coords="3657,273,3719,300"/>
+<area shape="rect" title=" " alt="" coords="3896,117,3955,143"/>
+<area shape="rect" title=" " alt="" coords="3979,117,4120,143"/>
+<area shape="rect" href="imaging__primal__dual_8h.html" title=" " alt="" coords="2502,109,2658,151"/>
+<area shape="rect" href="logging_8h.html" title=" " alt="" coords="3353,348,3468,375"/>
+<area shape="rect" href="maths_8h.html" title=" " alt="" coords="427,430,533,457"/>
+<area shape="rect" href="relative__variation_8h.html" title=" " alt="" coords="3080,273,3261,300"/>
+<area shape="rect" href="power__method_8h.html" title=" " alt="" coords="2825,199,2988,225"/>
+<area shape="rect" href="sampling_8h.html" title=" " alt="" coords="1821,199,1947,225"/>
+<area shape="rect" href="utilities_8h.html" title=" " alt="" coords="1096,430,1211,457"/>
+<area shape="rect" href="wavelets_8h.html" title=" " alt="" coords="1835,117,1960,143"/>
+<area shape="rect" href="sara_8h.html" title=" " alt="" coords="3420,199,3577,225"/>
+<area shape="rect" title=" " alt="" coords="4144,117,4347,143"/>
+<area shape="rect" href="tiffwrappers_8h.html" title=" " alt="" coords="810,430,1022,457"/>
+<area shape="rect" title=" " alt="" coords="582,661,661,688"/>
+<area shape="rect" title=" " alt="" coords="829,587,921,613"/>
+<area shape="rect" href="real__type_8h.html" title=" " alt="" coords="558,587,685,613"/>
+<area shape="rect" title=" " alt="" coords="242,661,334,688"/>
+<area shape="rect" title=" " alt="" coords="2325,199,2400,225"/>
+<area shape="rect" title=" " alt="" coords="3387,273,3442,300"/>
+<area shape="rect" title=" " alt="" coords="2425,199,2485,225"/>
+<area shape="rect" href="exception_8h.html" title=" " alt="" coords="2776,512,2907,539"/>
+<area shape="rect" href="l1__proximal_8h.html" title=" " alt="" coords="1242,199,1385,225"/>
+<area shape="rect" href="linear__transform_8h.html" title=" " alt="" coords="1625,273,1799,300"/>
+<area shape="rect" href="primal__dual_8h.html" title=" " alt="" coords="2509,199,2651,225"/>
+<area shape="rect" href="proximal_8h.html" title=" " alt="" coords="349,273,473,300"/>
+<area shape="rect" title=" " alt="" coords="2787,587,2861,613"/>
+<area shape="rect" title=" " alt="" coords="3133,587,3192,613"/>
+<area shape="rect" title=" " alt="" coords="1437,430,1493,457"/>
+<area shape="rect" href="proximal__expression_8h.html" title=" " alt="" coords="379,348,581,375"/>
+<area shape="rect" title=" " alt="" coords="2035,512,2112,539"/>
+<area shape="rect" href="wrapper_8h.html" title=" " alt="" coords="1529,348,1647,375"/>
+<area shape="rect" href="logging_8disabled_8h.html" title=" " alt="" coords="3181,430,3355,457"/>
+<area shape="rect" title=" " alt="" coords="2744,273,2803,300"/>
+<area shape="rect" title=" " alt="" coords="2123,273,2234,300"/>
+<area shape="rect" href="wavelets_2wavelets_8h.html" title=" " alt="" coords="2258,273,2446,300"/>
+<area shape="rect" title=" " alt="" coords="3518,273,3581,300"/>
+<area shape="rect" href="direct_8h.html" title=" " alt="" coords="2078,348,2245,375"/>
+<area shape="rect" href="wavelet__data_8h.html" title=" " alt="" coords="2227,423,2397,464"/>
+<area shape="rect" href="indirect_8h.html" title=" " alt="" coords="2320,348,2499,375"/>
+<area shape="rect" href="innards_8impl_8h.html" title=" " alt="" coords="2237,512,2448,539"/>
+</map>
+</div>
+</div>
+<p><a href="examples_2primal__dual_2inpainting_8cc_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a790aa8b99fa3d90918361b8936af0b14"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="examples_2primal__dual_2inpainting_8cc.html#a790aa8b99fa3d90918361b8936af0b14">main</a> (int argc, char const **argv)</td></tr>
+<tr class="separator:a790aa8b99fa3d90918361b8936af0b14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a790aa8b99fa3d90918361b8936af0b14"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a790aa8b99fa3d90918361b8936af0b14">&#9670;&nbsp;</a></span>main()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int main </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>argc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char const **&#160;</td>
+          <td class="paramname"><em>argv</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="examples_2primal__dual_2inpainting_8cc_source.html#l00030">30</a> of file <a class="el" href="examples_2primal__dual_2inpainting_8cc_source.html">inpainting.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;                                      {</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <span class="comment">// Some typedefs for simplicity</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  <span class="keyword">typedef</span> <span class="keywordtype">double</span> <a class="code" href="bisection__method_8cc.html#aaa5809f25d167ed398d63ae4dbc63648">Scalar</a>;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  <span class="keyword">typedef</span> <span class="keywordtype">double</span> <a class="code" href="tests_2inpainting_8cc.html#a508fc58b5dc3c81865305f6498457063">Scalar</a>;</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <span class="comment">// Column vector - linear algebra - A * x is a matrix-vector multiplication</span></div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <span class="comment">// type expected by PrimalDual</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="keyword">typedef</span> <a class="code" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">sopt::Vector&lt;Scalar&gt;</a> <a class="code" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">Vector</a>;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="keyword">typedef</span> <a class="code" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">sopt::Vector&lt;Scalar&gt;</a> <a class="code" href="tests_2inpainting_8cc.html#a6fd0dc2cf65e56d59d152836caa7a634">Vector</a>;</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <span class="comment">//  typedef sopt::Vector&lt;sopt::t_complex&gt; Complex;</span></div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <span class="comment">// Matrix - linear algebra - A * x is a matrix-vector multiplication</span></div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <span class="comment">// type expected by PrimalDual</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <span class="keyword">typedef</span> <a class="code" href="namespacesopt.html#adedb6b3e862bd2968bf3026599121630">sopt::Matrix&lt;Scalar&gt;</a> <a class="code" href="namespacesopt.html#adedb6b3e862bd2968bf3026599121630">Matrix</a>;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <span class="keyword">typedef</span> <a class="code" href="namespacesopt.html#adedb6b3e862bd2968bf3026599121630">sopt::Matrix&lt;Scalar&gt;</a> <a class="code" href="tests_2inpainting_8cc.html#a13b14861c460865de4cd78381e258bf4">Matrix</a>;</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <span class="comment">// Image - 2D array - A * x is a coefficient-wise multiplication</span></div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <span class="comment">// Type expected by wavelets and image write/read functions</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  <span class="keyword">typedef</span> <a class="code" href="namespacesopt.html#a7d7971e5566e597eb907614917e30c78">sopt::Image&lt;Scalar&gt;</a> <a class="code" href="namespacesopt.html#a7d7971e5566e597eb907614917e30c78">Image</a>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  <span class="keyword">typedef</span> <a class="code" href="namespacesopt.html#a7d7971e5566e597eb907614917e30c78">sopt::Image&lt;Scalar&gt;</a> <a class="code" href="tests_2inpainting_8cc.html#a597c232bc74255c74fa9d7b0dadff132">Image</a>;</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  std::string <span class="keyword">const</span> input = argc &gt;= 2 ? argv[1] : <span class="stringliteral">&quot;cameraman256&quot;</span>;</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  std::string <span class="keyword">const</span> output = argc == 3 ? argv[2] : <span class="stringliteral">&quot;none&quot;</span>;</div>
@@ -144,7 +232,7 @@ $(function() {
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  <a class="code" href="namespacesopt_1_1logging.html#a120bb1caf65f04fc7d86c0914bb68713">sopt::logging::initialize</a>();</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  <a class="code" href="logging_8h.html#a5bb43e65962554be1a16134dc4d0dba0">SOPT_HIGH_LOG</a>(<span class="stringliteral">&quot;Read input file {}&quot;</span>, input);</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  <a class="code" href="namespacesopt.html#a7d7971e5566e597eb907614917e30c78">Image</a> <span class="keyword">const</span> image = <a class="code" href="namespacesopt_1_1notinstalled.html#a3008033a62397de1c2e272b6caab6648">sopt::notinstalled::read_standard_tiff</a>(input);</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  <a class="code" href="tests_2inpainting_8cc.html#a597c232bc74255c74fa9d7b0dadff132">Image</a> <span class="keyword">const</span> image = <a class="code" href="namespacesopt_1_1notinstalled.html#a3008033a62397de1c2e272b6caab6648">sopt::notinstalled::read_standard_tiff</a>(input);</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  <a class="code" href="logging_8h.html#a5bb43e65962554be1a16134dc4d0dba0">SOPT_HIGH_LOG</a>(<span class="stringliteral">&quot;Initializing sensing operator&quot;</span>);</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  <a class="code" href="namespacesopt.html#a96a6515fd2aa0c9f5789d33e09fa6477">sopt::t_uint</a> nmeasure = 0.33 * image.size();</div>
@@ -161,7 +249,7 @@ $(function() {
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> psi = sopt::linear_transform&lt;Scalar&gt;(wavelet, image.rows(), image.cols());</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  <a class="code" href="logging_8h.html#a5bb43e65962554be1a16134dc4d0dba0">SOPT_HIGH_LOG</a>(<span class="stringliteral">&quot;Computing primal-dual parameters&quot;</span>);</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  <a class="code" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">Vector</a> <span class="keyword">const</span> y0 = sampling * Vector::Map(image.data(), image.size());</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  <a class="code" href="tests_2inpainting_8cc.html#a6fd0dc2cf65e56d59d152836caa7a634">Vector</a> <span class="keyword">const</span> y0 = sampling * Vector::Map(image.data(), image.size());</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> snr = 30.0;</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> <a class="code" href="namespacesopt.html#ad7fbfa0f1f262d124020ccaf5e6cb573">sigma</a> = y0.stableNorm() / std::sqrt(y0.size()) * std::pow(10.0, -(snr / 20.0));</div>
@@ -169,11 +257,11 @@ $(function() {
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;  <a class="code" href="logging_8h.html#a5bb43e65962554be1a16134dc4d0dba0">SOPT_HIGH_LOG</a>(<span class="stringliteral">&quot;Create dirty vector&quot;</span>);</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  std::normal_distribution&lt;&gt; gaussian_dist(0, <a class="code" href="namespacesopt.html#ad7fbfa0f1f262d124020ccaf5e6cb573">sigma</a>);</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  <a class="code" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">Vector</a> y(y0.size());</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  <a class="code" href="tests_2inpainting_8cc.html#a6fd0dc2cf65e56d59d152836caa7a634">Vector</a> y(y0.size());</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  <span class="keywordflow">for</span> (<a class="code" href="namespacesopt.html#a31ab3e07b254312a99a9fe2918b0a625">sopt::t_int</a> i = 0; i &lt; y0.size(); i++) y(i) = y0(i) + gaussian_dist(<a class="code" href="common__catch__main_8cc.html#afd7b13def75c5d7feb77ac1ea2df5d0b">mersenne</a>);</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;  <span class="comment">// Write dirty image to file</span></div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;  <span class="keywordflow">if</span> (output != <span class="stringliteral">&quot;none&quot;</span>) {</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <a class="code" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">Vector</a> <span class="keyword">const</span> <a class="code" href="namespacesopt.html#a52a813b13ba02590f41062b84996e0d5">dirty</a> = sampling.adjoint() * y;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <a class="code" href="tests_2inpainting_8cc.html#a6fd0dc2cf65e56d59d152836caa7a634">Vector</a> <span class="keyword">const</span> <a class="code" href="namespacesopt.html#a52a813b13ba02590f41062b84996e0d5">dirty</a> = sampling.adjoint() * y;</div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <a class="code" href="namespacesopt_1_1utilities.html#a18ac636e4a560294191b1066bc3599b4">sopt::utilities::write_tiff</a>(Matrix::Map(<a class="code" href="namespacesopt.html#a52a813b13ba02590f41062b84996e0d5">dirty</a>.data(), image.rows(), image.cols()),</div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;                                <span class="stringliteral">&quot;dirty_&quot;</span> + output + <span class="stringliteral">&quot;.tiff&quot;</span>);</div>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;  }</div>
@@ -210,39 +298,35 @@ $(function() {
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; </div>
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;  <span class="keywordflow">return</span> 0;</div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;}</div>
-</div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="anamespacesopt_html_adedb6b3e862bd2968bf3026599121630"><div class="ttname"><a href="namespacesopt.html#adedb6b3e862bd2968bf3026599121630">sopt::Matrix</a></div><div class="ttdeci">Eigen::Matrix&lt; T, Eigen::Dynamic, Eigen::Dynamic &gt; Matrix</div><div class="ttdoc">A matrix of a given type.</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00028">types.h:28</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="inpainting_8h_source.html#l00025">sopt::dirty()</a>, <a class="el" href="inpainting_8h_source.html#l00038">sopt::epsilon()</a>, <a class="el" href="sopt_2wavelets_2wavelets_8cc_source.html#l00009">sopt::wavelets::factory()</a>, <a class="el" href="logging_8disabled_8h_source.html#l00013">sopt::logging::initialize()</a>, <a class="el" href="common__catch__main_8cc.html#afd7b13def75c5d7feb77ac1ea2df5d0b">mersenne()</a>, <a class="el" href="imaging__primal__dual_8h_source.html#l00218">sopt::algorithm::ImagingPrimalDual&lt; SCALAR &gt;::Phi()</a>, <a class="el" href="imaging__primal__dual_8h_source.html#l00229">sopt::algorithm::ImagingPrimalDual&lt; SCALAR &gt;::Psi()</a>, <a class="el" href="tiffwrappers_8cc_source.html#l00010">sopt::notinstalled::read_standard_tiff()</a>, <a class="el" href="imaging__primal__dual_8h_source.html#l00258">sopt::algorithm::ImagingPrimalDual&lt; SCALAR &gt;::residual_convergence()</a>, <a class="el" href="inpainting_8h_source.html#l00017">sopt::sigma()</a>, <a class="el" href="logging_8h_source.html#l00027">SOPT_HIGH_LOG</a>, and <a class="el" href="utilities_8cc_source.html#l00067">sopt::utilities::write_tiff()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+<div class="ttc" id="anamespacesopt_html_adedb6b3e862bd2968bf3026599121630"><div class="ttname"><a href="namespacesopt.html#adedb6b3e862bd2968bf3026599121630">sopt::Matrix</a></div><div class="ttdeci">Eigen::Matrix&lt; T, Eigen::Dynamic, Eigen::Dynamic &gt; Matrix</div><div class="ttdoc">A matrix of a given type.</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00029">types.h:29</a></div></div>
 <div class="ttc" id="anamespacesopt_html_a974f99e567f8ac05a0fe5e50fbfd215b"><div class="ttname"><a href="namespacesopt.html#a974f99e567f8ac05a0fe5e50fbfd215b">sopt::epsilon</a></div><div class="ttdeci">real_type&lt; T &gt;::type epsilon(sopt::LinearTransform&lt; Vector&lt; T &gt;&gt; const &amp;sampling, sopt::Image&lt; T &gt; const &amp;image)</div><div class="ttdef"><b>Definition:</b> <a href="inpainting_8h_source.html#l00038">inpainting.h:38</a></div></div>
-<div class="ttc" id="aimaging__primal__dual_8h_html"><div class="ttname"><a href="imaging__primal__dual_8h.html">imaging_primal_dual.h</a></div></div>
-<div class="ttc" id="aforward__backward_2inpainting_8cc_html_a790aa8b99fa3d90918361b8936af0b14"><div class="ttname"><a href="forward__backward_2inpainting_8cc.html#a790aa8b99fa3d90918361b8936af0b14">main</a></div><div class="ttdeci">int main(int argc, char const **argv)</div><div class="ttdef"><b>Definition:</b> <a href="forward__backward_2inpainting_8cc_source.html#l00023">inpainting.cc:23</a></div></div>
-<div class="ttc" id="atypes_8h_html"><div class="ttname"><a href="types_8h.html">types.h</a></div></div>
+<div class="ttc" id="atests_2inpainting_8cc_html_a13b14861c460865de4cd78381e258bf4"><div class="ttname"><a href="tests_2inpainting_8cc.html#a13b14861c460865de4cd78381e258bf4">Matrix</a></div><div class="ttdeci">sopt::Matrix&lt; Scalar &gt; Matrix</div><div class="ttdef"><b>Definition:</b> <a href="tests_2inpainting_8cc_source.html#l00028">inpainting.cc:28</a></div></div>
 <div class="ttc" id="anamespacesopt_html_ac4dd3feebe1bf49ebd44d72b05064c19"><div class="ttname"><a href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">sopt::Vector</a></div><div class="ttdeci">Eigen::Matrix&lt; T, Eigen::Dynamic, 1 &gt; Vector</div><div class="ttdoc">A vector of a given type.</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00024">types.h:24</a></div></div>
-<div class="ttc" id="asampling_8h_html"><div class="ttname"><a href="sampling_8h.html">sampling.h</a></div></div>
 <div class="ttc" id="aclasssopt_1_1algorithm_1_1ImagingPrimalDual_html_ac50916dbeaaf6d1ce5ca2f38057a4856"><div class="ttname"><a href="classsopt_1_1algorithm_1_1ImagingPrimalDual.html#ac50916dbeaaf6d1ce5ca2f38057a4856">sopt::algorithm::ImagingPrimalDual::residual_convergence</a></div><div class="ttdeci">ImagingPrimalDual&lt; Scalar &gt; &amp; residual_convergence(Real const &amp;tolerance)</div><div class="ttdoc">Helper function to set-up default residual convergence function.</div><div class="ttdef"><b>Definition:</b> <a href="imaging__primal__dual_8h_source.html#l00258">imaging_primal_dual.h:258</a></div></div>
-<div class="ttc" id="amaths_8h_html"><div class="ttname"><a href="maths_8h.html">maths.h</a></div></div>
 <div class="ttc" id="anamespacesopt_html_ad7fbfa0f1f262d124020ccaf5e6cb573"><div class="ttname"><a href="namespacesopt.html#ad7fbfa0f1f262d124020ccaf5e6cb573">sopt::sigma</a></div><div class="ttdeci">real_type&lt; T &gt;::type sigma(sopt::LinearTransform&lt; Vector&lt; T &gt;&gt; const &amp;sampling, sopt::Image&lt; T &gt; const &amp;image)</div><div class="ttdef"><b>Definition:</b> <a href="inpainting_8h_source.html#l00017">inpainting.h:17</a></div></div>
 <div class="ttc" id="acommon__catch__main_8cc_html_afd7b13def75c5d7feb77ac1ea2df5d0b"><div class="ttname"><a href="common__catch__main_8cc.html#afd7b13def75c5d7feb77ac1ea2df5d0b">mersenne</a></div><div class="ttdeci">std::unique_ptr&lt; std::mt19937_64 &gt; mersenne(new std::mt19937_64(0))</div></div>
 <div class="ttc" id="anamespacesopt_1_1wavelets_html_a65aedf4b737bb07c94642b42fe99bfab"><div class="ttname"><a href="namespacesopt_1_1wavelets.html#a65aedf4b737bb07c94642b42fe99bfab">sopt::wavelets::factory</a></div><div class="ttdeci">Wavelet factory(std::string name, t_uint nlevels)</div><div class="ttdoc">Creates a wavelet transform object.</div><div class="ttdef"><b>Definition:</b> <a href="sopt_2wavelets_2wavelets_8cc_source.html#l00009">wavelets.cc:9</a></div></div>
 <div class="ttc" id="anamespacesopt_1_1logging_html_a120bb1caf65f04fc7d86c0914bb68713"><div class="ttname"><a href="namespacesopt_1_1logging.html#a120bb1caf65f04fc7d86c0914bb68713">sopt::logging::initialize</a></div><div class="ttdeci">std::shared_ptr&lt; int &gt; initialize(std::string const &amp;)</div><div class="ttdoc">Initializes a logger.</div><div class="ttdef"><b>Definition:</b> <a href="logging_8disabled_8h_source.html#l00013">logging.disabled.h:13</a></div></div>
+<div class="ttc" id="atests_2inpainting_8cc_html_a508fc58b5dc3c81865305f6498457063"><div class="ttname"><a href="tests_2inpainting_8cc.html#a508fc58b5dc3c81865305f6498457063">Scalar</a></div><div class="ttdeci">double Scalar</div><div class="ttdef"><b>Definition:</b> <a href="tests_2inpainting_8cc_source.html#l00026">inpainting.cc:26</a></div></div>
 <div class="ttc" id="anamespacesopt_html_ac63d8bc953beeb56a063f174ce7f2a0a"><div class="ttname"><a href="namespacesopt.html#ac63d8bc953beeb56a063f174ce7f2a0a">sopt::t_real</a></div><div class="ttdeci">double t_real</div><div class="ttdoc">Root of the type hierarchy for real numbers.</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00017">types.h:17</a></div></div>
-<div class="ttc" id="arelative__variation_8h_html"><div class="ttname"><a href="relative__variation_8h.html">relative_variation.h</a></div></div>
-<div class="ttc" id="awavelets_8h_html"><div class="ttname"><a href="wavelets_8h.html">wavelets.h</a></div></div>
 <div class="ttc" id="aclasssopt_1_1Sampling_html"><div class="ttname"><a href="classsopt_1_1Sampling.html">sopt::Sampling</a></div><div class="ttdoc">An operator that samples a set of measurements.</div><div class="ttdef"><b>Definition:</b> <a href="sampling_8h_source.html#l00016">sampling.h:16</a></div></div>
-<div class="ttc" id="asara_8h_html"><div class="ttname"><a href="sara_8h.html">sara.h</a></div></div>
-<div class="ttc" id="atiffwrappers_8h_html"><div class="ttname"><a href="tiffwrappers_8h.html">tiffwrappers.h</a></div></div>
-<div class="ttc" id="autilities_8h_html"><div class="ttname"><a href="utilities_8h.html">utilities.h</a></div></div>
+<div class="ttc" id="atests_2inpainting_8cc_html_a597c232bc74255c74fa9d7b0dadff132"><div class="ttname"><a href="tests_2inpainting_8cc.html#a597c232bc74255c74fa9d7b0dadff132">Image</a></div><div class="ttdeci">sopt::Image&lt; Scalar &gt; Image</div><div class="ttdef"><b>Definition:</b> <a href="tests_2inpainting_8cc_source.html#l00029">inpainting.cc:29</a></div></div>
 <div class="ttc" id="anamespacesopt_html_a96a6515fd2aa0c9f5789d33e09fa6477"><div class="ttname"><a href="namespacesopt.html#a96a6515fd2aa0c9f5789d33e09fa6477">sopt::t_uint</a></div><div class="ttdeci">size_t t_uint</div><div class="ttdoc">Root of the type hierarchy for unsigned integers.</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00015">types.h:15</a></div></div>
 <div class="ttc" id="aclasssopt_1_1algorithm_1_1ImagingPrimalDual_html"><div class="ttname"><a href="classsopt_1_1algorithm_1_1ImagingPrimalDual.html">sopt::algorithm::ImagingPrimalDual</a></div><div class="ttdef"><b>Definition:</b> <a href="imaging__primal__dual_8h_source.html#l00020">imaging_primal_dual.h:20</a></div></div>
 <div class="ttc" id="anamespacesopt_html_a31ab3e07b254312a99a9fe2918b0a625"><div class="ttname"><a href="namespacesopt.html#a31ab3e07b254312a99a9fe2918b0a625">sopt::t_int</a></div><div class="ttdeci">int t_int</div><div class="ttdoc">Root of the type hierarchy for signed integers.</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00013">types.h:13</a></div></div>
-<div class="ttc" id="abisection__method_8cc_html_aaa5809f25d167ed398d63ae4dbc63648"><div class="ttname"><a href="bisection__method_8cc.html#aaa5809f25d167ed398d63ae4dbc63648">Scalar</a></div><div class="ttdeci">sopt::t_real Scalar</div><div class="ttdef"><b>Definition:</b> <a href="bisection__method_8cc_source.html#l00009">bisection_method.cc:9</a></div></div>
-<div class="ttc" id="alogging_8h_html"><div class="ttname"><a href="logging_8h.html">logging.h</a></div></div>
 <div class="ttc" id="anamespacesopt_html_a52a813b13ba02590f41062b84996e0d5"><div class="ttname"><a href="namespacesopt.html#a52a813b13ba02590f41062b84996e0d5">sopt::dirty</a></div><div class="ttdeci">Vector&lt; T &gt; dirty(sopt::LinearTransform&lt; Vector&lt; T &gt;&gt; const &amp;sampling, sopt::Image&lt; T &gt; const &amp;image, RANDOM &amp;mersenne)</div><div class="ttdef"><b>Definition:</b> <a href="inpainting_8h_source.html#l00025">inpainting.h:25</a></div></div>
 <div class="ttc" id="anamespacesopt_1_1utilities_html_a18ac636e4a560294191b1066bc3599b4"><div class="ttname"><a href="namespacesopt_1_1utilities.html#a18ac636e4a560294191b1066bc3599b4">sopt::utilities::write_tiff</a></div><div class="ttdeci">void write_tiff(Image&lt;&gt; const &amp;image, std::string const &amp;filename)</div><div class="ttdoc">Writes a tiff greyscale file.</div><div class="ttdef"><b>Definition:</b> <a href="utilities_8cc_source.html#l00067">utilities.cc:67</a></div></div>
 <div class="ttc" id="alogging_8h_html_a5bb43e65962554be1a16134dc4d0dba0"><div class="ttname"><a href="logging_8h.html#a5bb43e65962554be1a16134dc4d0dba0">SOPT_HIGH_LOG</a></div><div class="ttdeci">#define SOPT_HIGH_LOG(...)</div><div class="ttdoc">High priority message.</div><div class="ttdef"><b>Definition:</b> <a href="logging_8h_source.html#l00027">logging.h:27</a></div></div>
 <div class="ttc" id="aclasssopt_1_1algorithm_1_1ImagingPrimalDual_html_a0f112194d6712353767cb04ec7257fb9"><div class="ttname"><a href="classsopt_1_1algorithm_1_1ImagingPrimalDual.html#a0f112194d6712353767cb04ec7257fb9">sopt::algorithm::ImagingPrimalDual::Psi</a></div><div class="ttdeci">ImagingPrimalDual &amp;::type Psi(ARGS &amp;&amp;... args)</div><div class="ttdef"><b>Definition:</b> <a href="imaging__primal__dual_8h_source.html#l00229">imaging_primal_dual.h:229</a></div></div>
-<div class="ttc" id="apower__method_8h_html"><div class="ttname"><a href="power__method_8h.html">power_method.h</a></div></div>
+<div class="ttc" id="atests_2inpainting_8cc_html_a6fd0dc2cf65e56d59d152836caa7a634"><div class="ttname"><a href="tests_2inpainting_8cc.html#a6fd0dc2cf65e56d59d152836caa7a634">Vector</a></div><div class="ttdeci">sopt::Vector&lt; Scalar &gt; Vector</div><div class="ttdef"><b>Definition:</b> <a href="tests_2inpainting_8cc_source.html#l00027">inpainting.cc:27</a></div></div>
 <div class="ttc" id="anamespacesopt_1_1notinstalled_html_a3008033a62397de1c2e272b6caab6648"><div class="ttname"><a href="namespacesopt_1_1notinstalled.html#a3008033a62397de1c2e272b6caab6648">sopt::notinstalled::read_standard_tiff</a></div><div class="ttdeci">Image read_standard_tiff(std::string const &amp;name)</div><div class="ttdoc">Reads tiff image from sopt data directory if it exists.</div><div class="ttdef"><b>Definition:</b> <a href="tiffwrappers_8cc_source.html#l00010">tiffwrappers.cc:10</a></div></div>
-<div class="ttc" id="anamespacesopt_html_a7d7971e5566e597eb907614917e30c78"><div class="ttname"><a href="namespacesopt.html#a7d7971e5566e597eb907614917e30c78">sopt::Image</a></div><div class="ttdeci">Eigen::Array&lt; T, Eigen::Dynamic, Eigen::Dynamic &gt; Image</div><div class="ttdoc">A 2-dimensional list of elements of given type.</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00036">types.h:36</a></div></div>
+<div class="ttc" id="anamespacesopt_html_a7d7971e5566e597eb907614917e30c78"><div class="ttname"><a href="namespacesopt.html#a7d7971e5566e597eb907614917e30c78">sopt::Image</a></div><div class="ttdeci">Eigen::Array&lt; T, Eigen::Dynamic, Eigen::Dynamic &gt; Image</div><div class="ttdoc">A 2-dimensional list of elements of given type.</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00039">types.h:39</a></div></div>
 <div class="ttc" id="aclasssopt_1_1algorithm_1_1ImagingPrimalDual_html_af070910d13eae3e2bb243ff77e42872d"><div class="ttname"><a href="classsopt_1_1algorithm_1_1ImagingPrimalDual.html#af070910d13eae3e2bb243ff77e42872d">sopt::algorithm::ImagingPrimalDual::Phi</a></div><div class="ttdeci">ImagingPrimalDual &amp;::type Phi(ARGS &amp;&amp;... args)</div><div class="ttdef"><b>Definition:</b> <a href="imaging__primal__dual_8h_source.html#l00218">imaging_primal_dual.h:218</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

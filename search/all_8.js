@@ -1,7 +1,7 @@
 var searchData=
 [
   ['id_172',['id',['../namespacesopt_1_1proximal.html#a22e3b74782df4c0aa0058babbc4ddd89',1,'sopt::proximal']]],
-  ['image_173',['Image',['../namespacesopt.html#a7d7971e5566e597eb907614917e30c78',1,'sopt']]],
+  ['image_173',['Image',['../namespacesopt.html#a7d7971e5566e597eb907614917e30c78',1,'sopt::Image()'],['../tests_2inpainting_8cc.html#a597c232bc74255c74fa9d7b0dadff132',1,'Image():&#160;inpainting.cc']]],
   ['imaging_5fforward_5fbackward_2eh_174',['imaging_forward_backward.h',['../imaging__forward__backward_8h.html',1,'']]],
   ['imaging_5fpadmm_2eh_175',['imaging_padmm.h',['../imaging__padmm_8h.html',1,'']]],
   ['imaging_5fprimal_5fdual_2eh_176',['imaging_primal_dual.h',['../imaging__primal__dual_8h.html',1,'']]],
@@ -21,7 +21,7 @@ var searchData=
   ['initialize_190',['initialize',['../namespacesopt_1_1logging.html#a120bb1caf65f04fc7d86c0914bb68713',1,'sopt::logging::initialize(std::string const &amp;name=&quot;&quot;)'],['../namespacesopt_1_1logging.html#aa7efdb8dfaa270a5ee5915c08a64ebaa',1,'sopt::logging::initialize()']]],
   ['initialized_191',['initialized',['../namespacesopt_1_1mpi.html#ad44f35d3f51dfcc0fc3b40867f9dd6f3',1,'sopt::mpi']]],
   ['innards_2eimpl_2eh_192',['innards.impl.h',['../innards_8impl_8h.html',1,'']]],
-  ['inpainting_2ecc_193',['inpainting.cc',['../forward__backward_2inpainting_8cc.html',1,'(Global Namespace)'],['../primal__dual_2inpainting_8cc.html',1,'(Global Namespace)'],['../proximal__admm_2inpainting_8cc.html',1,'(Global Namespace)'],['../sdmm_2inpainting_8cc.html',1,'(Global Namespace)']]],
+  ['inpainting_2ecc_193',['inpainting.cc',['../examples_2forward__backward_2inpainting_8cc.html',1,'(Global Namespace)'],['../examples_2primal__dual_2inpainting_8cc.html',1,'(Global Namespace)'],['../examples_2proximal__admm_2inpainting_8cc.html',1,'(Global Namespace)'],['../examples_2sdmm_2inpainting_8cc.html',1,'(Global Namespace)'],['../tests_2inpainting_8cc.html',1,'(Global Namespace)']]],
   ['inpainting_2eh_194',['inpainting.h',['../inpainting_8h.html',1,'']]],
   ['inpainting_5fcredible_5finterval_2ecc_195',['inpainting_credible_interval.cc',['../inpainting__credible__interval_8cc.html',1,'']]],
   ['inpainting_5fjoint_5fmap_2ecc_196',['inpainting_joint_map.cc',['../inpainting__joint__map_8cc.html',1,'']]],

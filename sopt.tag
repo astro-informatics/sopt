@@ -436,7 +436,7 @@
   <compound kind="file">
     <name>inpainting.cc</name>
     <path>/home/runner/work/sopt/sopt/cpp/examples/forward_backward/</path>
-    <filename>http://astro-informatics.github.io/sopt/forward__backward_2inpainting_8cc.html</filename>
+    <filename>http://astro-informatics.github.io/sopt/examples_2forward__backward_2inpainting_8cc.html</filename>
     <includes id="imaging__forward__backward_8h" name="imaging_forward_backward.h" local="no" imported="no">sopt/imaging_forward_backward.h</includes>
     <includes id="logging_8h" name="logging.h" local="no" imported="no">sopt/logging.h</includes>
     <includes id="maths_8h" name="maths.h" local="no" imported="no">sopt/maths.h</includes>
@@ -449,7 +449,7 @@
     <member kind="function">
       <type>int</type>
       <name>main</name>
-      <anchorfile>forward__backward_2inpainting_8cc.html</anchorfile>
+      <anchorfile>examples_2forward__backward_2inpainting_8cc.html</anchorfile>
       <anchor>a790aa8b99fa3d90918361b8936af0b14</anchor>
       <arglist>(int argc, char const **argv)</arglist>
     </member>
@@ -457,7 +457,7 @@
   <compound kind="file">
     <name>inpainting.cc</name>
     <path>/home/runner/work/sopt/sopt/cpp/examples/primal_dual/</path>
-    <filename>http://astro-informatics.github.io/sopt/primal__dual_2inpainting_8cc.html</filename>
+    <filename>http://astro-informatics.github.io/sopt/examples_2primal__dual_2inpainting_8cc.html</filename>
     <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
     <includes id="imaging__primal__dual_8h" name="imaging_primal_dual.h" local="no" imported="no">sopt/imaging_primal_dual.h</includes>
     <includes id="logging_8h" name="logging.h" local="no" imported="no">sopt/logging.h</includes>
@@ -472,7 +472,7 @@
     <member kind="function">
       <type>int</type>
       <name>main</name>
-      <anchorfile>primal__dual_2inpainting_8cc.html</anchorfile>
+      <anchorfile>examples_2primal__dual_2inpainting_8cc.html</anchorfile>
       <anchor>a790aa8b99fa3d90918361b8936af0b14</anchor>
       <arglist>(int argc, char const **argv)</arglist>
     </member>
@@ -480,7 +480,7 @@
   <compound kind="file">
     <name>inpainting.cc</name>
     <path>/home/runner/work/sopt/sopt/cpp/examples/proximal_admm/</path>
-    <filename>http://astro-informatics.github.io/sopt/proximal__admm_2inpainting_8cc.html</filename>
+    <filename>http://astro-informatics.github.io/sopt/examples_2proximal__admm_2inpainting_8cc.html</filename>
     <includes id="imaging__padmm_8h" name="imaging_padmm.h" local="no" imported="no">sopt/imaging_padmm.h</includes>
     <includes id="logging_8h" name="logging.h" local="no" imported="no">sopt/logging.h</includes>
     <includes id="maths_8h" name="maths.h" local="no" imported="no">sopt/maths.h</includes>
@@ -493,7 +493,7 @@
     <member kind="function">
       <type>int</type>
       <name>main</name>
-      <anchorfile>proximal__admm_2inpainting_8cc.html</anchorfile>
+      <anchorfile>examples_2proximal__admm_2inpainting_8cc.html</anchorfile>
       <anchor>a790aa8b99fa3d90918361b8936af0b14</anchor>
       <arglist>(int argc, char const **argv)</arglist>
     </member>
@@ -501,7 +501,7 @@
   <compound kind="file">
     <name>inpainting.cc</name>
     <path>/home/runner/work/sopt/sopt/cpp/examples/sdmm/</path>
-    <filename>http://astro-informatics.github.io/sopt/sdmm_2inpainting_8cc.html</filename>
+    <filename>http://astro-informatics.github.io/sopt/examples_2sdmm_2inpainting_8cc.html</filename>
     <includes id="logging_8h" name="logging.h" local="no" imported="no">sopt/logging.h</includes>
     <includes id="maths_8h" name="maths.h" local="no" imported="no">sopt/maths.h</includes>
     <includes id="relative__variation_8h" name="relative_variation.h" local="no" imported="no">sopt/relative_variation.h</includes>
@@ -514,9 +514,58 @@
     <member kind="function">
       <type>int</type>
       <name>main</name>
-      <anchorfile>sdmm_2inpainting_8cc.html</anchorfile>
+      <anchorfile>examples_2sdmm_2inpainting_8cc.html</anchorfile>
       <anchor>a790aa8b99fa3d90918361b8936af0b14</anchor>
       <arglist>(int argc, char const **argv)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>inpainting.cc</name>
+    <path>/home/runner/work/sopt/sopt/cpp/tests/</path>
+    <filename>http://astro-informatics.github.io/sopt/tests_2inpainting_8cc.html</filename>
+    <includes id="imaging__forward__backward_8h" name="imaging_forward_backward.h" local="no" imported="no">sopt/imaging_forward_backward.h</includes>
+    <includes id="logging_8h" name="logging.h" local="no" imported="no">sopt/logging.h</includes>
+    <includes id="maths_8h" name="maths.h" local="no" imported="no">sopt/maths.h</includes>
+    <includes id="relative__variation_8h" name="relative_variation.h" local="no" imported="no">sopt/relative_variation.h</includes>
+    <includes id="sampling_8h" name="sampling.h" local="no" imported="no">sopt/sampling.h</includes>
+    <includes id="types_8h" name="types.h" local="no" imported="no">sopt/types.h</includes>
+    <includes id="utilities_8h" name="utilities.h" local="no" imported="no">sopt/utilities.h</includes>
+    <includes id="wavelets_8h" name="wavelets.h" local="no" imported="no">sopt/wavelets.h</includes>
+    <includes id="tiffwrappers_8h" name="tiffwrappers.h" local="no" imported="no">tools_for_tests/tiffwrappers.h</includes>
+    <member kind="typedef">
+      <type>double</type>
+      <name>Scalar</name>
+      <anchorfile>tests_2inpainting_8cc.html</anchorfile>
+      <anchor>a508fc58b5dc3c81865305f6498457063</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>sopt::Vector&lt; Scalar &gt;</type>
+      <name>Vector</name>
+      <anchorfile>tests_2inpainting_8cc.html</anchorfile>
+      <anchor>a6fd0dc2cf65e56d59d152836caa7a634</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>sopt::Matrix&lt; Scalar &gt;</type>
+      <name>Matrix</name>
+      <anchorfile>tests_2inpainting_8cc.html</anchorfile>
+      <anchor>a13b14861c460865de4cd78381e258bf4</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>sopt::Image&lt; Scalar &gt;</type>
+      <name>Image</name>
+      <anchorfile>tests_2inpainting_8cc.html</anchorfile>
+      <anchor>a597c232bc74255c74fa9d7b0dadff132</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST_CASE</name>
+      <anchorfile>tests_2inpainting_8cc.html</anchorfile>
+      <anchor>a4e85c74adb906d5a3d0a1c2be49ebc78</anchor>
+      <arglist>(&quot;Inpainting&quot;)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -3176,38 +3225,10 @@
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>sopt::Matrix&lt; Scalar &gt;</type>
-      <name>t_Matrix</name>
-      <anchorfile>forward__backward_8cc.html</anchorfile>
-      <anchor>aadaf1c1fa629b56227feb65f3cbbf8b7</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="typedef">
       <type>sopt::t_real</type>
       <name>t_real</name>
       <anchorfile>forward__backward_8cc.html</anchorfile>
       <anchor>a06ea74880cd1ee9d09d85ebee340d286</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="typedef">
-      <type>sopt::t_uint</type>
-      <name>t_uint</name>
-      <anchorfile>forward__backward_8cc.html</anchorfile>
-      <anchor>acfe2131b3838108e05c6fcd5319e4275</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="typedef">
-      <type>sopt::t_int</type>
-      <name>t_int</name>
-      <anchorfile>forward__backward_8cc.html</anchorfile>
-      <anchor>a56f025f9d09304f4dd06933fbcc2f07c</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="typedef">
-      <type>sopt::Image&lt; Scalar &gt;</type>
-      <name>t_Image</name>
-      <anchorfile>forward__backward_8cc.html</anchorfile>
-      <anchor>a18be308b2b4329c4fc0900ac04008086</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
