@@ -156,6 +156,22 @@ public:
   //mpi::Communicator const& obj_comm() { return IFB::obj_comm(); }
 #endif
 
+  // TODO: Why are these functions defined? They are just breaking the logic.
+  //       You should call residual_tolerance() if you want to set residual_tolerance
+  //       Likewise for relative_variation
+  //! Helper function to set-up default residual convergence function
+  L1ForwardBackward<Scalar> &residual_convergence(Real const &tolerance) {
+    return residual_convergence(nullptr).residual_tolerance(tolerance);
+  }
+  //! Helper function to set-up default residual convergence function
+  L1ForwardBackward<Scalar> &objective_convergence(Real const &tolerance) {
+    return objective_convergence(nullptr).relative_variation(tolerance);
+  }
+  //! Convergence function that takes only the output as argument
+  L1ForwardBackward<Scalar> &is_converged(std::function<bool(t_Vector const &x)> const &func) {
+    return is_converged([func](t_Vector const &x, t_Vector const &) { return func(x); });
+  }
+
   // Removed unused macros
   // Forwards get/setters to L1 and L2Ball proximals
   // In practice, we end up with a bunch of functions that make it simpler to set or get values

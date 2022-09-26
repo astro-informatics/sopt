@@ -131,7 +131,7 @@ class ImagingForwardBackward {
   Real objmin() const { return objmin_; };
   //! Sets the vector of target measurements
   template <class DERIVED>
-  ImagingForwardBackward<Scalar> &target(Eigen::MatrixBase<DERIVED> const &target) {
+  ImagingForwardBackward<Scalar> &target(t_Vector const &target) {
     target_ = target;
     return *this;
   }
@@ -194,20 +194,8 @@ class ImagingForwardBackward {
   //! \details Non-const version to setup the object.
   t_Gradient &l2_graident() { return l2_gradient_; }
 
-  //! Helper function to set-up default residual convergence function
-  ImagingForwardBackward<Scalar> &residual_convergence(Real const &tolerance) {
-    return residual_convergence(nullptr).residual_tolerance(tolerance);
-  }
-  //! Helper function to set-up default residual convergence function
-  ImagingForwardBackward<Scalar> &objective_convergence(Real const &tolerance) {
-    return objective_convergence(nullptr).relative_variation(tolerance);
-  }
-  //! Convergence function that takes only the output as argument
-  ImagingForwardBackward<Scalar> &is_converged(std::function<bool(t_Vector const &x)> const &func) {
-    return is_converged([func](t_Vector const &x, t_Vector const &) { return func(x); });
-  }
-
  protected:
+
   //! Vector of measurements
   t_Vector target_;
   //! Mininum of objective function
