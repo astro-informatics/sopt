@@ -92,21 +92,23 @@ int main(int argc, char const **argv) {
   sopt::t_real const gamma = 18;
   sopt::t_real const beta = sigma * sigma;
   SOPT_HIGH_LOG("Creating Foward Backward Functor");
-  auto const fb = sopt::algorithm::ImagingForwardBackward<Scalar>(y)
-                      .itermax(500)
-                      .beta(beta)
-                      .sigma(sigma)
-                      .gamma(gamma)
-                      .relative_variation(5e-4)
-                      .residual_tolerance(0)
-                      .tight_frame(true)
-                      .l1_proximal_tolerance(1e-4)
-                      .l1_proximal_nu(1)
-                      .l1_proximal_itermax(50)
-                      .l1_proximal_positivity_constraint(true)
-                      .l1_proximal_real_constraint(true)
-                      .Psi(psi)
-                      .Phi(sampling);
+  auto fb = sopt::algorithm::ImagingForwardBackward<Scalar>(y)
+    .itermax(500)
+    .beta(beta)
+    .sigma(sigma)
+    .gamma(gamma)
+    .relative_variation(5e-4)
+    .residual_tolerance(0)
+    .tight_frame(true)
+    .Phi(sampling);
+  
+  fb.g_proximal()
+    .l1_proximal_tolerance(1e-4)
+    .l1_proximal_nu(1)
+    .l1_proximal_itermax(50)
+    .l1_proximal_positivity_constraint(true)
+    .l1_proximal_real_constraint(true)
+    .Psi(psi);
 
   SOPT_HIGH_LOG("Starting Forward Backward");
   // Alternatively, forward-backward can be called with a tuple (x, residual) as argument

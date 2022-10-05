@@ -54,21 +54,23 @@ TEST_CASE("Inpainting"){
   sopt::t_real const gamma = 18;
   sopt::t_real const beta = sigma * sigma * 0.5;
 
-  auto const fb = sopt::algorithm::ImagingForwardBackward<Scalar>(y)
-                      .itermax(500)
-                      .beta(beta)    // stepsize
-                      .sigma(sigma)  // sigma
-                      .gamma(gamma)  // regularisation paramater
-                      .relative_variation(1e-3)
-                      .residual_tolerance(0)
-                      .tight_frame(true)
-                      .l1_proximal_tolerance(1e-4)
-                      .l1_proximal_nu(1)
-                      .l1_proximal_itermax(50)
-                      .l1_proximal_positivity_constraint(true)
-                      .l1_proximal_real_constraint(true)
-                      .Psi(psi)
-                      .Phi(sampling);
+  auto fb = sopt::algorithm::ImagingForwardBackward<Scalar>(y);
+  fb.itermax(500)
+    .beta(beta)    // stepsize
+    .sigma(sigma)  // sigma
+    .gamma(gamma)  // regularisation paramater
+    .relative_variation(1e-3)
+    .residual_tolerance(0)
+    .tight_frame(true)
+    .Phi(sampling);
+  
+  fb.g_proximal()
+    .l1_proximal_tolerance(1e-4)
+    .l1_proximal_nu(1)
+    .l1_proximal_itermax(50)
+    .l1_proximal_positivity_constraint(true)
+    .l1_proximal_real_constraint(true)
+    .Psi(psi);
 
   auto const diagnostic = fb();
 
@@ -76,7 +78,7 @@ TEST_CASE("Inpainting"){
   CHECK(diagnostic.niters < 500);
 
   // compare input image to cleaned output image
-  // calculate mean squared error sum_i ( ( x_true(i) - x_est(i) ) **2 ) 
+  // calculate mean squared error sum_i ( ( x_true(i) - x_est(i) ) **2 )
   // check this is less than the number of pixels * 0.01
 
   auto mse = (image - diagnostic.x.array()).square().sum() / image.size();
