@@ -27,13 +27,14 @@ class L1GProximal : public GProximal<SCALAR> {
 public:
   typedef ForwardBackward<SCALAR> FB;
   typedef typename FB::Real Real;
+  typedef typename FB::Scalar Scalar;
   typedef typename FB::t_Vector t_Vector;
   typedef typename FB::t_Proximal t_Proximal;
   typedef typename FB::t_LinearTransform t_LinearTransform;
 
-  L1GProximal(bool tight_frame = false) : tight_frame_ { tight_frame } {
-    l1_proximal_();
-  };
+  L1GProximal(bool tight_frame = false)
+    : tight_frame_ (tight_frame),
+      l1_proximal_() {}
   ~L1GProximal() {};
 
 // Implements the interface in GProximal
@@ -59,12 +60,12 @@ public:
 
 //! \brief L1 proximal used during calculation
 //! \details Non-const version to setup the object.
-proximal::L1<SCALAR> &l1_proximal() const { return l1_proximal_; }
+proximal::L1<Scalar> l1_proximal() const { return l1_proximal_; }
 
-// Forwards get/setters to L1 and L2Ball proximals
+// Forwards get/setters to L1 proximal
 // In practice, we end up with a bunch of functions that make it simpler to set or get values
 // associated with the two proximal operators.
-// E.g.: `paddm.l1_proximal_itermax(100).l2ball_epsilon(1e-2).l1_proximal_tolerance(1e-4)`.
+// E.g.: `paddm.l1_proximal_itermax(100).l1_proximal_tolerance(1e-4)`.
 // ~~~
 #define SOPT_MACRO(VAR, TYPE)						 \
   /** \brief Getter, forwards to l1_proximal **/                         \
@@ -97,21 +98,21 @@ proximal::L1<SCALAR> &l1_proximal() const { return l1_proximal_; }
 protected:
 
   bool tight_frame_;
-  proximal::L1<SCALAR> l1_proximal_;
+  proximal::L1<Scalar> l1_proximal_;
 
   // Helper functions for calling l1_proximal
   //! Calls l1 proximal operator, checking for real constraints and tight frame
   template <class T0, class T1>
-  typename proximal::L1<SCALAR>::Diagnostic l1_proximal(Eigen::MatrixBase<T0> &out, Real gamma,
+  typename proximal::L1<Scalar>::Diagnostic l1_proximal(Eigen::MatrixBase<T0> &out, Real gamma,
                                                         Eigen::MatrixBase<T1> const &x) const {
     return l1_proximal_real_constraint()
-      ? call_l1_proximal(out, gamma, x.real().template cast<typename T1::SCALAR>())
+      ? call_l1_proximal(out, gamma, x.real().template cast<typename T1::Scalar>())
       : call_l1_proximal(out, gamma, x);
   }
 
   //! Calls l1 proximal operator, checking for thight frame
   template <class T0, class T1>
-  typename proximal::L1<SCALAR>::Diagnostic call_l1_proximal(Eigen::MatrixBase<T0> &out, Real gamma,
+  typename proximal::L1<Scalar>::Diagnostic call_l1_proximal(Eigen::MatrixBase<T0> &out, Real gamma,
                                                              Eigen::MatrixBase<T1> const &x) const {
     if (tight_frame_) {
       l1_proximal().tight_frame(out, gamma, x);

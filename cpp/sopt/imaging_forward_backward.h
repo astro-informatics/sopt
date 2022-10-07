@@ -54,23 +54,22 @@ class ImagingForwardBackward {
   //! \param[in] g_proximal: proximal operator of the \f$g\f$ function
   template <class DERIVED>
   ImagingForwardBackward(Eigen::MatrixBase<DERIVED> const &target)
-    : g_proximal_(L1GProximal<SCALAR>()),
+    : g_proximal_(new L1GProximal<Scalar>(false)),
       l2_gradient_([](t_Vector &output, const t_Vector &x) -> void {
-          output = x;
-        }),  // gradient of 1/2 * x^2 = x;
-        tight_frame_(false),
-        residual_tolerance_(0.),
-        relative_variation_(1e-4),
-        residual_convergence_(nullptr),
-        objective_convergence_(nullptr),
-        itermax_(std::numeric_limits<t_uint>::max()),
-        gamma_(1e-8),
-        beta_(1),
-        sigma_(1),
-        nu_(1),
-        is_converged_(),
-        Phi_(linear_transform_identity<Scalar>()),
-        target_(target) {}
+		     output = x; }),  // gradient of 1/2 * x^2 = x;
+      tight_frame_(false),
+      residual_tolerance_(0.),
+      relative_variation_(1e-4),
+      residual_convergence_(nullptr),
+      objective_convergence_(nullptr),
+      itermax_(std::numeric_limits<t_uint>::max()),
+      gamma_(1e-8),
+      beta_(1),
+      sigma_(1),
+      nu_(1),
+      is_converged_(),
+      Phi_(linear_transform_identity<Scalar>()),
+      target_(target) {}
   virtual ~ImagingForwardBackward() {}
 
 // Macro helps define properties that can be initialized as in
@@ -87,7 +86,6 @@ class ImagingForwardBackward {
                                                            \
  public:
 
-  SOPT_MACRO(g_proximal, L1GProximal<Scalar>);
   //! Gradient of the l2 norm
   SOPT_MACRO(l2_gradient, t_Gradient);
   //! Whether Ψ is a tight-frame or not
@@ -124,6 +122,14 @@ class ImagingForwardBackward {
 #endif
 
 #undef SOPT_MACRO
+
+  // The getter of g_proximal can not return a const because it will be used
+  // to call setters of its internal properties
+  L1GProximal<SCALAR> g_proximal() const { return g_proximal_; }
+  ImagingForwardBackward<SCALAR> &g_proximal( L1GProximal<SCALAR> const &g_proximal) {
+    g_proximal_ = g_proximal;
+    return *this;
+  }
 
   //! Vector of target measurements
   t_Vector const &target() const { return target_; }
@@ -209,6 +215,7 @@ class ImagingForwardBackward {
 
  protected:
 
+  L1GProximal<SCALAR> g_proximal_;
   //! Vector of measurements
   t_Vector target_;
   //! Mininum of objective function
