@@ -70,13 +70,6 @@ TEST_CASE("Check type returned on setting variables") {
   CHECK(is_imaging_proximal_ref<decltype(fb.beta(1e-1))>::value);
   CHECK(is_imaging_proximal_ref<decltype(fb.gamma(1e-1))>::value);
   CHECK(is_imaging_proximal_ref<decltype(fb.sigma(1e-1))>::value);
-  CHECK(is_imaging_proximal_ref<decltype(fb.relative_variation(5e-4))>::value);
-  CHECK(is_imaging_proximal_ref<decltype(fb.tight_frame(false))>::value);
-  CHECK(is_imaging_proximal_ref<decltype(fb.g_proximal().l1_proximal_tolerance(1e-2))>::value);
-  CHECK(is_imaging_proximal_ref<decltype(fb.g_proximal().l1_proximal_nu(1))>::value);
-  CHECK(is_imaging_proximal_ref<decltype(fb.g_proximal().l1_proximal_itermax(50))>::value);
-  CHECK(is_imaging_proximal_ref<decltype(fb.g_proximal().l1_proximal_positivity_constraint(true))>::value);
-  CHECK(is_imaging_proximal_ref<decltype(fb.g_proximal().l1_proximal_real_constraint(true))>::value);
   std::function<void(Vector<double> &, const Vector<double> &)> grad;
   CHECK(is_imaging_proximal_ref<decltype(fb.l2_gradient(grad))>::value);
   CHECK(is_imaging_proximal_ref<decltype(fb.residual_convergence(1.001))>::value);
@@ -85,12 +78,19 @@ TEST_CASE("Check type returned on setting variables") {
   CHECK(is_imaging_proximal_ref<decltype(fb.is_converged(std::declval<ConvFunc>()))>::value);
   CHECK(is_imaging_proximal_ref<decltype(fb.is_converged(std::declval<ConvFunc &>()))>::value);
   CHECK(is_imaging_proximal_ref<decltype(fb.is_converged(std::declval<ConvFunc &&>()))>::value);
-  CHECK(
-      is_imaging_proximal_ref<decltype(fb.is_converged(std::declval<ConvFunc const &>()))>::value);
+  CHECK(is_imaging_proximal_ref<decltype(fb.is_converged(std::declval<ConvFunc const &>()))>::value);
+  CHECK(is_imaging_proximal_ref<decltype(fb.relative_variation(5e-4))>::value);
+  CHECK(is_imaging_proximal_ref<decltype(fb.tight_frame(false))>::value);
+
+  CHECK(is_g_proximal_ref<decltype(fb.g_proximal().l1_proximal_tolerance(1e-2))>::value);
+  CHECK(is_g_proximal_ref<decltype(fb.g_proximal().l1_proximal_nu(1))>::value);
+  CHECK(is_g_proximal_ref<decltype(fb.g_proximal().l1_proximal_itermax(50))>::value);
+  CHECK(is_g_proximal_ref<decltype(fb.g_proximal().l1_proximal_positivity_constraint(true))>::value);
+  CHECK(is_g_proximal_ref<decltype(fb.g_proximal().l1_proximal_real_constraint(true))>::value);
   typedef LinearTransform<Vector<double>> LinTrans;
-  CHECK(is_imaging_proximal_ref<decltype(fb.g_proximal().Psi(linear_transform_identity<double>()))>::value);
-  CHECK(is_imaging_proximal_ref<decltype(fb.g_proximal().Psi(std::declval<LinTrans>()))>::value);
-  CHECK(is_imaging_proximal_ref<decltype(fb.g_proximal().Psi(std::declval<LinTrans &&>()))>::value);
-  CHECK(is_imaging_proximal_ref<decltype(fb.g_proximal().Psi(std::declval<LinTrans &>()))>::value);
-  CHECK(is_imaging_proximal_ref<decltype(fb.g_proximal().Psi(std::declval<LinTrans const &>()))>::value);
+  CHECK(is_g_proximal_ref<decltype(fb.g_proximal().Psi(linear_transform_identity<double>()))>::value);
+  CHECK(is_g_proximal_ref<decltype(fb.g_proximal().Psi(std::declval<LinTrans>()))>::value);
+  CHECK(is_g_proximal_ref<decltype(fb.g_proximal().Psi(std::declval<LinTrans &&>()))>::value);
+  CHECK(is_g_proximal_ref<decltype(fb.g_proximal().Psi(std::declval<LinTrans &>()))>::value);
+  CHECK(is_g_proximal_ref<decltype(fb.g_proximal().Psi(std::declval<LinTrans const &>()))>::value);
 }
