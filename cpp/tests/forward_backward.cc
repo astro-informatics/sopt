@@ -59,7 +59,7 @@ TEST_CASE("Forward Backward with ||x - x0||_2^2 function", "[fb]") {
 template <class T> struct is_imaging_proximal_ref
     : public std::is_same<sopt::algorithm::ImagingForwardBackward<double> &, T> {};
 template <class T> struct is_g_proximal_ref
-    : public std::is_same<sopt::algorithm::GProximal<double> &, T> {};
+    : public std::is_same<sopt::algorithm::L1GProximal<double> &, T> {};
 
 TEST_CASE("Check type returned on setting variables") {
   // Yeah, could be static asserts
