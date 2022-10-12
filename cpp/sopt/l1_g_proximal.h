@@ -60,7 +60,12 @@ public:
 
 //! \brief L1 proximal used during calculation
 //! \details Non-const version to setup the object.
-proximal::L1<Scalar> l1_proximal() const { return l1_proximal_; }
+  proximal::L1<Scalar> &l1_proximal() { return l1_proximal_; }
+  proximal::L1<Scalar> const &l1_proximal() const { return l1_proximal_; }
+  L1GProximal<SCALAR> &l1_proximal(proximal::L1<Scalar> const &arg) {
+    l1_proximal_ = arg;
+    return *this;
+  }
 
 // Forwards get/setters to L1 proximal
 // In practice, we end up with a bunch of functions that make it simpler to set or get values

@@ -125,8 +125,10 @@ class ImagingForwardBackward {
 
   // The getter of g_proximal can not return a const because it will be used
   // to call setters of its internal properties
-  L1GProximal<SCALAR> g_proximal() const { return g_proximal_; }
-  ImagingForwardBackward<SCALAR> &g_proximal( L1GProximal<SCALAR> const &g_proximal) {
+  L1GProximal<SCALAR> &g_proximal() { return g_proximal_; }
+  // Add a const getter for completeness
+  L1GProximal<SCALAR> const &g_proximal() const { return g_proximal_; }
+  ImagingForwardBackward<SCALAR> &g_proximal( L1GProximal<SCALAR> &g_proximal) {
     g_proximal_ = g_proximal;
     return *this;
   }
@@ -248,10 +250,10 @@ class ImagingForwardBackward {
 template <class SCALAR>
 typename ImagingForwardBackward<SCALAR>::Diagnostic ImagingForwardBackward<SCALAR>::operator()(
     t_Vector &out, t_Vector const &guess, t_Vector const &res) const {
-  g_proximal().log_message();
+  g_proximal_.log_message();
   // The f proximal is an L1 proximal that stores some diagnostic result
   Diagnostic result;
-  auto const g_proximal_function = g_proximal().proximal_function();
+  auto const g_proximal_function = g_proximal_.proximal_function();
   const Real sigma_factor = sigma() * sigma();
   auto const f_gradient = [this, sigma_factor](t_Vector &out, t_Vector const &x) {
     this->l2_gradient()(out, x / sigma_factor);
@@ -291,7 +293,7 @@ bool ImagingForwardBackward<SCALAR>::objective_convergence(ScalarRelativeVariati
                                                            t_Vector const &residual) const {
   if (static_cast<bool>(objective_convergence())) return objective_convergence()(x, residual);
   if (scalvar.relative_tolerance() <= 0e0) return true;
-  auto const current = ((gamma() > 0) ? g_proximal().proximal_norm(x)
+  auto const current = ((gamma() > 0) ? g_proximal_.proximal_norm(x)
 			* gamma() : 0) + std::pow(sopt::l2_norm(residual), 2) / (2 * sigma() * sigma());
   return scalvar(current);
 };
@@ -305,7 +307,7 @@ bool ImagingForwardBackward<SCALAR>::objective_convergence(mpi::Communicator con
   if (static_cast<bool>(objective_convergence())) return objective_convergence()(x, residual);
   if (scalvar.relative_tolerance() <= 0e0) return true;
   auto const current = obj_comm.all_sum_all<t_real>(
-	((gamma() > 0) ? g_proximal().proximal_norm(x)
+	((gamma() > 0) ? g_proximal_.proximal_norm(x)
        * gamma() : 0) + std::pow(sopt::l2_norm(residual), 2) / (2 * sigma() * sigma()));
   return scalvar(current);
 };
