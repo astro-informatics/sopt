@@ -5,7 +5,7 @@
 #include <Eigen/Dense>
 
 #include <sopt/imaging_forward_backward.h>
-#include <sopt/g_proximal.h>
+#include <sopt/l1_g_proximal.h>
 #include <sopt/logging.h>
 #include <sopt/maths.h>
 #include <sopt/proximal.h>
@@ -58,7 +58,7 @@ TEST_CASE("Forward Backward with ||x - x0||_2^2 function", "[fb]") {
 
 template <class T> struct is_imaging_proximal_ref
     : public std::is_same<sopt::algorithm::ImagingForwardBackward<double> &, T> {};
-template <class T> struct is_g_proximal_ref
+template <class T> struct is_l1_g_proximal_ref
     : public std::is_same<sopt::algorithm::L1GProximal<double> &, T> {};
 
 TEST_CASE("Check type returned on setting variables") {
@@ -82,15 +82,17 @@ TEST_CASE("Check type returned on setting variables") {
   CHECK(is_imaging_proximal_ref<decltype(fb.relative_variation(5e-4))>::value);
   CHECK(is_imaging_proximal_ref<decltype(fb.tight_frame(false))>::value);
 
-  CHECK(is_g_proximal_ref<decltype(fb.g_proximal().l1_proximal_tolerance(1e-2))>::value);
-  CHECK(is_g_proximal_ref<decltype(fb.g_proximal().l1_proximal_nu(1))>::value);
-  CHECK(is_g_proximal_ref<decltype(fb.g_proximal().l1_proximal_itermax(50))>::value);
-  CHECK(is_g_proximal_ref<decltype(fb.g_proximal().l1_proximal_positivity_constraint(true))>::value);
-  CHECK(is_g_proximal_ref<decltype(fb.g_proximal().l1_proximal_real_constraint(true))>::value);
+  // Test the types of the l1 g_proximal object separately
+  auto gp = std::make_shared<sopt::algorithm::L1GProximal<Scalar>>(false);
+  CHECK(is_l1_g_proximal_ref<decltype(gp->l1_proximal_tolerance(1e-2))>::value);
+  CHECK(is_l1_g_proximal_ref<decltype(gp->l1_proximal_nu(1))>::value);
+  CHECK(is_l1_g_proximal_ref<decltype(gp->l1_proximal_itermax(50))>::value);
+  CHECK(is_l1_g_proximal_ref<decltype(gp->l1_proximal_positivity_constraint(true))>::value);
+  CHECK(is_l1_g_proximal_ref<decltype(gp->l1_proximal_real_constraint(true))>::value);
   typedef LinearTransform<Vector<double>> LinTrans;
-  CHECK(is_g_proximal_ref<decltype(fb.g_proximal().Psi(linear_transform_identity<double>()))>::value);
-  CHECK(is_g_proximal_ref<decltype(fb.g_proximal().Psi(std::declval<LinTrans>()))>::value);
-  CHECK(is_g_proximal_ref<decltype(fb.g_proximal().Psi(std::declval<LinTrans &&>()))>::value);
-  CHECK(is_g_proximal_ref<decltype(fb.g_proximal().Psi(std::declval<LinTrans &>()))>::value);
-  CHECK(is_g_proximal_ref<decltype(fb.g_proximal().Psi(std::declval<LinTrans const &>()))>::value);
+  CHECK(is_l1_g_proximal_ref<decltype(gp->Psi(linear_transform_identity<double>()))>::value);
+  CHECK(is_l1_g_proximal_ref<decltype(gp->Psi(std::declval<LinTrans>()))>::value);
+  CHECK(is_l1_g_proximal_ref<decltype(gp->Psi(std::declval<LinTrans &&>()))>::value);
+  CHECK(is_l1_g_proximal_ref<decltype(gp->Psi(std::declval<LinTrans &>()))>::value);
+  CHECK(is_l1_g_proximal_ref<decltype(gp->Psi(std::declval<LinTrans const &>()))>::value);
 }

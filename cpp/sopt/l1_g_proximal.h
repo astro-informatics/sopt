@@ -32,6 +32,9 @@ public:
   typedef typename FB::t_Proximal t_Proximal;
   typedef typename FB::t_LinearTransform t_LinearTransform;
 
+  // In the constructor we need to construct the private l1_proximal_
+  // object that contains the real implementation details. The tight_frame
+  // parameter is required for internal logic in l1_proximal
   L1GProximal(bool tight_frame = false)
     : tight_frame_ (tight_frame),
       l1_proximal_() {}
@@ -44,6 +47,7 @@ public:
     SOPT_HIGH_LOG("Performing Forward Backward with L1 and L2 norms");
   }
 
+  // Return the norm associated with this implementation
   Real proximal_norm(t_Vector const &x) const override {
     return sopt::l1_norm(static_cast<t_Vector>(Psi().adjoint() * x), l1_proximal_weights());
   }
@@ -67,7 +71,7 @@ public:
     return *this;
   }
 
-// Forwards get/setters to L1 proximal
+// This macro creates get/setters that point to l1_proximal
 // In practice, we end up with a bunch of functions that make it simpler to set or get values
 // associated with the two proximal operators.
 // E.g.: `paddm.l1_proximal_itermax(100).l1_proximal_tolerance(1e-4)`.

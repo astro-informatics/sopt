@@ -12,7 +12,7 @@
 #include "sopt/proximal.h"
 #include "sopt/relative_variation.h"
 #include "sopt/types.h"
-#include "sopt/l1_g_proximal.h"
+#include "sopt/g_proximal.h"
 
 #ifdef SOPT_MPI
 #include "sopt/mpi/communicator.h"
@@ -49,12 +49,15 @@ class ImagingForwardBackward {
     t_Vector x;
   };
 
-  //! Setups imaging wrapper for ForwardBackward
-  //! \param[in] f_proximal: proximal operator of the \f$f\f$ function.
-  //! \param[in] g_proximal: proximal operator of the \f$g\f$ function
+  //! Setups imaging wrapper for ForwardBackward. Sets g_proximal_ to null to avoid
+  //! having a dependency on the implementation of g_proximal. The correct implementation
+  //! should be injected by the code that instantiates this class.
+  // Note: Using setter injection instead of constructior injection to follow the
+  // style in the rest of the class, although constructor might be more appropriate
+  //! \param[in] target: Vector of target measurements
   template <class DERIVED>
   ImagingForwardBackward(Eigen::MatrixBase<DERIVED> const &target)
-    : g_proximal_(new L1GProximal<Scalar>(false)),
+    : g_proximal_(nullptr),
       l2_gradient_([](t_Vector &output, const t_Vector &x) -> void {
 		     output = x; }),  // gradient of 1/2 * x^2 = x;
       tight_frame_(false),
@@ -123,13 +126,12 @@ class ImagingForwardBackward {
 
 #undef SOPT_MACRO
 
+  // Getter and setter for the g_proximal object
   // The getter of g_proximal can not return a const because it will be used
   // to call setters of its internal properties
-  L1GProximal<SCALAR> &g_proximal() { return g_proximal_; }
-  // Add a const getter for completeness
-  L1GProximal<SCALAR> const &g_proximal() const { return g_proximal_; }
-  ImagingForwardBackward<SCALAR> &g_proximal( L1GProximal<SCALAR> &g_proximal) {
-    g_proximal_ = g_proximal;
+  std::shared_ptr<GProximal<SCALAR>> g_proximal() { return g_proximal_; }
+  ImagingForwardBackward<SCALAR>& g_proximal( std::shared_ptr<GProximal<SCALAR>> g_proximal) {
+    g_proximal_ = std::move(g_proximal);
     return *this;
   }
 
@@ -217,7 +219,9 @@ class ImagingForwardBackward {
 
  protected:
 
-  L1GProximal<SCALAR> g_proximal_;
+  // Store a pointer of the abstract base class GProximal type that should
+  // point to an instance of a derived class (e.g. L1GProximal) once set up
+  std::shared_ptr<GProximal<SCALAR>> g_proximal_;
   //! Vector of measurements
   t_Vector target_;
   //! Mininum of objective function
@@ -250,10 +254,10 @@ class ImagingForwardBackward {
 template <class SCALAR>
 typename ImagingForwardBackward<SCALAR>::Diagnostic ImagingForwardBackward<SCALAR>::operator()(
     t_Vector &out, t_Vector const &guess, t_Vector const &res) const {
-  g_proximal_.log_message();
+  g_proximal_->log_message();
   // The f proximal is an L1 proximal that stores some diagnostic result
   Diagnostic result;
-  auto const g_proximal_function = g_proximal_.proximal_function();
+  auto const g_proximal_function = g_proximal_->proximal_function();
   const Real sigma_factor = sigma() * sigma();
   auto const f_gradient = [this, sigma_factor](t_Vector &out, t_Vector const &x) {
     this->l2_gradient()(out, x / sigma_factor);
@@ -293,7 +297,7 @@ bool ImagingForwardBackward<SCALAR>::objective_convergence(ScalarRelativeVariati
                                                            t_Vector const &residual) const {
   if (static_cast<bool>(objective_convergence())) return objective_convergence()(x, residual);
   if (scalvar.relative_tolerance() <= 0e0) return true;
-  auto const current = ((gamma() > 0) ? g_proximal_.proximal_norm(x)
+  auto const current = ((gamma() > 0) ? g_proximal_->proximal_norm(x)
 			* gamma() : 0) + std::pow(sopt::l2_norm(residual), 2) / (2 * sigma() * sigma());
   return scalvar(current);
 };
@@ -307,7 +311,7 @@ bool ImagingForwardBackward<SCALAR>::objective_convergence(mpi::Communicator con
   if (static_cast<bool>(objective_convergence())) return objective_convergence()(x, residual);
   if (scalvar.relative_tolerance() <= 0e0) return true;
   auto const current = obj_comm.all_sum_all<t_real>(
-	((gamma() > 0) ? g_proximal_.proximal_norm(x)
+	((gamma() > 0) ? g_proximal_->proximal_norm(x)
        * gamma() : 0) + std::pow(sopt::l2_norm(residual), 2) / (2 * sigma() * sigma()));
   return scalvar(current);
 };

@@ -16,9 +16,14 @@ template <class SCALAR> class GProximal {
   typedef typename FB::t_LinearTransform t_LinearTransform;
   
 public:
-  
+
+  // A function that prints a log message
   virtual void log_message() const = 0;
+  // A function that returns a function for the g_proximal.
+  // Function must be of type t_Proximal, that is
+  // void proximal_function(Vector, real, Vector)
   virtual t_Proximal proximal_function() const = 0;
+  // Returns the norm of x
   virtual Real proximal_norm(t_Vector const &x) const = 0;
   
 }; // class GProximal
