@@ -59,6 +59,13 @@ public:
 	   };
   }
 
+  //! \brief Analysis operator Ψ
+  //! \details Under-the-hood, the object is actually owned by the l1 proximal.
+  t_LinearTransform const &Psi() const override {
+    return l1_proximal().Psi();
+  }
+
+
 // All the public properties below are specific to the l1 proximal
 // and therefore not part of the interface
 
@@ -93,9 +100,6 @@ public:
   SOPT_MACRO(weights, t_Vector);
 #undef SOPT_MACRO
 
-  //! \brief Analysis operator Ψ
-  //! \details Under-the-hood, the object is actually owned by the l1 proximal.
-  t_LinearTransform const &Psi() const { return l1_proximal().Psi(); }
   //! Analysis operator Ψ
   template <class... ARGS>
   typename std::enable_if<sizeof...(ARGS) >= 1, L1GProximal<SCALAR> &>::type Psi(
