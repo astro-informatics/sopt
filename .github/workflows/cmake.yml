@@ -19,7 +19,7 @@ env:
   OMP_NUM_THREADS: 2
   CONAN_PRINT_RUN_COMMANDS: 1
   CONAN_CPU_COUNT: 2
-  CMAKE_PREFIX_PATH: "/usr/local/opt/libomp"
+  CMAKE_PREFIX_PATH: "/usr/local/opt/libomp" 
 
 jobs:
   build:
