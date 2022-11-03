@@ -19,6 +19,7 @@ env:
   OMP_NUM_THREADS: 2
   CONAN_PRINT_RUN_COMMANDS: 1
   CONAN_CPU_COUNT: 2
+  CMAKE_PREFIX_PATH: "/usr/local/opt/libomp"
 
 jobs:
   build:
@@ -80,7 +81,6 @@ jobs:
       if: ${{ contains(matrix.os, 'macos') }}
       run: |
         brew update
-        brew upgrade
         brew install libtiff open-mpi libyaml ccache conan
 
     - name: Prepare ccache timestamp
