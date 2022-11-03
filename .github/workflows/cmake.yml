@@ -19,7 +19,6 @@ env:
   OMP_NUM_THREADS: 2
   CONAN_PRINT_RUN_COMMANDS: 1
   CONAN_CPU_COUNT: 2
-  CMAKE_PREFIX_PATH: "/usr/local/opt/libomp" 
 
 jobs:
   build:
@@ -82,6 +81,7 @@ jobs:
       run: |
         brew update
         brew install libtiff open-mpi libyaml ccache conan
+        echo "{CMAKE_PREFIX_PATH}={/usr/local/opt/libomp}" >> $GITHUB_ENV
 
     - name: Prepare ccache timestamp
       id: ccache_cache_timestamp
