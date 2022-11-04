@@ -114,9 +114,7 @@ jobs:
     - name: Build
       # Build your program with the given configuration.
       # The Github Actions machines are dual-core so we can build faster using 2 parallel processes
-      run: |
-        echo ${{env.CMAKE_PREFIX_PATH}}
-        conan build ${{github.workspace}} -bf ${{github.workspace}}/build 
+      run: conan build ${{github.workspace}} -bf ${{github.workspace}}/build
 
     - name: Test
       working-directory: ${{github.workspace}}/build
