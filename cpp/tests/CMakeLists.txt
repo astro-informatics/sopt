@@ -15,12 +15,15 @@ if(CATCH_HAS_THROWS_AS)
   add_definitions(-DCATCH_HAS_THROWS_AS)
 endif()
 
+# Extra bits for cppflow
+find_library(TENSORFLOW_LIB tensorflow HINT $ENV{HOME}/libtensorflow2/lib)
+
 set(RAND_SEED "1449580491")
 
 add_catch_test(bisection_method LIBRARIES sopt SEED ${RAND_SEED})
 add_catch_test(chained_operators LIBRARIES sopt SEED ${RAND_SEED})
 add_catch_test(conjugate_gradient LIBRARIES sopt SEED ${RAND_SEED})
-add_catch_test(cppflow LIBRARIES sopt tools_for_tests)
+add_catch_test(cppflow LIBRARIES sopt tools_for_tests "${TENSORFLOW_LIB}" INCLUDES cppflow/include/cppflow $ENV{HOME}/libtensorflow2/include)
 add_catch_test(credible_region LIBRARIES sopt SEED ${RAND_SEED})
 add_catch_test(forward_backward LIBRARIES sopt tools_for_tests SEED ${RAND_SEED})
 add_catch_test(gradient_operator LIBRARIES sopt tools_for_tests SEED ${RAND_SEED})

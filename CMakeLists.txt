@@ -33,7 +33,8 @@ if(tests)
 endif()
 
 # Add c++11 stuff
-include(AddCPP11Flags)
+#include(AddCPP11Flags)
+set(CMAKE_CXX_STANDARD 17)
 include(CheckCXX11Features)
 cxx11_feature_check(REQUIRED unique_ptr nullptr override constructor_delegate)
 include(compilations)

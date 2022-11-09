@@ -15,6 +15,7 @@
 #include <sopt/types.h>
 #include <sopt/utilities.h>
 #include <sopt/wavelets.h>
+#include <cppflow/cppflow.h>
 
 // This header is not part of the installed sopt interface
 // It is only present in tests
@@ -34,12 +35,7 @@ TEST_CASE("Cppflow"){
 
   Image const image = sopt::notinstalled::read_standard_tiff(input);
 
-  // Just doing this so I can check it is actually doing something with the image
-  sopt::t_uint nmeasure = std::floor(0.5 * image.size());
-
-  CAPTURE(nmeasure);
-  CHECK(nmeasure < 1000000);
-
+  auto input_1 = cppflow::fill({10, 5}, 1.0f);
 
   /*Image const model_output = image;
 
