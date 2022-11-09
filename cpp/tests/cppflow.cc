@@ -34,6 +34,7 @@ TEST_CASE("Cppflow"){
 
   Image const image = sopt::notinstalled::read_standard_tiff(input);
 
+  // Just doing this so I can check it is actually doing something with the image
   sopt::t_uint nmeasure = std::floor(0.5 * image.size());
 
   CAPTURE(nmeasure);
