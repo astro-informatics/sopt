@@ -80,7 +80,7 @@ jobs:
       run: |
         brew update
         brew install libtiff open-mpi libyaml ccache
-        pip install conan
+        pip3 install conan
         echo "CMAKE_PREFIX_PATH=/usr/local/opt/libomp" >> $GITHUB_ENV
 
     - name: Prepare ccache timestamp
