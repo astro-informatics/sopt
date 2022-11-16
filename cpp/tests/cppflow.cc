@@ -6,6 +6,7 @@
 #include <vector>
 #include <ctime>
 #include <catch.hpp>
+#include <unsupported/Eigen/CXX11/Tensor>
 
 #include <sopt/imaging_forward_backward.h>
 #include <sopt/logging.h>
@@ -16,6 +17,8 @@
 #include <sopt/utilities.h>
 #include <sopt/wavelets.h>
 #include <cppflow/cppflow.h>
+#include "cppflow/ops.h"
+#include "cppflow/model.h"
 
 // This header is not part of the installed sopt interface
 // It is only present in tests
@@ -30,14 +33,48 @@ typedef sopt::Matrix<Scalar> Matrix;
 typedef sopt::Image<Scalar> Image;
 
 TEST_CASE("Cppflow"){
-  extern std::unique_ptr<std::mt19937_64> mersenne;
-  std::string const input = "cameraman256";
+  // Read TIFF into sopt::Image (which is really Eigen::Array)
+  // Image is size (256,256), type double
 
-  Image const image = sopt::notinstalled::read_standard_tiff(input);
+  std::cout << "============Reading greyscale input file" << std::endl;
+  std::string const input_image = "cameraman256";
+  Image const image = sopt::notinstalled::read_standard_tiff(input_image);
+  
+  std::cout << "============Convert to Eigen::Tensor" << std::endl;
+  // Create Eigen::Tensor
+  //Eigen::Tensor<double, 2> eigen_tensor(256, 256);
 
-  auto input_1 = cppflow::fill({10, 5}, 1.0f);
+  cppflow::tensor cf_tensor;
+  float target = 1.0;
+  cf_tensor = cppflow::fill({1}, target);
+  auto input = cppflow::cast(cf_tensor, TF_UINT8, TF_FLOAT);
+  input = cppflow::expand_dims(input, 0);
+  /*
+  // Initialize all elements to image values.
+  for (int i = 0; i < 256; ++i) {
+    for (int j = 0; j < 256; ++j) {
+      cf_tensor(i, j) = image(i,j);
+    }
+  }
 
-  /*Image const model_output = image;
+  // Create cppflow:tensor from Eigen::Tensor
+  std::cout << "============Convert to cppflow::tensor" << std::endl;
+  //cppflow::tensor cf_tensor(double_t, (265,265));
+  cppflow::tensor cf_tensor(eigen_tensor);
+  */
+  // Read in model
+  std::cout << "============Reading model file" << std::endl;
+  cppflow::model model(std::string("/home/sarah/Projects/LEXCI/sopt/cppflow/examples/lexci_model/model"));
+
+  // Run model on image
+  std::cout << "============Run model on tensor" << std::endl;
+  auto output = model({{"serving_default_input0:0", input}}, {"StatefulPartitionedCall:0"});
+
+  // Get values from output
+  //auto values = output[0].get_data<float>();
+
+  // Save output as sopt::Image
+  Image const model_output = image;
 
   // compare input image to cleaned output image
   // calculate mean squared error sum_i ( ( x_true(i) - x_est(i) ) **2 ) 
@@ -45,5 +82,5 @@ TEST_CASE("Cppflow"){
 
   auto mse = (image - model_output).square().sum() / image.size();
   CAPTURE(mse);
-  CHECK(mse < 0.01);*/
+  CHECK(mse < 0.01);
 }
