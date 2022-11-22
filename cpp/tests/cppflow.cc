@@ -35,33 +35,28 @@ typedef sopt::Image<Scalar> Image;
 TEST_CASE("Cppflow"){
   // Read TIFF into sopt::Image (which is really Eigen::Array)
   // Image is size (256,256), type double
-
-  std::cout << "============Reading greyscale input file" << std::endl;
   std::string const input_image = "cameraman256";
   Image const image = sopt::notinstalled::read_standard_tiff(input_image);
   
-  std::cout << "============Convert to Eigen::Tensor" << std::endl;
-  // Create Eigen::Tensor
-  //Eigen::Tensor<double, 2> eigen_tensor(256, 256);
+  // create a vector
+  std::cout << "============Create vector" << std::endl;
+  std::vector<int64_t> tensor_shape = {256, 256};
+  std::vector<float> values(256*256, 1);
 
-  cppflow::tensor cf_tensor;
-  float target = 1.0;
-  cf_tensor = cppflow::fill({1}, target);
-  auto input = cppflow::cast(cf_tensor, TF_UINT8, TF_FLOAT);
-  input = cppflow::expand_dims(input, 0);
-  /*
+
   // Initialize all elements to image values.
   for (int i = 0; i < 256; ++i) {
     for (int j = 0; j < 256; ++j) {
-      cf_tensor(i, j) = image(i,j);
+      values[i*256+j] = image(i,j);
     }
   }
+  
+  // create a tensor from vector
+  std::cout << "============Create tensor" << std::endl;
+  cppflow::tensor cf_tensor(values, tensor_shape);
+  auto input = cppflow::cast(cf_tensor, TF_UINT8, TF_FLOAT);
+  input = cppflow::expand_dims(input, 0);
 
-  // Create cppflow:tensor from Eigen::Tensor
-  std::cout << "============Convert to cppflow::tensor" << std::endl;
-  //cppflow::tensor cf_tensor(double_t, (265,265));
-  cppflow::tensor cf_tensor(eigen_tensor);
-  */
   // Read in model
   std::cout << "============Reading model file" << std::endl;
   cppflow::model model(std::string("/home/sarah/Projects/LEXCI/sopt/cppflow/examples/lexci_model/model"));
