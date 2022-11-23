@@ -58,8 +58,7 @@ jobs:
               cc: clang
               cxx: clang++
             - os: macos-11
-            - mpi: "on"
-            - omp: "on"
+              mpi: "on"
 
     steps:
     - uses: actions/checkout@v3
