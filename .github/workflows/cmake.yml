@@ -87,7 +87,7 @@ jobs:
       shell: cmake -P {0}
       run: |
         string(TIMESTAMP current_date "%Y-%m-%d-%H;%M;%S" UTC)
-        echo "{name}={timestamp::${current_date}}" >> $GITHUB_OUTPUT
+        echo "name=timestamp::${current_date}" >> $GITHUB_OUTPUT
     - name: Set ccache cache directory
       shell: bash
       run: echo "CCACHE_DIR=${{runner.workspace}}/.ccache" >> "${GITHUB_ENV}"
