@@ -33,8 +33,7 @@ typedef sopt::Matrix<Scalar> Matrix;
 typedef sopt::Image<Scalar> Image;
 
 TEST_CASE("Cppflow"){
-  // Read TIFF into sopt::Image (which is really Eigen::Array)
-  // Image is size (256,256), type double
+
   std::string const input_image = "cameraman256";
   Image const image = sopt::notinstalled::read_standard_tiff(input_image);
   
@@ -54,8 +53,13 @@ TEST_CASE("Cppflow"){
   // create a tensor from vector
   std::cout << "============Create tensor" << std::endl;
   cppflow::tensor cf_tensor(values, tensor_shape);
+  
   auto input = cppflow::cast(cf_tensor, TF_UINT8, TF_FLOAT);
+  // Add batch dimension at start
   input = cppflow::expand_dims(input, 0);
+  // add extra spatial dimension at end??
+  // cppflow::decode_jpeg results in a shape (256, 256, 1) so we assume this is needed
+  input = cppflow::expand_dims(input, -1);
 
   // Read in model
   std::cout << "============Reading model file" << std::endl;
@@ -66,10 +70,14 @@ TEST_CASE("Cppflow"){
   auto output = model({{"serving_default_input0:0", input}}, {"StatefulPartitionedCall:0"});
 
   // Get values from output
-  //auto values = output[0].get_data<float>();
+  auto results = output[0].get_data<float>();
+  std::vector<double> doubleResults(results.begin(), results.end());
 
-  // Save output as sopt::Image
-  Image const model_output = image;
+  
+  Eigen::Map<Eigen::Array<double, 256, 256>> model_output(doubleResults.data());
+  model_output.transposeInPlace();
+
+  sopt::utilities::write_tiff(model_output, "./cameraman_output.tiff");
 
   // compare input image to cleaned output image
   // calculate mean squared error sum_i ( ( x_true(i) - x_est(i) ) **2 ) 
@@ -78,4 +86,7 @@ TEST_CASE("Cppflow"){
   auto mse = (image - model_output).square().sum() / image.size();
   CAPTURE(mse);
   CHECK(mse < 0.01);
+
+  
+
 }
