@@ -1,6 +1,4 @@
 <map id="sopt::algorithm::ImagingForwardBackward&lt; SCALAR &gt;::Diagnostic" name="sopt::algorithm::ImagingForwardBackward&lt; SCALAR &gt;::Diagnostic">
-<area shape="rect" id="node1" title="Values indicating how the algorithm ran." alt="" coords="652,30,857,86"/>
-<area shape="rect" id="node2" href="$structsopt_1_1algorithm_1_1ForwardBackward_1_1Diagnostic.html" title="Values indicating how the algorithm ran." alt="" coords="268,5,513,47"/>
-<area shape="rect" id="node3" href="$classsopt_1_1proximal_1_1L1.html" title=" " alt="" coords="321,71,460,112"/>
-<area shape="rect" id="node4" href="$classsopt_1_1proximal_1_1L1TightFrame.html" title=" " alt="" coords="5,71,219,112"/>
+<area shape="rect" id="node1" title="Values indicating how the algorithm ran." alt="" coords="25,95,231,151"/>
+<area shape="rect" id="node2" href="$structsopt_1_1algorithm_1_1ForwardBackward_1_1Diagnostic.html" title="Values indicating how the algorithm ran." alt="" coords="5,5,251,47"/>
 </map>

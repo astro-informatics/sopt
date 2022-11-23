@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['have_949',['Have',['../structsopt_1_1details_1_1HasValueType.html#a91b3c444ea1587572e61f7d66e6e0001',1,'sopt::details::HasValueType']]],
-  ['havenot_950',['HaveNot',['../structsopt_1_1details_1_1HasValueType.html#aa68cd5507073731b86725d4e21c1bf25',1,'sopt::details::HasValueType']]]
+  ['fb_969',['FB',['../classsopt_1_1algorithm_1_1L1GProximal.html#aa6432b50229822807468e63d1b8a369f',1,'sopt::algorithm::L1GProximal']]]
 ];

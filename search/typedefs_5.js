@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['image_951',['Image',['../namespacesopt.html#a7d7971e5566e597eb907614917e30c78',1,'sopt::Image()'],['../tests_2inpainting_8cc.html#a597c232bc74255c74fa9d7b0dadff132',1,'Image():&#160;inpainting.cc']]],
-  ['index_952',['Index',['../classsopt_1_1proximal_1_1details_1_1DelayedProximalFunction.html#ae353ce2017036d7bc3eefce7fb60798d',1,'sopt::proximal::details::DelayedProximalFunction::Index()'],['../classsopt_1_1proximal_1_1details_1_1DelayedProximalEnveloppeFunction.html#a3e7be8ec59526567e819cf5b6d4a8d7c',1,'sopt::proximal::details::DelayedProximalEnveloppeFunction::Index()'],['../classsopt_1_1details_1_1AppliedFunction.html#a41f1a1442b04d947ea1febf44817bb28',1,'sopt::details::AppliedFunction::Index()']]]
+  ['have_970',['Have',['../structsopt_1_1details_1_1HasValueType.html#a91b3c444ea1587572e61f7d66e6e0001',1,'sopt::details::HasValueType']]],
+  ['havenot_971',['HaveNot',['../structsopt_1_1details_1_1HasValueType.html#aa68cd5507073731b86725d4e21c1bf25',1,'sopt::details::HasValueType']]]
 ];

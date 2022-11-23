@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['nomixing_525',['NoMixing',['../classsopt_1_1proximal_1_1L1_1_1NoMixing.html',1,'sopt::proximal::L1']]]
+  ['matrixadjointtolineartransform_536',['MatrixAdjointToLinearTransform',['../classsopt_1_1details_1_1MatrixAdjointToLinearTransform.html',1,'sopt::details']]],
+  ['matrixtolineartransform_537',['MatrixToLinearTransform',['../classsopt_1_1details_1_1MatrixToLinearTransform.html',1,'sopt::details']]]
 ];

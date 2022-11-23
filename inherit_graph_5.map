@@ -1,5 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" title=" " alt="" coords="5,42,81,69"/>
-<area shape="rect" id="node2" href="$structis__imaging__proximal__ref.html" title=" " alt="" coords="140,5,299,47"/>
-<area shape="rect" id="node3" href="$structis__primal__dual__ref.html" title=" " alt="" coords="129,71,309,98"/>
+<area shape="rect" id="node1" href="$classGProximal.html" title=" " alt="" coords="5,13,177,39"/>
+<area shape="rect" id="node2" href="$classsopt_1_1algorithm_1_1L1GProximal.html" title=" " alt="" coords="225,5,437,47"/>
 </map>

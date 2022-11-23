@@ -438,6 +438,7 @@
     <path>/home/runner/work/sopt/sopt/cpp/examples/forward_backward/</path>
     <filename>http://astro-informatics.github.io/sopt/examples_2forward__backward_2inpainting_8cc.html</filename>
     <includes id="imaging__forward__backward_8h" name="imaging_forward_backward.h" local="no" imported="no">sopt/imaging_forward_backward.h</includes>
+    <includes id="l1__g__proximal_8h" name="l1_g_proximal.h" local="no" imported="no">sopt/l1_g_proximal.h</includes>
     <includes id="logging_8h" name="logging.h" local="no" imported="no">sopt/logging.h</includes>
     <includes id="maths_8h" name="maths.h" local="no" imported="no">sopt/maths.h</includes>
     <includes id="relative__variation_8h" name="relative_variation.h" local="no" imported="no">sopt/relative_variation.h</includes>
@@ -524,6 +525,7 @@
     <path>/home/runner/work/sopt/sopt/cpp/tests/</path>
     <filename>http://astro-informatics.github.io/sopt/tests_2inpainting_8cc.html</filename>
     <includes id="imaging__forward__backward_8h" name="imaging_forward_backward.h" local="no" imported="no">sopt/imaging_forward_backward.h</includes>
+    <includes id="l1__g__proximal_8h" name="l1_g_proximal.h" local="no" imported="no">sopt/l1_g_proximal.h</includes>
     <includes id="logging_8h" name="logging.h" local="no" imported="no">sopt/logging.h</includes>
     <includes id="maths_8h" name="maths.h" local="no" imported="no">sopt/maths.h</includes>
     <includes id="relative__variation_8h" name="relative_variation.h" local="no" imported="no">sopt/relative_variation.h</includes>
@@ -574,6 +576,7 @@
     <filename>http://astro-informatics.github.io/sopt/inpainting__credible__interval_8cc.html</filename>
     <includes id="credible__region_8h" name="credible_region.h" local="no" imported="no">sopt/credible_region.h</includes>
     <includes id="imaging__forward__backward_8h" name="imaging_forward_backward.h" local="no" imported="no">sopt/imaging_forward_backward.h</includes>
+    <includes id="l1__g__proximal_8h" name="l1_g_proximal.h" local="no" imported="no">sopt/l1_g_proximal.h</includes>
     <includes id="logging_8h" name="logging.h" local="no" imported="no">sopt/logging.h</includes>
     <includes id="maths_8h" name="maths.h" local="no" imported="no">sopt/maths.h</includes>
     <includes id="relative__variation_8h" name="relative_variation.h" local="no" imported="no">sopt/relative_variation.h</includes>
@@ -595,6 +598,7 @@
     <path>/home/runner/work/sopt/sopt/cpp/examples/forward_backward/</path>
     <filename>http://astro-informatics.github.io/sopt/inpainting__joint__map_8cc.html</filename>
     <includes id="imaging__forward__backward_8h" name="imaging_forward_backward.h" local="no" imported="no">sopt/imaging_forward_backward.h</includes>
+    <includes id="l1__g__proximal_8h" name="l1_g_proximal.h" local="no" imported="no">sopt/l1_g_proximal.h</includes>
     <includes id="joint__map_8h" name="joint_map.h" local="no" imported="no">sopt/joint_map.h</includes>
     <includes id="logging_8h" name="logging.h" local="no" imported="no">sopt/logging.h</includes>
     <includes id="maths_8h" name="maths.h" local="no" imported="no">sopt/maths.h</includes>
@@ -1108,6 +1112,13 @@
     </member>
   </compound>
   <compound kind="file">
+    <name>g_proximal.h</name>
+    <path>/home/runner/work/sopt/sopt/cpp/sopt/</path>
+    <filename>http://astro-informatics.github.io/sopt/g__proximal_8h.html</filename>
+    <includes id="forward__backward_8h" name="forward_backward.h" local="yes" imported="no">sopt/forward_backward.h</includes>
+    <class kind="class">GProximal</class>
+  </compound>
+  <compound kind="file">
     <name>gradient_operator.h</name>
     <path>/home/runner/work/sopt/sopt/cpp/sopt/</path>
     <filename>http://astro-informatics.github.io/sopt/gradient__operator_8h.html</filename>
@@ -1157,12 +1168,12 @@
     <filename>http://astro-informatics.github.io/sopt/imaging__forward__backward_8h.html</filename>
     <includes id="exception_8h" name="exception.h" local="yes" imported="no">sopt/exception.h</includes>
     <includes id="forward__backward_8h" name="forward_backward.h" local="yes" imported="no">sopt/forward_backward.h</includes>
-    <includes id="l1__proximal_8h" name="l1_proximal.h" local="yes" imported="no">sopt/l1_proximal.h</includes>
     <includes id="linear__transform_8h" name="linear_transform.h" local="yes" imported="no">sopt/linear_transform.h</includes>
     <includes id="logging_8h" name="logging.h" local="yes" imported="no">sopt/logging.h</includes>
     <includes id="proximal_8h" name="proximal.h" local="yes" imported="no">sopt/proximal.h</includes>
     <includes id="relative__variation_8h" name="relative_variation.h" local="yes" imported="no">sopt/relative_variation.h</includes>
     <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
+    <includes id="g__proximal_8h" name="g_proximal.h" local="yes" imported="no">sopt/g_proximal.h</includes>
     <class kind="class">sopt::algorithm::ImagingForwardBackward</class>
     <class kind="struct">sopt::algorithm::ImagingForwardBackward::Diagnostic</class>
     <class kind="struct">sopt::algorithm::ImagingForwardBackward::DiagnosticAndResult</class>
@@ -1174,13 +1185,6 @@
       <anchorfile>imaging__forward__backward_8h.html</anchorfile>
       <anchor>acc08c2e01b4beda3b86b0ad0e358476b</anchor>
       <arglist>(NAME, TYPE)</arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>SOPT_MACRO</name>
-      <anchorfile>imaging__forward__backward_8h.html</anchorfile>
-      <anchor>aad24c91e578b23e3517f2a44b2cd1d32</anchor>
-      <arglist>(VAR, NAME, PROXIMAL)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -1267,6 +1271,30 @@
       <anchorfile>joint__map_8h.html</anchorfile>
       <anchor>acc08c2e01b4beda3b86b0ad0e358476b</anchor>
       <arglist>(NAME, TYPE)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>l1_g_proximal.h</name>
+    <path>/home/runner/work/sopt/sopt/cpp/sopt/</path>
+    <filename>http://astro-informatics.github.io/sopt/l1__g__proximal_8h.html</filename>
+    <includes id="exception_8h" name="exception.h" local="yes" imported="no">sopt/exception.h</includes>
+    <includes id="forward__backward_8h" name="forward_backward.h" local="yes" imported="no">sopt/forward_backward.h</includes>
+    <includes id="linear__transform_8h" name="linear_transform.h" local="yes" imported="no">sopt/linear_transform.h</includes>
+    <includes id="logging_8h" name="logging.h" local="yes" imported="no">sopt/logging.h</includes>
+    <includes id="proximal_8h" name="proximal.h" local="yes" imported="no">sopt/proximal.h</includes>
+    <includes id="relative__variation_8h" name="relative_variation.h" local="yes" imported="no">sopt/relative_variation.h</includes>
+    <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
+    <includes id="g__proximal_8h" name="g_proximal.h" local="yes" imported="no">sopt/g_proximal.h</includes>
+    <includes id="l1__proximal_8h" name="l1_proximal.h" local="yes" imported="no">sopt/l1_proximal.h</includes>
+    <class kind="class">sopt::algorithm::L1GProximal</class>
+    <namespace>sopt</namespace>
+    <namespace>sopt::algorithm</namespace>
+    <member kind="define">
+      <type>#define</type>
+      <name>SOPT_MACRO</name>
+      <anchorfile>l1__g__proximal_8h.html</anchorfile>
+      <anchor>a7c88c2dcaf3f2db3abc260ee9d77a9b3</anchor>
+      <arglist>(VAR, TYPE)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -3204,12 +3232,14 @@
     <path>/home/runner/work/sopt/sopt/cpp/tests/</path>
     <filename>http://astro-informatics.github.io/sopt/forward__backward_8cc.html</filename>
     <includes id="imaging__forward__backward_8h" name="imaging_forward_backward.h" local="no" imported="no">sopt/imaging_forward_backward.h</includes>
+    <includes id="l1__g__proximal_8h" name="l1_g_proximal.h" local="no" imported="no">sopt/l1_g_proximal.h</includes>
     <includes id="logging_8h" name="logging.h" local="no" imported="no">sopt/logging.h</includes>
     <includes id="maths_8h" name="maths.h" local="no" imported="no">sopt/maths.h</includes>
     <includes id="proximal_8h" name="proximal.h" local="no" imported="no">sopt/proximal.h</includes>
     <includes id="types_8h" name="types.h" local="no" imported="no">sopt/types.h</includes>
     <includes id="tiffwrappers_8h" name="tiffwrappers.h" local="no" imported="no">tools_for_tests/tiffwrappers.h</includes>
     <class kind="struct">is_imaging_proximal_ref</class>
+    <class kind="struct">is_l1_g_proximal_ref</class>
     <member kind="typedef">
       <type>sopt::t_real</type>
       <name>Scalar</name>
@@ -4452,22 +4482,15 @@
       <type></type>
       <name>Diagnostic</name>
       <anchorfile>structsopt_1_1algorithm_1_1ImagingForwardBackward_1_1Diagnostic.html</anchorfile>
-      <anchor>abe700f84f089716459aef505f2a6cbc8</anchor>
-      <arglist>(t_uint niters=0u, bool good=false, typename proximal::L1&lt; Scalar &gt;::Diagnostic const &amp;l1diag=typename proximal::L1&lt; Scalar &gt;::Diagnostic())</arglist>
+      <anchor>a869c7446493ed028f7169b5c1aff407c</anchor>
+      <arglist>(t_uint niters=0u, bool good=false)</arglist>
     </member>
     <member kind="function">
       <type></type>
       <name>Diagnostic</name>
       <anchorfile>structsopt_1_1algorithm_1_1ImagingForwardBackward_1_1Diagnostic.html</anchorfile>
-      <anchor>a16724dcf7d4ca4dccd6467721fa23411</anchor>
-      <arglist>(t_uint niters, bool good, typename proximal::L1&lt; Scalar &gt;::Diagnostic const &amp;l1diag, t_Vector &amp;&amp;residual)</arglist>
-    </member>
-    <member kind="variable">
-      <type>proximal::L1&lt; Scalar &gt;::Diagnostic</type>
-      <name>l1_diagnostic</name>
-      <anchorfile>structsopt_1_1algorithm_1_1ImagingForwardBackward_1_1Diagnostic.html</anchorfile>
-      <anchor>ad4e7d138ffe53eb0d3b770c5f915625b</anchor>
-      <arglist></arglist>
+      <anchor>af37e9ee0bfe43f171d5c1c523d04b416</anchor>
+      <arglist>(t_uint niters, bool good, t_Vector &amp;&amp;residual)</arglist>
     </member>
   </compound>
   <compound kind="struct">
@@ -4683,6 +4706,18 @@
     </member>
   </compound>
   <compound kind="struct">
+    <name>sopt::algorithm::SDMM::DiagnosticAndResult</name>
+    <filename>http://astro-informatics.github.io/sopt/structsopt_1_1algorithm_1_1SDMM_1_1DiagnosticAndResult.html</filename>
+    <base>sopt::algorithm::SDMM::Diagnostic</base>
+    <member kind="variable">
+      <type>Vector&lt; SCALAR &gt;</type>
+      <name>x</name>
+      <anchorfile>structsopt_1_1algorithm_1_1SDMM_1_1DiagnosticAndResult.html</anchorfile>
+      <anchor>abedaded5d7f522c190356ef05b1ed3d4</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
     <name>sopt::algorithm::ImagingPrimalDual::DiagnosticAndResult</name>
     <filename>http://astro-informatics.github.io/sopt/structsopt_1_1algorithm_1_1ImagingPrimalDual_1_1DiagnosticAndResult.html</filename>
     <base>sopt::algorithm::ImagingPrimalDual::Diagnostic</base>
@@ -4703,18 +4738,6 @@
       <name>x</name>
       <anchorfile>structsopt_1_1algorithm_1_1ProximalADMM_1_1DiagnosticAndResult.html</anchorfile>
       <anchor>a9e0c014425960579731d31ec46d40187</anchor>
-      <arglist></arglist>
-    </member>
-  </compound>
-  <compound kind="struct">
-    <name>sopt::algorithm::SDMM::DiagnosticAndResult</name>
-    <filename>http://astro-informatics.github.io/sopt/structsopt_1_1algorithm_1_1SDMM_1_1DiagnosticAndResult.html</filename>
-    <base>sopt::algorithm::SDMM::Diagnostic</base>
-    <member kind="variable">
-      <type>Vector&lt; SCALAR &gt;</type>
-      <name>x</name>
-      <anchorfile>structsopt_1_1algorithm_1_1SDMM_1_1DiagnosticAndResult.html</anchorfile>
-      <anchor>abedaded5d7f522c190356ef05b1ed3d4</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -5298,6 +5321,39 @@
     </member>
   </compound>
   <compound kind="class">
+    <name>GProximal</name>
+    <filename>http://astro-informatics.github.io/sopt/classGProximal.html</filename>
+    <templarg></templarg>
+    <member kind="function" virtualness="pure">
+      <type>virtual void</type>
+      <name>log_message</name>
+      <anchorfile>classGProximal.html</anchorfile>
+      <anchor>a2595aa6c505024a43c7e34cccfbe3cf1</anchor>
+      <arglist>() const =0</arglist>
+    </member>
+    <member kind="function" virtualness="pure">
+      <type>virtual t_Proximal</type>
+      <name>proximal_function</name>
+      <anchorfile>classGProximal.html</anchorfile>
+      <anchor>a1b0355a5f21c7d002431218cb65290f2</anchor>
+      <arglist>() const =0</arglist>
+    </member>
+    <member kind="function" virtualness="pure">
+      <type>virtual Real</type>
+      <name>proximal_norm</name>
+      <anchorfile>classGProximal.html</anchorfile>
+      <anchor>a63f2ef76f413ceda6cc12a14055a7d63</anchor>
+      <arglist>(t_Vector const &amp;x) const =0</arglist>
+    </member>
+    <member kind="function" virtualness="pure">
+      <type>virtual const t_LinearTransform &amp;</type>
+      <name>Psi</name>
+      <anchorfile>classGProximal.html</anchorfile>
+      <anchor>aa09fe88d13ad97c15487b4f7894431cd</anchor>
+      <arglist>() const =0</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
     <name>sopt::details::has_value_type</name>
     <filename>http://astro-informatics.github.io/sopt/classsopt_1_1details_1_1has__value__type.html</filename>
     <templarg></templarg>
@@ -5441,13 +5497,6 @@
       <type></type>
       <name>SOPT_MACRO</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
-      <anchor>aca95c16478bc6df02246b61389a6f989</anchor>
-      <arglist>(l1_proximal, proximal::L1&lt; Scalar &gt;)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>SOPT_MACRO</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
       <anchor>a39b0d44f732ab968c8a28d00b9a0ba1e</anchor>
       <arglist>(l2_gradient, t_Gradient)</arglist>
     </member>
@@ -5536,6 +5585,20 @@
       <arglist>(Phi, t_LinearTransform)</arglist>
     </member>
     <member kind="function">
+      <type>std::shared_ptr&lt; GProximal&lt; SCALAR &gt; &gt;</type>
+      <name>g_proximal</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
+      <anchor>a0173213ab9b73098f72e8df145c55ad5</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>ImagingForwardBackward&lt; SCALAR &gt; &amp;</type>
+      <name>g_proximal</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
+      <anchor>a1b5879322313df6b6d38be713226ed1e</anchor>
+      <arglist>(std::shared_ptr&lt; GProximal&lt; SCALAR &gt;&gt; g_proximal)</arglist>
+    </member>
+    <member kind="function">
       <type>const t_Vector &amp;</type>
       <name>target</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
@@ -5613,81 +5676,11 @@
       <arglist>(ARGS &amp;&amp;... args)</arglist>
     </member>
     <member kind="function">
-      <type>proximal::L1&lt; Scalar &gt; &amp;</type>
-      <name>l1_proximal</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
-      <anchor>ae2268cacdae64e3358a5056f50109657</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="function">
       <type>t_Gradient &amp;</type>
       <name>l2_graident</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
       <anchor>a94c905d1ccbccc07f26336daef5f6560</anchor>
       <arglist>()</arglist>
-    </member>
-    <member kind="function">
-      <type>const t_LinearTransform &amp;</type>
-      <name>Psi</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
-      <anchor>abb1e98c7d105b1c8b17ba30cae006603</anchor>
-      <arglist>() const</arglist>
-    </member>
-    <member kind="function">
-      <type>ImagingForwardBackward&lt; Scalar &gt; &amp;::type</type>
-      <name>Psi</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
-      <anchor>a6a79d2576bf6c5f8226be6e25d41a3cd</anchor>
-      <arglist>(ARGS &amp;&amp;... args)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>SOPT_MACRO</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
-      <anchor>ad6e8c8fe042078c396f204309fca8a92</anchor>
-      <arglist>(itermax, l1, L1)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>SOPT_MACRO</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
-      <anchor>a161a12b9d3cad72dd9aaf8fec037eed5</anchor>
-      <arglist>(tolerance, l1, L1)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>SOPT_MACRO</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
-      <anchor>a6ebe524bdd3a9cd81bbb5b42a75e0ea3</anchor>
-      <arglist>(positivity_constraint, l1, L1)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>SOPT_MACRO</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
-      <anchor>abd3198da08982ada9c861d5886320ad4</anchor>
-      <arglist>(real_constraint, l1, L1)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>SOPT_MACRO</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
-      <anchor>ad5d104c847b95ab857b0f537ea208483</anchor>
-      <arglist>(fista_mixing, l1, L1)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>SOPT_MACRO</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
-      <anchor>a96a1bf519a8900a9f26cfab87e84a334</anchor>
-      <arglist>(nu, l1, L1)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>SOPT_MACRO</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
-      <anchor>a35fbee1710007c3f52e7ea42e7154e8f</anchor>
-      <arglist>(weights, l1, L1)</arglist>
     </member>
     <member kind="function">
       <type>ImagingForwardBackward&lt; Scalar &gt; &amp;</type>
@@ -6839,6 +6832,11 @@
     <templarg></templarg>
   </compound>
   <compound kind="struct">
+    <name>is_l1_g_proximal_ref</name>
+    <filename>http://astro-informatics.github.io/sopt/structis__l1__g__proximal__ref.html</filename>
+    <templarg></templarg>
+  </compound>
+  <compound kind="struct">
     <name>is_primal_dual_ref</name>
     <filename>http://astro-informatics.github.io/sopt/structis__primal__dual__ref.html</filename>
     <templarg></templarg>
@@ -7199,6 +7197,166 @@
       <anchorfile>classsopt_1_1proximal_1_1L1.html</anchorfile>
       <anchor>a218cc680ab3bf2324b95f176d8318313</anchor>
       <arglist>(T &amp;&amp;... args) const -&gt; decltype(this-&gt;L1TightFrame&lt; Scalar &gt;::operator()(std::forward&lt; T &gt;(args)...))</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>sopt::algorithm::L1GProximal</name>
+    <filename>http://astro-informatics.github.io/sopt/classsopt_1_1algorithm_1_1L1GProximal.html</filename>
+    <templarg></templarg>
+    <base>GProximal</base>
+    <member kind="typedef">
+      <type>ForwardBackward&lt; SCALAR &gt;</type>
+      <name>FB</name>
+      <anchorfile>classsopt_1_1algorithm_1_1L1GProximal.html</anchorfile>
+      <anchor>aa6432b50229822807468e63d1b8a369f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>FB::Real</type>
+      <name>Real</name>
+      <anchorfile>classsopt_1_1algorithm_1_1L1GProximal.html</anchorfile>
+      <anchor>a88529f3ea7852c38bb4c68986404f8e9</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>FB::Scalar</type>
+      <name>Scalar</name>
+      <anchorfile>classsopt_1_1algorithm_1_1L1GProximal.html</anchorfile>
+      <anchor>a9ba5d8a0280ad81d22ac154d1e57f4a4</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>FB::t_Vector</type>
+      <name>t_Vector</name>
+      <anchorfile>classsopt_1_1algorithm_1_1L1GProximal.html</anchorfile>
+      <anchor>ad5144761504c84130252885421a0c646</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>FB::t_Proximal</type>
+      <name>t_Proximal</name>
+      <anchorfile>classsopt_1_1algorithm_1_1L1GProximal.html</anchorfile>
+      <anchor>ad71d6e4f4e441a64445b2eea0ab009a9</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>FB::t_LinearTransform</type>
+      <name>t_LinearTransform</name>
+      <anchorfile>classsopt_1_1algorithm_1_1L1GProximal.html</anchorfile>
+      <anchor>af4513fa73d84b8cee3ae7cab3a1daef5</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>L1GProximal</name>
+      <anchorfile>classsopt_1_1algorithm_1_1L1GProximal.html</anchorfile>
+      <anchor>a2528793354ae8a8b8515b78eca39988c</anchor>
+      <arglist>(bool tight_frame=false)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>~L1GProximal</name>
+      <anchorfile>classsopt_1_1algorithm_1_1L1GProximal.html</anchorfile>
+      <anchor>a2a593112a39f2837a4e4d10fce471ac6</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>log_message</name>
+      <anchorfile>classsopt_1_1algorithm_1_1L1GProximal.html</anchorfile>
+      <anchor>a6a076a76a24b0b4fe63bfe9ae81a0676</anchor>
+      <arglist>() const override</arglist>
+    </member>
+    <member kind="function">
+      <type>Real</type>
+      <name>proximal_norm</name>
+      <anchorfile>classsopt_1_1algorithm_1_1L1GProximal.html</anchorfile>
+      <anchor>aa042855284f50c371eed859e0acab2d1</anchor>
+      <arglist>(t_Vector const &amp;x) const override</arglist>
+    </member>
+    <member kind="function">
+      <type>t_Proximal</type>
+      <name>proximal_function</name>
+      <anchorfile>classsopt_1_1algorithm_1_1L1GProximal.html</anchorfile>
+      <anchor>aef10e4b2cd001b5cbe6ad381a5914e30</anchor>
+      <arglist>() const override</arglist>
+    </member>
+    <member kind="function">
+      <type>const t_LinearTransform &amp;</type>
+      <name>Psi</name>
+      <anchorfile>classsopt_1_1algorithm_1_1L1GProximal.html</anchorfile>
+      <anchor>a69b81084e8f9356cec11cdf735ec5fe1</anchor>
+      <arglist>() const override</arglist>
+    </member>
+    <member kind="function">
+      <type>proximal::L1&lt; Scalar &gt; &amp;</type>
+      <name>l1_proximal</name>
+      <anchorfile>classsopt_1_1algorithm_1_1L1GProximal.html</anchorfile>
+      <anchor>a88f08d0c95712bb0b1930e0069aeae61</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>const proximal::L1&lt; Scalar &gt; &amp;</type>
+      <name>l1_proximal</name>
+      <anchorfile>classsopt_1_1algorithm_1_1L1GProximal.html</anchorfile>
+      <anchor>aae71f4b9d78dd4fed67d985f6fe7516b</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>L1GProximal&lt; SCALAR &gt; &amp;</type>
+      <name>l1_proximal</name>
+      <anchorfile>classsopt_1_1algorithm_1_1L1GProximal.html</anchorfile>
+      <anchor>a390b32e4a898800668a4875cd416bb27</anchor>
+      <arglist>(proximal::L1&lt; Scalar &gt; const &amp;arg)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SOPT_MACRO</name>
+      <anchorfile>classsopt_1_1algorithm_1_1L1GProximal.html</anchorfile>
+      <anchor>ae4d9a5ee122dfffcb04df3ca7eeb839e</anchor>
+      <arglist>(itermax, t_uint)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SOPT_MACRO</name>
+      <anchorfile>classsopt_1_1algorithm_1_1L1GProximal.html</anchorfile>
+      <anchor>aa0f89db1f5a26c658dcb01e37bf155f6</anchor>
+      <arglist>(tolerance, Real)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SOPT_MACRO</name>
+      <anchorfile>classsopt_1_1algorithm_1_1L1GProximal.html</anchorfile>
+      <anchor>a48acf23f3429ff31386dfd03801687b7</anchor>
+      <arglist>(positivity_constraint, bool)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SOPT_MACRO</name>
+      <anchorfile>classsopt_1_1algorithm_1_1L1GProximal.html</anchorfile>
+      <anchor>acfcb3995ee6874fdc800240db5fe119b</anchor>
+      <arglist>(real_constraint, bool)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SOPT_MACRO</name>
+      <anchorfile>classsopt_1_1algorithm_1_1L1GProximal.html</anchorfile>
+      <anchor>a0a7d0173c8cc74a7d72ad263c6caff82</anchor>
+      <arglist>(nu, Real)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SOPT_MACRO</name>
+      <anchorfile>classsopt_1_1algorithm_1_1L1GProximal.html</anchorfile>
+      <anchor>a3f28cf25ed95206384175207bb4b40ec</anchor>
+      <arglist>(weights, t_Vector)</arglist>
+    </member>
+    <member kind="function">
+      <type>L1GProximal&lt; SCALAR &gt; &amp;::type</type>
+      <name>Psi</name>
+      <anchorfile>classsopt_1_1algorithm_1_1L1GProximal.html</anchorfile>
+      <anchor>a137ef79f297f45222e00a3ade62caa84</anchor>
+      <arglist>(ARGS &amp;&amp;... args)</arglist>
     </member>
   </compound>
   <compound kind="class">
@@ -10325,11 +10483,11 @@
     <templarg></templarg>
   </compound>
   <compound kind="class">
-    <name>underlying_value_type&lt; Scalar &gt;</name>
+    <name>underlying_value_type&lt; SCALAR &gt;</name>
     <filename>http://astro-informatics.github.io/sopt/classsopt_1_1details_1_1underlying__value__type.html</filename>
   </compound>
   <compound kind="class">
-    <name>underlying_value_type&lt; SCALAR &gt;</name>
+    <name>underlying_value_type&lt; Scalar &gt;</name>
     <filename>http://astro-informatics.github.io/sopt/classsopt_1_1details_1_1underlying__value__type.html</filename>
   </compound>
   <compound kind="class">
@@ -11231,6 +11389,7 @@
     <class kind="class">sopt::algorithm::ImagingPrimalDual</class>
     <class kind="class">sopt::algorithm::ImagingProximalADMM</class>
     <class kind="class">sopt::algorithm::JointMAP</class>
+    <class kind="class">sopt::algorithm::L1GProximal</class>
     <class kind="class">sopt::algorithm::L2ForwardBackward</class>
     <class kind="class">sopt::algorithm::PositiveQuadrant</class>
     <class kind="class">sopt::algorithm::PowerMethod</class>
