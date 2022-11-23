@@ -6,7 +6,6 @@
 #include <vector>
 #include <ctime>
 #include <catch.hpp>
-#include <unsupported/Eigen/CXX11/Tensor>
 
 #include <sopt/imaging_forward_backward.h>
 #include <sopt/logging.h>
@@ -36,6 +35,9 @@ TEST_CASE("Cppflow"){
 
   std::string const input_image = "cameraman256";
   Image const image = sopt::notinstalled::read_standard_tiff(input_image);
+
+  //TODO use image.shape nad image.size instead of hardcoding values
+  //TODO check data type and allow float or double
   
   // create a vector
   std::cout << "============Create vector" << std::endl;
@@ -52,6 +54,7 @@ TEST_CASE("Cppflow"){
   
   // create a tensor from vector
   std::cout << "============Create tensor" << std::endl;
+  // TODO coul dthis use the image.shape
   cppflow::tensor cf_tensor(values, tensor_shape);
   
   auto input = cppflow::cast(cf_tensor, TF_UINT8, TF_FLOAT);
@@ -75,6 +78,8 @@ TEST_CASE("Cppflow"){
 
   
   Eigen::Map<Eigen::Array<double, 256, 256>> model_output(doubleResults.data());
+  // Map transposes the image so we transpose it back
+  // This only works on square images, can't modify shape if it is not square
   model_output.transposeInPlace();
 
   sopt::utilities::write_tiff(model_output, "./cameraman_output.tiff");
