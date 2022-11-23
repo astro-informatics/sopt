@@ -98,18 +98,15 @@ jobs:
         
     - name: Prepare ccache timestamp
       id: ccache_cache_timestamp
-      shell: cmake -P {0}
-      run: |
-        string(TIMESTAMP current_date "%Y-%m-%d-%H;%M;%S" UTC)
-        echo "name=timestamp::${current_date}" >> $GITHUB_OUTPUT
+      run: echo "{date_and_time}={$(date +'%Y-%m-%d-%H;%M;%S')}" >> $GITHUB_OUTPUT
     - name: Set ccache cache directory
       shell: bash
       run: echo "CCACHE_DIR=${{runner.workspace}}/.ccache" >> "${GITHUB_ENV}"
     - name: Cache ccache files
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: ${{runner.workspace}}/.ccache
-        key: ${{matrix.os}}-${{matrix.cxx}}-${{matrix.mpi}}-${{matrix.omp}}-${{ steps.ccache_cache_timestamp.outputs.timestamp }}
+        key: ${{matrix.os}}-${{matrix.cxx}}-${{matrix.mpi}}-${{matrix.omp}}-${{ steps.ccache_cache_timestamp.outputs.date_and_time }}
         restore-keys: |
           ${{ matrix.os }}-${{ matrix.cxx }}-${{ matrix.mpi }}-${{ matrix.omp }}
           ${{ matrix.os }}-${{ matrix.cxx }}-${{ matrix.mpi }}
