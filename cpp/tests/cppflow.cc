@@ -41,20 +41,20 @@ TEST_CASE("Cppflow"){
   
   // create a vector
   std::cout << "============Create vector" << std::endl;
-  std::vector<int64_t> tensor_shape = {256, 256};
-  std::vector<float> values(256*256, 1);
+  std::vector<int64_t> tensor_shape = {image.rows(), image.cols()};
+  std::vector<float> values(image.size(), 1);
 
 
   // Initialize all elements to image values.
-  for (int i = 0; i < 256; ++i) {
-    for (int j = 0; j < 256; ++j) {
+  for (int i = 0; i < image.rows(); ++i) {
+    for (int j = 0; j < image.cols(); ++j) {
       values[i*256+j] = image(i,j);
     }
   }
   
   // create a tensor from vector
   std::cout << "============Create tensor" << std::endl;
-  // TODO coul dthis use the image.shape
+  // TODO could this use the image.shape
   cppflow::tensor cf_tensor(values, tensor_shape);
   
   auto input = cppflow::cast(cf_tensor, TF_UINT8, TF_FLOAT);
