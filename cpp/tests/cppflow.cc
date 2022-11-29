@@ -41,20 +41,23 @@ TEST_CASE("Cppflow"){
   
   // create a vector
   std::cout << "============Create vector" << std::endl;
-  std::vector<int64_t> tensor_shape = {image.rows(), image.cols()};
-  std::vector<float> values(image.size(), 1);
+  int const image_rows = image.rows();
+  int const image_cols = image.cols();
+  int const image_size = image.size();
+
+  std::vector<int64_t> tensor_shape = {image_rows, image_cols};
+  std::vector<float> values(image_size, 1);
 
 
   // Initialize all elements to image values.
   for (int i = 0; i < image.rows(); ++i) {
     for (int j = 0; j < image.cols(); ++j) {
-      values[i*256+j] = image(i,j);
+      values[i*image_rows+j] = image(i,j);
     }
   }
   
   // create a tensor from vector
   std::cout << "============Create tensor" << std::endl;
-  // TODO could this use the image.shape
   cppflow::tensor cf_tensor(values, tensor_shape);
   
   auto input = cppflow::cast(cf_tensor, TF_UINT8, TF_FLOAT);
@@ -76,7 +79,7 @@ TEST_CASE("Cppflow"){
   auto results = output[0].get_data<float>();
   std::vector<double> doubleResults(results.begin(), results.end());
 
-  
+  //TODO this has the image size hardcoded but it doesn't like using image_rows (int declared above) or image.rows()
   Eigen::Map<Eigen::Array<double, 256, 256>> model_output(doubleResults.data());
   // Map transposes the image so we transpose it back
   // This only works on square images, can't modify shape if it is not square
