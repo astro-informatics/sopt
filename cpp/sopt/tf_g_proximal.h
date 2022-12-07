@@ -71,7 +71,7 @@ protected:
   cppflow::model model_;
 
   void call_model(t_Vector &out, t_Vector const &x) {
-    x = model_({{"serving_default_input0:0", input}}, {"StatefulPartitionedCall:0"});
+    out = model_({{"serving_default_input0:0", x}}, {"StatefulPartitionedCall:0"});
   }
   
 };
