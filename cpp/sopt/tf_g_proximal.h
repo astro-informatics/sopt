@@ -47,7 +47,7 @@ public:
   }
 
   // Return the L1 norm of x with unit weights
-  // TODO: What should we return here? 
+  // TODO: What should we return here?
   Real proximal_norm(t_Vector const &x) const override {
     Eigen::VectorXf::Ones(x.size()) weights;
     return sopt::l1_norm(static_cast<t_Vector>(x), weights);
@@ -69,11 +69,32 @@ public:
 protected:
 
   cppflow::model model_;
+  std::string const model_param_1 = "serving_default_input0:0";
+  std::string const model_param_2 = "StatefulPartitionedCall:0";
 
   void call_model(t_Vector &out, t_Vector const &x) {
-    out = model_({{"serving_default_input0:0", x}}, {"StatefulPartitionedCall:0"});
+    // Set dimensions
+    int const image_size = x.size();
+    // Assuming image is a square in lack of a better way
+    int const image_rows = static_cast<int>(sqrt(image_size));
+    int const image_cols = static_cast<int>(sqrt(image_size));
+
+    // Process input
+    std::vector<SCALAR> values(&x[0], x.data()+x.size());
+    cppflow::tensor cf_tensor(values, {1, image_rows, image_cols, 1});
+    // auto input = cppflow::expand_dims(cf_tensor, 0);
+    // input = cppflow::expand_dims(input, -1);
+
+    // Call model
+    auto model_output = model_({{model_param_1, cf_tensor}}, {model_param_2});
+
+    // Process output
+    auto floatResults = model_output[0].get_data<float>();
+    std::vector<SCALAR> typecastResults(floatResults.begin(), floatResults.end());
+    Eigen::Map<Eigen::Matrix<SCALAR, Eigen::Dynamic, 1>> out(typecastResults.data(), image_size);
+
   }
-  
+
 };
 }
 }
