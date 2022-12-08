@@ -114,7 +114,7 @@ protected:
   proximal::L1<Scalar> l1_proximal_;
 
   // Helper functions for calling l1_proximal
-  //! Calls l1 proximal operator, checking for real constraints and tight frame
+  //! Calls l1 proximal operator, checking for real constraints
   template <class T0, class T1>
   typename proximal::L1<Scalar>::Diagnostic l1_proximal(Eigen::MatrixBase<T0> &out, Real gamma,
                                                         Eigen::MatrixBase<T1> const &x) const {
@@ -123,7 +123,7 @@ protected:
       : call_l1_proximal(out, gamma, x);
   }
 
-  //! Calls l1 proximal operator, checking for thight frame
+  //! Calls l1 proximal operator, checking for tight frame
   template <class T0, class T1>
   typename proximal::L1<Scalar>::Diagnostic call_l1_proximal(Eigen::MatrixBase<T0> &out, Real gamma,
                                                              Eigen::MatrixBase<T1> const &x) const {
