@@ -38,7 +38,9 @@ public:
   // The constructor constructs a cppflow model object from a saved model saved
   // to the file filename
   TFGProximal(const string& filename)
-    : model_(filename) {}
+    : model_(filename), square_image_(true) {}
+  TFGProximal(const string& filename, const int rows, const int cols)
+    : model_(filename), square_image_(false), image_rows_(rows), image_cols_(cols) {}
   ~TFGProximal() {};
 
   // Print log message with the correct norms
@@ -69,19 +71,23 @@ public:
 protected:
 
   cppflow::model model_;
+  int image_rows_;
+  int image_cols_;
+  bool square_image_;
   std::string const model_param_1 = "serving_default_input0:0";
   std::string const model_param_2 = "StatefulPartitionedCall:0";
 
   void call_model(t_Vector &out, t_Vector const &x) {
     // Set dimensions
     int const image_size = x.size();
-    // Assuming image is a square in lack of a better way
-    int const image_rows = static_cast<int>(sqrt(image_size));
-    int const image_cols = static_cast<int>(sqrt(image_size));
+    if (square_image_) {
+      image_rows_ = static_cast<int>(sqrt(image_size));
+      image_cols_ = static_cast<int>(sqrt(image_size));
+    }
 
     // Process input
     std::vector<SCALAR> values(&x[0], x.data()+x.size());
-    cppflow::tensor cf_tensor(values, {1, image_rows, image_cols, 1});
+    cppflow::tensor cf_tensor(values, {1, image_rows_, image_cols_, 1});
     // auto input = cppflow::expand_dims(cf_tensor, 0);
     // input = cppflow::expand_dims(input, -1);
 
