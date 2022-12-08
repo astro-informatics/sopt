@@ -25,13 +25,17 @@ sopt::t_int random_integer(sopt::t_int min, sopt::t_int max) {
 typedef sopt::t_real Scalar;
 typedef sopt::Vector<Scalar> t_Vector;
 typedef sopt::t_real t_real;
+typedef sopt::LinearTransform<t_Vector> t_LinearTransform;
 auto const N = 5;
 
 TEST_CASE("Forward Backward with ||x - x0||_2^2 function", "[fb]") {
   using namespace sopt;
   t_Vector const target0 = t_Vector::Random(N);
-  auto const g0 = [](t_Vector &out, const t_real gamma, const t_Vector &x) {
-    proximal::id(out, gamma, x);
+  t_real const beta = 0.2;
+  t_real const nu = 1.0;
+  t_LinearTransform const Phi = linear_transform_identity<Scalar>();
+  auto const g0 = [=](t_Vector &out, const t_real gamma, const t_Vector &x) {
+		    proximal::id(out, gamma * beta, out - beta / nu * (Phi.adjoint() * x));
   };
   auto const grad = [](t_Vector &out, const t_Vector &x) { out = x; };
   const t_Vector x_guess = t_Vector::Random(target0.size());
@@ -45,8 +49,9 @@ TEST_CASE("Forward Backward with ||x - x0||_2^2 function", "[fb]") {
   auto const fb = algorithm::ForwardBackward<Scalar>(grad, g0, target0)
                       .itermax(300)
                       .gamma(0.1)
-                      .beta(0.2)
+                      .beta(beta)
                       .is_converged(convergence);
+
   auto const result = fb(std::make_tuple(x_guess, res));
   CAPTURE(result.niters);
   CAPTURE(result.x);
