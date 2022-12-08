@@ -35,8 +35,10 @@ public:
   // In the constructor we need to construct the private l1_proximal_
   // object that contains the real implementation details. The tight_frame
   // parameter is required for internal logic in l1_proximal
-  L1GProximal(bool tight_frame = false)
+  L1GProximal(Real const &beta, t_LinearTransform const &Phi, bool tight_frame = false)
     : tight_frame_ (tight_frame),
+      beta_(beta),
+      Phi_(Phi),
       l1_proximal_() {}
   ~L1GProximal() {};
 
@@ -55,7 +57,9 @@ public:
   // Return g_proximal as a lambda function. Used in operator() in base class.
   t_Proximal proximal_function() const override {
     return [this](t_Vector &out, Real gamma, t_Vector const &x) {
-	     this -> l1_proximal(out, gamma, x);
+	     this -> l1_proximal(out,
+				 gamma * beta_,
+				 out - beta_ / l1_proximal_.nu() * (Phi_.adjoint() * x));
 	   };
   }
 
@@ -78,10 +82,10 @@ public:
 // ~~~
 #define SOPT_MACRO(VAR, TYPE)						 \
   /** \brief Getter, forwards to l1_proximal **/                         \
-  TYPE const &l1_proximal_##VAR() const { return l1_proximal().VAR(); }  \
+  TYPE const &l1_proximal_##VAR() const { return l1_proximal_.VAR(); }  \
   /** \brief Setter, forwards to l1_proximal **/                         \
   L1GProximal<SCALAR> &l1_proximal_##VAR(TYPE const ARG) {               \
-    l1_proximal().VAR(ARG);				                 \
+    l1_proximal_.VAR(ARG);				                 \
     return *this;                                                        \
   }
 
@@ -108,6 +112,8 @@ protected:
 
   bool tight_frame_;
   proximal::L1<Scalar> l1_proximal_;
+  Real const beta_;
+  t_LinearTransform const Phi_;
 
   // Helper functions for calling l1_proximal
   //! Calls l1 proximal operator, checking for real constraints and tight frame

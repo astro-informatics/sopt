@@ -83,7 +83,7 @@ TEST_CASE("Check type returned on setting variables") {
   CHECK(is_imaging_proximal_ref<decltype(fb.tight_frame(false))>::value);
 
   // Test the types of the l1 g_proximal object separately
-  auto gp = std::make_shared<sopt::algorithm::L1GProximal<Scalar>>(false);
+  auto gp = std::make_shared<sopt::algorithm::L1GProximal<Scalar>>(fb.beta(), fb.Phi(), false);
   CHECK(is_l1_g_proximal_ref<decltype(gp->l1_proximal_tolerance(1e-2))>::value);
   CHECK(is_l1_g_proximal_ref<decltype(gp->l1_proximal_nu(1))>::value);
   CHECK(is_l1_g_proximal_ref<decltype(gp->l1_proximal_itermax(50))>::value);

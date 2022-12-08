@@ -104,7 +104,7 @@ int main(int argc, char const **argv) {
 
   // Create a shared pointer to an instance of the L1GProximal class
   // and set its properties
-  auto gp = std::make_shared<sopt::algorithm::L1GProximal<Scalar>>(false);
+  auto gp = std::make_shared<sopt::algorithm::L1GProximal<Scalar>>(fb->beta(), fb->Phi(), false);
   gp->l1_proximal_tolerance(1e-4)
     .l1_proximal_nu(1)
     .l1_proximal_itermax(50)
