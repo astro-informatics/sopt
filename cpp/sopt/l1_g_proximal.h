@@ -63,6 +63,13 @@ public:
 	   };
   }
 
+  //! \brief Analysis operator Ψ
+  //! \details Under-the-hood, the object is actually owned by the l1 proximal.
+  t_LinearTransform const &Psi() const override {
+    return l1_proximal().Psi();
+  }
+
+
 // All the public properties below are specific to the l1 proximal
 // and therefore not part of the interface
 
@@ -97,9 +104,6 @@ public:
   SOPT_MACRO(weights, t_Vector);
 #undef SOPT_MACRO
 
-  //! \brief Analysis operator Ψ
-  //! \details Under-the-hood, the object is actually owned by the l1 proximal.
-  t_LinearTransform const &Psi() const { return l1_proximal().Psi(); }
   //! Analysis operator Ψ
   template <class... ARGS>
   typename std::enable_if<sizeof...(ARGS) >= 1, L1GProximal<SCALAR> &>::type Psi(
@@ -116,7 +120,7 @@ protected:
   t_LinearTransform const Phi_;
 
   // Helper functions for calling l1_proximal
-  //! Calls l1 proximal operator, checking for real constraints and tight frame
+  //! Calls l1 proximal operator, checking for real constraints
   template <class T0, class T1>
   typename proximal::L1<Scalar>::Diagnostic l1_proximal(Eigen::MatrixBase<T0> &out, Real gamma,
                                                         Eigen::MatrixBase<T1> const &x) const {
@@ -125,7 +129,7 @@ protected:
       : call_l1_proximal(out, gamma, x);
   }
 
-  //! Calls l1 proximal operator, checking for thight frame
+  //! Calls l1 proximal operator, checking for tight frame
   template <class T0, class T1>
   typename proximal::L1<Scalar>::Diagnostic call_l1_proximal(Eigen::MatrixBase<T0> &out, Real gamma,
                                                              Eigen::MatrixBase<T1> const &x) const {

@@ -25,6 +25,8 @@ public:
   virtual t_Proximal proximal_function() const = 0;
   // Returns the norm of x
   virtual Real proximal_norm(t_Vector const &x) const = 0;
-  
+  // Transforms input image to a different basis.
+  // Return linear_transform_identity() if transform not necessary.
+  virtual const t_LinearTransform &Psi() const = 0;
 }; // class GProximal
 #endif

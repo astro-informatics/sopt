@@ -61,7 +61,7 @@ jobs:
               mpi: "on"
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
    # Enable tmate debugging of manually-triggered workflows if the input option was provided
     - name: Setup tmate session
@@ -73,28 +73,39 @@ jobs:
       run: |
         sudo apt update
         sudo apt install libtiff5-dev openmpi-bin libopenmpi-dev libeigen3-dev libyaml-cpp-dev ccache
-        pip install conan
 
     - name: Install Dependencies on MacOS
       if: ${{ contains(matrix.os, 'macos') }}
       run: |
         brew update
-        brew install libtiff open-mpi libyaml ccache conan
+        brew install libtiff open-mpi libyaml ccache
+        echo "CMAKE_PREFIX_PATH=/usr/local/opt/libomp" >> $GITHUB_ENV
 
+    - name: Select Python 3.10
+      # otherwise turtlebrowser/get-conan@v1.1 fails on macos-12
+      # ref: https://github.com/turtlebrowser/get-conan/issues/4
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+        
+    - name: Install Conan
+      id: conan
+      uses: turtlebrowser/get-conan@main
+
+    - name: Conan version
+      run: echo "${{ steps.conan.outputs.version }}"
+        
     - name: Prepare ccache timestamp
       id: ccache_cache_timestamp
-      shell: cmake -P {0}
-      run: |
-        string(TIMESTAMP current_date "%Y-%m-%d-%H;%M;%S" UTC)
-        message("::set-output name=timestamp::${current_date}")
+      run: echo "{date_and_time}={$(date +'%Y-%m-%d-%H;%M;%S')}" >> $GITHUB_OUTPUT
     - name: Set ccache cache directory
       shell: bash
       run: echo "CCACHE_DIR=${{runner.workspace}}/.ccache" >> "${GITHUB_ENV}"
     - name: Cache ccache files
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: ${{runner.workspace}}/.ccache
-        key: ${{matrix.os}}-${{matrix.cxx}}-${{matrix.mpi}}-${{matrix.omp}}-${{ steps.ccache_cache_timestamp.outputs.timestamp }}
+        key: ${{matrix.os}}-${{matrix.cxx}}-${{matrix.mpi}}-${{matrix.omp}}-${{ steps.ccache_cache_timestamp.outputs.date_and_time }}
         restore-keys: |
           ${{ matrix.os }}-${{ matrix.cxx }}-${{ matrix.mpi }}-${{ matrix.omp }}
           ${{ matrix.os }}-${{ matrix.cxx }}-${{ matrix.mpi }}
@@ -112,7 +123,7 @@ jobs:
     - name: Build
       # Build your program with the given configuration.
       # The Github Actions machines are dual-core so we can build faster using 2 parallel processes
-      run: conan build ${{github.workspace}} -bf ${{github.workspace}}/build 
+      run: conan build ${{github.workspace}} -bf ${{github.workspace}}/build
 
     - name: Test
       working-directory: ${{github.workspace}}/build
