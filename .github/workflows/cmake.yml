@@ -81,6 +81,11 @@ jobs:
         brew install libtiff open-mpi libyaml ccache
         echo "CMAKE_PREFIX_PATH=/usr/local/opt/libomp" >> $GITHUB_ENV
 
+    - name: Install Tensorflow API
+      uses: brianjjones/install-tensorflow-action
+      with:
+        version: 2.11.0
+
     - name: Select Python 3.10
       # otherwise turtlebrowser/get-conan@v1.1 fails on macos-12
       # ref: https://github.com/turtlebrowser/get-conan/issues/4

@@ -72,10 +72,9 @@ if(SOPT_MPI)
   target_link_libraries(sopt ${MPI_CXX_LIBRARIES})
   target_include_directories(sopt SYSTEM PUBLIC ${MPI_CXX_INCLUDE_PATH})
 endif()
-if (cppflow)
-  find_library(TENSORFLOW_LIB tensorflow HINT $ENV{HOME}/libtensorflow2/lib)
+if (TENSORFLOW_LIB_FOUND)
   target_link_libraries(sopt "${TENSORFLOW_LIB}")
-  target_include_directories(sopt PRIVATE cppflow/include/cppflow $ENV{HOME}/libtensorflow2/include)
+  target_include_directories(sopt PRIVATE cppflow/include/cppflow "${TENSORFLOW_LIB_INCLUDE_DIRS}")
 endif()
 
 
