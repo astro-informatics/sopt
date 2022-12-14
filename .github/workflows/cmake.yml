@@ -86,10 +86,9 @@ jobs:
     - name: Install Tensorflow API on Ubuntu
       # TODO could this be combined with mac version somehow? if/else?
       if: ${{ contains(matrix.os, 'ubuntu') }}
-      uses: UCL/install-tensorflow-action@main
+      uses: brianjjones/install-tensorflow-action@main
       with:
         version: 2.11.0
-        os: linux
 
     - name: Install Tensorflow API on MacOS
       if: ${{ contains(matrix.os, 'macos') }}
