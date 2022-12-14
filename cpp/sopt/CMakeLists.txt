@@ -1,6 +1,6 @@
 # list of headers
 set(headers
-  bisection_method.h chained_operators.h credible_region.h 
+  bisection_method.h chained_operators.h credible_region.h
   imaging_padmm.h logging.disabled.h
   forward_backward.h imaging_forward_backward.h
   joint_map.h
@@ -27,10 +27,7 @@ if(SOPT_MPI)
   list(APPEND mpi_headers mpi/communicator.h mpi/registered_types.h mpi/utilities.h mpi/session.h)
 endif()
 
-if (cppflow)
-  list(APPEND headers cppflow_utils.h)
-  find_library(TENSORFLOW_LIB tensorflow HINT $ENV{HOME}/libtensorflow2/lib)
-endif()
+
 
 add_library(sopt SHARED ${sources})
 set(version "${Sopt_VERSION_MAJOR}.${Sopt_VERSION_MINOR}.${Sopt_VERSION_PATCH}")
@@ -72,6 +69,14 @@ if(SOPT_MPI)
   target_link_libraries(sopt ${MPI_CXX_LIBRARIES})
   target_include_directories(sopt SYSTEM PUBLIC ${MPI_CXX_INCLUDE_PATH})
 endif()
+if (cppflow)
+  list(APPEND sources cppflow_utils.cc)
+  list(APPEND headers cppflow_utils.h)
+  find_library(TENSORFLOW_LIB tensorflow HINT $ENV{HOME}/libtensorflow2/lib)
+  target_link_libraries(sopt "${TENSORFLOW_LIB}")
+  target_include_directories(sopt PRIVATE cppflow/include/cppflow $ENV{HOME}/libtensorflow2/include)
+endif()
+
 
 target_link_libraries(sopt ${CONAN_LIBS}) 
 

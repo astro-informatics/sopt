@@ -2,11 +2,12 @@
 #include <vector>
 #include "sopt/types.h"
 #include <cppflow/cppflow.h>
-
+#include "cppflow/ops.h"
+#include "cppflow/model.h"
 
 namespace sopt {
 namespace cppflowutils {
-    cppflow::tensor convert_image_to_tensor(Image const &image, int image_rows, int image_cols){
+    cppflow::tensor convert_image_to_tensor(Image<double> const &image, int image_rows, int image_cols){
         // Convert the Sopt::Image of doubles(wrapper for Eigen::Array) to a cppflow::tensor of floats
 
         // create a vector of the right shape (model expects extra dimensions on start and end)

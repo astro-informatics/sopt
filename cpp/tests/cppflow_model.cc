@@ -18,10 +18,9 @@
 // \min_{x} ||\Psi^Tx||_1 \quad \mbox{s.t.} \quad ||y - Ax||_2 < \epsilon and x \geq 0
 
 typedef double Scalar;
-typedef sopt::Vector<Scalar> Vector;
-typedef sopt::Matrix<Scalar> Matrix;
 typedef sopt::Image<Scalar> Image;
 
+/*
 cppflow::tensor convert_image_to_tensor(Image const &image, int image_rows, int image_cols){
   // Convert the Sopt::Image of doubles(wrapper for Eigen::Array) to a cppflow::tensor of floats
 
@@ -48,9 +47,9 @@ Eigen::Map<Eigen::Array<double, Eigen::Dynamic, Eigen::Dynamic>> convert_tensor_
   Eigen::Map<Eigen::Array<double, Eigen::Dynamic, Eigen::Dynamic>> output_image(doubleResults.data(), image_rows, image_cols);
 
   return output_image;
-}
+}*/
 
-TEST_CASE("Cppflow"){
+TEST_CASE("Cppflow Model"){
 
   // read in image
   std::string const input_image = "cameraman256";
@@ -59,7 +58,7 @@ TEST_CASE("Cppflow"){
   int const image_rows = image.rows();
   int const image_cols = image.cols();
 
-  cppflow::tensor input_tensor = convert_image_to_tensor(image, image_rows, image_cols);
+  cppflow::tensor input_tensor = sopt::cppflowutils::convert_image_to_tensor(image, image_rows, image_cols);
 
   // Read in model
   cppflow::model model(std::string(sopt::notinstalled::models_directory() + "/DnCNN/snr_15_model.pb/"));
@@ -70,7 +69,7 @@ TEST_CASE("Cppflow"){
   // Get values from output (has to be same type as the input to the model - float)
   auto output_tensor = output_vector[0].get_data<float>();
 
-  auto output_image = convert_tensor_to_image(output_tensor, image_rows, image_cols);
+  auto output_image = sopt::cppflowutils::convert_tensor_to_image(output_tensor, image_rows, image_cols);
 
   //sopt::utilities::write_tiff(output_image, "./cameraman_output.tiff");
 

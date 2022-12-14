@@ -4,6 +4,7 @@
 #include <Eigen/Core>
 #include "sopt/types.h"
 #include <cppflow/cppflow.h>
+#include "cppflow/ops.h"
 
 namespace sopt {
 namespace cppflowutils {
