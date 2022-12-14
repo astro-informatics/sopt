@@ -15,8 +15,11 @@
 #include <tools_for_tests/directories.h>
 #include <tools_for_tests/tiffwrappers.h>
 
+// \min_{x} ||\Psi^Tx||_1 \quad \mbox{s.t.} \quad ||y - Ax||_2 < \epsilon and x \geq 0
+
 typedef double Scalar;
 typedef sopt::Image<Scalar> Image;
+
 
 TEST_CASE("Cppflow Model"){
 
