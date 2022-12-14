@@ -1,20 +1,10 @@
-#include <algorithm>
-#include <exception>
-#include <functional>
 #include <iostream>
-#include <random>
 #include <vector>
-#include <ctime>
 #include <catch.hpp>
 
-#include <sopt/imaging_forward_backward.h>
 #include <sopt/logging.h>
-#include <sopt/maths.h>
-#include <sopt/relative_variation.h>
-#include <sopt/sampling.h>
 #include <sopt/types.h>
 #include <sopt/utilities.h>
-#include <sopt/wavelets.h>
 #include <sopt/cppflow_utils.h>
 #include <cppflow/cppflow.h>
 #include "cppflow/ops.h"
@@ -34,13 +24,15 @@ typedef sopt::Image<Scalar> Image;
 
 cppflow::tensor convert_image_to_tensor(Image const &image, int image_rows, int image_cols){
   // Convert the Sopt::Image of doubles(wrapper for Eigen::Array) to a cppflow::tensor of floats
-  // create a vector of the right size (model expects extra dimensions on start and end)
+
+  // create a vector of the right shape (model expects extra dimensions on start and end)
   std::vector<int64_t> input_shape = {1, image_rows, image_cols, 1};
+  
   std::vector<float> input_values(image_rows*image_cols, 1);
   for (int i = 0; i < image.rows(); ++i) {
-      for (int j = 0; j < image.cols(); ++j) {
+    for (int j = 0; j < image.cols(); ++j) {
       input_values[j*image_cols+i] = image(i,j);
-      }
+    }
   }
   
   // create a tensor from vector
@@ -50,7 +42,8 @@ cppflow::tensor convert_image_to_tensor(Image const &image, int image_rows, int 
 }
 
 Eigen::Map<Eigen::Array<double, Eigen::Dynamic, Eigen::Dynamic>> convert_tensor_to_image(std::vector<float> model_output, int image_rows, int image_cols){
-  // convert tensor of floats to Eigen::Array of doubles because write_tiff expects that
+  // convert tensor of floats to Eigen::Array of doubles 
+
   std::vector<double> doubleResults(model_output.begin(), model_output.end());
   Eigen::Map<Eigen::Array<double, Eigen::Dynamic, Eigen::Dynamic>> output_image(doubleResults.data(), image_rows, image_cols);
 
@@ -58,8 +51,6 @@ Eigen::Map<Eigen::Array<double, Eigen::Dynamic, Eigen::Dynamic>> convert_tensor_
 }
 
 TEST_CASE("Cppflow"){
-
-  //TODO check data type of input and allow float or double
 
   // read in image
   std::string const input_image = "cameraman256";
@@ -81,7 +72,7 @@ TEST_CASE("Cppflow"){
 
   auto output_image = convert_tensor_to_image(output_tensor, image_rows, image_cols);
 
-  sopt::utilities::write_tiff(output_image, "./cameraman_output.tiff");
+  //sopt::utilities::write_tiff(output_image, "./cameraman_output.tiff");
 
   // compare input image to cleaned output image
   // calculate mean squared error sum_i ( ( x_true(i) - x_est(i) ) **2 ) 
