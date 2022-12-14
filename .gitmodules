@@ -1,6 +1,3 @@
 [submodule "cppflow"]
 	path = cppflow
 	url = git@github.com:UCL/cppflow.git
-[submodule "lexci_models"]
-	path = lexci_models
-	url = git@github.com:astro-informatics/lexci_models.git
