@@ -34,8 +34,8 @@ typedef sopt::Image<Scalar> Image;
 
 cppflow::tensor convert_image_to_tensor(Image const &image, int image_rows, int image_cols){
   // Convert the Sopt::Image of doubles(wrapper for Eigen::Array) to a cppflow::tensor of floats
-  // create a vector of the right size
-  std::vector<int64_t> input_shape = {image_rows, image_cols};
+  // create a vector of the right size (model expects extra dimensions on start and end)
+  std::vector<int64_t> input_shape = {1, image_rows, image_cols, 1};
   std::vector<float> input_values(image_rows*image_cols, 1);
   for (int i = 0; i < image.rows(); ++i) {
       for (int j = 0; j < image.cols(); ++j) {
@@ -46,11 +46,6 @@ cppflow::tensor convert_image_to_tensor(Image const &image, int image_rows, int 
   // create a tensor from vector
   cppflow::tensor input_tensor(input_values, input_shape);
   
-  // Add batch dimension at start and extra dimension at end??
-  // cppflow::decode_jpeg results in a shape (rows, cols, 1) so we assume this is needed
-  input_tensor = cppflow::expand_dims(input_tensor, 0);
-  input_tensor = cppflow::expand_dims(input_tensor, -1);
-
   return input_tensor;
 }
 
