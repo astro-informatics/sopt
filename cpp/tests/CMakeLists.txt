@@ -15,9 +15,6 @@ if(CATCH_HAS_THROWS_AS)
   add_definitions(-DCATCH_HAS_THROWS_AS)
 endif()
 
-# Extra bits for cppflow
-find_library(TENSORFLOW_LIB tensorflow HINT $ENV{HOME}/libtensorflow2/lib)
-
 set(RAND_SEED "1449580491")
 
 add_catch_test(bisection_method LIBRARIES sopt SEED ${RAND_SEED})

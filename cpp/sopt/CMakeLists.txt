@@ -29,6 +29,7 @@ endif()
 
 if (cppflow)
   list(APPEND headers cppflow_utils.h)
+  find_library(TENSORFLOW_LIB tensorflow HINT $ENV{HOME}/libtensorflow2/lib)
 endif()
 
 add_library(sopt SHARED ${sources})
