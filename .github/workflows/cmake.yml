@@ -82,7 +82,7 @@ jobs:
         echo "CMAKE_PREFIX_PATH=/usr/local/opt/libomp" >> $GITHUB_ENV
 
     - name: Install Tensorflow API
-      uses: brianjjones/install-tensorflow-action
+      uses: brianjjones/install-tensorflow-action@main
       with:
         version: 2.11.0
 
