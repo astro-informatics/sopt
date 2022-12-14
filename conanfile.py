@@ -10,7 +10,7 @@ class SoptConan(ConanFile):
     license = "GPL-2.0"
     description = "SOPT is an open-source C++ package available under the license below. It performs Sparse OPTimisation using state-of-the-art convex optimisation algorithms. It solves a variety of sparse regularisation problems, including the Sparsity Averaging Reweighted Analysis (SARA) algorithm."
 
-    
+
     settings = "os", "compiler", "build_type", "arch"
     requires = ["eigen/3.3.7","catch2/2.13.7","benchmark/1.6.0", "libtiff/4.3.0",]
     generators = "CMakeDeps"
@@ -43,7 +43,7 @@ class SoptConan(ConanFile):
 
         if self.options.docs == 'on':
             self.requires("doxygen/1.9.2")
-    
+
     def generate(self):
         tc = CMakeToolchain(self)
 
@@ -61,14 +61,18 @@ class SoptConan(ConanFile):
             tc.variables['CMAKE_C_COMPILER_LAUNCHER'] = "ccache"
             tc.variables['CMAKE_CXX_COMPILER_LAUNCHER'] = "ccache"
 
-        tc.variables['CMAKE_VERBOSE_MAKEFILE:BOOL'] = "ON"        
+        tc.variables['CMAKE_VERBOSE_MAKEFILE:BOOL'] = "ON"
+
+        if (self.settings.compiler == "apple-clang"):
+            tools.build:cxxflags=["-fvisibility=default"]
+        
         tc.generate()
-    
+
     def build(self):
         cmake = CMake(self)
         cmake.configure()
         cmake.build()
-        
+
     def package(self):
         cmake = CMake(self)
         cmake.configure()
