@@ -1,6 +1,6 @@
 # list of headers
 set(headers
-  bisection_method.h chained_operators.h credible_region.h
+  bisection_method.h chained_operators.h credible_region.h 
   imaging_padmm.h logging.disabled.h
   forward_backward.h imaging_forward_backward.h
   joint_map.h
@@ -25,6 +25,10 @@ endif()
 if(SOPT_MPI)
   list(APPEND sources mpi/communicator.cc mpi/registered_types.cc mpi/session.cc wavelets/sara.cc)
   list(APPEND mpi_headers mpi/communicator.h mpi/registered_types.h mpi/utilities.h mpi/session.h)
+endif()
+
+if (cppflow)
+  list(APPEND headers cppflow_utils.h)
 endif()
 
 add_library(sopt SHARED ${sources})
