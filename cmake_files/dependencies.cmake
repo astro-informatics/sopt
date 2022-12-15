@@ -52,5 +52,4 @@ set(SOPT_MPI ${MPI_FOUND})
 
 if(cppflow)
   find_library(TENSORFLOW_LIB tensorflow REQUIRED)
-  message("=================== ${TENSORFLOW_LIB}")
 endif()

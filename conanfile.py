@@ -32,7 +32,7 @@ class SoptConan(ConanFile):
                        "openmp": 'on',
                        "mpi": 'on',
                        "coverage": 'off',
-                       "cppflow": 'on'}
+                       "cppflow": 'off'}
 
     def requirements(self):
         if self.options.docs == 'on' or self.options.examples == 'on':
