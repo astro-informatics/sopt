@@ -74,7 +74,13 @@ if(SOPT_MPI)
 endif()
 if (cppflow)
   target_link_libraries(sopt "${TENSORFLOW_LIB}")
-  target_include_directories(sopt PRIVATE cppflow/include/cppflow "${TENSORFLOW_LIB_INCLUDE_DIR}")
+  # Make cppflow include directory public. Install interface can't point to source directory,
+  # so it needs to be separately defined, explained in
+  # https://stackoverflow.com/questions/25676277/cmake-target-include-directories-prints-an-error-when-i-try-to-add-the-source
+  target_include_directories(sopt PUBLIC
+    $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/cppflow/include>
+    $<INSTALL_INTERFACE:cppflow/include/>
+    )
 endif()
 
 
