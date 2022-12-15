@@ -34,7 +34,7 @@ jobs:
           os: linux
 
       - name: Configure
-        run: conan install ${{github.workspace}} -if ${{github.workspace}}/build --build missing  -s compiler.libcxx=libstdc++11 -o mpi=off -o openmp=off -o docs=on
+        run: conan install ${{github.workspace}} -if ${{github.workspace}}/build --build missing  -s compiler.libcxx=libstdc++11 -o mpi=off -o openmp=off -o docs=on -o cppflow=on
 
       - name: Build
         run: conan build ${{github.workspace}} -bf ${{github.workspace}}/build
