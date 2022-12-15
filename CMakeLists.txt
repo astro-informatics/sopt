@@ -37,7 +37,7 @@ endif()
 #include(AddCPP11Flags)
 set(CMAKE_CXX_STANDARD 17)
 include(CheckCXX11Features)
-cxx11_feature_check(REQUIRED unique_ptr nullptr override constructor_delegate)
+cxx11_feature_check(REQUIRED unique_ptr override)
 include(compilations)
 
 # search/install dependencies
