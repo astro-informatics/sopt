@@ -21,6 +21,7 @@ option(openmp         "Enable OpenMP"                          on)
 option(dompi          "Enable MPI"                             on)
 option(docs           "Build documentation"                    off)
 option(coverage       "Build coverage"                         off)
+option(cppflow        "Enable tensorflow integration"          off)
 
 if(NOT CMAKE_BUILD_TYPE)
   message(STATUS "Setting build type to 'Release' as none was specified.")
@@ -33,9 +34,10 @@ if(tests)
 endif()
 
 # Add c++11 stuff
-include(AddCPP11Flags)
+#include(AddCPP11Flags)
+set(CMAKE_CXX_STANDARD 17)
 include(CheckCXX11Features)
-cxx11_feature_check(REQUIRED unique_ptr nullptr override constructor_delegate)
+cxx11_feature_check(REQUIRED unique_ptr override)
 include(compilations)
 
 # search/install dependencies

@@ -17,7 +17,9 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Check out sopt
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
 
       - name: Install dependencies
         run: |
@@ -25,8 +27,14 @@ jobs:
           sudo apt install libtiff5-dev openmpi-bin libopenmpi-dev libeigen3-dev libyaml-cpp-dev doxygen graphviz
           pip install conan
 
+      - name: Install Tensorflow API on Ubuntu
+        uses: UCL/install-tensorflow-action@main
+        with:
+          version: 2.11.0
+          os: linux
+
       - name: Configure
-        run: conan install ${{github.workspace}} -if ${{github.workspace}}/build --build missing  -s compiler.libcxx=libstdc++11 -o mpi=off -o openmp=off -o docs=on
+        run: conan install ${{github.workspace}} -if ${{github.workspace}}/build --build missing  -s compiler.libcxx=libstdc++11 -o mpi=off -o openmp=off -o docs=on -o cppflow=on
 
       - name: Build
         run: conan build ${{github.workspace}} -bf ${{github.workspace}}/build

@@ -38,6 +38,10 @@ add_catch_test(sdmm_warm_start LIBRARIES sopt SEED ${RAND_SEED})
 add_catch_test(wavelets LIBRARIES sopt SEED ${RAND_SEED})
 add_catch_test(wrapper LIBRARIES sopt SEED ${RAND_SEED})
 
+if(cppflow)
+  add_catch_test(cppflow_model LIBRARIES sopt tools_for_tests)
+endif()
+
 if(SOPT_MPI)
   add_library(common_mpi_catch_main_object OBJECT common_mpi_catch_main.cc)
   target_include_directories(common_mpi_catch_main_object
