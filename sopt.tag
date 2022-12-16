@@ -1024,6 +1024,50 @@
     <namespace>sopt</namespace>
   </compound>
   <compound kind="file">
+    <name>cppflow_utils.cc</name>
+    <path>/home/runner/work/sopt/sopt/cpp/sopt/</path>
+    <filename>http://astro-informatics.github.io/sopt/cppflow__utils_8cc.html</filename>
+    <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
+    <namespace>sopt</namespace>
+    <namespace>sopt::cppflowutils</namespace>
+    <member kind="function">
+      <type>cppflow::tensor</type>
+      <name>convert_image_to_tensor</name>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1cppflowutils.html</anchorfile>
+      <anchor>a3db2be4ce233b68cb59e14bb41479afa</anchor>
+      <arglist>(sopt::Image&lt; double &gt; const &amp;image, int image_rows, int image_cols)</arglist>
+    </member>
+    <member kind="function">
+      <type>Eigen::Map&lt; Eigen::Array&lt; double, Eigen::Dynamic, Eigen::Dynamic &gt; &gt;</type>
+      <name>convert_tensor_to_image</name>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1cppflowutils.html</anchorfile>
+      <anchor>a4144b27a919c778ad025f61dbef1b8ca</anchor>
+      <arglist>(std::vector&lt; float &gt; model_output, int image_rows, int image_cols)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>cppflow_utils.h</name>
+    <path>/home/runner/work/sopt/sopt/cpp/sopt/</path>
+    <filename>http://astro-informatics.github.io/sopt/cppflow__utils_8h.html</filename>
+    <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
+    <namespace>sopt</namespace>
+    <namespace>sopt::cppflowutils</namespace>
+    <member kind="function">
+      <type>cppflow::tensor</type>
+      <name>convert_image_to_tensor</name>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1cppflowutils.html</anchorfile>
+      <anchor>a3db2be4ce233b68cb59e14bb41479afa</anchor>
+      <arglist>(sopt::Image&lt; double &gt; const &amp;image, int image_rows, int image_cols)</arglist>
+    </member>
+    <member kind="function">
+      <type>Eigen::Map&lt; Eigen::Array&lt; double, Eigen::Dynamic, Eigen::Dynamic &gt; &gt;</type>
+      <name>convert_tensor_to_image</name>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1cppflowutils.html</anchorfile>
+      <anchor>a4144b27a919c778ad025f61dbef1b8ca</anchor>
+      <arglist>(std::vector&lt; float &gt; model_output, int image_rows, int image_cols)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
     <name>credible_region.h</name>
     <path>/home/runner/work/sopt/sopt/cpp/sopt/</path>
     <filename>http://astro-informatics.github.io/sopt/credible__region_8h.html</filename>
@@ -3150,6 +3194,37 @@
     </member>
   </compound>
   <compound kind="file">
+    <name>cppflow_model.cc</name>
+    <path>/home/runner/work/sopt/sopt/cpp/tests/</path>
+    <filename>http://astro-informatics.github.io/sopt/cppflow__model_8cc.html</filename>
+    <includes id="logging_8h" name="logging.h" local="no" imported="no">sopt/logging.h</includes>
+    <includes id="types_8h" name="types.h" local="no" imported="no">sopt/types.h</includes>
+    <includes id="utilities_8h" name="utilities.h" local="no" imported="no">sopt/utilities.h</includes>
+    <includes id="cppflow__utils_8h" name="cppflow_utils.h" local="no" imported="no">sopt/cppflow_utils.h</includes>
+    <includes id="tiffwrappers_8h" name="tiffwrappers.h" local="no" imported="no">tools_for_tests/tiffwrappers.h</includes>
+    <member kind="typedef">
+      <type>double</type>
+      <name>Scalar</name>
+      <anchorfile>cppflow__model_8cc.html</anchorfile>
+      <anchor>a508fc58b5dc3c81865305f6498457063</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>sopt::Image&lt; Scalar &gt;</type>
+      <name>Image</name>
+      <anchorfile>cppflow__model_8cc.html</anchorfile>
+      <anchor>a597c232bc74255c74fa9d7b0dadff132</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST_CASE</name>
+      <anchorfile>cppflow__model_8cc.html</anchorfile>
+      <anchor>af13222888aa268274065619978a61fb6</anchor>
+      <arglist>(&quot;Cppflow Model&quot;)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
     <name>credible_region.cc</name>
     <path>/home/runner/work/sopt/sopt/cpp/tests/</path>
     <filename>http://astro-informatics.github.io/sopt/credible__region_8cc.html</filename>
@@ -3885,6 +3960,13 @@
       <name>output_directory</name>
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1notinstalled.html</anchorfile>
       <anchor>a41591b69e6406ef3a36ded99be530efd</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>std::string</type>
+      <name>models_directory</name>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1notinstalled.html</anchorfile>
+      <anchor>a2fa3d08c375b7e60e38382025a454314</anchor>
       <arglist>()</arglist>
     </member>
   </compound>
@@ -10962,6 +11044,7 @@
     <name>sopt</name>
     <filename>http://astro-informatics.github.io/sopt/http://astro-informatics.github.io/sopt/namespacesopt.html</filename>
     <namespace>sopt::algorithm</namespace>
+    <namespace>sopt::cppflowutils</namespace>
     <namespace>sopt::credible_region</namespace>
     <namespace>sopt::details</namespace>
     <namespace>sopt::gradient_operator</namespace>
@@ -11456,6 +11539,24 @@
     </member>
   </compound>
   <compound kind="namespace">
+    <name>sopt::cppflowutils</name>
+    <filename>http://astro-informatics.github.io/sopt/http://astro-informatics.github.io/sopt/namespacesopt_1_1cppflowutils.html</filename>
+    <member kind="function">
+      <type>cppflow::tensor</type>
+      <name>convert_image_to_tensor</name>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1cppflowutils.html</anchorfile>
+      <anchor>a3db2be4ce233b68cb59e14bb41479afa</anchor>
+      <arglist>(sopt::Image&lt; double &gt; const &amp;image, int image_rows, int image_cols)</arglist>
+    </member>
+    <member kind="function">
+      <type>Eigen::Map&lt; Eigen::Array&lt; double, Eigen::Dynamic, Eigen::Dynamic &gt; &gt;</type>
+      <name>convert_tensor_to_image</name>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1cppflowutils.html</anchorfile>
+      <anchor>a4144b27a919c778ad025f61dbef1b8ca</anchor>
+      <arglist>(std::vector&lt; float &gt; model_output, int image_rows, int image_cols)</arglist>
+    </member>
+  </compound>
+  <compound kind="namespace">
     <name>sopt::credible_region</name>
     <filename>http://astro-informatics.github.io/sopt/http://astro-informatics.github.io/sopt/namespacesopt_1_1credible__region.html</filename>
     <member kind="function">
@@ -11698,6 +11799,13 @@
       <name>output_directory</name>
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1notinstalled.html</anchorfile>
       <anchor>a41591b69e6406ef3a36ded99be530efd</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>std::string</type>
+      <name>models_directory</name>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1notinstalled.html</anchorfile>
+      <anchor>a2fa3d08c375b7e60e38382025a454314</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">

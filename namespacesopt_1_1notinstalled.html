@@ -90,6 +90,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a41591b69e6406ef3a36ded99be530efd"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesopt_1_1notinstalled.html#a41591b69e6406ef3a36ded99be530efd">output_directory</a> ()</td></tr>
 <tr class="memdesc:a41591b69e6406ef3a36ded99be530efd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output artefacts from tests.  <a href="namespacesopt_1_1notinstalled.html#a41591b69e6406ef3a36ded99be530efd">More...</a><br /></td></tr>
 <tr class="separator:a41591b69e6406ef3a36ded99be530efd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2fa3d08c375b7e60e38382025a454314"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesopt_1_1notinstalled.html#a2fa3d08c375b7e60e38382025a454314">models_directory</a> ()</td></tr>
+<tr class="memdesc:a2fa3d08c375b7e60e38382025a454314"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tensorflow models.  <a href="namespacesopt_1_1notinstalled.html#a2fa3d08c375b7e60e38382025a454314">More...</a><br /></td></tr>
+<tr class="separator:a2fa3d08c375b7e60e38382025a454314"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3008033a62397de1c2e272b6caab6648"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacesopt.html#a7d7971e5566e597eb907614917e30c78">Image</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesopt_1_1notinstalled.html#a3008033a62397de1c2e272b6caab6648">read_standard_tiff</a> (std::string const &amp;name)</td></tr>
 <tr class="memdesc:a3008033a62397de1c2e272b6caab6648"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads tiff image from sopt data directory if it exists.  <a href="namespacesopt_1_1notinstalled.html#a3008033a62397de1c2e272b6caab6648">More...</a><br /></td></tr>
 <tr class="separator:a3008033a62397de1c2e272b6caab6648"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -124,6 +127,38 @@ Functions</h2></td></tr>
 <div class="fragment"><div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{ <span class="keywordflow">return</span> <span class="stringliteral">&quot;@PROJECT_SOURCE_DIR@/images&quot;</span>; }</div>
 </div><!-- fragment -->
 <p class="reference">Referenced by <a class="el" href="tiffwrappers_8cc_source.html#l00010">read_standard_tiff()</a>.</p>
+
+</div>
+</div>
+<a id="a2fa3d08c375b7e60e38382025a454314"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2fa3d08c375b7e60e38382025a454314">&#9670;&nbsp;</a></span>models_directory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string sopt::notinstalled::models_directory </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Tensorflow models. </p>
+
+<p class="definition">Definition at line <a class="el" href="directories_8in_8h_source.html#l00014">14</a> of file <a class="el" href="directories_8in_8h_source.html">directories.in.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{ <span class="keywordflow">return</span> <span class="stringliteral">&quot;@PROJECT_SOURCE_DIR@/lexci_models&quot;</span>; }</div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="cppflow__model_8cc_source.html#l00023">TEST_CASE()</a>.</p>
 
 </div>
 </div>
