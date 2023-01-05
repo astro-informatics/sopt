@@ -77,7 +77,8 @@ jobs:
     - name: Install Dependencies on MacOS
       if: ${{ contains(matrix.os, 'macos') }}
       run: |
-        brew update
+        # Skip brew update until https://github.com/actions/setup-python/issues/577 is fixed
+        # brew update
         brew install libtiff open-mpi libyaml ccache
         echo "CMAKE_PREFIX_PATH=/usr/local/opt/libomp" >> $GITHUB_ENV
 
@@ -87,7 +88,7 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: '3.10'
-        
+
     - name: Install Conan
       id: conan
       uses: turtlebrowser/get-conan@main
@@ -96,7 +97,7 @@ jobs:
 
     - name: Conan version
       run: echo "${{ steps.conan.outputs.version }}"
-        
+
     - name: Prepare ccache timestamp
       id: ccache_cache_timestamp
       run: echo "{date_and_time}={$(date +'%Y-%m-%d-%H;%M;%S')}" >> $GITHUB_OUTPUT

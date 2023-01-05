@@ -70,11 +70,13 @@ TEST_CASE("Inpainting"){
   auto gp = std::make_shared<sopt::algorithm::L1GProximal<Scalar>>(false);
   gp->l1_proximal_tolerance(1e-4)
     .l1_proximal_nu(1)
+    .l1_proximal_beta(fb.beta())
+    .l1_proximal_Phi(fb.Phi())
     .l1_proximal_itermax(50)
     .l1_proximal_positivity_constraint(true)
     .l1_proximal_real_constraint(true)
     .Psi(psi);
-  
+
   // Once the properties are set, inject it into the ImagingForwardBackward object
   fb.g_proximal(gp);
 
