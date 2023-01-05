@@ -22,7 +22,8 @@ class SoptConan(ConanFile):
                "logging":['on','off'],
                "openmp":['on','off'],
                "mpi":['on','off'],
-               "coverage":['on','off'],}
+               "coverage":['on','off'],
+               "cppflow":['on','off'],}
     default_options = {"docs": 'off',
                        "examples":'on',
                        "tests": 'on',
@@ -30,7 +31,8 @@ class SoptConan(ConanFile):
                        "logging": 'on',
                        "openmp": 'on',
                        "mpi": 'on',
-                       "coverage": 'off',}
+                       "coverage": 'off',
+                       "cppflow": 'off'}
 
     def requirements(self):
         if self.options.docs == 'on' or self.options.examples == 'on':
@@ -55,6 +57,7 @@ class SoptConan(ConanFile):
         tc.variables['openmp'] = self.options.openmp
         tc.variables['dompi'] = self.options.mpi
         tc.variables['coverage'] = self.options.coverage
+        tc.variables['cppflow'] = self.options.cppflow
 
         # List cases where we don't use ccache
         if ('GITHUB_ACTIONS' in os.environ.keys() and self.options.docs == 'off'):

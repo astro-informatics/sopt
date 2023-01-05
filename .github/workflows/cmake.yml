@@ -62,6 +62,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+      with:
+        submodules: recursive
 
    # Enable tmate debugging of manually-triggered workflows if the input option was provided
     - name: Setup tmate session
@@ -81,6 +83,21 @@ jobs:
         # brew update
         brew install libtiff open-mpi libyaml ccache
         echo "CMAKE_PREFIX_PATH=/usr/local/opt/libomp" >> $GITHUB_ENV
+
+    - name: Install Tensorflow API on Ubuntu
+      # TODO could this be combined with mac version somehow? if/else?
+      if: ${{ contains(matrix.os, 'ubuntu') }}
+      uses: UCL/install-tensorflow-action@main
+      with:
+        version: 2.11.0
+        os: linux
+
+    - name: Install Tensorflow API on MacOS
+      if: ${{ contains(matrix.os, 'macos') }}
+      uses: UCL/install-tensorflow-action@main
+      with:
+        version: 2.11.0
+        os: darwin
 
     - name: Select Python 3.10
       # otherwise turtlebrowser/get-conan@v1.1 fails on macos-12
@@ -117,11 +134,11 @@ jobs:
 
     - name: Conan install on gcc
       if: ${{ contains(matrix.cxx, 'g++-9') }}
-      run: conan install ${{github.workspace}} -if ${{github.workspace}}/build -s compiler.libcxx=libstdc++11 --build missing -o mpi=${{matrix.mpi}} -o openmp=${{matrix.omp}}
+      run: conan install ${{github.workspace}} -if ${{github.workspace}}/build -s compiler.libcxx=libstdc++11 --build missing -o mpi=${{matrix.mpi}} -o openmp=${{matrix.omp}} -o cppflow=on
 
     - name: Conan install on apple-clang
       if: ${{ contains(matrix.cxx, 'clang++') }}
-      run: conan install ${{github.workspace}} -if ${{github.workspace}}/build --build missing -o mpi=${{matrix.mpi}} -o openmp=${{matrix.omp}}
+      run: conan install ${{github.workspace}} -if ${{github.workspace}}/build --build missing -o mpi=${{matrix.mpi}} -o openmp=${{matrix.omp}} -o cppflow=on
 
     - name: Build
       # Build your program with the given configuration.
