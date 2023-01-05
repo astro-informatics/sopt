@@ -77,7 +77,8 @@ jobs:
     - name: Install Dependencies on MacOS
       if: ${{ contains(matrix.os, 'macos') }}
       run: |
-        brew update
+        # Skip brew update until https://github.com/actions/setup-python/issues/577 is fixed
+        # brew update
         brew install libtiff open-mpi libyaml ccache
         echo "CMAKE_PREFIX_PATH=/usr/local/opt/libomp" >> $GITHUB_ENV
 
