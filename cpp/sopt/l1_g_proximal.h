@@ -35,10 +35,8 @@ public:
   // In the constructor we need to construct the private l1_proximal_
   // object that contains the real implementation details. The tight_frame
   // parameter is required for internal logic in l1_proximal
-  L1GProximal(Real const &beta, t_LinearTransform const &Phi, bool tight_frame = false)
+  L1GProximal(bool tight_frame = false)
     : tight_frame_ (tight_frame),
-      beta_(beta),
-      Phi_(Phi),
       l1_proximal_() {}
   ~L1GProximal() {};
 
@@ -58,8 +56,8 @@ public:
   t_Proximal proximal_function() const override {
     return [this](t_Vector &out, Real gamma, t_Vector const &x) {
 	     this -> l1_proximal(out,
-				 gamma * beta_,
-				 out - beta_ / l1_proximal_.nu() * (Phi_.adjoint() * x));
+				 gamma * l1_proximal_.beta(),
+				 out - l1_proximal_.beta() / l1_proximal_.nu() * (l1_proximal_.Phi().adjoint() * x));
 	   };
   }
 
@@ -101,7 +99,9 @@ public:
   SOPT_MACRO(positivity_constraint, bool);
   SOPT_MACRO(real_constraint, bool);
   SOPT_MACRO(nu, Real);
+  SOPT_MACRO(beta, Real);
   SOPT_MACRO(weights, t_Vector);
+  SOPT_MACRO(Phi, t_LinearTransform);
 #undef SOPT_MACRO
 
   //! Analysis operator Ψ
@@ -116,8 +116,6 @@ protected:
 
   bool tight_frame_;
   proximal::L1<Scalar> l1_proximal_;
-  Real const beta_;
-  t_LinearTransform const Phi_;
 
   // Helper functions for calling l1_proximal
   //! Calls l1 proximal operator, checking for real constraints
