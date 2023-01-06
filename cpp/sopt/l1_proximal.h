@@ -66,8 +66,10 @@ class L1TightFrame {
   //! Linear transform applied to input prior to L1 norm
   SOPT_MACRO(Psi, LinearTransform<Vector<Scalar>>);
   //! Bound on the squared norm of the operator Ψ
-  SOPT_MACRO(nu, Real);
+  SOPT_MACRO(nu, Real)
+  //! Measurement operator, used by g_proximal
   SOPT_MACRO(Phi, LinearTransform<Vector<Scalar>>);
+  //! β parameter, used by g_proximal
   SOPT_MACRO(beta, Real);
 #ifdef SOPT_MPI
   //! Communicator for summing in direct space (input when applying Psi)
