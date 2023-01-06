@@ -56,10 +56,8 @@ public:
   }
 
   // Return the L1 norm of x with unit weights
-  // TODO: What should we return here?
   Real proximal_norm(t_Vector const &x) const override {
-    Eigen::VectorXf weights;
-    weights.setOnes(x.size());
+    auto weights = Vector<Real>::Ones(x.size());
     return sopt::l1_norm(static_cast<t_Vector>(x), weights);
   }
 
