@@ -17,6 +17,7 @@
 #include <cppflow/cppflow.h>
 #include "cppflow/ops.h"
 #include "cppflow/model.h"
+#include "sopt/cppflow_utils.h"
 
 namespace sopt {
 namespace algorithm {
@@ -37,10 +38,16 @@ public:
 
   // The constructor constructs a cppflow model object from a saved model saved
   // to the file filename
-  TFGProximal(const string& filename)
-    : model_(filename), square_image_(true) {}
-  TFGProximal(const string& filename, const int rows, const int cols)
-    : model_(filename), square_image_(false), image_rows_(rows), image_cols_(cols) {}
+  TFGProximal(const std::string& filename)
+    : model_(filename),
+      square_image_(true),
+      Psi_(linear_transform_identity<Scalar>()) {}
+  TFGProximal(const std::string& filename, const int rows, const int cols)
+    : model_(filename),
+      square_image_(false),
+      image_rows_(rows),
+      image_cols_(cols),
+      Psi_(linear_transform_identity<Scalar>()) {}
   ~TFGProximal() {};
 
   // Print log message with the correct norms
@@ -51,7 +58,8 @@ public:
   // Return the L1 norm of x with unit weights
   // TODO: What should we return here?
   Real proximal_norm(t_Vector const &x) const override {
-    Eigen::VectorXf::Ones(x.size()) weights;
+    Eigen::VectorXf weights;
+    weights.setOnes(x.size());
     return sopt::l1_norm(static_cast<t_Vector>(x), weights);
   }
 
@@ -65,39 +73,38 @@ public:
   //! \brief Analysis operator Ψ
   // Psi is not implemented in this class, return an identity transform.
   t_LinearTransform const &Psi() const override {
-    return linear_transform_identity();
+    return Psi_;
   }
+
+
 
 protected:
 
+  t_LinearTransform Psi_;
   cppflow::model model_;
   int image_rows_;
   int image_cols_;
   bool square_image_;
-  std::string const model_param_1 = "serving_default_input0:0";
-  std::string const model_param_2 = "StatefulPartitionedCall:0";
 
-  void call_model(t_Vector &out, t_Vector const &x) {
+  void call_model(t_Vector &image_out, t_Vector const &image_in) const {
     // Set dimensions
-    int const image_size = x.size();
+    int const image_size = image_in.size();
+    int image_rows = image_rows_;
+    int image_cols = image_cols_;
     if (square_image_) {
-      image_rows_ = static_cast<int>(sqrt(image_size));
-      image_cols_ = static_cast<int>(sqrt(image_size));
+      image_rows = static_cast<int>(sqrt(image_size));
+      image_cols = static_cast<int>(sqrt(image_size));
     }
 
     // Process input
-    std::vector<SCALAR> values(&x[0], x.data()+x.size());
-    cppflow::tensor cf_tensor(values, {1, image_rows_, image_cols_, 1});
-    // auto input = cppflow::expand_dims(cf_tensor, 0);
-    // input = cppflow::expand_dims(input, -1);
+    cppflow::tensor input_tensor = cppflowutils::convert_image_to_tensor(image_in, image_rows, image_cols);
 
     // Call model
-    auto model_output = model_({{model_param_1, cf_tensor}}, {model_param_2});
+    auto output_vector = model_({{"serving_default_input0:0", input_tensor}}, {"StatefulPartitionedCall:0"});
 
     // Process output
-    auto floatResults = model_output[0].get_data<float>();
-    std::vector<SCALAR> typecastResults(floatResults.begin(), floatResults.end());
-    Eigen::Map<Eigen::Matrix<SCALAR, Eigen::Dynamic, 1>> out(typecastResults.data(), image_size);
+    auto output_tensor = output_vector[0].get_data<Scalar>();
+    image_out = cppflowutils::convert_tensor_to_image(output_tensor, image_size);
 
   }
 

@@ -31,7 +31,7 @@ typedef sopt::Image<Scalar> Image;
 TEST_CASE("Inpainting"){
   extern std::unique_ptr<std::mt19937_64> mersenne;
   std::string const input = "cameraman256";
-  std::string const model_path = sopt::notinstalled::model_directory()
+  std::string const model_path = sopt::notinstalled::models_directory();
 
   Image const image = sopt::notinstalled::read_standard_tiff(input);
 
@@ -62,15 +62,9 @@ TEST_CASE("Inpainting"){
     .Phi(sampling);
 
   // Create a shared pointer to an instance of the TFGProximal class
-  // and set its properties
   auto gp = std::make_shared<sopt::algorithm::TFGProximal<Scalar>>(model_path);
-  gp->l1_proximal_tolerance(1e-4)
-    .l1_proximal_nu(1)
-    .l1_proximal_itermax(50)
-    .l1_proximal_positivity_constraint(true)
-    .l1_proximal_real_constraint(true);
-  
-  // Once the properties are set, inject it into the ImagingForwardBackward object
+
+  // Inject it into the ImagingForwardBackward object
   fb.g_proximal(gp);
 
   auto const diagnostic = fb();
