@@ -38,12 +38,17 @@ public:
 
   // The constructor constructs a cppflow model object from a saved model saved
   // to the file filename
-  TFGProximal(const std::string& filename)
-    : model_(filename),
+  TFGProximal(std::string path)
+    : model_path_(path),
       square_image_(true),
-      Psi_(linear_transform_identity<Scalar>()) {}
-  TFGProximal(const std::string& filename, const int rows, const int cols)
-    : model_(filename),
+      Psi_(linear_transform_identity<Scalar>())
+  {
+    // for ( auto str : model_.get_operations() ) {
+    //   std::cout << str << std::endl;
+    // }
+  }
+  TFGProximal(std::string path, const int rows, const int cols)
+    : model_path_(path),
       square_image_(false),
       image_rows_(rows),
       image_cols_(cols),
@@ -74,12 +79,11 @@ public:
     return Psi_;
   }
 
-
-
 protected:
 
   t_LinearTransform Psi_;
-  cppflow::model model_;
+  //cppflow::model model_;
+  std::string model_path_;
   int image_rows_;
   int image_cols_;
   bool square_image_;
@@ -95,14 +99,22 @@ protected:
     }
 
     // Process input
-    cppflow::tensor input_tensor = cppflowutils::convert_image_to_tensor(image_in, image_rows, image_cols);
+    cppflow::tensor const input_tensor = cppflowutils::convert_image_to_tensor(image_in, image_rows, image_cols);
+
+    cppflow::model model(model_path_);
 
     // Call model
-    auto output_vector = model_({{"serving_default_input0:0", input_tensor}}, {"StatefulPartitionedCall:0"});
+    auto model_output = model({{"serving_default_input0:0", input_tensor}}, {"StatefulPartitionedCall:0"});
+    //auto model_output = model_(input_tensor);
 
     // Process output
-    auto output_tensor = output_vector[0].get_data<Scalar>();
-    image_out = cppflowutils::convert_tensor_to_image(output_tensor, image_size);
+    auto output_vector = model_output[0].get_data<float>();
+
+    for(int i = 0; i < image_size; i++) {
+      image_out[i] = static_cast<Scalar>(output_vector[i]);
+    }
+
+    // image_out = cppflowutils::convert_tensor_to_image(output_vector, image_size);
 
   }
 

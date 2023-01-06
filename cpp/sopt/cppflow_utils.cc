@@ -29,7 +29,7 @@ namespace cppflowutils {
   // Convert an image stored in a sopt::Vector to a cppflow::tensor of floats
   cppflow::tensor convert_image_to_tensor(sopt::Vector<double> const &image, int image_rows, int image_cols) {
 
-    std::vector<double> values(&image[0], image.data()+image.size());
+    std::vector<float> values(&image[0], image.data()+image.size());
     cppflow::tensor input_tensor(values, {1, image_rows, image_cols, 1});
 
     return input_tensor;
@@ -44,17 +44,6 @@ namespace cppflowutils {
     Eigen::Map<Eigen::Array<double, Eigen::Dynamic, Eigen::Dynamic>> output_image(doubleResults.data(), image_rows, image_cols);
 
     return output_image;
-  }
-
-
-  // Convert model output in a std::vector into a sopt::Vector (1D Eigen::Matrix)
-  Eigen::Map<Eigen::Matrix<double, Eigen::Dynamic, 1>> convert_tensor_to_image(std::vector<float> model_output, int image_size) {
-
-        std::vector<double> doubleResults(model_output.begin(), model_output.end());
-        Eigen::Map<Eigen::Matrix<double, Eigen::Dynamic, 1>> output_image(doubleResults.data(), image_size);
-
-        return output_image;
-
   }
 
 }  // namespace cppflowutils
