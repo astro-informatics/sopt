@@ -3336,6 +3336,13 @@
       <anchor>a06ea74880cd1ee9d09d85ebee340d286</anchor>
       <arglist></arglist>
     </member>
+    <member kind="typedef">
+      <type>sopt::LinearTransform&lt; t_Vector &gt;</type>
+      <name>t_LinearTransform</name>
+      <anchorfile>forward__backward_8cc.html</anchorfile>
+      <anchor>af3ed7d85c025162a8743f39e190ecf15</anchor>
+      <arglist></arglist>
+    </member>
     <member kind="function">
       <type>sopt::t_int</type>
       <name>random_integer</name>
@@ -7143,6 +7150,34 @@
       <arglist>(ARGS &amp;&amp;... args)</arglist>
     </member>
     <member kind="function">
+      <type>Real</type>
+      <name>beta</name>
+      <anchorfile>classsopt_1_1proximal_1_1L1.html</anchorfile>
+      <anchor>ad86b30d0ce44a46d53b73db0f79b8010</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>L1&lt; Scalar &gt; &amp;</type>
+      <name>beta</name>
+      <anchorfile>classsopt_1_1proximal_1_1L1.html</anchorfile>
+      <anchor>ad9b5242d5f6a9786d7f890f4beb5e74a</anchor>
+      <arglist>(Real const &amp;beta)</arglist>
+    </member>
+    <member kind="function">
+      <type>const LinearTransform&lt; Vector&lt; Scalar &gt; &gt; &amp;</type>
+      <name>Phi</name>
+      <anchorfile>classsopt_1_1proximal_1_1L1.html</anchorfile>
+      <anchor>a2171380b056f1429b7c12e9865e2fddb</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>L1&lt; Scalar &gt; &amp;::type</type>
+      <name>Phi</name>
+      <anchorfile>classsopt_1_1proximal_1_1L1.html</anchorfile>
+      <anchor>a6c3919b19866ece9b990ec7d91f4fad9</anchor>
+      <arglist>(ARGS &amp;&amp;... args)</arglist>
+    </member>
+    <member kind="function">
       <type>auto</type>
       <name>tight_frame</name>
       <anchorfile>classsopt_1_1proximal_1_1L1.html</anchorfile>
@@ -7271,6 +7306,34 @@
       <name>Psi</name>
       <anchorfile>classsopt_1_1proximal_1_1L1.html</anchorfile>
       <anchor>a7ee0a8c05b73d177e5733470bc71f577</anchor>
+      <arglist>(ARGS &amp;&amp;... args)</arglist>
+    </member>
+    <member kind="function">
+      <type>Real</type>
+      <name>beta</name>
+      <anchorfile>classsopt_1_1proximal_1_1L1.html</anchorfile>
+      <anchor>ad86b30d0ce44a46d53b73db0f79b8010</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>L1&lt; Scalar &gt; &amp;</type>
+      <name>beta</name>
+      <anchorfile>classsopt_1_1proximal_1_1L1.html</anchorfile>
+      <anchor>ad9b5242d5f6a9786d7f890f4beb5e74a</anchor>
+      <arglist>(Real const &amp;beta)</arglist>
+    </member>
+    <member kind="function">
+      <type>const LinearTransform&lt; Vector&lt; Scalar &gt; &gt; &amp;</type>
+      <name>Phi</name>
+      <anchorfile>classsopt_1_1proximal_1_1L1.html</anchorfile>
+      <anchor>a2171380b056f1429b7c12e9865e2fddb</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>L1&lt; Scalar &gt; &amp;::type</type>
+      <name>Phi</name>
+      <anchorfile>classsopt_1_1proximal_1_1L1.html</anchorfile>
+      <anchor>a6c3919b19866ece9b990ec7d91f4fad9</anchor>
       <arglist>(ARGS &amp;&amp;... args)</arglist>
     </member>
     <member kind="function">
@@ -7430,8 +7493,22 @@
       <type></type>
       <name>SOPT_MACRO</name>
       <anchorfile>classsopt_1_1algorithm_1_1L1GProximal.html</anchorfile>
+      <anchor>ac78f1e7cfc28c823575ad7154e333714</anchor>
+      <arglist>(beta, Real)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SOPT_MACRO</name>
+      <anchorfile>classsopt_1_1algorithm_1_1L1GProximal.html</anchorfile>
       <anchor>a3f28cf25ed95206384175207bb4b40ec</anchor>
       <arglist>(weights, t_Vector)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SOPT_MACRO</name>
+      <anchorfile>classsopt_1_1algorithm_1_1L1GProximal.html</anchorfile>
+      <anchor>a800ffb19b25c9d301ec6feac79db737b</anchor>
+      <arglist>(Phi, t_LinearTransform)</arglist>
     </member>
     <member kind="function">
       <type>L1GProximal&lt; SCALAR &gt; &amp;::type</type>
@@ -7477,8 +7554,15 @@
       <type></type>
       <name>SOPT_MACRO</name>
       <anchorfile>classsopt_1_1proximal_1_1L1TightFrame.html</anchorfile>
-      <anchor>a3a2d8f5859f8dfec122c5ddd5b0838cc</anchor>
-      <arglist>(nu, Real)</arglist>
+      <anchor>a707f4c62176d17811dbfb3d8207c9abb</anchor>
+      <arglist>(Phi, LinearTransform&lt; Vector&lt; Scalar &gt;&gt;)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SOPT_MACRO</name>
+      <anchorfile>classsopt_1_1proximal_1_1L1TightFrame.html</anchorfile>
+      <anchor>a37ae2d6839e48bed24605a8963be8573</anchor>
+      <arglist>(beta, Real)</arglist>
     </member>
     <member kind="function">
       <type>const Vector&lt; Real &gt; &amp;</type>
@@ -7565,8 +7649,15 @@
       <type></type>
       <name>SOPT_MACRO</name>
       <anchorfile>classsopt_1_1proximal_1_1L1TightFrame.html</anchorfile>
-      <anchor>a3a2d8f5859f8dfec122c5ddd5b0838cc</anchor>
-      <arglist>(nu, Real)</arglist>
+      <anchor>a707f4c62176d17811dbfb3d8207c9abb</anchor>
+      <arglist>(Phi, LinearTransform&lt; Vector&lt; Scalar &gt;&gt;)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SOPT_MACRO</name>
+      <anchorfile>classsopt_1_1proximal_1_1L1TightFrame.html</anchorfile>
+      <anchor>a37ae2d6839e48bed24605a8963be8573</anchor>
+      <arglist>(beta, Real)</arglist>
     </member>
     <member kind="function">
       <type>const Vector&lt; Real &gt; &amp;</type>

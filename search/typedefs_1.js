@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['convergencefunction_979',['ConvergenceFunction',['../namespacesopt.html#acc375c693a8c32c2a954d17a7773b7f8',1,'sopt']]]
+  ['convergencefunction_981',['ConvergenceFunction',['../namespacesopt.html#acc375c693a8c32c2a954d17a7773b7f8',1,'sopt']]]
 ];

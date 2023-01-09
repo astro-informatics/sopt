@@ -151,27 +151,29 @@ $(function() {
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  <span class="keyword">auto</span> gp = std::make_shared&lt;sopt::algorithm::L1GProximal&lt;Scalar&gt;&gt;(<span class="keyword">false</span>);</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  gp-&gt;l1_proximal_tolerance(1e-4)</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    .l1_proximal_nu(1)</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    .l1_proximal_itermax(50)</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    .l1_proximal_positivity_constraint(<span class="keyword">true</span>)</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    .l1_proximal_real_constraint(<span class="keyword">true</span>)</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    .Psi(psi);</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  <span class="comment">// Once the properties are set, inject it into the ImagingForwardBackward object</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  fb.g_proximal(gp);</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> diagnostic = fb();</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    .l1_proximal_beta(fb.beta())</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    .l1_proximal_Phi(fb.Phi())</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    .l1_proximal_itermax(50)</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    .l1_proximal_positivity_constraint(<span class="keyword">true</span>)</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    .l1_proximal_real_constraint(<span class="keyword">true</span>)</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    .Psi(psi);</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  <span class="comment">// Once the properties are set, inject it into the ImagingForwardBackward object</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  fb.g_proximal(gp);</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  CHECK(diagnostic.good);</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  CHECK(diagnostic.niters &lt; 500);</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  <span class="comment">// compare input image to cleaned output image</span></div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;  <span class="comment">// calculate mean squared error sum_i ( ( x_true(i) - x_est(i) ) **2 )</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;  <span class="comment">// check this is less than the number of pixels * 0.01</span></div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  <span class="keyword">auto</span> mse = (image - diagnostic.x.array()).square().sum() / image.size();</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  CAPTURE(mse);</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  CHECK(mse &lt; 0.01);</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;}</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> diagnostic = fb();</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  CHECK(diagnostic.good);</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  CHECK(diagnostic.niters &lt; 500);</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;  <span class="comment">// compare input image to cleaned output image</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;  <span class="comment">// calculate mean squared error sum_i ( ( x_true(i) - x_est(i) ) **2 )</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  <span class="comment">// check this is less than the number of pixels * 0.01</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  <span class="keyword">auto</span> mse = (image - diagnostic.x.array()).square().sum() / image.size();</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;  CAPTURE(mse);</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;  CHECK(mse &lt; 0.01);</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="anamespacesopt_html_adedb6b3e862bd2968bf3026599121630"><div class="ttname"><a href="namespacesopt.html#adedb6b3e862bd2968bf3026599121630">sopt::Matrix</a></div><div class="ttdeci">Eigen::Matrix&lt; T, Eigen::Dynamic, Eigen::Dynamic &gt; Matrix</div><div class="ttdoc">A matrix of a given type.</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00029">types.h:29</a></div></div>
 <div class="ttc" id="anamespacesopt_html_a974f99e567f8ac05a0fe5e50fbfd215b"><div class="ttname"><a href="namespacesopt.html#a974f99e567f8ac05a0fe5e50fbfd215b">sopt::epsilon</a></div><div class="ttdeci">real_type&lt; T &gt;::type epsilon(sopt::LinearTransform&lt; Vector&lt; T &gt;&gt; const &amp;sampling, sopt::Image&lt; T &gt; const &amp;image)</div><div class="ttdef"><b>Definition:</b> <a href="inpainting_8h_source.html#l00038">inpainting.h:38</a></div></div>
