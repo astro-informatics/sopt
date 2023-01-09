@@ -259,9 +259,11 @@ typename L2ForwardBackward<SCALAR>::Diagnostic L2ForwardBackward<SCALAR>::operat
   Diagnostic result;
   auto const g_proximal = [this](t_Vector &out, Real gamma, t_Vector const &x) {
     if (this->l2_proximal_weights().size() > 1)
-      this->l2_proximal_weighted()(out, this->l2_proximal_weights() * gamma, x);
+      this->l2_proximal_weighted()(out, this->l2_proximal_weights() * gamma,
+				   out - beta() / nu() * (Phi().adjoint() * x));
     else
-      this->l2_proximal()(out, this->l2_proximal_weights()(0) * gamma, x);
+      this->l2_proximal()(out, this->l2_proximal_weights()(0) * gamma,
+			  out - beta() / nu() * (Phi().adjoint() * x));
   };
   const Real sigma_factor = sigma() * sigma();
   auto const f_gradient = [this, sigma_factor](t_Vector &out, t_Vector const &x) {
