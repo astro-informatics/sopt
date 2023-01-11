@@ -43,9 +43,9 @@ public:
       square_image_(true),
       Psi_(linear_transform_identity<Scalar>())
   {
-    for ( auto str : model_.get_operations() ) {
-      std::cout << str << std::endl;
-    }
+  //   for ( auto str : model_.get_operations() ) {
+  //     std::cout << str << std::endl;
+  //   }
   }
   TFGProximal(std::string path, const int rows, const int cols)
     : model_(path),
@@ -82,7 +82,7 @@ public:
 protected:
 
   t_LinearTransform Psi_;
-  cppflow::model model_;
+  const cppflow::model model_;
   int image_rows_;
   int image_cols_;
   bool square_image_;
@@ -92,6 +92,7 @@ protected:
     int const image_size = image_in.size();
     int image_rows = image_rows_;
     int image_cols = image_cols_;
+
     if (square_image_) {
       image_rows = static_cast<int>(sqrt(image_size));
       image_cols = static_cast<int>(sqrt(image_size));
@@ -102,7 +103,6 @@ protected:
 
     // Call model
     auto model_output = model_({{"serving_default_input0:0", input_tensor}}, {"StatefulPartitionedCall:0"});
-    //auto model_output = model_(input_tensor);
 
     // Process output
     auto output_vector = model_output[0].get_data<float>();
