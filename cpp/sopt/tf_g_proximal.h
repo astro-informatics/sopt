@@ -107,7 +107,9 @@ protected:
     // Process output
     // TODO: We are assuming that the cppflow models operate on floats. This is not expected to change, but
     //       for robustness we should have the type as a template parameter, perhaps set in the constructor.
-    auto output_vector = model_output[0].get_data<float>();
+    // Added template keyword to suppress error on apple-clang, for reference
+    // https://stackoverflow.com/questions/3786360/confusing-template-error
+    auto output_vector = model_output[0].template get_data<float>();
     
     for(int i = 0; i < image_size; i++) {
       image_out[i] = static_cast<Scalar>(output_vector[i]);
