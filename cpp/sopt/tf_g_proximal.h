@@ -39,16 +39,16 @@ public:
   // The constructor constructs a cppflow model object from a saved model saved
   // to the file filename
   TFGProximal(std::string path)
-    : model_path_(path),
+    : model_(path),
       square_image_(true),
       Psi_(linear_transform_identity<Scalar>())
   {
-    // for ( auto str : model_.get_operations() ) {
-    //   std::cout << str << std::endl;
-    // }
+    for ( auto str : model_.get_operations() ) {
+      std::cout << str << std::endl;
+    }
   }
   TFGProximal(std::string path, const int rows, const int cols)
-    : model_path_(path),
+    : model_(path),
       square_image_(false),
       image_rows_(rows),
       image_cols_(cols),
@@ -82,8 +82,7 @@ public:
 protected:
 
   t_LinearTransform Psi_;
-  //cppflow::model model_;
-  std::string model_path_;
+  cppflow::model model_;
   int image_rows_;
   int image_cols_;
   bool square_image_;
@@ -101,10 +100,8 @@ protected:
     // Process input
     cppflow::tensor const input_tensor = cppflowutils::convert_image_to_tensor(image_in, image_rows, image_cols);
 
-    cppflow::model model(model_path_);
-
     // Call model
-    auto model_output = model({{"serving_default_input0:0", input_tensor}}, {"StatefulPartitionedCall:0"});
+    auto model_output = model_({{"serving_default_input0:0", input_tensor}}, {"StatefulPartitionedCall:0"});
     //auto model_output = model_(input_tensor);
 
     // Process output
