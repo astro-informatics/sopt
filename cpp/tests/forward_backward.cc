@@ -33,6 +33,8 @@ TEST_CASE("Forward Backward with ||x - x0||_2^2 function", "[fb]") {
   t_Vector const target0 = t_Vector::Random(N);
   t_real const beta = 0.2;
   t_real const nu = 1.0;
+  t_real const gamma = 0.1;
+  int const itermax = 300;
   t_LinearTransform const Phi = linear_transform_identity<Scalar>();
   auto const g0 = [=](t_Vector &out, const t_real gamma, const t_Vector &x) {
 		    proximal::id(out, gamma * beta, out - beta / nu * (Phi.adjoint() * x));
@@ -47,8 +49,8 @@ TEST_CASE("Forward Backward with ||x - x0||_2^2 function", "[fb]") {
   CAPTURE(x_guess);
   CAPTURE(res);
   auto const fb = algorithm::ForwardBackward<Scalar>(grad, g0, target0)
-                      .itermax(300)
-                      .gamma(0.1)
+                      .itermax(itermax)
+                      .gamma(gamma)
                       .beta(beta)
                       .is_converged(convergence);
 
