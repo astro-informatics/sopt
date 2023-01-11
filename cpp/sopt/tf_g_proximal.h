@@ -105,14 +105,13 @@ protected:
     auto model_output = model_({{"serving_default_input0:0", input_tensor}}, {"StatefulPartitionedCall:0"});
 
     // Process output
+    // TODO: We are assuming that the cppflow models operate on floats. This is not expected to change, but
+    //       for robustness we should have the type as a template parameter, perhaps set in the constructor.
     auto output_vector = model_output[0].get_data<float>();
-
+    
     for(int i = 0; i < image_size; i++) {
       image_out[i] = static_cast<Scalar>(output_vector[i]);
     }
-
-    // image_out = cppflowutils::convert_tensor_to_image(output_vector, image_size);
-
   }
 
 };

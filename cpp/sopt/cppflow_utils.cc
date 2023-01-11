@@ -9,7 +9,7 @@ namespace sopt {
 namespace cppflowutils {
     cppflow::tensor convert_image_to_tensor(Image<double> const &image, int image_rows, int image_cols){
         // Convert the Sopt::Image of doubles(wrapper for Eigen::Array) to a cppflow::tensor of floats
-
+        // TODO: Make types template parameters
         // create a vector of the right shape (model expects extra dimensions on start and end)
         std::vector<int64_t> input_shape = {1, image_rows, image_cols, 1};
 
@@ -26,7 +26,7 @@ namespace cppflowutils {
         return input_tensor;
     }
 
-  // Convert an image stored in a sopt::Vector to a cppflow::tensor of floats
+  // Convert an image stored in a sopt::Vector<double> to a cppflow::tensor of floats
   cppflow::tensor convert_image_to_tensor(sopt::Vector<double> const &image, int image_rows, int image_cols) {
 
     std::vector<float> values(&image[0], image.data()+image.size());
