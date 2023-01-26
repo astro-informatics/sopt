@@ -3,9 +3,6 @@ name: Documentation
 on:
   push:
     branches: [ development ]
-  pull_request:
-    branches: [ development ]
-    types: [review_requested, ready_for_review]
 
 env:
   CONAN_PRINT_RUN_COMMANDS: 1
