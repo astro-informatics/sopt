@@ -4,6 +4,7 @@ on:
   push:
     branches: [ development ]
   pull_request:
+    # CI runs when new commits are pushed or when draft PR is marked ready for review
     types: [opened, synchronize, reopened, ready_for_review]
   workflow_dispatch:
     inputs:
