@@ -4,6 +4,7 @@ on:
   push:
     branches: [ development ]
   pull_request:
+    types: [opened, synchronise, reopened, ready_for_review]
   workflow_dispatch:
     inputs:
       debug_enabled:
