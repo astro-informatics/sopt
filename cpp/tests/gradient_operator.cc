@@ -2,15 +2,15 @@
 #include <memory>
 #include <random>
 
-#include <sopt/config.h>
-#include <sopt/gradient_operator.h>
-#include <sopt/types.h>
-#include <sopt/utilities.h>
+#include "sopt/config.h"
+#include "sopt/gradient_operator.h"
+#include "sopt/types.h"
+#include "sopt/utilities.h"
 
 // This header is not part of the installed sopt interface
 // It is only present in tests
-#include <tools_for_tests/directories.h>
-#include <tools_for_tests/tiffwrappers.h>
+#include "tools_for_tests/directories.h"
+#include "tools_for_tests/tiffwrappers.h"
 
 TEST_CASE("Gradient Operator") {
   using namespace sopt;

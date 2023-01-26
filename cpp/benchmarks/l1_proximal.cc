@@ -1,8 +1,8 @@
 #include <sstream>
 #include <benchmark/benchmark.h>
-#include <sopt/l1_proximal.h>
-#include <sopt/real_type.h>
-#include <sopt/types.h>
+#include "sopt/l1_proximal.h"
+#include "sopt/real_type.h"
+#include "sopt/types.h"
 
 template <class TYPE>
 void function_l1p(benchmark::State &state) {

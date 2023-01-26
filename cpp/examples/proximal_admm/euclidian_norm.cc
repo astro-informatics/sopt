@@ -1,8 +1,8 @@
 #include <exception>
-#include <sopt/padmm.h>
-#include <sopt/proximal.h>
-#include <sopt/relative_variation.h>
-#include <sopt/types.h>
+#include "sopt/padmm.h"
+#include "sopt/proximal.h"
+#include "sopt/relative_variation.h"
+#include "sopt/types.h"
 
 // We will minimize ||x - x_0|| + ||x - x_1||, ||.|| the euclidian norm
 int main(int, char const **) {

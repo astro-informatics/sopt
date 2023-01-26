@@ -3,8 +3,8 @@
 
 #include "sopt/config.h"
 #include <random>
-#include <sopt/linear_transform.h>
-#include <sopt/types.h>
+#include "sopt/linear_transform.h"
+#include "sopt/types.h"
 
 namespace sopt {
 

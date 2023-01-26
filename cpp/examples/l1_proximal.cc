@@ -1,6 +1,6 @@
-#include <sopt/l1_proximal.h>
-#include <sopt/logging.h>
-#include <sopt/types.h>
+#include "sopt/l1_proximal.h"
+#include "sopt/logging.h"
+#include "sopt/types.h"
 
 int main(int, char const **) {
   sopt::logging::initialize();
