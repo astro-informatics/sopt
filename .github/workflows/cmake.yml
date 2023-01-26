@@ -22,6 +22,7 @@ env:
 
 jobs:
   build:
+  # Don't run on draft PRs
     if: >-
       github.event.pull_request.draft == false
     name: ${{matrix.os}}-${{matrix.cxx}}-mpi:${{matrix.mpi}}-openmp:${{matrix.omp}}
