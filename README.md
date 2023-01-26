@@ -77,7 +77,7 @@ CMake build options should be passed as options to `conan install` using the `-o
 
 For example, to build with both MPI and OpenMP off you would use
 
-``` bah
+``` bash
 conan install .. --build missing -o openmp=off -o mpi=off
 conan build ..
 ```
