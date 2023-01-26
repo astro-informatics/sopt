@@ -22,6 +22,8 @@ env:
 
 jobs:
   build:
+    if: >-
+      github.event.pull_request.draft == false
     name: ${{matrix.os}}-${{matrix.cxx}}-mpi:${{matrix.mpi}}-openmp:${{matrix.omp}}
     # The CMake configure and build commands are platform agnostic and should work equally
     # well on Windows or Mac.  You can convert this to a matrix build if you need
