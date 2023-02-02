@@ -1,4 +1,4 @@
-#include <sopt/wavelets/wavelets.h>
+#include "sopt/wavelets/wavelets.h"
 
 int main(int, char const **) {
   // Creates Daubechies 4 wavelet, with 5 levels

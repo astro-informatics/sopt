@@ -1,6 +1,6 @@
 #include <sstream>
 #include <benchmark/benchmark.h>
-#include <sopt/wavelets/wavelets.h>
+#include "sopt/wavelets/wavelets.h"
 
 unsigned get_size(unsigned requested, unsigned levels) {
   auto const N = (1u << levels);

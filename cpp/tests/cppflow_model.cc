@@ -2,18 +2,18 @@
 #include <vector>
 #include <catch.hpp>
 
-#include <sopt/logging.h>
-#include <sopt/types.h>
-#include <sopt/utilities.h>
-#include <sopt/cppflow_utils.h>
+#include "sopt/logging.h"
+#include "sopt/types.h"
+#include "sopt/utilities.h"
+#include "sopt/cppflow_utils.h"
 #include <cppflow/cppflow.h>
-#include "cppflow/ops.h"
-#include "cppflow/model.h"
+#include <cppflow/ops.h>
+#include <cppflow/model.h>
 
 // This header is not part of the installed sopt interface
 // It is only present in tests
-#include <tools_for_tests/directories.h>
-#include <tools_for_tests/tiffwrappers.h>
+#include "tools_for_tests/directories.h"
+#include "tools_for_tests/tiffwrappers.h"
 
 
 typedef double Scalar;

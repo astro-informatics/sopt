@@ -6,20 +6,20 @@
 #include <vector>
 #include <ctime>
 
-#include <sopt/logging.h>
-#include <sopt/maths.h>
-#include <sopt/positive_quadrant.h>
-#include <sopt/relative_variation.h>
-#include <sopt/reweighted.h>
-#include <sopt/sampling.h>
-#include <sopt/sdmm.h>
-#include <sopt/types.h>
-#include <sopt/utilities.h>
-#include <sopt/wavelets.h>
+#include "sopt/logging.h"
+#include "sopt/maths.h"
+#include "sopt/positive_quadrant.h"
+#include "sopt/relative_variation.h"
+#include "sopt/reweighted.h"
+#include "sopt/sampling.h"
+#include "sopt/sdmm.h"
+#include "sopt/types.h"
+#include "sopt/utilities.h"
+#include "sopt/wavelets.h"
 // This header is not part of the installed sopt interface
 // It is only present in tests
-#include <tools_for_tests/directories.h>
-#include <tools_for_tests/tiffwrappers.h>
+#include "tools_for_tests/directories.h"
+#include "tools_for_tests/tiffwrappers.h"
 
 // \min_{x} ||W_j\Psi^Tx||_1 \quad \mbox{s.t.} \quad ||y - Ax||_2 < \epsilon and x \geq 0
 // with W_j = ||\Psi^Tx_{j-1}||_1

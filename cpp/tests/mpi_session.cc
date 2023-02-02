@@ -3,8 +3,8 @@
 #include <regex>
 #include <vector>
 #include "catch.hpp"
-#include <sopt/logging.h>
-#include <sopt/mpi/session.h>
+#include "sopt/logging.h"
+#include "sopt/mpi/session.h"
 using namespace sopt;
 
 std::vector<char const *> cargs;

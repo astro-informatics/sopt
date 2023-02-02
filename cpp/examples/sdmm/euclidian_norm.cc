@@ -1,6 +1,6 @@
 #include <exception>
-#include <sopt/sdmm.h>
-#include <sopt/types.h>
+#include "sopt/sdmm.h"
+#include "sopt/types.h"
 
 // We will minimize ||L_0 x - x_0|| + ||L_1 x - x_1||, ||.|| the euclidian norm
 int main(int, char const **) {

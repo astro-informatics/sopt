@@ -5,10 +5,10 @@
 #include <random>
 #include <vector>
 
-#include <tools_for_tests/directories.h>
-#include <tools_for_tests/tiffwrappers.h>
-#include <sopt/logging.h>
-#include <sopt/utilities.h>
+#include "tools_for_tests/directories.h"
+#include "tools_for_tests/tiffwrappers.h"
+#include "sopt/logging.h"
+#include "sopt/utilities.h"
 
 // \min_{x} ||\Psi^\dagger x||_1 \quad \mbox{s.t.} \quad ||y - x||_2 < \epsilon and x \geq 0
 int main(int argc, char const **argv) {

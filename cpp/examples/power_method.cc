@@ -1,6 +1,6 @@
 #include <numeric>
 #include <Eigen/Eigenvalues>
-#include <sopt/power_method.h>
+#include "sopt/power_method.h"
 
 int main(int, char const **) {
   typedef sopt::t_real Scalar;
