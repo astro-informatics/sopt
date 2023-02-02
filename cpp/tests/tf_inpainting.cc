@@ -44,7 +44,7 @@ TEST_CASE("Inpainting"){
 
   sopt::t_real const gamma = 18;
   sopt::t_real const beta = sigma * sigma * 0.5;
-  int const itermax = 1;
+  int const itermax = 500;
 
   auto fb = sopt::algorithm::ImagingForwardBackward<Scalar>(y);
   fb.itermax(itermax)
