@@ -3,20 +3,20 @@
 #include <random>
 #include <utility>
 
-#include <sopt/imaging_padmm.h>
-#include <sopt/logging.h>
-#include <sopt/maths.h>
-#include <sopt/mpi/communicator.h>
-#include <sopt/mpi/utilities.h>
-#include <sopt/relative_variation.h>
-#include <sopt/sampling.h>
-#include <sopt/types.h>
-#include <sopt/utilities.h>
-#include <sopt/wavelets.h>
+#include "sopt/imaging_padmm.h"
+#include "sopt/logging.h"
+#include "sopt/maths.h"
+#include "sopt/mpi/communicator.h"
+#include "sopt/mpi/utilities.h"
+#include "sopt/relative_variation.h"
+#include "sopt/sampling.h"
+#include "sopt/types.h"
+#include "sopt/utilities.h"
+#include "sopt/wavelets.h"
 // This header is not part of the installed sopt interface
 // It is only present in tests
-#include <tools_for_tests/directories.h>
-#include <tools_for_tests/tiffwrappers.h>
+#include "tools_for_tests/directories.h"
+#include "tools_for_tests/tiffwrappers.h"
 
 TEST_CASE("Parallel vs serial inpainting") {
   extern std::unique_ptr<std::mt19937_64> mersenne;

@@ -1,6 +1,6 @@
 #include <exception>
-#include <sopt/conjugate_gradient.h>
-#include <sopt/types.h>
+#include "sopt/conjugate_gradient.h"
+#include "sopt/types.h"
 
 int main(int, char const **) {
   // Conjugate-gradient solves  Ax=b, where A is positive definite.

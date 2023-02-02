@@ -1,13 +1,13 @@
 #define CATCH_CONFIG_RUNNER
 
-#include <sopt/config.h>
+#include "sopt/config.h"
 #include <catch.hpp>
 #include <memory>
 #include <mpi.h>
 #include <random>
 #include <regex>
-#include <sopt/logging.h>
-#include <sopt/mpi/session.h>
+#include "sopt/logging.h"
+#include "sopt/mpi/session.h"
 
 std::unique_ptr<std::mt19937_64> mersenne(new std::mt19937_64(0));
 

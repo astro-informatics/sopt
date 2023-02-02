@@ -1,5 +1,5 @@
-#include <sopt/maths.h>
-#include <sopt/types.h>
+#include "sopt/maths.h"
+#include "sopt/types.h"
 
 int main(int, char const **) {
   sopt::Array<> input(6);
