@@ -25,7 +25,15 @@ jobs:
         run: |
           sudo apt update
           sudo apt install libtiff5-dev openmpi-bin libopenmpi-dev libeigen3-dev libyaml-cpp-dev doxygen graphviz
-          pip install conan
+
+      - name: Install Conan
+        id: conan
+        uses: turtlebrowser/get-conan@main
+        with:
+          version: 1.57.0
+
+      - name: Conan version
+        run: echo "${{ steps.conan.outputs.version }}"
 
       - name: Install Tensorflow API on Ubuntu
         uses: UCL/install-tensorflow-action@main
