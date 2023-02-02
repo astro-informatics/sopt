@@ -74,7 +74,7 @@ TEST_CASE("Inpainting"){
     .l1_proximal_positivity_constraint(true)
     .l1_proximal_real_constraint(true)
     .Psi(psi);
-  
+
   // Once the properties are set, inject it into the ImagingForwardBackward object
   fb.g_proximal(gp);
 

@@ -112,10 +112,10 @@ int main(int argc, char const **argv) {
     .l1_proximal_positivity_constraint(true)
     .l1_proximal_real_constraint(true)
     .Psi(psi);
-  
+
   // Once the properties are set, inject it into the ImagingForwardBackward object
   fb.g_proximal(gp);
-  
+
   SOPT_HIGH_LOG("Starting Forward Backward");
   // Alternatively, forward-backward can be called with a tuple (x, residual) as argument
   // Here, we default to (Φ^Ty/ν, ΦΦ^Ty/ν - y)
