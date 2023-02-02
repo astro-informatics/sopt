@@ -1,7 +1,6 @@
 Sparse OPTimisation Library
 ===========================
 
-<!-- [![Build Status](https://travis-ci.com/astro-informatics/sopt.svg?branch=development)](https://github.com/astro-informatics/sopt/actions?query=workflow%3Acmake) -->
 [![build](https://github.com/astro-informatics/sopt/actions/workflows/cmake.yml/badge.svg?branch=development)](https://github.com/astro-informatics/sopt/actions/workflows/cmake.yml?query=branch%3Adevelopment+)
 [![codecov](https://codecov.io/gh/astro-informatics/sopt/branch/development/graph/badge.svg)](https://codecov.io/gh/astro-informatics/sopt)
 [![DOI](http://img.shields.io/badge/DOI-10.5281/zenodo.2584256-blue.svg?style=flat)](https://doi.org/10.5281/zenodo.2584256)
@@ -9,7 +8,7 @@ Sparse OPTimisation Library
 Description
 -------------
 
-**SOPT** is an open-source `C++` package available under the [license](#license) below. It performs Sparse OPTimisation using state-of-the-art convex optimisation algorithms. It solves a variety of sparse regularisation problems, including the Sparsity Averaging Reweighted Analysis (SARA) algorithm. 
+**SOPT** is an open-source `C++` package available under the [license](#license) below. It performs Sparse OPTimisation using state-of-the-art convex optimisation algorithms. It solves a variety of sparse regularisation problems, including the Sparsity Averaging Reweighted Analysis (SARA) algorithm.
 
 **SOPT** also has several MPI wrappers that can be adapted for computational distirbution of various linear operators and convex optimisation algorithms. Wavelet Operators with **SOPT** also support multi-threading through OpenMP.
 
@@ -26,35 +25,32 @@ Dependencies installation
 
 `C++` minimal dependencies:
 
-- [CMake](http://www.cmake.org/) v3.9.2 A free software that allows cross-platform compilation
-- [GCC](https://gcc.gnu.org) v7.3.0 GNU compiler for `C++`
-- [UCL/GreatCMakeCookOff](https://github.com/UCL/GreatCMakeCookOff) Collection of `CMake` recipes.
-  Downloaded automatically if absent.
+- [CMake](http://www.cmake.org/) v3.9.2 A free software that allows cross-platform compilation.
+- [GCC](https://gcc.gnu.org) v7.3.0 GNU compiler for `C++`.
+- [UCL/GreatCMakeCookOff](https://github.com/UCL/GreatCMakeCookOff) Collection of `CMake` recipes. Downloaded automatically if absent.
 - [OpenMP](http://openmp.org/wp/) v4.8.4 (Trusty) - Optional - Speeds up some of the operations.
 - [Conan](https://docs.conan.io/en/latest/installation.html) - C++ package manager which installs the following:
-    - [Eigen3](http://eigen.tuxfamily.org/index.php?title=Main_Page) v3.2.0 (Trusty) Modern `C++` linear algebra.
-      Downloaded automatically if absent.
-    - [spdlog](https://github.com/gabime/spdlog) v* - Optional - Logging library. Downloaded automatically if
+  - [Eigen3](http://eigen.tuxfamily.org/index.php?title=Main_Page) v3.2.0 (Trusty) Modern `C++` linear algebra. Downloaded automatically if absent.
+  - [spdlog](https://github.com/gabime/spdlog) v* - Optional - Logging library. Downloaded automatically if
       absent.
-    - [Catch2](https://github.com/catchorg/Catch2) v2.2.3 - Optional -  A `C++`
+  - [Catch2](https://github.com/catchorg/Catch2) v2.2.3 - Optional -  A `C++`
       unit-testing framework only needed for testing. Downloaded automatically if absent.
-    - [google/benchmark](https://github.com/google/benchmark) - Optional - A `C++`
+  - [google/benchmark](https://github.com/google/benchmark) - Optional - A `C++`
       micro-benchmarking framework only needed for benchmarks. Downloaded automatically if absent.
-    - [tiff](http://www.libtiff.org/) v4.0.3 (Trusty) Tag Image File Format library - only installed if needed.
-
+  - [tiff](http://www.libtiff.org/) v4.0.3 (Trusty) Tag Image File Format library - only installed if needed.
 
 Installing and building SOPT
 ----------------------------
 
 You can build **SOPT** entirely from the source code. Once the mandatory dependencies are present, `git clone` from the [GitHub repository](https://github.com/astro-informatics/sopt):
 
-```
+``` bash
 git clone https://github.com/astro-informatics/sopt.git
 ```
 
 Then, the program can be built with standard `CMake` command:
 
-```
+``` bash
 cd /path/to/code
 mkdir build
 cd build
@@ -64,7 +60,7 @@ conan build ..
 
 To install in directory `INSTALL_FOLDER`, add the following options to the conan build command:
 
-```
+``` bash
 conan build .. -bf INSTALL_FOLDER -if .
 ```
 
@@ -81,13 +77,14 @@ CMake build options should be passed as options to `conan install` using the `-o
 
 For example, to build with both MPI and OpenMP off you would use
 
-```
+``` bash
 conan install .. --build missing -o openmp=off -o mpi=off
 conan build ..
 ```
 
 Common errors
 -------
+
 If you are using the g++ compiler and get an error to do with the package `spdlog`, try adding the option `-s compiler.libcxx=libstdc++11` to the `conan build` command. This option is also necessary when building with gcc on MacOS.
 
 Conan tips
@@ -114,34 +111,15 @@ CC=$GCC_PATH/gcc-11
 CXX=$GCC_PATH/g++-11
 ```
 
-
 Testing
 -------
 
 To check everything went all right, run the test suite:
 
-```
+``` bash
 cd /path/to/code/build
 ctest .
 ```
-
-Docker
--------
-
-If you want to use Docker instead, you can build an image using the Dockerfile
-available in the repository or pulling it from
-[DockerHub](https://hub.docker.com/r/uclrits/sopt).
-
-```
-docker build -t sopt .
-```
-
-or
-
-```
-docker pull uclrits/sopt
-```
-
 
 Matlab
 ------
@@ -175,23 +153,23 @@ If you use **SOPT** for work that results in publication, please reference the [
 License
 -------
 
->    SOPT: Sparse OPTimisation package
->    Copyright (C) 2013-2019
+> SOPT: Sparse OPTimisation package
+> Copyright (C) 2013-2019
 >
->    This program is free software; you can redistribute it and/or
->    modify it under the terms of the GNU General Public License as
->    published by the Free Software Foundation; either version 2 of the
->    License, or (at your option) any later version.
+> This program is free software; you can redistribute it and/or
+> modify it under the terms of the GNU General Public License as
+> published by the Free Software Foundation; either version 2 of the
+> License, or (at your option) any later version.
 >
->    This program is distributed in the hope that it will be useful, but
->    WITHOUT ANY WARRANTY; without even the implied warranty of
->    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
->    General Public License for more details (LICENSE.txt).
+> This program is distributed in the hope that it will be useful, but
+> WITHOUT ANY WARRANTY; without even the implied warranty of
+> MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+> General Public License for more details (LICENSE.txt).
 >
->    You should have received a copy of the GNU General Public License
->    along with this program; if not, write to the Free Software
->    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
->    02110-1301, USA.
+> You should have received a copy of the GNU General Public License
+> along with this program; if not, write to the Free Software
+> Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+> 02110-1301, USA.
 
 Webpage
 -------
@@ -209,4 +187,3 @@ Notes
 -----
 
 The code is given for educational purpose. For the `Matlab` version of the code see the folder matlab.
-
