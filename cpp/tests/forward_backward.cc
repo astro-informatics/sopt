@@ -30,6 +30,9 @@ auto const N = 5;
 TEST_CASE("Forward Backward with ||x - x0||_2^2 function", "[fb]") {
   using namespace sopt;
   t_Vector const target0 = t_Vector::Random(N);
+  t_real const beta = 0.2;
+  t_real const gamma = 0.1;
+  int const itermax = 300;
   auto const g0 = [](t_Vector &out, const t_real gamma, const t_Vector &x) {
     proximal::id(out, gamma, x);
   };
@@ -43,9 +46,9 @@ TEST_CASE("Forward Backward with ||x - x0||_2^2 function", "[fb]") {
   CAPTURE(x_guess);
   CAPTURE(res);
   auto const fb = algorithm::ForwardBackward<Scalar>(grad, g0, target0)
-                      .itermax(300)
-                      .gamma(0.1)
-                      .beta(0.2)
+                      .itermax(itermax)
+                      .gamma(gamma)
+                      .beta(beta)
                       .is_converged(convergence);
   auto const result = fb(std::make_tuple(x_guess, res));
   CAPTURE(result.niters);
@@ -53,7 +56,7 @@ TEST_CASE("Forward Backward with ||x - x0||_2^2 function", "[fb]") {
   CAPTURE(result.residual);
   CHECK(result.x.isApprox(target0, 1e-9));
   CHECK(result.good);
-  CHECK(result.niters < 300);
+  CHECK(result.niters < itermax);
 }
 
 template <class T> struct is_imaging_proximal_ref
