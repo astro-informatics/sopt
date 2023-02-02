@@ -40,16 +40,12 @@ class L1TightFrame {
                mpi::Communicator const &adjoint_comm = mpi::Communicator())
       : Psi_(linear_transform_identity<Scalar>()),
         nu_(1e0),
-	Phi_(linear_transform_identity<Scalar>()),
-	beta_(1e0),
         direct_space_comm_(direct_comm),
         adjoint_space_comm_(adjoint_comm),
         weights_(Vector<Real>::Ones(1)) {}
 #else
   L1TightFrame()
-    : Psi_(linear_transform_identity<Scalar>()), nu_(1e0),
-      Phi_(linear_transform_identity<Scalar>()), beta_(1e0),
-      weights_(Vector<Real>::Ones(1))  {}
+      : Psi_(linear_transform_identity<Scalar>()), nu_(1e0), weights_(Vector<Real>::Ones(1)) {}
 #endif
 
 #define SOPT_MACRO(NAME, TYPE)                   \
@@ -66,11 +62,7 @@ class L1TightFrame {
   //! Linear transform applied to input prior to L1 norm
   SOPT_MACRO(Psi, LinearTransform<Vector<Scalar>>);
   //! Bound on the squared norm of the operator Ψ
-  SOPT_MACRO(nu, Real)
-  //! Measurement operator, used by g_proximal
-  SOPT_MACRO(Phi, LinearTransform<Vector<Scalar>>);
-  //! β parameter, used by g_proximal
-  SOPT_MACRO(beta, Real);
+  SOPT_MACRO(nu, Real);
 #ifdef SOPT_MPI
   //! Communicator for summing in direct space (input when applying Psi)
   SOPT_MACRO(direct_space_comm, mpi::Communicator);
@@ -314,24 +306,6 @@ class L1 : protected L1TightFrame<SCALAR> {
     L1TightFrame<Scalar>::Psi(std::forward<ARGS>(args)...);
     return *this;
   }
-
-  //! Bounds on the squared norm of the operator Ψ
-  Real beta() const { return L1TightFrame<Scalar>::beta(); }
-  //! Sets the bound on the squared norm of the operator Ψ
-  L1<Scalar> &beta(Real const &beta) {
-    L1TightFrame<SCALAR>::beta(beta);
-    return *this;
-  }
-
-  //! Linear transform applied to input prior to L1 norm
-  LinearTransform<Vector<Scalar>> const &Phi() const { return L1TightFrame<Scalar>::Phi(); }
-  //! Set Ψ and Ψ^† using a matrix
-  template <class... ARGS>
-  typename std::enable_if<sizeof...(ARGS) >= 1, L1<Scalar> &>::type Phi(ARGS &&... args) {
-    L1TightFrame<Scalar>::Phi(std::forward<ARGS>(args)...);
-    return *this;
-  }
-
 
   //! \brief Special case if Ψ ia a tight frame.
   //! \see L1TightFrame
