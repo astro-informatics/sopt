@@ -55,9 +55,7 @@ public:
   // Return g_proximal as a lambda function. Used in operator() in base class.
   t_Proximal proximal_function() const override {
     return [this](t_Vector &out, Real gamma, t_Vector const &x) {
-	     this -> l1_proximal(out,
-				 gamma * l1_proximal_.beta(),
-				 out - l1_proximal_.beta() / l1_proximal_.nu() * (l1_proximal_.Phi().adjoint() * x));
+	     this -> l1_proximal(out, gamma, x);
 	   };
   }
 
@@ -87,10 +85,10 @@ public:
 // ~~~
 #define SOPT_MACRO(VAR, TYPE)						 \
   /** \brief Getter, forwards to l1_proximal **/                         \
-  TYPE const &l1_proximal_##VAR() const { return l1_proximal_.VAR(); }  \
+  TYPE const &l1_proximal_##VAR() const { return l1_proximal().VAR(); }  \
   /** \brief Setter, forwards to l1_proximal **/                         \
   L1GProximal<SCALAR> &l1_proximal_##VAR(TYPE const ARG) {               \
-    l1_proximal_.VAR(ARG);				                 \
+    l1_proximal().VAR(ARG);				                 \
     return *this;                                                        \
   }
 
@@ -99,9 +97,7 @@ public:
   SOPT_MACRO(positivity_constraint, bool);
   SOPT_MACRO(real_constraint, bool);
   SOPT_MACRO(nu, Real);
-  SOPT_MACRO(beta, Real);
   SOPT_MACRO(weights, t_Vector);
-  SOPT_MACRO(Phi, t_LinearTransform);
 #undef SOPT_MACRO
 
   //! Analysis operator Ψ

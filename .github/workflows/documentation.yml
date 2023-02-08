@@ -12,7 +12,7 @@ on:
         description: 'Run the build with tmate debugging enabled (https://github.com/marketplace/actions/debugging-with-tmate)'
         required: false
         default: false
-    
+        
 env:
   CONAN_PRINT_RUN_COMMANDS: 1
   OMP_NUM_THREADS: 2

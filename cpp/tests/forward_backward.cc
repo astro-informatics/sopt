@@ -25,19 +25,16 @@ sopt::t_int random_integer(sopt::t_int min, sopt::t_int max) {
 typedef sopt::t_real Scalar;
 typedef sopt::Vector<Scalar> t_Vector;
 typedef sopt::t_real t_real;
-typedef sopt::LinearTransform<t_Vector> t_LinearTransform;
 auto const N = 5;
 
 TEST_CASE("Forward Backward with ||x - x0||_2^2 function", "[fb]") {
   using namespace sopt;
   t_Vector const target0 = t_Vector::Random(N);
   t_real const beta = 0.2;
-  t_real const nu = 1.0;
   t_real const gamma = 0.1;
   int const itermax = 300;
-  t_LinearTransform const Phi = linear_transform_identity<Scalar>();
-  auto const g0 = [=](t_Vector &out, const t_real gamma, const t_Vector &x) {
-		    proximal::id(out, gamma * beta, out - beta / nu * (Phi.adjoint() * x));
+  auto const g0 = [](t_Vector &out, const t_real gamma, const t_Vector &x) {
+    proximal::id(out, gamma, x);
   };
   auto const grad = [](t_Vector &out, const t_Vector &x) { out = x; };
   const t_Vector x_guess = t_Vector::Random(target0.size());
@@ -53,14 +50,13 @@ TEST_CASE("Forward Backward with ||x - x0||_2^2 function", "[fb]") {
                       .gamma(gamma)
                       .beta(beta)
                       .is_converged(convergence);
-
   auto const result = fb(std::make_tuple(x_guess, res));
   CAPTURE(result.niters);
   CAPTURE(result.x);
   CAPTURE(result.residual);
   CHECK(result.x.isApprox(target0, 1e-9));
   CHECK(result.good);
-  CHECK(result.niters < 300);
+  CHECK(result.niters < itermax);
 }
 
 template <class T> struct is_imaging_proximal_ref
@@ -93,8 +89,6 @@ TEST_CASE("Check type returned on setting variables") {
   auto gp = std::make_shared<sopt::algorithm::L1GProximal<Scalar>>(false);
   CHECK(is_l1_g_proximal_ref<decltype(gp->l1_proximal_tolerance(1e-2))>::value);
   CHECK(is_l1_g_proximal_ref<decltype(gp->l1_proximal_nu(1))>::value);
-  CHECK(is_l1_g_proximal_ref<decltype(gp->l1_proximal_beta(1))>::value);
-  CHECK(is_l1_g_proximal_ref<decltype(gp->l1_proximal_Phi(linear_transform_identity<double>()))>::value);
   CHECK(is_l1_g_proximal_ref<decltype(gp->l1_proximal_itermax(50))>::value);
   CHECK(is_l1_g_proximal_ref<decltype(gp->l1_proximal_positivity_constraint(true))>::value);
   CHECK(is_l1_g_proximal_ref<decltype(gp->l1_proximal_real_constraint(true))>::value);

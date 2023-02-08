@@ -231,7 +231,7 @@ void ForwardBackward<SCALAR>::iteration_step(t_Vector &out, t_Vector &residual, 
                                              t_Vector &z, const t_real lambda) const {
   p = out;
   f_gradient(z, residual);
-  g_proximal(out, gamma(), z);
+  g_proximal(out, gamma() * beta(), out - beta() / nu() * (Phi().adjoint() * z));
   p = out + lambda * (out - p);
   residual = (Phi() * p) - target();
 }
