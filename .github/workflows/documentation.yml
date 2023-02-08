@@ -12,7 +12,7 @@ on:
         description: 'Run the build with tmate debugging enabled (https://github.com/marketplace/actions/debugging-with-tmate)'
         required: false
         default: false
-        
+    
 env:
   CONAN_PRINT_RUN_COMMANDS: 1
   OMP_NUM_THREADS: 2
@@ -30,12 +30,12 @@ jobs:
       # Enable tmate debugging of manually-triggered workflows if the input option was provided
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
-        #if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.debug_enabled }}
+        # if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.debug_enabled }}
           
       - name: Install dependencies
         run: |
           sudo apt update
-          sudo apt install libtiff5-dev openmpi-bin libopenmpi-dev libeigen3-dev libyaml-cpp-dev graphviz
+          sudo apt install libtiff5-dev openmpi-bin libopenmpi-dev libeigen3-dev libyaml-cpp-dev doxygen graphviz
 
       - name: Install Conan
         id: conan
