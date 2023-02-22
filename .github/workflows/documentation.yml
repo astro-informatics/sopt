@@ -30,7 +30,7 @@ jobs:
       # Enable tmate debugging of manually-triggered workflows if the input option was provided
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
-        # if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.debug_enabled }}
+        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.debug_enabled }}
           
       - name: Install dependencies
         run: |
@@ -41,10 +41,7 @@ jobs:
         id: conan
         uses: turtlebrowser/get-conan@main
         with:
-          version: 1.57.0
-
-      - name: Conan version
-        run: echo "${{ steps.conan.outputs.version }}"
+          version: 1.59.0
 
       - name: Install Tensorflow API on Ubuntu
         uses: UCL/install-tensorflow-action@main
@@ -53,7 +50,7 @@ jobs:
           os: linux
 
       - name: Configure
-        run: conan install ${{github.workspace}} -if ${{github.workspace}}/build --build missing  -s compiler.libcxx=libstdc++11 -o mpi=off -o openmp=off -o docs=on -o cppflow=on
+        run: conan install ${{github.workspace}} -if ${{github.workspace}}/build --build missing  -s compiler.libcxx=libstdc++11 -o mpi=off -o openmp=off -o docs=on -o cppflow=on -pr:h=default -pr:b=default
 
       - name: Build
         run: conan build ${{github.workspace}} -bf ${{github.workspace}}/build

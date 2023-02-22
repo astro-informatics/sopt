@@ -113,10 +113,7 @@ jobs:
       id: conan
       uses: turtlebrowser/get-conan@main
       with:
-        version: 1.57.0
-
-    - name: Conan version
-      run: echo "${{ steps.conan.outputs.version }}"
+        version: 1.59.0
 
     - name: Prepare ccache timestamp
       id: ccache_cache_timestamp
@@ -137,16 +134,16 @@ jobs:
 
     - name: Conan install on gcc
       if: ${{ contains(matrix.cxx, 'g++-9') }}
-      run: conan install ${{github.workspace}} -if ${{github.workspace}}/build -s compiler.libcxx=libstdc++11 --build missing -o mpi=${{matrix.mpi}} -o openmp=${{matrix.omp}} -o cppflow=on
+      run: conan install ${{github.workspace}} -if ${{github.workspace}}/build -s compiler.libcxx=libstdc++11 --build missing -o mpi=${{matrix.mpi}} -o openmp=${{matrix.omp}} -o cppflow=on -pr:h=default -pr:b=default
 
     - name: Conan install on apple-clang
       if: ${{ contains(matrix.cxx, 'clang++') }}
-      run: conan install ${{github.workspace}} -if ${{github.workspace}}/build --build missing -o mpi=${{matrix.mpi}} -o openmp=${{matrix.omp}} -o cppflow=on
+      run: conan install ${{github.workspace}} -if ${{github.workspace}}/build --build missing -o mpi=${{matrix.mpi}} -o openmp=${{matrix.omp}} -o cppflow=on -pr:h=default -pr:b=default
 
     - name: Build
       # Build your program with the given configuration.
       # The Github Actions machines are dual-core so we can build faster using 2 parallel processes
-      run: conan build ${{github.workspace}} -bf ${{github.workspace}}/build
+      run: conan build ${{github.workspace}} -bf ${{github.workspace}}/build 
 
     - name: Test
       working-directory: ${{github.workspace}}/build
