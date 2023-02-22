@@ -36,7 +36,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt update
-          sudo apt install openmpi-bin libopenmpi-dev libyaml-cpp-dev graphviz
+          sudo apt install openmpi-bin libopenmpi-dev libyaml-cpp-dev doxygen graphviz
 
       - name: Install Conan
         id: conan
@@ -53,7 +53,6 @@ jobs:
       - name: Configure
         run: |
           conan install doxygen/1.9.4@#2af713e135f12722e3536808017ba086 --update
-          echo "::set-env name=PREV_PATH::$PATH"
           conan install ${{github.workspace}} -if ${{github.workspace}}/build --build missing  -s compiler.libcxx=libstdc++11 -o mpi=off -o openmp=off -o docs=on -o cppflow=on -pr:h=default -pr:b=default
 
       - name: Build
@@ -61,7 +60,6 @@ jobs:
 
       - name: Make Docweb
         run: |
-          export PATH=$PATH:$PREV_PATH
           cd build
           make docweb VERBOSE=1
 
