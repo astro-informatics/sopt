@@ -70,6 +70,7 @@ class ImagingForwardBackward {
       beta_(1),
       sigma_(1),
       nu_(1),
+      fista_(true),
       is_converged_(),
       Phi_(linear_transform_identity<Scalar>()),
       target_(target) {}
@@ -115,6 +116,8 @@ class ImagingForwardBackward {
   SOPT_MACRO(sigma, Real);
   //! ν parameter
   SOPT_MACRO(nu, Real);
+  //! switch for FISTA algorithm
+  SOPT_MACRO(fista, bool);
   //! A function verifying convergence
   SOPT_MACRO(is_converged, t_IsConverged);
   //! Measurement operator
@@ -274,6 +277,7 @@ typename ImagingForwardBackward<SCALAR>::Diagnostic ImagingForwardBackward<SCALA
                       .beta(beta())
                       .gamma(gamma())
                       .nu(nu())
+                      .fista(fista())
                       .Phi(Phi())
                       .is_converged(convergence);
   static_cast<typename ForwardBackward<SCALAR>::Diagnostic &>(result) =

@@ -65,6 +65,7 @@ class ForwardBackward {
         beta_(1),
         nu_(1),
         is_converged_(),
+	fista_(true),
         Phi_(linear_transform_identity<Scalar>()),
         f_gradient_(f_gradient),
         g_proximal_(g_proximal),
@@ -93,6 +94,8 @@ class ForwardBackward {
   SOPT_MACRO(beta, Real);
   //! ν parameter
   SOPT_MACRO(nu, Real);
+  //! switch for FISTA algorithm
+  SOPT_MACRO(fista, bool);
   //! \brief A function verifying convergence
   //! \details It takes as input two arguments: the current solution x and the current residual.
   SOPT_MACRO(is_converged, t_IsConverged);
@@ -240,6 +243,11 @@ template <class SCALAR>
 typename ForwardBackward<SCALAR>::Diagnostic ForwardBackward<SCALAR>::operator()(
     t_Vector &out, t_Vector const &x_guess, t_Vector const &res_guess) const {
   SOPT_HIGH_LOG("Performing Forward Backward Splitting");
+  if (fista()) {
+    SOPT_HIGH_LOG("Using FISTA algorithm");
+  } else {
+    SOPT_HIGH_LOG("Using standard FB algorithm");
+  }
   sanity_check(x_guess, res_guess);
 
   t_Vector p = t_Vector::Zero(x_guess.size());
@@ -249,12 +257,17 @@ typename ForwardBackward<SCALAR>::Diagnostic ForwardBackward<SCALAR>::operator()
 
   t_uint niters(0);
   bool converged = false;
-  Real t = 1;
+  Real theta = 1.0;
+  Real theta_new = 1.0;
+  Real lambda = 0.0;
   for (; (not converged) && (niters < itermax()); ++niters) {
     SOPT_LOW_LOG("    - [FB] Iteration {}/{}", niters, itermax());
-    const Real t_new = (1 + std::sqrt(1 + 4 * t * t)) / 2.;
-    iteration_step(out, residual, p, z, (t - 1) / (t_new));
-    t = t_new;
+    if (fista()) {
+      theta_new = (1 + std::sqrt(1 + 4 * theta * theta)) / 2.;
+      lambda = (theta - 1) / (theta_new);
+      theta = theta_new;
+    }
+    iteration_step(out, residual, p, z, lambda);
     SOPT_LOW_LOG("      - [FB] Sum of residuals: {}", residual.array().abs().sum());
     converged = is_converged(out, residual);
   }

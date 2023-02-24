@@ -56,6 +56,7 @@ TEST_CASE("Inpainting"){
     .beta(beta)    // stepsize
     .sigma(sigma)  // sigma
     .gamma(gamma)  // regularisation paramater
+    .fista(false)  // switch for FISTA algorithm, don't use with learned TF model
     .relative_variation(1e-3)
     .residual_tolerance(0)
     .tight_frame(true)
