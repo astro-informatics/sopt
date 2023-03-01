@@ -7,19 +7,19 @@
 #include <ctime>
 #include <catch.hpp>
 
-#include <sopt/imaging_forward_backward.h>
-#include <sopt/tf_g_proximal.h>
-#include <sopt/logging.h>
-#include <sopt/maths.h>
-#include <sopt/relative_variation.h>
-#include <sopt/sampling.h>
-#include <sopt/types.h>
-#include <sopt/utilities.h>
+#include "sopt/imaging_forward_backward.h"
+#include "sopt/tf_g_proximal.h"
+#include "sopt/logging.h"
+#include "sopt/maths.h"
+#include "sopt/relative_variation.h"
+#include "sopt/sampling.h"
+#include "sopt/types.h"
+#include "sopt/utilities.h"
 
 // This header is not part of the installed sopt interface
 // It is only present in tests
-#include <tools_for_tests/directories.h>
-#include <tools_for_tests/tiffwrappers.h>
+#include "tools_for_tests/directories.h"
+#include "tools_for_tests/tiffwrappers.h"
 
 // \min_{x} ||\Psi^Tx||_1 \quad \mbox{s.t.} \quad ||y - Ax||_2 < \epsilon and x \geq 0
 

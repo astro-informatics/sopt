@@ -14,7 +14,7 @@
 #include "sopt/types.h"
 #include "sopt/g_proximal.h"
 
-#include <cppflow/cppflow.h>
+#include "cppflow/cppflow.h"
 #include "cppflow/ops.h"
 #include "cppflow/model.h"
 #include "sopt/cppflow_utils.h"
