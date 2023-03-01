@@ -41,12 +41,7 @@ public:
   TFGProximal(std::string path)
     : model_(path),
       square_image_(true),
-      Psi_(linear_transform_identity<Scalar>())
-  {
-  //   for ( auto str : model_.get_operations() ) {
-  //     std::cout << str << std::endl;
-  //   }
-  }
+      Psi_(linear_transform_identity<Scalar>()) {}
   TFGProximal(std::string path, const int rows, const int cols)
     : model_(path),
       square_image_(false),
