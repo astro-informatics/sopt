@@ -94,7 +94,7 @@ class ForwardBackward {
   SOPT_MACRO(beta, Real);
   //! ν parameter
   SOPT_MACRO(nu, Real);
-  //! switch for FISTA algorithm
+  //! flag to for FISTA Forward-Backward algorithm. True by default but should be false when using a learned g_proximal.
   SOPT_MACRO(fista, bool);
   //! \brief A function verifying convergence
   //! \details It takes as input two arguments: the current solution x and the current residual.

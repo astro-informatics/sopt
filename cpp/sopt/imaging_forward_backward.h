@@ -116,7 +116,7 @@ class ImagingForwardBackward {
   SOPT_MACRO(sigma, Real);
   //! ν parameter
   SOPT_MACRO(nu, Real);
-  //! switch for FISTA algorithm
+  //! flag to for FISTA Forward-Backward algorithm. True by default but should be false when using a learned g_proximal.
   SOPT_MACRO(fista, bool);
   //! A function verifying convergence
   SOPT_MACRO(is_converged, t_IsConverged);
