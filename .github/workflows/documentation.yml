@@ -33,6 +33,12 @@ jobs:
         uses: mxschmitt/action-tmate@v3
         if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.debug_enabled }}
           
+      # Note that we are installing doxygen with apt here, and with conan in the Configure step.
+      # This is because there is no easy way of extracting the path to the doxygen executable from conan.
+      # the apt installed doxygen is used in the Make Docweb step to build the html files,
+      # while the conan installed version is used in the build step.
+      # The version we install from apt is older than the 1.9.4 we install from conan, but
+      # it is not causing any issues at the moment. 
       - name: Install dependencies
         run: |
           sudo apt update
