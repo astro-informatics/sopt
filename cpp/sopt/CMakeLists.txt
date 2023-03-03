@@ -3,7 +3,7 @@ set(headers
   bisection_method.h chained_operators.h credible_region.h
   imaging_padmm.h logging.disabled.h
   forward_backward.h imaging_forward_backward.h
-  g_proximal.h l1_g_proximal.h
+  g_proximal.h l1_g_proximal.h tf_g_proximal.h
   joint_map.h
   imaging_primal_dual.h primal_dual.h
   maths.h proximal.h relative_variation.h sdmm.h
