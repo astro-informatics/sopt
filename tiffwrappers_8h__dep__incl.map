@@ -1,5 +1,5 @@
 <map id="/home/runner/work/sopt/sopt/cpp/tools_for_tests/tiffwrappers.h" name="/home/runner/work/sopt/sopt/cpp/tools_for_tests/tiffwrappers.h">
-<area shape="rect" id="node1" title=" " alt="" coords="1892,5,2073,61"/>
+<area shape="rect" id="node1" title=" " alt="" coords="2001,5,2183,61"/>
 <area shape="rect" id="node2" href="$examples_2forward__backward_2inpainting_8cc.html" title=" " alt="" coords="5,117,208,173"/>
 <area shape="rect" id="node3" href="$inpainting__credible__interval_8cc.html" title=" " alt="" coords="233,109,453,180"/>
 <area shape="rect" id="node4" href="$inpainting__joint__map_8cc.html" title=" " alt="" coords="477,117,728,173"/>
@@ -15,6 +15,7 @@
 <area shape="rect" id="node14" href="$gradient__operator_8cc.html" title=" " alt="" coords="2726,117,2903,173"/>
 <area shape="rect" id="node15" href="$tests_2inpainting_8cc.html" title=" " alt="" coords="2927,124,3131,165"/>
 <area shape="rect" id="node16" href="$serial__vs__parallel__padmm_8cc.html" title=" " alt="" coords="3155,117,3333,173"/>
-<area shape="rect" id="node17" href="$copy__tiff_8cc.html" title=" " alt="" coords="3357,117,3539,173"/>
-<area shape="rect" id="node18" href="$tiffwrappers_8cc.html" title=" " alt="" coords="3563,117,3744,173"/>
+<area shape="rect" id="node17" href="$tf__inpainting_8cc.html" title=" " alt="" coords="3357,124,3579,165"/>
+<area shape="rect" id="node18" href="$copy__tiff_8cc.html" title=" " alt="" coords="3603,117,3784,173"/>
+<area shape="rect" id="node19" href="$tiffwrappers_8cc.html" title=" " alt="" coords="3808,117,3989,173"/>
 </map>

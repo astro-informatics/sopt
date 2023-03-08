@@ -1,10 +1,10 @@
 var searchData=
 [
-  ['readme_2emd_659',['README.md',['../README_8md.html',1,'']]],
-  ['real_5ftype_2eh_660',['real_type.h',['../real__type_8h.html',1,'']]],
-  ['registered_5ftypes_2ecc_661',['registered_types.cc',['../registered__types_8cc.html',1,'']]],
-  ['registered_5ftypes_2eh_662',['registered_types.h',['../registered__types_8h.html',1,'']]],
-  ['relative_5fvariation_2eh_663',['relative_variation.h',['../relative__variation_8h.html',1,'']]],
-  ['reweighted_2ecc_664',['reweighted.cc',['../examples_2proximal__admm_2reweighted_8cc.html',1,'(Global Namespace)'],['../examples_2sdmm_2reweighted_8cc.html',1,'(Global Namespace)'],['../tests_2reweighted_8cc.html',1,'(Global Namespace)']]],
-  ['reweighted_2eh_665',['reweighted.h',['../reweighted_8h.html',1,'']]]
+  ['readme_2emd_663',['README.md',['../README_8md.html',1,'']]],
+  ['real_5ftype_2eh_664',['real_type.h',['../real__type_8h.html',1,'']]],
+  ['registered_5ftypes_2ecc_665',['registered_types.cc',['../registered__types_8cc.html',1,'']]],
+  ['registered_5ftypes_2eh_666',['registered_types.h',['../registered__types_8h.html',1,'']]],
+  ['relative_5fvariation_2eh_667',['relative_variation.h',['../relative__variation_8h.html',1,'']]],
+  ['reweighted_2ecc_668',['reweighted.cc',['../examples_2proximal__admm_2reweighted_8cc.html',1,'(Global Namespace)'],['../examples_2sdmm_2reweighted_8cc.html',1,'(Global Namespace)'],['../tests_2reweighted_8cc.html',1,'(Global Namespace)']]],
+  ['reweighted_2eh_669',['reweighted.h',['../reweighted_8h.html',1,'']]]
 ];

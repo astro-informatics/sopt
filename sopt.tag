@@ -52,8 +52,8 @@
     <name>conjugate_gradient.cc</name>
     <path>/home/runner/work/sopt/sopt/cpp/examples/</path>
     <filename>http://astro-informatics.github.io/sopt/examples_2conjugate__gradient_8cc.html</filename>
-    <includes id="conjugate__gradient_8h" name="conjugate_gradient.h" local="no" imported="no">sopt/conjugate_gradient.h</includes>
-    <includes id="types_8h" name="types.h" local="no" imported="no">sopt/types.h</includes>
+    <includes id="conjugate__gradient_8h" name="conjugate_gradient.h" local="yes" imported="no">sopt/conjugate_gradient.h</includes>
+    <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
     <member kind="function">
       <type>int</type>
       <name>main</name>
@@ -79,9 +79,9 @@
     <name>l1_proximal.cc</name>
     <path>/home/runner/work/sopt/sopt/cpp/benchmarks/</path>
     <filename>http://astro-informatics.github.io/sopt/benchmarks_2l1__proximal_8cc.html</filename>
-    <includes id="l1__proximal_8h" name="l1_proximal.h" local="no" imported="no">sopt/l1_proximal.h</includes>
-    <includes id="real__type_8h" name="real_type.h" local="no" imported="no">sopt/real_type.h</includes>
-    <includes id="types_8h" name="types.h" local="no" imported="no">sopt/types.h</includes>
+    <includes id="l1__proximal_8h" name="l1_proximal.h" local="yes" imported="no">sopt/l1_proximal.h</includes>
+    <includes id="real__type_8h" name="real_type.h" local="yes" imported="no">sopt/real_type.h</includes>
+    <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
     <member kind="function">
       <type>void</type>
       <name>function_l1p</name>
@@ -108,9 +108,9 @@
     <name>l1_proximal.cc</name>
     <path>/home/runner/work/sopt/sopt/cpp/examples/</path>
     <filename>http://astro-informatics.github.io/sopt/examples_2l1__proximal_8cc.html</filename>
-    <includes id="l1__proximal_8h" name="l1_proximal.h" local="no" imported="no">sopt/l1_proximal.h</includes>
-    <includes id="logging_8h" name="logging.h" local="no" imported="no">sopt/logging.h</includes>
-    <includes id="types_8h" name="types.h" local="no" imported="no">sopt/types.h</includes>
+    <includes id="l1__proximal_8h" name="l1_proximal.h" local="yes" imported="no">sopt/l1_proximal.h</includes>
+    <includes id="logging_8h" name="logging.h" local="yes" imported="no">sopt/logging.h</includes>
+    <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
     <member kind="function">
       <type>int</type>
       <name>main</name>
@@ -123,7 +123,7 @@
     <name>wavelets.cc</name>
     <path>/home/runner/work/sopt/sopt/cpp/benchmarks/</path>
     <filename>http://astro-informatics.github.io/sopt/benchmarks_2wavelets_8cc.html</filename>
-    <includes id="wavelets_2wavelets_8h" name="wavelets.h" local="no" imported="no">sopt/wavelets/wavelets.h</includes>
+    <includes id="wavelets_2wavelets_8h" name="wavelets.h" local="yes" imported="no">sopt/wavelets/wavelets.h</includes>
     <member kind="function">
       <type>unsigned</type>
       <name>get_size</name>
@@ -283,7 +283,7 @@
     <name>wavelets.cc</name>
     <path>/home/runner/work/sopt/sopt/cpp/examples/</path>
     <filename>http://astro-informatics.github.io/sopt/examples_2wavelets_8cc.html</filename>
-    <includes id="wavelets_2wavelets_8h" name="wavelets.h" local="no" imported="no">sopt/wavelets/wavelets.h</includes>
+    <includes id="wavelets_2wavelets_8h" name="wavelets.h" local="yes" imported="no">sopt/wavelets/wavelets.h</includes>
     <member kind="function">
       <type>int</type>
       <name>main</name>
@@ -437,16 +437,16 @@
     <name>inpainting.cc</name>
     <path>/home/runner/work/sopt/sopt/cpp/examples/forward_backward/</path>
     <filename>http://astro-informatics.github.io/sopt/examples_2forward__backward_2inpainting_8cc.html</filename>
-    <includes id="imaging__forward__backward_8h" name="imaging_forward_backward.h" local="no" imported="no">sopt/imaging_forward_backward.h</includes>
-    <includes id="l1__g__proximal_8h" name="l1_g_proximal.h" local="no" imported="no">sopt/l1_g_proximal.h</includes>
-    <includes id="logging_8h" name="logging.h" local="no" imported="no">sopt/logging.h</includes>
-    <includes id="maths_8h" name="maths.h" local="no" imported="no">sopt/maths.h</includes>
-    <includes id="relative__variation_8h" name="relative_variation.h" local="no" imported="no">sopt/relative_variation.h</includes>
-    <includes id="sampling_8h" name="sampling.h" local="no" imported="no">sopt/sampling.h</includes>
-    <includes id="types_8h" name="types.h" local="no" imported="no">sopt/types.h</includes>
-    <includes id="utilities_8h" name="utilities.h" local="no" imported="no">sopt/utilities.h</includes>
-    <includes id="wavelets_8h" name="wavelets.h" local="no" imported="no">sopt/wavelets.h</includes>
-    <includes id="tiffwrappers_8h" name="tiffwrappers.h" local="no" imported="no">tools_for_tests/tiffwrappers.h</includes>
+    <includes id="imaging__forward__backward_8h" name="imaging_forward_backward.h" local="yes" imported="no">sopt/imaging_forward_backward.h</includes>
+    <includes id="l1__g__proximal_8h" name="l1_g_proximal.h" local="yes" imported="no">sopt/l1_g_proximal.h</includes>
+    <includes id="logging_8h" name="logging.h" local="yes" imported="no">sopt/logging.h</includes>
+    <includes id="maths_8h" name="maths.h" local="yes" imported="no">sopt/maths.h</includes>
+    <includes id="relative__variation_8h" name="relative_variation.h" local="yes" imported="no">sopt/relative_variation.h</includes>
+    <includes id="sampling_8h" name="sampling.h" local="yes" imported="no">sopt/sampling.h</includes>
+    <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
+    <includes id="utilities_8h" name="utilities.h" local="yes" imported="no">sopt/utilities.h</includes>
+    <includes id="wavelets_8h" name="wavelets.h" local="yes" imported="no">sopt/wavelets.h</includes>
+    <includes id="tiffwrappers_8h" name="tiffwrappers.h" local="yes" imported="no">tools_for_tests/tiffwrappers.h</includes>
     <member kind="function">
       <type>int</type>
       <name>main</name>
@@ -460,16 +460,16 @@
     <path>/home/runner/work/sopt/sopt/cpp/examples/primal_dual/</path>
     <filename>http://astro-informatics.github.io/sopt/examples_2primal__dual_2inpainting_8cc.html</filename>
     <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
-    <includes id="imaging__primal__dual_8h" name="imaging_primal_dual.h" local="no" imported="no">sopt/imaging_primal_dual.h</includes>
-    <includes id="logging_8h" name="logging.h" local="no" imported="no">sopt/logging.h</includes>
-    <includes id="maths_8h" name="maths.h" local="no" imported="no">sopt/maths.h</includes>
-    <includes id="power__method_8h" name="power_method.h" local="no" imported="no">sopt/power_method.h</includes>
-    <includes id="relative__variation_8h" name="relative_variation.h" local="no" imported="no">sopt/relative_variation.h</includes>
-    <includes id="sampling_8h" name="sampling.h" local="no" imported="no">sopt/sampling.h</includes>
-    <includes id="utilities_8h" name="utilities.h" local="no" imported="no">sopt/utilities.h</includes>
-    <includes id="wavelets_8h" name="wavelets.h" local="no" imported="no">sopt/wavelets.h</includes>
-    <includes id="sara_8h" name="sara.h" local="no" imported="no">sopt/wavelets/sara.h</includes>
-    <includes id="tiffwrappers_8h" name="tiffwrappers.h" local="no" imported="no">tools_for_tests/tiffwrappers.h</includes>
+    <includes id="imaging__primal__dual_8h" name="imaging_primal_dual.h" local="yes" imported="no">sopt/imaging_primal_dual.h</includes>
+    <includes id="logging_8h" name="logging.h" local="yes" imported="no">sopt/logging.h</includes>
+    <includes id="maths_8h" name="maths.h" local="yes" imported="no">sopt/maths.h</includes>
+    <includes id="power__method_8h" name="power_method.h" local="yes" imported="no">sopt/power_method.h</includes>
+    <includes id="relative__variation_8h" name="relative_variation.h" local="yes" imported="no">sopt/relative_variation.h</includes>
+    <includes id="sampling_8h" name="sampling.h" local="yes" imported="no">sopt/sampling.h</includes>
+    <includes id="utilities_8h" name="utilities.h" local="yes" imported="no">sopt/utilities.h</includes>
+    <includes id="wavelets_8h" name="wavelets.h" local="yes" imported="no">sopt/wavelets.h</includes>
+    <includes id="sara_8h" name="sara.h" local="yes" imported="no">sopt/wavelets/sara.h</includes>
+    <includes id="tiffwrappers_8h" name="tiffwrappers.h" local="yes" imported="no">tools_for_tests/tiffwrappers.h</includes>
     <member kind="function">
       <type>int</type>
       <name>main</name>
@@ -482,15 +482,15 @@
     <name>inpainting.cc</name>
     <path>/home/runner/work/sopt/sopt/cpp/examples/proximal_admm/</path>
     <filename>http://astro-informatics.github.io/sopt/examples_2proximal__admm_2inpainting_8cc.html</filename>
-    <includes id="imaging__padmm_8h" name="imaging_padmm.h" local="no" imported="no">sopt/imaging_padmm.h</includes>
-    <includes id="logging_8h" name="logging.h" local="no" imported="no">sopt/logging.h</includes>
-    <includes id="maths_8h" name="maths.h" local="no" imported="no">sopt/maths.h</includes>
-    <includes id="relative__variation_8h" name="relative_variation.h" local="no" imported="no">sopt/relative_variation.h</includes>
-    <includes id="sampling_8h" name="sampling.h" local="no" imported="no">sopt/sampling.h</includes>
-    <includes id="types_8h" name="types.h" local="no" imported="no">sopt/types.h</includes>
-    <includes id="utilities_8h" name="utilities.h" local="no" imported="no">sopt/utilities.h</includes>
-    <includes id="wavelets_8h" name="wavelets.h" local="no" imported="no">sopt/wavelets.h</includes>
-    <includes id="tiffwrappers_8h" name="tiffwrappers.h" local="no" imported="no">tools_for_tests/tiffwrappers.h</includes>
+    <includes id="imaging__padmm_8h" name="imaging_padmm.h" local="yes" imported="no">sopt/imaging_padmm.h</includes>
+    <includes id="logging_8h" name="logging.h" local="yes" imported="no">sopt/logging.h</includes>
+    <includes id="maths_8h" name="maths.h" local="yes" imported="no">sopt/maths.h</includes>
+    <includes id="relative__variation_8h" name="relative_variation.h" local="yes" imported="no">sopt/relative_variation.h</includes>
+    <includes id="sampling_8h" name="sampling.h" local="yes" imported="no">sopt/sampling.h</includes>
+    <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
+    <includes id="utilities_8h" name="utilities.h" local="yes" imported="no">sopt/utilities.h</includes>
+    <includes id="wavelets_8h" name="wavelets.h" local="yes" imported="no">sopt/wavelets.h</includes>
+    <includes id="tiffwrappers_8h" name="tiffwrappers.h" local="yes" imported="no">tools_for_tests/tiffwrappers.h</includes>
     <member kind="function">
       <type>int</type>
       <name>main</name>
@@ -503,15 +503,15 @@
     <name>inpainting.cc</name>
     <path>/home/runner/work/sopt/sopt/cpp/examples/sdmm/</path>
     <filename>http://astro-informatics.github.io/sopt/examples_2sdmm_2inpainting_8cc.html</filename>
-    <includes id="logging_8h" name="logging.h" local="no" imported="no">sopt/logging.h</includes>
-    <includes id="maths_8h" name="maths.h" local="no" imported="no">sopt/maths.h</includes>
-    <includes id="relative__variation_8h" name="relative_variation.h" local="no" imported="no">sopt/relative_variation.h</includes>
-    <includes id="sampling_8h" name="sampling.h" local="no" imported="no">sopt/sampling.h</includes>
-    <includes id="sdmm_8h" name="sdmm.h" local="no" imported="no">sopt/sdmm.h</includes>
-    <includes id="types_8h" name="types.h" local="no" imported="no">sopt/types.h</includes>
-    <includes id="utilities_8h" name="utilities.h" local="no" imported="no">sopt/utilities.h</includes>
-    <includes id="wavelets_8h" name="wavelets.h" local="no" imported="no">sopt/wavelets.h</includes>
-    <includes id="tiffwrappers_8h" name="tiffwrappers.h" local="no" imported="no">tools_for_tests/tiffwrappers.h</includes>
+    <includes id="logging_8h" name="logging.h" local="yes" imported="no">sopt/logging.h</includes>
+    <includes id="maths_8h" name="maths.h" local="yes" imported="no">sopt/maths.h</includes>
+    <includes id="relative__variation_8h" name="relative_variation.h" local="yes" imported="no">sopt/relative_variation.h</includes>
+    <includes id="sampling_8h" name="sampling.h" local="yes" imported="no">sopt/sampling.h</includes>
+    <includes id="sdmm_8h" name="sdmm.h" local="yes" imported="no">sopt/sdmm.h</includes>
+    <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
+    <includes id="utilities_8h" name="utilities.h" local="yes" imported="no">sopt/utilities.h</includes>
+    <includes id="wavelets_8h" name="wavelets.h" local="yes" imported="no">sopt/wavelets.h</includes>
+    <includes id="tiffwrappers_8h" name="tiffwrappers.h" local="yes" imported="no">tools_for_tests/tiffwrappers.h</includes>
     <member kind="function">
       <type>int</type>
       <name>main</name>
@@ -524,16 +524,16 @@
     <name>inpainting.cc</name>
     <path>/home/runner/work/sopt/sopt/cpp/tests/</path>
     <filename>http://astro-informatics.github.io/sopt/tests_2inpainting_8cc.html</filename>
-    <includes id="imaging__forward__backward_8h" name="imaging_forward_backward.h" local="no" imported="no">sopt/imaging_forward_backward.h</includes>
-    <includes id="l1__g__proximal_8h" name="l1_g_proximal.h" local="no" imported="no">sopt/l1_g_proximal.h</includes>
-    <includes id="logging_8h" name="logging.h" local="no" imported="no">sopt/logging.h</includes>
-    <includes id="maths_8h" name="maths.h" local="no" imported="no">sopt/maths.h</includes>
-    <includes id="relative__variation_8h" name="relative_variation.h" local="no" imported="no">sopt/relative_variation.h</includes>
-    <includes id="sampling_8h" name="sampling.h" local="no" imported="no">sopt/sampling.h</includes>
-    <includes id="types_8h" name="types.h" local="no" imported="no">sopt/types.h</includes>
-    <includes id="utilities_8h" name="utilities.h" local="no" imported="no">sopt/utilities.h</includes>
-    <includes id="wavelets_8h" name="wavelets.h" local="no" imported="no">sopt/wavelets.h</includes>
-    <includes id="tiffwrappers_8h" name="tiffwrappers.h" local="no" imported="no">tools_for_tests/tiffwrappers.h</includes>
+    <includes id="imaging__forward__backward_8h" name="imaging_forward_backward.h" local="yes" imported="no">sopt/imaging_forward_backward.h</includes>
+    <includes id="l1__g__proximal_8h" name="l1_g_proximal.h" local="yes" imported="no">sopt/l1_g_proximal.h</includes>
+    <includes id="logging_8h" name="logging.h" local="yes" imported="no">sopt/logging.h</includes>
+    <includes id="maths_8h" name="maths.h" local="yes" imported="no">sopt/maths.h</includes>
+    <includes id="relative__variation_8h" name="relative_variation.h" local="yes" imported="no">sopt/relative_variation.h</includes>
+    <includes id="sampling_8h" name="sampling.h" local="yes" imported="no">sopt/sampling.h</includes>
+    <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
+    <includes id="utilities_8h" name="utilities.h" local="yes" imported="no">sopt/utilities.h</includes>
+    <includes id="wavelets_8h" name="wavelets.h" local="yes" imported="no">sopt/wavelets.h</includes>
+    <includes id="tiffwrappers_8h" name="tiffwrappers.h" local="yes" imported="no">tools_for_tests/tiffwrappers.h</includes>
     <member kind="typedef">
       <type>double</type>
       <name>Scalar</name>
@@ -574,17 +574,17 @@
     <name>inpainting_credible_interval.cc</name>
     <path>/home/runner/work/sopt/sopt/cpp/examples/forward_backward/</path>
     <filename>http://astro-informatics.github.io/sopt/inpainting__credible__interval_8cc.html</filename>
-    <includes id="credible__region_8h" name="credible_region.h" local="no" imported="no">sopt/credible_region.h</includes>
-    <includes id="imaging__forward__backward_8h" name="imaging_forward_backward.h" local="no" imported="no">sopt/imaging_forward_backward.h</includes>
-    <includes id="l1__g__proximal_8h" name="l1_g_proximal.h" local="no" imported="no">sopt/l1_g_proximal.h</includes>
-    <includes id="logging_8h" name="logging.h" local="no" imported="no">sopt/logging.h</includes>
-    <includes id="maths_8h" name="maths.h" local="no" imported="no">sopt/maths.h</includes>
-    <includes id="relative__variation_8h" name="relative_variation.h" local="no" imported="no">sopt/relative_variation.h</includes>
-    <includes id="sampling_8h" name="sampling.h" local="no" imported="no">sopt/sampling.h</includes>
-    <includes id="types_8h" name="types.h" local="no" imported="no">sopt/types.h</includes>
-    <includes id="utilities_8h" name="utilities.h" local="no" imported="no">sopt/utilities.h</includes>
-    <includes id="wavelets_8h" name="wavelets.h" local="no" imported="no">sopt/wavelets.h</includes>
-    <includes id="tiffwrappers_8h" name="tiffwrappers.h" local="no" imported="no">tools_for_tests/tiffwrappers.h</includes>
+    <includes id="credible__region_8h" name="credible_region.h" local="yes" imported="no">sopt/credible_region.h</includes>
+    <includes id="imaging__forward__backward_8h" name="imaging_forward_backward.h" local="yes" imported="no">sopt/imaging_forward_backward.h</includes>
+    <includes id="l1__g__proximal_8h" name="l1_g_proximal.h" local="yes" imported="no">sopt/l1_g_proximal.h</includes>
+    <includes id="logging_8h" name="logging.h" local="yes" imported="no">sopt/logging.h</includes>
+    <includes id="maths_8h" name="maths.h" local="yes" imported="no">sopt/maths.h</includes>
+    <includes id="relative__variation_8h" name="relative_variation.h" local="yes" imported="no">sopt/relative_variation.h</includes>
+    <includes id="sampling_8h" name="sampling.h" local="yes" imported="no">sopt/sampling.h</includes>
+    <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
+    <includes id="utilities_8h" name="utilities.h" local="yes" imported="no">sopt/utilities.h</includes>
+    <includes id="wavelets_8h" name="wavelets.h" local="yes" imported="no">sopt/wavelets.h</includes>
+    <includes id="tiffwrappers_8h" name="tiffwrappers.h" local="yes" imported="no">tools_for_tests/tiffwrappers.h</includes>
     <member kind="function">
       <type>int</type>
       <name>main</name>
@@ -597,17 +597,17 @@
     <name>inpainting_joint_map.cc</name>
     <path>/home/runner/work/sopt/sopt/cpp/examples/forward_backward/</path>
     <filename>http://astro-informatics.github.io/sopt/inpainting__joint__map_8cc.html</filename>
-    <includes id="imaging__forward__backward_8h" name="imaging_forward_backward.h" local="no" imported="no">sopt/imaging_forward_backward.h</includes>
-    <includes id="l1__g__proximal_8h" name="l1_g_proximal.h" local="no" imported="no">sopt/l1_g_proximal.h</includes>
-    <includes id="joint__map_8h" name="joint_map.h" local="no" imported="no">sopt/joint_map.h</includes>
-    <includes id="logging_8h" name="logging.h" local="no" imported="no">sopt/logging.h</includes>
-    <includes id="maths_8h" name="maths.h" local="no" imported="no">sopt/maths.h</includes>
-    <includes id="relative__variation_8h" name="relative_variation.h" local="no" imported="no">sopt/relative_variation.h</includes>
-    <includes id="sampling_8h" name="sampling.h" local="no" imported="no">sopt/sampling.h</includes>
-    <includes id="types_8h" name="types.h" local="no" imported="no">sopt/types.h</includes>
-    <includes id="utilities_8h" name="utilities.h" local="no" imported="no">sopt/utilities.h</includes>
-    <includes id="wavelets_8h" name="wavelets.h" local="no" imported="no">sopt/wavelets.h</includes>
-    <includes id="tiffwrappers_8h" name="tiffwrappers.h" local="no" imported="no">tools_for_tests/tiffwrappers.h</includes>
+    <includes id="imaging__forward__backward_8h" name="imaging_forward_backward.h" local="yes" imported="no">sopt/imaging_forward_backward.h</includes>
+    <includes id="l1__g__proximal_8h" name="l1_g_proximal.h" local="yes" imported="no">sopt/l1_g_proximal.h</includes>
+    <includes id="joint__map_8h" name="joint_map.h" local="yes" imported="no">sopt/joint_map.h</includes>
+    <includes id="logging_8h" name="logging.h" local="yes" imported="no">sopt/logging.h</includes>
+    <includes id="maths_8h" name="maths.h" local="yes" imported="no">sopt/maths.h</includes>
+    <includes id="relative__variation_8h" name="relative_variation.h" local="yes" imported="no">sopt/relative_variation.h</includes>
+    <includes id="sampling_8h" name="sampling.h" local="yes" imported="no">sopt/sampling.h</includes>
+    <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
+    <includes id="utilities_8h" name="utilities.h" local="yes" imported="no">sopt/utilities.h</includes>
+    <includes id="wavelets_8h" name="wavelets.h" local="yes" imported="no">sopt/wavelets.h</includes>
+    <includes id="tiffwrappers_8h" name="tiffwrappers.h" local="yes" imported="no">tools_for_tests/tiffwrappers.h</includes>
     <member kind="function">
       <type>int</type>
       <name>main</name>
@@ -620,15 +620,15 @@
     <name>l2_inpainting.cc</name>
     <path>/home/runner/work/sopt/sopt/cpp/examples/forward_backward/</path>
     <filename>http://astro-informatics.github.io/sopt/l2__inpainting_8cc.html</filename>
-    <includes id="l2__forward__backward_8h" name="l2_forward_backward.h" local="no" imported="no">sopt/l2_forward_backward.h</includes>
-    <includes id="logging_8h" name="logging.h" local="no" imported="no">sopt/logging.h</includes>
-    <includes id="maths_8h" name="maths.h" local="no" imported="no">sopt/maths.h</includes>
-    <includes id="relative__variation_8h" name="relative_variation.h" local="no" imported="no">sopt/relative_variation.h</includes>
-    <includes id="sampling_8h" name="sampling.h" local="no" imported="no">sopt/sampling.h</includes>
-    <includes id="types_8h" name="types.h" local="no" imported="no">sopt/types.h</includes>
-    <includes id="utilities_8h" name="utilities.h" local="no" imported="no">sopt/utilities.h</includes>
-    <includes id="wavelets_8h" name="wavelets.h" local="no" imported="no">sopt/wavelets.h</includes>
-    <includes id="tiffwrappers_8h" name="tiffwrappers.h" local="no" imported="no">tools_for_tests/tiffwrappers.h</includes>
+    <includes id="l2__forward__backward_8h" name="l2_forward_backward.h" local="yes" imported="no">sopt/l2_forward_backward.h</includes>
+    <includes id="logging_8h" name="logging.h" local="yes" imported="no">sopt/logging.h</includes>
+    <includes id="maths_8h" name="maths.h" local="yes" imported="no">sopt/maths.h</includes>
+    <includes id="relative__variation_8h" name="relative_variation.h" local="yes" imported="no">sopt/relative_variation.h</includes>
+    <includes id="sampling_8h" name="sampling.h" local="yes" imported="no">sopt/sampling.h</includes>
+    <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
+    <includes id="utilities_8h" name="utilities.h" local="yes" imported="no">sopt/utilities.h</includes>
+    <includes id="wavelets_8h" name="wavelets.h" local="yes" imported="no">sopt/wavelets.h</includes>
+    <includes id="tiffwrappers_8h" name="tiffwrappers.h" local="yes" imported="no">tools_for_tests/tiffwrappers.h</includes>
     <member kind="function">
       <type>int</type>
       <name>main</name>
@@ -641,8 +641,8 @@
     <name>l1_norm.cc</name>
     <path>/home/runner/work/sopt/sopt/cpp/examples/</path>
     <filename>http://astro-informatics.github.io/sopt/l1__norm_8cc.html</filename>
-    <includes id="maths_8h" name="maths.h" local="no" imported="no">sopt/maths.h</includes>
-    <includes id="types_8h" name="types.h" local="no" imported="no">sopt/types.h</includes>
+    <includes id="maths_8h" name="maths.h" local="yes" imported="no">sopt/maths.h</includes>
+    <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
     <member kind="function">
       <type>int</type>
       <name>main</name>
@@ -655,8 +655,8 @@
     <name>positive_quadrant_projection.cc</name>
     <path>/home/runner/work/sopt/sopt/cpp/examples/</path>
     <filename>http://astro-informatics.github.io/sopt/positive__quadrant__projection_8cc.html</filename>
-    <includes id="maths_8h" name="maths.h" local="no" imported="no">sopt/maths.h</includes>
-    <includes id="types_8h" name="types.h" local="no" imported="no">sopt/types.h</includes>
+    <includes id="maths_8h" name="maths.h" local="yes" imported="no">sopt/maths.h</includes>
+    <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
     <member kind="function">
       <type>int</type>
       <name>main</name>
@@ -669,7 +669,7 @@
     <name>power_method.cc</name>
     <path>/home/runner/work/sopt/sopt/cpp/examples/</path>
     <filename>http://astro-informatics.github.io/sopt/examples_2power__method_8cc.html</filename>
-    <includes id="power__method_8h" name="power_method.h" local="no" imported="no">sopt/power_method.h</includes>
+    <includes id="power__method_8h" name="power_method.h" local="yes" imported="no">sopt/power_method.h</includes>
     <member kind="function">
       <type>int</type>
       <name>main</name>
@@ -702,16 +702,16 @@
     <name>tv_inpainting.cc</name>
     <path>/home/runner/work/sopt/sopt/cpp/examples/primal_dual/</path>
     <filename>http://astro-informatics.github.io/sopt/tv__inpainting_8cc.html</filename>
-    <includes id="logging_8h" name="logging.h" local="no" imported="no">sopt/logging.h</includes>
-    <includes id="types_8h" name="types.h" local="no" imported="no">sopt/types.h</includes>
-    <includes id="gradient__operator_8h" name="gradient_operator.h" local="no" imported="no">sopt/gradient_operator.h</includes>
-    <includes id="maths_8h" name="maths.h" local="no" imported="no">sopt/maths.h</includes>
-    <includes id="power__method_8h" name="power_method.h" local="no" imported="no">sopt/power_method.h</includes>
-    <includes id="relative__variation_8h" name="relative_variation.h" local="no" imported="no">sopt/relative_variation.h</includes>
-    <includes id="sampling_8h" name="sampling.h" local="no" imported="no">sopt/sampling.h</includes>
-    <includes id="tv__primal__dual_8h" name="tv_primal_dual.h" local="no" imported="no">sopt/tv_primal_dual.h</includes>
-    <includes id="utilities_8h" name="utilities.h" local="no" imported="no">sopt/utilities.h</includes>
-    <includes id="tiffwrappers_8h" name="tiffwrappers.h" local="no" imported="no">tools_for_tests/tiffwrappers.h</includes>
+    <includes id="logging_8h" name="logging.h" local="yes" imported="no">sopt/logging.h</includes>
+    <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
+    <includes id="gradient__operator_8h" name="gradient_operator.h" local="yes" imported="no">sopt/gradient_operator.h</includes>
+    <includes id="maths_8h" name="maths.h" local="yes" imported="no">sopt/maths.h</includes>
+    <includes id="power__method_8h" name="power_method.h" local="yes" imported="no">sopt/power_method.h</includes>
+    <includes id="relative__variation_8h" name="relative_variation.h" local="yes" imported="no">sopt/relative_variation.h</includes>
+    <includes id="sampling_8h" name="sampling.h" local="yes" imported="no">sopt/sampling.h</includes>
+    <includes id="tv__primal__dual_8h" name="tv_primal_dual.h" local="yes" imported="no">sopt/tv_primal_dual.h</includes>
+    <includes id="utilities_8h" name="utilities.h" local="yes" imported="no">sopt/utilities.h</includes>
+    <includes id="tiffwrappers_8h" name="tiffwrappers.h" local="yes" imported="no">tools_for_tests/tiffwrappers.h</includes>
     <member kind="function">
       <type>int</type>
       <name>main</name>
@@ -724,10 +724,10 @@
     <name>euclidian_norm.cc</name>
     <path>/home/runner/work/sopt/sopt/cpp/examples/proximal_admm/</path>
     <filename>http://astro-informatics.github.io/sopt/proximal__admm_2euclidian__norm_8cc.html</filename>
-    <includes id="padmm_8h" name="padmm.h" local="no" imported="no">sopt/padmm.h</includes>
-    <includes id="proximal_8h" name="proximal.h" local="no" imported="no">sopt/proximal.h</includes>
-    <includes id="relative__variation_8h" name="relative_variation.h" local="no" imported="no">sopt/relative_variation.h</includes>
-    <includes id="types_8h" name="types.h" local="no" imported="no">sopt/types.h</includes>
+    <includes id="padmm_8h" name="padmm.h" local="yes" imported="no">sopt/padmm.h</includes>
+    <includes id="proximal_8h" name="proximal.h" local="yes" imported="no">sopt/proximal.h</includes>
+    <includes id="relative__variation_8h" name="relative_variation.h" local="yes" imported="no">sopt/relative_variation.h</includes>
+    <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
     <member kind="function">
       <type>int</type>
       <name>main</name>
@@ -740,8 +740,8 @@
     <name>euclidian_norm.cc</name>
     <path>/home/runner/work/sopt/sopt/cpp/examples/sdmm/</path>
     <filename>http://astro-informatics.github.io/sopt/sdmm_2euclidian__norm_8cc.html</filename>
-    <includes id="sdmm_8h" name="sdmm.h" local="no" imported="no">sopt/sdmm.h</includes>
-    <includes id="types_8h" name="types.h" local="no" imported="no">sopt/types.h</includes>
+    <includes id="sdmm_8h" name="sdmm.h" local="yes" imported="no">sopt/sdmm.h</includes>
+    <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
     <member kind="function">
       <type>int</type>
       <name>main</name>
@@ -754,18 +754,18 @@
     <name>reweighted.cc</name>
     <path>/home/runner/work/sopt/sopt/cpp/examples/proximal_admm/</path>
     <filename>http://astro-informatics.github.io/sopt/examples_2proximal__admm_2reweighted_8cc.html</filename>
-    <includes id="imaging__padmm_8h" name="imaging_padmm.h" local="no" imported="no">sopt/imaging_padmm.h</includes>
-    <includes id="logging_8h" name="logging.h" local="no" imported="no">sopt/logging.h</includes>
-    <includes id="maths_8h" name="maths.h" local="no" imported="no">sopt/maths.h</includes>
-    <includes id="positive__quadrant_8h" name="positive_quadrant.h" local="no" imported="no">sopt/positive_quadrant.h</includes>
-    <includes id="relative__variation_8h" name="relative_variation.h" local="no" imported="no">sopt/relative_variation.h</includes>
-    <includes id="reweighted_8h" name="reweighted.h" local="no" imported="no">sopt/reweighted.h</includes>
-    <includes id="sampling_8h" name="sampling.h" local="no" imported="no">sopt/sampling.h</includes>
-    <includes id="types_8h" name="types.h" local="no" imported="no">sopt/types.h</includes>
-    <includes id="utilities_8h" name="utilities.h" local="no" imported="no">sopt/utilities.h</includes>
-    <includes id="wavelets_8h" name="wavelets.h" local="no" imported="no">sopt/wavelets.h</includes>
-    <includes id="sara_8h" name="sara.h" local="no" imported="no">sopt/wavelets/sara.h</includes>
-    <includes id="tiffwrappers_8h" name="tiffwrappers.h" local="no" imported="no">tools_for_tests/tiffwrappers.h</includes>
+    <includes id="imaging__padmm_8h" name="imaging_padmm.h" local="yes" imported="no">sopt/imaging_padmm.h</includes>
+    <includes id="logging_8h" name="logging.h" local="yes" imported="no">sopt/logging.h</includes>
+    <includes id="maths_8h" name="maths.h" local="yes" imported="no">sopt/maths.h</includes>
+    <includes id="positive__quadrant_8h" name="positive_quadrant.h" local="yes" imported="no">sopt/positive_quadrant.h</includes>
+    <includes id="relative__variation_8h" name="relative_variation.h" local="yes" imported="no">sopt/relative_variation.h</includes>
+    <includes id="reweighted_8h" name="reweighted.h" local="yes" imported="no">sopt/reweighted.h</includes>
+    <includes id="sampling_8h" name="sampling.h" local="yes" imported="no">sopt/sampling.h</includes>
+    <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
+    <includes id="utilities_8h" name="utilities.h" local="yes" imported="no">sopt/utilities.h</includes>
+    <includes id="wavelets_8h" name="wavelets.h" local="yes" imported="no">sopt/wavelets.h</includes>
+    <includes id="sara_8h" name="sara.h" local="yes" imported="no">sopt/wavelets/sara.h</includes>
+    <includes id="tiffwrappers_8h" name="tiffwrappers.h" local="yes" imported="no">tools_for_tests/tiffwrappers.h</includes>
     <member kind="function">
       <type>int</type>
       <name>main</name>
@@ -778,17 +778,17 @@
     <name>reweighted.cc</name>
     <path>/home/runner/work/sopt/sopt/cpp/examples/sdmm/</path>
     <filename>http://astro-informatics.github.io/sopt/examples_2sdmm_2reweighted_8cc.html</filename>
-    <includes id="logging_8h" name="logging.h" local="no" imported="no">sopt/logging.h</includes>
-    <includes id="maths_8h" name="maths.h" local="no" imported="no">sopt/maths.h</includes>
-    <includes id="positive__quadrant_8h" name="positive_quadrant.h" local="no" imported="no">sopt/positive_quadrant.h</includes>
-    <includes id="relative__variation_8h" name="relative_variation.h" local="no" imported="no">sopt/relative_variation.h</includes>
-    <includes id="reweighted_8h" name="reweighted.h" local="no" imported="no">sopt/reweighted.h</includes>
-    <includes id="sampling_8h" name="sampling.h" local="no" imported="no">sopt/sampling.h</includes>
-    <includes id="sdmm_8h" name="sdmm.h" local="no" imported="no">sopt/sdmm.h</includes>
-    <includes id="types_8h" name="types.h" local="no" imported="no">sopt/types.h</includes>
-    <includes id="utilities_8h" name="utilities.h" local="no" imported="no">sopt/utilities.h</includes>
-    <includes id="wavelets_8h" name="wavelets.h" local="no" imported="no">sopt/wavelets.h</includes>
-    <includes id="tiffwrappers_8h" name="tiffwrappers.h" local="no" imported="no">tools_for_tests/tiffwrappers.h</includes>
+    <includes id="logging_8h" name="logging.h" local="yes" imported="no">sopt/logging.h</includes>
+    <includes id="maths_8h" name="maths.h" local="yes" imported="no">sopt/maths.h</includes>
+    <includes id="positive__quadrant_8h" name="positive_quadrant.h" local="yes" imported="no">sopt/positive_quadrant.h</includes>
+    <includes id="relative__variation_8h" name="relative_variation.h" local="yes" imported="no">sopt/relative_variation.h</includes>
+    <includes id="reweighted_8h" name="reweighted.h" local="yes" imported="no">sopt/reweighted.h</includes>
+    <includes id="sampling_8h" name="sampling.h" local="yes" imported="no">sopt/sampling.h</includes>
+    <includes id="sdmm_8h" name="sdmm.h" local="yes" imported="no">sopt/sdmm.h</includes>
+    <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
+    <includes id="utilities_8h" name="utilities.h" local="yes" imported="no">sopt/utilities.h</includes>
+    <includes id="wavelets_8h" name="wavelets.h" local="yes" imported="no">sopt/wavelets.h</includes>
+    <includes id="tiffwrappers_8h" name="tiffwrappers.h" local="yes" imported="no">tools_for_tests/tiffwrappers.h</includes>
     <member kind="function">
       <type>int</type>
       <name>main</name>
@@ -817,7 +817,7 @@
     <name>sara.cc</name>
     <path>/home/runner/work/sopt/sopt/cpp/examples/</path>
     <filename>http://astro-informatics.github.io/sopt/examples_2sara_8cc.html</filename>
-    <includes id="sara_8h" name="sara.h" local="no" imported="no">sopt/wavelets/sara.h</includes>
+    <includes id="sara_8h" name="sara.h" local="yes" imported="no">sopt/wavelets/sara.h</includes>
     <member kind="function">
       <type>int</type>
       <name>main</name>
@@ -866,8 +866,8 @@
     <name>soft_threshhold.cc</name>
     <path>/home/runner/work/sopt/sopt/cpp/examples/</path>
     <filename>http://astro-informatics.github.io/sopt/soft__threshhold_8cc.html</filename>
-    <includes id="maths_8h" name="maths.h" local="no" imported="no">sopt/maths.h</includes>
-    <includes id="types_8h" name="types.h" local="no" imported="no">sopt/types.h</includes>
+    <includes id="maths_8h" name="maths.h" local="yes" imported="no">sopt/maths.h</includes>
+    <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
     <member kind="function">
       <type>int</type>
       <name>main</name>
@@ -1038,6 +1038,13 @@
       <arglist>(sopt::Image&lt; double &gt; const &amp;image, int image_rows, int image_cols)</arglist>
     </member>
     <member kind="function">
+      <type>cppflow::tensor</type>
+      <name>convert_image_to_tensor</name>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1cppflowutils.html</anchorfile>
+      <anchor>a74317f4c5fdf3059f4b347a9d295221c</anchor>
+      <arglist>(sopt::Vector&lt; double &gt; const &amp;image, int image_rows, int image_cols)</arglist>
+    </member>
+    <member kind="function">
       <type>Eigen::Map&lt; Eigen::Array&lt; double, Eigen::Dynamic, Eigen::Dynamic &gt; &gt;</type>
       <name>convert_tensor_to_image</name>
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1cppflowutils.html</anchorfile>
@@ -1058,6 +1065,13 @@
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1cppflowutils.html</anchorfile>
       <anchor>a3db2be4ce233b68cb59e14bb41479afa</anchor>
       <arglist>(sopt::Image&lt; double &gt; const &amp;image, int image_rows, int image_cols)</arglist>
+    </member>
+    <member kind="function">
+      <type>cppflow::tensor</type>
+      <name>convert_image_to_tensor</name>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1cppflowutils.html</anchorfile>
+      <anchor>a74317f4c5fdf3059f4b347a9d295221c</anchor>
+      <arglist>(sopt::Vector&lt; double &gt; const &amp;image, int image_rows, int image_cols)</arglist>
     </member>
     <member kind="function">
       <type>Eigen::Map&lt; Eigen::Array&lt; double, Eigen::Dynamic, Eigen::Dynamic &gt; &gt;</type>
@@ -2373,6 +2387,23 @@
     </member>
   </compound>
   <compound kind="file">
+    <name>tf_g_proximal.h</name>
+    <path>/home/runner/work/sopt/sopt/cpp/sopt/</path>
+    <filename>http://astro-informatics.github.io/sopt/tf__g__proximal_8h.html</filename>
+    <includes id="exception_8h" name="exception.h" local="yes" imported="no">sopt/exception.h</includes>
+    <includes id="forward__backward_8h" name="forward_backward.h" local="yes" imported="no">sopt/forward_backward.h</includes>
+    <includes id="linear__transform_8h" name="linear_transform.h" local="yes" imported="no">sopt/linear_transform.h</includes>
+    <includes id="logging_8h" name="logging.h" local="yes" imported="no">sopt/logging.h</includes>
+    <includes id="proximal_8h" name="proximal.h" local="yes" imported="no">sopt/proximal.h</includes>
+    <includes id="relative__variation_8h" name="relative_variation.h" local="yes" imported="no">sopt/relative_variation.h</includes>
+    <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
+    <includes id="g__proximal_8h" name="g_proximal.h" local="yes" imported="no">sopt/g_proximal.h</includes>
+    <includes id="cppflow__utils_8h" name="cppflow_utils.h" local="yes" imported="no">sopt/cppflow_utils.h</includes>
+    <class kind="class">sopt::algorithm::TFGProximal</class>
+    <namespace>sopt</namespace>
+    <namespace>sopt::algorithm</namespace>
+  </compound>
+  <compound kind="file">
     <name>tv_primal_dual.h</name>
     <path>/home/runner/work/sopt/sopt/cpp/sopt/</path>
     <filename>http://astro-informatics.github.io/sopt/tv__primal__dual_8h.html</filename>
@@ -3169,8 +3200,8 @@
     <name>common_mpi_catch_main.cc</name>
     <path>/home/runner/work/sopt/sopt/cpp/tests/</path>
     <filename>http://astro-informatics.github.io/sopt/common__mpi__catch__main_8cc.html</filename>
-    <includes id="logging_8h" name="logging.h" local="no" imported="no">sopt/logging.h</includes>
-    <includes id="session_8h" name="session.h" local="no" imported="no">sopt/mpi/session.h</includes>
+    <includes id="logging_8h" name="logging.h" local="yes" imported="no">sopt/logging.h</includes>
+    <includes id="session_8h" name="session.h" local="yes" imported="no">sopt/mpi/session.h</includes>
     <member kind="define">
       <type>#define</type>
       <name>CATCH_CONFIG_RUNNER</name>
@@ -3197,11 +3228,11 @@
     <name>cppflow_model.cc</name>
     <path>/home/runner/work/sopt/sopt/cpp/tests/</path>
     <filename>http://astro-informatics.github.io/sopt/cppflow__model_8cc.html</filename>
-    <includes id="logging_8h" name="logging.h" local="no" imported="no">sopt/logging.h</includes>
-    <includes id="types_8h" name="types.h" local="no" imported="no">sopt/types.h</includes>
-    <includes id="utilities_8h" name="utilities.h" local="no" imported="no">sopt/utilities.h</includes>
-    <includes id="cppflow__utils_8h" name="cppflow_utils.h" local="no" imported="no">sopt/cppflow_utils.h</includes>
-    <includes id="tiffwrappers_8h" name="tiffwrappers.h" local="no" imported="no">tools_for_tests/tiffwrappers.h</includes>
+    <includes id="logging_8h" name="logging.h" local="yes" imported="no">sopt/logging.h</includes>
+    <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
+    <includes id="utilities_8h" name="utilities.h" local="yes" imported="no">sopt/utilities.h</includes>
+    <includes id="cppflow__utils_8h" name="cppflow_utils.h" local="yes" imported="no">sopt/cppflow_utils.h</includes>
+    <includes id="tiffwrappers_8h" name="tiffwrappers.h" local="yes" imported="no">tools_for_tests/tiffwrappers.h</includes>
     <member kind="typedef">
       <type>double</type>
       <name>Scalar</name>
@@ -3306,13 +3337,13 @@
     <name>forward_backward.cc</name>
     <path>/home/runner/work/sopt/sopt/cpp/tests/</path>
     <filename>http://astro-informatics.github.io/sopt/forward__backward_8cc.html</filename>
-    <includes id="imaging__forward__backward_8h" name="imaging_forward_backward.h" local="no" imported="no">sopt/imaging_forward_backward.h</includes>
-    <includes id="l1__g__proximal_8h" name="l1_g_proximal.h" local="no" imported="no">sopt/l1_g_proximal.h</includes>
-    <includes id="logging_8h" name="logging.h" local="no" imported="no">sopt/logging.h</includes>
-    <includes id="maths_8h" name="maths.h" local="no" imported="no">sopt/maths.h</includes>
-    <includes id="proximal_8h" name="proximal.h" local="no" imported="no">sopt/proximal.h</includes>
-    <includes id="types_8h" name="types.h" local="no" imported="no">sopt/types.h</includes>
-    <includes id="tiffwrappers_8h" name="tiffwrappers.h" local="no" imported="no">tools_for_tests/tiffwrappers.h</includes>
+    <includes id="imaging__forward__backward_8h" name="imaging_forward_backward.h" local="yes" imported="no">sopt/imaging_forward_backward.h</includes>
+    <includes id="l1__g__proximal_8h" name="l1_g_proximal.h" local="yes" imported="no">sopt/l1_g_proximal.h</includes>
+    <includes id="logging_8h" name="logging.h" local="yes" imported="no">sopt/logging.h</includes>
+    <includes id="maths_8h" name="maths.h" local="yes" imported="no">sopt/maths.h</includes>
+    <includes id="proximal_8h" name="proximal.h" local="yes" imported="no">sopt/proximal.h</includes>
+    <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
+    <includes id="tiffwrappers_8h" name="tiffwrappers.h" local="yes" imported="no">tools_for_tests/tiffwrappers.h</includes>
     <class kind="struct">is_imaging_proximal_ref</class>
     <class kind="struct">is_l1_g_proximal_ref</class>
     <member kind="typedef">
@@ -3334,13 +3365,6 @@
       <name>t_real</name>
       <anchorfile>forward__backward_8cc.html</anchorfile>
       <anchor>a06ea74880cd1ee9d09d85ebee340d286</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="typedef">
-      <type>sopt::LinearTransform&lt; t_Vector &gt;</type>
-      <name>t_LinearTransform</name>
-      <anchorfile>forward__backward_8cc.html</anchorfile>
-      <anchor>af3ed7d85c025162a8743f39e190ecf15</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -3376,10 +3400,10 @@
     <name>gradient_operator.cc</name>
     <path>/home/runner/work/sopt/sopt/cpp/tests/</path>
     <filename>http://astro-informatics.github.io/sopt/gradient__operator_8cc.html</filename>
-    <includes id="gradient__operator_8h" name="gradient_operator.h" local="no" imported="no">sopt/gradient_operator.h</includes>
-    <includes id="types_8h" name="types.h" local="no" imported="no">sopt/types.h</includes>
-    <includes id="utilities_8h" name="utilities.h" local="no" imported="no">sopt/utilities.h</includes>
-    <includes id="tiffwrappers_8h" name="tiffwrappers.h" local="no" imported="no">tools_for_tests/tiffwrappers.h</includes>
+    <includes id="gradient__operator_8h" name="gradient_operator.h" local="yes" imported="no">sopt/gradient_operator.h</includes>
+    <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
+    <includes id="utilities_8h" name="utilities.h" local="yes" imported="no">sopt/utilities.h</includes>
+    <includes id="tiffwrappers_8h" name="tiffwrappers.h" local="yes" imported="no">tools_for_tests/tiffwrappers.h</includes>
     <member kind="function">
       <type></type>
       <name>TEST_CASE</name>
@@ -3498,8 +3522,8 @@
     <name>mpi_session.cc</name>
     <path>/home/runner/work/sopt/sopt/cpp/tests/</path>
     <filename>http://astro-informatics.github.io/sopt/mpi__session_8cc.html</filename>
-    <includes id="logging_8h" name="logging.h" local="no" imported="no">sopt/logging.h</includes>
-    <includes id="session_8h" name="session.h" local="no" imported="no">sopt/mpi/session.h</includes>
+    <includes id="logging_8h" name="logging.h" local="yes" imported="no">sopt/logging.h</includes>
+    <includes id="session_8h" name="session.h" local="yes" imported="no">sopt/mpi/session.h</includes>
     <member kind="define">
       <type>#define</type>
       <name>CATCH_CONFIG_RUNNER</name>
@@ -3880,23 +3904,72 @@
     <name>serial_vs_parallel_padmm.cc</name>
     <path>/home/runner/work/sopt/sopt/cpp/tests/</path>
     <filename>http://astro-informatics.github.io/sopt/serial__vs__parallel__padmm_8cc.html</filename>
-    <includes id="imaging__padmm_8h" name="imaging_padmm.h" local="no" imported="no">sopt/imaging_padmm.h</includes>
-    <includes id="logging_8h" name="logging.h" local="no" imported="no">sopt/logging.h</includes>
-    <includes id="maths_8h" name="maths.h" local="no" imported="no">sopt/maths.h</includes>
-    <includes id="communicator_8h" name="communicator.h" local="no" imported="no">sopt/mpi/communicator.h</includes>
-    <includes id="mpi_2utilities_8h" name="utilities.h" local="no" imported="no">sopt/mpi/utilities.h</includes>
-    <includes id="relative__variation_8h" name="relative_variation.h" local="no" imported="no">sopt/relative_variation.h</includes>
-    <includes id="sampling_8h" name="sampling.h" local="no" imported="no">sopt/sampling.h</includes>
-    <includes id="types_8h" name="types.h" local="no" imported="no">sopt/types.h</includes>
-    <includes id="utilities_8h" name="utilities.h" local="no" imported="no">sopt/utilities.h</includes>
-    <includes id="wavelets_8h" name="wavelets.h" local="no" imported="no">sopt/wavelets.h</includes>
-    <includes id="tiffwrappers_8h" name="tiffwrappers.h" local="no" imported="no">tools_for_tests/tiffwrappers.h</includes>
+    <includes id="imaging__padmm_8h" name="imaging_padmm.h" local="yes" imported="no">sopt/imaging_padmm.h</includes>
+    <includes id="logging_8h" name="logging.h" local="yes" imported="no">sopt/logging.h</includes>
+    <includes id="maths_8h" name="maths.h" local="yes" imported="no">sopt/maths.h</includes>
+    <includes id="communicator_8h" name="communicator.h" local="yes" imported="no">sopt/mpi/communicator.h</includes>
+    <includes id="mpi_2utilities_8h" name="utilities.h" local="yes" imported="no">sopt/mpi/utilities.h</includes>
+    <includes id="relative__variation_8h" name="relative_variation.h" local="yes" imported="no">sopt/relative_variation.h</includes>
+    <includes id="sampling_8h" name="sampling.h" local="yes" imported="no">sopt/sampling.h</includes>
+    <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
+    <includes id="utilities_8h" name="utilities.h" local="yes" imported="no">sopt/utilities.h</includes>
+    <includes id="wavelets_8h" name="wavelets.h" local="yes" imported="no">sopt/wavelets.h</includes>
+    <includes id="tiffwrappers_8h" name="tiffwrappers.h" local="yes" imported="no">tools_for_tests/tiffwrappers.h</includes>
     <member kind="function">
       <type></type>
       <name>TEST_CASE</name>
       <anchorfile>serial__vs__parallel__padmm_8cc.html</anchorfile>
       <anchor>a922743020198d60a7b037f8d17066a83</anchor>
       <arglist>(&quot;Parallel vs serial inpainting&quot;)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>tf_inpainting.cc</name>
+    <path>/home/runner/work/sopt/sopt/cpp/tests/</path>
+    <filename>http://astro-informatics.github.io/sopt/tf__inpainting_8cc.html</filename>
+    <includes id="imaging__forward__backward_8h" name="imaging_forward_backward.h" local="yes" imported="no">sopt/imaging_forward_backward.h</includes>
+    <includes id="tf__g__proximal_8h" name="tf_g_proximal.h" local="yes" imported="no">sopt/tf_g_proximal.h</includes>
+    <includes id="logging_8h" name="logging.h" local="yes" imported="no">sopt/logging.h</includes>
+    <includes id="maths_8h" name="maths.h" local="yes" imported="no">sopt/maths.h</includes>
+    <includes id="relative__variation_8h" name="relative_variation.h" local="yes" imported="no">sopt/relative_variation.h</includes>
+    <includes id="sampling_8h" name="sampling.h" local="yes" imported="no">sopt/sampling.h</includes>
+    <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
+    <includes id="utilities_8h" name="utilities.h" local="yes" imported="no">sopt/utilities.h</includes>
+    <includes id="tiffwrappers_8h" name="tiffwrappers.h" local="yes" imported="no">tools_for_tests/tiffwrappers.h</includes>
+    <member kind="typedef">
+      <type>double</type>
+      <name>Scalar</name>
+      <anchorfile>tf__inpainting_8cc.html</anchorfile>
+      <anchor>a508fc58b5dc3c81865305f6498457063</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>sopt::Vector&lt; Scalar &gt;</type>
+      <name>Vector</name>
+      <anchorfile>tf__inpainting_8cc.html</anchorfile>
+      <anchor>a6fd0dc2cf65e56d59d152836caa7a634</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>sopt::Matrix&lt; Scalar &gt;</type>
+      <name>Matrix</name>
+      <anchorfile>tf__inpainting_8cc.html</anchorfile>
+      <anchor>a13b14861c460865de4cd78381e258bf4</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>sopt::Image&lt; Scalar &gt;</type>
+      <name>Image</name>
+      <anchorfile>tf__inpainting_8cc.html</anchorfile>
+      <anchor>a597c232bc74255c74fa9d7b0dadff132</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST_CASE</name>
+      <anchorfile>tf__inpainting_8cc.html</anchorfile>
+      <anchor>a4e85c74adb906d5a3d0a1c2be49ebc78</anchor>
+      <arglist>(&quot;Inpainting&quot;)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -3938,9 +4011,9 @@
     <name>copy_tiff.cc</name>
     <path>/home/runner/work/sopt/sopt/cpp/tools_for_tests/</path>
     <filename>http://astro-informatics.github.io/sopt/copy__tiff_8cc.html</filename>
-    <includes id="tiffwrappers_8h" name="tiffwrappers.h" local="no" imported="no">tools_for_tests/tiffwrappers.h</includes>
-    <includes id="logging_8h" name="logging.h" local="no" imported="no">sopt/logging.h</includes>
-    <includes id="utilities_8h" name="utilities.h" local="no" imported="no">sopt/utilities.h</includes>
+    <includes id="tiffwrappers_8h" name="tiffwrappers.h" local="yes" imported="no">tools_for_tests/tiffwrappers.h</includes>
+    <includes id="logging_8h" name="logging.h" local="yes" imported="no">sopt/logging.h</includes>
+    <includes id="utilities_8h" name="utilities.h" local="yes" imported="no">sopt/utilities.h</includes>
     <member kind="function">
       <type>int</type>
       <name>main</name>
@@ -3981,8 +4054,8 @@
     <name>inpainting.h</name>
     <path>/home/runner/work/sopt/sopt/cpp/tools_for_tests/</path>
     <filename>http://astro-informatics.github.io/sopt/inpainting_8h.html</filename>
-    <includes id="linear__transform_8h" name="linear_transform.h" local="no" imported="no">sopt/linear_transform.h</includes>
-    <includes id="types_8h" name="types.h" local="no" imported="no">sopt/types.h</includes>
+    <includes id="linear__transform_8h" name="linear_transform.h" local="yes" imported="no">sopt/linear_transform.h</includes>
+    <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
     <namespace>sopt</namespace>
     <member kind="function">
       <type>Vector&lt; T &gt;</type>
@@ -5272,6 +5345,13 @@
       <type></type>
       <name>SOPT_MACRO</name>
       <anchorfile>classsopt_1_1algorithm_1_1ForwardBackward.html</anchorfile>
+      <anchor>a5993c55188e2008f3cfa01d1df62fd3f</anchor>
+      <arglist>(fista, bool)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SOPT_MACRO</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ForwardBackward.html</anchorfile>
       <anchor>a0eab3dd46b4505b46b538e62b306e135</anchor>
       <arglist>(is_converged, t_IsConverged)</arglist>
     </member>
@@ -5658,6 +5738,13 @@
       <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
       <anchor>ab29954b1591cdc72830b641eb8143527</anchor>
       <arglist>(nu, Real)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SOPT_MACRO</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
+      <anchor>ad1e5e2b587a87f086b5a11031c1871d3</anchor>
+      <arglist>(fista, bool)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -7150,34 +7237,6 @@
       <arglist>(ARGS &amp;&amp;... args)</arglist>
     </member>
     <member kind="function">
-      <type>Real</type>
-      <name>beta</name>
-      <anchorfile>classsopt_1_1proximal_1_1L1.html</anchorfile>
-      <anchor>ad86b30d0ce44a46d53b73db0f79b8010</anchor>
-      <arglist>() const</arglist>
-    </member>
-    <member kind="function">
-      <type>L1&lt; Scalar &gt; &amp;</type>
-      <name>beta</name>
-      <anchorfile>classsopt_1_1proximal_1_1L1.html</anchorfile>
-      <anchor>ad9b5242d5f6a9786d7f890f4beb5e74a</anchor>
-      <arglist>(Real const &amp;beta)</arglist>
-    </member>
-    <member kind="function">
-      <type>const LinearTransform&lt; Vector&lt; Scalar &gt; &gt; &amp;</type>
-      <name>Phi</name>
-      <anchorfile>classsopt_1_1proximal_1_1L1.html</anchorfile>
-      <anchor>a2171380b056f1429b7c12e9865e2fddb</anchor>
-      <arglist>() const</arglist>
-    </member>
-    <member kind="function">
-      <type>L1&lt; Scalar &gt; &amp;::type</type>
-      <name>Phi</name>
-      <anchorfile>classsopt_1_1proximal_1_1L1.html</anchorfile>
-      <anchor>a6c3919b19866ece9b990ec7d91f4fad9</anchor>
-      <arglist>(ARGS &amp;&amp;... args)</arglist>
-    </member>
-    <member kind="function">
       <type>auto</type>
       <name>tight_frame</name>
       <anchorfile>classsopt_1_1proximal_1_1L1.html</anchorfile>
@@ -7306,34 +7365,6 @@
       <name>Psi</name>
       <anchorfile>classsopt_1_1proximal_1_1L1.html</anchorfile>
       <anchor>a7ee0a8c05b73d177e5733470bc71f577</anchor>
-      <arglist>(ARGS &amp;&amp;... args)</arglist>
-    </member>
-    <member kind="function">
-      <type>Real</type>
-      <name>beta</name>
-      <anchorfile>classsopt_1_1proximal_1_1L1.html</anchorfile>
-      <anchor>ad86b30d0ce44a46d53b73db0f79b8010</anchor>
-      <arglist>() const</arglist>
-    </member>
-    <member kind="function">
-      <type>L1&lt; Scalar &gt; &amp;</type>
-      <name>beta</name>
-      <anchorfile>classsopt_1_1proximal_1_1L1.html</anchorfile>
-      <anchor>ad9b5242d5f6a9786d7f890f4beb5e74a</anchor>
-      <arglist>(Real const &amp;beta)</arglist>
-    </member>
-    <member kind="function">
-      <type>const LinearTransform&lt; Vector&lt; Scalar &gt; &gt; &amp;</type>
-      <name>Phi</name>
-      <anchorfile>classsopt_1_1proximal_1_1L1.html</anchorfile>
-      <anchor>a2171380b056f1429b7c12e9865e2fddb</anchor>
-      <arglist>() const</arglist>
-    </member>
-    <member kind="function">
-      <type>L1&lt; Scalar &gt; &amp;::type</type>
-      <name>Phi</name>
-      <anchorfile>classsopt_1_1proximal_1_1L1.html</anchorfile>
-      <anchor>a6c3919b19866ece9b990ec7d91f4fad9</anchor>
       <arglist>(ARGS &amp;&amp;... args)</arglist>
     </member>
     <member kind="function">
@@ -7493,22 +7524,8 @@
       <type></type>
       <name>SOPT_MACRO</name>
       <anchorfile>classsopt_1_1algorithm_1_1L1GProximal.html</anchorfile>
-      <anchor>ac78f1e7cfc28c823575ad7154e333714</anchor>
-      <arglist>(beta, Real)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>SOPT_MACRO</name>
-      <anchorfile>classsopt_1_1algorithm_1_1L1GProximal.html</anchorfile>
       <anchor>a3f28cf25ed95206384175207bb4b40ec</anchor>
       <arglist>(weights, t_Vector)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>SOPT_MACRO</name>
-      <anchorfile>classsopt_1_1algorithm_1_1L1GProximal.html</anchorfile>
-      <anchor>a800ffb19b25c9d301ec6feac79db737b</anchor>
-      <arglist>(Phi, t_LinearTransform)</arglist>
     </member>
     <member kind="function">
       <type>L1GProximal&lt; SCALAR &gt; &amp;::type</type>
@@ -7554,15 +7571,8 @@
       <type></type>
       <name>SOPT_MACRO</name>
       <anchorfile>classsopt_1_1proximal_1_1L1TightFrame.html</anchorfile>
-      <anchor>a707f4c62176d17811dbfb3d8207c9abb</anchor>
-      <arglist>(Phi, LinearTransform&lt; Vector&lt; Scalar &gt;&gt;)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>SOPT_MACRO</name>
-      <anchorfile>classsopt_1_1proximal_1_1L1TightFrame.html</anchorfile>
-      <anchor>a37ae2d6839e48bed24605a8963be8573</anchor>
-      <arglist>(beta, Real)</arglist>
+      <anchor>a3a2d8f5859f8dfec122c5ddd5b0838cc</anchor>
+      <arglist>(nu, Real)</arglist>
     </member>
     <member kind="function">
       <type>const Vector&lt; Real &gt; &amp;</type>
@@ -7649,15 +7659,8 @@
       <type></type>
       <name>SOPT_MACRO</name>
       <anchorfile>classsopt_1_1proximal_1_1L1TightFrame.html</anchorfile>
-      <anchor>a707f4c62176d17811dbfb3d8207c9abb</anchor>
-      <arglist>(Phi, LinearTransform&lt; Vector&lt; Scalar &gt;&gt;)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>SOPT_MACRO</name>
-      <anchorfile>classsopt_1_1proximal_1_1L1TightFrame.html</anchorfile>
-      <anchor>a37ae2d6839e48bed24605a8963be8573</anchor>
-      <arglist>(beta, Real)</arglist>
+      <anchor>a3a2d8f5859f8dfec122c5ddd5b0838cc</anchor>
+      <arglist>(nu, Real)</arglist>
     </member>
     <member kind="function">
       <type>const Vector&lt; Real &gt; &amp;</type>
@@ -10191,6 +10194,103 @@
       <arglist>(t_Vector const &amp;x) const</arglist>
     </member>
   </compound>
+  <compound kind="class">
+    <name>sopt::algorithm::TFGProximal</name>
+    <filename>http://astro-informatics.github.io/sopt/classsopt_1_1algorithm_1_1TFGProximal.html</filename>
+    <templarg></templarg>
+    <base>GProximal</base>
+    <member kind="typedef">
+      <type>ForwardBackward&lt; SCALAR &gt;</type>
+      <name>FB</name>
+      <anchorfile>classsopt_1_1algorithm_1_1TFGProximal.html</anchorfile>
+      <anchor>a8d9d726de2d13522f8f2c66df2987a52</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>FB::Real</type>
+      <name>Real</name>
+      <anchorfile>classsopt_1_1algorithm_1_1TFGProximal.html</anchorfile>
+      <anchor>ae2bf0418fdaeef3a8d290790305d6aed</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>FB::Scalar</type>
+      <name>Scalar</name>
+      <anchorfile>classsopt_1_1algorithm_1_1TFGProximal.html</anchorfile>
+      <anchor>ab11afc411791e04d3cd073091b110588</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>FB::t_Vector</type>
+      <name>t_Vector</name>
+      <anchorfile>classsopt_1_1algorithm_1_1TFGProximal.html</anchorfile>
+      <anchor>aff990fe7976b6cb89149e9c520b99d11</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>FB::t_Proximal</type>
+      <name>t_Proximal</name>
+      <anchorfile>classsopt_1_1algorithm_1_1TFGProximal.html</anchorfile>
+      <anchor>aa29a394481d31b343017cf1913598f77</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>FB::t_LinearTransform</type>
+      <name>t_LinearTransform</name>
+      <anchorfile>classsopt_1_1algorithm_1_1TFGProximal.html</anchorfile>
+      <anchor>a0b16324ed6f2ad452a084aca3fc77d92</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TFGProximal</name>
+      <anchorfile>classsopt_1_1algorithm_1_1TFGProximal.html</anchorfile>
+      <anchor>a7bac2fe9a426854d0eb96f8149bef88d</anchor>
+      <arglist>(std::string path)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TFGProximal</name>
+      <anchorfile>classsopt_1_1algorithm_1_1TFGProximal.html</anchorfile>
+      <anchor>ae6d92dd58c619a6a5609e09635b7d112</anchor>
+      <arglist>(std::string path, const int rows, const int cols)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>~TFGProximal</name>
+      <anchorfile>classsopt_1_1algorithm_1_1TFGProximal.html</anchorfile>
+      <anchor>a006fc3e639234bb2a841c3c84e94066a</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>log_message</name>
+      <anchorfile>classsopt_1_1algorithm_1_1TFGProximal.html</anchorfile>
+      <anchor>a78359a395a2fb5f9358a0a139c7f65e9</anchor>
+      <arglist>() const override</arglist>
+    </member>
+    <member kind="function">
+      <type>Real</type>
+      <name>proximal_norm</name>
+      <anchorfile>classsopt_1_1algorithm_1_1TFGProximal.html</anchorfile>
+      <anchor>a45f8b05c6ac90ef9be4971fedb40527b</anchor>
+      <arglist>(t_Vector const &amp;x) const override</arglist>
+    </member>
+    <member kind="function">
+      <type>t_Proximal</type>
+      <name>proximal_function</name>
+      <anchorfile>classsopt_1_1algorithm_1_1TFGProximal.html</anchorfile>
+      <anchor>a9ac2ca8e4cc93369d482529ca792075e</anchor>
+      <arglist>() const override</arglist>
+    </member>
+    <member kind="function">
+      <type>const t_LinearTransform &amp;</type>
+      <name>Psi</name>
+      <anchorfile>classsopt_1_1algorithm_1_1TFGProximal.html</anchorfile>
+      <anchor>a0d28b095fff87afde143674f34ba675d</anchor>
+      <arglist>() const override</arglist>
+    </member>
+  </compound>
   <compound kind="struct">
     <name>Eigen::internal::traits&lt; sopt::details::AppliedFunction&lt; FUNCTION, VECTOR &gt; &gt;</name>
     <filename>http://astro-informatics.github.io/sopt/structEigen_1_1internal_1_1traits_3_01sopt_1_1details_1_1AppliedFunction_3_01FUNCTION_00_01VECTOR_01_4_01_4.html</filename>
@@ -11571,6 +11671,7 @@
     <class kind="class">sopt::algorithm::ProximalADMM</class>
     <class kind="class">sopt::algorithm::Reweighted</class>
     <class kind="class">sopt::algorithm::SDMM</class>
+    <class kind="class">sopt::algorithm::TFGProximal</class>
     <class kind="class">sopt::algorithm::TVPrimalDual</class>
     <member kind="function">
       <type>PositiveQuadrant&lt; ALGORITHM &gt;</type>
@@ -11638,6 +11739,13 @@
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1cppflowutils.html</anchorfile>
       <anchor>a3db2be4ce233b68cb59e14bb41479afa</anchor>
       <arglist>(sopt::Image&lt; double &gt; const &amp;image, int image_rows, int image_cols)</arglist>
+    </member>
+    <member kind="function">
+      <type>cppflow::tensor</type>
+      <name>convert_image_to_tensor</name>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1cppflowutils.html</anchorfile>
+      <anchor>a74317f4c5fdf3059f4b347a9d295221c</anchor>
+      <arglist>(sopt::Vector&lt; double &gt; const &amp;image, int image_rows, int image_cols)</arglist>
     </member>
     <member kind="function">
       <type>Eigen::Map&lt; Eigen::Array&lt; double, Eigen::Dynamic, Eigen::Dynamic &gt; &gt;</type>

@@ -88,19 +88,19 @@ $(function() {
 <code>#include &lt;random&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;ctime&gt;</code><br />
-<code>#include &lt;<a class="el" href="imaging__padmm_8h_source.html">sopt/imaging_padmm.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="logging_8h_source.html">sopt/logging.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="maths_8h_source.html">sopt/maths.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="positive__quadrant_8h_source.html">sopt/positive_quadrant.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="relative__variation_8h_source.html">sopt/relative_variation.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="reweighted_8h_source.html">sopt/reweighted.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="sampling_8h_source.html">sopt/sampling.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="types_8h_source.html">sopt/types.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="utilities_8h_source.html">sopt/utilities.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="wavelets_8h_source.html">sopt/wavelets.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="sara_8h_source.html">sopt/wavelets/sara.h</a>&gt;</code><br />
-<code>#include &lt;tools_for_tests/directories.h&gt;</code><br />
-<code>#include &lt;<a class="el" href="tiffwrappers_8h_source.html">tools_for_tests/tiffwrappers.h</a>&gt;</code><br />
+<code>#include &quot;<a class="el" href="imaging__padmm_8h_source.html">sopt/imaging_padmm.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="logging_8h_source.html">sopt/logging.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="maths_8h_source.html">sopt/maths.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="positive__quadrant_8h_source.html">sopt/positive_quadrant.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="relative__variation_8h_source.html">sopt/relative_variation.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="reweighted_8h_source.html">sopt/reweighted.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="sampling_8h_source.html">sopt/sampling.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="types_8h_source.html">sopt/types.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="utilities_8h_source.html">sopt/utilities.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="wavelets_8h_source.html">sopt/wavelets.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="sara_8h_source.html">sopt/wavelets/sara.h</a>&quot;</code><br />
+<code>#include &quot;tools_for_tests/directories.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="tiffwrappers_8h_source.html">tools_for_tests/tiffwrappers.h</a>&quot;</code><br />
 </div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Include dependency graph for reweighted.cc:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -200,10 +200,10 @@ Functions</h2></td></tr>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  <span class="keyword">typedef</span> <span class="keywordtype">double</span> <a class="code" href="bisection__method_8cc.html#aaa5809f25d167ed398d63ae4dbc63648">Scalar</a>;</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  <span class="comment">// Column vector - linear algebra - A * x is a matrix-vector multiplication</span></div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  <span class="comment">// type expected by ProximalADMM</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <span class="keyword">typedef</span> <a class="code" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">sopt::Vector&lt;Scalar&gt;</a> <a class="code" href="tests_2inpainting_8cc.html#a6fd0dc2cf65e56d59d152836caa7a634">Vector</a>;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <span class="keyword">typedef</span> <a class="code" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">sopt::Vector&lt;Scalar&gt;</a> <a class="code" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">Vector</a>;</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  <span class="comment">// Matrix - linear algebra - A * x is a matrix-vector multiplication</span></div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <span class="comment">// type expected by ProximalADMM</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <span class="keyword">typedef</span> <a class="code" href="namespacesopt.html#adedb6b3e862bd2968bf3026599121630">sopt::Matrix&lt;Scalar&gt;</a> <a class="code" href="tests_2inpainting_8cc.html#a13b14861c460865de4cd78381e258bf4">Matrix</a>;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <span class="keyword">typedef</span> <a class="code" href="namespacesopt.html#adedb6b3e862bd2968bf3026599121630">sopt::Matrix&lt;Scalar&gt;</a> <a class="code" href="namespacesopt.html#adedb6b3e862bd2968bf3026599121630">Matrix</a>;</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="comment">// Image - 2D array - A * x is a coefficient-wise multiplication</span></div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <span class="comment">// Type expected by wavelets and image write/read functions</span></div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <span class="keyword">typedef</span> <a class="code" href="namespacesopt.html#a7d7971e5566e597eb907614917e30c78">sopt::Image&lt;Scalar&gt;</a> <a class="code" href="namespacesopt.html#a7d7971e5566e597eb907614917e30c78">Image</a>;</div>
@@ -306,7 +306,6 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <div class="ttc" id="anamespacesopt_html_adedb6b3e862bd2968bf3026599121630"><div class="ttname"><a href="namespacesopt.html#adedb6b3e862bd2968bf3026599121630">sopt::Matrix</a></div><div class="ttdeci">Eigen::Matrix&lt; T, Eigen::Dynamic, Eigen::Dynamic &gt; Matrix</div><div class="ttdoc">A matrix of a given type.</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00029">types.h:29</a></div></div>
 <div class="ttc" id="anamespacesopt_html_a974f99e567f8ac05a0fe5e50fbfd215b"><div class="ttname"><a href="namespacesopt.html#a974f99e567f8ac05a0fe5e50fbfd215b">sopt::epsilon</a></div><div class="ttdeci">real_type&lt; T &gt;::type epsilon(sopt::LinearTransform&lt; Vector&lt; T &gt;&gt; const &amp;sampling, sopt::Image&lt; T &gt; const &amp;image)</div><div class="ttdef"><b>Definition:</b> <a href="inpainting_8h_source.html#l00038">inpainting.h:38</a></div></div>
-<div class="ttc" id="atests_2inpainting_8cc_html_a13b14861c460865de4cd78381e258bf4"><div class="ttname"><a href="tests_2inpainting_8cc.html#a13b14861c460865de4cd78381e258bf4">Matrix</a></div><div class="ttdeci">sopt::Matrix&lt; Scalar &gt; Matrix</div><div class="ttdef"><b>Definition:</b> <a href="tests_2inpainting_8cc_source.html#l00029">inpainting.cc:29</a></div></div>
 <div class="ttc" id="anamespacesopt_html_ac4dd3feebe1bf49ebd44d72b05064c19"><div class="ttname"><a href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">sopt::Vector</a></div><div class="ttdeci">Eigen::Matrix&lt; T, Eigen::Dynamic, 1 &gt; Vector</div><div class="ttdoc">A vector of a given type.</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00024">types.h:24</a></div></div>
 <div class="ttc" id="anamespacesopt_1_1algorithm_html_a9d90a51f2ae69e07e802df6d21c6e384"><div class="ttname"><a href="namespacesopt_1_1algorithm.html#a9d90a51f2ae69e07e802df6d21c6e384">sopt::algorithm::reweighted</a></div><div class="ttdeci">Reweighted&lt; ALGORITHM &gt; reweighted(ALGORITHM const &amp;algo, typename Reweighted&lt; ALGORITHM &gt;::t_SetWeights const &amp;set_weights, typename Reweighted&lt; ALGORITHM &gt;::t_Reweightee const &amp;reweightee)</div><div class="ttdoc">Factory function to create an l0-approximation by reweighting an l1 norm.</div><div class="ttdef"><b>Definition:</b> <a href="reweighted_8h_source.html#l00234">reweighted.h:234</a></div></div>
 <div class="ttc" id="anamespacesopt_html_ad7fbfa0f1f262d124020ccaf5e6cb573"><div class="ttname"><a href="namespacesopt.html#ad7fbfa0f1f262d124020ccaf5e6cb573">sopt::sigma</a></div><div class="ttdeci">real_type&lt; T &gt;::type sigma(sopt::LinearTransform&lt; Vector&lt; T &gt;&gt; const &amp;sampling, sopt::Image&lt; T &gt; const &amp;image)</div><div class="ttdef"><b>Definition:</b> <a href="inpainting_8h_source.html#l00017">inpainting.h:17</a></div></div>

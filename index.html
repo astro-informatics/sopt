@@ -86,8 +86,8 @@ $(function() {
 <p><b>SOPT</b> is mostly written in <code>C++11</code>. Pre-requisites and dependencies are listed in following and minimal versions required are tested against <code>Travis CI</code> meaning that they come natively with OSX and the Ubuntu Trusty release. These are also the default ones fetched by <code>CMake</code>.</p>
 <p><code>C++</code> minimal dependencies:</p>
 <ul>
-<li><a href="http://www.cmake.org/">CMake</a> v3.9.2 A free software that allows cross-platform compilation</li>
-<li><a href="https://gcc.gnu.org">GCC</a> v7.3.0 GNU compiler for <code>C++</code></li>
+<li><a href="http://www.cmake.org/">CMake</a> v3.9.2 A free software that allows cross-platform compilation.</li>
+<li><a href="https://gcc.gnu.org">GCC</a> v7.3.0 GNU compiler for <code>C++</code>.</li>
 <li><a href="https://github.com/UCL/GreatCMakeCookOff">UCL/GreatCMakeCookOff</a> Collection of <code>CMake</code> recipes. Downloaded automatically if absent.</li>
 <li><a href="http://openmp.org/wp/">OpenMP</a> v4.8.4 (Trusty) - Optional - Speeds up some of the operations.</li>
 <li><a href="https://docs.conan.io/en/latest/installation.html">Conan</a> - C++ package manager which installs the following:<ul>
@@ -148,11 +148,6 @@ $(function() {
 <p>To check everything went all right, run the test suite:</p>
 <div class="fragment"><div class="line">cd /path/to/code/build</div>
 <div class="line">ctest .</div>
-</div><!-- fragment --><h1>Docker </h1>
-<p>If you want to use Docker instead, you can build an image using the Dockerfile available in the repository or pulling it from <a href="https://hub.docker.com/r/uclrits/sopt">DockerHub</a>.</p>
-<div class="fragment"><div class="line">docker build -t sopt .</div>
-</div><!-- fragment --><p>or</p>
-<div class="fragment"><div class="line">docker pull uclrits/sopt</div>
 </div><!-- fragment --><h1>Matlab </h1>
 <p>A separate Matlab implementation is provided with <b>SOPT</b>. This implementation includes some (but not all) of the optimisation algorithms implemented in the <code>C++</code> code, including the SARA algorithm.</p>
 <p>The Matlab implementation is contained in the matlab directory. This is a stand-alone implementation and does not call any of the <code>C++</code> code. In future, Matlab interfaces to the <code>C++</code> code may also be included in <b>SOPT</b>.</p>
