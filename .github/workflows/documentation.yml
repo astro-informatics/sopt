@@ -3,9 +3,19 @@ name: Documentation
 on:
   push:
     branches: [ development ]
-
+  pull_request:
+    branches: [ development ]
+    if: github.event.pull_request.draft == false
+  workflow_dispatch:
+    inputs:
+      debug_enabled:
+        description: 'Run the build with tmate debugging enabled (https://github.com/marketplace/actions/debugging-with-tmate)'
+        required: false
+        default: false
+    
 env:
   CONAN_PRINT_RUN_COMMANDS: 1
+  CONAN_REVISIONS_ENABLED: 1
   OMP_NUM_THREADS: 2
   CONAN_CPU_COUNT: 2
 
@@ -18,11 +28,27 @@ jobs:
         with:
           submodules: recursive
 
+      # Enable tmate debugging of manually-triggered workflows if the input option was provided
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
+        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.debug_enabled }}
+          
+      # Note that we are installing doxygen with apt here, and with conan in the Configure step.
+      # This is because there is no easy way of extracting the path to the doxygen executable from conan.
+      # the apt installed doxygen is used in the Make Docweb step to build the html files,
+      # while the conan installed version is used in the build step.
+      # The version we install from apt is older than the 1.9.4 we install from conan, but
+      # it is not causing any issues at the moment. 
       - name: Install dependencies
         run: |
           sudo apt update
-          sudo apt install libtiff5-dev openmpi-bin libopenmpi-dev libeigen3-dev libyaml-cpp-dev doxygen graphviz
-          pip install conan==1.59
+          sudo apt install openmpi-bin libopenmpi-dev libyaml-cpp-dev doxygen graphviz
+
+      - name: Install Conan
+        id: conan
+        uses: turtlebrowser/get-conan@main
+        with:
+          version: 1.59.0
 
       - name: Install Tensorflow API on Ubuntu
         uses: UCL/install-tensorflow-action@main
@@ -31,7 +57,9 @@ jobs:
           os: linux
 
       - name: Configure
-        run: conan install ${{github.workspace}} -if ${{github.workspace}}/build --build missing  -s compiler.libcxx=libstdc++11 -o mpi=off -o openmp=off -o docs=on -o cppflow=on
+        run: |
+          conan install doxygen/1.9.4@#2af713e135f12722e3536808017ba086 --update
+          conan install ${{github.workspace}} -if ${{github.workspace}}/build --build missing  -s compiler.libcxx=libstdc++11 -o mpi=off -o openmp=off -o docs=on -o cppflow=on -pr:h=default -pr:b=default
 
       - name: Build
         run: conan build ${{github.workspace}} -bf ${{github.workspace}}/build
