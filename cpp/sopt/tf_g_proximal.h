@@ -1,18 +1,11 @@
 #ifndef SOPT_TF_G_PROXIMAL_H
 #define SOPT_TF_G_PROXIMAL_H
-// TODO: Clean up unnecessary includes
-#include "sopt/config.h"
-#include <numeric>
-#include <tuple>
-#include <utility>
-#include "sopt/exception.h"
+
+#include "sopt/g_proximal.h"
 #include "sopt/forward_backward.h"
 #include "sopt/linear_transform.h"
 #include "sopt/logging.h"
-#include "sopt/proximal.h"
-#include "sopt/relative_variation.h"
 #include "sopt/types.h"
-#include "sopt/g_proximal.h"
 
 #include "cppflow/cppflow.h"
 #include "cppflow/ops.h"
@@ -23,8 +16,7 @@ namespace sopt {
 namespace algorithm {
 
 // Implementation of g_proximal with a TensorFlow model. Owns private
-// object model_ and implements the
-// interface defined by the GProximal class
+// object model_ and implements the interface defined by the GProximal class
 template <class SCALAR>
 class TFGProximal : public GProximal<SCALAR> {
 

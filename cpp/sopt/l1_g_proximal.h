@@ -1,19 +1,12 @@
 #ifndef SOPT_L1_G_PROXIMAL_H
 #define SOPT_L1_G_PROXIMAL_H
-// TODO: Clean up unnecessary includes
-#include "sopt/config.h"
-#include <numeric>
-#include <tuple>
-#include <utility>
-#include "sopt/exception.h"
+
+#include "sopt/g_proximal.h"
+#include "sopt/l1_proximal.h"
 #include "sopt/forward_backward.h"
 #include "sopt/linear_transform.h"
 #include "sopt/logging.h"
-#include "sopt/proximal.h"
-#include "sopt/relative_variation.h"
 #include "sopt/types.h"
-#include "sopt/g_proximal.h"
-#include "sopt/l1_proximal.h"
 
 namespace sopt {
 namespace algorithm {

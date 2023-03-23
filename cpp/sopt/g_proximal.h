@@ -1,9 +1,6 @@
 #ifndef SOPT_G_PROXIMAL_H
 #define SOPT_G_PROXIMAL_H
 
-#include <numeric>
-#include <tuple>
-#include <utility>
 #include "sopt/forward_backward.h"
 
 // Abstract base class providing the interface to the g_proximal function
