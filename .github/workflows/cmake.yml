@@ -104,7 +104,7 @@ jobs:
 
     - name: Add tensorflow path to environment on MacOS
       if: ${{ contains(matrix.os, 'macos') }}
-      run: echo "LD_LIBRARY_PATH=/usr/local/lib" >> "${GITHUB_ENV}"
+      run: echo "LD_LIBRARY_PATH=/usr/local/lib" >> ${GITHUB_ENV}
 
     - name: Select Python 3.10
       # otherwise turtlebrowser/get-conan@v1.1 fails on macos-12
