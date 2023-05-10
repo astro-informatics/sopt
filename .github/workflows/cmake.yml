@@ -137,6 +137,7 @@ jobs:
       with:
         repository: UCL/cppflow.git
         path: cppflow
+        ref: master
 
     - name: Create cppflow package
       run: conan create ./cppflow/ -pr:h=default -pr:b=default

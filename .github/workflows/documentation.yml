@@ -56,14 +56,15 @@ jobs:
           version: 2.11.0
           os: linux
 
-    - name: Checkout cppflow repo
-      uses: actions/checkout@v3
-      with:
-        repository: UCL/cppflow.git
-        path: cppflow
+      - name: Checkout cppflow repo
+        uses: actions/checkout@v3
+        with:
+          repository: UCL/cppflow.git
+          path: cppflow
+          ref: master
 
-    - name: Create cppflow package
-      run: conan create ./cppflow/ -pr:h=default -pr:b=default
+      - name: Create cppflow package
+        run: conan create ./cppflow/ -pr:h=default -pr:b=default
 
       - name: Configure
         run: |
