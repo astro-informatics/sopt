@@ -147,8 +147,7 @@ jobs:
     - name: Create cppflow package on apple-clang
       if: ${{ contains(matrix.cxx, 'clang++') }}
       run: |
-        echo "LIBRARY_PATH=$LIBRARY_PATH:/usr/local/lib" >> $GITHUB_ENV
-        echo "DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:/usr/local/lib" >> $GITHUB_ENV
+        echo "DYLD_LIBRARY_PATH=/usr/local/lib" >> $GITHUB_ENV
         conan create ./cppflow/ -pr:h=default -pr:b=default
 
     - name: Conan install on gcc
