@@ -132,11 +132,13 @@ jobs:
           ${{ matrix.os }}-${{ matrix.cxx }}
           ${{ matrix.os }}
 
-    - name: Create cppflow package
+    - name: Checkout cppflow repo
       uses: actions/checkout@v3
       with:
         repository: UCL/cppflow.git
         path: cppflow
+
+    - name: Create cppflow package
       run: conan create ./cppflow/ -pr:h=default -pr:b=default
 
     - name: Conan install on gcc
