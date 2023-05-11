@@ -69,12 +69,18 @@ jobs:
         echo "DYLD_LIBRARY_PATH=/usr/local/lib" >> "$GITHUB_ENV"
         cat $GITHUB_ENV
 
+    # Enable tmate debugging of manually-triggered workflows if the input option was provided
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
+      if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.debug_enabled }}
+    
+
     - name: Create cppflow package on apple-clang
       run: |
         conan create ./cppflow/ -pr:h=default -pr:b=default
     
     - name: Conan install on apple-clang
-      run: conan install ${{github.workspace}} -if ${{github.workspace}}/build --build missing -o mpi=${{matrix.mpi}} -o openmp=${{matrix.omp}} -o cppflow=on -pr:h=default -pr:b=default
+      run: conan install ${{github.workspace}} -if ${{github.workspace}}/build --build missing -o mpi=off -o openmp=off -o cppflow=on -pr:h=default -pr:b=default
   
     - name: Build
       # Build your program with the given configuration.
@@ -87,7 +93,3 @@ jobs:
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
       run: ctest -C ${{env.BUILD_TYPE}} --output-on-failure
 
-    # Enable tmate debugging of manually-triggered workflows if the input option was provided
-    - name: Setup tmate session
-      uses: mxschmitt/action-tmate@v3
-      if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.debug_enabled }}
