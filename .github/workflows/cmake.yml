@@ -67,11 +67,6 @@ jobs:
       with:
         submodules: recursive
 
-   # Enable tmate debugging of manually-triggered workflows if the input option was provided
-    - name: Setup tmate session
-      uses: mxschmitt/action-tmate@v3
-      if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.debug_enabled }}
-
     - name: Install Dependencies on Ubunutu
       if: ${{ contains(matrix.os, 'ubuntu') }}
       run: |
@@ -139,6 +134,13 @@ jobs:
         path: cppflow
         ref: master
 
+    - name: Add Tensorflow paths to env
+      if: ${{ contains(matrix.cxx, 'clang++') }}
+      run: |
+        echo "LIBRARY_PATH=$LIBRARY_PATH:/usr/local/lib" >> "$GITHUB_ENV"
+        echo "DYLD_LIBRARY_PATH=/usr/local/lib" >> "$GITHUB_ENV"
+        cat $GITHUB_ENV
+
     - name: Create cppflow package on gcc
       if: ${{ contains(matrix.cxx, 'g++-9') }}
       run: |
@@ -147,9 +149,6 @@ jobs:
     - name: Create cppflow package on apple-clang
       if: ${{ contains(matrix.cxx, 'clang++') }}
       run: |
-        echo "LIBRARY_PATH=$LIBRARY_PATH:/usr/local/lib" >> "$GITHUB_ENV"
-        echo "DYLD_LIBRARY_PATH=/usr/local/lib" >> "$GITHUB_ENV"
-        cat $GITHUB_ENV
         conan create ./cppflow/ -pr:h=default -pr:b=default
 
     - name: Conan install on gcc
@@ -170,3 +169,9 @@ jobs:
       # Execute tests defined by the CMake configuration.
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
       run: ctest -C ${{env.BUILD_TYPE}} --output-on-failure
+
+
+    # Enable tmate debugging of manually-triggered workflows if the input option was provided
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
+      if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.debug_enabled && failure() }}
