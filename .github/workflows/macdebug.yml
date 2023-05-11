@@ -28,21 +28,54 @@ jobs:
       CXX: clang++
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
-   # Enable tmate debugging of manually-triggered workflows if the input option was provided
-    - name: Setup tmate session
-      uses: mxschmitt/action-tmate@v3
-      if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.debug_enabled }}
-
+   
     - name: Install Dependencies on MacOS
-      if: ${{ contains(matrix.os, 'macos') }}
-      run: brew install libtiff open-mpi libyaml ccache conan
+      run: |    
+        brew update
+        brew install libtiff open-mpi libyaml ccache
+        echo "CMAKE_PREFIX_PATH=/usr/local/opt/libomp" >> $GITHUB_ENV
 
+    - name: Install Tensorflow API on MacOS
+      uses: UCL/install-tensorflow-action@main
+      with:
+        version: 2.11.0
+        os: darwin
+
+    - name: Select Python 3.10
+      # otherwise turtlebrowser/get-conan@v1.1 fails on macos-12
+      # ref: https://github.com/turtlebrowser/get-conan/issues/4
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install Conan
+      id: conan
+      uses: turtlebrowser/get-conan@main
+      with:
+        version: 1.59.0
+    
+    - name: Checkout cppflow repo
+      uses: actions/checkout@v3
+      with:
+        repository: UCL/cppflow.git
+        path: cppflow
+        ref: master
+
+    - name: Add Tensorflow paths to env
+      run: |
+        echo "LIBRARY_PATH=$LIBRARY_PATH:/usr/local/lib" >> "$GITHUB_ENV"
+        echo "DYLD_LIBRARY_PATH=/usr/local/lib" >> "$GITHUB_ENV"
+        cat $GITHUB_ENV
+
+    - name: Create cppflow package on apple-clang
+      run: |
+        conan create ./cppflow/ -pr:h=default -pr:b=default
+    
     - name: Conan install on apple-clang
-      if: ${{ contains(matrix.cxx, 'clang++') }}
-      run: conan install ${{github.workspace}} -if ${{github.workspace}}/build --build missing -o mpi=on -o openmp=on
-
+      run: conan install ${{github.workspace}} -if ${{github.workspace}}/build --build missing -o mpi=${{matrix.mpi}} -o openmp=${{matrix.omp}} -o cppflow=on -pr:h=default -pr:b=default
+  
     - name: Build
       # Build your program with the given configuration.
       # The Github Actions machines are dual-core so we can build faster using 2 parallel processes
@@ -53,3 +86,8 @@ jobs:
       # Execute tests defined by the CMake configuration.
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
       run: ctest -C ${{env.BUILD_TYPE}} --output-on-failure
+
+    # Enable tmate debugging of manually-triggered workflows if the input option was provided
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
+      if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.debug_enabled }}
