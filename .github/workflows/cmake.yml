@@ -142,6 +142,14 @@ jobs:
     #     echo "CMAKE_PREFIX_PATH=/usr/local/lib" >> $GITHUB_ENV
     #     cat $GITHUB_ENV
 
+
+
+    # Enable tmate debugging of manually-triggered workflows if the input option was provided
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
+      if: ${{ failure() }}
+      timeout-minutes: 15
+
     - name: Create cppflow package on gcc
       if: ${{ contains(matrix.cxx, 'g++-10') }}
       run: |
@@ -170,10 +178,3 @@ jobs:
       # Execute tests defined by the CMake configuration.
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
       run: ctest -C ${{env.BUILD_TYPE}} --output-on-failure
-
-
-    # Enable tmate debugging of manually-triggered workflows if the input option was provided
-    - name: Setup tmate session
-      uses: mxschmitt/action-tmate@v3
-      if: ${{ failure() }}
-      timeout-minutes: 15
