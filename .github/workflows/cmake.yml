@@ -40,10 +40,10 @@ jobs:
             - ubuntu-20.04
             - macos-11
           cc:
-            - gcc-9
+            - gcc-10
             - clang
           cxx:
-            - g++-9
+            - g++-10
             - clang++
           mpi:
             - "on"
@@ -52,10 +52,10 @@ jobs:
             - "on"
             - "off"
           exclude:
-            - cc: gcc-9
+            - cc: gcc-10
               cxx: clang++
             - cc: clang
-              cxx: g++-9
+              cxx: g++-10
             - os: ubuntu-20.04
               cc: clang
               cxx: clang++
@@ -153,7 +153,7 @@ jobs:
         conan create ./cppflow/ -pr:h=default -pr:b=default
 
     - name: Conan install on gcc
-      if: ${{ contains(matrix.cxx, 'g++-9') }}
+      if: ${{ contains(matrix.cxx, 'g++-10') }}
       run: conan install ${{github.workspace}} -if ${{github.workspace}}/build -s compiler.libcxx=libstdc++11 --build missing -o mpi=${{matrix.mpi}} -o openmp=${{matrix.omp}} -o cppflow=on -pr:h=default -pr:b=default
 
     - name: Conan install on apple-clang
