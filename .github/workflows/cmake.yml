@@ -134,7 +134,7 @@ jobs:
       with:
         repository: UCL/cppflow.git
         path: cppflow
-        ref: tk/macos-build-fix
+        ref: master
 
     - name: Create cppflow package on gcc
       if: ${{ contains(matrix.cxx, 'g++-10') }}
