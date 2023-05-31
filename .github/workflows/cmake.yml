@@ -134,13 +134,13 @@ jobs:
         path: cppflow
         ref: tk/macos-build-fix
 
-    - name: Add Tensorflow paths to env
-      if: ${{ contains(matrix.cxx, 'clang++') }}
-      run: |
-        echo "LIBRARY_PATH=$LIBRARY_PATH:/usr/local/lib" >> "$GITHUB_ENV"
-        echo "DYLD_LIBRARY_PATH=/usr/local/lib" >> "$GITHUB_ENV"
-        echo "CMAKE_PREFIX_PATH=/usr/local/lib" >> $GITHUB_ENV
-        cat $GITHUB_ENV
+    # - name: Add Tensorflow paths to env
+    #   if: ${{ contains(matrix.cxx, 'clang++') }}
+    #   run: |
+    #     echo "LIBRARY_PATH=$LIBRARY_PATH:/usr/local/lib" >> "$GITHUB_ENV"
+    #     echo "DYLD_LIBRARY_PATH=/usr/local/lib" >> "$GITHUB_ENV"
+    #     echo "CMAKE_PREFIX_PATH=/usr/local/lib" >> $GITHUB_ENV
+    #     cat $GITHUB_ENV
 
     - name: Create cppflow package on gcc
       if: ${{ contains(matrix.cxx, 'g++-10') }}
