@@ -88,6 +88,7 @@ You can build **SOPT** entirely from the source code.
     - mpi (default on)
     - docs (default off)
     - coverage (default off)
+	- cppflow (default off)
 
         For example, to build with both MPI and OpenMP off you would use
 
