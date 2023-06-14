@@ -125,6 +125,7 @@ class ImagingForwardBackward {
 #ifdef SOPT_MPI
   //! Communicator for summing objective_function
   SOPT_MACRO(obj_comm, mpi::Communicator);
+  SOPT_MACRO(adjoint_space_comm, mpi::Communicator);
 #endif
 
 #undef SOPT_MACRO
@@ -205,7 +206,7 @@ class ImagingForwardBackward {
 
   //! \brief Proximal of the L2 ball
   //! \details Non-const version to setup the object.
-  t_Gradient &l2_graident() { return l2_gradient_; }
+  t_Gradient &l2_gradient() { return l2_gradient_; }
 
   //! Helper function to set-up default residual convergence function
   ImagingForwardBackward<Scalar> &residual_convergence(Real const &tolerance) {
@@ -316,7 +317,7 @@ bool ImagingForwardBackward<SCALAR>::objective_convergence(mpi::Communicator con
   if (scalvar.relative_tolerance() <= 0e0) return true;
   auto const current = obj_comm.all_sum_all<t_real>(
 	((gamma() > 0) ? g_proximal_->proximal_norm(x)
-       * gamma() : 0) + std::pow(sopt::l2_norm(residual), 2) / (2 * sigma() * sigma()));
+       * gamma() : 0) + std::pow(sopt::l2_norm(residual), 2) / (2 * sigma_ * sigma_));
   return scalvar(current);
 };
 #endif
