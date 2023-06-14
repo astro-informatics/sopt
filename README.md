@@ -29,6 +29,7 @@ Dependencies installation
 - [GCC](https://gcc.gnu.org) v7.3.0 GNU compiler for `C++`.
 - [UCL/GreatCMakeCookOff](https://github.com/UCL/GreatCMakeCookOff) Collection of `CMake` recipes. Downloaded automatically if absent.
 - [OpenMP](http://openmp.org/wp/) v4.8.4 (Trusty) - Optional - Speeds up some of the operations.
+- [Cppflow](https://github.com/UCL/cppflow) - Optional - A warpper for the Tensorflow C API allowing us to read Tensorflow models into SOPT. Needed if you are using a learned prior.
 - [Conan](https://docs.conan.io/en/latest/installation.html) - C++ package manager which installs the following:
   - [Eigen3](http://eigen.tuxfamily.org/index.php?title=Main_Page) v3.2.0 (Trusty) Modern `C++` linear algebra. Downloaded automatically if absent.
   - [spdlog](https://github.com/gabime/spdlog) v* - Optional - Logging library. Downloaded automatically if
@@ -42,45 +43,58 @@ Dependencies installation
 Installing and building SOPT
 ----------------------------
 
-You can build **SOPT** entirely from the source code. Once the mandatory dependencies are present, `git clone` from the [GitHub repository](https://github.com/astro-informatics/sopt):
+You can build **SOPT** entirely from the source code.
 
-``` bash
-git clone https://github.com/astro-informatics/sopt.git
-```
 
-Then, the program can be built with standard `CMake` command:
 
-``` bash
-cd /path/to/code
-mkdir build
-cd build
-conan install .. --build missing
-conan build ..
-```
+1. If you are using a learned prior you must install teh Tensorflow C API and `cppflow package:
+    - Install [TensorFlow C API](https://www.tensorflow.org/install/lang_c)
+    - Clone the UCL fork of cppflow and create a conan package using
 
-To install in directory `INSTALL_FOLDER`, add the following options to the conan build command:
+        ``` bash
+        git clone git@github.com:UCL/cppflow.git
+        conan create ./cppflow/ -pr:h=default -pr:b=default
+        ```
 
-``` bash
-conan build .. -bf INSTALL_FOLDER -if .
-```
+1. Once the mandatory dependencies are present, `git clone` from the [GitHub repository](https://github.com/astro-informatics/sopt):
 
-CMake build options should be passed as options to `conan install` using the `-o` flag with a value `on` or `off`. Possible options are
+    ``` bash
+    git clone https://github.com/astro-informatics/sopt.git
+    ```
 
-- tests (default on)
-- benchmarks (default off)
-- examples (default on)
-- logging (default on)
-- openmp (default on)
-- mpi (default on)
-- docs (default off)
-- coverage (default off)
+1. Then, the program can be built using conan:
 
-For example, to build with both MPI and OpenMP off you would use
+    ``` bash
+    cd /path/to/code
+    mkdir build
+    cd build
+    conan install .. --build missing
+    conan build ..
+    ```
 
-``` bash
-conan install .. --build missing -o openmp=off -o mpi=off
-conan build ..
-```
+    - To install in directory `INSTALL_FOLDER`, add the following options to the conan build command:
+
+        ``` bash
+        conan build .. -bf INSTALL_FOLDER -if .
+        ```
+
+    - CMake build options should be passed as options to `conan install` using the `-o` flag with a value `on` or `off`. Possible options are
+
+    - tests (default on)
+    - benchmarks (default off)
+    - examples (default on)
+    - logging (default on)
+    - openmp (default on)
+    - mpi (default on)
+    - docs (default off)
+    - coverage (default off)
+
+        For example, to build with both MPI and OpenMP off you would use
+
+        ``` bash
+        conan install .. --build missing -o openmp=off -o mpi=off
+        conan build ..
+        ```
 
 Common errors
 -------
