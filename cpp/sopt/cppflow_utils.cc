@@ -9,7 +9,8 @@
 namespace sopt {
 namespace cppflowutils {
 
-  const double imaginary_threshold = 1e-5;
+  // arbitrary constant for imaginary part of image vectors. 
+  const double imaginary_threshold = 1e-10;
 
     cppflow::tensor convert_image_to_tensor(Image<double> const &image, int image_rows, int image_cols){
         // Convert the Sopt::Image of doubles(wrapper for Eigen::Array) to a cppflow::tensor of floats
@@ -42,7 +43,7 @@ namespace cppflowutils {
 
     for (int i = 0; i < image.rows(); ++i) {
         for (int j = 0; j < image.cols(); ++j) {
-          if(std::abs(image(i,j).imag())/std::abs(image(i,j).real()) > cppflowutils::imaginary_threshold)
+          if(std::abs(image(i,j).real()) > cppflowutils::imaginary_threshold)
           {
             throw std::runtime_error("Cannot convert to tensorflow format: imaginary component of image is non-negligible.");
           }
@@ -71,7 +72,7 @@ namespace cppflowutils {
     std::vector<float> input_values(image_rows);
     for(int i = 0; i < image_rows; i++)
     {
-      if(std::abs(image(i).imag())/std::abs(image(i).real()) > cppflowutils::imaginary_threshold)
+      if(std::abs(image(i).real()) > cppflowutils::imaginary_threshold)
       {
         throw std::runtime_error("Cannot conver to tensorflow format: imaginary component of image vector is non negligible.");
       }
