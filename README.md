@@ -47,7 +47,7 @@ You can build **SOPT** entirely from the source code.
 
 
 
-1. If you are using a learned prior you must install teh Tensorflow C API and `cppflow package:
+1. If you are using a learned prior you must install the Tensorflow C API and `cppflow` package:
     - Install [TensorFlow C API](https://www.tensorflow.org/install/lang_c)
     - Clone the UCL fork of cppflow and create a conan package using
 
