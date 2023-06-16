@@ -206,7 +206,7 @@ class L2ForwardBackward {
   t_Proximal<Vector<Real>> &l2_proximal_weighted() { return l2_proximal_weighted_; }
   //! \brief Proximal of the L2 ball
   //! \details Non-const version to setup the object.
-  t_Gradient &l2_graident() { return l2_gradient_; }
+  t_Gradient &l2_gradient() { return l2_gradient_; }
 
   //! Helper function to set-up default residual convergence function
   L2ForwardBackward<Scalar> &residual_convergence(Real const &tolerance) {
