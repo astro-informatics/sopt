@@ -7,7 +7,8 @@ class SARA : public std::vector<int> {
   using std::vector<int>::vector;
 };
 
-int main(int, char const**) {
-  SARA s = {0, 0};
+int main() {
+  const SARA s = {0, 0};
+
   return 0;
 }
