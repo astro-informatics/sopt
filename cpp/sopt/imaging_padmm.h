@@ -83,6 +83,11 @@ class ImagingProximalADMM {
                                                         \
  public:
 
+  proximal::L1<Scalar> * g_proximal()
+  {
+    return &l1_proximal_;
+  }
+
   //! Maximum number of iterations
   SOPT_MACRO(l1_proximal, proximal::L1<Scalar>);
   //! The weighted L2 proximal functioning as g

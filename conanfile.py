@@ -39,6 +39,9 @@ class SoptConan(ConanFile):
         if self.options.logging == 'on':
             self.requires("spdlog/1.9.2")
 
+        if self.options.cppflow == 'on':
+            self.requires("cppflow/2.0.0")
+
     def build_requirements(self):
 
         if self.options.docs == 'on':

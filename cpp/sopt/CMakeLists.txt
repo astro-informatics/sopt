@@ -78,7 +78,7 @@ if (cppflow)
   # https://stackoverflow.com/questions/25676277/cmake-target-include-directories-prints-an-error-when-i-try-to-add-the-source
   # Add /usr/local/include for default location of TensorFlow headers
   target_include_directories(sopt PUBLIC
-    $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/cppflow/include>
+    $<BUILD_INTERFACE:${cppflow_INCLUDE_DIR}>
     $<BUILD_INTERFACE:/usr/local/include>
     $<INSTALL_INTERFACE:cppflow/include/>
     )

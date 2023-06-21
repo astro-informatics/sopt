@@ -15,6 +15,10 @@
 #include "sopt/g_proximal.h"
 #include "sopt/l1_proximal.h"
 
+#ifdef SOPT_MPI
+ #include "sopt/mpi/communicator.h"
+#endif
+
 namespace sopt {
 namespace algorithm {
 
@@ -49,7 +53,9 @@ public:
 
   // Return the norm associated with this implementation
   Real proximal_norm(t_Vector const &x) const override {
-    return sopt::l1_norm(static_cast<t_Vector>(Psi().adjoint() * x), l1_proximal_weights());
+    auto &weights = l1_proximal_weights();
+    auto input = static_cast<t_Vector>(Psi().adjoint() * x);
+    return sopt::l1_norm(input, weights);
   }
 
   // Return g_proximal as a lambda function. Used in operator() in base class.
@@ -97,7 +103,11 @@ public:
   SOPT_MACRO(positivity_constraint, bool);
   SOPT_MACRO(real_constraint, bool);
   SOPT_MACRO(nu, Real);
-  SOPT_MACRO(weights, t_Vector);
+  SOPT_MACRO(weights, Vector<t_real>);
+#ifdef SOPT_MPI
+  SOPT_MACRO(adjoint_space_comm, mpi::Communicator);
+  SOPT_MACRO(direct_space_comm, mpi::Communicator);
+#endif
 #undef SOPT_MACRO
 
   //! Analysis operator Ψ

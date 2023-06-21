@@ -67,11 +67,6 @@ jobs:
       with:
         submodules: recursive
 
-   # Enable tmate debugging of manually-triggered workflows if the input option was provided
-    - name: Setup tmate session
-      uses: mxschmitt/action-tmate@v3
-      if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.debug_enabled }}
-
     - name: Install Dependencies on Ubunutu
       if: ${{ contains(matrix.os, 'ubuntu') }}
       run: |
@@ -81,11 +76,13 @@ jobs:
     - name: Install Dependencies on MacOS
       if: ${{ contains(matrix.os, 'macos') }}
       run: |
-        # Skip brew update until https://github.com/actions/setup-python/issues/577 is fixed
-        # Seems to be working, alghough the issue is still open
-        brew update
         brew install libtiff open-mpi libyaml ccache
         echo "CMAKE_PREFIX_PATH=/usr/local/opt/libomp" >> $GITHUB_ENV
+
+    # Enable tmate debugging of manually-triggered workflows if the input option was provided
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
+      if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.debug_enabled }}
 
     - name: Install Tensorflow API on Ubuntu
       # TODO could this be combined with mac version somehow? if/else?
@@ -132,6 +129,23 @@ jobs:
           ${{ matrix.os }}-${{ matrix.cxx }}
           ${{ matrix.os }}
 
+    - name: Checkout cppflow repo
+      uses: actions/checkout@v3
+      with:
+        repository: UCL/cppflow.git
+        path: cppflow
+        ref: master
+
+    - name: Create cppflow package on gcc
+      if: ${{ contains(matrix.cxx, 'g++-10') }}
+      run: |
+        conan create ./cppflow/ -pr:h=default -pr:b=default -s compiler.libcxx=libstdc++11
+
+    - name: Create cppflow package on apple-clang
+      if: ${{ contains(matrix.cxx, 'clang++') }}
+      run: |
+        conan create ./cppflow/ -pr:h=default -pr:b=default
+
     - name: Conan install on gcc
       if: ${{ contains(matrix.cxx, 'g++-10') }}
       run: conan install ${{github.workspace}} -if ${{github.workspace}}/build -s compiler.libcxx=libstdc++11 --build missing -o mpi=${{matrix.mpi}} -o openmp=${{matrix.omp}} -o cppflow=on -pr:h=default -pr:b=default
@@ -143,7 +157,7 @@ jobs:
     - name: Build
       # Build your program with the given configuration.
       # The Github Actions machines are dual-core so we can build faster using 2 parallel processes
-      run: conan build ${{github.workspace}} -bf ${{github.workspace}}/build 
+      run: conan build ${{github.workspace}} -bf ${{github.workspace}}/build
 
     - name: Test
       working-directory: ${{github.workspace}}/build

@@ -49,7 +49,7 @@ template <class T>
 LinearTransform<Vector<T>> gradient_operator(const t_int rows, const t_int cols) {
   return LinearTransform<Vector<T>>(
       [rows, cols](Vector<T> &out, Vector<T> const &x) {
-        assert(x.size() = rows * cols * 2);
+        assert(x.size() == rows * cols * 2);
         out = diff2d_adjoint(x, rows, cols) / 2.;
         assert(out.size() == rows * cols);
       },

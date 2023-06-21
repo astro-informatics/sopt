@@ -94,6 +94,7 @@ class ImagingPrimalDual {
   TYPE NAME##_;                                       \
                                                       \
  public:
+  ImagingPrimalDual * g_proximal(){ return this;}
   //! The l1 prox functioning as f
   SOPT_MACRO(l1_proximal, t_Proximal<Real>);
   //! The l1 prox with weights functioning as f
