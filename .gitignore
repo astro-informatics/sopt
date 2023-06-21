@@ -80,3 +80,4 @@ build/
 python/tests/__pycache__
 *.h.gch
 *~
+compile_commands.json

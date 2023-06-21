@@ -1,5 +1,23 @@
-cmake_minimum_required(VERSION 3.0)
-project(Sopt CXX)
+cmake_minimum_required(VERSION 3.13.4) # CMake 3.13.4 is the currently default in Debian 10 repositories
+project(Sopt
+        DESCRIPTION "Sparse OPTimisation using state-of-the-art convex optimisation algorithms."
+        HOMEPAGE_URL "https://github.com/sopt/sopt"
+        LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+# https://cmake.org/cmake/help/latest/variable/CMAKE_EXPORT_COMPILE_COMMANDS.html
+# Enable output of compile commands during generation. If enabled, generates a compile_commands.json file containing the exact compiler calls for all translation units of the project in machine-readable form. This can be consumed by various IDEs and static analysers to provide smarter project diagnostics/completions etc.
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+# https://stackoverflow.com/a/67410042
+# Create a symlink to compile_commands.json located in CMAKE_BINARY_DIR to the project root (works across filesystems)
+execute_process(
+  COMMAND ${CMAKE_COMMAND} -E create_symlink
+  ${CMAKE_BINARY_DIR}/compile_commands.json
+  ${CMAKE_SOURCE_DIR}/compile_commands.json)
 
 # Location of extra cmake includes for the project
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake_files)
@@ -33,11 +51,7 @@ if(tests)
   enable_testing()
 endif()
 
-# Add c++11 stuff
-#include(AddCPP11Flags)
-set(CMAKE_CXX_STANDARD 17)
-include(CheckCXX11Features)
-cxx11_feature_check(REQUIRED unique_ptr override)
+
 include(compilations)
 
 # search/install dependencies
