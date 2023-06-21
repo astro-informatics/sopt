@@ -55,6 +55,8 @@ You can build **SOPT** entirely from the source code.
         git clone git@github.com:UCL/cppflow.git
         conan create ./cppflow/ -pr:h=default -pr:b=default
         ```
+      Note that conan requires you to specify the host (h) and the build (b) profiles on the command
+      line (`-pr:h=default -pr:b=default`), if you haven't defined them in your conan profile.
 
 1. Once the mandatory dependencies are present, `git clone` from the [GitHub repository](https://github.com/astro-informatics/sopt):
 
@@ -68,7 +70,7 @@ You can build **SOPT** entirely from the source code.
     cd /path/to/code
     mkdir build
     cd build
-    conan install .. --build missing
+    conan install .. --build missing -pr:h=default -pr:b=default
     conan build ..
     ```
 
@@ -93,7 +95,7 @@ You can build **SOPT** entirely from the source code.
         For example, to build with both MPI and OpenMP off you would use
 
         ``` bash
-        conan install .. --build missing -o openmp=off -o mpi=off
+        conan install .. --build missing -o openmp=off -o mpi=off -pr:h=default -pr:b=default
         conan build ..
         ```
 
