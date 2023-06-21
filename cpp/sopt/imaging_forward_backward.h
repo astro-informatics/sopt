@@ -2,6 +2,8 @@
 #define SOPT_IMAGING_FORWARD_BACKWARD_H
 
 #include "sopt/config.h"
+#include <limits>
+#include <memory>
 #include <numeric>
 #include <tuple>
 #include <utility>
@@ -19,26 +21,25 @@
 #include "sopt/mpi/utilities.h"
 #endif
 
-namespace sopt {
-namespace algorithm {
+namespace sopt::algorithm {
 template <class SCALAR>
 class ImagingForwardBackward {
   //! Underlying algorithm
-  typedef ForwardBackward<SCALAR> FB;
+  using FB = ForwardBackward<SCALAR>;
 
  public:
-  typedef typename FB::value_type value_type;
-  typedef typename FB::Scalar Scalar;
-  typedef typename FB::Real Real;
-  typedef typename FB::t_Vector t_Vector;
-  typedef typename FB::t_LinearTransform t_LinearTransform;
-  typedef typename FB::t_Proximal t_Proximal;
-  typedef typename FB::t_Gradient t_Gradient;
-  typedef typename FB::t_IsConverged t_IsConverged;
+  using value_type = typename FB::value_type;
+  using Scalar = typename FB::Scalar;
+  using Real = typename FB::Real;
+  using t_Vector = typename FB::t_Vector;
+  using t_LinearTransform = typename FB::t_LinearTransform;
+  using t_Proximal = typename FB::t_Proximal;
+  using t_Gradient = typename FB::t_Gradient;
+  using t_IsConverged = typename FB::t_IsConverged;
 
   //! Values indicating how the algorithm ran
   struct Diagnostic : public FB::Diagnostic {
-    Diagnostic(t_uint niters = 0u, bool good = false) : FB::Diagnostic(niters, good) {}
+    explicit Diagnostic(t_uint niters = 0u, bool good = false) : FB::Diagnostic(niters, good) {}
     Diagnostic(t_uint niters, bool good, t_Vector &&residual)
       : FB::Diagnostic(niters, good, std::move(residual)) {}
   };
@@ -56,7 +57,7 @@ class ImagingForwardBackward {
   // style in the rest of the class, although constructor might be more appropriate
   //! \param[in] target: Vector of target measurements
   template <class DERIVED>
-  ImagingForwardBackward(Eigen::MatrixBase<DERIVED> const &target)
+  explicit ImagingForwardBackward(Eigen::MatrixBase<DERIVED> const &target)
     : g_proximal_(nullptr),
       l2_gradient_([](t_Vector &output, const t_Vector &x) -> void {
 		     output = x; }),  // gradient of 1/2 * x^2 = x;
@@ -74,13 +75,13 @@ class ImagingForwardBackward {
       is_converged_(),
       Phi_(linear_transform_identity<Scalar>()),
       target_(target) {}
-  virtual ~ImagingForwardBackward() {}
+  virtual ~ImagingForwardBackward() = default;
 
 // Macro helps define properties that can be initialized as in
 // auto padmm = ImagingForwardBackward<float>().prop0(value).prop1(value);
 #define SOPT_MACRO(NAME, TYPE)                             \
   TYPE const &NAME() const { return NAME##_; }             \
-  ImagingForwardBackward<SCALAR> &NAME(TYPE const &NAME) { \
+  ImagingForwardBackward<SCALAR> &NAME(TYPE const &(NAME)) { \
     NAME##_ = NAME;                                        \
     return *this;                                          \
   }                                                        \
@@ -141,7 +142,7 @@ class ImagingForwardBackward {
   //! Vector of target measurements
   t_Vector const &target() const { return target_; }
   //! Minimun of objective_function
-  Real objmin() const { return objmin_; };
+  Real objmin() const { return objmin_; }
   //! Sets the vector of target measurements
   template <class DERIVED>
   ImagingForwardBackward<Scalar> &target(Eigen::MatrixBase<DERIVED> const &target) {
@@ -288,23 +289,31 @@ typename ImagingForwardBackward<SCALAR>::Diagnostic ImagingForwardBackward<SCALA
 template <class SCALAR>
 bool ImagingForwardBackward<SCALAR>::residual_convergence(t_Vector const &x,
                                                           t_Vector const &residual) const {
-  if (static_cast<bool>(residual_convergence())) return residual_convergence()(x, residual);
-  if (residual_tolerance() <= 0e0) return true;
+  if (static_cast<bool>(residual_convergence())) {
+    return residual_convergence()(x, residual);
+  }
+  if (residual_tolerance() <= 0e0) {
+    return true;
+  }
   auto const residual_norm = sopt::l2_norm(residual);
   SOPT_LOW_LOG("    - [FB] Residuals: {} <? {}", residual_norm, residual_tolerance());
   return residual_norm < residual_tolerance();
-};
+}
 
 template <class SCALAR>
 bool ImagingForwardBackward<SCALAR>::objective_convergence(ScalarRelativeVariation<Scalar> &scalvar,
                                                            t_Vector const &x,
                                                            t_Vector const &residual) const {
-  if (static_cast<bool>(objective_convergence())) return objective_convergence()(x, residual);
-  if (scalvar.relative_tolerance() <= 0e0) return true;
+  if (static_cast<bool>(objective_convergence())) {
+    return objective_convergence()(x, residual);
+  }
+  if (scalvar.relative_tolerance() <= 0e0) {
+    return true;
+  }
   auto const current = ((gamma() > 0) ? g_proximal_->proximal_norm(x)
 			* gamma() : 0) + std::pow(sopt::l2_norm(residual), 2) / (2 * sigma() * sigma());
   return scalvar(current);
-};
+}
 
 #ifdef SOPT_MPI
 template <class SCALAR>
@@ -312,20 +321,24 @@ bool ImagingForwardBackward<SCALAR>::objective_convergence(mpi::Communicator con
                                                            ScalarRelativeVariation<Scalar> &scalvar,
                                                            t_Vector const &x,
                                                            t_Vector const &residual) const {
-  if (static_cast<bool>(objective_convergence())) return objective_convergence()(x, residual);
-  if (scalvar.relative_tolerance() <= 0e0) return true;
+  if (static_cast<bool>(objective_convergence())) {
+    return objective_convergence()(x, residual);
+  }
+  if (scalvar.relative_tolerance() <= 0e0) {
+    return true;
+  }
   auto const current = obj_comm.all_sum_all<t_real>(
 	((gamma() > 0) ? g_proximal_->proximal_norm(x)
        * gamma() : 0) + std::pow(sopt::l2_norm(residual), 2) / (2 * sigma() * sigma()));
   return scalvar(current);
-};
+}
 #endif
 
 template <class SCALAR>
 bool ImagingForwardBackward<SCALAR>::is_converged(ScalarRelativeVariation<Scalar> &scalvar,
                                                   t_Vector const &x,
                                                   t_Vector const &residual) const {
-  auto const user = static_cast<bool>(is_converged()) == false or is_converged()(x, residual);
+  auto const user = !static_cast<bool>(is_converged()) or is_converged()(x, residual);
   auto const res = residual_convergence(x, residual);
 #ifdef SOPT_MPI
   auto const obj = objective_convergence(obj_comm(), scalvar, x, residual);
@@ -336,6 +349,5 @@ bool ImagingForwardBackward<SCALAR>::is_converged(ScalarRelativeVariation<Scalar
   // better evaluate each convergence function everytime, especially with mpi
   return user and res and obj;
 }
-}  // namespace algorithm
-}  // namespace sopt
+} // namespace sopt::algorithm
 #endif

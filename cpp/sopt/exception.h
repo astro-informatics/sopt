@@ -43,7 +43,7 @@ class Exception : public std::exception {
   std::string message;
 };
 
-#define SOPT_THROW(MSG) throw(sopt::Exception(__FILE__, __LINE__) << "\n" << MSG)
+#define SOPT_THROW(MSG) throw(sopt::Exception(__FILE__, __LINE__) << "\n" << (MSG))
 
 }  // namespace sopt
 #endif

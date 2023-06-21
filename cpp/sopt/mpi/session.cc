@@ -5,16 +5,19 @@
 #include "sopt/logging.h"
 #include "sopt/types.h"
 
-namespace sopt {
-namespace mpi {
+namespace sopt::mpi {
 
 namespace details {
 void initializer::deleter(initializer *tag) {
-  if (not tag) return;
+  if (tag == nullptr) {
+    return;
+  }
 
   delete tag;
 
-  if (finalized() or not initialized()) return;
+  if (finalized() or not initialized()) {
+    return;
+  }
 
   auto const error = MPI_Finalize();
   if (error != MPI_SUCCESS) {
@@ -26,10 +29,12 @@ std::weak_ptr<initializer> initializer::singleton;
 }  // namespace details
 
 std::shared_ptr<details::initializer> init(int argc, const char **argv) {
-  if (finalized()) throw std::runtime_error("MPI session has already been finalized");
+  if (finalized()) {
+    throw std::runtime_error("MPI session has already been finalized");
+  }
   if (not initialized()) {
     assert(details::initializer::singleton.expired());
-    std::shared_ptr<details::initializer> ptr(new details::initializer,
+    const std::shared_ptr<details::initializer> ptr(new details::initializer,
                                               &details::initializer::deleter);
 #ifdef SOPT_OPENMP
     int provided;
@@ -41,7 +46,9 @@ std::shared_ptr<details::initializer> init(int argc, const char **argv) {
       details::initializer::singleton = ptr;
 
 #ifdef SOPT_OPENMP
-    if (provided < MPI_THREAD_FUNNELED) SOPT_THROW("MPI threading support not sufficient.");
+    if (provided < MPI_THREAD_FUNNELED) {
+      SOPT_THROW("MPI threading support not sufficient.");
+    }
 #endif
     return details::initializer::singleton.lock();
   }
@@ -49,9 +56,11 @@ std::shared_ptr<details::initializer> init(int argc, const char **argv) {
 }
 
 std::shared_ptr<details::initializer> session_singleton() {
-  if (not initialized()) throw std::runtime_error("MPI session not initialized");
+  if (not initialized()) {
+    throw std::runtime_error("MPI session not initialized");
+  }
   if (details::initializer::singleton.expired()) {
-    std::shared_ptr<details::initializer> ptr(new details::initializer,
+    const std::shared_ptr<details::initializer> ptr(new details::initializer,
                                               &details::initializer::deleter);
     details::initializer::singleton = ptr;
     return details::initializer::singleton.lock();
@@ -72,13 +81,14 @@ bool initialized() {
 bool finalized() {
   int finalized;
   MPI_Finalized(&finalized);
-  return finalized;
+  return finalized != 0;
 }
 
 void finalize() {
-  if (finalized() or not initialized()) return;
+  if (finalized() or not initialized()) {
+    return;
+  }
   MPI_Finalize();
 }
 
-}  // namespace mpi
-}  // namespace sopt
+} // namespace sopt::mpi

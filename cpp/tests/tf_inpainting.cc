@@ -23,15 +23,15 @@
 
 // \min_{x} ||\Psi^Tx||_1 \quad \mbox{s.t.} \quad ||y - Ax||_2 < \epsilon and x \geq 0
 
-typedef double Scalar;
-typedef sopt::Vector<Scalar> Vector;
-typedef sopt::Matrix<Scalar> Matrix;
-typedef sopt::Image<Scalar> Image;
+using Scalar = double;
+using Vector = sopt::Vector<Scalar>;
+using Matrix = sopt::Matrix<Scalar>;
+using Image = sopt::Image<Scalar>;
 
 TEST_CASE("Inpainting"){
   extern std::unique_ptr<std::mt19937_64> mersenne;
   std::string const input = "cameraman256";
-  std::string const model_path = std::string(sopt::notinstalled::models_directory() + "/DnCNN/snr_15_model.pb/");
+  std::string const model_path = static_cast<std::string>(sopt::notinstalled::models_directory() + "/DnCNN/snr_15_model.pb/");
 
   Image const image = sopt::notinstalled::read_standard_tiff(input);
 
@@ -46,7 +46,9 @@ TEST_CASE("Inpainting"){
 
   std::normal_distribution<> gaussian_dist(0, sigma);
   Vector y(y0.size());
-  for (sopt::t_int i = 0; i < y0.size(); i++) y(i) = y0(i) + gaussian_dist(*mersenne);
+  for (sopt::t_int i = 0; i < y0.size(); i++) {
+    y(i) = y0(i) + gaussian_dist(*mersenne);
+  }
 
   sopt::t_real const gamma = 18;
   sopt::t_real const beta = sigma * sigma * 0.5;

@@ -8,17 +8,21 @@
 #include "sopt/wavelets/wavelet_data.h"
 #include "sopt/wavelets/wavelets.h"
 
-typedef sopt::Array<sopt::t_uint> t_iVector;
+using t_iVector = sopt::Array<sopt::t_uint>;
 t_iVector even(t_iVector const &x) {
   t_iVector result((x.size() + 1) / 2);
-  for (t_iVector::Index i(0); i < x.size(); i += 2) result(i / 2) = x(i);
+  for (t_iVector::Index i(0); i < x.size(); i += 2) {
+    result(i / 2) = x(i);
+  }
   return result;
-};
+}
 t_iVector odd(t_iVector const &x) {
   t_iVector result(x.size() / 2);
-  for (t_iVector::Index i(1); i < x.size(); i += 2) result(i / 2) = x(i);
+  for (t_iVector::Index i(1); i < x.size(); i += 2) {
+    result(i / 2) = x(i);
+  }
   return result;
-};
+}
 template <class T>
 Eigen::Array<typename T::Scalar, T::RowsAtCompileTime, T::ColsAtCompileTime> upsample(
     Eigen::ArrayBase<T> const &input) {
@@ -29,20 +33,22 @@ Eigen::Array<typename T::Scalar, T::RowsAtCompileTime, T::ColsAtCompileTime> ups
     result(2 * i + 1) = 0;
   }
   return result;
-};
+}
 
 sopt::t_int random_integer(sopt::t_int min, sopt::t_int max) {
   extern std::unique_ptr<std::mt19937_64> mersenne;
   std::uniform_int_distribution<sopt::t_int> uniform_dist(min, max);
   return uniform_dist(*mersenne);
-};
+}
 t_iVector random_ivector(sopt::t_int size, sopt::t_int min, sopt::t_int max) {
   extern std::unique_ptr<std::mt19937_64> mersenne;
   t_iVector result(size);
   std::uniform_int_distribution<sopt::t_int> uniform_dist(min, max);
-  for (t_iVector::Index i(0); i < result.size(); ++i) result(i) = uniform_dist(*mersenne);
+  for (t_iVector::Index i(0); i < result.size(); ++i) {
+    result(i) = uniform_dist(*mersenne);
+  }
   return result;
-};
+}
 
 // Checks round trip operation
 template <class T0>
@@ -61,10 +67,11 @@ void check_round_trip(Eigen::ArrayBase<T0> const &input_, sopt::t_uint db,
 
 TEST_CASE("wavelet data") {
   for (sopt::t_int num = 1; num < 100; num++) {
-    if (num < 39)
+    if (num < 39) {
       REQUIRE(sopt::wavelets::daubechies_data(num).coefficients.size() == 2 * num);
-    else
+    } else {
       REQUIRE_THROWS(sopt::wavelets::daubechies_data(num));
+    }
   }
 }
 
@@ -143,8 +150,9 @@ TEST_CASE("Wavelet transform innards with integer data", "[wavelet]") {
     convolve(expected, large, small);
     t_iVector actual(large.size() / 2);
     down_convolve(actual, large, small);
-    for (size_t i(0); i < static_cast<size_t>(actual.size()); ++i)
+    for (size_t i(0); i < static_cast<size_t>(actual.size()); ++i) {
       CHECK(expected(i * 2) == actual(i));
+    }
   }
 
   SECTION("Convolve output to expression") {
@@ -175,7 +183,8 @@ TEST_CASE("Wavelet transform innards with integer data", "[wavelet]") {
       auto const low = random_ivector(Nfilters, -10, 10);
       auto const high = random_ivector(Nfilters, -10, 10);
 
-      t_iVector actual(Ncoeffs), expected(Ncoeffs);
+      t_iVector actual(Ncoeffs);
+      t_iVector expected(Ncoeffs);
       // does all in go, more complicated but compuationally less intensive
       up_convolve_sum(actual, coeffs, even(low), odd(low), even(high), odd(high));
       // first up-samples, then does convolve: conceptually simpler but does unnecessary operations
@@ -197,7 +206,8 @@ TEST_CASE("1D wavelet transform with floating point data", "[wavelet]") {
 
   SECTION("Direct transform == two downsample + convolution") {
     auto const actual = direct_transform(data.row(0), 1, wavelet);
-    Array<> high(data.cols() / 2), low(data.cols() / 2);
+    Array<> high(data.cols() / 2);
+    Array<> low(data.cols() / 2);
     down_convolve(high, data.row(0), wavelet.direct_filter.high);
     down_convolve(low, data.row(0), wavelet.direct_filter.low);
     CHECK(low.transpose().isApprox(actual.head(data.row(0).size() / 2)));
@@ -229,7 +239,7 @@ TEST_CASE("1D wavelet transform with floating point data", "[wavelet]") {
     check_round_trip(Array<>::Random(52), 10, 2);
   }
 
-  t_uint nlevels = 5;
+  constexpr t_uint nlevels = 5;
   SECTION("Round-trip test for multiple levels") {
     for (t_int i(0); i < 10; ++i) {
       auto const n = random_integer(2, nlevels);

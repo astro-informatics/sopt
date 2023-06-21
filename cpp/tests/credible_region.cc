@@ -5,16 +5,16 @@
 #include "sopt/types.h"
 
 using namespace sopt;
-typedef t_complex Scalar;
-typedef Vector<Scalar> t_Vector;
-typedef Image<Scalar> t_Image;
+using Scalar = t_complex;
+using t_Vector = Vector<Scalar>;
+using t_Image = Image<Scalar>;
 t_uint rows = 128;
 t_uint cols = 128;
 t_uint N = rows * cols;
 
 TEST_CASE("calculating gamma") {
   sopt::logging::set_level("debug");
-  const std::function<t_real(t_Vector)> energy_function = [](const t_Vector &input) -> t_real {
+  const std::function<t_real(t_Vector)> energy_function = [](const t_Vector & /*input*/) -> t_real {
     return 0.;
   };
   const t_Vector x = t_Vector::Random(N);

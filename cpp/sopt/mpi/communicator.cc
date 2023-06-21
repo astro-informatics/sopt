@@ -3,18 +3,21 @@
 #include <mpi.h>
 #include "sopt/mpi/session.h"
 
-namespace sopt {
-namespace mpi {
+namespace sopt::mpi {
 
 void Communicator::delete_comm(Communicator::Impl *const impl) {
-  if (impl->comm != MPI_COMM_WORLD and impl->comm != MPI_COMM_SELF and impl->comm != MPI_COMM_NULL)
+  if (impl->comm != MPI_COMM_WORLD and impl->comm != MPI_COMM_SELF and impl->comm != MPI_COMM_NULL) {
     MPI_Comm_free(&impl->comm);
+  }
   delete impl;
 }
 
 Communicator::Communicator(MPI_Comm const &comm) : impl(nullptr), session(session_singleton()) {
-  if (comm == MPI_COMM_NULL) return;
-  int size, rank;
+  if (comm == MPI_COMM_NULL) {
+    return;
+  }
+  int size;
+  int rank;
   MPI_Comm_size(comm, &size);
   MPI_Comm_rank(comm, &rank);
 
@@ -28,14 +31,18 @@ void Communicator::abort(const std::string &reason) const {
 }
 
 Communicator Communicator::duplicate() const {
-  if (not impl) return Communicator(MPI_COMM_NULL);
+  if (not impl) {
+    return Communicator(MPI_COMM_NULL);
+  }
   MPI_Comm comm;
   MPI_Comm_dup(**this, &comm);
   return comm;
 }
 
 std::string Communicator::broadcast(std::string const &input, t_uint const root) const {
-  if (not impl) return input;
+  if (not impl) {
+    return input;
+  }
   if (rank() == root) {
     auto const N = broadcast(input.size(), root);
     MPI_Bcast(const_cast<std::string::pointer>(input.c_str()), N,
@@ -49,5 +56,4 @@ std::string Communicator::broadcast(std::string const &input, t_uint const root)
   return result;
 }
 
-}  // namespace mpi
-}  // namespace sopt
+} // namespace sopt::mpi

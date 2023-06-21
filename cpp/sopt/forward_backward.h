@@ -4,13 +4,14 @@
 #include "sopt/config.h"
 #include <functional>
 #include <limits>
+#include <tuple>
+#include <utility>
 #include "sopt/exception.h"
 #include "sopt/linear_transform.h"
 #include "sopt/logging.h"
 #include "sopt/types.h"
 
-namespace sopt {
-namespace algorithm {
+namespace sopt::algorithm {
 
 //! \brief Forward Backward Splitting
 //! \details \f$\min_{x} f(\Phi x - y) + g(z)\f$. \f$y\f$ is a target vector.
@@ -18,21 +19,21 @@ template <class SCALAR>
 class ForwardBackward {
  public:
   //! Scalar type
-  typedef SCALAR value_type;
+  using value_type = SCALAR;
   //! Scalar type
-  typedef value_type Scalar;
+  using Scalar = value_type;
   //! Real type
-  typedef typename real_type<Scalar>::type Real;
+  using Real = typename real_type<Scalar>::type;
   //! Type of then underlying vectors
-  typedef Vector<Scalar> t_Vector;
+  using t_Vector = Vector<Scalar>;
   //! Type of the Ψ and Ψ^H operations, as well as Φ and Φ^H
-  typedef LinearTransform<t_Vector> t_LinearTransform;
+  using t_LinearTransform = LinearTransform<t_Vector>;
   //! Type of the convergence function
-  typedef std::function<bool(t_Vector const &, t_Vector const &)> t_IsConverged;
+  using t_IsConverged = std::function<bool (const t_Vector &, const t_Vector &)>;
   //! Type of the proximal operator
-  typedef ProximalFunction<Scalar> t_Proximal;
+  using t_Proximal = ProximalFunction<Scalar>;
   //! Type of the gradient
-  typedef typename std::function<void(t_Vector &, const t_Vector &)> t_Gradient;
+  using t_Gradient = typename std::function<void (t_Vector &, const t_Vector &)>;
 
   //! Values indicating how the algorithm ran
   struct Diagnostic {
@@ -43,7 +44,7 @@ class ForwardBackward {
     //! the residual from the last iteration
     t_Vector residual;
 
-    Diagnostic(t_uint niters = 0u, bool good = false)
+    explicit Diagnostic(t_uint niters = 0u, bool good = false)
         : niters(niters), good(good), residual(t_Vector::Zero(0)) {}
     Diagnostic(t_uint niters, bool good, t_Vector &&residual)
         : niters(niters), good(good), residual(std::move(residual)) {}
@@ -70,13 +71,13 @@ class ForwardBackward {
         f_gradient_(f_gradient),
         g_proximal_(g_proximal),
         target_(target) {}
-  virtual ~ForwardBackward() {}
+  virtual ~ForwardBackward() = default;
 
 // Macro helps define properties that can be initialized as in
 // auto sdmm  = ForwardBackward<float>().prop0(value).prop1(value);
 #define SOPT_MACRO(NAME, TYPE)                      \
   TYPE const &NAME() const { return NAME##_; }      \
-  ForwardBackward<SCALAR> &NAME(TYPE const &NAME) { \
+  ForwardBackward<SCALAR> &NAME(TYPE const &(NAME)) { \
     NAME##_ = NAME;                                 \
     return *this;                                   \
   }                                                 \
@@ -205,25 +206,29 @@ class ForwardBackward {
 
  protected:
   void iteration_step(t_Vector &out, t_Vector &residual, t_Vector &p, t_Vector &z,
-                      const t_real lambda) const;
+                       t_real lambda) const;
 
   //! Checks input makes sense
   void sanity_check(t_Vector const &x_guess, t_Vector const &res_guess) const {
-    if ((Phi().adjoint() * target()).size() != x_guess.size())
-      SOPT_THROW("target, adjoint measurement operator and input vector have inconsistent sizes");
-    if (target().size() != res_guess.size())
-      SOPT_THROW("target and residual vector have inconsistent sizes");
-    if ((Phi() * x_guess).size() != target().size())
-      SOPT_THROW("target, measurement operator and input vector have inconsistent sizes");
-    if (not static_cast<bool>(is_converged()))
-      SOPT_WARN("No convergence function was provided: algorithm will run for {} steps", itermax());
+  if ((Phi().adjoint() * target()).size() != x_guess.size()) {
+    SOPT_THROW("target, adjoint measurement operator and input vector have inconsistent sizes");
+  }
+  if (target().size() != res_guess.size()) {
+    SOPT_THROW("target and residual vector have inconsistent sizes");
+  }
+  if ((Phi() * x_guess).size() != target().size()) {
+    SOPT_THROW("target, measurement operator and input vector have inconsistent sizes");
+  }
+  if (not static_cast<bool>(is_converged())) {
+    SOPT_WARN("No convergence function was provided: algorithm will run for {} steps", itermax());
+  }
   }
 
   //! \brief Calls Forward Backward
   //! \param[out] out: Output vector x
   //! \param[in] guess: initial guess
   //! \param[in] residuals: initial residuals
-  Diagnostic operator()(t_Vector &out, t_Vector const &guess, t_Vector const &res) const;
+  Diagnostic operator()(t_Vector &out, t_Vector const &x_guess, t_Vector const &res_guess) const;
 
   //! Vector of measurements
   t_Vector target_;
@@ -282,6 +287,5 @@ typename ForwardBackward<SCALAR>::Diagnostic ForwardBackward<SCALAR>::operator()
   }
   return {niters, converged, std::move(residual)};
 }
-}  // namespace algorithm
-}  // namespace sopt
+} // namespace sopt::algorithm
 #endif

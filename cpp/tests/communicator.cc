@@ -9,7 +9,8 @@ using namespace sopt;
 
 #ifdef SOPT_MPI
 TEST_CASE("Creates an mpi communicator") {
-  int rank, size;
+  int rank;
+  int size;
   MPI_Comm_rank(MPI_COMM_WORLD, &rank);
   MPI_Comm_size(MPI_COMM_WORLD, &size);
 
@@ -42,9 +43,14 @@ TEST_CASE("Creates an mpi communicator") {
   }
 
   SECTION("ScatterV") {
-    std::vector<t_int> sizes(world.size()), displs(world.size());
-    for (t_uint i(0); i < world.rank(); ++i) sizes[i] = world.rank() * 2 + i;
-    for (t_uint i(1); i < world.rank(); ++i) displs[i] = displs[i - 1] + sizes[i - 1];
+    std::vector<t_int> sizes(world.size());
+    std::vector<t_int> displs(world.size());
+    for (t_uint i(0); i < world.rank(); ++i) {
+      sizes[i] = world.rank() * 2 + i;
+    }
+    for (t_uint i(1); i < world.rank(); ++i) {
+      displs[i] = displs[i - 1] + sizes[i - 1];
+    }
     Vector<t_int> const sendee =
         Vector<t_int>::Random(std::accumulate(sizes.begin(), sizes.end(), 0));
     auto const result = world.rank() == world.root_id()
@@ -60,13 +66,14 @@ TEST_CASE("Creates an mpi communicator") {
       auto const result = world.scatter_one(scattered);
       REQUIRE(result == world.rank() + 2);
       auto const gathered = world.gather(result);
-      for (decltype(gathered)::size_type i = 0; i < gathered.size(); i++)
+      for (decltype(gathered)::size_type i = 0; i < gathered.size(); i++) {
         CHECK(gathered[i] == scattered[i]);
+      }
     } else {
       auto const result = world.scatter_one<t_int>();
       REQUIRE(result == world.rank() + 2);
       auto const gather = world.gather(result);
-      CHECK(gather.size() == 0);
+      CHECK(gather.empty());
     }
   }
 
@@ -81,10 +88,12 @@ TEST_CASE("Creates an mpi communicator") {
     auto const result = world.is_root() ? world.gather(sendee, sizes) : world.gather(sendee);
     if (world.rank() == world.root_id()) {
       CHECK(result.size() == totsize(world.size()));
-      for (decltype(world.size()) i(0); i < world.size(); ++i)
+      for (decltype(world.size()) i(0); i < world.size(); ++i) {
         CHECK(result.segment(totsize(i), size(i)) == Vector<t_int>::Constant(size(i), i));
-    } else
+      }
+    } else {
       CHECK(result.size() == 0);
+    }
   }
 
   SECTION("Gather an std::set") {
@@ -92,9 +101,12 @@ TEST_CASE("Creates an mpi communicator") {
     auto const result = world.gather(input, world.gather<t_int>(input.size()));
     if (world.is_root()) {
       CHECK(result.size() == world.size() + 1);
-      for (decltype(world.size()) i(0); i <= world.size(); ++i) CHECK(result.count(i) == 1);
-    } else
-      CHECK(result.size() == 0);
+      for (decltype(world.size()) i(0); i <= world.size(); ++i) {
+        CHECK(result.count(i) == 1);
+      }
+    } else {
+      CHECK(result.empty());
+    }
   }
 
   SECTION("Gather an std::vector") {
@@ -107,8 +119,9 @@ TEST_CASE("Creates an mpi communicator") {
         CHECK(result[2 * i] == world.size());
         CHECK(result[2 * i + 1] == i);
       }
-    } else
-      CHECK(result.size() == 0);
+    } else {
+      CHECK(result.empty());
+    }
   }
 
   SECTION("All sum all over image") {
@@ -149,7 +162,7 @@ TEST_CASE("Creates an mpi communicator") {
     }
 
     SECTION("std::string") {
-      auto const expected = "Hello World!";
+      const auto *const expected = "Hello World!";
       std::string const input = world.is_root() ? expected : "";
       CHECK(world.broadcast(input) == expected);
     }

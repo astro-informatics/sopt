@@ -1,14 +1,13 @@
 #ifndef SOPT_TIFF_WRAPPER_H
 #define SOPT_TIFF_WRAPPER_H
 
+#include <string>
 #include "sopt/config.h"
 #include <Eigen/Core>
 #include "sopt/types.h"
 
-namespace sopt {
-namespace notinstalled {
+namespace sopt::notinstalled {
 //! Reads tiff image from sopt data directory if it exists
 sopt::Image<> read_standard_tiff(std::string const &name);
-}  // namespace notinstalled
-}  // namespace sopt
+} // namespace sopt::notinstalled
 #endif

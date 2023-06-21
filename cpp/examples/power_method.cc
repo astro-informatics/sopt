@@ -2,7 +2,7 @@
 #include <Eigen/Eigenvalues>
 #include "sopt/power_method.h"
 
-int main(int, char const **) {
+int main(int /*unused*/, char const ** /*unused*/) {
   typedef sopt::t_real Scalar;
   auto const N = 10;
 
@@ -20,13 +20,14 @@ int main(int, char const **) {
   // Compute the eigen values explictly to figure out the result of the power method
   Eigen::EigenSolver<sopt::Matrix<Scalar>> es;
   es.compute(A.adjoint() * A, true);
-  Eigen::DenseIndex index;
+  Eigen::DenseIndex index = 0;
   (es.eigenvalues().transpose() * es.eigenvalues()).real().maxCoeff(&index);
   auto const eigenvalue = es.eigenvalues()(index);
 
   // This should pass if the power method is correct
-  if (std::abs(result.magnitude - std::abs(eigenvalue)) > 1e-8 * std::abs(eigenvalue))
+  if (std::abs(result.magnitude - std::abs(eigenvalue)) > 1e-8 * std::abs(eigenvalue)) {
     throw std::runtime_error("Power method did not converge to the expected value");
+  }
 
   return 0;
 }

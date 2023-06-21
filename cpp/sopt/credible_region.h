@@ -2,16 +2,18 @@
 #define SOPT_CREDIBLE_REGION_H
 
 #include "sopt/config.h"
+#include <algorithm>
 #include <functional>
 #include <iostream>
+#include <memory>
 #include <type_traits>
+#include <tuple>
 #include "sopt/bisection_method.h"
 #include "sopt/exception.h"
 #include "sopt/logging.h"
 #include "sopt/types.h"
 
-namespace sopt {
-namespace credible_region {
+namespace sopt::credible_region {
 
 template <class T>
 t_real compute_energy_upper_bound(
@@ -54,18 +56,20 @@ credible_interval(const Eigen::MatrixBase<T> &solution, const t_uint &rows, cons
                   const std::tuple<t_uint, t_uint> &grid_pixel_size,
                   const std::function<t_real(typename T::PlainObject)> &objective_function,
                   const t_real &alpha);
-}  // namespace credible_region
-}  // namespace sopt
+} // namespace sopt::credible_region
 
-namespace sopt {
-namespace credible_region {
+namespace sopt::credible_region {
 
 template <class T>
 t_real compute_energy_upper_bound(
     const t_real &alpha, const Eigen::MatrixBase<T> &solution,
     const std::function<t_real(typename T::PlainObject)> &objective_function) {
-  if (alpha <= 0) SOPT_THROW("α must positive.");
-  if (alpha >= 1) SOPT_THROW("α must less than 1.");
+  if (alpha <= 0) {
+    SOPT_THROW("α must positive.");
+  }
+  if (alpha >= 1) {
+    SOPT_THROW("α must less than 1.");
+  }
   const t_real N = solution.size();
   const t_real energy = objective_function(solution);
   auto const gamma = energy + N * (std::sqrt(16 * std::log(3 / (1 - alpha)) / N) + 1);
@@ -82,11 +86,15 @@ std::tuple<t_real, t_real, t_real> find_credible_interval(
     const t_real &energy_upperbound) {
   typedef typename T::PlainObject Derived;
   assert(energy_upperbound > 0);
-  if (solution.size() != cols * rows) SOPT_THROW("Solution is wrong size for credible interval.");
-  if ((std::get<2>(region) > rows) or (std::get<3>(region) > cols))
+  if (solution.size() != cols * rows) {
+    SOPT_THROW("Solution is wrong size for credible interval.");
+  }
+  if ((std::get<2>(region) > rows) or (std::get<3>(region) > cols)) {
     SOPT_THROW("Region is out of bounds.");
-  if (energy_upperbound <= 0)
+  }
+  if (energy_upperbound <= 0) {
     SOPT_THROW("Energy upper bound is not positive when calculating credible interval.");
+  }
 
   const std::shared_ptr<Matrix<typename T::Scalar>> varried_solution =
       std::make_shared<Matrix<typename T::Scalar>>(solution);
@@ -134,8 +142,9 @@ credible_interval_grid(const Eigen::MatrixBase<T> &solution, const t_uint &rows,
                        const std::tuple<t_uint, t_uint> &grid_pixel_size,
                        const std::function<t_real(typename T::PlainObject)> &objective_function,
                        const t_real &energy_upperbound) {
-  if ((std::get<0>(grid_pixel_size) > rows) or (std::get<1>(grid_pixel_size) > cols))
+  if ((std::get<0>(grid_pixel_size) > rows) or (std::get<1>(grid_pixel_size) > cols)) {
     SOPT_THROW("Grid pixel size too big.");
+  }
   typedef typename T::PlainObject Derived;
   const t_uint drow = std::get<0>(grid_pixel_size);
   const t_uint dcol = std::get<1>(grid_pixel_size);
@@ -149,10 +158,12 @@ credible_interval_grid(const Eigen::MatrixBase<T> &solution, const t_uint &rows,
     for (t_uint j = 0; j < grid_cols; j++) {
       const t_uint start_row = i * drow;
       const t_uint start_col = j * dcol;
-      if (static_cast<t_int>(rows - start_row - drow) < 0)
+      if (static_cast<t_int>(rows - start_row - drow) < 0) {
         SOPT_THROW("Interval grid calculation going out of bounds.");
-      if (static_cast<t_int>(cols - start_col - dcol) < 0)
+      }
+      if (static_cast<t_int>(cols - start_col - dcol) < 0) {
         SOPT_THROW("Interval grid calculation going out of bounds.");
+      }
       const t_uint delta_row =
           ((drow > (rows - start_row - drow)) and ((rows - start_row - drow) > 0))
               ? rows - start_row - drow
@@ -197,8 +208,6 @@ credible_interval(const Eigen::MatrixBase<T> &solution, const t_uint &rows, cons
   return credible_interval_grid<typename T::PlainObject, K>(solution, rows, cols, grid_pixel_size,
                                                             objective_function, energy_upperbound);
 }
-}  // namespace credible_region
-
-}  // namespace sopt
+} // namespace sopt::credible_region
 
 #endif

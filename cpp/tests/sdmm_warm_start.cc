@@ -7,9 +7,9 @@
 #include "sopt/sdmm.h"
 #include "sopt/types.h"
 
-typedef sopt::t_real Scalar;
-typedef sopt::Vector<Scalar> t_Vector;
-typedef sopt::Matrix<Scalar> t_Matrix;
+using Scalar = sopt::t_real;
+using t_Vector = sopt::Vector<Scalar>;
+using t_Matrix = sopt::Matrix<Scalar>;
 
 auto const N = 30;
 SCENARIO("SDMM with warm start", "[sdmm][integration]") {
@@ -34,7 +34,7 @@ SCENARIO("SDMM with warm start", "[sdmm][integration]") {
                     .conjugate_gradient(std::numeric_limits<t_uint>::max(), 1e-12)
                     .append(proximal::translate(proximal::EuclidianNorm(), -target0), Id)
                     .append(proximal::translate(proximal::EuclidianNorm(), -target1), Id);
-    t_Vector input = t_Vector::Random(N);
+    const t_Vector input = t_Vector::Random(N);
 
     WHEN("the algorithms runs") {
       auto const full = sdmm(input);

@@ -2,6 +2,7 @@
 #define SOPT_L1_PROXIMAL_ADMM_H
 
 #include "sopt/config.h"
+#include <limits>
 #include <numeric>
 #include <tuple>
 #include <utility>
@@ -14,27 +15,26 @@
 #include "sopt/relative_variation.h"
 #include "sopt/types.h"
 
-namespace sopt {
-namespace algorithm {
+namespace sopt::algorithm {
 template <class SCALAR>
 class ImagingProximalADMM {
   //! Underlying algorithm
-  typedef ProximalADMM<SCALAR> PADMM;
+  using PADMM = ProximalADMM<SCALAR>;
 
  public:
-  typedef typename PADMM::value_type value_type;
-  typedef typename PADMM::Scalar Scalar;
-  typedef typename PADMM::Real Real;
-  typedef typename PADMM::t_Vector t_Vector;
-  typedef typename PADMM::t_LinearTransform t_LinearTransform;
-  typedef typename PADMM::t_Proximal t_Proximal;
-  typedef typename PADMM::t_IsConverged t_IsConverged;
+  using value_type = typename PADMM::value_type;
+  using Scalar = typename PADMM::Scalar;
+  using Real = typename PADMM::Real;
+  using t_Vector = typename PADMM::t_Vector;
+  using t_LinearTransform = typename PADMM::t_LinearTransform;
+  using t_Proximal = typename PADMM::t_Proximal;
+  using t_IsConverged = typename PADMM::t_IsConverged;
 
   //! Values indicating how the algorithm ran
   struct Diagnostic : public PADMM::Diagnostic {
     //! Diagnostic from calling L1 proximal
     typename proximal::L1<Scalar>::Diagnostic l1_diagnostic;
-    Diagnostic(t_uint niters = 0u, bool good = false,
+    explicit Diagnostic(t_uint niters = 0u, bool good = false,
                typename proximal::L1<Scalar>::Diagnostic const &l1diag =
                    typename proximal::L1<Scalar>::Diagnostic())
         : PADMM::Diagnostic(niters, good), l1_diagnostic(l1diag) {}
@@ -52,7 +52,7 @@ class ImagingProximalADMM {
   //! \param[in] f_proximal: proximal operator of the \f$f\f$ function.
   //! \param[in] g_proximal: proximal operator of the \f$g\f$ function
   template <class DERIVED>
-  ImagingProximalADMM(Eigen::MatrixBase<DERIVED> const &target)
+  explicit ImagingProximalADMM(Eigen::MatrixBase<DERIVED> const &target)
       : l1_proximal_(),
         l2ball_proximal_(1e0),
         tight_frame_(false),
@@ -67,13 +67,13 @@ class ImagingProximalADMM {
         is_converged_(),
         Phi_(linear_transform_identity<Scalar>()),
         target_(target) {}
-  virtual ~ImagingProximalADMM() {}
+  virtual ~ImagingProximalADMM() = default;
 
 // Macro helps define properties that can be initialized as in
 // auto padmm = ImagingProximalADMM<float>().prop0(value).prop1(value);
 #define SOPT_MACRO(NAME, TYPE)                          \
   TYPE const &NAME() const { return NAME##_; }          \
-  ImagingProximalADMM<SCALAR> &NAME(TYPE const &NAME) { \
+  ImagingProximalADMM<SCALAR> &NAME(TYPE const &(NAME)) { \
     NAME##_ = NAME;                                     \
     return *this;                                       \
   }                                                     \
@@ -207,7 +207,7 @@ class ImagingProximalADMM {
   }                                                                                                \
   /** \brief Forwards to l1_proximal **/                                                           \
   ImagingProximalADMM<Scalar> &NAME##_proximal_##VAR(                                              \
-      decltype(std::declval<proximal::PROXIMAL<Scalar> const>().VAR()) VAR) {                      \
+      decltype(std::declval<proximal::PROXIMAL<Scalar> const>().VAR()) (VAR)) {                      \
     NAME##_proximal().VAR(VAR);                                                                    \
     return *this;                                                                                  \
   }
@@ -313,34 +313,41 @@ typename ImagingProximalADMM<SCALAR>::Diagnostic ImagingProximalADMM<SCALAR>::op
 template <class SCALAR>
 bool ImagingProximalADMM<SCALAR>::residual_convergence(t_Vector const &x,
                                                        t_Vector const &residual) const {
-  if (static_cast<bool>(residual_convergence())) return residual_convergence()(x, residual);
-  if (residual_tolerance() <= 0e0) return true;
+  if (static_cast<bool>(residual_convergence())) {
+    return residual_convergence()(x, residual);
+  }
+  if (residual_tolerance() <= 0e0) {
+    return true;
+  }
   auto const residual_norm = sopt::l2_norm(residual, l2ball_proximal_weights());
   SOPT_LOW_LOG("    - [PADMM] Residuals: {} <? {}", residual_norm, residual_tolerance());
   return residual_norm < residual_tolerance();
-};
+}
 
 template <class SCALAR>
 bool ImagingProximalADMM<SCALAR>::objective_convergence(ScalarRelativeVariation<Scalar> &scalvar,
                                                         t_Vector const &x,
                                                         t_Vector const &residual) const {
-  if (static_cast<bool>(objective_convergence())) return objective_convergence()(x, residual);
-  if (scalvar.relative_tolerance() <= 0e0) return true;
+  if (static_cast<bool>(objective_convergence())) {
+    return objective_convergence()(x, residual);
+  }
+  if (scalvar.relative_tolerance() <= 0e0) {
+    return true;
+  }
   auto const current =
       sopt::l1_norm(static_cast<t_Vector>(Psi().adjoint() * x), l1_proximal_weights());
   return scalvar(current);
-};
+}
 
 template <class SCALAR>
 bool ImagingProximalADMM<SCALAR>::is_converged(ScalarRelativeVariation<Scalar> &scalvar,
                                                t_Vector const &x, t_Vector const &residual) const {
-  auto const user = static_cast<bool>(is_converged()) == false or is_converged()(x, residual);
+  auto const user = !static_cast<bool>(is_converged()) or is_converged()(x, residual);
   auto const res = residual_convergence(x, residual);
   auto const obj = objective_convergence(scalvar, x, residual);
   // beware of short-circuiting!
   // better evaluate each convergence function everytime, especially with mpi
   return user and res and obj;
 }
-}  // namespace algorithm
-}  // namespace sopt
+} // namespace sopt::algorithm
 #endif

@@ -16,7 +16,7 @@ TEST_CASE("Power Method") {
 
   auto const eigenvalues = es.eigenvalues();
   auto const eigenvectors = es.eigenvectors();
-  Eigen::DenseIndex index;
+  Eigen::DenseIndex index = 0;
   (eigenvalues.transpose() * eigenvalues).real().maxCoeff(&index);
   auto const eigenvalue = eigenvalues(index);
   Vector<t_complex> const eigenvector = eigenvectors.col(index);
@@ -57,7 +57,7 @@ TEST_CASE("Power Method (from Purify)") {
 
   auto const eigenvalues = es.eigenvalues();
   auto const eigenvectors = es.eigenvectors();
-  Eigen::DenseIndex index;
+  Eigen::DenseIndex index = 0;
   (eigenvalues.transpose() * eigenvalues).real().maxCoeff(&index);
   auto const eigenvalue = eigenvalues(index);
   Vector<t_complex> const eigenvector = eigenvectors.col(index);

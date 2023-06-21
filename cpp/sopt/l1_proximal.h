@@ -4,6 +4,7 @@
 #include "sopt/config.h"
 #include <array>
 #include <type_traits>
+#include <utility>
 #include <Eigen/Core>
 #include "sopt/linear_transform.h"
 #include "sopt/maths.h"
@@ -13,8 +14,7 @@
 #include "sopt/mpi/utilities.h"
 #endif
 
-namespace sopt {
-namespace proximal {
+namespace sopt::proximal {
 
 //! \brief L1 proximal, including linear transform
 //! \details This function computes the prox operator of the l1
@@ -26,9 +26,9 @@ template <class SCALAR>
 class L1TightFrame {
  public:
   //! Underlying scalar type
-  typedef SCALAR Scalar;
+  using Scalar = SCALAR;
   //! Underlying real scalar type
-  typedef typename real_type<Scalar>::type Real;
+  using Real = typename real_type<Scalar>::type;
 
 #ifdef SOPT_MPI
   //! \brief MPI constructor with direct and adjoint space communicators
@@ -36,7 +36,7 @@ class L1TightFrame {
   //! function is composed of two parts: one in direct space (input when applying Psi), and
   //! one in adjoint space (input when applying adjoint). The two spaces can be distributed or not,
   //! independantly of one another. Hence the two communicators.
-  L1TightFrame(mpi::Communicator const &direct_comm = mpi::Communicator(),
+  explicit L1TightFrame(mpi::Communicator const &direct_comm = mpi::Communicator(),
                mpi::Communicator const &adjoint_comm = mpi::Communicator())
       : Psi_(linear_transform_identity<Scalar>()),
         nu_(1e0),
@@ -50,7 +50,7 @@ class L1TightFrame {
 
 #define SOPT_MACRO(NAME, TYPE)                   \
   TYPE const &NAME() const { return NAME##_; }   \
-  L1TightFrame<Scalar> &NAME(TYPE const &NAME) { \
+  L1TightFrame<Scalar> &NAME(TYPE const &(NAME)) { \
     NAME##_ = NAME;                              \
     return *this;                                \
   }                                              \
@@ -75,15 +75,21 @@ class L1TightFrame {
   //! Weights of the l1 norm
   template <class T>
   L1TightFrame<Scalar> &weights(Eigen::MatrixBase<T> const &w) {
-    if ((w.array() < 0e0).any()) SOPT_THROW("Weights cannot be negative");
-    if (w.stableNorm() < 1e-12) SOPT_THROW("Weights cannot be null");
+    if ((w.array() < 0e0).any()) {
+      SOPT_THROW("Weights cannot be negative");
+    }
+    if (w.stableNorm() < 1e-12) {
+      SOPT_THROW("Weights cannot be null");
+    }
     weights_ = w;
     return *this;
   }
 
   //! Set weights to a single value
   L1TightFrame<Scalar> &weights(Real const &value) {
-    if (value <= 0e0) SOPT_THROW("Weight cannot be negative or null");
+    if (value <= 0e0) {
+      SOPT_THROW("Weight cannot be negative or null");
+    }
     weights_ = Vector<Real>::Ones(1) * value;
     return *this;
   }
@@ -128,16 +134,17 @@ typename std::enable_if<is_complex<SCALAR>::value == is_complex<typename T0::Sca
 L1TightFrame<SCALAR>::operator()(Eigen::MatrixBase<T0> &out, Real gamma,
                                  Eigen::MatrixBase<T1> const &x) const {
   Vector<Scalar> const psit_x = Psi().adjoint() * x;
-  if (weights().size() == 1)
+  if (weights().size() == 1) {
     out = static_cast<Vector<Scalar>>(
               Psi() * (soft_threshhold(psit_x, nu() * gamma * weights()(0)) - psit_x)) /
               nu() +
           x;
-  else
+  } else {
     out = static_cast<Vector<Scalar>>(
               Psi() * (soft_threshhold(psit_x, nu() * gamma * weights()) - psit_x)) /
               nu() +
           x;
+  }
   SOPT_LOW_LOG("Prox L1: objective = {}", objective(x, out, gamma));
 }
 
@@ -182,9 +189,9 @@ class L1 : protected L1TightFrame<SCALAR> {
 #endif
 
   //! Underlying scalar type
-  typedef typename L1TightFrame<SCALAR>::Scalar Scalar;
+  using Scalar = typename L1TightFrame<SCALAR>::Scalar;
   //! Underlying real scalar type
-  typedef typename L1TightFrame<SCALAR>::Real Real;
+  using Real = typename L1TightFrame<SCALAR>::Real;
 
   //! How did calling L1 go?
   struct Diagnostic {
@@ -196,7 +203,7 @@ class L1 : protected L1TightFrame<SCALAR> {
     Real objective;
     //! Wether convergence was achieved
     bool good;
-    Diagnostic(t_uint niters = 0, Real relative_variation = 0, Real objective = 0,
+    explicit Diagnostic(t_uint niters = 0, Real relative_variation = 0, Real objective = 0,
                bool good = false)
         : niters(niters),
           relative_variation(relative_variation),
@@ -219,10 +226,11 @@ class L1 : protected L1TightFrame<SCALAR> {
       return Diagnostic(0, 0, 0.5 * (out - x).squaredNorm(), true);
     }
 
-    if (fista_mixing())
+    if (fista_mixing()) {
       return operator()(out, gamma, x, FistaMixing());
-    else
-      return operator()(out, gamma, x, NoMixing());
+    }
+    return operator()(out, gamma, x, NoMixing());
+
   }
 
   //! Lazy version
@@ -234,7 +242,7 @@ class L1 : protected L1TightFrame<SCALAR> {
   }
 
 #ifdef SOPT_MPI
-  L1(mpi::Communicator const &direct_comm = mpi::Communicator(),
+  explicit L1(mpi::Communicator const &direct_comm = mpi::Communicator(),
      mpi::Communicator const &adjoint_comm = mpi::Communicator())
       : L1TightFrame<SCALAR>(direct_comm, adjoint_comm),
         itermax_(0),
@@ -254,7 +262,7 @@ class L1 : protected L1TightFrame<SCALAR> {
 
 #define SOPT_MACRO(NAME, TYPE)                 \
   TYPE const &NAME() const { return NAME##_; } \
-  L1<Scalar> &NAME(TYPE const &NAME) {         \
+  L1<Scalar> &NAME(TYPE const &(NAME)) {         \
     NAME##_ = NAME;                            \
     return *this;                              \
   }                                            \
@@ -350,49 +358,55 @@ typename L1<SCALAR>::Diagnostic L1<SCALAR>::operator()(Eigen::MatrixBase<T0> &ou
     auto const do_break = breaker(objective(x, out, gamma));
     SOPT_LOW_LOG("    - [ProxL1] iter {}, prox_fval = {}, rel_fval = {}", niters, breaker.current(),
                  breaker.relative_variation());
-    if (do_break) break;
+    if (do_break) {
+      break;
+    }
 
     Vector<Scalar> const res = u_l1 * nu() + Psi().adjoint() * out;
     mixing(u_l1, 1e0 / nu() * (res - apply_soft_threshhold(gamma, res)), niters);
     apply_constraints(out, x - Psi() * u_l1);
   }
 
-  if (breaker.two_cycle()) SOPT_WARN("Two-cycle detected when computing L1");
+  if (breaker.two_cycle()) {
+    SOPT_WARN("Two-cycle detected when computing L1");
+  }
 
   if (breaker.converged()) {
     SOPT_LOW_LOG("Proximal L1 operator converged at {} in {} iterations", breaker.current(),
                  niters);
-  } else
+  } else {
     SOPT_ERROR("Proximal L1 operator did not converge after {} iterations", niters);
+  }
   return {niters, breaker.relative_variation(), breaker.current(), breaker.converged()};
 }
 
 template <class SCALAR>
 template <class T1>
 Vector<SCALAR> L1<SCALAR>::apply_soft_threshhold(Real gamma, Eigen::MatrixBase<T1> const &x) const {
-  if (weights().size() == 1)
+  if (weights().size() == 1) {
     return soft_threshhold(x, gamma * weights()(0));
-  else
-    return soft_threshhold(x, gamma * weights());
+  }
+  return soft_threshhold(x, gamma * weights());
 }
 
 template <class SCALAR>
 template <class T0, class T1>
 void L1<SCALAR>::apply_constraints(Eigen::MatrixBase<T0> &out,
                                    Eigen::MatrixBase<T1> const &x) const {
-  if (positivity_constraint())
+  if (positivity_constraint()) {
     out = sopt::positive_quadrant(x);
-  else if (real_constraint())
+  } else if (real_constraint()) {
     out = x.real().template cast<SCALAR>();
-  else
+  } else {
     out = x;
+  }
 }
 
 template <class SCALAR>
 class L1<SCALAR>::FistaMixing {
  public:
-  typedef typename real_type<SCALAR>::type Real;
-  FistaMixing() : t(1){};
+  using Real = typename real_type<SCALAR>::type;
+  FistaMixing() : t(1){}
   template <class T1>
   void operator()(Vector<SCALAR> &previous, Eigen::MatrixBase<T1> const &unmixed, t_uint iter) {
     // reset
@@ -400,7 +414,9 @@ class L1<SCALAR>::FistaMixing {
       previous = unmixed;
       return;
     }
-    if (iter <= 1) t = next(1);
+    if (iter <= 1) {
+      t = next(1);
+    }
     auto const prior_t = t;
     t = next(t);
     auto const alpha = (prior_t - 1) / t;
@@ -416,7 +432,7 @@ template <class SCALAR>
 class L1<SCALAR>::NoMixing {
  public:
   template <class T1>
-  void operator()(Vector<SCALAR> &previous, Eigen::MatrixBase<T1> const &unmixed, t_uint) {
+  void operator()(Vector<SCALAR> &previous, Eigen::MatrixBase<T1> const &unmixed, t_uint /*unused*/) {
     previous = unmixed;
   }
 };
@@ -424,13 +440,13 @@ class L1<SCALAR>::NoMixing {
 template <class SCALAR>
 class L1<SCALAR>::Breaker {
  public:
-  typedef typename real_type<SCALAR>::type Real;
+  using Real = typename real_type<SCALAR>::type;
   //! Constructs a breaker object
   //! \param[in] objective: the first objective function
   //! \param[in] tolerance: Convergence criteria for convergence
   //! \param[in] do_two_cycle: Whether to enable two cycle detections. Only necessary when mixing
   //! is not enabled.
-  Breaker(Real objective, Real tolerance = 1e-8, bool do_two_cycle = true)
+  explicit Breaker(Real objective, Real tolerance = 1e-8, bool do_two_cycle = true)
       : tolerance_(tolerance),
         iter(0),
         objectives({{objective, 0, 0, 0}}),
@@ -449,16 +465,18 @@ class L1<SCALAR>::Breaker {
   Real relative_variation() const { return std::abs((current() - previous()) / current()); }
   //! \brief Whether we have a cycle of period two
   //! \details Cycling is prone to happen without mixing, it seems.
-  bool two_cycle() const {
+  [[nodiscard]] bool two_cycle() const {
     return do_two_cycle and iter > 3 and std::abs(objectives[0] - objectives[2]) < tolerance() and
            std::abs(objectives[1] - objectives[3]) < tolerance();
   }
 
   //! True if relative variation smaller than tolerance
-  bool converged() const {
+  [[nodiscard]] bool converged() const {
     // If current ~ 0, then defaults to absolute convergence
     // This is mainly to avoid a division by zero
-    if (std::abs(current() * 1000) < tolerance()) return std::abs(previous() * 1000) < tolerance();
+    if (std::abs(current() * 1000) < tolerance()) {
+      return std::abs(previous() * 1000) < tolerance();
+    }
     return relative_variation() < tolerance();
   }
   //! Tolerance criteria
@@ -475,7 +493,6 @@ class L1<SCALAR>::Breaker {
   std::array<Real, 4> objectives;
   bool do_two_cycle;
 };
-}  // namespace proximal
-}  // namespace sopt
+} // namespace sopt::proximal
 
 #endif

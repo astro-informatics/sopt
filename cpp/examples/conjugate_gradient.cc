@@ -2,7 +2,7 @@
 #include "sopt/conjugate_gradient.h"
 #include "sopt/types.h"
 
-int main(int, char const **) {
+int main(int /*unused*/, char const ** /*unused*/) {
   // Conjugate-gradient solves  Ax=b, where A is positive definite.
   // The input to our conjugate gradient can be a matrix or a function
   // Lets try both approaches.
@@ -24,22 +24,28 @@ int main(int, char const **) {
   };
 
   // Conjugate gradient with unlimited iterations and a convergence criteria of 1e-12
-  sopt::ConjugateGradient cg(std::numeric_limits<sopt::t_uint>::max(), 1e-12);
+  const sopt::ConjugateGradient cg(std::numeric_limits<sopt::t_uint>::max(), 1e-12);
 
   // Call conjugate gradient using both approaches
   auto as_matrix = cg(AhA, Ahb);
   auto as_function = cg(aha_function, Ahb);
 
   // Check result
-  if (not(as_matrix.good and as_function.good)) throw std::runtime_error("Expected convergence");
-  if (as_matrix.niters != as_function.niters)
+  if (not(as_matrix.good and as_function.good)) {
+    throw std::runtime_error("Expected convergence");
+  }
+  if (as_matrix.niters != as_function.niters) {
     throw std::runtime_error("Expected same number of iterations");
-  if (as_matrix.residual > cg.tolerance() or as_function.residual > cg.tolerance())
+  }
+  if (as_matrix.residual > cg.tolerance() or as_function.residual > cg.tolerance()) {
     throw std::runtime_error("Expected better convergence");
-  if (not as_matrix.result.isApprox(as_function.result, 1e-6))
+  }
+  if (not as_matrix.result.isApprox(as_function.result, 1e-6)) {
     throw std::runtime_error("Expected same result");
-  if (not(A * as_matrix.result).isApprox(b, 1e-6))
+  }
+  if (not(A * as_matrix.result).isApprox(b, 1e-6)) {
     throw std::runtime_error("Expected solution to Ax=b");
+  }
 
   return 0;
 }

@@ -11,9 +11,9 @@ using namespace sopt;
 //! \brief Minimum set of functions and typedefs needed by reweighting
 //! \details The attributes are public and static so we can access them during the tests.
 struct DummyAlgorithm {
-  typedef t_real Scalar;
-  typedef Vector<Scalar> t_Vector;
-  typedef ConvergenceFunction<Scalar> t_IsConverged;
+  using Scalar = t_real;
+  using t_Vector = Vector<Scalar>;
+  using t_IsConverged = ConvergenceFunction<Scalar>;
 
   struct DiagnosticAndResult {
     //! Expected by reweighted algorithm
@@ -25,19 +25,19 @@ struct DummyAlgorithm {
     DiagnosticAndResult::x = x.array() + 0.1;
     return {};
   }
-  DiagnosticAndResult operator()(DiagnosticAndResult const &warm) const {
+  DiagnosticAndResult operator()(DiagnosticAndResult const & /*warm*/) const {
     ++called_with_warm;
-    DiagnosticAndResult::x = warm.x.array() + 0.1;
+    DiagnosticAndResult::x = DummyAlgorithm::DiagnosticAndResult::x.array() + 0.1;
     return {};
   }
 
   //! Applies Ψ^T * x
-  static t_Vector reweightee(DummyAlgorithm const &, t_Vector const &x) {
+  static t_Vector reweightee(DummyAlgorithm const & /*unused*/, t_Vector const &x) {
     ++DummyAlgorithm::called_reweightee;
     return x * 2;
   }
   //! sets the weights
-  static void set_weights(DummyAlgorithm &, t_Vector const &weights) {
+  static void set_weights(DummyAlgorithm & /*unused*/, t_Vector const &weights) {
     ++DummyAlgorithm::called_weights;
     DummyAlgorithm::weights = weights;
   }

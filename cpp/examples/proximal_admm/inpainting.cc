@@ -45,9 +45,9 @@ int main(int argc, char const **argv) {
     exit(0);
   }
   // Set up random numbers for C and C++
-  auto const seed = std::time(0);
-  std::srand((unsigned int)seed);
-  std::mt19937 mersenne(std::time(0));
+  auto const seed = std::time(nullptr);
+  std::srand(static_cast<unsigned int>(seed));
+  std::mt19937 mersenne(std::time(nullptr));
 
   // Initializes and sets logger (if compiled with logging)
   // See set_level function for levels.
@@ -75,7 +75,9 @@ int main(int argc, char const **argv) {
   SOPT_HIGH_LOG("Create dirty vector");
   std::normal_distribution<> gaussian_dist(0, sigma);
   Vector y(y0.size());
-  for (sopt::t_int i = 0; i < y0.size(); i++) y(i) = y0(i) + gaussian_dist(mersenne);
+  for (sopt::t_int i = 0; i < y0.size(); i++) {
+    y(i) = y0(i) + gaussian_dist(mersenne);
+  }
   // Write dirty imagte to file
   if (output != "none") {
     Vector const dirty = sampling.adjoint() * y;
@@ -110,12 +112,15 @@ int main(int argc, char const **argv) {
   // diagnostic should tell us the function converged
   // it also contains diagnostic.niters - the number of iterations, and cg_diagnostic - the
   // diagnostic from the last call to the conjugate gradient.
-  if (not diagnostic.good) throw std::runtime_error("Did not converge!");
+  if (not diagnostic.good) {
+    throw std::runtime_error("Did not converge!");
+  }
 
   SOPT_HIGH_LOG("SOPT-proximal-ADMM converged in {} iterations", diagnostic.niters);
-  if (output != "none")
+  if (output != "none") {
     sopt::utilities::write_tiff(Matrix::Map(diagnostic.x.data(), image.rows(), image.cols()),
                                 output + ".tiff");
+  }
 
   return 0;
 }

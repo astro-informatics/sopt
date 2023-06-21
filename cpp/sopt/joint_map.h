@@ -4,6 +4,8 @@
 #include "sopt/config.h"
 #include <functional>
 #include <limits>
+#include <memory>
+#include <utility>
 #include "sopt/exception.h"
 #include "sopt/forward_backward.h"
 #include "sopt/imaging_forward_backward.h"
@@ -11,25 +13,24 @@
 #include "sopt/logging.h"
 #include "sopt/types.h"
 
-namespace sopt {
-namespace algorithm {
+namespace sopt::algorithm {
 
 template <class ALGORITHM>
 class JointMAP {
-  typedef typename ALGORITHM::t_Vector t_Vector;
-  typedef typename std::function<t_real(const t_Vector &)> t_Reg_Term;
-  typedef typename ALGORITHM::DiagnosticAndResult ResultType;
+  using t_Vector = typename ALGORITHM::t_Vector;
+  using t_Reg_Term = typename std::function<t_real (const t_Vector &)>;
+  using ResultType = typename ALGORITHM::DiagnosticAndResult;
   //! Type of the convergence function
-  typedef std::function<bool(t_Vector const &, t_Vector const &, t_real const)> t_IsConverged;
+  using t_IsConverged = std::function<bool (const t_Vector &, const t_Vector &, const t_real)>;
 
  public:
   //! Holds results and reg parameter
   struct DiagnosticAndResultReg : public ResultType {
     t_real reg_term = 0;
     //! Wether convergence was achieved
-    bool reg_good;
+    bool reg_good{};
     //! Number of iterations
-    t_uint reg_niters;
+    t_uint reg_niters{};
   };
 
   JointMAP(const std::shared_ptr<ALGORITHM> &algo_ptr, const t_Reg_Term &reg_term,
@@ -43,11 +44,11 @@ class JointMAP {
         is_converged_([](t_Vector const &, t_Vector const &, t_real const) { return true; }),
         relative_variation_(1e-3),
         objective_variation_(1e-3),
-        itermax_(std::numeric_limits<t_uint>::max()){};
+        itermax_(std::numeric_limits<t_uint>::max()){}
 
 #define SOPT_MACRO(NAME, TYPE)                  \
   TYPE const &NAME() const { return NAME##_; }  \
-  JointMAP<ALGORITHM> &NAME(TYPE const &NAME) { \
+  JointMAP<ALGORITHM> &NAME(TYPE const &(NAME)) { \
     NAME##_ = NAME;                             \
     return *this;                               \
   }                                             \
@@ -82,9 +83,15 @@ class JointMAP {
  protected:
   //! Checks input makes sense
   void sanity_check(t_real const &gamma, t_real const beta, t_real const alpha) const {
-    if (gamma < 0) SOPT_THROW("Starting regularisation parameter not positive.");
-    if (alpha < 0) SOPT_THROW("Alpha parameter not positive.");
-    if (beta <= 0) SOPT_THROW("Beta not positive.");
+    if (gamma < 0) {
+      SOPT_THROW("Starting regularisation parameter not positive.");
+    }
+    if (alpha < 0) {
+      SOPT_THROW("Alpha parameter not positive.");
+    }
+    if (beta <= 0) {
+      SOPT_THROW("Beta not positive.");
+    }
   }
 
  public:
@@ -132,10 +139,9 @@ class JointMAP {
     diagnostic.reg_niters = niters;
     diagnostic.reg_term = gamma;
     return diagnostic;
-  };
+  }
 };
 
-}  // namespace algorithm
-}  // namespace sopt
+} // namespace sopt::algorithm
 
 #endif

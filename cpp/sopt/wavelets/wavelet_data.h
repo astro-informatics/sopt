@@ -5,17 +5,16 @@
 #include "sopt/types.h"
 #include "sopt/wavelets/innards.impl.h"
 
-namespace sopt {
-namespace wavelets {
+namespace sopt::wavelets {
 
 //! Holds wavelets coefficients
 struct WaveletData {
   //! Type of the underlying scalar
-  typedef t_real t_scalar;
+  using t_scalar = t_real;
   //! Type of the underlying vector
-  typedef Array<t_real> t_vector;
+  using t_vector = Array<t_real>;
   //! Wavelet coefficient per-se
-  t_vector const coefficients;
+  t_vector coefficients;
 
   //! Holds filters for direct transform
   struct DirectFilter {
@@ -23,7 +22,7 @@ struct WaveletData {
     t_vector low;
     //! High-pass filter for direct transform
     t_vector high;
-  } const direct_filter;
+  } direct_filter;
 
   //! Holds filters for indirect transform
   struct {
@@ -32,16 +31,15 @@ struct WaveletData {
     t_vector low_odd;
     t_vector high_even;
     t_vector high_odd;
-  } const indirect_filter;
+  } indirect_filter;
 
   //! Constructs from initializers
-  WaveletData(std::initializer_list<t_scalar> const &coefs);
+  WaveletData(std::initializer_list<t_scalar> const &coeffs);
   //! Constructs from vector
-  WaveletData(t_vector const &coefs);
+  explicit WaveletData(t_vector const &coeffs);
 };
 
 //! Factory function returning specific daubechie wavelet data
 WaveletData const &daubechies_data(t_uint);
-}  // namespace wavelets
-}  // namespace sopt
+} // namespace sopt::wavelets
 #endif

@@ -15,8 +15,7 @@
 #include "sopt/g_proximal.h"
 #include "sopt/l1_proximal.h"
 
-namespace sopt {
-namespace algorithm {
+namespace sopt::algorithm {
 
 // Implementation of g_proximal with l1 proximal.
 // Owns the private object l1_proximal_ and implements the
@@ -25,20 +24,20 @@ template <class SCALAR>
 class L1GProximal : public GProximal<SCALAR> {
 
 public:
-  typedef ForwardBackward<SCALAR> FB;
-  typedef typename FB::Real Real;
-  typedef typename FB::Scalar Scalar;
-  typedef typename FB::t_Vector t_Vector;
-  typedef typename FB::t_Proximal t_Proximal;
-  typedef typename FB::t_LinearTransform t_LinearTransform;
+  using FB = ForwardBackward<SCALAR>;
+  using Real = typename FB::Real;
+  using Scalar = typename FB::Scalar;
+  using t_Vector = typename FB::t_Vector;
+  using t_Proximal = typename FB::t_Proximal;
+  using t_LinearTransform = typename FB::t_LinearTransform;
 
   // In the constructor we need to construct the private l1_proximal_
   // object that contains the real implementation details. The tight_frame
   // parameter is required for internal logic in l1_proximal
-  L1GProximal(bool tight_frame = false)
+  explicit L1GProximal(bool tight_frame = false)
     : tight_frame_ (tight_frame),
       l1_proximal_() {}
-  ~L1GProximal() {};
+  ~L1GProximal() = default;
 
 // Implements the interface in GProximal
 
@@ -135,6 +134,5 @@ protected:
   }
 
 };
-}
-}
+} // namespace sopt::algorithm
 #endif

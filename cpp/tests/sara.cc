@@ -10,7 +10,7 @@ sopt::t_int random_integer(sopt::t_int min, sopt::t_int max) {
   extern std::unique_ptr<std::mt19937_64> mersenne;
   std::uniform_int_distribution<sopt::t_int> uniform_dist(min, max);
   return uniform_dist(*mersenne);
-};
+}
 
 TEST_CASE("Check SARA implementation mechanically", "[wavelet]") {
   using namespace sopt::wavelets;
@@ -59,7 +59,8 @@ TEST_CASE("Linear-transform wrapper", "[wavelet]") {
   SARA const sara{std::make_tuple(std::string{"DB3"}, 1u), std::make_tuple(std::string{"DB1"}, 2u),
                   std::make_tuple(std::string{"DB1"}, 3u)};
   SECTION("1d") {
-    auto const rows = 256, cols = 1;
+    auto const rows = 256;
+    auto const cols = 1;
     auto const Psi = linear_transform<t_real>(sara, rows, cols);
     SECTION("Indirect transform") {
       Image<> const image = Image<>::Random(rows, cols);
@@ -90,7 +91,8 @@ TEST_CASE("Linear-transform wrapper", "[wavelet]") {
     }
   }
   SECTION("2d") {
-    auto const rows = 256, cols = 256;
+    auto const rows = 256;
+    auto const cols = 256;
     auto const Psi = linear_transform<t_real>(sara, rows, cols);
     SECTION("Indirect transform") {
       Image<> const image = Image<>::Random(rows, cols);

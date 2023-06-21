@@ -2,6 +2,7 @@
 #define SOPT_L1_PRIMAL_DUAL_H
 
 #include "sopt/config.h"
+#include <limits>
 #include <numeric>
 #include <tuple>
 #include <utility>
@@ -14,28 +15,27 @@
 #include "sopt/relative_variation.h"
 #include "sopt/types.h"
 
-namespace sopt {
-namespace algorithm {
+namespace sopt::algorithm {
 template <class SCALAR>
 class ImagingPrimalDual {
   //! Underlying algorithm
-  typedef PrimalDual<SCALAR> PD;
+  using PD = PrimalDual<SCALAR>;
 
  public:
-  typedef typename PD::value_type value_type;
-  typedef typename PD::Scalar Scalar;
-  typedef typename PD::Real Real;
-  typedef typename PD::t_Vector t_Vector;
-  typedef typename PD::t_LinearTransform t_LinearTransform;
+  using value_type = typename PD::value_type;
+  using Scalar = typename PD::Scalar;
+  using Real = typename PD::Real;
+  using t_Vector = typename PD::t_Vector;
+  using t_LinearTransform = typename PD::t_LinearTransform;
   template <class T>
   using t_Proximal = std::function<void(t_Vector &, const T &, const t_Vector &)>;
-  typedef typename PD::t_IsConverged t_IsConverged;
-  typedef typename PD::t_Constraint t_Constraint;
-  typedef typename PD::t_Random_Updater t_Random_Updater;
+  using t_IsConverged = typename PD::t_IsConverged;
+  using t_Constraint = typename PD::t_Constraint;
+  using t_Random_Updater = typename PD::t_Random_Updater;
 
   //! Values indicating how the algorithm ran
   struct Diagnostic : public PD::Diagnostic {
-    Diagnostic(t_uint niters = 0u, bool good = false) : PD::Diagnostic(niters, good) {}
+    explicit Diagnostic(t_uint niters = 0u, bool good = false) : PD::Diagnostic(niters, good) {}
     Diagnostic(t_uint niters, bool good, t_Vector &&residual)
         : PD::Diagnostic(niters, good, std::move(residual)) {}
   };
@@ -49,7 +49,7 @@ class ImagingPrimalDual {
   //! \param[in] f_proximal: proximal operator of the \f$f\f$ function.
   //! \param[in] g_proximal: proximal operator of the \f$g\f$ function
   template <class DERIVED>
-  ImagingPrimalDual(Eigen::MatrixBase<DERIVED> const &target)
+  explicit ImagingPrimalDual(Eigen::MatrixBase<DERIVED> const &target)
       : l1_proximal_([](t_Vector &out, const Real &gamma, const t_Vector &x) {
           proximal::l1_norm<t_Vector, t_Vector>(out, gamma, x);
         }),
@@ -79,13 +79,13 @@ class ImagingPrimalDual {
         random_measurement_updater_([]() { return true; }),
         random_wavelet_updater_([]() { return true; }),
         target_(target) {}
-  virtual ~ImagingPrimalDual() {}
+  virtual ~ImagingPrimalDual() = default;
 
 // Macro helps define properties that can be initialized as in
 // auto padmm = ImagingPrimalDual<float>().prop0(value).prop1(value);
 #define SOPT_MACRO(NAME, TYPE)                        \
   TYPE const &NAME() const { return NAME##_; }        \
-  ImagingPrimalDual<SCALAR> &NAME(TYPE const &NAME) { \
+  ImagingPrimalDual<SCALAR> &NAME(TYPE const &(NAME)) { \
     NAME##_ = NAME;                                   \
     return *this;                                     \
   }                                                   \
@@ -243,7 +243,7 @@ class ImagingPrimalDual {
   }                                                                                                \
   /** \brief Forwards to l1_proximal **/                                                           \
   ImagingPrimalDual<Scalar> &NAME##_proximal_##VAR(                                                \
-      decltype(std::declval<proximal::PROXIMAL<Scalar> const>().VAR()) VAR) {                      \
+      decltype(std::declval<proximal::PROXIMAL<Scalar> const>().VAR()) (VAR)) {                      \
     NAME##_proximal().VAR(VAR);                                                                    \
     return *this;                                                                                  \
   }
@@ -296,7 +296,7 @@ class ImagingPrimalDual {
     no_weights(output, 1, x);
     with_weights(outputw, Vector<Real>::Ones(this->l1_proximal_weights().size()), x);
     return output.isApprox(outputw);
-  };
+  }
 };
 
 template <class SCALAR>
@@ -304,26 +304,31 @@ typename ImagingPrimalDual<SCALAR>::Diagnostic ImagingPrimalDual<SCALAR>::operat
     t_Vector &out, t_Vector const &guess, t_Vector const &res) const {
   SOPT_HIGH_LOG("Performing Primal Dual with L1 and L2 operators");
   // The f proximal is an L1 proximal that stores some diagnostic result
-  if (not check_l1_weight_proximal(l1_proximal(), l1_proximal_weighted()))
+  if (not check_l1_weight_proximal(l1_proximal(), l1_proximal_weighted())) {
     SOPT_THROW(
-        "l1 proximal and weighted l1 proximal appear to be different functions. Please make sure "
-        "both are the same function.");
+      "l1 proximal and weighted l1 proximal appear to be different functions. Please make sure "
+      "both are the same function.");
+  }
   auto const f_proximal = [this](t_Vector &out, Real gamma, t_Vector const &x) {
-    if (this->l1_proximal_weights().size() > 1)
+    if (this->l1_proximal_weights().size() > 1) {
       this->l1_proximal_weighted()(out, this->l1_proximal_weights() * gamma, x);
-    else
+    } else {
       this->l1_proximal()(out, this->l1_proximal_weights()(0) * gamma, x);
+    }
   };
   auto const g_proximal = [this](t_Vector &out, Real gamma, t_Vector const &x) {
     this->l2ball_proximal()(out, gamma, x);
     // applying preconditioning
-    for (t_int i = 0; i < this->precondition_iters(); i++)
+    for (t_int i = 0; i < this->precondition_iters(); i++) {
       this->l2ball_proximal()(
           out, gamma,
           out - this->precondition_stepsize() *
                     (out.array() * this->precondition_weights().array() - x.array()).matrix());
+    }
 
-    if (this->precondition_iters() > 0) out = out.array() * this->precondition_weights().array();
+    if (this->precondition_iters() > 0) {
+      out = out.array() * this->precondition_weights().array();
+    }
   };
   ScalarRelativeVariation<Scalar> scalvar(relative_variation(), relative_variation(),
                                           "Objective function");
@@ -333,9 +338,15 @@ typename ImagingPrimalDual<SCALAR>::Diagnostic ImagingPrimalDual<SCALAR>::operat
   const bool positive = positivity_constraint();
   const bool real = real_constraint();
   t_Constraint constraint = [real, positive](t_Vector &out, const t_Vector &x) {
-    if (real) out.real() = x.real();
-    if (positive) out = sopt::positive_quadrant(x);
-    if (not real and not positive) out = x;
+    if (real) {
+      out.real() = x.real();
+    }
+    if (positive) {
+      out = sopt::positive_quadrant(x);
+    }
+    if (not real and not positive) {
+      out = x;
+    }
   };
   auto const pd = PD(f_proximal, g_proximal, target())
                       .itermax(itermax())
@@ -365,34 +376,41 @@ typename ImagingPrimalDual<SCALAR>::Diagnostic ImagingPrimalDual<SCALAR>::operat
 template <class SCALAR>
 bool ImagingPrimalDual<SCALAR>::residual_convergence(t_Vector const &x,
                                                      t_Vector const &residual) const {
-  if (static_cast<bool>(residual_convergence())) return residual_convergence()(x, residual);
-  if (residual_tolerance() <= 0e0) return true;
+    if (static_cast<bool>(residual_convergence())) {
+      return residual_convergence()(x, residual);
+    }
+    if (residual_tolerance() <= 0e0) {
+      return true;
+    }
   auto const residual_norm = sopt::l2_norm(residual, l2ball_proximal_weights());
   SOPT_LOW_LOG("    - [Primal Dual] Residuals: {} <? {}", residual_norm, residual_tolerance());
   return residual_norm < residual_tolerance();
-};
+}
 
 template <class SCALAR>
 bool ImagingPrimalDual<SCALAR>::objective_convergence(ScalarRelativeVariation<Scalar> &scalvar,
                                                       t_Vector const &x,
                                                       t_Vector const &residual) const {
-  if (static_cast<bool>(objective_convergence())) return objective_convergence()(x, residual);
-  if (scalvar.relative_tolerance() <= 0e0) return true;
+    if (static_cast<bool>(objective_convergence())) {
+      return objective_convergence()(x, residual);
+    }
+    if (scalvar.relative_tolerance() <= 0e0) {
+      return true;
+    }
   auto const current =
       sopt::l1_norm(static_cast<t_Vector>(Psi().adjoint() * x), l1_proximal_weights());
   return scalvar(current);
-};
+}
 
 template <class SCALAR>
 bool ImagingPrimalDual<SCALAR>::is_converged(ScalarRelativeVariation<Scalar> &scalvar,
                                              t_Vector const &x, t_Vector const &residual) const {
-  auto const user = static_cast<bool>(is_converged()) == false or is_converged()(x, residual);
+  auto const user = !static_cast<bool>(is_converged()) or is_converged()(x, residual);
   auto const res = residual_convergence(x, residual);
   auto const obj = objective_convergence(scalvar, x, residual);
   // beware of short-circuiting!
   // better evaluate each convergence function everytime, especially with mpi
   return user and res and obj;
 }
-}  // namespace algorithm
-}  // namespace sopt
+} // namespace sopt::algorithm
 #endif

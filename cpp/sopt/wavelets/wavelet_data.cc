@@ -4,8 +4,7 @@
 #include <Eigen/Core>
 #include "sopt/types.h"
 
-namespace sopt {
-namespace wavelets {
+namespace sopt::wavelets {
 
 namespace {
 //! Vector setup from initializer list, because easier
@@ -17,19 +16,25 @@ WaveletData::t_vector init_db(std::initializer_list<t_real> const &input) {
 //! Every other element is negative
 WaveletData::t_vector negate_even(WaveletData::t_vector const &coeffs) {
   WaveletData::t_vector result(coeffs);
-  for (t_int i(0); i < static_cast<t_int>(coeffs.size()); i += 2) result(i) = -result(i);
+  for (t_int i(0); i < static_cast<t_int>(coeffs.size()); i += 2) {
+    result(i) = -result(i);
+  }
   return result;
 }
 //! Odd elements only
 WaveletData::t_vector odd(WaveletData::t_vector const &coeffs) {
   WaveletData::t_vector result(coeffs.size() / 2);
-  for (t_int i(1); i < static_cast<t_int>(coeffs.size()); i += 2) result(i / 2) = coeffs(i);
+  for (t_int i(1); i < static_cast<t_int>(coeffs.size()); i += 2) {
+    result(i / 2) = coeffs(i);
+  }
   return result;
 }
 //! Even elements only
 WaveletData::t_vector even(WaveletData::t_vector const &coeffs) {
   WaveletData::t_vector result((coeffs.size() + 1) / 2);
-  for (t_int i(0), j(0); i < static_cast<t_int>(coeffs.size()); i += 2, ++j) result(j) = coeffs(i);
+  for (t_int i(0), j(0); i < static_cast<t_int>(coeffs.size()); i += 2, ++j) {
+    result(j) = coeffs(i);
+  }
   return result;
 }
 }  // namespace
@@ -1718,5 +1723,4 @@ WaveletData const &daubechies_data(t_uint n) {
   }
   return *result;
 }
-}  // namespace wavelets
-}  // namespace sopt
+} // namespace sopt::wavelets

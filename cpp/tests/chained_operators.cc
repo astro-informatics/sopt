@@ -22,7 +22,8 @@ TEST_CASE("Linear Transforms", "[ops]") {
     t_Vector const x = t_Vector::Random(2 * N) * 5;
     auto chain = chained_operators(func0);
 
-    t_Vector actual, expected;
+    t_Vector actual;
+    t_Vector expected;
     func0(actual, x);
     chain(expected, x);
     CHECK(actual == expected);
@@ -38,7 +39,8 @@ TEST_CASE("Linear Transforms", "[ops]") {
     t_Vector const x = t_Vector::Random(2 * N) * 5;
     auto chain = chained_operators(func0, func1);
 
-    t_Vector actual, expected;
+    t_Vector actual;
+    t_Vector expected;
     func1(expected, x);
     func0(actual, expected);
     chain(expected, x);
@@ -55,7 +57,8 @@ TEST_CASE("Linear Transforms", "[ops]") {
     t_Vector const x = t_Vector::Random(2 * N) * 5;
     auto chain = chained_operators(func0, func1, func0);
 
-    t_Vector actual, expected;
+    t_Vector actual;
+    t_Vector expected;
     func0(actual, x);
     func1(expected, actual);
     func0(actual, expected);
@@ -73,7 +76,8 @@ TEST_CASE("Linear Transforms", "[ops]") {
     t_Vector const x = t_Vector::Random(2 * N) * 5;
     auto chain = chained_operators(func0, func1, func0, func0);
 
-    t_Vector actual, expected;
+    t_Vector actual;
+    t_Vector expected;
     func0(expected, x);
     func0(actual, expected);
     func1(expected, actual);
@@ -101,7 +105,8 @@ TEST_CASE("Linear Transforms", "[ops]") {
     auto chain = chained_operators(func0, func1, func0, func0);
     auto chain_adjoint = chained_operators(afunc0, afunc0, afunc1, afunc0);
     auto op = LinearTransform<t_Vector>{chain, chain_adjoint};
-    t_Vector actual, expected;
+    t_Vector actual;
+    t_Vector expected;
     chain(actual, x);
     expected = op * x;
     CHECK(expected == x.head(N - 1) * 32);

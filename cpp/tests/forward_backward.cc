@@ -20,12 +20,12 @@ sopt::t_int random_integer(sopt::t_int min, sopt::t_int max) {
   extern std::unique_ptr<std::mt19937_64> mersenne;
   std::uniform_int_distribution<sopt::t_int> uniform_dist(min, max);
   return uniform_dist(*mersenne);
-};
+}
 
-typedef sopt::t_real Scalar;
-typedef sopt::Vector<Scalar> t_Vector;
-typedef sopt::t_real t_real;
-auto const N = 5;
+using Scalar = sopt::t_real;
+using t_Vector = sopt::Vector<Scalar>;
+using t_real = sopt::t_real;
+auto constexpr N = 5;
 
 TEST_CASE("Forward Backward with ||x - x0||_2^2 function", "[fb]") {
   using namespace sopt;
@@ -39,7 +39,7 @@ TEST_CASE("Forward Backward with ||x - x0||_2^2 function", "[fb]") {
   auto const grad = [](t_Vector &out, const t_Vector &x) { out = x; };
   const t_Vector x_guess = t_Vector::Random(target0.size());
   const t_Vector res = x_guess - target0;
-  auto const convergence = [&target0](const t_Vector &x, const t_Vector &res) -> bool {
+  auto const convergence = [&target0](const t_Vector &x, const t_Vector & /*res*/) -> bool {
     return x.isApprox(target0, 1e-9);
   };
   CAPTURE(target0);

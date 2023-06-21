@@ -24,10 +24,10 @@
 
 // \min_{x} ||\Psi^Tx||_1 \quad \mbox{s.t.} \quad ||y - Ax||_2 < \epsilon and x \geq 0
 
-typedef double Scalar;
-typedef sopt::Vector<Scalar> Vector;
-typedef sopt::Matrix<Scalar> Matrix;
-typedef sopt::Image<Scalar> Image;
+using Scalar = double;
+using Vector = sopt::Vector<Scalar>;
+using Matrix = sopt::Matrix<Scalar>;
+using Image = sopt::Image<Scalar>;
 
 TEST_CASE("Inpainting"){
   extern std::unique_ptr<std::mt19937_64> mersenne;
@@ -50,7 +50,9 @@ TEST_CASE("Inpainting"){
 
   std::normal_distribution<> gaussian_dist(0, sigma);
   Vector y(y0.size());
-  for (sopt::t_int i = 0; i < y0.size(); i++) y(i) = y0(i) + gaussian_dist(*mersenne);
+  for (sopt::t_int i = 0; i < y0.size(); i++) {
+    y(i) = y0(i) + gaussian_dist(*mersenne);
+  }
 
   sopt::t_real const gamma = 18;
   sopt::t_real const beta = sigma * sigma * 0.5;
@@ -71,8 +73,8 @@ TEST_CASE("Inpainting"){
   gp->l1_proximal_tolerance(1e-4)
     .l1_proximal_nu(1)
     .l1_proximal_itermax(50)
-    .l1_proximal_positivity_constraint(true)
-    .l1_proximal_real_constraint(true)
+    .l1_proximal_positivity_constraint(/*ARG=*/true)
+    .l1_proximal_real_constraint(/*ARG=*/true)
     .Psi(psi);
 
   // Once the properties are set, inject it into the ImagingForwardBackward object

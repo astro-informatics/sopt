@@ -3,7 +3,7 @@
 #include "sopt/types.h"
 
 // We will minimize ||L_0 x - x_0|| + ||L_1 x - x_1||, ||.|| the euclidian norm
-int main(int, char const **) {
+int main(int /*unused*/, char const ** /*unused*/) {
   // Initializes and sets logger (if compiled with logging)
   // See set_level function for levels.
   sopt::logging::initialize();
@@ -69,7 +69,9 @@ int main(int, char const **) {
   // diagnostic should tell us the function converged
   // it also contains diagnostic.niters - the number of iterations, and cg_diagnostic - the
   // diagnostic from the last call to the conjugate gradient.
-  if (not diagnostic.good) throw std::runtime_error("Did not converge!");
+  if (not diagnostic.good) {
+    throw std::runtime_error("Did not converge!");
+  }
 
   // Lets test we are at a minimum by recreating the objective function
   // and checking that stepping in any direction raises its value
@@ -81,7 +83,9 @@ int main(int, char const **) {
     t_Vector epsilon = t_Vector::Zero(N);
     epsilon(i) = 1e-4;
     auto const at_x_plus_epsilon = objective(input + epsilon);
-    if (minimum >= at_x_plus_epsilon) throw std::runtime_error("That's no minimum!");
+    if (minimum >= at_x_plus_epsilon) {
+      throw std::runtime_error("That's no minimum!");
+    }
   }
 
   return 0;

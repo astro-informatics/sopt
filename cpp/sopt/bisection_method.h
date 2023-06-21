@@ -28,27 +28,35 @@ typename std::enable_if<std::is_same<t_real, K>::value, K>::type bisection_metho
   const auto estimate = [&](const K &x) { return func(x) - function_value; };
   const t_real eb = estimate(b);
   const t_real ea = estimate(a);
-  if (eb == 0) return b;
-  if (ea == 0) return a;
-  if ((ea > 0 and eb > 0) or (ea < 0 and eb < 0))
+  if (eb == 0) {
+    return b;
+  }
+  if (ea == 0) {
+    return a;
+  }
+  if ((ea > 0 and eb > 0) or (ea < 0 and eb < 0)) {
     SOPT_THROW("f(a) = " << ea << " and f(b) = " << eb
-                         << " have the wrong sign."
-                            "Where a = "
-                         << a << " and b = " << b
-                         << " Bisection Method not applicable for "
-                            "this function.");
+               << " have the wrong sign."
+               "Where a = "
+               << a << " and b = " << b
+               << " Bisection Method not applicable for "
+               "this function.");
+  }
   const auto sign = [&](const K &x) { return (x > 0) ? 1 : ((x < 0) ? -1 : 0); };
   // SOPT_LOW_LOG("Convergence when: |f((a+b)/2) -f(x)| < {} or |a - b| < {}", rel_convergence,
   //              rel_convergence);
   while (rel_convergence < relative_difference or
          std::abs(upper_eta - lower_eta) > rel_convergence) {
-    if (upper_eta == lower_eta) SOPT_THROW("a == b, something is wrong.");
+    if (upper_eta == lower_eta) {
+      SOPT_THROW("a == b, something is wrong.");
+    }
     eta = (lower_eta + upper_eta) * 0.5;
     auto const function_est = estimate(eta);
-    if (sign(estimate(lower_eta)) == sign(estimate(eta)))
+    if (sign(estimate(lower_eta)) == sign(estimate(eta))) {
       lower_eta = eta;
-    else
+    } else {
       upper_eta = eta;
+    }
     relative_difference = std::abs(function_est);
     assert(!(estimate(lower_eta) > 0 and estimate(upper_eta) > 0) and
            !(estimate(lower_eta) < 0 and estimate(upper_eta) < 0));

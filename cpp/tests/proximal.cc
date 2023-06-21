@@ -18,7 +18,9 @@ sopt::Matrix<T> concatenated_permutations(sopt::t_uint i, sopt::t_uint j) {
   auto const N = j / i;
   auto const elem = 1e0 / std::sqrt(static_cast<typename sopt::real_type<T>::type>(N));
   sopt::Matrix<T> result = sopt::Matrix<T>::Zero(i, cols.size());
-  for (typename sopt::Matrix<T>::Index k(0); k < result.cols(); ++k) result(cols[k] / N, k) = elem;
+  for (typename sopt::Matrix<T>::Index k(0); k < result.cols(); ++k) {
+    result(cols[k] / N, k) = elem;
+  }
   return result;
 }
 
@@ -42,7 +44,7 @@ TEST_CASE("WeightedL2Ball", "[proximal]") {
   Vector<t_real> x(5);
   x << 1, 2, 3, 4, 5;
   proximal::WeightedL2Ball<t_real> wball(0.5, weights);
-  proximal::L2Ball<t_real> ball(0.5);
+  const proximal::L2Ball<t_real> ball(0.5);
 
   Vector<t_real> const expected =
       ball((x.array() * weights.array()).matrix()).array() / weights.array();
@@ -241,21 +243,23 @@ TEST_CASE("L1 proximal", "[l1][proximal]") {
         for (auto const dir : {Scalar(eps, 0), Scalar(0, eps), Scalar(-eps, 0), Scalar(0, -eps)}) {
           Vector<Scalar> p_plus = proximal;
           p_plus[i] += dir;
-          if (l1.positivity_constraint())
+          if (l1.positivity_constraint()) {
             p_plus = sopt::positive_quadrant(p_plus);
-          else if (l1.real_constraint())
+          } else if (l1.real_constraint()) {
             p_plus = p_plus.real().cast<Scalar>();
+          }
           auto const rel_var = std::abs((l1.objective(input, p_plus, gamma) - mini) / mini);
           CHECK((l1.objective(input, p_plus, gamma) > mini or rel_var < l1.tolerance() * 10));
         }
       }
       // check alongst non-specific directions
       for (size_t i(0); i < 10; ++i) {
-        Vector<Scalar> p_plus = proximal + proximal.Random(proximal.size()) * eps;
-        if (l1.positivity_constraint())
+        Vector<Scalar> p_plus = proximal + Vector<Scalar>::Random(proximal.size()) * eps;
+        if (l1.positivity_constraint()) {
           p_plus = sopt::positive_quadrant(p_plus);
-        else if (l1.real_constraint())
+        } else if (l1.real_constraint()) {
           p_plus = p_plus.real().cast<Scalar>();
+        }
         auto const rel_var = std::abs((l1.objective(input, p_plus, gamma) - mini) / mini);
         CHECK((l1.objective(input, p_plus, gamma) > mini or rel_var < l1.tolerance() * 10));
       }

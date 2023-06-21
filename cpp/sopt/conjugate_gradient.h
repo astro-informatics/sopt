@@ -36,9 +36,9 @@ class ConjugateGradient {
   //! \param[in] itermax: Maximum number of iterations. 0 means algorithm breaks only if
   //! convergence is reached.
   //! \param[in] tolerance: Convergence criteria
-  ConjugateGradient(t_uint itermax = std::numeric_limits<t_uint>::max(), t_real tolerance = 1e-8)
+  explicit ConjugateGradient(t_uint itermax = std::numeric_limits<t_uint>::max(), t_real tolerance = 1e-8)
       : tolerance_(tolerance), itermax_(itermax) {}
-  virtual ~ConjugateGradient() {}
+  virtual ~ConjugateGradient() = default;
 
   //! \brief Computes $x$ for $Ax=b$
   //! \details Specialization that converts A from a matrix to a functor.
@@ -72,15 +72,17 @@ class ConjugateGradient {
 
   //! \brief Maximum number of iterations
   //! \details 0 means algorithm breaks only if convergence is reached.
-  t_uint itermax() const { return itermax_; }
+  [[nodiscard]] t_uint itermax() const { return itermax_; }
   //! \brief Sets maximum number of iterations
   //! \details 0 means algorithm breaks only if convergence is reached.
   void itermax(t_uint const &itermax) { itermax_ = itermax; }
   //! Tolerance criteria
-  t_real tolerance() const { return tolerance_; }
+  [[nodiscard]] t_real tolerance() const { return tolerance_; }
   //! Sets tolerance criteria
   void tolerance(t_real const &tolerance) {
-    if (tolerance <= 0e0) throw std::domain_error("Incorrect tolerance input");
+    if (tolerance <= 0e0) {
+      throw std::domain_error("Incorrect tolerance input");
+    }
     tolerance_ = tolerance;
   }
 
@@ -113,7 +115,7 @@ ConjugateGradient::Diagnostic ConjugateGradient::implementation(
   x.resize(b.size());
   if (std::abs((b.transpose().conjugate() * b)(0)) < tolerance()) {
     x.fill(0);
-    return {0, 0, 1};
+    return {0, 0, true};
   }
 
   Vector<Scalar> Ap(b.size());

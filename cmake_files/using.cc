@@ -8,7 +8,7 @@ class SARA : public std::vector<int> {
 };
 
 int main() {
-  const SARA s = {0, 0};
+  [[maybe_unused]] const SARA s = {0, 0};
 
   return 0;
 }

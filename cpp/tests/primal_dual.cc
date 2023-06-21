@@ -1,7 +1,7 @@
 #include <catch.hpp>
 #include <random>
 
-#include <assert.h>
+#include <cassert>
 
 #include <Eigen/Dense>
 
@@ -10,9 +10,9 @@
 #include "sopt/proximal.h"
 #include "sopt/types.h"
 
-typedef sopt::t_real Scalar;
-typedef sopt::Vector<Scalar> t_Vector;
-typedef sopt::Matrix<Scalar> t_Matrix;
+using Scalar = sopt::t_real;
+using t_Vector = sopt::Vector<Scalar>;
+using t_Matrix = sopt::Matrix<Scalar>;
 
 auto const N = 5;
 
@@ -60,7 +60,7 @@ TEST_CASE("Primal Dual with 0.5 * ||x - x0||_2^2 function", "[primaldual]") {
   auto const g = proximal::L2Norm<Scalar>();
   const t_Vector x_guess = t_Vector::Random(target0.size());
   const t_Vector res = x_guess - target0;
-  auto const convergence = [&target0](const t_Vector &x, const t_Vector &res) -> bool {
+  auto const convergence = [&target0](const t_Vector &x, const t_Vector & /*res*/) -> bool {
     return x.isApprox(target0, 1e-9);
   };
   CAPTURE(target0);

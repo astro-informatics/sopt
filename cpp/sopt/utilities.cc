@@ -20,11 +20,13 @@ double convert_to_greyscale(uint32_t &pixel) {
 //! Converts greyscale double value to RGBA
 uint32_t convert_from_greyscale(double pixel) {
   uint32_t result = 0;
-  uint8_t *ptr = (uint8_t *)&result;
+  auto *ptr = reinterpret_cast<uint8_t *>(&result);
   auto const g = [](double p) -> uint8_t {
     auto const scaled = 255e0 * p;
-    if (scaled < 0) return 0;
-    return scaled > 255 ? 255 : uint8_t(scaled);
+    if (scaled < 0) {
+      return 0;
+    }
+    return scaled > 255 ? 255 : static_cast<uint8_t>(scaled);
   };
   ptr[0] = g(pixel);
   ptr[1] = g(pixel);
@@ -34,14 +36,17 @@ uint32_t convert_from_greyscale(double pixel) {
 }
 }  // namespace
 
-namespace sopt {
-namespace utilities {
+namespace sopt::utilities {
 Image<> read_tiff(std::string const &filename) {
   SOPT_MEDIUM_LOG("Reading image file {} ", filename);
   TIFF *tif = TIFFOpen(filename.c_str(), "r");
-  if (not tif) SOPT_THROW("Could not open file ") << filename;
+  if (tif == nullptr) {
+    SOPT_THROW("Could not open file ") << filename;
+  }
 
-  uint32_t width, height, t;
+  uint32_t width = 0;
+  uint32_t height = 0;
+  uint32_t t = 0;
 
   TIFFGetField(tif, TIFFTAG_IMAGEWIDTH, &width);
   TIFFGetField(tif, TIFFTAG_IMAGELENGTH, &height);
@@ -49,14 +54,20 @@ Image<> read_tiff(std::string const &filename) {
   SOPT_LOW_LOG("- image size {}, {} ", width, height);
   Image<> result = Image<>::Zero(height, width);
 
-  uint32_t *raster = (uint32_t *)_TIFFmalloc(width * height * sizeof(uint32_t));
-  if (not raster) SOPT_THROW("Could not allocate memory to read file ") << filename;
-  if (not TIFFReadRGBAImage(tif, width, height, raster, 0))
+  auto *raster = static_cast<uint32_t *>(_TIFFmalloc(width * height * sizeof(uint32_t)));
+  if (raster == nullptr) {
+    SOPT_THROW("Could not allocate memory to read file ") << filename;
+  }
+  if (TIFFReadRGBAImage(tif, width, height, raster, 0) == 0) {
     SOPT_THROW("Could not read file ") << filename;
+  }
 
-  uint32_t *pixel = (uint32_t *)raster;
-  for (uint32_t i(0); i < height; ++i)
-    for (uint32_t j(0); j < width; ++j, ++pixel) result(i, j) = convert_to_greyscale(*pixel);
+  auto *pixel = static_cast<uint32_t *>(raster);
+  for (uint32_t i(0); i < height; ++i) {
+    for (uint32_t j(0); j < width; ++j, ++pixel) {
+      result(i, j) = convert_to_greyscale(*pixel);
+    }
+  }
 
   _TIFFfree(raster);
 
@@ -68,7 +79,9 @@ void write_tiff(Image<> const &image, std::string const &filename) {
   SOPT_MEDIUM_LOG("Writing image file {} ", filename);
   SOPT_LOW_LOG("- image size {}, {} ", image.rows(), image.cols());
   TIFF *tif = TIFFOpen(filename.c_str(), "w");
-  if (not tif) SOPT_THROW("Could not open file ") << filename;
+  if (tif == nullptr) {
+    SOPT_THROW("Could not open file ") << filename;
+  }
 
   uint32_t const width = image.cols();
   uint32_t const height = image.rows();
@@ -88,16 +101,18 @@ void write_tiff(Image<> const &image, std::string const &filename) {
 
   SOPT_TRACE("Initializing buffer");
   auto pixel = raster.begin();
-  for (uint32_t i(0); i < height; ++i)
-    for (uint32_t j(0); j < width; ++j, ++pixel) *pixel = convert_from_greyscale(image(i, j));
+  for (uint32_t i(0); i < height; ++i) {
+    for (uint32_t j(0); j < width; ++j, ++pixel) {
+      *pixel = convert_from_greyscale(image(i, j));
+    }
+  }
 
   SOPT_TRACE("Writing strip");
-  TIFFWriteEncodedStrip(tif, 0, &raster[0], width * height * sizeof(decltype(raster)::value_type));
+  TIFFWriteEncodedStrip(tif, 0, raster.data(), width * height * sizeof(decltype(raster)::value_type));
 
   TIFFWriteDirectory(tif);
   SOPT_TRACE("Closing tif");
   TIFFClose(tif);
   SOPT_TRACE("Freeing raster");
 }
-}  // namespace utilities
-}  // namespace sopt
+} // namespace sopt::utilities

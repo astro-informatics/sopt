@@ -47,9 +47,9 @@ int main(int argc, char const **argv) {
     exit(0);
   }
   // Set up random numbers for C and C++
-  auto const seed = std::time(0);
-  std::srand((unsigned int)seed);
-  std::mt19937 mersenne(std::time(0));
+  auto const seed = std::time(nullptr);
+  std::srand(static_cast<unsigned int>(seed));
+  std::mt19937 mersenne(std::time(nullptr));
 
   // Initializes and sets logger (if compiled with logging)
   // See set_level function for levels.
@@ -60,7 +60,7 @@ int main(int argc, char const **argv) {
   SOPT_HIGH_LOG("Image size: {} x {} = {}", image.cols(), image.rows(), image.size());
 
   SOPT_HIGH_LOG("Initializing sensing operator");
-  sopt::t_uint nmeasure = std::floor(0.5 * image.size());
+  const sopt::t_uint nmeasure = std::floor(0.5 * image.size());
   sopt::LinearTransform<Vector> const sampling =
       sopt::linear_transform<Scalar>(sopt::Sampling(image.size(), nmeasure, mersenne));
   SOPT_HIGH_LOG("Initializing wavelets");
@@ -81,7 +81,9 @@ int main(int argc, char const **argv) {
   SOPT_HIGH_LOG("Create dirty vector");
   std::normal_distribution<> gaussian_dist(0, sigma);
   Vector y(y0.size());
-  for (sopt::t_int i = 0; i < y0.size(); i++) y(i) = y0(i) + gaussian_dist(mersenne);
+  for (sopt::t_int i = 0; i < y0.size(); i++) {
+    y(i) = y0(i) + gaussian_dist(mersenne);
+  }
   // Write dirty imagte to file
   if (output != "none") {
     Vector const dirty = sampling.adjoint() * y;
@@ -108,8 +110,8 @@ int main(int argc, char const **argv) {
   gp->l1_proximal_tolerance(1e-4)
     .l1_proximal_nu(1)
     .l1_proximal_itermax(50)
-    .l1_proximal_positivity_constraint(true)
-    .l1_proximal_real_constraint(true)
+    .l1_proximal_positivity_constraint(/*ARG=*/true)
+    .l1_proximal_real_constraint(/*ARG=*/true)
     .Psi(psi);
 
   // Once the properties are set, inject it into the ImagingForwardBackward object
@@ -129,13 +131,16 @@ int main(int argc, char const **argv) {
                        .objective_variation(1e-3);
   auto diagnostic = joint_map();
   SOPT_HIGH_LOG("Forward backward returned {}", diagnostic.good);
-  if (output != "none")
+  if (output != "none") {
     sopt::utilities::write_tiff(Matrix::Map(diagnostic.x.data(), image.rows(), image.cols()),
                                 output + ".tiff");
+  }
   // diagnostic should tell us the function converged
   // it also contains diagnostic.niters - the number of iterations, and cg_diagnostic - the
   // diagnostic from the last call to the conjugate gradient.
-  if (not diagnostic.good) throw std::runtime_error("Did not converge!");
+  if (not diagnostic.good) {
+    throw std::runtime_error("Did not converge!");
+  }
 
   SOPT_HIGH_LOG("SOPT-Forward Backward converged in {} iterations", diagnostic.niters);
 

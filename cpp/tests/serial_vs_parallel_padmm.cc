@@ -23,8 +23,10 @@ TEST_CASE("Parallel vs serial inpainting") {
   using namespace sopt;
   auto const world = mpi::Communicator::World();
   // split into serial and parallel
-  auto const split_comm = world.split(world.is_root());
-  if (world.size() < 2) return;
+  auto const split_comm = world.split(static_cast<t_int>(world.is_root()));
+  if (world.size() < 2) {
+    return;
+  }
 
   // Some typedefs for simplicity
   typedef double Scalar;
@@ -39,7 +41,7 @@ TEST_CASE("Parallel vs serial inpainting") {
 
   // Initializing sensing operator
   // The operator is obtained by world root proc and split across the procs in split_comm
-  sopt::t_uint nmeasure = 0.33 * image.size();
+  const sopt::t_uint nmeasure = 0.33 * image.size();
   auto indices = world.is_root()
                      ? world.broadcast(sopt::Sampling(image.size(), nmeasure, *mersenne).indices())
                      : world.broadcast<std::vector<t_uint>>();
@@ -69,7 +71,9 @@ TEST_CASE("Parallel vs serial inpainting") {
   std::normal_distribution<> gaussian_dist(0, sigma);
   Vector y = world.is_root() ? y0 : world.broadcast<Vector>();
   if (world.is_root()) {
-    for (sopt::t_int i = 0; i < y0.size(); i++) y(i) += gaussian_dist(*mersenne);
+    for (sopt::t_int i = 0; i < y0.size(); i++) {
+      y(i) += gaussian_dist(*mersenne);
+    }
     world.broadcast(y);
   }
   if (split_comm.size() > 1) {

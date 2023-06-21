@@ -12,9 +12,10 @@ int main(int argc, char const **argv) {
   Catch::Session session;  // There must be exactly once instance
 
   int returnCode = session.applyCommandLine(argc, const_cast<char **>(argv));
-  if (returnCode != 0)  // Indicates a command line error
+  if (returnCode != 0) { // Indicates a command line error
     return returnCode;
-  mersenne.reset(new std::mt19937_64(session.configData().rngSeed));
+  }
+  mersenne = std::make_unique<std::mt19937_64>(session.configData().rngSeed);
 
   sopt::logging::initialize();
 

@@ -12,11 +12,11 @@ sopt::t_int random_integer(sopt::t_int min, sopt::t_int max) {
   extern std::unique_ptr<std::mt19937_64> mersenne;
   std::uniform_int_distribution<sopt::t_int> uniform_dist(min, max);
   return uniform_dist(*mersenne);
-};
+}
 
-typedef sopt::t_real Scalar;
-typedef sopt::Vector<Scalar> t_Vector;
-typedef sopt::Matrix<Scalar> t_Matrix;
+using Scalar = sopt::t_real;
+using t_Vector = sopt::Vector<Scalar>;
+using t_Matrix = sopt::Matrix<Scalar>;
 
 auto const N = 5;
 
@@ -29,7 +29,7 @@ TEST_CASE("Proximal ADMM with ||x - x0||_2 functions", "[padmm][integration]") {
 
   t_Matrix const mId = -t_Matrix::Identity(N, N);
 
-  t_Vector const translation = t_Vector::Ones(N) * 5;
+  // t_Vector const translation = t_Vector::Ones(N) * 5;
   auto const padmm =
       algorithm::ProximalADMM<Scalar>(g0, g1, t_Vector::Zero(N)).Phi(mId).itermax(3000).gamma(0.01);
   auto const result = padmm();

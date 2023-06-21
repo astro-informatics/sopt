@@ -146,7 +146,7 @@ TEST_CASE("Sampling", "[utility][sampling]") {
 TEST_CASE("Relative variation", "[utility][convergence]") {
   sopt::RelativeVariation<double> relvar(1e-8);
 
-  sopt::Array<> input = sopt::Array<>::Random(6);
+  const sopt::Array<> input = sopt::Array<>::Random(6);
   CHECK(not relvar(input));
   CHECK(relvar(input));
   CHECK(relvar(input + relvar.tolerance() * 0.5 / 6. * sopt::Array<>::Random(6)));
@@ -155,7 +155,7 @@ TEST_CASE("Relative variation", "[utility][convergence]") {
 
 TEST_CASE("Scalar elative variation", "[utility][convergence]") {
   sopt::ScalarRelativeVariation<double> relvar(1e-8, 1e-8, "Yo");
-  sopt::t_real input = sopt::Array<>::Random(1)(0);
+  const sopt::t_real input = sopt::Array<>::Random(1)(0);
   CHECK(not relvar(input));
   CHECK(relvar(input));
   CHECK(not relvar(input + 0.1));
@@ -164,24 +164,25 @@ TEST_CASE("Scalar elative variation", "[utility][convergence]") {
 
 TEST_CASE("Standard deviation", "[utility]") {
   sopt::Array<sopt::t_complex> input = sopt::Array<sopt::t_complex>::Random(6) + 1e0;
-  sopt::t_complex mean = input.mean();
+  const sopt::t_complex mean = input.mean();
   sopt::t_real stddev = 0e0;
-  for (sopt::Vector<>::Index i(0); i < input.size(); ++i)
+  for (sopt::Vector<>::Index i(0); i < input.size(); ++i) {
     stddev += std::real(std::conj(input(i) - mean) * (input(i) - mean));
-  stddev = std::sqrt(stddev) / std::sqrt(sopt::t_real(input.size()));
+  }
+  stddev = std::sqrt(stddev) / std::sqrt(static_cast<sopt::t_real>(input.size()));
 
   CHECK(std::abs(sopt::standard_deviation(input) - stddev) < 1e-8);
   CHECK(std::abs(sopt::standard_deviation(input.matrix()) - stddev) < 1e-8);
 }
 
 // Checks type traits work
-static_assert(not sopt::details::HasValueType<double>::value, "");
-static_assert(not sopt::details::HasValueType<std::pair<double, int>>::value, "");
-static_assert(sopt::details::HasValueType<std::complex<double>>::value, "");
-static_assert(sopt::details::HasValueType<sopt::Image<sopt::t_complex>::Scalar>::value, "");
+static_assert(not sopt::details::HasValueType<double>::value);
+static_assert(not sopt::details::HasValueType<std::pair<double, int>>::value);
+static_assert(sopt::details::HasValueType<std::complex<double>>::value);
+static_assert(sopt::details::HasValueType<sopt::Image<sopt::t_complex>::Scalar>::value);
 
-static_assert(std::is_same<sopt::real_type<sopt::t_real>::type, sopt::t_real>::value, "");
-static_assert(std::is_same<sopt::real_type<sopt::t_complex>::type, sopt::t_real>::value, "");
+static_assert(std::is_same<sopt::real_type<sopt::t_real>::type, sopt::t_real>::value);
+static_assert(std::is_same<sopt::real_type<sopt::t_complex>::type, sopt::t_real>::value);
 
 static_assert(sopt::is_complex<std::complex<double>>::value, "Testing is_complex");
 static_assert(sopt::is_complex<std::complex<int>>::value, "Testing is_complex");
