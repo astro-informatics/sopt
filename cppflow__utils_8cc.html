@@ -77,7 +77,8 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">cppflow_utils.cc File Reference</div>  </div>
 </div><!--header-->
@@ -88,6 +89,7 @@ $(function() {
 <code>#include &lt;cppflow/cppflow.h&gt;</code><br />
 <code>#include &quot;cppflow/ops.h&quot;</code><br />
 <code>#include &quot;cppflow/model.h&quot;</code><br />
+<code>#include &lt;stdexcept&gt;</code><br />
 </div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Include dependency graph for cppflow_utils.cc:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -95,13 +97,14 @@ $(function() {
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="cppflow__utils_8cc__incl.png" border="0" usemap="#_2home_2runner_2work_2sopt_2sopt_2cpp_2sopt_2cppflow__utils_8cc" alt=""/></div>
 <map name="_2home_2runner_2work_2sopt_2sopt_2cpp_2sopt_2cppflow__utils_8cc" id="_2home_2runner_2work_2sopt_2sopt_2cpp_2sopt_2cppflow__utils_8cc">
-<area shape="rect" title=" " alt="" coords="205,5,383,61"/>
+<area shape="rect" title=" " alt="" coords="277,5,455,61"/>
 <area shape="rect" title=" " alt="" coords="5,184,97,211"/>
 <area shape="rect" title=" " alt="" coords="84,109,147,136"/>
 <area shape="rect" href="types_8h.html" title=" " alt="" coords="171,109,273,136"/>
 <area shape="rect" title=" " alt="" coords="297,109,435,136"/>
 <area shape="rect" title=" " alt="" coords="459,109,569,136"/>
 <area shape="rect" title=" " alt="" coords="593,109,723,136"/>
+<area shape="rect" title=" " alt="" coords="747,109,833,136"/>
 <area shape="rect" title=" " alt="" coords="399,259,504,285"/>
 <area shape="rect" title=" " alt="" coords="140,259,219,285"/>
 <area shape="rect" title=" " alt="" coords="176,184,263,211"/>
@@ -124,12 +127,21 @@ Functions</h2></td></tr>
 <tr class="memitem:a3db2be4ce233b68cb59e14bb41479afa"><td class="memItemLeft" align="right" valign="top">cppflow::tensor&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesopt_1_1cppflowutils.html#a3db2be4ce233b68cb59e14bb41479afa">sopt::cppflowutils::convert_image_to_tensor</a> (<a class="el" href="namespacesopt.html#a7d7971e5566e597eb907614917e30c78">sopt::Image</a>&lt; double &gt; const &amp;image, int image_rows, int image_cols)</td></tr>
 <tr class="memdesc:a3db2be4ce233b68cb59e14bb41479afa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a <a class="el" href="namespacesopt.html#a7d7971e5566e597eb907614917e30c78" title="A 2-dimensional list of elements of given type.">sopt::Image</a> to a cppflow::tensor.  <a href="namespacesopt_1_1cppflowutils.html#a3db2be4ce233b68cb59e14bb41479afa">More...</a><br /></td></tr>
 <tr class="separator:a3db2be4ce233b68cb59e14bb41479afa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9dad4c45792a6d14f3cf6663e4cff776"><td class="memItemLeft" align="right" valign="top">cppflow::tensor&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesopt_1_1cppflowutils.html#a9dad4c45792a6d14f3cf6663e4cff776">sopt::cppflowutils::convert_image_to_tensor</a> (<a class="el" href="cppflow__model_8cc.html#a597c232bc74255c74fa9d7b0dadff132">Image</a>&lt; std::complex&lt; double &gt;&gt; const &amp;image, int image_rows, int image_cols)</td></tr>
+<tr class="separator:a9dad4c45792a6d14f3cf6663e4cff776"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a74317f4c5fdf3059f4b347a9d295221c"><td class="memItemLeft" align="right" valign="top">cppflow::tensor&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesopt_1_1cppflowutils.html#a74317f4c5fdf3059f4b347a9d295221c">sopt::cppflowutils::convert_image_to_tensor</a> (<a class="el" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">sopt::Vector</a>&lt; double &gt; const &amp;image, int image_rows, int image_cols)</td></tr>
 <tr class="memdesc:a74317f4c5fdf3059f4b347a9d295221c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a <a class="el" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19" title="A vector of a given type.">sopt::Vector</a> to a cppflow::tensor.  <a href="namespacesopt_1_1cppflowutils.html#a74317f4c5fdf3059f4b347a9d295221c">More...</a><br /></td></tr>
 <tr class="separator:a74317f4c5fdf3059f4b347a9d295221c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb0af3de2fb724ecce66672044e4c893"><td class="memItemLeft" align="right" valign="top">cppflow::tensor&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesopt_1_1cppflowutils.html#afb0af3de2fb724ecce66672044e4c893">sopt::cppflowutils::convert_image_to_tensor</a> (<a class="el" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">sopt::Vector</a>&lt; std::complex&lt; double &gt;&gt; const &amp;image, int image_rows, int image_cols)</td></tr>
+<tr class="separator:afb0af3de2fb724ecce66672044e4c893"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4144b27a919c778ad025f61dbef1b8ca"><td class="memItemLeft" align="right" valign="top">Eigen::Map&lt; Eigen::Array&lt; double, Eigen::Dynamic, Eigen::Dynamic &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesopt_1_1cppflowutils.html#a4144b27a919c778ad025f61dbef1b8ca">sopt::cppflowutils::convert_tensor_to_image</a> (std::vector&lt; float &gt; model_output, int image_rows, int image_cols)</td></tr>
 <tr class="memdesc:a4144b27a919c778ad025f61dbef1b8ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert a cppflow:tensor to an Eigen::Array.  <a href="namespacesopt_1_1cppflowutils.html#a4144b27a919c778ad025f61dbef1b8ca">More...</a><br /></td></tr>
 <tr class="separator:a4144b27a919c778ad025f61dbef1b8ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a4974785f862defec690cf6e52f16f78b"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesopt_1_1cppflowutils.html#a4974785f862defec690cf6e52f16f78b">sopt::cppflowutils::imaginary_threshold</a> = 1e-10</td></tr>
+<tr class="separator:a4974785f862defec690cf6e52f16f78b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->

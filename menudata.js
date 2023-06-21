@@ -69,6 +69,7 @@ var menudata={children:[
 {text:"w",url:"namespacemembers_func.html#index_w"}]},
 {text:"Variables",url:"namespacemembers_vars.html",children:[
 {text:"d",url:"namespacemembers_vars.html#index_d"},
+{text:"i",url:"namespacemembers_vars.html#index_i"},
 {text:"n",url:"namespacemembers_vars.html#index_n"}]},
 {text:"Typedefs",url:"namespacemembers_type.html"}]}]},
 {text:"Classes",url:"annotated.html",children:[

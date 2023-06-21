@@ -1041,8 +1041,22 @@
       <type>cppflow::tensor</type>
       <name>convert_image_to_tensor</name>
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1cppflowutils.html</anchorfile>
+      <anchor>a9dad4c45792a6d14f3cf6663e4cff776</anchor>
+      <arglist>(Image&lt; std::complex&lt; double &gt;&gt; const &amp;image, int image_rows, int image_cols)</arglist>
+    </member>
+    <member kind="function">
+      <type>cppflow::tensor</type>
+      <name>convert_image_to_tensor</name>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1cppflowutils.html</anchorfile>
       <anchor>a74317f4c5fdf3059f4b347a9d295221c</anchor>
       <arglist>(sopt::Vector&lt; double &gt; const &amp;image, int image_rows, int image_cols)</arglist>
+    </member>
+    <member kind="function">
+      <type>cppflow::tensor</type>
+      <name>convert_image_to_tensor</name>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1cppflowutils.html</anchorfile>
+      <anchor>afb0af3de2fb724ecce66672044e4c893</anchor>
+      <arglist>(sopt::Vector&lt; std::complex&lt; double &gt;&gt; const &amp;image, int image_rows, int image_cols)</arglist>
     </member>
     <member kind="function">
       <type>Eigen::Map&lt; Eigen::Array&lt; double, Eigen::Dynamic, Eigen::Dynamic &gt; &gt;</type>
@@ -1050,6 +1064,13 @@
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1cppflowutils.html</anchorfile>
       <anchor>a4144b27a919c778ad025f61dbef1b8ca</anchor>
       <arglist>(std::vector&lt; float &gt; model_output, int image_rows, int image_cols)</arglist>
+    </member>
+    <member kind="variable">
+      <type>const double</type>
+      <name>imaginary_threshold</name>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1cppflowutils.html</anchorfile>
+      <anchor>a4974785f862defec690cf6e52f16f78b</anchor>
+      <arglist></arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -1070,8 +1091,22 @@
       <type>cppflow::tensor</type>
       <name>convert_image_to_tensor</name>
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1cppflowutils.html</anchorfile>
+      <anchor>a9dad4c45792a6d14f3cf6663e4cff776</anchor>
+      <arglist>(Image&lt; std::complex&lt; double &gt;&gt; const &amp;image, int image_rows, int image_cols)</arglist>
+    </member>
+    <member kind="function">
+      <type>cppflow::tensor</type>
+      <name>convert_image_to_tensor</name>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1cppflowutils.html</anchorfile>
       <anchor>a74317f4c5fdf3059f4b347a9d295221c</anchor>
       <arglist>(sopt::Vector&lt; double &gt; const &amp;image, int image_rows, int image_cols)</arglist>
+    </member>
+    <member kind="function">
+      <type>cppflow::tensor</type>
+      <name>convert_image_to_tensor</name>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1cppflowutils.html</anchorfile>
+      <anchor>afb0af3de2fb724ecce66672044e4c893</anchor>
+      <arglist>(sopt::Vector&lt; std::complex&lt; double &gt;&gt; const &amp;image, int image_rows, int image_cols)</arglist>
     </member>
     <member kind="function">
       <type>Eigen::Map&lt; Eigen::Array&lt; double, Eigen::Dynamic, Eigen::Dynamic &gt; &gt;</type>
@@ -5853,9 +5888,9 @@
     </member>
     <member kind="function">
       <type>t_Gradient &amp;</type>
-      <name>l2_graident</name>
+      <name>l2_gradient</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
-      <anchor>a94c905d1ccbccc07f26336daef5f6560</anchor>
+      <anchor>a9b16c4439aad39d80660476aa75e2512</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
@@ -6024,6 +6059,13 @@
       <name>~ImagingPrimalDual</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
       <anchor>a3c3df825f7a6ef2d0e2992d088e9a862</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>ImagingPrimalDual *</type>
+      <name>g_proximal</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
+      <anchor>ae2abb4e5b8f1012a724e68c691b95681</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
@@ -6710,6 +6752,13 @@
       <name>~ImagingProximalADMM</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingProximalADMM.html</anchorfile>
       <anchor>a6a491f56cebaac4300a3a76827e07c33</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>proximal::L1&lt; Scalar &gt; *</type>
+      <name>g_proximal</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingProximalADMM.html</anchorfile>
+      <anchor>a9606da211321ccb6dcf17544d3b3f933</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
@@ -7524,8 +7573,8 @@
       <type></type>
       <name>SOPT_MACRO</name>
       <anchorfile>classsopt_1_1algorithm_1_1L1GProximal.html</anchorfile>
-      <anchor>a3f28cf25ed95206384175207bb4b40ec</anchor>
-      <arglist>(weights, t_Vector)</arglist>
+      <anchor>ac978568a561ad49d3586b667adb4c630</anchor>
+      <arglist>(weights, Vector&lt; t_real &gt;)</arglist>
     </member>
     <member kind="function">
       <type>L1GProximal&lt; SCALAR &gt; &amp;::type</type>
@@ -8054,9 +8103,9 @@
     </member>
     <member kind="function">
       <type>t_Gradient &amp;</type>
-      <name>l2_graident</name>
+      <name>l2_gradient</name>
       <anchorfile>classsopt_1_1algorithm_1_1L2ForwardBackward.html</anchorfile>
-      <anchor>a9a1ce85726fff34b6987b6b90b0cf02e</anchor>
+      <anchor>a293f28b86cc017ab2c2a878bf19e9514</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
@@ -11744,8 +11793,22 @@
       <type>cppflow::tensor</type>
       <name>convert_image_to_tensor</name>
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1cppflowutils.html</anchorfile>
+      <anchor>a9dad4c45792a6d14f3cf6663e4cff776</anchor>
+      <arglist>(Image&lt; std::complex&lt; double &gt;&gt; const &amp;image, int image_rows, int image_cols)</arglist>
+    </member>
+    <member kind="function">
+      <type>cppflow::tensor</type>
+      <name>convert_image_to_tensor</name>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1cppflowutils.html</anchorfile>
       <anchor>a74317f4c5fdf3059f4b347a9d295221c</anchor>
       <arglist>(sopt::Vector&lt; double &gt; const &amp;image, int image_rows, int image_cols)</arglist>
+    </member>
+    <member kind="function">
+      <type>cppflow::tensor</type>
+      <name>convert_image_to_tensor</name>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1cppflowutils.html</anchorfile>
+      <anchor>afb0af3de2fb724ecce66672044e4c893</anchor>
+      <arglist>(sopt::Vector&lt; std::complex&lt; double &gt;&gt; const &amp;image, int image_rows, int image_cols)</arglist>
     </member>
     <member kind="function">
       <type>Eigen::Map&lt; Eigen::Array&lt; double, Eigen::Dynamic, Eigen::Dynamic &gt; &gt;</type>
@@ -11753,6 +11816,13 @@
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1cppflowutils.html</anchorfile>
       <anchor>a4144b27a919c778ad025f61dbef1b8ca</anchor>
       <arglist>(std::vector&lt; float &gt; model_output, int image_rows, int image_cols)</arglist>
+    </member>
+    <member kind="variable">
+      <type>const double</type>
+      <name>imaginary_threshold</name>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1cppflowutils.html</anchorfile>
+      <anchor>a4974785f862defec690cf6e52f16f78b</anchor>
+      <arglist></arglist>
     </member>
   </compound>
   <compound kind="namespace">

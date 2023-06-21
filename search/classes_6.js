@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['gproximal_521',['GProximal',['../classGProximal.html',1,'']]]
+  ['gproximal_522',['GProximal',['../classGProximal.html',1,'']]]
 ];
