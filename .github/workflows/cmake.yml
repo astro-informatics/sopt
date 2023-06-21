@@ -40,10 +40,10 @@ jobs:
             - ubuntu-20.04
             - macos-11
           cc:
-            - gcc-9
+            - gcc-10
             - clang
           cxx:
-            - g++-9
+            - g++-10
             - clang++
           mpi:
             - "on"
@@ -52,10 +52,10 @@ jobs:
             - "on"
             - "off"
           exclude:
-            - cc: gcc-9
+            - cc: gcc-10
               cxx: clang++
             - cc: clang
-              cxx: g++-9
+              cxx: g++-10
             - os: ubuntu-20.04
               cc: clang
               cxx: clang++
