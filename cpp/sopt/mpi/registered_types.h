@@ -5,8 +5,7 @@
 #ifdef SOPT_MPI
 #include <complex>
 #include <mpi.h>
-namespace sopt {
-namespace mpi {
+namespace sopt::mpi {
 //! Type of an mpi tupe
 typedef decltype(MPI_CHAR) MPIType;
 // Some MPI libraries don't actually have a type defined that will work in the above line
@@ -73,7 +72,6 @@ template <class T, class = details::void_t<>>
 class is_registered_type : public std::false_type {};
 template <class T>
 class is_registered_type<T, details::void_t<decltype(Type<T>::value)>> : public std::true_type {};
-}  // namespace mpi
-}  // namespace sopt
+} // namespace sopt::mpi
 #endif
 #endif /* ifndef SOPT_TYPES */

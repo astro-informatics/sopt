@@ -45,6 +45,6 @@ inline constexpr bool color_logger() { return @SOPT_COLOR_LOGGING@; }
 //! Number of threads used during testing
 inline constexpr std::size_t number_of_threads_in_tests() { return @SOPT_DEFAULT_OPENMP_THREADS@; }
 # endif
-}
+} // namespace sopt
 
 #endif

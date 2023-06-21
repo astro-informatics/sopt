@@ -8,8 +8,7 @@
 #include <mpi.h>
 #endif
 
-namespace sopt {
-namespace mpi {
+namespace sopt::mpi {
 #ifdef SOPT_MPI
 namespace details {
 struct initializer {
@@ -29,6 +28,5 @@ bool finalized();
 inline void init(int argc, const char **argv) {}
 inline bool initialized() { return false; };
 #endif
-}  // namespace mpi
-}  // namespace sopt
+} // namespace sopt::mpi
 #endif /* ifndef SOPT_MPI_SESSION_H */

@@ -5,12 +5,10 @@
 #include "sopt/types.h"
 #include "sopt/utilities.h"
 
-namespace sopt {
-namespace notinstalled {
+namespace sopt::notinstalled {
 Image<> read_standard_tiff(std::string const &name) {
   std::string const stdname = sopt::notinstalled::data_directory() + "/" + name + ".tiff";
   bool const is_std = std::ifstream(stdname).good();
   return sopt::utilities::read_tiff(is_std ? stdname : name);
 }
-}  // namespace notinstalled
-}  // namespace sopt
+} // namespace sopt::notinstalled
