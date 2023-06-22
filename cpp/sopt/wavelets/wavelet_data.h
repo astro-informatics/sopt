@@ -11,9 +11,9 @@ namespace wavelets {
 //! Holds wavelets coefficients
 struct WaveletData {
   //! Type of the underlying scalar
-  typedef t_real t_scalar;
+  using t_scalar = t_real;
   //! Type of the underlying vector
-  typedef Array<t_real> t_vector;
+  using t_vector = Array<t_real>;
   //! Wavelet coefficient per-se
   t_vector const coefficients;
 

@@ -10,13 +10,13 @@
 namespace sopt {
 
 //! Root of the type hierarchy for signed integers
-typedef int t_int;
+using t_int = int;
 //! Root of the type hierarchy for unsigned integers
-typedef size_t t_uint;
+using t_uint = size_t;
 //! Root of the type hierarchy for real numbers
-typedef double t_real;
+using t_real = double;
 //! Root of the type hierarchy for (real) complex numbers
-typedef std::complex<t_real> t_complex;
+using t_complex = std::complex<t_real>;
 
 //! \brief A vector of a given type
 //! \details Operates as mathematical vector.

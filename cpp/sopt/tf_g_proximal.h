@@ -29,12 +29,12 @@ template <class SCALAR>
 class TFGProximal : public GProximal<SCALAR> {
 
 public:
-  typedef ForwardBackward<SCALAR> FB;
-  typedef typename FB::Real Real;
-  typedef typename FB::Scalar Scalar;
-  typedef typename FB::t_Vector t_Vector;
-  typedef typename FB::t_Proximal t_Proximal;
-  typedef typename FB::t_LinearTransform t_LinearTransform;
+  using FB = ForwardBackward<SCALAR>;
+  using Real = typename FB::Real;
+  using Scalar = typename FB::Scalar;
+  using t_Vector = typename FB::t_Vector;
+  using t_Proximal = typename FB::t_Proximal;
+  using t_LinearTransform = typename FB::t_LinearTransform;
 
   // The constructor constructs a cppflow model object from a saved model saved
   // to the file filename

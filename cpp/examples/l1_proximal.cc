@@ -5,8 +5,8 @@
 int main(int, char const **) {
   sopt::logging::initialize();
 
-  typedef sopt::t_complex Scalar;
-  typedef sopt::real_type<Scalar>::type Real;
+  using Scalar = sopt::t_complex;
+  using Real = sopt::real_type<Scalar>::type;
   auto const input = sopt::Vector<Scalar>::Random(10).eval();
   auto const Psi = sopt::Matrix<Scalar>::Random(input.size(), input.size() * 10).eval();
   sopt::Vector<Real> const weights =

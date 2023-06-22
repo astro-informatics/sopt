@@ -23,17 +23,17 @@
 
 // \min_{x} ||\Psi^Tx||_1 \quad \mbox{s.t.} \quad ||y - Ax||_2 < \epsilon and x \geq 0
 int main(int argc, char const **argv) {
-  // Some typedefs for simplicity
-  typedef sopt::t_real Scalar;
+  // Some type aliases for simplicity
+  using Scalar = sopt::t_real;
   // Column vector - linear algebra - A * x is a matrix-vector multiplication
   // type expected by Forward Backward
-  typedef sopt::Vector<Scalar> Vector;
+  using Vector = sopt::Vector<Scalar>;
   // Matrix - linear algebra - A * x is a matrix-vector multiplication
   // type expected by Forward Backward
-  typedef sopt::Matrix<Scalar> Matrix;
+  using Matrix = sopt::Matrix<Scalar>;
   // Image - 2D array - A * x is a coefficient-wise multiplication
   // Type expected by wavelets and image write/read functions
-  typedef sopt::Image<Scalar> Image;
+  using Image = sopt::Image<Scalar>;
 
   std::string const input = argc >= 2 ? argv[1] : "cameraman256";
   std::string const output = argc == 3 ? argv[2] : "none";

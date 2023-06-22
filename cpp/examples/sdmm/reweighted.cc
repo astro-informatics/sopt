@@ -25,17 +25,17 @@
 // with W_j = ||\Psi^Tx_{j-1}||_1
 // By iterating this algorithm, we can approximate L0 from L1.
 int main(int argc, char const **argv) {
-  // Some typedefs for simplicity
-  typedef double Scalar;
+  // Some type aliases for simplicity
+  using Scalar = double;
   // Column vector - linear algebra - A * x is a matrix-vector multiplication
   // type expected by SDMM
-  typedef sopt::Vector<Scalar> Vector;
+  using Vector = sopt::Vector<Scalar>;
   // Matrix - linear algebra - A * x is a matrix-vector multiplication
   // type expected by SDMM
-  typedef sopt::Matrix<Scalar> Matrix;
+  using Matrix = sopt::Matrix<Scalar>;
   // Image - 2D array - A * x is a coefficient-wise multiplication
   // Type expected by wavelets and image write/read functions
-  typedef sopt::Image<Scalar> Image;
+  using Image = sopt::Image<Scalar>;
 
   std::string const input = argc >= 2 ? argv[1] : "cameraman256";
   std::string const output = argc == 3 ? argv[2] : "none";
@@ -114,7 +114,7 @@ int main(int argc, char const **argv) {
   // positive_quadrant projects the result of SDMM on the positive quadrant.
   // This follows the reweighted algorithm in the original C implementation.
   auto const posq = positive_quadrant(sdmm);
-  typedef std::remove_const<decltype(posq)>::type t_PosQuadSDMM;
+  using t_PosQuadSDMM = std::remove_const<decltype(posq)>::type;
   auto const min_delta = sigma * std::sqrt(y.size()) / std::sqrt(8 * image.size());
   // Sets weight after each sdmm iteration.
   // In practice, this means replacing the proximal of the l1 objective function.

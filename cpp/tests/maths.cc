@@ -117,7 +117,7 @@ TEST_CASE("Soft threshhold", "[utility][threshhold]") {
 }
 
 TEST_CASE("Sampling", "[utility][sampling]") {
-  typedef sopt::Vector<int> t_Vector;
+  using t_Vector = sopt::Vector<int>;
   t_Vector const input = t_Vector::Random(12);
 
   sopt::Sampling const sampling(12, {1, 3, 6, 5});

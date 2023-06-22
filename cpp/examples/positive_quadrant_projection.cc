@@ -3,7 +3,7 @@
 
 int main(int, char const **) {
   // Create a matrix with a single negative real numbers
-  typedef sopt::Image<std::complex<int>> t_Matrix;
+  using t_Matrix = sopt::Image<std::complex<int>>;
   t_Matrix input = 2 * t_Matrix::Ones(5, 5) + t_Matrix::Random(5, 5);
 
   // Apply projection

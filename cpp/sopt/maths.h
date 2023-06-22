@@ -48,18 +48,18 @@ class ProjectPositiveQuadrant<std::complex<SCALAR>> {
   }
 };
 
-//! Helper template typedef to instantiate soft_threshhold that takes an Eigen object
+//! Helper template type alias to instantiate soft_threshhold that takes an Eigen object
 template <class SCALAR>
-using SoftThreshhold = decltype(
-    std::bind(soft_threshhold<SCALAR>, std::placeholders::_1, typename real_type<SCALAR>::type(1)));
+using SoftThreshhold = decltype(std::bind(soft_threshhold<SCALAR>, std::placeholders::_1,
+                                          typename real_type<SCALAR>::type(1)));
 }  // namespace details
 
 //! Expression to create projection onto positive quadrant
 template <class T>
 Eigen::CwiseUnaryOp<const details::ProjectPositiveQuadrant<typename T::Scalar>, const T>
 positive_quadrant(Eigen::DenseBase<T> const &input) {
-  typedef details::ProjectPositiveQuadrant<typename T::Scalar> Projector;
-  typedef Eigen::CwiseUnaryOp<const Projector, const T> UnaryOp;
+  using Projector = details::ProjectPositiveQuadrant<typename T::Scalar>;
+  using UnaryOp = Eigen::CwiseUnaryOp<const Projector, const T>;
   return UnaryOp(input.derived(), Projector());
 }
 
@@ -68,8 +68,8 @@ template <class T>
 Eigen::CwiseUnaryOp<const details::SoftThreshhold<typename T::Scalar>, const T> soft_threshhold(
     Eigen::DenseBase<T> const &input,
     typename real_type<typename T::Scalar>::type const &threshhold) {
-  typedef typename T::Scalar Scalar;
-  typedef typename real_type<Scalar>::type Real;
+  using Scalar = typename T::Scalar;
+  using Real = typename real_type<Scalar>::type;
   return Eigen::CwiseUnaryOp<const details::SoftThreshhold<typename T::Scalar>, const T>{
       input.derived(), std::bind(soft_threshhold<Scalar>, std::placeholders::_1, Real(threshhold))};
 }
@@ -104,7 +104,7 @@ soft_threshhold(Eigen::DenseBase<T0> const &input, Eigen::DenseBase<T1> const &t
   if (input.size() != threshhold.size())
     SOPT_THROW("Threshhold and input should have the same size: ")
         << threshhold.size() << " vs " << input.size();
-  typedef typename T0::Scalar Complex;
+  using Complex = typename T0::Scalar;
   auto const func = [](Complex const &x, Complex const &t) -> Complex {
     return soft_threshhold(x, t.real());
   };
