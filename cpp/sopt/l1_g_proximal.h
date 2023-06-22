@@ -42,7 +42,7 @@ public:
   L1GProximal(bool tight_frame = false)
     : tight_frame_ (tight_frame),
       l1_proximal_() {}
-  ~L1GProximal() {};
+  ~L1GProximal() {}
 
 // Implements the interface in GProximal
 

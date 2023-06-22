@@ -2,6 +2,8 @@
 #define SOPT_IMAGING_FORWARD_BACKWARD_H
 
 #include "sopt/config.h"
+#include <limits> // for std::numeric_limits<>
+#include <memory> // for std::shared_ptr<>
 #include <numeric>
 #include <tuple>
 #include <utility>
@@ -142,7 +144,7 @@ class ImagingForwardBackward {
   //! Vector of target measurements
   t_Vector const &target() const { return target_; }
   //! Minimun of objective_function
-  Real objmin() const { return objmin_; };
+  Real objmin() const { return objmin_; }
   //! Sets the vector of target measurements
   template <class DERIVED>
   ImagingForwardBackward<Scalar> &target(Eigen::MatrixBase<DERIVED> const &target) {
@@ -294,7 +296,7 @@ bool ImagingForwardBackward<SCALAR>::residual_convergence(t_Vector const &x,
   auto const residual_norm = sopt::l2_norm(residual);
   SOPT_LOW_LOG("    - [FB] Residuals: {} <? {}", residual_norm, residual_tolerance());
   return residual_norm < residual_tolerance();
-};
+}
 
 template <class SCALAR>
 bool ImagingForwardBackward<SCALAR>::objective_convergence(ScalarRelativeVariation<Scalar> &scalvar,
@@ -305,7 +307,7 @@ bool ImagingForwardBackward<SCALAR>::objective_convergence(ScalarRelativeVariati
   auto const current = ((gamma() > 0) ? g_proximal_->proximal_norm(x)
 			* gamma() : 0) + std::pow(sopt::l2_norm(residual), 2) / (2 * sigma() * sigma());
   return scalvar(current);
-};
+}
 
 #ifdef SOPT_MPI
 template <class SCALAR>
@@ -319,7 +321,7 @@ bool ImagingForwardBackward<SCALAR>::objective_convergence(mpi::Communicator con
 	((gamma() > 0) ? g_proximal_->proximal_norm(x)
        * gamma() : 0) + std::pow(sopt::l2_norm(residual), 2) / (2 * sigma_ * sigma_));
   return scalvar(current);
-};
+}
 #endif
 
 template <class SCALAR>

@@ -4,6 +4,8 @@
 #include "sopt/config.h"
 #include <functional>
 #include <limits>
+#include <tuple> // for tuple<>
+#include <utility> // for std::move<>
 #include "sopt/exception.h"
 #include "sopt/linear_transform.h"
 #include "sopt/logging.h"

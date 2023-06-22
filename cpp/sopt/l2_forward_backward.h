@@ -2,6 +2,7 @@
 #define SOPT_L2_FORWARD_BACKWARD_H
 
 #include "sopt/config.h"
+#include <limits> // for std::numeric_limits<>
 #include <numeric>
 #include <tuple>
 #include <utility>
@@ -138,7 +139,7 @@ class L2ForwardBackward {
   //! Vector of target measurements
   t_Vector const &target() const { return target_; }
   //! Minimun of objective_function
-  Real objmin() const { return objmin_; };
+  Real objmin() const { return objmin_; }
   //! Sets the vector of target measurements
   template <class DERIVED>
   L2ForwardBackward<Scalar> &target(Eigen::MatrixBase<DERIVED> const &target) {
@@ -294,7 +295,7 @@ bool L2ForwardBackward<SCALAR>::residual_convergence(t_Vector const &x,
   auto const residual_norm = sopt::l2_norm(residual);
   SOPT_LOW_LOG("    - [FB] Residuals: {} <? {}", residual_norm, residual_tolerance());
   return residual_norm < residual_tolerance();
-};
+}
 
 template <class SCALAR>
 bool L2ForwardBackward<SCALAR>::objective_convergence(ScalarRelativeVariation<Scalar> &scalvar,
@@ -305,7 +306,7 @@ bool L2ForwardBackward<SCALAR>::objective_convergence(ScalarRelativeVariation<Sc
   auto const current = ((gamma() > 0) ? sopt::l2_norm(x, l2_proximal_weights()) * gamma() : 0) +
                        std::pow(sopt::l2_norm(residual), 2) / (2 * sigma() * sigma());
   return scalvar(current);
-};
+}
 
 #ifdef SOPT_MPI
 template <class SCALAR>
@@ -319,7 +320,7 @@ bool L2ForwardBackward<SCALAR>::objective_convergence(mpi::Communicator const &o
       ((gamma() > 0) ? sopt::l2_norm(x, l2_proximal_weights()) * gamma() : 0) +
       std::pow(sopt::l2_norm(residual), 2) / (2 * sigma() * sigma()));
   return scalvar(current);
-};
+}
 #endif
 
 template <class SCALAR>

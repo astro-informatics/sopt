@@ -2,8 +2,11 @@
 #define SOPT_CREDIBLE_REGION_H
 
 #include "sopt/config.h"
+#include <algorithm> // for std::min()
 #include <functional>
 #include <iostream>
+#include <memory> // for make_shared<>
+#include <tuple> // for tuple<>
 #include <type_traits>
 #include "sopt/bisection_method.h"
 #include "sopt/exception.h"

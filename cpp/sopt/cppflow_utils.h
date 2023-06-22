@@ -6,6 +6,7 @@
 #include <cppflow/cppflow.h>
 #include "cppflow/ops.h"
 #include <complex>
+#include <vector>
 
 namespace sopt {
 namespace cppflowutils {

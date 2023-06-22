@@ -2,6 +2,7 @@
 #define SOPT_UTILITIES_H
 
 #include "sopt/config.h"
+#include <string> // for std::string
 #include <Eigen/Core>
 #include "sopt/types.h"
 

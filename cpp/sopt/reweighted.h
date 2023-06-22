@@ -4,6 +4,10 @@
 #include "sopt/linear_transform.h"
 #include "sopt/types.h"
 
+#include <algorithm> // for std::max<>
+#include <limits>  // for std::numeric_limits<>
+#include <utility> // for std::move<>
+
 namespace sopt {
 namespace algorithm {
 template <class ALGORITHM>

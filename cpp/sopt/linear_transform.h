@@ -5,6 +5,7 @@
 #include <array>
 #include <memory>
 #include <type_traits>
+#include <utility>  // for std::move<>
 #include <Eigen/Core>
 #include "sopt/logging.h"
 #include "sopt/maths.h"
@@ -152,7 +153,7 @@ class MatrixToLinearTransform {
   template <class T0>
   MatrixToLinearTransform(Eigen::MatrixBase<T0> const &A) : matrix(std::make_shared<EIGEN>(A)) {}
   //! Creates from a shared matrix.
-  MatrixToLinearTransform(std::shared_ptr<EIGEN> const &x) : matrix(x){};
+  MatrixToLinearTransform(std::shared_ptr<EIGEN> const &x) : matrix(x){}
 
   //! Performs operation
   void operator()(PlainObject &out, PlainObject const &x) const {
@@ -185,7 +186,7 @@ class MatrixAdjointToLinearTransform {
   MatrixAdjointToLinearTransform(Eigen::MatrixBase<T0> const &A)
       : matrix(std::make_shared<EIGEN>(A)) {}
   //! Creates from a shared matrix.
-  MatrixAdjointToLinearTransform(std::shared_ptr<EIGEN> const &x) : matrix(x){};
+  MatrixAdjointToLinearTransform(std::shared_ptr<EIGEN> const &x) : matrix(x){}
 
   //! Performs operation
   void operator()(PlainObject &out, PlainObject const &x) const {

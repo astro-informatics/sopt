@@ -4,7 +4,9 @@
 #include "sopt/config.h"
 #include <functional>
 #include <limits>
+#include <memory> // for std::shared_ptr<>
 #include <tuple>
+#include <utility> // for std::move<>
 #include "sopt/exception.h"
 #include "sopt/linear_transform.h"
 #include "sopt/logging.h"

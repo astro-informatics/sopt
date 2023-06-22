@@ -4,6 +4,8 @@
 #include "sopt/linear_transform.h"
 #include "sopt/types.h"
 
+#include <utility> // for std::forward
+
 namespace sopt {
 namespace algorithm {
 //! \brief Computes according to given algorithm and then projects it to the positive quadrant

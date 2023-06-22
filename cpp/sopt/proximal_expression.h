@@ -3,6 +3,7 @@
 
 #include "sopt/config.h"
 #include <type_traits>
+#include <utility> // for std::move<>
 #include <Eigen/Core>
 #include "sopt/maths.h"
 

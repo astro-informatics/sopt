@@ -4,6 +4,7 @@
 #include "sopt/config.h"
 #include <array>
 #include <type_traits>
+#include <utility> // for std::forward<>
 #include <Eigen/Core>
 #include "sopt/linear_transform.h"
 #include "sopt/maths.h"
@@ -392,7 +393,7 @@ template <class SCALAR>
 class L1<SCALAR>::FistaMixing {
  public:
   typedef typename real_type<SCALAR>::type Real;
-  FistaMixing() : t(1){};
+  FistaMixing() : t(1){}
   template <class T1>
   void operator()(Vector<SCALAR> &previous, Eigen::MatrixBase<T1> const &unmixed, t_uint iter) {
     // reset

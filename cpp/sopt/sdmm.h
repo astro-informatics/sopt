@@ -4,6 +4,7 @@
 #include "sopt/config.h"
 #include <limits>
 #include <numeric>
+#include <utility> // for std::forward<>
 #include <vector>
 #include "sopt/conjugate_gradient.h"
 #include "sopt/exception.h"

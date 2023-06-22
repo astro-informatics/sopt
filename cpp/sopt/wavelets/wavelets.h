@@ -7,6 +7,8 @@
 #include "sopt/wavelets/indirect.h"
 #include "sopt/wavelets/wavelet_data.h"
 
+#include <string> // for std::string
+
 namespace sopt {
 namespace wavelets {
 
