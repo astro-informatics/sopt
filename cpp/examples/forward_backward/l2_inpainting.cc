@@ -104,7 +104,7 @@ int main(int argc, char const **argv) {
   // Here, we default to (y, Φx/ν - y)
   Vector init_map = Vector::Ones(image.size()) * x_sigma;
   Vector init_res = y - (sampling * init_map);
-  const std::tuple<Vector, Vector> warm_start = {init_map, init_res};
+  // [[maybe_unused]] const std::tuple<Vector, Vector> warm_start = {init_map, init_res};
   auto const diagnostic = fb();
   SOPT_HIGH_LOG("Forward backward returned {}", diagnostic.good);
 

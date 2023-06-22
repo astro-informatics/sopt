@@ -8,6 +8,6 @@ class SARA : public std::vector<int> {
 };
 
 int main(int, char const**) {
-  SARA s = {0, 0};
+  [[maybe_unused]] SARA s = {0, 0};
   return 0;
 }
