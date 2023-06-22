@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.13.4) # CMake 3.13.4 is the currently default in Debian 10 repositories
 project(Sopt
         DESCRIPTION "Sparse OPTimisation using state-of-the-art convex optimisation algorithms."
-        HOMEPAGE_URL "https://github.com/sopt/sopt"
+        HOMEPAGE_URL "http://astro-informatics.github.io/sopt/"
         LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
