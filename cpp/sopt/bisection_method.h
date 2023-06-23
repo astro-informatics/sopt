@@ -13,8 +13,7 @@ template <class K>
 typename std::enable_if<std::is_same<t_real, K>::value, K>::type bisection_method(
     const K &function_value, const std::function<K(K)> &func, const K &a, const K &b,
     const t_real &rel_convergence = 1e-4);
-}  // namespace sopt
-namespace sopt {
+
 template <class K>
 typename std::enable_if<std::is_same<t_real, K>::value, K>::type bisection_method(
     const K &function_value, const std::function<K(K)> &func, const K &a, const K &b,
