@@ -19,7 +19,7 @@ TEST_CASE("calculating gamma") {
   };
   const t_Vector x = t_Vector::Random(N);
   CHECK(0 == energy_function(x));
-  for (t_uint i = 1; i < 10; i++) {
+  for (t_uint i = 1; i < 10; ++i) {
     const t_real alpha = 0.9 + i * 0.01;
     const t_real gamma = credible_region::compute_energy_upper_bound(alpha, x, energy_function);
     CHECK(gamma == Approx(N * (std::sqrt(16 * std::log(3 / (1 - alpha)) / N) + 1)));

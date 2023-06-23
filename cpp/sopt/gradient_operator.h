@@ -28,9 +28,9 @@ template <class T>
 Vector<T> diff2d(const Vector<T> &x, const t_int rows, const t_int cols) {
   Matrix<T> output = Matrix<T>::Zero(rows, 2 * cols);
   const Matrix<T> &input_image = Matrix<T>::Map(x.data(), rows, cols);
-  for (Eigen::Index i(0); i < rows; i++)
+  for (Eigen::Index i(0); i < rows; ++i)
     output.block(0, 0, rows, cols).row(i) = diff<T>(input_image.row(i));
-  for (Eigen::Index i(0); i < cols; i++)
+  for (Eigen::Index i(0); i < cols; ++i)
     output.block(0, cols, rows, cols).col(i) = diff<T>(input_image.col(i));
   return Vector<T>::Map(output.data(), output.size());
 }
@@ -39,9 +39,9 @@ template <class T>
 Vector<T> diff2d_adjoint(const Vector<T> &x, const t_int rows, const t_int cols) {
   const Matrix<T> &input_image = Matrix<T>::Map(x.data(), rows, 2 * cols);
   Matrix<T> output = Matrix<T>::Zero(rows, cols);
-  for (Eigen::Index i(0); i < rows; i++)
+  for (Eigen::Index i(0); i < rows; ++i)
     output.row(i) += diff_adjoint<T>(input_image.block(0, 0, rows, cols).row(i));
-  for (Eigen::Index i(0); i < cols; i++)
+  for (Eigen::Index i(0); i < cols; ++i)
     output.col(i) += diff_adjoint<T>(input_image.block(0, cols, rows, cols).col(i));
   return Vector<T>::Map(output.data(), output.size());
 }

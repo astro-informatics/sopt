@@ -101,7 +101,7 @@ void tv_norm(Eigen::DenseBase<T0> &out, typename real_type<typename T0::Scalar>:
   typename T1::PlainObject const &u = x.segment(0, size);
   typename T1::PlainObject const &v = x.segment(size, size);
   out = T0::Zero(size * 2);
-  for (typename Eigen::Index i(0); i < size; i++) {
+  for (typename Eigen::Index i(0); i < size; ++i) {
     const t_real norm = std::sqrt(std::abs(u(i) * u(i) + v(i) * v(i)));
     if (norm > gamma) {
       out(i) = (1 - gamma / norm) * u(i);
@@ -119,7 +119,7 @@ void tv_norm(Eigen::DenseBase<T0> &out, Eigen::DenseBase<T2> const &gamma,
   typename T1::PlainObject const &u = x.segment(0, size);
   typename T1::PlainObject const &v = x.segment(size, size);
   out = T0::Zero(size * 2);
-  for (typename Eigen::Index i(0); i < size; i++) {
+  for (typename Eigen::Index i(0); i < size; ++i) {
     const t_real norm = std::sqrt(std::abs(u(i) * u(i) + v(i) * v(i)));
     if (norm > gamma(i)) {
       out(i) = (1 - gamma(i) / norm) * u(i);

@@ -104,7 +104,7 @@ class JointMAP {
     typedef typename ALGORITHM::DiagnosticAndResult ResultType;
     ResultType result = (*(this->algo_ptr_))(std::forward<ARGS>(args)...);
     t_real gamma = 0;
-    niters++;
+    ++niters;
     t_uint algo_iters(result.niters);
     for (; (not converged) && (niters < itermax()); ++niters) {
       SOPT_LOW_LOG("    - [JMAP] Iteration {}/{}", niters, itermax());

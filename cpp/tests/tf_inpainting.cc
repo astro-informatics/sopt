@@ -46,7 +46,7 @@ TEST_CASE("Inpainting"){
 
   std::normal_distribution<> gaussian_dist(0, sigma);
   Vector y(y0.size());
-  for (sopt::t_int i = 0; i < y0.size(); i++) y(i) = y0(i) + gaussian_dist(*mersenne);
+  for (sopt::t_int i = 0; i < y0.size(); ++i) y(i) = y0(i) + gaussian_dist(*mersenne);
 
   sopt::t_real const gamma = 18;
   sopt::t_real const beta = sigma * sigma * 0.5;

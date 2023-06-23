@@ -89,7 +89,7 @@ int main(int argc, char const **argv) {
   SOPT_HIGH_LOG("Create dirty vector");
   std::normal_distribution<> gaussian_dist(0, sigma);
   Vector y(y0.size());
-  for (sopt::t_int i = 0; i < y0.size(); i++) y(i) = y0(i) + gaussian_dist(mersenne);
+  for (sopt::t_int i = 0; i < y0.size(); ++i) y(i) = y0(i) + gaussian_dist(mersenne);
   // Write dirty image to file
   if (output != "none") {
     Vector const dirty = sampling.adjoint() * y;

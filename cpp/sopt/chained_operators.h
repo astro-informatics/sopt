@@ -23,12 +23,12 @@ OperatorFunction<T0> chained_operators(OperatorFunction<T0> const &arg0, T const
       (*first)(output, input);
     else {
       (*first)(*buffer, input);
-      first++;
+      ++first;
       (*first)(output, *buffer);
     }
-    for (++first; first != last; first++) {
+    for (++first; first != last; ++first) {
       (*first)(*buffer, output);
-      first++;
+      ++first;
       (*first)(output, *buffer);
     }
   };
