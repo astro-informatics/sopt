@@ -7,7 +7,7 @@
 namespace sopt {
 namespace notinstalled {
 //! Holds images and such
-inline std::string data_directory() { return "@PROJECT_SOURCE_DIR@/images"; }
+inline std::string data_directory() { return "@PROJECT_SOURCE_DIR@/cpp/tests/test_data"; }
 //! Output artefacts from tests
 inline std::string output_directory() { return "@PROJECT_BINARY_DIR@/outputs"; }
 //! Tensorflow models
