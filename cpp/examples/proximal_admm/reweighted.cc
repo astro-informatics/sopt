@@ -48,9 +48,9 @@ int main(int argc, char const **argv) {
     exit(0);
   }
   // Set up random numbers for C and C++
-  auto const seed = std::time(0);
+  auto const seed = std::time(nullptr);
   std::srand(static_cast<unsigned int>(seed));
-  std::mt19937 mersenne(std::time(0));
+  std::mt19937 mersenne(std::time(nullptr));
 
   // Initializes and sets logger (if compiled with logging)
   // See set_level function for levels.
