@@ -40,7 +40,7 @@ TEST_CASE("Inpainting"){
       sopt::linear_transform<Scalar>(sopt::Sampling(image.size(), nmeasure, *mersenne));
 
   Vector const y0 = sampling * Vector::Map(image.data(), image.size());
-  auto const snr = 30.0;
+  auto constexpr snr = 30.0;
   auto const sigma = y0.stableNorm() / std::sqrt(y0.size()) * std::pow(10.0, -(snr / 20.0));
   auto const epsilon = std::sqrt(nmeasure + 2 * std::sqrt(y0.size())) * sigma;
 
@@ -48,7 +48,7 @@ TEST_CASE("Inpainting"){
   Vector y(y0.size());
   for (sopt::t_int i = 0; i < y0.size(); i++) y(i) = y0(i) + gaussian_dist(*mersenne);
 
-  sopt::t_real const gamma = 18;
+  sopt::t_real constexpr gamma = 18;
   sopt::t_real const beta = sigma * sigma * 0.5;
 
   auto fb = sopt::algorithm::ImagingForwardBackward<Scalar>(y);

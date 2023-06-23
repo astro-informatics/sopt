@@ -53,8 +53,8 @@ void indirect_vector(benchmark::State &state) {
   state.SetBytesProcessed(int64_t(state.iterations()) * int64_t(Nx) * sizeof(TYPE));
 }
 
-auto const n = 64;
-auto const N = 256 * 3;
+auto constexpr n = 64;
+auto constexpr N = 256 * 3;
 
 BENCHMARK_TEMPLATE(direct_matrix, sopt::t_complex, 1, 1)->RangePair(n, N, n, N)->UseRealTime();
 BENCHMARK_TEMPLATE(direct_matrix, sopt::t_real, 1, 1)->RangePair(n, N, n, N)->UseRealTime();

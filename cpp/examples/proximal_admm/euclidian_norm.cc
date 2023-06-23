@@ -16,7 +16,7 @@ int main(int, char const **) {
   typedef sopt::Matrix<t_Scalar> t_Matrix;
 
   // Creates the target vectors
-  auto const N = 5;
+  auto constexpr N = 5;
   t_Vector const target0 = t_Vector::Random(N);
   t_Vector const target1 = t_Vector::Random(N) * 4;
 

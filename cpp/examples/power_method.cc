@@ -4,7 +4,7 @@
 
 int main(int, char const **) {
   typedef sopt::t_real Scalar;
-  auto const N = 10;
+  auto constexpr N = 10;
 
   // Create some kind of matrix
   sopt::Matrix<Scalar> const A =

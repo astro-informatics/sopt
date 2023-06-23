@@ -14,7 +14,7 @@ int main(int, char const **) {
   typedef sopt::Matrix<t_Scalar> t_Matrix;
 
   // Creates the transformation matrices
-  auto const N = 10;
+  auto constexpr N = 10;
   t_Matrix const L0 = t_Matrix::Random(N, N) * 2;
   t_Matrix const L1 = t_Matrix::Random(N, N) * 4;
   // L1_direct and L1_adjoint are used to demonstrate that we can define L_i in SDMM both directly

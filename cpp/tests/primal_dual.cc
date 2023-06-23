@@ -14,7 +14,7 @@ typedef sopt::t_real Scalar;
 typedef sopt::Vector<Scalar> t_Vector;
 typedef sopt::Matrix<Scalar> t_Matrix;
 
-auto const N = 5;
+auto constexpr N = 5;
 
 TEST_CASE("Primal Dual Imaging", "[primaldual]") {
   using namespace sopt;

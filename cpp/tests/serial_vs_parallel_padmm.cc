@@ -39,7 +39,7 @@ TEST_CASE("Parallel vs serial inpainting") {
 
   // Initializing sensing operator
   // The operator is obtained by world root proc and split across the procs in split_comm
-  sopt::t_uint nmeasure = 0.33 * image.size();
+  sopt::t_uint const nmeasure = 0.33 * image.size();
   auto indices = world.is_root()
                      ? world.broadcast(sopt::Sampling(image.size(), nmeasure, *mersenne).indices())
                      : world.broadcast<std::vector<t_uint>>();
@@ -61,7 +61,7 @@ TEST_CASE("Parallel vs serial inpainting") {
   // Computing proximal-ADMM parameters
   Vector const y0 = sampling * Vector::Map(image.data(), image.size());
   CHECK(y0.size() == indices.size());
-  auto const snr = 30.0;
+  auto constexpr snr = 30.0;
   auto const sigma = y0.stableNorm() / std::sqrt(y0.size()) * std::pow(10.0, -(snr / 20.0));
   auto const epsilon = world.broadcast(std::sqrt(nmeasure + 2 * std::sqrt(y0.size())) * sigma);
 

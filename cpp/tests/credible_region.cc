@@ -30,7 +30,7 @@ TEST_CASE("caculating upper and lower interval") {
   const std::function<t_real(t_Vector)> energy_function = [](const t_Vector &input) -> t_real {
     return (input.array()).cwiseAbs().maxCoeff();
   };
-  const t_real gamma = 1.;
+  constexpr t_real gamma = 1.;
   std::tuple<t_uint, t_uint, t_uint, t_uint> const region = std::make_tuple(0, 0, rows, cols);
   CAPTURE(gamma);
   t_real lower = 0;
@@ -58,10 +58,10 @@ TEST_CASE("caculating upper and lower interval") {
 }
 
 TEST_CASE("calculating upper and lower interval grid") {
-  const t_uint pix_size = 16;
+  constexpr t_uint pix_size = 16;
   const t_uint grid_cols = std::floor(cols / pix_size);
   const t_uint grid_rows = std::floor(rows / pix_size);
-  const t_real gamma = 1.;
+  constexpr t_real gamma = 1.;
   t_Image image = t_Image::Constant(rows, cols, 0);
   const Image<t_real> expected_lower = Image<t_real>::Constant(grid_rows, grid_cols, -gamma);
   const Image<t_real> expected_mean = Image<t_real>::Constant(grid_rows, grid_cols, 0);
@@ -81,7 +81,7 @@ TEST_CASE("calculating upper and lower interval grid") {
 }
 
 TEST_CASE("calculating upper and lower interval grid non const") {
-  const t_uint pix_size = 16;
+  constexpr t_uint pix_size = 16;
   rows = 145;
   cols = 153;
   N = rows * cols;
@@ -92,7 +92,7 @@ TEST_CASE("calculating upper and lower interval grid non const") {
   const std::function<t_real(t_Vector)> energy_function = [&](const t_Vector &input) -> t_real {
     return input.cwiseAbs().maxCoeff();
   };
-  const t_real gamma = 1.;
+  constexpr t_real gamma = 1.;
   Image<t_real> lower = Image<t_real>::Zero(rows, cols);
   Image<t_real> mean = Image<t_real>::Zero(rows, cols);
   Image<t_real> upper = Image<t_real>::Zero(rows, cols);

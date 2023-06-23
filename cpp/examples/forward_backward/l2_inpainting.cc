@@ -57,7 +57,7 @@ int main(int argc, char const **argv) {
   SOPT_HIGH_LOG("Image size: {} x {} = {}", image.cols(), image.rows(), image.size());
 
   SOPT_HIGH_LOG("Initializing sensing operator");
-  sopt::t_uint nmeasure = std::floor(0.5 * image.size());
+  sopt::t_uint const nmeasure = std::floor(0.5 * image.size());
   sopt::LinearTransform<Vector> const sampling =
       sopt::linear_transform<Scalar>(sopt::Sampling(image.size(), nmeasure, mersenne));
   SOPT_HIGH_LOG("Initializing wavelets");
@@ -71,7 +71,7 @@ int main(int argc, char const **argv) {
 
   SOPT_HIGH_LOG("Computing Forward Backward parameters");
   Vector const y0 = sampling * Vector::Map(image.data(), image.size());
-  auto const snr = 30.0;
+  auto constexpr snr = 30.0;
   auto const sigma = y0.stableNorm() / std::sqrt(y0.size()) * std::pow(10.0, -(snr / 20.0));
   auto const epsilon = std::sqrt(nmeasure + 2 * std::sqrt(y0.size())) * sigma;
 
@@ -85,8 +85,8 @@ int main(int argc, char const **argv) {
     sopt::utilities::write_tiff(Matrix::Map(dirty.data(), image.rows(), image.cols()),
                                 "dirty_" + output + ".tiff");
   }
-  const sopt::t_real x_sigma = 1.;
-  sopt::t_real const gamma = 1. / (x_sigma * x_sigma * 2);
+  constexpr sopt::t_real x_sigma = 1.;
+  sopt::t_real constexpr gamma = 1. / (x_sigma * x_sigma * 2);
   sopt::t_real const beta = sigma * sigma * 0.5;
   SOPT_HIGH_LOG("Creating Foward Backward Functor");
   auto const fb = sopt::algorithm::L2ForwardBackward<Scalar>(y)
@@ -102,8 +102,8 @@ int main(int argc, char const **argv) {
   SOPT_HIGH_LOG("Starting Forward Backward");
   // Alternatively, forward-backward can be called with a tuple (x, residual) as argument
   // Here, we default to (y, Φx/ν - y)
-  Vector init_map = Vector::Ones(image.size()) * x_sigma;
-  Vector init_res = y - (sampling * init_map);
+  Vector const init_map = Vector::Ones(image.size()) * x_sigma;
+  Vector const init_res = y - (sampling * init_map);
   const std::tuple<Vector, Vector> warm_start = {init_map, init_res};
   auto const diagnostic = fb();
   SOPT_HIGH_LOG("Forward backward returned {}", diagnostic.good);

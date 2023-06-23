@@ -42,7 +42,7 @@ TEST_CASE("WeightedL2Ball", "[proximal]") {
   Vector<t_real> x(5);
   x << 1, 2, 3, 4, 5;
   proximal::WeightedL2Ball<t_real> wball(0.5, weights);
-  proximal::L2Ball<t_real> ball(0.5);
+  proximal::L2Ball<t_real> const ball(0.5);
 
   Vector<t_real> const expected =
       ball((x.array() * weights.array()).matrix()).array() / weights.array();
@@ -55,7 +55,7 @@ TEST_CASE("WeightedL2Ball", "[proximal]") {
 
 TEST_CASE("Euclidian norm", "[proximal]") {
   using namespace sopt;
-  proximal::EuclidianNorm eucl;
+  proximal::EuclidianNorm const eucl;
 
   Vector<t_real> out(5);
   Vector<t_real> x(5);
@@ -80,7 +80,7 @@ TEST_CASE("Translation", "[proximal]") {
 
   ball.epsilon(0.125);
   out = translated(0, x);
-  Vector<t_real> expected = ball(1, x * 0.5) + x * 0.5;
+  Vector<t_real> const expected = ball(1, x * 0.5) + x * 0.5;
   CHECK(out.isApprox(expected));
 }
 
@@ -91,7 +91,7 @@ TEST_CASE("Tight-Frame L1 proximal", "[l1][proximal]") {
     typedef t_complex Scalar;
     Vector<t_complex> const p = l1(gamma, x);
     auto const mini = l1.objective(x, p, gamma);
-    auto const eps = 1e-4;
+    auto constexpr eps = 1e-4;
     for (Vector<t_complex>::Index i(0); i < p.size(); ++i) {
       for (auto const dir : {Scalar(eps, 0), Scalar(0, eps), Scalar(-eps, 0), Scalar(0, -eps)}) {
         Vector<t_complex> p_plus = p;
@@ -235,7 +235,7 @@ TEST_CASE("L1 proximal", "[l1][proximal]") {
       // returns false if did not converge.
       // Looks like computing the proximal does not always work...
       auto const mini = l1.objective(input, proximal, gamma);
-      auto const eps = 1e-3;
+      auto constexpr eps = 1e-3;
       // check alongst specific directions
       for (Vector<Scalar>::Index i(0); i < proximal.size(); ++i) {
         for (auto const dir : {Scalar(eps, 0), Scalar(0, eps), Scalar(-eps, 0), Scalar(0, -eps)}) {

@@ -229,7 +229,7 @@ TEST_CASE("1D wavelet transform with floating point data", "[wavelet]") {
     check_round_trip(Array<>::Random(52), 10, 2);
   }
 
-  t_uint nlevels = 5;
+  t_uint constexpr nlevels = 5;
   SECTION("Round-trip test for multiple levels") {
     for (t_int i(0); i < 10; ++i) {
       auto const n = random_integer(2, nlevels);

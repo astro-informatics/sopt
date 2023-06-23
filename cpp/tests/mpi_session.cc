@@ -25,7 +25,7 @@ int main(int argc, const char **argv) {
   // Removes output qualifiers from arguments
   auto avoid = false;
   auto const N = std::string("--out=").size();
-  std::vector<std::string> args(argv, argv + argc);
+  std::vector<std::string> const args(argv, argv + argc);
   for (auto const &arg : args)
     if (avoid)
       avoid = false;

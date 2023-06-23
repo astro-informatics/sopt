@@ -14,7 +14,7 @@ template <class SCALAR> class GProximal {
   typedef typename FB::t_Vector t_Vector;
   typedef typename FB::t_Proximal t_Proximal;
   typedef typename FB::t_LinearTransform t_LinearTransform;
-  
+
 public:
 
   // A function that prints a log message

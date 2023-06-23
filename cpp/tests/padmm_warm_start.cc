@@ -11,7 +11,7 @@ typedef sopt::t_real Scalar;
 typedef sopt::Vector<Scalar> t_Vector;
 typedef sopt::Matrix<Scalar> t_Matrix;
 
-auto const N = 30;
+auto constexpr N = 30;
 SCENARIO("ProximalADMM with warm start", "[padmm][integration]") {
   using namespace sopt;
 

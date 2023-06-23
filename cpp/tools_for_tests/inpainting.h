@@ -16,7 +16,7 @@ Vector<T> target(sopt::LinearTransform<Vector<T>> const &sampling, sopt::Image<T
 template <class T>
 typename real_type<T>::type sigma(sopt::LinearTransform<Vector<T>> const &sampling,
                                   sopt::Image<T> const &image) {
-  auto const snr = 30.0;
+  auto constexpr snr = 30.0;
   auto const y0 = target(sampling, image);
   return y0.stableNorm() / std::sqrt(y0.size()) * std::pow(10.0, -(snr / 20.0));
 }

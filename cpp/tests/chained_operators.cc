@@ -10,7 +10,7 @@ TEST_CASE("Linear Transforms", "[ops]") {
 
   typedef int SCALAR;
   typedef Vector<SCALAR> t_Vector;
-  auto const N = 5;
+  auto constexpr N = 5;
 
   SECTION("1 Functions") {
     OperatorFunction<t_Vector> const func0 = [](t_Vector &out, t_Vector const &input) {

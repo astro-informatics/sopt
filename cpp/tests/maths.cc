@@ -146,7 +146,7 @@ TEST_CASE("Sampling", "[utility][sampling]") {
 TEST_CASE("Relative variation", "[utility][convergence]") {
   sopt::RelativeVariation<double> relvar(1e-8);
 
-  sopt::Array<> input = sopt::Array<>::Random(6);
+  sopt::Array<> const input = sopt::Array<>::Random(6);
   CHECK(not relvar(input));
   CHECK(relvar(input));
   CHECK(relvar(input + relvar.tolerance() * 0.5 / 6. * sopt::Array<>::Random(6)));
@@ -155,7 +155,7 @@ TEST_CASE("Relative variation", "[utility][convergence]") {
 
 TEST_CASE("Scalar elative variation", "[utility][convergence]") {
   sopt::ScalarRelativeVariation<double> relvar(1e-8, 1e-8, "Yo");
-  sopt::t_real input = sopt::Array<>::Random(1)(0);
+  sopt::t_real const input = sopt::Array<>::Random(1)(0);
   CHECK(not relvar(input));
   CHECK(relvar(input));
   CHECK(not relvar(input + 0.1));
@@ -164,7 +164,7 @@ TEST_CASE("Scalar elative variation", "[utility][convergence]") {
 
 TEST_CASE("Standard deviation", "[utility]") {
   sopt::Array<sopt::t_complex> input = sopt::Array<sopt::t_complex>::Random(6) + 1e0;
-  sopt::t_complex mean = input.mean();
+  sopt::t_complex const mean = input.mean();
   sopt::t_real stddev = 0e0;
   for (sopt::Vector<>::Index i(0); i < input.size(); ++i)
     stddev += std::real(std::conj(input(i) - mean) * (input(i) - mean));

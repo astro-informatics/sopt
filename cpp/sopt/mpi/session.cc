@@ -29,7 +29,7 @@ std::shared_ptr<details::initializer> init(int argc, const char **argv) {
   if (finalized()) throw std::runtime_error("MPI session has already been finalized");
   if (not initialized()) {
     assert(details::initializer::singleton.expired());
-    std::shared_ptr<details::initializer> ptr(new details::initializer,
+    std::shared_ptr<details::initializer> const ptr(new details::initializer,
                                               &details::initializer::deleter);
 #ifdef SOPT_OPENMP
     int provided;
@@ -51,7 +51,7 @@ std::shared_ptr<details::initializer> init(int argc, const char **argv) {
 std::shared_ptr<details::initializer> session_singleton() {
   if (not initialized()) throw std::runtime_error("MPI session not initialized");
   if (details::initializer::singleton.expired()) {
-    std::shared_ptr<details::initializer> ptr(new details::initializer,
+    std::shared_ptr<details::initializer> const ptr(new details::initializer,
                                               &details::initializer::deleter);
     details::initializer::singleton = ptr;
     return details::initializer::singleton.lock();
