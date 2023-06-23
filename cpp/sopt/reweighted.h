@@ -4,8 +4,7 @@
 #include "sopt/linear_transform.h"
 #include "sopt/types.h"
 
-namespace sopt {
-namespace algorithm {
+namespace sopt::algorithm {
 template <class ALGORITHM>
 class Reweighted;
 
@@ -284,6 +283,5 @@ Reweighted<PositiveQuadrant<PrimalDual<SCALAR>>> reweighted(PrimalDual<SCALAR> c
   return {posq, set_weights, reweightee};
 }
 
-}  // namespace algorithm
-}  // namespace sopt
+} // namespace sopt::algorithm
 #endif

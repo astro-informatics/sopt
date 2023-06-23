@@ -4,8 +4,7 @@
 #include <Eigen/Core>
 #include "sopt/types.h"
 
-namespace sopt {
-namespace wavelets {
+namespace sopt::wavelets {
 
 namespace {
 //! Vector setup from initializer list, because easier
@@ -1718,5 +1717,4 @@ WaveletData const &daubechies_data(t_uint n) {
   }
   return *result;
 }
-}  // namespace wavelets
-}  // namespace sopt
+} // namespace sopt::wavelets
