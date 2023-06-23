@@ -34,8 +34,7 @@ uint32_t convert_from_greyscale(double pixel) {
 }
 }  // namespace
 
-namespace sopt {
-namespace utilities {
+namespace sopt::utilities {
 Image<> read_tiff(std::string const &filename) {
   SOPT_MEDIUM_LOG("Reading image file {} ", filename);
   TIFF *tif = TIFFOpen(filename.c_str(), "r");
@@ -99,5 +98,4 @@ void write_tiff(Image<> const &image, std::string const &filename) {
   TIFFClose(tif);
   SOPT_TRACE("Freeing raster");
 }
-}  // namespace utilities
-}  // namespace sopt
+} // namespace sopt::utilities

@@ -11,9 +11,8 @@
 #include "sopt/mpi/utilities.h"
 #endif
 
-namespace sopt {
 //! Holds some standard proximals
-namespace proximal {
+namespace sopt::proximal {
 
 //! Proximal of euclidian norm
 class EuclidianNorm {
@@ -363,7 +362,6 @@ template <class FUNCTION, class VECTOR>
 Translation<FUNCTION, VECTOR> translate(FUNCTION const &func, VECTOR const &translation) {
   return Translation<FUNCTION, VECTOR>(func, translation);
 }
-}  // namespace proximal
-}  // namespace sopt
+} // namespace sopt::proximal
 
 #endif

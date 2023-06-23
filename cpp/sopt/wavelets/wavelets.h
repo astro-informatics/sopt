@@ -7,8 +7,7 @@
 #include "sopt/wavelets/indirect.h"
 #include "sopt/wavelets/wavelet_data.h"
 
-namespace sopt {
-namespace wavelets {
+namespace sopt::wavelets {
 
 // Advance declaration so we can define the subsequent friend function
 class Wavelet;
@@ -133,6 +132,5 @@ class Wavelet : public WaveletData {
   //! Number of levels in the wavelet
   t_uint levels_;
 };
-}  // namespace wavelets
-}  // namespace sopt
+} // namespace sopt::wavelets
 #endif

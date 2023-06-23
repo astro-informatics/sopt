@@ -14,8 +14,7 @@
 #include "sopt/types.h"
 #include "sopt/wrapper.h"
 
-namespace sopt {
-namespace algorithm {
+namespace sopt::algorithm {
 
 //! \brief Simultaneous-direction method of the multipliers
 //! \details The algorithm is detailed in (doi) 10.1093/mnras/stu202.
@@ -303,6 +302,5 @@ void SDMM<SCALAR>::sanity_check(t_Vector const &x) const {
   }
   if (doexit) SOPT_THROW("Input to SDMM is inconsistent");
 }
-}  // namespace algorithm
-}  // namespace sopt
+} // namespace sopt::algorithm
 #endif
