@@ -60,7 +60,7 @@ class SDMM {
 // auto sdmm  = SDMM<float>().prop0(value).prop1(value);
 #define SOPT_MACRO(NAME, TYPE)                 \
   TYPE const &NAME() const { return NAME##_; } \
-  SDMM<SCALAR> &NAME(TYPE const &NAME) {       \
+  SDMM<SCALAR> &NAME(TYPE const &(NAME)) {       \
     NAME##_ = NAME;                            \
     return *this;                              \
   }                                            \

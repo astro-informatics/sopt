@@ -79,7 +79,7 @@ class ImagingForwardBackward {
 // auto padmm = ImagingForwardBackward<float>().prop0(value).prop1(value);
 #define SOPT_MACRO(NAME, TYPE)                             \
   TYPE const &NAME() const { return NAME##_; }             \
-  ImagingForwardBackward<SCALAR> &NAME(TYPE const &NAME) { \
+  ImagingForwardBackward<SCALAR> &NAME(TYPE const &(NAME)) { \
     NAME##_ = NAME;                                        \
     return *this;                                          \
   }                                                        \

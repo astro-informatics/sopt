@@ -46,7 +46,7 @@ class JointMAP {
 
 #define SOPT_MACRO(NAME, TYPE)                  \
   TYPE const &NAME() const { return NAME##_; }  \
-  JointMAP<ALGORITHM> &NAME(TYPE const &NAME) { \
+  JointMAP<ALGORITHM> &NAME(TYPE const &(NAME)) { \
     NAME##_ = NAME;                             \
     return *this;                               \
   }                                             \

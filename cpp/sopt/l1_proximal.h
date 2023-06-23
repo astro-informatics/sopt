@@ -49,7 +49,7 @@ class L1TightFrame {
 
 #define SOPT_MACRO(NAME, TYPE)                   \
   TYPE const &NAME() const { return NAME##_; }   \
-  L1TightFrame<Scalar> &NAME(TYPE const &NAME) { \
+  L1TightFrame<Scalar> &NAME(TYPE const &(NAME)) { \
     NAME##_ = NAME;                              \
     return *this;                                \
   }                                              \
@@ -253,7 +253,7 @@ class L1 : protected L1TightFrame<SCALAR> {
 
 #define SOPT_MACRO(NAME, TYPE)                 \
   TYPE const &NAME() const { return NAME##_; } \
-  L1<Scalar> &NAME(TYPE const &NAME) {         \
+  L1<Scalar> &NAME(TYPE const &(NAME)) {         \
     NAME##_ = NAME;                            \
     return *this;                              \
   }                                            \

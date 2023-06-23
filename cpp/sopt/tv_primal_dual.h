@@ -83,7 +83,7 @@ class TVPrimalDual {
 // auto padmm = TVPrimalDual<float>().prop0(value).prop1(value);
 #define SOPT_MACRO(NAME, TYPE)                   \
   TYPE const &NAME() const { return NAME##_; }   \
-  TVPrimalDual<SCALAR> &NAME(TYPE const &NAME) { \
+  TVPrimalDual<SCALAR> &NAME(TYPE const &(NAME)) { \
     NAME##_ = NAME;                              \
     return *this;                                \
   }                                              \
@@ -241,7 +241,7 @@ class TVPrimalDual {
   }                                                                                                \
   /** \brief Forwards to l1_proximal **/                                                           \
   TVPrimalDual<Scalar> &NAME##_proximal_##VAR(                                                     \
-      decltype(std::declval<proximal::PROXIMAL<Scalar> const>().VAR()) VAR) {                      \
+      decltype(std::declval<proximal::PROXIMAL<Scalar> const>().VAR()) (VAR)) {                      \
     NAME##_proximal().VAR(VAR);                                                                    \
     return *this;                                                                                  \
   }

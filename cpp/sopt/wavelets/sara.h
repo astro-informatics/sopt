@@ -115,9 +115,9 @@ class SARA : public std::vector<Wavelet> {
 };
 
 #define SOPT_WAVELET_ERROR_MACRO(INPUT)                                           \
-  if (INPUT.rows() % (1u << max_levels()) != 0)                                   \
+  if ((INPUT).rows() % (1u << max_levels()) != 0)                                   \
     throw std::length_error("Inconsistent number of columns and wavelet levels"); \
-  else if (INPUT.cols() != 1 and INPUT.cols() % (1u << max_levels()))             \
+  else if ((INPUT).cols() != 1 and (INPUT).cols() % (1u << max_levels()))             \
     throw std::length_error("Inconsistent number of rows and wavelet levels");
 
 template <class T0, class T1>
