@@ -1,3 +1,0 @@
-[submodule "cppflow"]
-	path = cppflow
-	url = git@github.com:UCL/cppflow.git
