@@ -125,7 +125,7 @@ Public Member Functions</h2></td></tr>
 class sopt::proximal::L1&lt; SCALAR &gt;::Breaker</h3>
 
 
-<p class="definition">Definition at line <a class="el" href="l1__proximal_8h_source.html#l00425">425</a> of file <a class="el" href="l1__proximal_8h_source.html">l1_proximal.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="l1__proximal_8h_source.html#l00424">424</a> of file <a class="el" href="l1__proximal_8h_source.html">l1_proximal.h</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="a24361b4e24e0be7693d0d992077294e8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a24361b4e24e0be7693d0d992077294e8">&#9670;&nbsp;</a></span>Real</h2>
@@ -141,7 +141,7 @@ template&lt;class SCALAR &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="l1__proximal_8h_source.html#l00427">427</a> of file <a class="el" href="l1__proximal_8h_source.html">l1_proximal.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="l1__proximal_8h_source.html#l00426">426</a> of file <a class="el" href="l1__proximal_8h_source.html">l1_proximal.h</a>.</p>
 
 </div>
 </div>
@@ -196,13 +196,13 @@ template&lt;class SCALAR &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="l1__proximal_8h_source.html#l00433">433</a> of file <a class="el" href="l1__proximal_8h_source.html">l1_proximal.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;      : tolerance_(<a class="code" href="classsopt_1_1proximal_1_1L1_1_1Breaker.html#a07d4862399e7c4b0a9f6ac8b89476141">tolerance</a>),</div>
-<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;        iter(0),</div>
-<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;        objectives({{<a class="code" href="classsopt_1_1proximal_1_1L1TightFrame.html#aaba4ab747fed7c9c16de6858e97d13d2">objective</a>, 0, 0, 0}}),</div>
-<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;        do_two_cycle(do_two_cycle) {}</div>
+<p class="definition">Definition at line <a class="el" href="l1__proximal_8h_source.html#l00432">432</a> of file <a class="el" href="l1__proximal_8h_source.html">l1_proximal.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;      : tolerance_(<a class="code" href="classsopt_1_1proximal_1_1L1_1_1Breaker.html#a07d4862399e7c4b0a9f6ac8b89476141">tolerance</a>),</div>
+<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;        iter(0),</div>
+<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;        objectives({{<a class="code" href="classsopt_1_1proximal_1_1L1TightFrame.html#aaba4ab747fed7c9c16de6858e97d13d2">objective</a>, 0, 0, 0}}),</div>
+<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;        do_two_cycle(do_two_cycle) {}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="l1__proximal_8h_source.html#l00149">sopt::proximal::L1TightFrame&lt; SCALAR &gt;::objective()</a>.</p>
+<p class="reference">References <a class="el" href="l1__proximal_8h_source.html#l00148">sopt::proximal::L1TightFrame&lt; SCALAR &gt;::objective()</a>.</p>
 
 </div>
 </div>
@@ -234,13 +234,13 @@ template&lt;class SCALAR &gt; </div>
 
 <p>True if relative variation smaller than tolerance. </p>
 
-<p class="definition">Definition at line <a class="el" href="l1__proximal_8h_source.html#l00458">458</a> of file <a class="el" href="l1__proximal_8h_source.html">l1_proximal.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;                         {</div>
-<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;    <span class="comment">// If current ~ 0, then defaults to absolute convergence</span></div>
-<div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;    <span class="comment">// This is mainly to avoid a division by zero</span></div>
-<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;    <span class="keywordflow">if</span> (std::abs(<a class="code" href="classsopt_1_1proximal_1_1L1_1_1Breaker.html#af743089a976216692dd4009017b72365">current</a>() * 1000) &lt; <a class="code" href="classsopt_1_1proximal_1_1L1_1_1Breaker.html#a07d4862399e7c4b0a9f6ac8b89476141">tolerance</a>()) <span class="keywordflow">return</span> std::abs(<a class="code" href="classsopt_1_1proximal_1_1L1_1_1Breaker.html#a067777c429ce439bdc77e8f49488e9f9">previous</a>() * 1000) &lt; <a class="code" href="classsopt_1_1proximal_1_1L1_1_1Breaker.html#a07d4862399e7c4b0a9f6ac8b89476141">tolerance</a>();</div>
-<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classsopt_1_1proximal_1_1L1_1_1Breaker.html#afe1b31707548cc125993b89da845f7b1">relative_variation</a>() &lt; <a class="code" href="classsopt_1_1proximal_1_1L1_1_1Breaker.html#a07d4862399e7c4b0a9f6ac8b89476141">tolerance</a>();</div>
-<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;  }</div>
+<p class="definition">Definition at line <a class="el" href="l1__proximal_8h_source.html#l00457">457</a> of file <a class="el" href="l1__proximal_8h_source.html">l1_proximal.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;                         {</div>
+<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;    <span class="comment">// If current ~ 0, then defaults to absolute convergence</span></div>
+<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;    <span class="comment">// This is mainly to avoid a division by zero</span></div>
+<div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;    <span class="keywordflow">if</span> (std::abs(<a class="code" href="classsopt_1_1proximal_1_1L1_1_1Breaker.html#af743089a976216692dd4009017b72365">current</a>() * 1000) &lt; <a class="code" href="classsopt_1_1proximal_1_1L1_1_1Breaker.html#a07d4862399e7c4b0a9f6ac8b89476141">tolerance</a>()) <span class="keywordflow">return</span> std::abs(<a class="code" href="classsopt_1_1proximal_1_1L1_1_1Breaker.html#a067777c429ce439bdc77e8f49488e9f9">previous</a>() * 1000) &lt; <a class="code" href="classsopt_1_1proximal_1_1L1_1_1Breaker.html#a07d4862399e7c4b0a9f6ac8b89476141">tolerance</a>();</div>
+<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classsopt_1_1proximal_1_1L1_1_1Breaker.html#afe1b31707548cc125993b89da845f7b1">relative_variation</a>() &lt; <a class="code" href="classsopt_1_1proximal_1_1L1_1_1Breaker.html#a07d4862399e7c4b0a9f6ac8b89476141">tolerance</a>();</div>
+<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;  }</div>
 </div><!-- fragment -->
 <p class="reference">Referenced by <a class="el" href="proximal_8cc_source.html#l00142">TEST_CASE()</a>.</p>
 
@@ -273,8 +273,8 @@ template&lt;class SCALAR &gt; </div>
 
 <p>Current objective. </p>
 
-<p class="definition">Definition at line <a class="el" href="l1__proximal_8h_source.html#l00445">445</a> of file <a class="el" href="l1__proximal_8h_source.html">l1_proximal.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;{ <span class="keywordflow">return</span> objectives[0]; }</div>
+<p class="definition">Definition at line <a class="el" href="l1__proximal_8h_source.html#l00444">444</a> of file <a class="el" href="l1__proximal_8h_source.html">l1_proximal.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;{ <span class="keywordflow">return</span> objectives[0]; }</div>
 </div><!-- fragment -->
 <p class="reference">Referenced by <a class="el" href="proximal_8cc_source.html#l00142">TEST_CASE()</a>.</p>
 
@@ -308,14 +308,14 @@ template&lt;class SCALAR &gt; </div>
 
 <p>True if we should break out of loop. </p>
 
-<p class="definition">Definition at line <a class="el" href="l1__proximal_8h_source.html#l00439">439</a> of file <a class="el" href="l1__proximal_8h_source.html">l1_proximal.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;                                  {</div>
-<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;    ++iter;</div>
-<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;    objectives = {{<a class="code" href="classsopt_1_1proximal_1_1L1TightFrame.html#aaba4ab747fed7c9c16de6858e97d13d2">objective</a>, objectives[0], objectives[1], objectives[2]}};</div>
-<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classsopt_1_1proximal_1_1L1_1_1Breaker.html#a25bff18090d2a4cf5cc400061e3bdd83">converged</a>() or <a class="code" href="classsopt_1_1proximal_1_1L1_1_1Breaker.html#a2c41dc5efe3913c458eecb72fd11393e">two_cycle</a>();</div>
-<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;  }</div>
+<p class="definition">Definition at line <a class="el" href="l1__proximal_8h_source.html#l00438">438</a> of file <a class="el" href="l1__proximal_8h_source.html">l1_proximal.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;                                  {</div>
+<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;    ++iter;</div>
+<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;    objectives = {{<a class="code" href="classsopt_1_1proximal_1_1L1TightFrame.html#aaba4ab747fed7c9c16de6858e97d13d2">objective</a>, objectives[0], objectives[1], objectives[2]}};</div>
+<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classsopt_1_1proximal_1_1L1_1_1Breaker.html#a25bff18090d2a4cf5cc400061e3bdd83">converged</a>() or <a class="code" href="classsopt_1_1proximal_1_1L1_1_1Breaker.html#a2c41dc5efe3913c458eecb72fd11393e">two_cycle</a>();</div>
+<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;  }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="l1__proximal_8h_source.html#l00149">sopt::proximal::L1TightFrame&lt; SCALAR &gt;::objective()</a>.</p>
+<p class="reference">References <a class="el" href="l1__proximal_8h_source.html#l00148">sopt::proximal::L1TightFrame&lt; SCALAR &gt;::objective()</a>.</p>
 
 </div>
 </div>
@@ -346,8 +346,8 @@ template&lt;class SCALAR &gt; </div>
 
 <p>Current objective. </p>
 
-<p class="definition">Definition at line <a class="el" href="l1__proximal_8h_source.html#l00447">447</a> of file <a class="el" href="l1__proximal_8h_source.html">l1_proximal.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;{ <span class="keywordflow">return</span> objectives[1]; }</div>
+<p class="definition">Definition at line <a class="el" href="l1__proximal_8h_source.html#l00446">446</a> of file <a class="el" href="l1__proximal_8h_source.html">l1_proximal.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;{ <span class="keywordflow">return</span> objectives[1]; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -378,8 +378,8 @@ template&lt;class SCALAR &gt; </div>
 
 <p>Variation in the objective function. </p>
 
-<p class="definition">Definition at line <a class="el" href="l1__proximal_8h_source.html#l00449">449</a> of file <a class="el" href="l1__proximal_8h_source.html">l1_proximal.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;{ <span class="keywordflow">return</span> std::abs((<a class="code" href="classsopt_1_1proximal_1_1L1_1_1Breaker.html#af743089a976216692dd4009017b72365">current</a>() - <a class="code" href="classsopt_1_1proximal_1_1L1_1_1Breaker.html#a067777c429ce439bdc77e8f49488e9f9">previous</a>()) / <a class="code" href="classsopt_1_1proximal_1_1L1_1_1Breaker.html#af743089a976216692dd4009017b72365">current</a>()); }</div>
+<p class="definition">Definition at line <a class="el" href="l1__proximal_8h_source.html#l00448">448</a> of file <a class="el" href="l1__proximal_8h_source.html">l1_proximal.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;{ <span class="keywordflow">return</span> std::abs((<a class="code" href="classsopt_1_1proximal_1_1L1_1_1Breaker.html#af743089a976216692dd4009017b72365">current</a>() - <a class="code" href="classsopt_1_1proximal_1_1L1_1_1Breaker.html#a067777c429ce439bdc77e8f49488e9f9">previous</a>()) / <a class="code" href="classsopt_1_1proximal_1_1L1_1_1Breaker.html#af743089a976216692dd4009017b72365">current</a>()); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -410,8 +410,8 @@ template&lt;class SCALAR &gt; </div>
 
 <p>Tolerance criteria. </p>
 
-<p class="definition">Definition at line <a class="el" href="l1__proximal_8h_source.html#l00465">465</a> of file <a class="el" href="l1__proximal_8h_source.html">l1_proximal.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;{ <span class="keywordflow">return</span> tolerance_; }</div>
+<p class="definition">Definition at line <a class="el" href="l1__proximal_8h_source.html#l00464">464</a> of file <a class="el" href="l1__proximal_8h_source.html">l1_proximal.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;{ <span class="keywordflow">return</span> tolerance_; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -443,11 +443,11 @@ template&lt;class SCALAR &gt; </div>
 
 <p>Tolerance criteria. </p>
 
-<p class="definition">Definition at line <a class="el" href="l1__proximal_8h_source.html#l00467">467</a> of file <a class="el" href="l1__proximal_8h_source.html">l1_proximal.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;                                               {</div>
-<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;    tolerance_ = <a class="code" href="bisection__method_8cc.html#a871c6485151c4b58dcfcacee7fbec4cc">tol</a>;</div>
-<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;  }</div>
+<p class="definition">Definition at line <a class="el" href="l1__proximal_8h_source.html#l00466">466</a> of file <a class="el" href="l1__proximal_8h_source.html">l1_proximal.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;                                               {</div>
+<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;    tolerance_ = <a class="code" href="bisection__method_8cc.html#a871c6485151c4b58dcfcacee7fbec4cc">tol</a>;</div>
+<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;  }</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="bisection__method_8cc_source.html#l00015">tol</a>.</p>
 
@@ -481,11 +481,11 @@ template&lt;class SCALAR &gt; </div>
 <p>Whether we have a cycle of period two. </p>
 <p>Cycling is prone to happen without mixing, it seems. </p>
 
-<p class="definition">Definition at line <a class="el" href="l1__proximal_8h_source.html#l00452">452</a> of file <a class="el" href="l1__proximal_8h_source.html">l1_proximal.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;                         {</div>
-<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;    <span class="keywordflow">return</span> do_two_cycle and iter &gt; 3 and std::abs(objectives[0] - objectives[2]) &lt; <a class="code" href="classsopt_1_1proximal_1_1L1_1_1Breaker.html#a07d4862399e7c4b0a9f6ac8b89476141">tolerance</a>() and</div>
-<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;           std::abs(objectives[1] - objectives[3]) &lt; <a class="code" href="classsopt_1_1proximal_1_1L1_1_1Breaker.html#a07d4862399e7c4b0a9f6ac8b89476141">tolerance</a>();</div>
-<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;  }</div>
+<p class="definition">Definition at line <a class="el" href="l1__proximal_8h_source.html#l00451">451</a> of file <a class="el" href="l1__proximal_8h_source.html">l1_proximal.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;                         {</div>
+<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;    <span class="keywordflow">return</span> do_two_cycle and iter &gt; 3 and std::abs(objectives[0] - objectives[2]) &lt; <a class="code" href="classsopt_1_1proximal_1_1L1_1_1Breaker.html#a07d4862399e7c4b0a9f6ac8b89476141">tolerance</a>() and</div>
+<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;           std::abs(objectives[1] - objectives[3]) &lt; <a class="code" href="classsopt_1_1proximal_1_1L1_1_1Breaker.html#a07d4862399e7c4b0a9f6ac8b89476141">tolerance</a>();</div>
+<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;  }</div>
 </div><!-- fragment -->
 <p class="reference">Referenced by <a class="el" href="proximal_8cc_source.html#l00142">TEST_CASE()</a>.</p>
 
@@ -495,14 +495,14 @@ template&lt;class SCALAR &gt; </div>
 <li>/home/runner/work/sopt/sopt/cpp/sopt/<a class="el" href="l1__proximal_8h_source.html">l1_proximal.h</a></li>
 </ul>
 </div><!-- contents -->
-<div class="ttc" id="aclasssopt_1_1proximal_1_1L1TightFrame_html_aaba4ab747fed7c9c16de6858e97d13d2"><div class="ttname"><a href="classsopt_1_1proximal_1_1L1TightFrame.html#aaba4ab747fed7c9c16de6858e97d13d2">sopt::proximal::L1TightFrame::objective</a></div><div class="ttdeci">std::enable_if&lt; is_complex&lt; Scalar &gt;::value==is_complex&lt; typename T0::Scalar &gt;::value and is_complex&lt; Scalar &gt;::value==is_complex&lt; typename T1::Scalar &gt;::value, Real &gt;::type objective(Eigen::MatrixBase&lt; T0 &gt; const &amp;x, Eigen::MatrixBase&lt; T1 &gt; const &amp;z, Real const &amp;gamma) const</div><div class="ttdef"><b>Definition:</b> <a href="l1__proximal_8h_source.html#l00149">l1_proximal.h:149</a></div></div>
-<div class="ttc" id="aclasssopt_1_1proximal_1_1L1_1_1Breaker_html_a2c41dc5efe3913c458eecb72fd11393e"><div class="ttname"><a href="classsopt_1_1proximal_1_1L1_1_1Breaker.html#a2c41dc5efe3913c458eecb72fd11393e">sopt::proximal::L1::Breaker::two_cycle</a></div><div class="ttdeci">bool two_cycle() const</div><div class="ttdoc">Whether we have a cycle of period two.</div><div class="ttdef"><b>Definition:</b> <a href="l1__proximal_8h_source.html#l00452">l1_proximal.h:452</a></div></div>
+<div class="ttc" id="aclasssopt_1_1proximal_1_1L1TightFrame_html_aaba4ab747fed7c9c16de6858e97d13d2"><div class="ttname"><a href="classsopt_1_1proximal_1_1L1TightFrame.html#aaba4ab747fed7c9c16de6858e97d13d2">sopt::proximal::L1TightFrame::objective</a></div><div class="ttdeci">std::enable_if&lt; is_complex&lt; Scalar &gt;::value==is_complex&lt; typename T0::Scalar &gt;::value and is_complex&lt; Scalar &gt;::value==is_complex&lt; typename T1::Scalar &gt;::value, Real &gt;::type objective(Eigen::MatrixBase&lt; T0 &gt; const &amp;x, Eigen::MatrixBase&lt; T1 &gt; const &amp;z, Real const &amp;gamma) const</div><div class="ttdef"><b>Definition:</b> <a href="l1__proximal_8h_source.html#l00148">l1_proximal.h:148</a></div></div>
+<div class="ttc" id="aclasssopt_1_1proximal_1_1L1_1_1Breaker_html_a2c41dc5efe3913c458eecb72fd11393e"><div class="ttname"><a href="classsopt_1_1proximal_1_1L1_1_1Breaker.html#a2c41dc5efe3913c458eecb72fd11393e">sopt::proximal::L1::Breaker::two_cycle</a></div><div class="ttdeci">bool two_cycle() const</div><div class="ttdoc">Whether we have a cycle of period two.</div><div class="ttdef"><b>Definition:</b> <a href="l1__proximal_8h_source.html#l00451">l1_proximal.h:451</a></div></div>
 <div class="ttc" id="abisection__method_8cc_html_a871c6485151c4b58dcfcacee7fbec4cc"><div class="ttname"><a href="bisection__method_8cc.html#a871c6485151c4b58dcfcacee7fbec4cc">tol</a></div><div class="ttdeci">const Scalar tol</div><div class="ttdef"><b>Definition:</b> <a href="bisection__method_8cc_source.html#l00015">bisection_method.cc:15</a></div></div>
-<div class="ttc" id="aclasssopt_1_1proximal_1_1L1_1_1Breaker_html_a25bff18090d2a4cf5cc400061e3bdd83"><div class="ttname"><a href="classsopt_1_1proximal_1_1L1_1_1Breaker.html#a25bff18090d2a4cf5cc400061e3bdd83">sopt::proximal::L1::Breaker::converged</a></div><div class="ttdeci">bool converged() const</div><div class="ttdoc">True if relative variation smaller than tolerance.</div><div class="ttdef"><b>Definition:</b> <a href="l1__proximal_8h_source.html#l00458">l1_proximal.h:458</a></div></div>
-<div class="ttc" id="aclasssopt_1_1proximal_1_1L1_1_1Breaker_html_af743089a976216692dd4009017b72365"><div class="ttname"><a href="classsopt_1_1proximal_1_1L1_1_1Breaker.html#af743089a976216692dd4009017b72365">sopt::proximal::L1::Breaker::current</a></div><div class="ttdeci">Real current() const</div><div class="ttdoc">Current objective.</div><div class="ttdef"><b>Definition:</b> <a href="l1__proximal_8h_source.html#l00445">l1_proximal.h:445</a></div></div>
-<div class="ttc" id="aclasssopt_1_1proximal_1_1L1_1_1Breaker_html_a067777c429ce439bdc77e8f49488e9f9"><div class="ttname"><a href="classsopt_1_1proximal_1_1L1_1_1Breaker.html#a067777c429ce439bdc77e8f49488e9f9">sopt::proximal::L1::Breaker::previous</a></div><div class="ttdeci">Real previous() const</div><div class="ttdoc">Current objective.</div><div class="ttdef"><b>Definition:</b> <a href="l1__proximal_8h_source.html#l00447">l1_proximal.h:447</a></div></div>
-<div class="ttc" id="aclasssopt_1_1proximal_1_1L1_1_1Breaker_html_a07d4862399e7c4b0a9f6ac8b89476141"><div class="ttname"><a href="classsopt_1_1proximal_1_1L1_1_1Breaker.html#a07d4862399e7c4b0a9f6ac8b89476141">sopt::proximal::L1::Breaker::tolerance</a></div><div class="ttdeci">Real tolerance() const</div><div class="ttdoc">Tolerance criteria.</div><div class="ttdef"><b>Definition:</b> <a href="l1__proximal_8h_source.html#l00465">l1_proximal.h:465</a></div></div>
-<div class="ttc" id="aclasssopt_1_1proximal_1_1L1_1_1Breaker_html_afe1b31707548cc125993b89da845f7b1"><div class="ttname"><a href="classsopt_1_1proximal_1_1L1_1_1Breaker.html#afe1b31707548cc125993b89da845f7b1">sopt::proximal::L1::Breaker::relative_variation</a></div><div class="ttdeci">Real relative_variation() const</div><div class="ttdoc">Variation in the objective function.</div><div class="ttdef"><b>Definition:</b> <a href="l1__proximal_8h_source.html#l00449">l1_proximal.h:449</a></div></div>
+<div class="ttc" id="aclasssopt_1_1proximal_1_1L1_1_1Breaker_html_a25bff18090d2a4cf5cc400061e3bdd83"><div class="ttname"><a href="classsopt_1_1proximal_1_1L1_1_1Breaker.html#a25bff18090d2a4cf5cc400061e3bdd83">sopt::proximal::L1::Breaker::converged</a></div><div class="ttdeci">bool converged() const</div><div class="ttdoc">True if relative variation smaller than tolerance.</div><div class="ttdef"><b>Definition:</b> <a href="l1__proximal_8h_source.html#l00457">l1_proximal.h:457</a></div></div>
+<div class="ttc" id="aclasssopt_1_1proximal_1_1L1_1_1Breaker_html_af743089a976216692dd4009017b72365"><div class="ttname"><a href="classsopt_1_1proximal_1_1L1_1_1Breaker.html#af743089a976216692dd4009017b72365">sopt::proximal::L1::Breaker::current</a></div><div class="ttdeci">Real current() const</div><div class="ttdoc">Current objective.</div><div class="ttdef"><b>Definition:</b> <a href="l1__proximal_8h_source.html#l00444">l1_proximal.h:444</a></div></div>
+<div class="ttc" id="aclasssopt_1_1proximal_1_1L1_1_1Breaker_html_a067777c429ce439bdc77e8f49488e9f9"><div class="ttname"><a href="classsopt_1_1proximal_1_1L1_1_1Breaker.html#a067777c429ce439bdc77e8f49488e9f9">sopt::proximal::L1::Breaker::previous</a></div><div class="ttdeci">Real previous() const</div><div class="ttdoc">Current objective.</div><div class="ttdef"><b>Definition:</b> <a href="l1__proximal_8h_source.html#l00446">l1_proximal.h:446</a></div></div>
+<div class="ttc" id="aclasssopt_1_1proximal_1_1L1_1_1Breaker_html_a07d4862399e7c4b0a9f6ac8b89476141"><div class="ttname"><a href="classsopt_1_1proximal_1_1L1_1_1Breaker.html#a07d4862399e7c4b0a9f6ac8b89476141">sopt::proximal::L1::Breaker::tolerance</a></div><div class="ttdeci">Real tolerance() const</div><div class="ttdoc">Tolerance criteria.</div><div class="ttdef"><b>Definition:</b> <a href="l1__proximal_8h_source.html#l00464">l1_proximal.h:464</a></div></div>
+<div class="ttc" id="aclasssopt_1_1proximal_1_1L1_1_1Breaker_html_afe1b31707548cc125993b89da845f7b1"><div class="ttname"><a href="classsopt_1_1proximal_1_1L1_1_1Breaker.html#afe1b31707548cc125993b89da845f7b1">sopt::proximal::L1::Breaker::relative_variation</a></div><div class="ttdeci">Real relative_variation() const</div><div class="ttdoc">Variation in the objective function.</div><div class="ttdef"><b>Definition:</b> <a href="l1__proximal_8h_source.html#l00448">l1_proximal.h:448</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

@@ -89,65 +89,63 @@ $(function() {
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="communicator_8h.html">sopt/mpi/communicator.h</a>&quot;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="real__type_8h.html">sopt/real_type.h</a>&quot;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacesopt.html">sopt</a> {</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>mpi {</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">typename</span> real_type&lt;typename T::Scalar&gt;::type <a class="code" href="namespacesopt.html#ae78479408b10b1fa67e712247d4eefec">l2_norm</a>(Eigen::MatrixBase&lt;T&gt; <span class="keyword">const</span> &amp;x,</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;                                                     Communicator <span class="keyword">const</span> &amp;comm) {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;  <span class="keywordflow">return</span> std::sqrt(comm.all_sum_all(x.squaredNorm()));</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;}</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T0, <span class="keyword">class</span> T1&gt;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">typename</span> real_type&lt;typename T0::Scalar&gt;::type <a class="code" href="namespacesopt.html#ae78479408b10b1fa67e712247d4eefec">l2_norm</a>(Eigen::ArrayBase&lt;T0&gt; <span class="keyword">const</span> &amp;input,</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;                                                      Eigen::ArrayBase&lt;T1&gt; <span class="keyword">const</span> &amp;weights,</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;                                                      Communicator <span class="keyword">const</span> &amp;comm) {</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  <span class="keywordflow">if</span> (weights.size() == 1) {</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keyword">auto</span> <span class="keyword">const</span> weight_2 = std::real(weights(0) * std::conj(weights(0)));</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordflow">return</span> std::sqrt(comm.all_sum_all(input.matrix().squaredNorm() * weight_2));</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  }</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="namespacesopt.html#ae78479408b10b1fa67e712247d4eefec">sopt::mpi::l2_norm</a>((input * weights).matrix(), comm);</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;}</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T0, <span class="keyword">class</span> T1&gt;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">typename</span> real_type&lt;typename T0::Scalar&gt;::type <a class="code" href="namespacesopt.html#ae78479408b10b1fa67e712247d4eefec">l2_norm</a>(Eigen::MatrixBase&lt;T0&gt; <span class="keyword">const</span> &amp;input,</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                                                      Eigen::MatrixBase&lt;T1&gt; <span class="keyword">const</span> &amp;weights,</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                                                      Communicator <span class="keyword">const</span> &amp;comm) {</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="namespacesopt.html#ae78479408b10b1fa67e712247d4eefec">sopt::mpi::l2_norm</a>(input.array(), weights.array(), comm);</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;}</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T0, <span class="keyword">class</span> T1&gt;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">typename</span> real_type&lt;typename T0::Scalar&gt;::type <a class="code" href="namespacesopt.html#ad992ab663c3f521cad1deff62844c4cc">l1_norm</a>(Eigen::ArrayBase&lt;T0&gt; <span class="keyword">const</span> &amp;input,</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                                                      Eigen::ArrayBase&lt;T1&gt; <span class="keyword">const</span> &amp;weights,</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                                                      Communicator <span class="keyword">const</span> &amp;comm) {</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  <span class="keywordflow">return</span> comm.all_sum_all(<a class="code" href="namespacesopt.html#ad992ab663c3f521cad1deff62844c4cc">sopt::l1_norm</a>(input, weights));</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;}</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T0, <span class="keyword">class</span> T1&gt;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="keyword">typename</span> real_type&lt;typename T0::Scalar&gt;::type <a class="code" href="namespacesopt.html#ad992ab663c3f521cad1deff62844c4cc">l1_norm</a>(Eigen::MatrixBase&lt;T0&gt; <span class="keyword">const</span> &amp;input,</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;                                                      Eigen::MatrixBase&lt;T1&gt; <span class="keyword">const</span> &amp;weights,</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                                                      Communicator <span class="keyword">const</span> &amp;comm) {</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <span class="keywordflow">return</span> comm.all_sum_all(<a class="code" href="namespacesopt.html#ad992ab663c3f521cad1deff62844c4cc">sopt::l1_norm</a>(input, weights));</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;}</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T0&gt;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="keyword">typename</span> real_type&lt;typename T0::Scalar&gt;::type <a class="code" href="namespacesopt.html#ad992ab663c3f521cad1deff62844c4cc">l1_norm</a>(Eigen::ArrayBase&lt;T0&gt; <span class="keyword">const</span> &amp;input,</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                                                      Communicator <span class="keyword">const</span> &amp;comm) {</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <span class="keywordflow">return</span> comm.all_sum_all(<a class="code" href="namespacesopt.html#ad992ab663c3f521cad1deff62844c4cc">sopt::l1_norm</a>(input));</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;}</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T0&gt;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="keyword">typename</span> real_type&lt;typename T0::Scalar&gt;::type <a class="code" href="namespacesopt.html#ad992ab663c3f521cad1deff62844c4cc">l1_norm</a>(Eigen::MatrixBase&lt;T0&gt; <span class="keyword">const</span> &amp;input,</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                                                      Communicator <span class="keyword">const</span> &amp;comm) {</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  <span class="keywordflow">return</span> comm.all_sum_all(<a class="code" href="namespacesopt.html#ad992ab663c3f521cad1deff62844c4cc">sopt::l1_norm</a>(input));</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;}</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;}  <span class="comment">// namespace mpi</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;}  <span class="comment">// namespace sopt</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacesopt_1_1mpi.html">sopt::mpi</a> {</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">typename</span> real_type&lt;typename T::Scalar&gt;::type <a class="code" href="namespacesopt.html#ae78479408b10b1fa67e712247d4eefec">l2_norm</a>(Eigen::MatrixBase&lt;T&gt; <span class="keyword">const</span> &amp;x,</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;                                                     Communicator <span class="keyword">const</span> &amp;comm) {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;  <span class="keywordflow">return</span> std::sqrt(comm.all_sum_all(x.squaredNorm()));</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;}</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T0, <span class="keyword">class</span> T1&gt;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">typename</span> real_type&lt;typename T0::Scalar&gt;::type <a class="code" href="namespacesopt.html#ae78479408b10b1fa67e712247d4eefec">l2_norm</a>(Eigen::ArrayBase&lt;T0&gt; <span class="keyword">const</span> &amp;input,</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;                                                      Eigen::ArrayBase&lt;T1&gt; <span class="keyword">const</span> &amp;weights,</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;                                                      Communicator <span class="keyword">const</span> &amp;comm) {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  <span class="keywordflow">if</span> (weights.size() == 1) {</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">auto</span> <span class="keyword">const</span> weight_2 = std::real(weights(0) * std::conj(weights(0)));</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordflow">return</span> std::sqrt(comm.all_sum_all(input.matrix().squaredNorm() * weight_2));</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  }</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="namespacesopt.html#ae78479408b10b1fa67e712247d4eefec">sopt::mpi::l2_norm</a>((input * weights).matrix(), comm);</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;}</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T0, <span class="keyword">class</span> T1&gt;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keyword">typename</span> real_type&lt;typename T0::Scalar&gt;::type <a class="code" href="namespacesopt.html#ae78479408b10b1fa67e712247d4eefec">l2_norm</a>(Eigen::MatrixBase&lt;T0&gt; <span class="keyword">const</span> &amp;input,</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;                                                      Eigen::MatrixBase&lt;T1&gt; <span class="keyword">const</span> &amp;weights,</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                                                      Communicator <span class="keyword">const</span> &amp;comm) {</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="namespacesopt.html#ae78479408b10b1fa67e712247d4eefec">sopt::mpi::l2_norm</a>(input.array(), weights.array(), comm);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;}</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T0, <span class="keyword">class</span> T1&gt;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keyword">typename</span> real_type&lt;typename T0::Scalar&gt;::type <a class="code" href="namespacesopt.html#ad992ab663c3f521cad1deff62844c4cc">l1_norm</a>(Eigen::ArrayBase&lt;T0&gt; <span class="keyword">const</span> &amp;input,</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                                                      Eigen::ArrayBase&lt;T1&gt; <span class="keyword">const</span> &amp;weights,</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                                                      Communicator <span class="keyword">const</span> &amp;comm) {</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  <span class="keywordflow">return</span> comm.all_sum_all(<a class="code" href="namespacesopt.html#ad992ab663c3f521cad1deff62844c4cc">sopt::l1_norm</a>(input, weights));</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;}</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T0, <span class="keyword">class</span> T1&gt;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="keyword">typename</span> real_type&lt;typename T0::Scalar&gt;::type <a class="code" href="namespacesopt.html#ad992ab663c3f521cad1deff62844c4cc">l1_norm</a>(Eigen::MatrixBase&lt;T0&gt; <span class="keyword">const</span> &amp;input,</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                                                      Eigen::MatrixBase&lt;T1&gt; <span class="keyword">const</span> &amp;weights,</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;                                                      Communicator <span class="keyword">const</span> &amp;comm) {</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  <span class="keywordflow">return</span> comm.all_sum_all(<a class="code" href="namespacesopt.html#ad992ab663c3f521cad1deff62844c4cc">sopt::l1_norm</a>(input, weights));</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;}</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T0&gt;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="keyword">typename</span> real_type&lt;typename T0::Scalar&gt;::type <a class="code" href="namespacesopt.html#ad992ab663c3f521cad1deff62844c4cc">l1_norm</a>(Eigen::ArrayBase&lt;T0&gt; <span class="keyword">const</span> &amp;input,</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                                                      Communicator <span class="keyword">const</span> &amp;comm) {</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  <span class="keywordflow">return</span> comm.all_sum_all(<a class="code" href="namespacesopt.html#ad992ab663c3f521cad1deff62844c4cc">sopt::l1_norm</a>(input));</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;}</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T0&gt;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="keyword">typename</span> real_type&lt;typename T0::Scalar&gt;::type <a class="code" href="namespacesopt.html#ad992ab663c3f521cad1deff62844c4cc">l1_norm</a>(Eigen::MatrixBase&lt;T0&gt; <span class="keyword">const</span> &amp;input,</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                                                      Communicator <span class="keyword">const</span> &amp;comm) {</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  <span class="keywordflow">return</span> comm.all_sum_all(<a class="code" href="namespacesopt.html#ad992ab663c3f521cad1deff62844c4cc">sopt::l1_norm</a>(input));</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;}</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;} <span class="comment">// namespace sopt::mpi</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="areal__type_8h_html"><div class="ttname"><a href="real__type_8h.html">real_type.h</a></div></div>
-<div class="ttc" id="anamespacesopt_html"><div class="ttname"><a href="namespacesopt.html">sopt</a></div><div class="ttdef"><b>Definition:</b> <a href="bisection__method_8h_source.html#l00010">bisection_method.h:10</a></div></div>
 <div class="ttc" id="amaths_8h_html"><div class="ttname"><a href="maths_8h.html">maths.h</a></div></div>
 <div class="ttc" id="anamespacesopt_html_ae78479408b10b1fa67e712247d4eefec"><div class="ttname"><a href="namespacesopt.html#ae78479408b10b1fa67e712247d4eefec">sopt::l2_norm</a></div><div class="ttdeci">real_type&lt; typename T0::Scalar &gt;::type l2_norm(Eigen::ArrayBase&lt; T0 &gt; const &amp;input, Eigen::ArrayBase&lt; T1 &gt; const &amp;weights)</div><div class="ttdoc">Computes weighted L2 norm.</div><div class="ttdef"><b>Definition:</b> <a href="maths_8h_source.html#l00140">maths.h:140</a></div></div>
 <div class="ttc" id="anamespacesopt_html_ad992ab663c3f521cad1deff62844c4cc"><div class="ttname"><a href="namespacesopt.html#ad992ab663c3f521cad1deff62844c4cc">sopt::l1_norm</a></div><div class="ttdeci">real_type&lt; typename T0::Scalar &gt;::type l1_norm(Eigen::ArrayBase&lt; T0 &gt; const &amp;input, Eigen::ArrayBase&lt; T1 &gt; const &amp;weights)</div><div class="ttdoc">Computes weighted L1 norm.</div><div class="ttdef"><b>Definition:</b> <a href="maths_8h_source.html#l00116">maths.h:116</a></div></div>
 <div class="ttc" id="acommunicator_8h_html"><div class="ttname"><a href="communicator_8h.html">communicator.h</a></div></div>
+<div class="ttc" id="anamespacesopt_1_1mpi_html"><div class="ttname"><a href="namespacesopt_1_1mpi.html">sopt::mpi</a></div><div class="ttdef"><b>Definition:</b> <a href="sopt_2mpi_2communicator_8cc_source.html#l00006">communicator.cc:6</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

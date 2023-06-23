@@ -113,7 +113,7 @@ class sopt::proximal::Translation&lt; FUNCTION, VECTOR &gt;</h3>
 
 <p><a class="el" href="classsopt_1_1proximal_1_1Translation.html" title="Translation over proximal function.">Translation</a> over proximal function. </p>
 
-<p class="definition">Definition at line <a class="el" href="proximal_8h_source.html#l00326">326</a> of file <a class="el" href="proximal_8h_source.html">proximal.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="proximal_8h_source.html#l00325">325</a> of file <a class="el" href="proximal_8h_source.html">proximal.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a4d7b73ff0f9a60020cda7e88f8bbf9a7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4d7b73ff0f9a60020cda7e88f8bbf9a7">&#9670;&nbsp;</a></span>Translation()</h2>
@@ -155,8 +155,8 @@ template&lt;class T_VECTOR &gt; </div>
 
 <p>Creates proximal of translated function. </p>
 
-<p class="definition">Definition at line <a class="el" href="proximal_8h_source.html#l00330">330</a> of file <a class="el" href="proximal_8h_source.html">proximal.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;: func(func), trans(trans) {}</div>
+<p class="definition">Definition at line <a class="el" href="proximal_8h_source.html#l00329">329</a> of file <a class="el" href="proximal_8h_source.html">proximal.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;: func(func), trans(trans) {}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -207,11 +207,11 @@ template&lt;class OUTPUT , class T0 &gt; </div>
 
 <p>Computes proximal of translated function. </p>
 
-<p class="definition">Definition at line <a class="el" href="proximal_8h_source.html#l00333">333</a> of file <a class="el" href="proximal_8h_source.html">proximal.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;                                          {</div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;    func(out, t, x + trans);</div>
-<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;    out -= trans;</div>
-<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;  }</div>
+<p class="definition">Definition at line <a class="el" href="proximal_8h_source.html#l00332">332</a> of file <a class="el" href="proximal_8h_source.html">proximal.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;                                          {</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;    func(out, t, x + trans);</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;    out -= trans;</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;  }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -255,10 +255,10 @@ template&lt;class T0 &gt; </div>
 
 <p>Lazy version. </p>
 
-<p class="definition">Definition at line <a class="el" href="proximal_8h_source.html#l00349">349</a> of file <a class="el" href="proximal_8h_source.html">proximal.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;                                                                      {</div>
-<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;    <span class="keywordflow">return</span> {*<span class="keyword">this</span>, t, x};</div>
-<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;  }</div>
+<p class="definition">Definition at line <a class="el" href="proximal_8h_source.html#l00348">348</a> of file <a class="el" href="proximal_8h_source.html">proximal.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;                                                                      {</div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;    <span class="keywordflow">return</span> {*<span class="keyword">this</span>, t, x};</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;  }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -308,11 +308,11 @@ template&lt;class T0 &gt; </div>
 
 <p>Computes proximal of translated function. </p>
 
-<p class="definition">Definition at line <a class="el" href="proximal_8h_source.html#l00341">341</a> of file <a class="el" href="proximal_8h_source.html">proximal.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;                                                      {</div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;    func(out, t, x + trans);</div>
-<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;    out -= trans;</div>
-<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;  }</div>
+<p class="definition">Definition at line <a class="el" href="proximal_8h_source.html#l00340">340</a> of file <a class="el" href="proximal_8h_source.html">proximal.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;                                                      {</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;    func(out, t, x + trans);</div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;    out -= trans;</div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;  }</div>
 </div><!-- fragment -->
 </div>
 </div>

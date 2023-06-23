@@ -123,10 +123,10 @@ Functions</h2></td></tr>
 
 <p>Holds images and such. </p>
 
-<p class="definition">Definition at line <a class="el" href="directories_8in_8h_source.html#l00010">10</a> of file <a class="el" href="directories_8in_8h_source.html">directories.in.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{ <span class="keywordflow">return</span> <span class="stringliteral">&quot;@PROJECT_SOURCE_DIR@/images&quot;</span>; }</div>
+<p class="definition">Definition at line <a class="el" href="directories_8in_8h_source.html#l00009">9</a> of file <a class="el" href="directories_8in_8h_source.html">directories.in.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{ <span class="keywordflow">return</span> <span class="stringliteral">&quot;@PROJECT_SOURCE_DIR@/images&quot;</span>; }</div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="tiffwrappers_8cc_source.html#l00010">read_standard_tiff()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="tiffwrappers_8cc_source.html#l00009">read_standard_tiff()</a>.</p>
 
 </div>
 </div>
@@ -155,8 +155,8 @@ Functions</h2></td></tr>
 
 <p>Tensorflow models. </p>
 
-<p class="definition">Definition at line <a class="el" href="directories_8in_8h_source.html#l00014">14</a> of file <a class="el" href="directories_8in_8h_source.html">directories.in.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{ <span class="keywordflow">return</span> <span class="stringliteral">&quot;@PROJECT_SOURCE_DIR@/lexci_models&quot;</span>; }</div>
+<p class="definition">Definition at line <a class="el" href="directories_8in_8h_source.html#l00013">13</a> of file <a class="el" href="directories_8in_8h_source.html">directories.in.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{ <span class="keywordflow">return</span> <span class="stringliteral">&quot;@PROJECT_SOURCE_DIR@/lexci_models&quot;</span>; }</div>
 </div><!-- fragment -->
 <p class="reference">Referenced by <a class="el" href="cppflow__model_8cc_source.html#l00023">TEST_CASE()</a>.</p>
 
@@ -187,8 +187,8 @@ Functions</h2></td></tr>
 
 <p>Output artefacts from tests. </p>
 
-<p class="definition">Definition at line <a class="el" href="directories_8in_8h_source.html#l00012">12</a> of file <a class="el" href="directories_8in_8h_source.html">directories.in.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{ <span class="keywordflow">return</span> <span class="stringliteral">&quot;@PROJECT_BINARY_DIR@/outputs&quot;</span>; }</div>
+<p class="definition">Definition at line <a class="el" href="directories_8in_8h_source.html#l00011">11</a> of file <a class="el" href="directories_8in_8h_source.html">directories.in.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{ <span class="keywordflow">return</span> <span class="stringliteral">&quot;@PROJECT_BINARY_DIR@/outputs&quot;</span>; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -210,22 +210,22 @@ Functions</h2></td></tr>
 
 <p>Reads tiff image from sopt data directory if it exists. </p>
 
-<p class="definition">Definition at line <a class="el" href="tiffwrappers_8cc_source.html#l00010">10</a> of file <a class="el" href="tiffwrappers_8cc_source.html">tiffwrappers.cc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;                                                  {</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;  std::string <span class="keyword">const</span> stdname = <a class="code" href="namespacesopt_1_1notinstalled.html#a1fcff7fb7b9de6604362ab009611d37f">sopt::notinstalled::data_directory</a>() + <span class="stringliteral">&quot;/&quot;</span> + name + <span class="stringliteral">&quot;.tiff&quot;</span>;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;  <span class="keywordtype">bool</span> <span class="keyword">const</span> is_std = std::ifstream(stdname).good();</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="namespacesopt_1_1utilities.html#a571717c98b97e19d3d47d8507bb32a8a">sopt::utilities::read_tiff</a>(is_std ? stdname : name);</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="tiffwrappers_8cc_source.html#l00009">9</a> of file <a class="el" href="tiffwrappers_8cc_source.html">tiffwrappers.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;                                                  {</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;  std::string <span class="keyword">const</span> stdname = <a class="code" href="namespacesopt_1_1notinstalled.html#a1fcff7fb7b9de6604362ab009611d37f">sopt::notinstalled::data_directory</a>() + <span class="stringliteral">&quot;/&quot;</span> + name + <span class="stringliteral">&quot;.tiff&quot;</span>;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;  <span class="keywordtype">bool</span> <span class="keyword">const</span> is_std = std::ifstream(stdname).good();</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="namespacesopt_1_1utilities.html#a571717c98b97e19d3d47d8507bb32a8a">sopt::utilities::read_tiff</a>(is_std ? stdname : name);</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="directories_8in_8h_source.html#l00010">data_directory()</a>, and <a class="el" href="utilities_8cc_source.html#l00039">sopt::utilities::read_tiff()</a>.</p>
+<p class="reference">References <a class="el" href="directories_8in_8h_source.html#l00009">data_directory()</a>, and <a class="el" href="utilities_8cc_source.html#l00038">sopt::utilities::read_tiff()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="examples_2forward__backward_2inpainting_8cc_source.html#l00024">main()</a>, and <a class="el" href="tests_2inpainting_8cc_source.html#l00032">TEST_CASE()</a>.</p>
 
 </div>
 </div>
 </div><!-- contents -->
-<div class="ttc" id="anamespacesopt_1_1utilities_html_a571717c98b97e19d3d47d8507bb32a8a"><div class="ttname"><a href="namespacesopt_1_1utilities.html#a571717c98b97e19d3d47d8507bb32a8a">sopt::utilities::read_tiff</a></div><div class="ttdeci">Image read_tiff(std::string const &amp;filename)</div><div class="ttdoc">Reads tiff image.</div><div class="ttdef"><b>Definition:</b> <a href="utilities_8cc_source.html#l00039">utilities.cc:39</a></div></div>
-<div class="ttc" id="anamespacesopt_1_1notinstalled_html_a1fcff7fb7b9de6604362ab009611d37f"><div class="ttname"><a href="namespacesopt_1_1notinstalled.html#a1fcff7fb7b9de6604362ab009611d37f">sopt::notinstalled::data_directory</a></div><div class="ttdeci">std::string data_directory()</div><div class="ttdoc">Holds images and such.</div><div class="ttdef"><b>Definition:</b> <a href="directories_8in_8h_source.html#l00010">directories.in.h:10</a></div></div>
+<div class="ttc" id="anamespacesopt_1_1utilities_html_a571717c98b97e19d3d47d8507bb32a8a"><div class="ttname"><a href="namespacesopt_1_1utilities.html#a571717c98b97e19d3d47d8507bb32a8a">sopt::utilities::read_tiff</a></div><div class="ttdeci">Image read_tiff(std::string const &amp;filename)</div><div class="ttdoc">Reads tiff image.</div><div class="ttdef"><b>Definition:</b> <a href="utilities_8cc_source.html#l00038">utilities.cc:38</a></div></div>
+<div class="ttc" id="anamespacesopt_1_1notinstalled_html_a1fcff7fb7b9de6604362ab009611d37f"><div class="ttname"><a href="namespacesopt_1_1notinstalled.html#a1fcff7fb7b9de6604362ab009611d37f">sopt::notinstalled::data_directory</a></div><div class="ttdeci">std::string data_directory()</div><div class="ttdoc">Holds images and such.</div><div class="ttdef"><b>Definition:</b> <a href="directories_8in_8h_source.html#l00009">directories.in.h:9</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

@@ -195,14 +195,14 @@ template&lt;class T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="power__method_8h_source.html#l00074">74</a> of file <a class="el" href="power__method_8h_source.html">power_method.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                             {</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  <span class="keyword">const</span> std::shared_ptr&lt;sopt::LinearTransform&lt;T&gt;&gt; shared_op =</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;      std::make_shared&lt;sopt::LinearTransform&lt;T&gt;&gt;(std::move(op));</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  <span class="keyword">const</span> <span class="keyword">auto</span> result = normalise_operator&lt;T&gt;(shared_op, niters, relative_difference, initial_vector);</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  <span class="keyword">const</span> <span class="keyword">auto</span> normed_shared_op = std::get&lt;2&gt;(result);</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  <span class="keywordflow">return</span> std::make_tuple(std::get&lt;0&gt;(result), std::get&lt;1&gt;(result), *normed_shared_op);</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="power__method_8h_source.html#l00073">73</a> of file <a class="el" href="power__method_8h_source.html">power_method.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                             {</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  <span class="keyword">const</span> std::shared_ptr&lt;sopt::LinearTransform&lt;T&gt;&gt; shared_op =</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;      std::make_shared&lt;sopt::LinearTransform&lt;T&gt;&gt;(std::move(op));</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  <span class="keyword">const</span> <span class="keyword">auto</span> result = normalise_operator&lt;T&gt;(shared_op, niters, relative_difference, initial_vector);</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  <span class="keyword">const</span> <span class="keyword">auto</span> normed_shared_op = std::get&lt;2&gt;(result);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  <span class="keywordflow">return</span> std::make_tuple(std::get&lt;0&gt;(result), std::get&lt;1&gt;(result), *normed_shared_op);</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -246,22 +246,22 @@ template&lt;class T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="power__method_8h_source.html#l00058">58</a> of file <a class="el" href="power__method_8h_source.html">power_method.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                                                                {</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  <span class="keyword">const</span> <span class="keyword">auto</span> result = <a class="code" href="namespacesopt_1_1algorithm.html#a87e4a19b5c34cea6a2a490720d43a018">power_method</a>(*op, niters, relative_difference, initial_vector.derived());</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  <span class="keyword">const</span> <a class="code" href="forward__backward_8cc.html#a06ea74880cd1ee9d09d85ebee340d286">t_real</a> norm = std::get&lt;0&gt;(result);</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  <span class="keywordflow">return</span> std::make_tuple(</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;      std::get&lt;0&gt;(result), std::get&lt;1&gt;(result),</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;      std::make_shared&lt;<a class="code" href="classsopt_1_1LinearTransform.html">sopt::LinearTransform&lt;T&gt;</a>&gt;(</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;          [op, norm](T &amp;output, <span class="keyword">const</span> T &amp;input) { output = <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(*op * input) / norm; },</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;          op-&gt;sizes(),</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;          [op, norm](T &amp;output, <span class="keyword">const</span> T &amp;input) {</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            output = <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(op-&gt;adjoint() * input) / norm;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;          },</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;          op-&gt;adjoint().sizes()));</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="power__method_8h_source.html#l00057">57</a> of file <a class="el" href="power__method_8h_source.html">power_method.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                                                                {</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  <span class="keyword">const</span> <span class="keyword">auto</span> result = <a class="code" href="namespacesopt_1_1algorithm.html#a87e4a19b5c34cea6a2a490720d43a018">power_method</a>(*op, niters, relative_difference, initial_vector.derived());</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  <span class="keyword">const</span> <a class="code" href="forward__backward_8cc.html#a06ea74880cd1ee9d09d85ebee340d286">t_real</a> norm = std::get&lt;0&gt;(result);</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  <span class="keywordflow">return</span> std::make_tuple(</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;      std::get&lt;0&gt;(result), std::get&lt;1&gt;(result),</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;      std::make_shared&lt;<a class="code" href="classsopt_1_1LinearTransform.html">sopt::LinearTransform&lt;T&gt;</a>&gt;(</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;          [op, norm](T &amp;output, <span class="keyword">const</span> T &amp;input) { output = <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(*op * input) / norm; },</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;          op-&gt;sizes(),</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;          [op, norm](T &amp;output, <span class="keyword">const</span> T &amp;input) {</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            output = <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(op-&gt;adjoint() * input) / norm;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;          },</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;          op-&gt;adjoint().sizes()));</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="power__method_8h_source.html#l00022">power_method()</a>.</p>
+<p class="reference">References <a class="el" href="power__method_8h_source.html#l00021">power_method()</a>.</p>
 
 </div>
 </div>
@@ -285,12 +285,12 @@ template&lt;class ALGORITHM &gt; </div>
 
 <p>Extended algorithm where the solution is projected on the positive quadrant. </p>
 
-<p class="definition">Definition at line <a class="el" href="positive__quadrant_8h_source.html#l00057">57</a> of file <a class="el" href="positive__quadrant_8h_source.html">positive_quadrant.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                                                                     {</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <span class="keywordflow">return</span> {algo};</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="positive__quadrant_8h_source.html#l00056">56</a> of file <a class="el" href="positive__quadrant_8h_source.html">positive_quadrant.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                                                                     {</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  <span class="keywordflow">return</span> {algo};</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="positive__quadrant_8h_source.html#l00036">sopt::algorithm::PositiveQuadrant&lt; ALGORITHM &gt;::operator()()</a>, and <a class="el" href="reweighted_8h_source.html#l00249">reweighted()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="positive__quadrant_8h_source.html#l00035">sopt::algorithm::PositiveQuadrant&lt; ALGORITHM &gt;::operator()()</a>, and <a class="el" href="reweighted_8h_source.html#l00248">reweighted()</a>.</p>
 
 </div>
 </div>
@@ -321,7 +321,7 @@ template&lt;class T &gt; </div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  <span class="keywordflow">return</span> UnaryOp(input.derived(), Projector());</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="examples_2l1__proximal_8cc_source.html#l00005">main()</a>, <a class="el" href="proximal_8h_source.html#l00152">sopt::proximal::positive_quadrant()</a>, and <a class="el" href="maths_8cc_source.html#l00011">TEST_CASE()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="examples_2l1__proximal_8cc_source.html#l00005">main()</a>, <a class="el" href="proximal_8h_source.html#l00151">sopt::proximal::positive_quadrant()</a>, and <a class="el" href="maths_8cc_source.html#l00011">TEST_CASE()</a>.</p>
 
 </div>
 </div>
@@ -367,44 +367,44 @@ template&lt;class T &gt; </div>
 
 <p>Returns the eigenvalue and eigenvector for eigenvalue of the Linear Transform with largest magnitude. </p>
 
-<p class="definition">Definition at line <a class="el" href="power__method_8h_source.html#l00022">22</a> of file <a class="el" href="power__method_8h_source.html">power_method.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;                                                                                              {</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  <span class="comment">/*</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">     Attempt at coding the power method, returns the sqrt of the largest eigen value of a linear</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">     operator composed with its adjoint niters:: max number of iterations relative_difference::</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">     percentage difference at which eigen value has converged</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">     */</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  <span class="keywordflow">if</span> (niters &lt;= 0) <span class="keywordflow">return</span> std::make_tuple(1., initial_vector);</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  <a class="code" href="forward__backward_8cc.html#a06ea74880cd1ee9d09d85ebee340d286">t_real</a> estimate_eigen_value = 1;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <a class="code" href="forward__backward_8cc.html#a06ea74880cd1ee9d09d85ebee340d286">t_real</a> old_value = 0;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  T estimate_eigen_vector = initial_vector;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  estimate_eigen_vector = estimate_eigen_vector / estimate_eigen_vector.matrix().stableNorm();</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <a class="code" href="logging_8h.html#af43ef2984bde80ff9ff844540be74425">SOPT_DEBUG</a>(<span class="stringliteral">&quot;Starting power method&quot;</span>);</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <a class="code" href="logging_8h.html#af43ef2984bde80ff9ff844540be74425">SOPT_DEBUG</a>(<span class="stringliteral">&quot; -[PM] Iteration: 0, norm = {}&quot;</span>, estimate_eigen_value);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <span class="keywordtype">bool</span> converged = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  ScalarRelativeVariation&lt;t_real&gt; scalvar(relative_difference, 0., <span class="stringliteral">&quot;Eigenvalue&quot;</span>);</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <span class="keywordflow">for</span> (<a class="code" href="namespacesopt.html#a31ab3e07b254312a99a9fe2918b0a625">t_int</a> i = 0; i &lt; niters; ++i) {</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    estimate_eigen_vector = op.<a class="code" href="classsopt_1_1LinearTransform.html#af9fe77b8afc0761cf9d07f432df85a0d">adjoint</a>() * <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(op * estimate_eigen_vector);</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    estimate_eigen_value = estimate_eigen_vector.matrix().stableNorm();</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordflow">if</span> (estimate_eigen_value &lt;= 0) <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Error in operator.&quot;</span>);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordflow">if</span> (estimate_eigen_value != estimate_eigen_value)</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;      <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Error in operator or data corrupted.&quot;</span>);</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    estimate_eigen_vector = estimate_eigen_vector / estimate_eigen_value;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <a class="code" href="logging_8h.html#af43ef2984bde80ff9ff844540be74425">SOPT_DEBUG</a>(<span class="stringliteral">&quot; -[PM] Iteration: {}, norm = {}&quot;</span>, i + 1, estimate_eigen_value);</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    converged = scalvar(std::sqrt(estimate_eigen_value));</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    old_value = estimate_eigen_value;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordflow">if</span> (converged) {</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;      <a class="code" href="logging_8h.html#af43ef2984bde80ff9ff844540be74425">SOPT_DEBUG</a>(<span class="stringliteral">&quot;Converged to norm = {}, relative difference &lt; {}&quot;</span>, std::sqrt(old_value),</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;                 relative_difference);</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;      <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    }</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  }</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  <span class="keywordflow">return</span> std::make_tuple(std::sqrt(old_value), estimate_eigen_vector);</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="power__method_8h_source.html#l00021">21</a> of file <a class="el" href="power__method_8h_source.html">power_method.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;                                                                                              {</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  <span class="comment">/*</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">     Attempt at coding the power method, returns the sqrt of the largest eigen value of a linear</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">     operator composed with its adjoint niters:: max number of iterations relative_difference::</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">     percentage difference at which eigen value has converged</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">     */</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  <span class="keywordflow">if</span> (niters &lt;= 0) <span class="keywordflow">return</span> std::make_tuple(1., initial_vector);</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  <a class="code" href="forward__backward_8cc.html#a06ea74880cd1ee9d09d85ebee340d286">t_real</a> estimate_eigen_value = 1;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  <a class="code" href="forward__backward_8cc.html#a06ea74880cd1ee9d09d85ebee340d286">t_real</a> old_value = 0;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  T estimate_eigen_vector = initial_vector;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  estimate_eigen_vector = estimate_eigen_vector / estimate_eigen_vector.matrix().stableNorm();</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <a class="code" href="logging_8h.html#af43ef2984bde80ff9ff844540be74425">SOPT_DEBUG</a>(<span class="stringliteral">&quot;Starting power method&quot;</span>);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <a class="code" href="logging_8h.html#af43ef2984bde80ff9ff844540be74425">SOPT_DEBUG</a>(<span class="stringliteral">&quot; -[PM] Iteration: 0, norm = {}&quot;</span>, estimate_eigen_value);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="keywordtype">bool</span> converged = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  ScalarRelativeVariation&lt;t_real&gt; scalvar(relative_difference, 0., <span class="stringliteral">&quot;Eigenvalue&quot;</span>);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <span class="keywordflow">for</span> (<a class="code" href="namespacesopt.html#a31ab3e07b254312a99a9fe2918b0a625">t_int</a> i = 0; i &lt; niters; ++i) {</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    estimate_eigen_vector = op.<a class="code" href="classsopt_1_1LinearTransform.html#af9fe77b8afc0761cf9d07f432df85a0d">adjoint</a>() * <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(op * estimate_eigen_vector);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    estimate_eigen_value = estimate_eigen_vector.matrix().stableNorm();</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordflow">if</span> (estimate_eigen_value &lt;= 0) <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Error in operator.&quot;</span>);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordflow">if</span> (estimate_eigen_value != estimate_eigen_value)</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;      <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Error in operator or data corrupted.&quot;</span>);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    estimate_eigen_vector = estimate_eigen_vector / estimate_eigen_value;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <a class="code" href="logging_8h.html#af43ef2984bde80ff9ff844540be74425">SOPT_DEBUG</a>(<span class="stringliteral">&quot; -[PM] Iteration: {}, norm = {}&quot;</span>, i + 1, estimate_eigen_value);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    converged = scalvar(std::sqrt(estimate_eigen_value));</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    old_value = estimate_eigen_value;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordflow">if</span> (converged) {</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;      <a class="code" href="logging_8h.html#af43ef2984bde80ff9ff844540be74425">SOPT_DEBUG</a>(<span class="stringliteral">&quot;Converged to norm = {}, relative difference &lt; {}&quot;</span>, std::sqrt(old_value),</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                 relative_difference);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;      <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    }</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  }</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  <span class="keywordflow">return</span> std::make_tuple(std::sqrt(old_value), estimate_eigen_vector);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;}</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="linear__transform_8h_source.html#l00078">sopt::LinearTransform&lt; VECTOR &gt;::adjoint()</a>, and <a class="el" href="logging_8h_source.html#l00021">SOPT_DEBUG</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="power__method_8h_source.html#l00058">normalise_operator()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="power__method_8h_source.html#l00057">normalise_operator()</a>.</p>
 
 </div>
 </div>
@@ -444,10 +444,10 @@ template&lt;class ALGORITHM &gt; </div>
 
 <p>Factory function to create an l0-approximation by reweighting an l1 norm. </p>
 
-<p class="definition">Definition at line <a class="el" href="reweighted_8h_source.html#l00234">234</a> of file <a class="el" href="reweighted_8h_source.html">reweighted.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;                                                                                               {</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;  <span class="keywordflow">return</span> {algo, set_weights, reweightee};</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="reweighted_8h_source.html#l00233">233</a> of file <a class="el" href="reweighted_8h_source.html">reweighted.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;                                                                                               {</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;  <span class="keywordflow">return</span> {algo, set_weights, reweightee};</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;}</div>
 </div><!-- fragment -->
 <p class="reference">Referenced by <a class="el" href="examples_2proximal__admm_2reweighted_8cc_source.html#l00026">main()</a>, and <a class="el" href="tests_2reweighted_8cc_source.html#l00059">TEST_CASE()</a>.</p>
 
@@ -471,22 +471,22 @@ template&lt;class SCALAR &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="reweighted_8h_source.html#l00249">249</a> of file <a class="el" href="reweighted_8h_source.html">reweighted.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;                                             {</div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> posq = <a class="code" href="namespacesopt_1_1algorithm.html#ad1377b8328b6fc78bd779dc9b852c9d7">positive_quadrant</a>(algo);</div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;  <span class="keyword">typedef</span> <span class="keyword">typename</span> std::remove_const&lt;decltype(posq)&gt;::type Algorithm;</div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;  <span class="keyword">typedef</span> Reweighted&lt;Algorithm&gt; RW;</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> reweightee =</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;      [](Algorithm <span class="keyword">const</span> &amp;posq, <span class="keyword">typename</span> RW::XVector <span class="keyword">const</span> &amp;x) -&gt; <span class="keyword">typename</span> RW::XVector {</div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    <span class="keywordflow">return</span> posq.algorithm().Psi().adjoint() * x;</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;  };</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> set_weights = [](Algorithm &amp;posq, <span class="keyword">typename</span> RW::WeightVector <span class="keyword">const</span> &amp;weights) -&gt; <span class="keywordtype">void</span> {</div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;    posq.algorithm().l1_proximal_weights(weights);</div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;  };</div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;  <span class="keywordflow">return</span> {posq, set_weights, reweightee};</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="reweighted_8h_source.html#l00248">248</a> of file <a class="el" href="reweighted_8h_source.html">reweighted.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;                                             {</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> posq = <a class="code" href="namespacesopt_1_1algorithm.html#ad1377b8328b6fc78bd779dc9b852c9d7">positive_quadrant</a>(algo);</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;  <span class="keyword">typedef</span> <span class="keyword">typename</span> std::remove_const&lt;decltype(posq)&gt;::type Algorithm;</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;  <span class="keyword">typedef</span> Reweighted&lt;Algorithm&gt; RW;</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> reweightee =</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;      [](Algorithm <span class="keyword">const</span> &amp;posq, <span class="keyword">typename</span> RW::XVector <span class="keyword">const</span> &amp;x) -&gt; <span class="keyword">typename</span> RW::XVector {</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;    <span class="keywordflow">return</span> posq.algorithm().Psi().adjoint() * x;</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;  };</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> set_weights = [](Algorithm &amp;posq, <span class="keyword">typename</span> RW::WeightVector <span class="keyword">const</span> &amp;weights) -&gt; <span class="keywordtype">void</span> {</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;    posq.algorithm().l1_proximal_weights(weights);</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;  };</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;  <span class="keywordflow">return</span> {posq, set_weights, reweightee};</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="reweighted_8h_source.html#l00076">sopt::algorithm::Reweighted&lt; ALGORITHM &gt;::algorithm()</a>, and <a class="el" href="positive__quadrant_8h_source.html#l00057">positive_quadrant()</a>.</p>
+<p class="reference">References <a class="el" href="reweighted_8h_source.html#l00075">sopt::algorithm::Reweighted&lt; ALGORITHM &gt;::algorithm()</a>, and <a class="el" href="positive__quadrant_8h_source.html#l00056">positive_quadrant()</a>.</p>
 
 </div>
 </div>
@@ -508,28 +508,28 @@ template&lt;class SCALAR &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="reweighted_8h_source.html#l00273">273</a> of file <a class="el" href="reweighted_8h_source.html">reweighted.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;                                                                                            {</div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> posq = <a class="code" href="namespacesopt_1_1algorithm.html#ad1377b8328b6fc78bd779dc9b852c9d7">positive_quadrant</a>(algo);</div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;  <span class="keyword">typedef</span> <span class="keyword">typename</span> std::remove_const&lt;decltype(posq)&gt;::type Algorithm;</div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;  <span class="keyword">typedef</span> Reweighted&lt;Algorithm&gt; RW;</div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> reweightee =</div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;      [](Algorithm <span class="keyword">const</span> &amp;posq, <span class="keyword">typename</span> RW::XVector <span class="keyword">const</span> &amp;x) -&gt; <span class="keyword">typename</span> RW::XVector {</div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;    <span class="keywordflow">return</span> posq.algorithm().Psi().adjoint() * x;</div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;  };</div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> set_weights = [](Algorithm &amp;posq, <span class="keyword">typename</span> RW::WeightVector <span class="keyword">const</span> &amp;weights) -&gt; <span class="keywordtype">void</span> {</div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;    posq.algorithm().l1_proximal_weights(weights);</div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;  };</div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;  <span class="keywordflow">return</span> {posq, set_weights, reweightee};</div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="reweighted_8h_source.html#l00272">272</a> of file <a class="el" href="reweighted_8h_source.html">reweighted.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;                                                                                            {</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> posq = <a class="code" href="namespacesopt_1_1algorithm.html#ad1377b8328b6fc78bd779dc9b852c9d7">positive_quadrant</a>(algo);</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;  <span class="keyword">typedef</span> <span class="keyword">typename</span> std::remove_const&lt;decltype(posq)&gt;::type Algorithm;</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;  <span class="keyword">typedef</span> Reweighted&lt;Algorithm&gt; RW;</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> reweightee =</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;      [](Algorithm <span class="keyword">const</span> &amp;posq, <span class="keyword">typename</span> RW::XVector <span class="keyword">const</span> &amp;x) -&gt; <span class="keyword">typename</span> RW::XVector {</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;    <span class="keywordflow">return</span> posq.algorithm().Psi().adjoint() * x;</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;  };</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> set_weights = [](Algorithm &amp;posq, <span class="keyword">typename</span> RW::WeightVector <span class="keyword">const</span> &amp;weights) -&gt; <span class="keywordtype">void</span> {</div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;    posq.algorithm().l1_proximal_weights(weights);</div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;  };</div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;  <span class="keywordflow">return</span> {posq, set_weights, reweightee};</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="reweighted_8h_source.html#l00076">sopt::algorithm::Reweighted&lt; ALGORITHM &gt;::algorithm()</a>, and <a class="el" href="positive__quadrant_8h_source.html#l00057">positive_quadrant()</a>.</p>
+<p class="reference">References <a class="el" href="reweighted_8h_source.html#l00075">sopt::algorithm::Reweighted&lt; ALGORITHM &gt;::algorithm()</a>, and <a class="el" href="positive__quadrant_8h_source.html#l00056">positive_quadrant()</a>.</p>
 
 </div>
 </div>
 </div><!-- contents -->
 <div class="ttc" id="aforward__backward_8cc_html_a06ea74880cd1ee9d09d85ebee340d286"><div class="ttname"><a href="forward__backward_8cc.html#a06ea74880cd1ee9d09d85ebee340d286">t_real</a></div><div class="ttdeci">sopt::t_real t_real</div><div class="ttdef"><b>Definition:</b> <a href="forward__backward_8cc_source.html#l00027">forward_backward.cc:27</a></div></div>
-<div class="ttc" id="anamespacesopt_1_1algorithm_html_a87e4a19b5c34cea6a2a490720d43a018"><div class="ttname"><a href="namespacesopt_1_1algorithm.html#a87e4a19b5c34cea6a2a490720d43a018">sopt::algorithm::power_method</a></div><div class="ttdeci">std::tuple&lt; t_real, T &gt; power_method(const sopt::LinearTransform&lt; T &gt; &amp;op, const t_uint niters, const t_real relative_difference, const T &amp;initial_vector)</div><div class="ttdoc">Returns the eigenvalue and eigenvector for eigenvalue of the Linear Transform with largest magnitude.</div><div class="ttdef"><b>Definition:</b> <a href="power__method_8h_source.html#l00022">power_method.h:22</a></div></div>
+<div class="ttc" id="anamespacesopt_1_1algorithm_html_a87e4a19b5c34cea6a2a490720d43a018"><div class="ttname"><a href="namespacesopt_1_1algorithm.html#a87e4a19b5c34cea6a2a490720d43a018">sopt::algorithm::power_method</a></div><div class="ttdeci">std::tuple&lt; t_real, T &gt; power_method(const sopt::LinearTransform&lt; T &gt; &amp;op, const t_uint niters, const t_real relative_difference, const T &amp;initial_vector)</div><div class="ttdoc">Returns the eigenvalue and eigenvector for eigenvalue of the Linear Transform with largest magnitude.</div><div class="ttdef"><b>Definition:</b> <a href="power__method_8h_source.html#l00021">power_method.h:21</a></div></div>
 <div class="ttc" id="aclasssopt_1_1LinearTransform_html_af9fe77b8afc0761cf9d07f432df85a0d"><div class="ttname"><a href="classsopt_1_1LinearTransform.html#af9fe77b8afc0761cf9d07f432df85a0d">sopt::LinearTransform::adjoint</a></div><div class="ttdeci">LinearTransform&lt; VECTOR &gt; adjoint() const</div><div class="ttdoc">Indirect transform.</div><div class="ttdef"><b>Definition:</b> <a href="linear__transform_8h_source.html#l00078">linear_transform.h:78</a></div></div>
 <div class="ttc" id="alogging_8h_html_af43ef2984bde80ff9ff844540be74425"><div class="ttname"><a href="logging_8h.html#af43ef2984bde80ff9ff844540be74425">SOPT_DEBUG</a></div><div class="ttdeci">#define SOPT_DEBUG(...)</div><div class="ttdoc">\macro Output some debugging</div><div class="ttdef"><b>Definition:</b> <a href="logging_8h_source.html#l00021">logging.h:21</a></div></div>
 <div class="ttc" id="aclasssopt_1_1LinearTransform_html"><div class="ttname"><a href="classsopt_1_1LinearTransform.html">sopt::LinearTransform</a></div><div class="ttdoc">Joins together direct and indirect operators.</div><div class="ttdef"><b>Definition:</b> <a href="linear__transform_8h_source.html#l00029">linear_transform.h:29</a></div></div>

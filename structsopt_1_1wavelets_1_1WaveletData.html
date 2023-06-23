@@ -161,7 +161,7 @@ Public Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Holds wavelets coefficients. </p>
 
-<p class="definition">Definition at line <a class="el" href="wavelet__data_8h_source.html#l00012">12</a> of file <a class="el" href="wavelet__data_8h_source.html">wavelet_data.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="wavelet__data_8h_source.html#l00011">11</a> of file <a class="el" href="wavelet__data_8h_source.html">wavelet_data.h</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="aa82eab631dd6d37c100dc6c48d4d85ff"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa82eab631dd6d37c100dc6c48d4d85ff">&#9670;&nbsp;</a></span>t_scalar</h2>
@@ -177,7 +177,7 @@ Public Attributes</h2></td></tr>
 
 <p>Type of the underlying scalar. </p>
 
-<p class="definition">Definition at line <a class="el" href="wavelet__data_8h_source.html#l00014">14</a> of file <a class="el" href="wavelet__data_8h_source.html">wavelet_data.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="wavelet__data_8h_source.html#l00013">13</a> of file <a class="el" href="wavelet__data_8h_source.html">wavelet_data.h</a>.</p>
 
 </div>
 </div>
@@ -195,7 +195,7 @@ Public Attributes</h2></td></tr>
 
 <p>Type of the underlying vector. </p>
 
-<p class="definition">Definition at line <a class="el" href="wavelet__data_8h_source.html#l00016">16</a> of file <a class="el" href="wavelet__data_8h_source.html">wavelet_data.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="wavelet__data_8h_source.html#l00015">15</a> of file <a class="el" href="wavelet__data_8h_source.html">wavelet_data.h</a>.</p>
 
 </div>
 </div>
@@ -218,8 +218,8 @@ Public Attributes</h2></td></tr>
 
 <p>Constructs from initializers. </p>
 
-<p class="definition">Definition at line <a class="el" href="wavelet__data_8cc_source.html#l00037">37</a> of file <a class="el" href="wavelet__data_8cc_source.html">wavelet_data.cc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    : <a class="code" href="structsopt_1_1wavelets_1_1WaveletData.html#ad556d62aa40722ebc0a7886b97b6ca8e">WaveletData</a>(init_db(coeffs)) {}</div>
+<p class="definition">Definition at line <a class="el" href="wavelet__data_8cc_source.html#l00036">36</a> of file <a class="el" href="wavelet__data_8cc_source.html">wavelet_data.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    : <a class="code" href="structsopt_1_1wavelets_1_1WaveletData.html#ad556d62aa40722ebc0a7886b97b6ca8e">WaveletData</a>(init_db(coeffs)) {}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -241,10 +241,10 @@ Public Attributes</h2></td></tr>
 
 <p>Constructs from vector. </p>
 
-<p class="definition">Definition at line <a class="el" href="wavelet__data_8cc_source.html#l00040">40</a> of file <a class="el" href="wavelet__data_8cc_source.html">wavelet_data.cc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    : <a class="code" href="structsopt_1_1wavelets_1_1WaveletData.html#a16fa9561d38bbc42f65c7daa19b89f3d">coefficients</a>(coeffs),</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;      <a class="code" href="structsopt_1_1wavelets_1_1WaveletData.html#ad4395dfd2205fe0ef0092802ca7c982c">direct_filter</a>{coeffs, negate_even(coeffs.reverse())},</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;      <a class="code" href="structsopt_1_1wavelets_1_1WaveletData.html#ac70b408207b67fb67820d48d85a7ce3e">indirect_filter</a>{<a class="code" href="tests_2wavelets_8cc.html#a8b46878d44ba7f499e8257af574703fb">even</a>(coeffs.reverse()), <a class="code" href="tests_2wavelets_8cc.html#a9895f93a232293badd4b6dfe1f050245">odd</a>(coeffs.reverse()), <a class="code" href="tests_2wavelets_8cc.html#a8b46878d44ba7f499e8257af574703fb">even</a>(coeffs), -<a class="code" href="tests_2wavelets_8cc.html#a9895f93a232293badd4b6dfe1f050245">odd</a>(coeffs)} {}</div>
+<p class="definition">Definition at line <a class="el" href="wavelet__data_8cc_source.html#l00039">39</a> of file <a class="el" href="wavelet__data_8cc_source.html">wavelet_data.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    : <a class="code" href="structsopt_1_1wavelets_1_1WaveletData.html#a16fa9561d38bbc42f65c7daa19b89f3d">coefficients</a>(coeffs),</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;      <a class="code" href="structsopt_1_1wavelets_1_1WaveletData.html#ad4395dfd2205fe0ef0092802ca7c982c">direct_filter</a>{coeffs, negate_even(coeffs.reverse())},</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;      <a class="code" href="structsopt_1_1wavelets_1_1WaveletData.html#ac70b408207b67fb67820d48d85a7ce3e">indirect_filter</a>{<a class="code" href="tests_2wavelets_8cc.html#a8b46878d44ba7f499e8257af574703fb">even</a>(coeffs.reverse()), <a class="code" href="tests_2wavelets_8cc.html#a9895f93a232293badd4b6dfe1f050245">odd</a>(coeffs.reverse()), <a class="code" href="tests_2wavelets_8cc.html#a8b46878d44ba7f499e8257af574703fb">even</a>(coeffs), -<a class="code" href="tests_2wavelets_8cc.html#a9895f93a232293badd4b6dfe1f050245">odd</a>(coeffs)} {}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -263,9 +263,9 @@ Public Attributes</h2></td></tr>
 
 <p><a class="el" href="classsopt_1_1wavelets_1_1Wavelet.html" title="Performs direct and indirect wavelet transforms.">Wavelet</a> coefficient per-se. </p>
 
-<p class="definition">Definition at line <a class="el" href="wavelet__data_8h_source.html#l00018">18</a> of file <a class="el" href="wavelet__data_8h_source.html">wavelet_data.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="wavelet__data_8h_source.html#l00017">17</a> of file <a class="el" href="wavelet__data_8h_source.html">wavelet_data.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="wavelets_2wavelets_8h_source.html#l00065">sopt::wavelets::Wavelet::direct()</a>, and <a class="el" href="wavelets_2wavelets_8h_source.html#l00094">sopt::wavelets::Wavelet::indirect()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="wavelets_2wavelets_8h_source.html#l00064">sopt::wavelets::Wavelet::direct()</a>, and <a class="el" href="wavelets_2wavelets_8h_source.html#l00093">sopt::wavelets::Wavelet::indirect()</a>.</p>
 
 </div>
 </div>
@@ -295,7 +295,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="wavelet__data_8h_source.html#l00033">33</a> of file <a class="el" href="wavelet__data_8h_source.html">wavelet_data.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="wavelet__data_8h_source.html#l00032">32</a> of file <a class="el" href="wavelet__data_8h_source.html">wavelet_data.h</a>.</p>
 
 </div>
 </div>
@@ -311,7 +311,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="wavelet__data_8h_source.html#l00034">34</a> of file <a class="el" href="wavelet__data_8h_source.html">wavelet_data.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="wavelet__data_8h_source.html#l00033">33</a> of file <a class="el" href="wavelet__data_8h_source.html">wavelet_data.h</a>.</p>
 
 </div>
 </div>
@@ -345,7 +345,7 @@ Public Attributes</h2></td></tr>
 
 <p>High-pass filter for direct transform. </p>
 
-<p class="definition">Definition at line <a class="el" href="wavelet__data_8h_source.html#l00031">31</a> of file <a class="el" href="wavelet__data_8h_source.html">wavelet_data.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="wavelet__data_8h_source.html#l00030">30</a> of file <a class="el" href="wavelet__data_8h_source.html">wavelet_data.h</a>.</p>
 
 </div>
 </div>
@@ -361,7 +361,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="wavelet__data_8h_source.html#l00032">32</a> of file <a class="el" href="wavelet__data_8h_source.html">wavelet_data.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="wavelet__data_8h_source.html#l00031">31</a> of file <a class="el" href="wavelet__data_8h_source.html">wavelet_data.h</a>.</p>
 
 </div>
 </div>
@@ -372,9 +372,9 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <div class="ttc" id="atests_2wavelets_8cc_html_a8b46878d44ba7f499e8257af574703fb"><div class="ttname"><a href="tests_2wavelets_8cc.html#a8b46878d44ba7f499e8257af574703fb">even</a></div><div class="ttdeci">t_iVector even(t_iVector const &amp;x)</div><div class="ttdef"><b>Definition:</b> <a href="tests_2wavelets_8cc_source.html#l00012">wavelets.cc:12</a></div></div>
 <div class="ttc" id="astructsopt_1_1wavelets_1_1WaveletData_html_ac70b408207b67fb67820d48d85a7ce3e"><div class="ttname"><a href="structsopt_1_1wavelets_1_1WaveletData.html#ac70b408207b67fb67820d48d85a7ce3e">sopt::wavelets::WaveletData::indirect_filter</a></div><div class="ttdeci">struct sopt::wavelets::WaveletData::@0 indirect_filter</div><div class="ttdoc">Holds filters for indirect transform.</div></div>
-<div class="ttc" id="astructsopt_1_1wavelets_1_1WaveletData_html_ad556d62aa40722ebc0a7886b97b6ca8e"><div class="ttname"><a href="structsopt_1_1wavelets_1_1WaveletData.html#ad556d62aa40722ebc0a7886b97b6ca8e">sopt::wavelets::WaveletData::WaveletData</a></div><div class="ttdeci">WaveletData(std::initializer_list&lt; t_scalar &gt; const &amp;coefs)</div><div class="ttdoc">Constructs from initializers.</div><div class="ttdef"><b>Definition:</b> <a href="wavelet__data_8cc_source.html#l00037">wavelet_data.cc:37</a></div></div>
+<div class="ttc" id="astructsopt_1_1wavelets_1_1WaveletData_html_ad556d62aa40722ebc0a7886b97b6ca8e"><div class="ttname"><a href="structsopt_1_1wavelets_1_1WaveletData.html#ad556d62aa40722ebc0a7886b97b6ca8e">sopt::wavelets::WaveletData::WaveletData</a></div><div class="ttdeci">WaveletData(std::initializer_list&lt; t_scalar &gt; const &amp;coefs)</div><div class="ttdoc">Constructs from initializers.</div><div class="ttdef"><b>Definition:</b> <a href="wavelet__data_8cc_source.html#l00036">wavelet_data.cc:36</a></div></div>
 <div class="ttc" id="astructsopt_1_1wavelets_1_1WaveletData_html_ad4395dfd2205fe0ef0092802ca7c982c"><div class="ttname"><a href="structsopt_1_1wavelets_1_1WaveletData.html#ad4395dfd2205fe0ef0092802ca7c982c">sopt::wavelets::WaveletData::direct_filter</a></div><div class="ttdeci">struct sopt::wavelets::WaveletData::DirectFilter direct_filter</div></div>
-<div class="ttc" id="astructsopt_1_1wavelets_1_1WaveletData_html_a16fa9561d38bbc42f65c7daa19b89f3d"><div class="ttname"><a href="structsopt_1_1wavelets_1_1WaveletData.html#a16fa9561d38bbc42f65c7daa19b89f3d">sopt::wavelets::WaveletData::coefficients</a></div><div class="ttdeci">const t_vector coefficients</div><div class="ttdoc">Wavelet coefficient per-se.</div><div class="ttdef"><b>Definition:</b> <a href="wavelet__data_8h_source.html#l00018">wavelet_data.h:18</a></div></div>
+<div class="ttc" id="astructsopt_1_1wavelets_1_1WaveletData_html_a16fa9561d38bbc42f65c7daa19b89f3d"><div class="ttname"><a href="structsopt_1_1wavelets_1_1WaveletData.html#a16fa9561d38bbc42f65c7daa19b89f3d">sopt::wavelets::WaveletData::coefficients</a></div><div class="ttdeci">const t_vector coefficients</div><div class="ttdoc">Wavelet coefficient per-se.</div><div class="ttdef"><b>Definition:</b> <a href="wavelet__data_8h_source.html#l00017">wavelet_data.h:17</a></div></div>
 <div class="ttc" id="atests_2wavelets_8cc_html_a9895f93a232293badd4b6dfe1f050245"><div class="ttname"><a href="tests_2wavelets_8cc.html#a9895f93a232293badd4b6dfe1f050245">odd</a></div><div class="ttdeci">t_iVector odd(t_iVector const &amp;x)</div><div class="ttdef"><b>Definition:</b> <a href="tests_2wavelets_8cc_source.html#l00017">wavelets.cc:17</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
