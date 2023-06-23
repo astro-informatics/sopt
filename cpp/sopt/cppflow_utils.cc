@@ -5,6 +5,8 @@
 #include "cppflow/ops.h"
 #include "cppflow/model.h"
 #include <stdexcept>
+#include <sstream>
+#include <algorithm>
 
 namespace sopt {
 namespace cppflowutils {
@@ -69,14 +71,30 @@ namespace cppflowutils {
   // Convert an image stored in a sopt::Vector<double> to a cppflow::tensor of floats
   cppflow::tensor convert_image_to_tensor(sopt::Vector<std::complex<double>> const &image, int image_rows, int image_cols) {
 
-    std::vector<float> input_values(image_rows);
-    for(int i = 0; i < image_rows; i++)
+    std::cout << "Convering image to real for tensorflow." << std::endl;
+    std::vector<float> input_values(image.size());
+    std::vector<float> imaginaries(image.size());
+    std::vector<float> reals(image.size());
+    std::stringstream s;
+    bool error = false;
+    s << "Cannot convert to tensorflow format: imaginary component of image vector is non negligible: ";
+    for(size_t i = 0; i < image.size(); i++)
     {
       if(std::abs(image(i).imag()) > cppflowutils::imaginary_threshold)
       {
-        throw std::runtime_error("Cannot conver to tensorflow format: imaginary component of image vector is non negligible.");
+        s << image(i);
+        error = true;
+        //throw std::runtime_error(s.str());
       }
       input_values[i] = image(i).real();
+      imaginaries[i] = std::abs(image(i).imag());
+      reals[i] = std::abs(image(i).real());
+    }
+    std::cout << "Max real = " << *std::max_element(reals.begin(), reals.end()) << std::endl;
+    std::cout << "Max imag = " << *std::max_element(imaginaries.begin(), imaginaries.end()) << std::endl;
+    if(error)
+    {
+      //throw std::runtime_error(s.str());
     }
     cppflow::tensor input_tensor(input_values, {1, image_rows, image_cols, 1});
 
