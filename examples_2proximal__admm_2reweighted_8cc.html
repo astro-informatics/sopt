@@ -221,7 +221,7 @@ Functions</h2></td></tr>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  }</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <span class="comment">// Set up random numbers for C and C++</span></div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> seed = std::time(0);</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  std::srand((<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>)seed);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  std::srand(<span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">int</span><span class="keyword">&gt;</span>(seed));</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  std::mt19937 <a class="code" href="common__catch__main_8cc.html#afd7b13def75c5d7feb77ac1ea2df5d0b">mersenne</a>(std::time(0));</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <span class="comment">// Initializes and sets logger (if compiled with logging)</span></div>

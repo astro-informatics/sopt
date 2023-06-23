@@ -469,7 +469,7 @@ Functions</h2></td></tr>
 <div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;  <a class="code" href="namespacesopt.html#ac63d8bc953beeb56a063f174ce7f2a0a">sopt::t_real</a> stddev = 0e0;</div>
 <div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;  <span class="keywordflow">for</span> (<a class="code" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">sopt::Vector&lt;&gt;::Index</a> i(0); i &lt; input.size(); ++i)</div>
 <div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    stddev += std::real(std::conj(input(i) - mean) * (input(i) - mean));</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;  stddev = std::sqrt(stddev) / std::sqrt(<a class="code" href="namespacesopt.html#ac63d8bc953beeb56a063f174ce7f2a0a">sopt::t_real</a>(input.size()));</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;  stddev = std::sqrt(stddev) / std::sqrt(<span class="keyword">static_cast&lt;</span><a class="code" href="namespacesopt.html#ac63d8bc953beeb56a063f174ce7f2a0a">sopt::t_real</a><span class="keyword">&gt;</span>(input.size()));</div>
 <div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160; </div>
 <div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;  CHECK(std::abs(<a class="code" href="namespacesopt.html#a239b0c108ec581a5b5f0c39276aefad8">sopt::standard_deviation</a>(input) - stddev) &lt; 1e-8);</div>
 <div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;  CHECK(std::abs(<a class="code" href="namespacesopt.html#a239b0c108ec581a5b5f0c39276aefad8">sopt::standard_deviation</a>(input.matrix()) - stddev) &lt; 1e-8);</div>

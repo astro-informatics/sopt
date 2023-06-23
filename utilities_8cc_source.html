@@ -102,7 +102,7 @@ $(function() {
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> g = [](<span class="keywordtype">double</span> p) -&gt; uint8_t {</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">auto</span> <span class="keyword">const</span> scaled = 255e0 * p;</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordflow">if</span> (scaled &lt; 0) <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordflow">return</span> scaled &gt; 255 ? 255 : uint8_t(scaled);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordflow">return</span> scaled &gt; 255 ? 255 : <span class="keyword">static_cast&lt;</span>uint8_t<span class="keyword">&gt;</span>(scaled);</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  };</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  ptr[0] = g(pixel);</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  ptr[1] = g(pixel);</div>
@@ -126,7 +126,7 @@ $(function() {
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <a class="code" href="logging_8h.html#a4a497e6b273bf510772846ac52cef095">SOPT_LOW_LOG</a>(<span class="stringliteral">&quot;- image size {}, {} &quot;</span>, width, height);</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <a class="code" href="namespacesopt.html#a7d7971e5566e597eb907614917e30c78">Image&lt;&gt;</a> result = <a class="code" href="namespacesopt.html#a7d7971e5566e597eb907614917e30c78">Image&lt;&gt;::Zero</a>(height, width);</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  uint32_t *raster = (uint32_t *)_TIFFmalloc(width * height * <span class="keyword">sizeof</span>(uint32_t));</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  uint32_t *raster = <span class="keyword">static_cast&lt;</span>uint32_t *<span class="keyword">&gt;</span>(_TIFFmalloc(width * height * <span class="keyword">sizeof</span>(uint32_t)));</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <span class="keywordflow">if</span> (not raster) <a class="code" href="exception_8h.html#a57974308768f9fafc7107b626a394f4f">SOPT_THROW</a>(<span class="stringliteral">&quot;Could not allocate memory to read file &quot;</span>) &lt;&lt; filename;</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  <span class="keywordflow">if</span> (not TIFFReadRGBAImage(tif, width, height, raster, 0))</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <a class="code" href="exception_8h.html#a57974308768f9fafc7107b626a394f4f">SOPT_THROW</a>(<span class="stringliteral">&quot;Could not read file &quot;</span>) &lt;&lt; filename;</div>
