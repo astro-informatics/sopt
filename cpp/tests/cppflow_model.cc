@@ -32,7 +32,7 @@ TEST_CASE("Cppflow Model"){
   cppflow::tensor input_tensor = sopt::cppflowutils::convert_image_to_tensor(image, image_rows, image_cols);
 
   // Read in model
-  cppflow::model model(std::string(sopt::notinstalled::models_directory() + "/DnCNN/snr_15_model.pb/"));
+  cppflow::model model(std::string(sopt::notinstalled::models_directory() + "/snr_15_model.pb/"));
 
   // Run model on image
   // TODO: Automatically detect the string parameters, see issue #320 
