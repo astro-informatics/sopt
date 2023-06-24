@@ -220,8 +220,7 @@ class L1 : protected L1TightFrame<SCALAR> {
 
     if (fista_mixing())
       return operator()(out, gamma, x, FistaMixing());
-    else
-      return operator()(out, gamma, x, NoMixing());
+    return operator()(out, gamma, x, NoMixing());
   }
 
   //! Lazy version
@@ -371,8 +370,7 @@ template <class T1>
 Vector<SCALAR> L1<SCALAR>::apply_soft_threshhold(Real gamma, Eigen::MatrixBase<T1> const &x) const {
   if (weights().size() == 1)
     return soft_threshhold(x, gamma * weights()(0));
-  else
-    return soft_threshhold(x, gamma * weights());
+  return soft_threshhold(x, gamma * weights());
 }
 
 template <class SCALAR>

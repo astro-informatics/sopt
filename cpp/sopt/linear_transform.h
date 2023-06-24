@@ -212,12 +212,10 @@ LinearTransform<Vector<typename DERIVED::Scalar>> linear_transform(
   details::MatrixToLinearTransform<Matrix<typename DERIVED::Scalar>> const matrix(A);
   if (A.rows() == A.cols())
     return {matrix, matrix.adjoint()};
-  else {
-    t_int const gcd = details::gcd(A.cols(), A.rows());
-    t_int const a = A.cols() / gcd;
-    t_int const b = A.rows() / gcd;
-    return {matrix, matrix.adjoint(), {{b, a, 0}}};
-  }
+  t_int const gcd = details::gcd(A.cols(), A.rows());
+  t_int const a = A.cols() / gcd;
+  t_int const b = A.rows() / gcd;
+  return {matrix, matrix.adjoint(), {{b, a, 0}}};
 }
 
 //! Helper function to create a linear transform that's just the identity
