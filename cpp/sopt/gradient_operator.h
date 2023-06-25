@@ -5,8 +5,7 @@
 #include "sopt/linear_transform.h"
 #include "sopt/logging.h"
 
-namespace sopt {
-namespace gradient_operator {
+namespace sopt::gradient_operator {
 //! Numerical derivative of 1d vector
 template <class T>
 Vector<T> diff(const Vector<T> &x) {
@@ -61,7 +60,6 @@ LinearTransform<Vector<T>> gradient_operator(const t_int rows, const t_int cols)
       },
       {{0, 1, static_cast<t_int>(2 * rows * cols)}});
 }
-}  // namespace gradient_operator
-}  // namespace sopt
+} // namespace sopt::gradient_operator
 
 #endif

@@ -14,8 +14,7 @@
 #include "sopt/relative_variation.h"
 #include "sopt/types.h"
 
-namespace sopt {
-namespace algorithm {
+namespace sopt::algorithm {
 template <class SCALAR>
 class ImagingPrimalDual {
   //! Underlying algorithm
@@ -394,6 +393,5 @@ bool ImagingPrimalDual<SCALAR>::is_converged(ScalarRelativeVariation<Scalar> &sc
   // better evaluate each convergence function everytime, especially with mpi
   return user and res and obj;
 }
-}  // namespace algorithm
-}  // namespace sopt
+} // namespace sopt::algorithm
 #endif

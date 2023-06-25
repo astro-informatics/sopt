@@ -31,7 +31,7 @@ typedef sopt::Image<Scalar> Image;
 TEST_CASE("Inpainting"){
   extern std::unique_ptr<std::mt19937_64> mersenne;
   std::string const input = "cameraman256";
-  std::string const model_path = std::string(sopt::notinstalled::models_directory() + "/DnCNN/snr_15_model.pb/");
+  std::string const model_path = static_cast<std::string>(sopt::notinstalled::models_directory() + "/DnCNN/snr_15_model.pb/");
 
   Image const image = sopt::notinstalled::read_standard_tiff(input);
 

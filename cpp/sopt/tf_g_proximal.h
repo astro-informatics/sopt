@@ -19,8 +19,7 @@
 #include "cppflow/model.h"
 #include "sopt/cppflow_utils.h"
 
-namespace sopt {
-namespace algorithm {
+namespace sopt::algorithm {
 
 // Implementation of g_proximal with a TensorFlow model. Owns private
 // object model_ and implements the
@@ -105,13 +104,11 @@ protected:
     // Added template keyword to suppress error on apple-clang, for reference
     // https://stackoverflow.com/questions/3786360/confusing-template-error
     auto output_vector = model_output[0].template get_data<float>();
-    
     for(int i = 0; i < image_size; ++i) {
       image_out[i] = static_cast<Scalar>(output_vector[i]);
     }
   }
 
 };
-}
-}
+} // namespace sopt::algorithm
 #endif

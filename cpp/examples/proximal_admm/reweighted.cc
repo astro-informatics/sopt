@@ -49,7 +49,7 @@ int main(int argc, char const **argv) {
   }
   // Set up random numbers for C and C++
   auto const seed = std::time(0);
-  std::srand((unsigned int)seed);
+  std::srand(static_cast<unsigned int>(seed));
   std::mt19937 mersenne(std::time(0));
 
   // Initializes and sets logger (if compiled with logging)

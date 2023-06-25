@@ -6,10 +6,9 @@
 #include "cppflow/model.h"
 #include <stdexcept>
 
-namespace sopt {
-namespace cppflowutils {
+namespace sopt::cppflowutils {
 
-  // arbitrary constant for imaginary part of image vectors. 
+  // arbitrary constant for imaginary part of image vectors.
   const double imaginary_threshold = 1e-10;
 
     cppflow::tensor convert_image_to_tensor(Image<double> const &image, int image_rows, int image_cols){
@@ -93,5 +92,4 @@ namespace cppflowutils {
     return output_image;
   }
 
-}  // namespace cppflowutils
-}  // namespace sopt
+} // namespace sopt::cppflowutils
