@@ -11,8 +11,7 @@
 #include "sopt/logging.h"
 #include "sopt/types.h"
 
-namespace sopt {
-namespace algorithm {
+namespace sopt::algorithm {
 
 template <class ALGORITHM>
 class JointMAP {
@@ -135,7 +134,6 @@ class JointMAP {
   };
 };
 
-}  // namespace algorithm
-}  // namespace sopt
+} // namespace sopt::algorithm
 
 #endif

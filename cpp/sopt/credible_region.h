@@ -10,8 +10,7 @@
 #include "sopt/logging.h"
 #include "sopt/types.h"
 
-namespace sopt {
-namespace credible_region {
+namespace sopt::credible_region {
 
 template <class T>
 t_real compute_energy_upper_bound(
@@ -54,11 +53,9 @@ credible_interval(const Eigen::MatrixBase<T> &solution, const t_uint &rows, cons
                   const std::tuple<t_uint, t_uint> &grid_pixel_size,
                   const std::function<t_real(typename T::PlainObject)> &objective_function,
                   const t_real &alpha);
-}  // namespace credible_region
-}  // namespace sopt
+} // namespace sopt::credible_region
 
-namespace sopt {
-namespace credible_region {
+namespace sopt::credible_region {
 
 template <class T>
 t_real compute_energy_upper_bound(
@@ -197,8 +194,6 @@ credible_interval(const Eigen::MatrixBase<T> &solution, const t_uint &rows, cons
   return credible_interval_grid<typename T::PlainObject, K>(solution, rows, cols, grid_pixel_size,
                                                             objective_function, energy_upperbound);
 }
-}  // namespace credible_region
-
-}  // namespace sopt
+} // namespace sopt::credible_region
 
 #endif

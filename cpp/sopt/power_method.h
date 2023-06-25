@@ -14,8 +14,7 @@
 #include "sopt/mpi/communicator.h"
 #endif
 
-namespace sopt {
-namespace algorithm {
+namespace sopt::algorithm {
 //! \brief Returns the eigenvalue and eigenvector for eigenvalue of the Linear Transform with
 //! largest magnitude
 template <class T>
@@ -242,6 +241,5 @@ typename PowerMethod<SCALAR>::DiagnosticAndResult PowerMethod<SCALAR>::operator(
   }
   return DiagnosticAndResult{itermax(), converged, previous_magnitude, eigenvector.normalized()};
 }
-}  // namespace algorithm
-}  // namespace sopt
+} // namespace sopt::algorithm
 #endif

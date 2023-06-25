@@ -5,8 +5,7 @@
 #include "sopt/logging.h"
 #include "sopt/types.h"
 
-namespace sopt {
-namespace mpi {
+namespace sopt::mpi {
 
 namespace details {
 void initializer::deleter(initializer *tag) {
@@ -80,5 +79,4 @@ void finalize() {
   MPI_Finalize();
 }
 
-}  // namespace mpi
-}  // namespace sopt
+} // namespace sopt::mpi

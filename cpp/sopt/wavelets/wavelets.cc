@@ -3,8 +3,7 @@
 #include <exception>
 #include "sopt/logging.h"
 
-namespace sopt {
-namespace wavelets {
+namespace sopt::wavelets {
 
 Wavelet factory(std::string name, t_uint nlevels) {
   if (name == "dirac" or name == "Dirac") {
@@ -22,5 +21,4 @@ Wavelet factory(std::string name, t_uint nlevels) {
   // Unknown input wavelet
   throw std::exception();
 }
-}  // namespace wavelets
-}  // namespace sopt
+} // namespace sopt::wavelets

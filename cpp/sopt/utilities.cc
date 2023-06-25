@@ -24,7 +24,7 @@ uint32_t convert_from_greyscale(double pixel) {
   auto const g = [](double p) -> uint8_t {
     auto const scaled = 255e0 * p;
     if (scaled < 0) return 0;
-    return scaled > 255 ? 255 : uint8_t(scaled);
+    return scaled > 255 ? 255 : static_cast<uint8_t>(scaled);
   };
   ptr[0] = g(pixel);
   ptr[1] = g(pixel);
@@ -34,8 +34,7 @@ uint32_t convert_from_greyscale(double pixel) {
 }
 }  // namespace
 
-namespace sopt {
-namespace utilities {
+namespace sopt::utilities {
 Image<> read_tiff(std::string const &filename) {
   SOPT_MEDIUM_LOG("Reading image file {} ", filename);
   TIFF *tif = TIFFOpen(filename.c_str(), "r");
@@ -49,7 +48,7 @@ Image<> read_tiff(std::string const &filename) {
   SOPT_LOW_LOG("- image size {}, {} ", width, height);
   Image<> result = Image<>::Zero(height, width);
 
-  uint32_t *raster = (uint32_t *)_TIFFmalloc(width * height * sizeof(uint32_t));
+  uint32_t *raster = static_cast<uint32_t *>(_TIFFmalloc(width * height * sizeof(uint32_t)));
   if (not raster) SOPT_THROW("Could not allocate memory to read file ") << filename;
   if (not TIFFReadRGBAImage(tif, width, height, raster, 0))
     SOPT_THROW("Could not read file ") << filename;
@@ -99,5 +98,4 @@ void write_tiff(Image<> const &image, std::string const &filename) {
   TIFFClose(tif);
   SOPT_TRACE("Freeing raster");
 }
-}  // namespace utilities
-}  // namespace sopt
+} // namespace sopt::utilities

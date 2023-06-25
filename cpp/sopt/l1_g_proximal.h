@@ -19,8 +19,7 @@
  #include "sopt/mpi/communicator.h"
 #endif
 
-namespace sopt {
-namespace algorithm {
+namespace sopt::algorithm {
 
 // Implementation of g_proximal with l1 proximal.
 // Owns the private object l1_proximal_ and implements the
@@ -145,6 +144,5 @@ protected:
   }
 
 };
-}
-}
+} // namespace sopt::algorithm
 #endif
