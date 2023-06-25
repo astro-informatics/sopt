@@ -20,8 +20,7 @@
 #include <cxxabi.h>
 #include <typeinfo>
 
-namespace sopt {
-namespace mpi {
+namespace sopt::mpi {
 
 //! \brief A C++ wrapper for an mpi communicator
 //! \details All copies made of this communicator are shallow: they reference
@@ -585,7 +584,6 @@ Communicator::broadcast(t_uint const root) const {
   MPI_Bcast(result.data(), result.size(), Type<typename T::value_type>::value, root, **this);
   return result;
 }
-}  // namespace mpi
-}  // namespace sopt
+} // namespace sopt::mpi
 #endif /* ifdef SOPT_MPI */
 #endif /* ifndef SOPT_MPI_COMMUNICATOR */

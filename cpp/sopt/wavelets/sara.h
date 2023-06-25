@@ -14,8 +14,7 @@
 #include "sopt/mpi/communicator.h"
 #endif
 
-namespace sopt {
-namespace wavelets {
+namespace sopt::wavelets {
 
 //! Sparsity Averaging Reweighted Analysis
 class SARA : public std::vector<Wavelet> {
@@ -212,6 +211,5 @@ T distribute_sara(T const &all_wavelets, mpi::Communicator const &comm) {
   return distribute_sara<T>(all_wavelets, comm.size(), comm.rank());
 }
 #endif
-}  // namespace wavelets
-}  // namespace sopt
+} // namespace sopt::wavelets
 #endif

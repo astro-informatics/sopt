@@ -7,9 +7,8 @@
 #include <Eigen/Core>
 #include "sopt/maths.h"
 
-namespace sopt {
 //! Holds some standard proximals
-namespace proximal {
+namespace sopt::proximal {
 
 namespace details {
 //! \brief Expression referencing a lazy proximal function call
@@ -86,11 +85,9 @@ using ProximalExpression = details::DelayedProximalFunction<FUNC, Eigen::MatrixB
 //! Eigen expression from proximal enveloppe functions
 template <class FUNC, class T0>
 using EnveloppeExpression = details::DelayedProximalEnveloppeFunction<FUNC, Eigen::MatrixBase<T0>>;
-}  // namespace proximal
-}  // namespace sopt
+} // namespace sopt::proximal
 
-namespace Eigen {
-namespace internal {
+namespace Eigen::internal {
 template <class FUNCTION, class VECTOR>
 struct traits<sopt::proximal::details::DelayedProximalFunction<FUNCTION, VECTOR>> {
   typedef typename VECTOR::PlainObject ReturnType;
@@ -99,7 +96,6 @@ template <class FUNCTION, class VECTOR>
 struct traits<sopt::proximal::details::DelayedProximalEnveloppeFunction<FUNCTION, VECTOR>> {
   typedef typename VECTOR::PlainObject ReturnType;
 };
-}  // namespace internal
-}  // namespace Eigen
+} // namespace Eigen::internal
 
 #endif

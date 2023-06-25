@@ -10,8 +10,7 @@
 #include "sopt/maths.h"
 #include "sopt/types.h"
 
-namespace sopt {
-namespace details {
+namespace sopt::details {
 //! Expression referencing the result of a function call
 template <class FUNCTION, class DERIVED>
 class AppliedFunction : public Eigen::ReturnByValue<AppliedFunction<FUNCTION, DERIVED>> {
@@ -133,15 +132,12 @@ WrapFunction<VECTOR> wrap(OperatorFunction<VECTOR> const &func,
                           std::array<t_int, 3> sizes = {{1, 1, 0}}) {
   return WrapFunction<VECTOR>(func, sizes);
 }
-}  // namespace details
-}  // namespace sopt
+} // namespace sopt::details
 
-namespace Eigen {
-namespace internal {
+namespace Eigen::internal {
 template <class FUNCTION, class VECTOR>
 struct traits<sopt::details::AppliedFunction<FUNCTION, VECTOR>> {
   typedef typename VECTOR::PlainObject ReturnType;
 };
-}  // namespace internal
-}  // namespace Eigen
+} // namespace Eigen::internal
 #endif

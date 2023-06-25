@@ -1,7 +1,6 @@
 #include "sopt/mpi/registered_types.h"
 
-namespace sopt {
-namespace mpi {
+namespace sopt::mpi {
 MPIType const Type<std::int8_t>::value = MPI_INT8_T;
 MPIType const Type<std::int16_t>::value = MPI_INT16_T;
 MPIType const Type<std::int32_t>::value = MPI_INT32_T;
@@ -33,5 +32,4 @@ static_assert(is_registered_type<std::complex<double>>::value,
               "Checking complex double is registered");
 static_assert(not is_registered_type<std::complex<int>>::value,
               "Checking complex int is NOT registered");
-}  // namespace mpi
-}  // namespace sopt
+} // namespace sopt::mpi

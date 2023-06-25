@@ -8,8 +8,7 @@
 #include "sopt/wavelets/wavelet_data.h"
 
 // Function inside anonymouns namespace won't appear in library
-namespace sopt {
-namespace wavelets {
+namespace sopt::wavelets {
 
 namespace {
 //! \brief Single-level 1d direct transform
@@ -111,6 +110,5 @@ auto direct_transform(Eigen::ArrayBase<T0> const &signal, t_uint levels, Wavelet
   direct_transform(result, signal, levels, wavelet);
   return result;
 }
-}  // namespace wavelets
-}  // namespace sopt
+} // namespace sopt::wavelets
 #endif

@@ -8,8 +8,7 @@
 #include "sopt/mpi/communicator.h"
 #include "sopt/real_type.h"
 
-namespace sopt {
-namespace mpi {
+namespace sopt::mpi {
 
 //! Computes norm of distributed vector
 template <class T>
@@ -63,7 +62,6 @@ typename real_type<typename T0::Scalar>::type l1_norm(Eigen::MatrixBase<T0> cons
                                                       Communicator const &comm) {
   return comm.all_sum_all(sopt::l1_norm(input));
 }
-}  // namespace mpi
-}  // namespace sopt
+} // namespace sopt::mpi
 #endif
 #endif

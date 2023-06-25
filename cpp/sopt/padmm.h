@@ -11,8 +11,7 @@
 #include "sopt/logging.h"
 #include "sopt/types.h"
 
-namespace sopt {
-namespace algorithm {
+namespace sopt::algorithm {
 
 //! \brief Proximal Alternate Direction method of mutltipliers
 //! \details \f$\min_{x, z} f(x) + h(z)\f$ subject to \f$Φx + z = y\f$. \f$y\f$ is a target vector.
@@ -265,6 +264,5 @@ typename ProximalADMM<SCALAR>::Diagnostic ProximalADMM<SCALAR>::operator()(
   }
   return {niters, converged, std::move(residual)};
 }
-}  // namespace algorithm
-}  // namespace sopt
+} // namespace sopt::algorithm
 #endif

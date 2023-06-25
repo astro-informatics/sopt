@@ -19,8 +19,7 @@
 #include "sopt/mpi/utilities.h"
 #endif
 
-namespace sopt {
-namespace algorithm {
+namespace sopt::algorithm {
 template <class SCALAR>
 class L2ForwardBackward {
   //! Underlying algorithm
@@ -338,6 +337,5 @@ bool L2ForwardBackward<SCALAR>::is_converged(ScalarRelativeVariation<Scalar> &sc
   // better evaluate each convergence function everytime, especially with mpi
   return user and res and obj;
 }
-}  // namespace algorithm
-}  // namespace sopt
+} // namespace sopt::algorithm
 #endif

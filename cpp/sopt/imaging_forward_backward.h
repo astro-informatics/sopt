@@ -21,8 +21,7 @@
 #include "sopt/mpi/utilities.h"
 #endif
 
-namespace sopt {
-namespace algorithm {
+namespace sopt::algorithm {
 template <class SCALAR>
 class ImagingForwardBackward {
   //! Underlying algorithm
@@ -339,6 +338,5 @@ bool ImagingForwardBackward<SCALAR>::is_converged(ScalarRelativeVariation<Scalar
   // better evaluate each convergence function everytime, especially with mpi
   return user and res and obj;
 }
-}  // namespace algorithm
-}  // namespace sopt
+} // namespace sopt::algorithm
 #endif

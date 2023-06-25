@@ -15,8 +15,7 @@
 #include "sopt/relative_variation.h"
 #include "sopt/types.h"
 
-namespace sopt {
-namespace algorithm {
+namespace sopt::algorithm {
 template <class SCALAR>
 class ImagingProximalADMM {
   //! Underlying algorithm
@@ -347,6 +346,5 @@ bool ImagingProximalADMM<SCALAR>::is_converged(ScalarRelativeVariation<Scalar> &
   // better evaluate each convergence function everytime, especially with mpi
   return user and res and obj;
 }
-}  // namespace algorithm
-}  // namespace sopt
+} // namespace sopt::algorithm
 #endif

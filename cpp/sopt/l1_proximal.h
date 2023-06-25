@@ -14,8 +14,7 @@
 #include "sopt/mpi/utilities.h"
 #endif
 
-namespace sopt {
-namespace proximal {
+namespace sopt::proximal {
 
 //! \brief L1 proximal, including linear transform
 //! \details This function computes the prox operator of the l1
@@ -476,7 +475,6 @@ class L1<SCALAR>::Breaker {
   std::array<Real, 4> objectives;
   bool do_two_cycle;
 };
-}  // namespace proximal
-}  // namespace sopt
+} // namespace sopt::proximal
 
 #endif

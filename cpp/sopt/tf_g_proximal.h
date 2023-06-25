@@ -20,8 +20,7 @@
 #include "cppflow/model.h"
 #include "sopt/cppflow_utils.h"
 
-namespace sopt {
-namespace algorithm {
+namespace sopt::algorithm {
 
 // Implementation of g_proximal with a TensorFlow model. Owns private
 // object model_ and implements the
@@ -113,6 +112,5 @@ protected:
   }
 
 };
-}
-}
+} // namespace sopt::algorithm
 #endif

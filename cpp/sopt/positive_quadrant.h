@@ -6,8 +6,8 @@
 
 #include <utility> // for std::forward
 
-namespace sopt {
-namespace algorithm {
+namespace sopt::algorithm {
+
 //! \brief Computes according to given algorithm and then projects it to the positive quadrant
 //! \details C implementation of the reweighted algorithms uses this, even-though the solutions are
 //! already constrained to the positive quadrant.
@@ -59,7 +59,6 @@ template <class ALGORITHM>
 PositiveQuadrant<ALGORITHM> positive_quadrant(ALGORITHM const &algo) {
   return {algo};
 }
-}  // namespace algorithm
-}  // namespace sopt
+} // namespace sopt::algorithm
 
 #endif

@@ -3,8 +3,7 @@
 #include <mpi.h>
 #include "sopt/mpi/session.h"
 
-namespace sopt {
-namespace mpi {
+namespace sopt::mpi {
 
 void Communicator::delete_comm(Communicator::Impl *const impl) {
   if (impl->comm != MPI_COMM_WORLD and impl->comm != MPI_COMM_SELF and impl->comm != MPI_COMM_NULL)
@@ -49,5 +48,4 @@ std::string Communicator::broadcast(std::string const &input, t_uint const root)
   return result;
 }
 
-}  // namespace mpi
-}  // namespace sopt
+} // namespace sopt::mpi

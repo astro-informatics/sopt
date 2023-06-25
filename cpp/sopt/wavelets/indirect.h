@@ -9,8 +9,7 @@
 #include <algorithm> // for std::copy<>
 
 // Function inside anonymouns namespace won't appear in library
-namespace sopt {
-namespace wavelets {
+namespace sopt::wavelets {
 namespace {
 //! Single-level 1d indirect transform
 //! \param[in] coeffs_: input coefficients
@@ -116,6 +115,5 @@ auto indirect_transform(Eigen::ArrayBase<T0> const &coeffs, t_uint levels,
   indirect_transform(coeffs, result, levels, wavelet);
   return result;
 }
-}  // namespace wavelets
-}  // namespace sopt
+} // namespace sopt::wavelets
 #endif
