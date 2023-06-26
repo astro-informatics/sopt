@@ -196,8 +196,8 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">  <span class="keywordflow">if</span> (A.rows() != B.rows() or A.cols() != B.cols()) A.derived().resize(B.rows(), B.cols()); \</div>
-<div class="line">  if (A.rows() != B.rows() or A.cols() != B.cols())                                         \</div>
+<b>Value:</b><div class="fragment"><div class="line">  <span class="keywordflow">if</span> ((A).<a class="code" href="credible__region_8cc.html#a1cc6c6d663c5f0c6cbd63b69ca306721">rows</a>() != (B).<a class="code" href="credible__region_8cc.html#a1cc6c6d663c5f0c6cbd63b69ca306721">rows</a>() or (A).<a class="code" href="credible__region_8cc.html#a4f8d1cebdd1d0572b0f5ff58464b9216">cols</a>() != (B).<a class="code" href="credible__region_8cc.html#a4f8d1cebdd1d0572b0f5ff58464b9216">cols</a>()) (A).derived().resize((B).rows(), (B).<a class="code" href="credible__region_8cc.html#a4f8d1cebdd1d0572b0f5ff58464b9216">cols</a>()); \</div>
+<div class="line">  if ((A).<a class="code" href="credible__region_8cc.html#a1cc6c6d663c5f0c6cbd63b69ca306721">rows</a>() != (B).<a class="code" href="credible__region_8cc.html#a1cc6c6d663c5f0c6cbd63b69ca306721">rows</a>() or (A).<a class="code" href="credible__region_8cc.html#a4f8d1cebdd1d0572b0f5ff58464b9216">cols</a>() != (B).<a class="code" href="credible__region_8cc.html#a4f8d1cebdd1d0572b0f5ff58464b9216">cols</a>())                                         \</div>
 <div class="line">  throw std::length_error(<span class="stringliteral">&quot;Incorrect size for output matrix(or could not resize)&quot;</span>)</div>
 </div><!-- fragment -->
 <p class="definition">Definition at line <a class="el" href="wavelets_2wavelets_8h_source.html#l00039">39</a> of file <a class="el" href="wavelets_2wavelets_8h_source.html">wavelets.h</a>.</p>
@@ -219,12 +219,12 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">  <span class="keywordflow">if</span> ((NAME.rows() == 1 or NAME.cols() == 1)) {                                             \</div>
-<div class="line">    if (NAME.size() % (1 &lt;&lt; levels()) != 0)                                                 \</div>
+<b>Value:</b><div class="fragment"><div class="line">  <span class="keywordflow">if</span> (((NAME).<a class="code" href="credible__region_8cc.html#a1cc6c6d663c5f0c6cbd63b69ca306721">rows</a>() == 1 or (NAME).<a class="code" href="credible__region_8cc.html#a4f8d1cebdd1d0572b0f5ff58464b9216">cols</a>() == 1)) {                                             \</div>
+<div class="line">    if ((NAME).size() % (1 &lt;&lt; levels()) != 0)                                                 \</div>
 <div class="line">      throw std::length_error(<span class="stringliteral">&quot;Size of &quot;</span> #NAME <span class="stringliteral">&quot; must number a multiple of 2^levels or 1&quot;</span>); \</div>
-<div class="line">  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (NAME.rows() != 1 and NAME.rows() % (1 &lt;&lt; levels()) != 0)                       \</div>
+<div class="line">  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((NAME).<a class="code" href="credible__region_8cc.html#a1cc6c6d663c5f0c6cbd63b69ca306721">rows</a>() != 1 and (NAME).<a class="code" href="credible__region_8cc.html#a1cc6c6d663c5f0c6cbd63b69ca306721">rows</a>() % (1 &lt;&lt; levels()) != 0)                       \</div>
 <div class="line">    throw std::length_error(<span class="stringliteral">&quot;Rows of &quot;</span> #NAME <span class="stringliteral">&quot; must number a multiple of 2^levels or 1&quot;</span>);   \</div>
-<div class="line">  else <span class="keywordflow">if</span> (NAME.cols() % (1 &lt;&lt; levels()) != 0)                                              \</div>
+<div class="line">  else <span class="keywordflow">if</span> ((NAME).<a class="code" href="credible__region_8cc.html#a4f8d1cebdd1d0572b0f5ff58464b9216">cols</a>() % (1 &lt;&lt; levels()) != 0)                                              \</div>
 <div class="line">    throw std::length_error(<span class="stringliteral">&quot;Columns of &quot;</span> #NAME <span class="stringliteral">&quot; must number a multiple of 2^levels&quot;</span>);</div>
 </div><!-- fragment -->
 <p class="definition">Definition at line <a class="el" href="wavelets_2wavelets_8h_source.html#l00031">31</a> of file <a class="el" href="wavelets_2wavelets_8h_source.html">wavelets.h</a>.</p>
@@ -232,6 +232,8 @@ Functions</h2></td></tr>
 </div>
 </div>
 </div><!-- contents -->
+<div class="ttc" id="acredible__region_8cc_html_a1cc6c6d663c5f0c6cbd63b69ca306721"><div class="ttname"><a href="credible__region_8cc.html#a1cc6c6d663c5f0c6cbd63b69ca306721">rows</a></div><div class="ttdeci">t_uint rows</div><div class="ttdef"><b>Definition:</b> <a href="credible__region_8cc_source.html#l00011">credible_region.cc:11</a></div></div>
+<div class="ttc" id="acredible__region_8cc_html_a4f8d1cebdd1d0572b0f5ff58464b9216"><div class="ttname"><a href="credible__region_8cc.html#a4f8d1cebdd1d0572b0f5ff58464b9216">cols</a></div><div class="ttdeci">t_uint cols</div><div class="ttdef"><b>Definition:</b> <a href="credible__region_8cc_source.html#l00012">credible_region.cc:12</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

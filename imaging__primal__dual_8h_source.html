@@ -158,7 +158,7 @@ $(function() {
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="comment">// auto padmm = ImagingPrimalDual&lt;float&gt;().prop0(value).prop1(value);</span></div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="preprocessor">#define SOPT_MACRO(NAME, TYPE)                        \</span></div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="preprocessor">  TYPE const &amp;NAME() const { return NAME##_; }        \</span></div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="preprocessor">  ImagingPrimalDual&lt;SCALAR&gt; &amp;NAME(TYPE const &amp;NAME) { \</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="preprocessor">  ImagingPrimalDual&lt;SCALAR&gt; &amp;NAME(TYPE const &amp;(NAME)) { \</span></div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="preprocessor">    NAME##_ = NAME;                                   \</span></div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="preprocessor">    return *this;                                     \</span></div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="preprocessor">  }                                                   \</span></div>
@@ -264,7 +264,7 @@ $(function() {
 <div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;<span class="preprocessor">  }                                                                                                \</span></div>
 <div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;<span class="preprocessor">                                                           \</span></div>
 <div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;<span class="preprocessor">  ImagingPrimalDual&lt;Scalar&gt; &amp;NAME##_proximal_##VAR(                                                \</span></div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;<span class="preprocessor">      decltype(std::declval&lt;proximal::PROXIMAL&lt;Scalar&gt; const&gt;().VAR()) VAR) {                      \</span></div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;<span class="preprocessor">      decltype(std::declval&lt;proximal::PROXIMAL&lt;Scalar&gt; const&gt;().VAR()) (VAR)) {                      \</span></div>
 <div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;<span class="preprocessor">    NAME##_proximal().VAR(VAR);                                                                    \</span></div>
 <div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;<span class="preprocessor">    return *this;                                                                                  \</span></div>
 <div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;<span class="preprocessor">  }</span></div>

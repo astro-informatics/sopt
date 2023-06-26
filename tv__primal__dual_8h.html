@@ -197,7 +197,7 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">  TYPE <span class="keyword">const</span> &amp;NAME()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> NAME##_; }   \</div>
-<div class="line">  TVPrimalDual&lt;SCALAR&gt; &amp;NAME(TYPE <span class="keyword">const</span> &amp;NAME) { \</div>
+<div class="line">  TVPrimalDual&lt;SCALAR&gt; &amp;NAME(TYPE <span class="keyword">const</span> &amp;(NAME)) { \</div>
 <div class="line">    NAME##_ = NAME;                              \</div>
 <div class="line">    return *<span class="keyword">this</span>;                                \</div>
 <div class="line">  }                                              \</div>
@@ -248,7 +248,7 @@ Macros</h2></td></tr>
 <div class="line"><span class="preprocessor">  }                                                                                                \</span></div>
 <div class="line"><span class="preprocessor">                                                           \</span></div>
 <div class="line"><span class="preprocessor">  TVPrimalDual&lt;Scalar&gt; &amp;NAME##_proximal_##VAR(                                                     \</span></div>
-<div class="line"><span class="preprocessor">      decltype(std::declval&lt;proximal::PROXIMAL&lt;Scalar&gt; const&gt;().VAR()) VAR) {                      \</span></div>
+<div class="line"><span class="preprocessor">      decltype(std::declval&lt;proximal::PROXIMAL&lt;Scalar&gt; const&gt;().VAR()) (VAR)) {                      \</span></div>
 <div class="line"><span class="preprocessor">    NAME##_proximal().VAR(VAR);                                                                    \</span></div>
 <div class="line"><span class="preprocessor">    return *this;                                                                                  \</span></div>
 <div class="line"><span class="preprocessor">  }</span></div>

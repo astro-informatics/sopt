@@ -155,7 +155,7 @@ $(function() {
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="comment">// auto sdmm  = PrimalDual&lt;float&gt;().prop0(value).prop1(value);</span></div>
 <div class="line"><a name="l00095"></a><span class="lineno"><a class="line" href="primal__dual_8h.html#acc08c2e01b4beda3b86b0ad0e358476b">   95</a></span>&#160;<span class="preprocessor">#define SOPT_MACRO(NAME, TYPE)                 \</span></div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="preprocessor">  TYPE const &amp;NAME() const { return NAME##_; } \</span></div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="preprocessor">  PrimalDual&lt;SCALAR&gt; &amp;NAME(TYPE const &amp;NAME) { \</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="preprocessor">  PrimalDual&lt;SCALAR&gt; &amp;NAME(TYPE const &amp;(NAME)) { \</span></div>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="preprocessor">    NAME##_ = NAME;                            \</span></div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="preprocessor">    return *this;                              \</span></div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="preprocessor">  }                                            \</span></div>

@@ -214,7 +214,7 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">  TYPE <span class="keyword">const</span> &amp;NAME()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> NAME##_; }   \</div>
-<div class="line">  L1TightFrame&lt;Scalar&gt; &amp;NAME(TYPE <span class="keyword">const</span> &amp;NAME) { \</div>
+<div class="line">  L1TightFrame&lt;Scalar&gt; &amp;NAME(TYPE <span class="keyword">const</span> &amp;(NAME)) { \</div>
 <div class="line">    NAME##_ = NAME;                              \</div>
 <div class="line">    return *<span class="keyword">this</span>;                                \</div>
 <div class="line">  }                                              \</div>
@@ -254,7 +254,7 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">  TYPE <span class="keyword">const</span> &amp;NAME()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> NAME##_; } \</div>
-<div class="line">  L1&lt;Scalar&gt; &amp;NAME(TYPE <span class="keyword">const</span> &amp;NAME) {         \</div>
+<div class="line">  L1&lt;Scalar&gt; &amp;NAME(TYPE <span class="keyword">const</span> &amp;(NAME)) {         \</div>
 <div class="line">    NAME##_ = NAME;                            \</div>
 <div class="line">    return *<span class="keyword">this</span>;                              \</div>
 <div class="line">  }                                            \</div>

@@ -147,9 +147,9 @@ $(function() {
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;};</div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
 <div class="line"><a name="l00117"></a><span class="lineno"><a class="line" href="sara_8h.html#af9c1e573d55258466f65cefebc126fd3">  117</a></span>&#160;<span class="preprocessor">#define SOPT_WAVELET_ERROR_MACRO(INPUT)                                           \</span></div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="preprocessor">  if (INPUT.rows() % (1u &lt;&lt; max_levels()) != 0)                                   \</span></div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="preprocessor">  if ((INPUT).rows() % (1u &lt;&lt; max_levels()) != 0)                                   \</span></div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="preprocessor">    throw std::length_error(&quot;Inconsistent number of columns and wavelet levels&quot;); \</span></div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="preprocessor">  else if (INPUT.cols() != 1 and INPUT.cols() % (1u &lt;&lt; max_levels()))             \</span></div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="preprocessor">  else if ((INPUT).cols() != 1 and (INPUT).cols() % (1u &lt;&lt; max_levels()))             \</span></div>
 <div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="preprocessor">    throw std::length_error(&quot;Inconsistent number of rows and wavelet levels&quot;);</span></div>
 <div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T0, <span class="keyword">class</span> T1&gt;</div>
