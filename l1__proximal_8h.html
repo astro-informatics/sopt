@@ -86,6 +86,7 @@ $(function() {
 <div class="textblock"><code>#include &quot;sopt/config.h&quot;</code><br />
 <code>#include &lt;array&gt;</code><br />
 <code>#include &lt;type_traits&gt;</code><br />
+<code>#include &lt;utility&gt;</code><br />
 <code>#include &lt;Eigen/Core&gt;</code><br />
 <code>#include &quot;<a class="el" href="linear__transform_8h_source.html">sopt/linear_transform.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="maths_8h_source.html">sopt/maths.h</a>&quot;</code><br />
@@ -97,27 +98,28 @@ $(function() {
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="l1__proximal_8h__incl.png" border="0" usemap="#_2home_2runner_2work_2sopt_2sopt_2cpp_2sopt_2l1__proximal_8h" alt=""/></div>
 <map name="_2home_2runner_2work_2sopt_2sopt_2cpp_2sopt_2l1__proximal_8h" id="_2home_2runner_2work_2sopt_2sopt_2cpp_2sopt_2l1__proximal_8h">
-<area shape="rect" title=" " alt="" coords="967,5,1174,47"/>
-<area shape="rect" title=" " alt="" coords="366,468,471,495"/>
-<area shape="rect" title=" " alt="" coords="444,244,500,271"/>
-<area shape="rect" title=" " alt="" coords="1369,468,1461,495"/>
-<area shape="rect" title=" " alt="" coords="1158,393,1250,420"/>
-<area shape="rect" href="linear__transform_8h.html" title=" " alt="" coords="703,95,878,121"/>
-<area shape="rect" href="maths_8h.html" title=" " alt="" coords="1007,244,1113,271"/>
-<area shape="rect" href="proximal__expression_8h.html" title=" " alt="" coords="1200,169,1403,196"/>
-<area shape="rect" title=" " alt="" coords="44,393,121,420"/>
-<area shape="rect" href="logging_8h.html" title=" " alt="" coords="225,244,340,271"/>
-<area shape="rect" href="types_8h.html" title=" " alt="" coords="778,319,881,345"/>
-<area shape="rect" href="wrapper_8h.html" title=" " alt="" coords="681,169,799,196"/>
-<area shape="rect" href="logging_8disabled_8h.html" title=" " alt="" coords="196,319,369,345"/>
-<area shape="rect" title=" " alt="" coords="297,393,356,420"/>
-<area shape="rect" title=" " alt="" coords="1057,319,1143,345"/>
-<area shape="rect" title=" " alt="" coords="1031,468,1110,495"/>
-<area shape="rect" href="exception_8h.html" title=" " alt="" coords="529,319,660,345"/>
-<area shape="rect" title=" " alt="" coords="581,393,667,420"/>
-<area shape="rect" title=" " alt="" coords="481,393,556,420"/>
-<area shape="rect" title=" " alt="" coords="794,393,881,420"/>
-<area shape="rect" href="real__type_8h.html" title=" " alt="" coords="1007,393,1134,420"/>
+<area shape="rect" title=" " alt="" coords="518,5,725,47"/>
+<area shape="rect" title=" " alt="" coords="1117,468,1222,495"/>
+<area shape="rect" title=" " alt="" coords="1193,244,1249,271"/>
+<area shape="rect" title=" " alt="" coords="145,468,237,495"/>
+<area shape="rect" title=" " alt="" coords="169,244,229,271"/>
+<area shape="rect" title=" " alt="" coords="145,393,237,420"/>
+<area shape="rect" href="linear__transform_8h.html" title=" " alt="" coords="618,95,793,121"/>
+<area shape="rect" href="maths_8h.html" title=" " alt="" coords="749,244,856,271"/>
+<area shape="rect" href="proximal__expression_8h.html" title=" " alt="" coords="269,169,472,196"/>
+<area shape="rect" title=" " alt="" coords="1383,393,1460,420"/>
+<area shape="rect" href="logging_8h.html" title=" " alt="" coords="1273,244,1388,271"/>
+<area shape="rect" href="types_8h.html" title=" " alt="" coords="558,319,661,345"/>
+<area shape="rect" href="wrapper_8h.html" title=" " alt="" coords="743,169,862,196"/>
+<area shape="rect" href="logging_8disabled_8h.html" title=" " alt="" coords="1244,319,1417,345"/>
+<area shape="rect" title=" " alt="" coords="1140,393,1199,420"/>
+<area shape="rect" title=" " alt="" coords="1033,319,1119,345"/>
+<area shape="rect" title=" " alt="" coords="549,468,627,495"/>
+<area shape="rect" href="exception_8h.html" title=" " alt="" coords="828,319,959,345"/>
+<area shape="rect" title=" " alt="" coords="829,393,915,420"/>
+<area shape="rect" title=" " alt="" coords="940,393,1015,420"/>
+<area shape="rect" title=" " alt="" coords="414,393,501,420"/>
+<area shape="rect" href="real__type_8h.html" title=" " alt="" coords="525,393,651,420"/>
 </map>
 </div>
 </div><div class="textblock"><div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -224,7 +226,7 @@ Macros</h2></td></tr>
 <div class="line">                                                 \</div>
 <div class="line"> public:</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="l1__proximal_8h_source.html#l00254">254</a> of file <a class="el" href="l1__proximal_8h_source.html">l1_proximal.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="l1__proximal_8h_source.html#l00255">255</a> of file <a class="el" href="l1__proximal_8h_source.html">l1_proximal.h</a>.</p>
 
 </div>
 </div>
@@ -264,7 +266,7 @@ Macros</h2></td></tr>
 <div class="line">                                               \</div>
 <div class="line"> public:</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="l1__proximal_8h_source.html#l00254">254</a> of file <a class="el" href="l1__proximal_8h_source.html">l1_proximal.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="l1__proximal_8h_source.html#l00255">255</a> of file <a class="el" href="l1__proximal_8h_source.html">l1_proximal.h</a>.</p>
 
 </div>
 </div>

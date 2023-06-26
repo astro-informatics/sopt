@@ -84,6 +84,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;sopt/config.h&quot;</code><br />
+<code>#include &lt;limits&gt;</code><br />
 <code>#include &lt;numeric&gt;</code><br />
 <code>#include &lt;tuple&gt;</code><br />
 <code>#include &lt;utility&gt;</code><br />
@@ -101,34 +102,34 @@ $(function() {
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="l2__forward__backward_8h__incl.png" border="0" usemap="#_2home_2runner_2work_2sopt_2sopt_2cpp_2sopt_2l2__forward__backward_8h" alt=""/></div>
 <map name="_2home_2runner_2work_2sopt_2sopt_2cpp_2sopt_2l2__forward__backward_8h" id="_2home_2runner_2work_2sopt_2sopt_2cpp_2sopt_2l2__forward__backward_8h">
-<area shape="rect" title=" " alt="" coords="920,5,1107,61"/>
-<area shape="rect" title=" " alt="" coords="763,557,869,584"/>
-<area shape="rect" title=" " alt="" coords="1288,109,1363,136"/>
-<area shape="rect" title=" " alt="" coords="1387,109,1442,136"/>
-<area shape="rect" title=" " alt="" coords="1466,109,1526,136"/>
-<area shape="rect" href="exception_8h.html" title=" " alt="" coords="228,408,359,435"/>
-<area shape="rect" href="forward__backward_8h.html" title=" " alt="" coords="357,109,544,136"/>
-<area shape="rect" href="linear__transform_8h.html" title=" " alt="" coords="926,184,1101,211"/>
-<area shape="rect" href="logging_8h.html" title=" " alt="" coords="329,333,444,360"/>
-<area shape="rect" href="types_8h.html" title=" " alt="" coords="955,408,1058,435"/>
-<area shape="rect" href="proximal_8h.html" title=" " alt="" coords="1505,184,1629,211"/>
-<area shape="rect" href="relative__variation_8h.html" title=" " alt="" coords="564,259,745,285"/>
-<area shape="rect" title=" " alt="" coords="243,483,330,509"/>
-<area shape="rect" title=" " alt="" coords="144,483,219,509"/>
-<area shape="rect" title=" " alt="" coords="405,483,464,509"/>
-<area shape="rect" title=" " alt="" coords="641,483,727,509"/>
-<area shape="rect" title=" " alt="" coords="329,184,388,211"/>
-<area shape="rect" title=" " alt="" coords="884,333,940,360"/>
-<area shape="rect" title=" " alt="" coords="539,483,616,509"/>
-<area shape="rect" title=" " alt="" coords="1421,557,1513,584"/>
-<area shape="rect" title=" " alt="" coords="1395,483,1487,509"/>
-<area shape="rect" href="maths_8h.html" title=" " alt="" coords="1268,333,1375,360"/>
-<area shape="rect" href="wrapper_8h.html" title=" " alt="" coords="973,259,1091,285"/>
-<area shape="rect" href="logging_8disabled_8h.html" title=" " alt="" coords="433,408,607,435"/>
-<area shape="rect" title=" " alt="" coords="1235,408,1320,435"/>
-<area shape="rect" title=" " alt="" coords="1131,557,1210,584"/>
-<area shape="rect" href="real__type_8h.html" title=" " alt="" coords="1006,483,1133,509"/>
-<area shape="rect" href="proximal__expression_8h.html" title=" " alt="" coords="1560,259,1763,285"/>
+<area shape="rect" title=" " alt="" coords="1315,5,1501,61"/>
+<area shape="rect" title=" " alt="" coords="489,557,594,584"/>
+<area shape="rect" title=" " alt="" coords="1639,184,1697,211"/>
+<area shape="rect" title=" " alt="" coords="1907,109,1981,136"/>
+<area shape="rect" title=" " alt="" coords="1722,184,1777,211"/>
+<area shape="rect" title=" " alt="" coords="1417,333,1477,360"/>
+<area shape="rect" href="exception_8h.html" title=" " alt="" coords="544,408,675,435"/>
+<area shape="rect" href="forward__backward_8h.html" title=" " alt="" coords="1404,109,1591,136"/>
+<area shape="rect" href="linear__transform_8h.html" title=" " alt="" coords="950,184,1125,211"/>
+<area shape="rect" href="logging_8h.html" title=" " alt="" coords="253,333,368,360"/>
+<area shape="rect" href="types_8h.html" title=" " alt="" coords="1446,408,1549,435"/>
+<area shape="rect" href="proximal_8h.html" title=" " alt="" coords="1275,184,1399,211"/>
+<area shape="rect" href="relative__variation_8h.html" title=" " alt="" coords="165,259,347,285"/>
+<area shape="rect" title=" " alt="" coords="678,483,765,509"/>
+<area shape="rect" title=" " alt="" coords="579,483,653,509"/>
+<area shape="rect" title=" " alt="" coords="175,483,233,509"/>
+<area shape="rect" title=" " alt="" coords="1625,483,1711,509"/>
+<area shape="rect" title=" " alt="" coords="696,333,752,360"/>
+<area shape="rect" title=" " alt="" coords="257,483,335,509"/>
+<area shape="rect" title=" " alt="" coords="1622,557,1714,584"/>
+<area shape="rect" title=" " alt="" coords="1102,483,1194,509"/>
+<area shape="rect" href="maths_8h.html" title=" " alt="" coords="931,333,1037,360"/>
+<area shape="rect" href="wrapper_8h.html" title=" " alt="" coords="929,259,1047,285"/>
+<area shape="rect" href="logging_8disabled_8h.html" title=" " alt="" coords="144,408,317,435"/>
+<area shape="rect" title=" " alt="" coords="941,408,1027,435"/>
+<area shape="rect" title=" " alt="" coords="1345,557,1423,584"/>
+<area shape="rect" href="real__type_8h.html" title=" " alt="" coords="1321,483,1447,509"/>
+<area shape="rect" href="proximal__expression_8h.html" title=" " alt="" coords="1224,259,1427,285"/>
 </map>
 </div>
 </div><div class="textblock"><div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -205,7 +206,7 @@ Macros</h2></td></tr>
 <div class="line">                                                           \</div>
 <div class="line"> public:</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="l2__forward__backward_8h_source.html#l00083">83</a> of file <a class="el" href="l2__forward__backward_8h_source.html">l2_forward_backward.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="l2__forward__backward_8h_source.html#l00084">84</a> of file <a class="el" href="l2__forward__backward_8h_source.html">l2_forward_backward.h</a>.</p>
 
 </div>
 </div>

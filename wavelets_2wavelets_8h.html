@@ -89,6 +89,7 @@ $(function() {
 <code>#include &quot;<a class="el" href="direct_8h_source.html">sopt/wavelets/direct.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="indirect_8h_source.html">sopt/wavelets/indirect.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="wavelet__data_8h_source.html">sopt/wavelets/wavelet_data.h</a>&quot;</code><br />
+<code>#include &lt;string&gt;</code><br />
 </div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Include dependency graph for wavelets.h:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -96,18 +97,20 @@ $(function() {
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="wavelets_2wavelets_8h__incl.png" border="0" usemap="#_2home_2runner_2work_2sopt_2sopt_2cpp_2sopt_2wavelets_2wavelets_8h" alt=""/></div>
 <map name="_2home_2runner_2work_2sopt_2sopt_2cpp_2sopt_2wavelets_2wavelets_8h" id="_2home_2runner_2work_2sopt_2sopt_2cpp_2sopt_2wavelets_2wavelets_8h">
-<area shape="rect" title=" " alt="" coords="251,5,429,61"/>
-<area shape="rect" title=" " alt="" coords="197,423,302,449"/>
-<area shape="rect" href="types_8h.html" title=" " alt="" coords="410,273,513,300"/>
-<area shape="rect" href="direct_8h.html" title=" " alt="" coords="497,109,663,136"/>
-<area shape="rect" href="wavelet__data_8h.html" title=" " alt="" coords="254,184,423,225"/>
-<area shape="rect" href="indirect_8h.html" title=" " alt="" coords="124,109,303,136"/>
-<area shape="rect" title=" " alt="" coords="613,423,691,449"/>
-<area shape="rect" title=" " alt="" coords="403,348,490,375"/>
-<area shape="rect" title=" " alt="" coords="287,348,379,375"/>
-<area shape="rect" href="real__type_8h.html" title=" " alt="" coords="667,348,794,375"/>
-<area shape="rect" title=" " alt="" coords="762,423,854,449"/>
-<area shape="rect" href="innards_8impl_8h.html" title=" " alt="" coords="93,273,304,300"/>
+<area shape="rect" title=" " alt="" coords="344,5,521,61"/>
+<area shape="rect" title=" " alt="" coords="415,423,520,449"/>
+<area shape="rect" href="types_8h.html" title=" " alt="" coords="335,273,437,300"/>
+<area shape="rect" href="direct_8h.html" title=" " alt="" coords="289,109,456,136"/>
+<area shape="rect" href="wavelet__data_8h.html" title=" " alt="" coords="409,184,579,225"/>
+<area shape="rect" href="indirect_8h.html" title=" " alt="" coords="531,109,710,136"/>
+<area shape="rect" title=" " alt="" coords="734,109,793,136"/>
+<area shape="rect" title=" " alt="" coords="219,423,297,449"/>
+<area shape="rect" title=" " alt="" coords="343,348,429,375"/>
+<area shape="rect" title=" " alt="" coords="556,348,648,375"/>
+<area shape="rect" href="real__type_8h.html" title=" " alt="" coords="39,348,165,375"/>
+<area shape="rect" title=" " alt="" coords="5,423,97,449"/>
+<area shape="rect" title=" " alt="" coords="723,348,809,375"/>
+<area shape="rect" href="innards_8impl_8h.html" title=" " alt="" coords="515,273,726,300"/>
 </map>
 </div>
 </div><div class="textblock"><div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -200,7 +203,7 @@ Functions</h2></td></tr>
 <div class="line">  if ((A).<a class="code" href="credible__region_8cc.html#a1cc6c6d663c5f0c6cbd63b69ca306721">rows</a>() != (B).<a class="code" href="credible__region_8cc.html#a1cc6c6d663c5f0c6cbd63b69ca306721">rows</a>() or (A).<a class="code" href="credible__region_8cc.html#a4f8d1cebdd1d0572b0f5ff58464b9216">cols</a>() != (B).<a class="code" href="credible__region_8cc.html#a4f8d1cebdd1d0572b0f5ff58464b9216">cols</a>())                                         \</div>
 <div class="line">  throw std::length_error(<span class="stringliteral">&quot;Incorrect size for output matrix(or could not resize)&quot;</span>)</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="wavelets_2wavelets_8h_source.html#l00039">39</a> of file <a class="el" href="wavelets_2wavelets_8h_source.html">wavelets.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="wavelets_2wavelets_8h_source.html#l00041">41</a> of file <a class="el" href="wavelets_2wavelets_8h_source.html">wavelets.h</a>.</p>
 
 </div>
 </div>
@@ -227,7 +230,7 @@ Functions</h2></td></tr>
 <div class="line">  else <span class="keywordflow">if</span> ((NAME).<a class="code" href="credible__region_8cc.html#a4f8d1cebdd1d0572b0f5ff58464b9216">cols</a>() % (1 &lt;&lt; levels()) != 0)                                              \</div>
 <div class="line">    throw std::length_error(<span class="stringliteral">&quot;Columns of &quot;</span> #NAME <span class="stringliteral">&quot; must number a multiple of 2^levels&quot;</span>);</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="wavelets_2wavelets_8h_source.html#l00031">31</a> of file <a class="el" href="wavelets_2wavelets_8h_source.html">wavelets.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="wavelets_2wavelets_8h_source.html#l00033">33</a> of file <a class="el" href="wavelets_2wavelets_8h_source.html">wavelets.h</a>.</p>
 
 </div>
 </div>

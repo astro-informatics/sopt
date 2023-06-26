@@ -118,7 +118,7 @@ class sopt::details::MatrixToLinearTransform&lt; EIGEN &gt;</h3>
 <p>Wraps a matrix into a function and its conjugate transpose. </p>
 <p>This class helps to wrap matrices into functions, such that we can use and store them such that SDMM algorithms can refer to them. </p>
 
-<p class="definition">Definition at line <a class="el" href="linear__transform_8h_source.html#l00021">21</a> of file <a class="el" href="linear__transform_8h_source.html">linear_transform.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linear__transform_8h_source.html#l00022">22</a> of file <a class="el" href="linear__transform_8h_source.html">linear_transform.h</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="afdd83f9048e9530ab421b0aae719cb70"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afdd83f9048e9530ab421b0aae719cb70">&#9670;&nbsp;</a></span>PlainObject</h2>
@@ -136,7 +136,7 @@ template&lt;class EIGEN &gt; </div>
 
 <p>The output type. </p>
 
-<p class="definition">Definition at line <a class="el" href="linear__transform_8h_source.html#l00148">148</a> of file <a class="el" href="linear__transform_8h_source.html">linear_transform.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linear__transform_8h_source.html#l00149">149</a> of file <a class="el" href="linear__transform_8h_source.html">linear_transform.h</a>.</p>
 
 </div>
 </div>
@@ -172,8 +172,8 @@ template&lt;class T0 &gt; </div>
 <p>Creates from an expression. </p>
 <p>Expression is evaluated and the result stored internally. This object owns a copy of the matrix. It might share it with a few friendly neighbors. </p>
 
-<p class="definition">Definition at line <a class="el" href="linear__transform_8h_source.html#l00153">153</a> of file <a class="el" href="linear__transform_8h_source.html">linear_transform.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;: matrix(std::make_shared&lt;EIGEN&gt;(A)) {}</div>
+<p class="definition">Definition at line <a class="el" href="linear__transform_8h_source.html#l00154">154</a> of file <a class="el" href="linear__transform_8h_source.html">linear_transform.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;: matrix(std::make_shared&lt;EIGEN&gt;(A)) {}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -205,8 +205,8 @@ template&lt;class EIGEN &gt; </div>
 
 <p>Creates from a shared matrix. </p>
 
-<p class="definition">Definition at line <a class="el" href="linear__transform_8h_source.html#l00155">155</a> of file <a class="el" href="linear__transform_8h_source.html">linear_transform.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;: matrix(x){};</div>
+<p class="definition">Definition at line <a class="el" href="linear__transform_8h_source.html#l00156">156</a> of file <a class="el" href="linear__transform_8h_source.html">linear_transform.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;: matrix(x){}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -239,12 +239,12 @@ template&lt;class EIGEN &gt; </div>
 <p>Returns conjugate transpose operator. </p>
 <p>The matrix is shared. </p>
 
-<p class="definition">Definition at line <a class="el" href="linear__transform_8h_source.html#l00168">168</a> of file <a class="el" href="linear__transform_8h_source.html">linear_transform.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;                                                        {</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    <span class="keywordflow">return</span> MatrixAdjointToLinearTransform&lt;EIGEN&gt;(matrix);</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;  }</div>
+<p class="definition">Definition at line <a class="el" href="linear__transform_8h_source.html#l00169">169</a> of file <a class="el" href="linear__transform_8h_source.html">linear_transform.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;                                                        {</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    <span class="keywordflow">return</span> MatrixAdjointToLinearTransform&lt;EIGEN&gt;(matrix);</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;  }</div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="linear__transform_8h_source.html#l00210">sopt::linear_transform()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="linear__transform_8h_source.html#l00211">sopt::linear_transform()</a>.</p>
 
 </div>
 </div>
@@ -286,15 +286,15 @@ template&lt;class EIGEN &gt; </div>
 
 <p>Performs operation. </p>
 
-<p class="definition">Definition at line <a class="el" href="linear__transform_8h_source.html#l00158">158</a> of file <a class="el" href="linear__transform_8h_source.html">linear_transform.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;                                                                {</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;<span class="preprocessor">#ifndef NDEBUG</span></div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    <span class="keywordflow">if</span> ((*matrix).cols() != x.size())</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;      <a class="code" href="exception_8h.html#a57974308768f9fafc7107b626a394f4f">SOPT_THROW</a>(<span class="stringliteral">&quot;Input vector and matrix do not match: &quot;</span>)</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;          &lt;&lt; out.cols() &lt;&lt; <span class="stringliteral">&quot; columns for &quot;</span> &lt;&lt; x.size() &lt;&lt; <span class="stringliteral">&quot; elements.&quot;</span>;</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    out = (*matrix) * x;</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;  }</div>
+<p class="definition">Definition at line <a class="el" href="linear__transform_8h_source.html#l00159">159</a> of file <a class="el" href="linear__transform_8h_source.html">linear_transform.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;                                                                {</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;<span class="preprocessor">#ifndef NDEBUG</span></div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    <span class="keywordflow">if</span> ((*matrix).cols() != x.size())</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;      <a class="code" href="exception_8h.html#a57974308768f9fafc7107b626a394f4f">SOPT_THROW</a>(<span class="stringliteral">&quot;Input vector and matrix do not match: &quot;</span>)</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;          &lt;&lt; out.cols() &lt;&lt; <span class="stringliteral">&quot; columns for &quot;</span> &lt;&lt; x.size() &lt;&lt; <span class="stringliteral">&quot; elements.&quot;</span>;</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    out = (*matrix) * x;</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;  }</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="exception_8h_source.html#l00046">SOPT_THROW</a>.</p>
 

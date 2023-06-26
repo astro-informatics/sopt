@@ -149,7 +149,7 @@ class sopt::details::WrapFunction&lt; VECTOR &gt;</h3>
 <p>Wraps an std::function to return an expression. </p>
 <p>This makes writing the application of a function more beautiful on the eye. A function call <code>func(output, input)</code> can be made to look like <code>output = func(input)</code> or <code>output = func * input</code>. </p>
 
-<p class="definition">Definition at line <a class="el" href="wrapper_8h_source.html#l00045">45</a> of file <a class="el" href="wrapper_8h_source.html">wrapper.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="wrapper_8h_source.html#l00046">46</a> of file <a class="el" href="wrapper_8h_source.html">wrapper.h</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="a0f3e11172f290c6702faa27c02358741"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0f3e11172f290c6702faa27c02358741">&#9670;&nbsp;</a></span>t_Function</h2>
@@ -167,7 +167,7 @@ template&lt;class VECTOR &gt; </div>
 
 <p>Type of function wrapped here. </p>
 
-<p class="definition">Definition at line <a class="el" href="wrapper_8h_source.html#l00048">48</a> of file <a class="el" href="wrapper_8h_source.html">wrapper.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="wrapper_8h_source.html#l00049">49</a> of file <a class="el" href="wrapper_8h_source.html">wrapper.h</a>.</p>
 
 </div>
 </div>
@@ -215,12 +215,12 @@ template&lt;class VECTOR &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="wrapper_8h_source.html#l00055">55</a> of file <a class="el" href="wrapper_8h_source.html">wrapper.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                                                                  {{1, 1, 0}})</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;      : func(func), sizes_(<a class="code" href="classsopt_1_1details_1_1WrapFunction.html#a5f72788d5be1218287fd3bd983f6c60d">sizes</a>) {</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="comment">// cannot devide by zero</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    assert(sizes_[1] != 0);</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  }</div>
+<p class="definition">Definition at line <a class="el" href="wrapper_8h_source.html#l00056">56</a> of file <a class="el" href="wrapper_8h_source.html">wrapper.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                                                                  {{1, 1, 0}})</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      : func(func), sizes_(<a class="code" href="classsopt_1_1details_1_1WrapFunction.html#a5f72788d5be1218287fd3bd983f6c60d">sizes</a>) {</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="comment">// cannot devide by zero</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    assert(sizes_[1] != 0);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -250,8 +250,8 @@ template&lt;class VECTOR &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="wrapper_8h_source.html#l00060">60</a> of file <a class="el" href="wrapper_8h_source.html">wrapper.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;: func(c.func), sizes_(c.sizes_) {}</div>
+<p class="definition">Definition at line <a class="el" href="wrapper_8h_source.html#l00061">61</a> of file <a class="el" href="wrapper_8h_source.html">wrapper.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;: func(c.func), sizes_(c.sizes_) {}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -281,8 +281,8 @@ template&lt;class VECTOR &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="wrapper_8h_source.html#l00061">61</a> of file <a class="el" href="wrapper_8h_source.html">wrapper.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;: func(std::move(c.func)), sizes_(std::move(c.sizes_)) {}</div>
+<p class="definition">Definition at line <a class="el" href="wrapper_8h_source.html#l00062">62</a> of file <a class="el" href="wrapper_8h_source.html">wrapper.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;: func(std::move(c.func)), sizes_(std::move(c.sizes_)) {}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -317,10 +317,10 @@ template&lt;class T0 &gt; </div>
 
 <p>Function application form. </p>
 
-<p class="definition">Definition at line <a class="el" href="wrapper_8h_source.html#l00073">73</a> of file <a class="el" href="wrapper_8h_source.html">wrapper.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                                         {</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordflow">return</span> AppliedFunction&lt;t_Function const &amp;, Eigen::ArrayBase&lt;T0&gt;&gt;(func, x, <a class="code" href="classsopt_1_1details_1_1WrapFunction.html#a0976189d18a07d8b31b1fbc278c4b8aa">rows</a>(x));</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  }</div>
+<p class="definition">Definition at line <a class="el" href="wrapper_8h_source.html#l00074">74</a> of file <a class="el" href="wrapper_8h_source.html">wrapper.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                                         {</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordflow">return</span> AppliedFunction&lt;t_Function const &amp;, Eigen::ArrayBase&lt;T0&gt;&gt;(func, x, <a class="code" href="classsopt_1_1details_1_1WrapFunction.html#a0976189d18a07d8b31b1fbc278c4b8aa">rows</a>(x));</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -354,10 +354,10 @@ template&lt;class T0 &gt; </div>
 
 <p>Function application form. </p>
 
-<p class="definition">Definition at line <a class="el" href="wrapper_8h_source.html#l00087">87</a> of file <a class="el" href="wrapper_8h_source.html">wrapper.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                                          {</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordflow">return</span> AppliedFunction&lt;t_Function const &amp;, Eigen::MatrixBase&lt;T0&gt;&gt;(func, x, <a class="code" href="classsopt_1_1details_1_1WrapFunction.html#a0976189d18a07d8b31b1fbc278c4b8aa">rows</a>(x));</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  }</div>
+<p class="definition">Definition at line <a class="el" href="wrapper_8h_source.html#l00088">88</a> of file <a class="el" href="wrapper_8h_source.html">wrapper.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                                          {</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keywordflow">return</span> AppliedFunction&lt;t_Function const &amp;, Eigen::MatrixBase&lt;T0&gt;&gt;(func, x, <a class="code" href="classsopt_1_1details_1_1WrapFunction.html#a0976189d18a07d8b31b1fbc278c4b8aa">rows</a>(x));</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -391,10 +391,10 @@ template&lt;class T0 &gt; </div>
 
 <p>Multiplication application form. </p>
 
-<p class="definition">Definition at line <a class="el" href="wrapper_8h_source.html#l00080">80</a> of file <a class="el" href="wrapper_8h_source.html">wrapper.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                                         {</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordflow">return</span> AppliedFunction&lt;t_Function const &amp;, Eigen::ArrayBase&lt;T0&gt;&gt;(func, x, <a class="code" href="classsopt_1_1details_1_1WrapFunction.html#a0976189d18a07d8b31b1fbc278c4b8aa">rows</a>(x));</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  }</div>
+<p class="definition">Definition at line <a class="el" href="wrapper_8h_source.html#l00081">81</a> of file <a class="el" href="wrapper_8h_source.html">wrapper.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                                         {</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordflow">return</span> AppliedFunction&lt;t_Function const &amp;, Eigen::ArrayBase&lt;T0&gt;&gt;(func, x, <a class="code" href="classsopt_1_1details_1_1WrapFunction.html#a0976189d18a07d8b31b1fbc278c4b8aa">rows</a>(x));</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -428,10 +428,10 @@ template&lt;class T0 &gt; </div>
 
 <p>Multiplication application form. </p>
 
-<p class="definition">Definition at line <a class="el" href="wrapper_8h_source.html#l00094">94</a> of file <a class="el" href="wrapper_8h_source.html">wrapper.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                                          {</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordflow">return</span> AppliedFunction&lt;t_Function const &amp;, Eigen::MatrixBase&lt;T0&gt;&gt;(func, x, <a class="code" href="classsopt_1_1details_1_1WrapFunction.html#a0976189d18a07d8b31b1fbc278c4b8aa">rows</a>(x));</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;  }</div>
+<p class="definition">Definition at line <a class="el" href="wrapper_8h_source.html#l00095">95</a> of file <a class="el" href="wrapper_8h_source.html">wrapper.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                                          {</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keywordflow">return</span> AppliedFunction&lt;t_Function const &amp;, Eigen::MatrixBase&lt;T0&gt;&gt;(func, x, <a class="code" href="classsopt_1_1details_1_1WrapFunction.html#a0976189d18a07d8b31b1fbc278c4b8aa">rows</a>(x));</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;  }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -461,11 +461,11 @@ template&lt;class VECTOR &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="wrapper_8h_source.html#l00066">66</a> of file <a class="el" href="wrapper_8h_source.html">wrapper.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                                   {</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    func = std::move(c.func);</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    sizes_ = std::move(c.sizes_);</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  }</div>
+<p class="definition">Definition at line <a class="el" href="wrapper_8h_source.html#l00067">67</a> of file <a class="el" href="wrapper_8h_source.html">wrapper.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                                   {</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    func = std::move(c.func);</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    sizes_ = std::move(c.sizes_);</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -495,13 +495,13 @@ template&lt;class VECTOR &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="wrapper_8h_source.html#l00062">62</a> of file <a class="el" href="wrapper_8h_source.html">wrapper.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                                        {</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    func = c.func;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    sizes_ = c.sizes_;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  }</div>
+<p class="definition">Definition at line <a class="el" href="wrapper_8h_source.html#l00063">63</a> of file <a class="el" href="wrapper_8h_source.html">wrapper.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                                        {</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    func = c.func;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    sizes_ = c.sizes_;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  }</div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="linear__transform_8h_source.html#l00068">sopt::LinearTransform&lt; t_Vector &gt;::operator=()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="linear__transform_8h_source.html#l00069">sopt::LinearTransform&lt; t_Vector &gt;::operator=()</a>.</p>
 
 </div>
 </div>
@@ -535,14 +535,14 @@ template&lt;class T &gt; </div>
 
 <p>Output vector size for a input with <code>xsize</code> elements. </p>
 
-<p class="definition">Definition at line <a class="el" href="wrapper_8h_source.html#l00109">109</a> of file <a class="el" href="wrapper_8h_source.html">wrapper.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;                                                                           {</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keyword">auto</span> <span class="keyword">const</span> result = (<span class="keyword">static_cast&lt;</span><a class="code" href="namespacesopt.html#a47796df8f5f6bbffc226292ef1ca8196">t_int</a><span class="keyword">&gt;</span>(xsize) * sizes_[0]) / sizes_[1] + sizes_[2];</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    assert(result &gt;= 0);</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(result);</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;  }</div>
+<p class="definition">Definition at line <a class="el" href="wrapper_8h_source.html#l00110">110</a> of file <a class="el" href="wrapper_8h_source.html">wrapper.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;                                                                           {</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="keyword">auto</span> <span class="keyword">const</span> result = (<span class="keyword">static_cast&lt;</span><a class="code" href="namespacesopt.html#a47796df8f5f6bbffc226292ef1ca8196">t_int</a><span class="keyword">&gt;</span>(xsize) * sizes_[0]) / sizes_[1] + sizes_[2];</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    assert(result &gt;= 0);</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(result);</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;  }</div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="wrapper_8h_source.html#l00073">sopt::details::WrapFunction&lt; t_Vector &gt;::operator()()</a>, and <a class="el" href="wrapper_8h_source.html#l00080">sopt::details::WrapFunction&lt; t_Vector &gt;::operator*()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="wrapper_8h_source.html#l00074">sopt::details::WrapFunction&lt; t_Vector &gt;::operator()()</a>, and <a class="el" href="wrapper_8h_source.html#l00081">sopt::details::WrapFunction&lt; t_Vector &gt;::operator*()</a>.</p>
 
 </div>
 </div>
@@ -574,8 +574,8 @@ template&lt;class VECTOR &gt; </div>
 <p>Defines relation-ship between input and output sizes. </p>
 <p>An integer tuple (a, b, c) where, if N is the size of the input, then \((N * a) / b + c\) is the output. \(b\) cannot be zero. In the simplest case where this objects wraps a square matrix, then the sizes are (1, 1, 0). If this objects wraps a rectangular matrix which halves the number of elements, then the sizes would be (1, 2, 0). </p>
 
-<p class="definition">Definition at line <a class="el" href="wrapper_8h_source.html#l00105">105</a> of file <a class="el" href="wrapper_8h_source.html">wrapper.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;{ <span class="keywordflow">return</span> sizes_; }</div>
+<p class="definition">Definition at line <a class="el" href="wrapper_8h_source.html#l00106">106</a> of file <a class="el" href="wrapper_8h_source.html">wrapper.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;{ <span class="keywordflow">return</span> sizes_; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -583,9 +583,9 @@ template&lt;class VECTOR &gt; </div>
 <li>/home/runner/work/sopt/sopt/cpp/sopt/<a class="el" href="wrapper_8h_source.html">wrapper.h</a></li>
 </ul>
 </div><!-- contents -->
-<div class="ttc" id="aclasssopt_1_1details_1_1WrapFunction_html_a5f72788d5be1218287fd3bd983f6c60d"><div class="ttname"><a href="classsopt_1_1details_1_1WrapFunction.html#a5f72788d5be1218287fd3bd983f6c60d">sopt::details::WrapFunction::sizes</a></div><div class="ttdeci">const std::array&lt; t_int, 3 &gt; &amp; sizes() const</div><div class="ttdoc">Defines relation-ship between input and output sizes.</div><div class="ttdef"><b>Definition:</b> <a href="wrapper_8h_source.html#l00105">wrapper.h:105</a></div></div>
+<div class="ttc" id="aclasssopt_1_1details_1_1WrapFunction_html_a5f72788d5be1218287fd3bd983f6c60d"><div class="ttname"><a href="classsopt_1_1details_1_1WrapFunction.html#a5f72788d5be1218287fd3bd983f6c60d">sopt::details::WrapFunction::sizes</a></div><div class="ttdeci">const std::array&lt; t_int, 3 &gt; &amp; sizes() const</div><div class="ttdoc">Defines relation-ship between input and output sizes.</div><div class="ttdef"><b>Definition:</b> <a href="wrapper_8h_source.html#l00106">wrapper.h:106</a></div></div>
 <div class="ttc" id="anamespacesopt_html_a47796df8f5f6bbffc226292ef1ca8196"><div class="ttname"><a href="namespacesopt.html#a47796df8f5f6bbffc226292ef1ca8196">sopt::t_int</a></div><div class="ttdeci">int t_int</div><div class="ttdoc">Root of the type hierarchy for signed integers.</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00013">types.h:13</a></div></div>
-<div class="ttc" id="aclasssopt_1_1details_1_1WrapFunction_html_a0976189d18a07d8b31b1fbc278c4b8aa"><div class="ttname"><a href="classsopt_1_1details_1_1WrapFunction.html#a0976189d18a07d8b31b1fbc278c4b8aa">sopt::details::WrapFunction::rows</a></div><div class="ttdeci">std::enable_if&lt; std::is_integral&lt; T &gt;::value, T &gt;::type rows(T xsize) const</div><div class="ttdoc">Output vector size for a input with xsize elements.</div><div class="ttdef"><b>Definition:</b> <a href="wrapper_8h_source.html#l00109">wrapper.h:109</a></div></div>
+<div class="ttc" id="aclasssopt_1_1details_1_1WrapFunction_html_a0976189d18a07d8b31b1fbc278c4b8aa"><div class="ttname"><a href="classsopt_1_1details_1_1WrapFunction.html#a0976189d18a07d8b31b1fbc278c4b8aa">sopt::details::WrapFunction::rows</a></div><div class="ttdeci">std::enable_if&lt; std::is_integral&lt; T &gt;::value, T &gt;::type rows(T xsize) const</div><div class="ttdoc">Output vector size for a input with xsize elements.</div><div class="ttdef"><b>Definition:</b> <a href="wrapper_8h_source.html#l00110">wrapper.h:110</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">
