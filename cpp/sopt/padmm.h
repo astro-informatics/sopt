@@ -17,19 +17,19 @@ template <class SCALAR>
 class ProximalADMM {
  public:
   //! Scalar type
-  typedef SCALAR value_type;
+  using value_type = SCALAR;
   //! Scalar type
-  typedef value_type Scalar;
+  using Scalar = value_type;
   //! Real type
-  typedef typename real_type<Scalar>::type Real;
+  using Real = typename real_type<Scalar>::type;
   //! Type of then underlying vectors
-  typedef Vector<Scalar> t_Vector;
+  using t_Vector = Vector<Scalar>;
   //! Type of the Ψ and Ψ^H operations, as well as Φ and Φ^H
-  typedef LinearTransform<t_Vector> t_LinearTransform;
+  using t_LinearTransform = LinearTransform<t_Vector>;
   //! Type of the convergence function
-  typedef std::function<bool(t_Vector const &, t_Vector const &)> t_IsConverged;
+  using t_IsConverged = std::function<bool (const t_Vector &, const t_Vector &)>;
   //! Type of the convergence function
-  typedef ProximalFunction<Scalar> t_Proximal;
+  using t_Proximal = ProximalFunction<Scalar>;
 
   //! Values indicating how the algorithm ran
   struct Diagnostic {

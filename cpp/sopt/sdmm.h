@@ -35,19 +35,19 @@ class SDMM {
     Vector<SCALAR> x;
   };
   //! Scalar type
-  typedef SCALAR value_type;
+  using value_type = SCALAR;
   //! Scalar type
-  typedef value_type Scalar;
+  using Scalar = value_type;
   //! Real type
-  typedef typename real_type<Scalar>::type Real;
+  using Real = typename real_type<Scalar>::type;
   //! Type of then underlying vectors
-  typedef Vector<SCALAR> t_Vector;
+  using t_Vector = Vector<SCALAR>;
   //! Type of the A and A^H operations
-  typedef LinearTransform<t_Vector> t_LinearTransform;
+  using t_LinearTransform = LinearTransform<t_Vector>;
   //! Type of the proximal functions
-  typedef ProximalFunction<SCALAR> t_Proximal;
+  using t_Proximal = ProximalFunction<SCALAR>;
   //! Type of the convergence function
-  typedef ConvergenceFunction<SCALAR> t_IsConverged;
+  using t_IsConverged = ConvergenceFunction<SCALAR>;
 
   SDMM()
       : itermax_(std::numeric_limits<t_uint>::max()),
@@ -177,7 +177,7 @@ class SDMM {
   std::vector<t_Proximal> proximals_;
 
   //! Type of the list of vectors
-  typedef std::vector<t_Vector> t_Vectors;
+  using t_Vectors = std::vector<t_Vector>;
   //! Conjugate gradient step
   virtual ConjugateGradient::Diagnostic solve_for_xn(t_Vector &out, t_Vectors const &y,
                                                      t_Vectors const &z) const;

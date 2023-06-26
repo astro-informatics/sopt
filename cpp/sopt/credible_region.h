@@ -77,7 +77,7 @@ std::tuple<t_real, t_real, t_real> find_credible_interval(
     const std::tuple<t_uint, t_uint, t_uint, t_uint> &region,
     const std::function<t_real(typename T::PlainObject)> &objective_function,
     const t_real &energy_upperbound) {
-  typedef typename T::PlainObject Derived;
+  using Derived = typename T::PlainObject;
   assert(energy_upperbound > 0);
   if (solution.size() != cols * rows) SOPT_THROW("Solution is wrong size for credible interval.");
   if ((std::get<2>(region) > rows) or (std::get<3>(region) > cols))
@@ -133,7 +133,7 @@ credible_interval_grid(const Eigen::MatrixBase<T> &solution, const t_uint &rows,
                        const t_real &energy_upperbound) {
   if ((std::get<0>(grid_pixel_size) > rows) or (std::get<1>(grid_pixel_size) > cols))
     SOPT_THROW("Grid pixel size too big.");
-  typedef typename T::PlainObject Derived;
+  using Derived = typename T::PlainObject;
   const t_uint drow = std::get<0>(grid_pixel_size);
   const t_uint dcol = std::get<1>(grid_pixel_size);
   const t_uint grid_rows = std::floor(static_cast<t_real>(rows) / drow);

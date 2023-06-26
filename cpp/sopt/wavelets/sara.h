@@ -177,7 +177,7 @@ void SARA::indirect(Eigen::ArrayBase<T1> const &coeffs, Eigen::ArrayBase<T0> &si
 
 template <class T0>
 typename T0::PlainObject SARA::indirect(Eigen::ArrayBase<T0> const &coeffs) const {
-  typedef decltype(this->front().indirect(coeffs)) t_Output;
+  using t_Output = decltype(this->front().indirect(coeffs));
   t_Output signal = t_Output::Zero(coeffs.rows(), coeffs.cols() / size());
   (*this).indirect(coeffs, signal);
   return signal;
@@ -185,7 +185,7 @@ typename T0::PlainObject SARA::indirect(Eigen::ArrayBase<T0> const &coeffs) cons
 
 template <class T0>
 typename T0::PlainObject SARA::direct(Eigen::ArrayBase<T0> const &signal) const {
-  typedef decltype(this->front().direct(signal)) t_Output;
+  using t_Output = decltype(this->front().direct(signal));
   t_Output result = t_Output::Zero(signal.rows(), signal.cols() * size());
   (*this).direct(result, signal);
   return result;

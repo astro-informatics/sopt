@@ -14,14 +14,14 @@
 
 TEST_CASE("Gradient Operator") {
   using namespace sopt;
-  // Some typedefs for simplicity
-  typedef double Scalar;
+  // Some type aliases for simplicity
+  using Scalar = double;
 
-  typedef sopt::Vector<Scalar> Vector;
+  using Vector = sopt::Vector<Scalar>;
 
-  typedef sopt::Matrix<Scalar> Matrix;
+  using Matrix = sopt::Matrix<Scalar>;
 
-  typedef sopt::Image<Scalar> Image;
+  using Image = sopt::Image<Scalar>;
 
   Image const image = sopt::notinstalled::read_standard_tiff("cameraman256");
   auto const psi = sopt::gradient_operator::gradient_operator<Scalar>(image.rows(), image.cols());

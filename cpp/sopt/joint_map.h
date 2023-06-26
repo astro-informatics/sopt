@@ -15,11 +15,11 @@ namespace sopt::algorithm {
 
 template <class ALGORITHM>
 class JointMAP {
-  typedef typename ALGORITHM::t_Vector t_Vector;
-  typedef typename std::function<t_real(const t_Vector &)> t_Reg_Term;
-  typedef typename ALGORITHM::DiagnosticAndResult ResultType;
+  using t_Vector = typename ALGORITHM::t_Vector;
+  using t_Reg_Term = typename std::function<t_real (const t_Vector &)>;
+  using ResultType = typename ALGORITHM::DiagnosticAndResult;
   //! Type of the convergence function
-  typedef std::function<bool(t_Vector const &, t_Vector const &, t_real const)> t_IsConverged;
+  using t_IsConverged = std::function<bool (const t_Vector &, const t_Vector &, const t_real)>;
 
  public:
   //! Holds results and reg parameter
@@ -100,7 +100,7 @@ class JointMAP {
     sanity_check(this->algo_ptr_->gamma(), beta(), alpha());
     t_uint niters(0);
     bool converged = false;
-    typedef typename ALGORITHM::DiagnosticAndResult ResultType;
+    using ResultType = typename ALGORITHM::DiagnosticAndResult;
     ResultType result = (*(this->algo_ptr_))(std::forward<ARGS>(args)...);
     t_real gamma = 0;
     niters++;

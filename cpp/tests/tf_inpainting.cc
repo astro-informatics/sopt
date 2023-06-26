@@ -23,10 +23,10 @@
 
 // \min_{x} ||\Psi^Tx||_1 \quad \mbox{s.t.} \quad ||y - Ax||_2 < \epsilon and x \geq 0
 
-typedef double Scalar;
-typedef sopt::Vector<Scalar> Vector;
-typedef sopt::Matrix<Scalar> Matrix;
-typedef sopt::Image<Scalar> Image;
+using Scalar = double;
+using Vector = sopt::Vector<Scalar>;
+using Matrix = sopt::Matrix<Scalar>;
+using Image = sopt::Image<Scalar>;
 
 TEST_CASE("Inpainting"){
   extern std::unique_ptr<std::mt19937_64> mersenne;
