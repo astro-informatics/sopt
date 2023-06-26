@@ -3,6 +3,7 @@
 // TODO: Clean up unnecessary includes
 #include "sopt/config.h"
 #include <numeric>
+#include <string> // for std::string
 #include <tuple>
 #include <utility>
 #include "sopt/exception.h"

@@ -2,6 +2,7 @@
 #define SOPT_L1_PROXIMAL_ADMM_H
 
 #include "sopt/config.h"
+#include <limits> // for std::numeric_limits<>
 #include <numeric>
 #include <tuple>
 #include <utility>
@@ -322,7 +323,7 @@ bool ImagingProximalADMM<SCALAR>::residual_convergence(t_Vector const &x,
   auto const residual_norm = sopt::l2_norm(residual, l2ball_proximal_weights());
   SOPT_LOW_LOG("    - [PADMM] Residuals: {} <? {}", residual_norm, residual_tolerance());
   return residual_norm < residual_tolerance();
-};
+}
 
 template <class SCALAR>
 bool ImagingProximalADMM<SCALAR>::objective_convergence(ScalarRelativeVariation<Scalar> &scalvar,
@@ -333,7 +334,7 @@ bool ImagingProximalADMM<SCALAR>::objective_convergence(ScalarRelativeVariation<
   auto const current =
       sopt::l1_norm(static_cast<t_Vector>(Psi().adjoint() * x), l1_proximal_weights());
   return scalvar(current);
-};
+}
 
 template <class SCALAR>
 bool ImagingProximalADMM<SCALAR>::is_converged(ScalarRelativeVariation<Scalar> &scalvar,

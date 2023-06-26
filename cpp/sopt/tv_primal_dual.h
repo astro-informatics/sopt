@@ -2,6 +2,7 @@
 #define SOPT_TV_PRIMAL_DUAL_H
 
 #include "sopt/config.h"
+#include <limits>  // for std::numeric_limits<>
 #include <numeric>
 #include <tuple>
 #include <utility>

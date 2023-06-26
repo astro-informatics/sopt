@@ -2,8 +2,10 @@
 #define SOPT_WAVELETS_SARA_H
 
 #include "sopt/config.h"
+#include <algorithm> // for std::min<>
 #include <cmath>
 #include <initializer_list>
+#include <string> // for std::string
 #include <tuple>
 #include <vector>
 #include "sopt/logging.h"

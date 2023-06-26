@@ -2,6 +2,8 @@
 #define SOPT_LOGGING_ENABLED_H
 
 #include "sopt/config.h"
+#include <memory> // for std::shared_ptr<>
+#include <string> // for std::string
 #include <spdlog/fmt/ostr.h>
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/stdout_sinks.h>

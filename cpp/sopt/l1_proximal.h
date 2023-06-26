@@ -4,6 +4,7 @@
 #include "sopt/config.h"
 #include <array>
 #include <type_traits>
+#include <utility> // for std::forward<>
 #include <Eigen/Core>
 #include "sopt/linear_transform.h"
 #include "sopt/maths.h"

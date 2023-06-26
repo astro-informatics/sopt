@@ -4,6 +4,8 @@
 #include "sopt/config.h"
 #include <functional>
 #include <limits>
+#include <memory> // for std::shared_ptr<>
+#include <utility> // for std::forward<>
 #include "sopt/exception.h"
 #include "sopt/forward_backward.h"
 #include "sopt/imaging_forward_backward.h"
@@ -42,7 +44,7 @@ class JointMAP {
         is_converged_([](t_Vector const &, t_Vector const &, t_real const) { return true; }),
         relative_variation_(1e-3),
         objective_variation_(1e-3),
-        itermax_(std::numeric_limits<t_uint>::max()){};
+        itermax_(std::numeric_limits<t_uint>::max()){}
 
 #define SOPT_MACRO(NAME, TYPE)                  \
   TYPE const &NAME() const { return NAME##_; }  \
@@ -131,7 +133,7 @@ class JointMAP {
     diagnostic.reg_niters = niters;
     diagnostic.reg_term = gamma;
     return diagnostic;
-  };
+  }
 };
 
 } // namespace sopt::algorithm

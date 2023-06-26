@@ -7,6 +7,8 @@
 #include "sopt/wavelets/indirect.h"
 #include "sopt/wavelets/wavelet_data.h"
 
+#include <string> // for std::string
+
 namespace sopt::wavelets {
 
 // Advance declaration so we can define the subsequent friend function
