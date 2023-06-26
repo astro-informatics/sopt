@@ -151,7 +151,7 @@ Functions</h2></td></tr>
 <p class="definition">Definition at line <a class="el" href="examples_2sara_8cc_source.html#l00003">3</a> of file <a class="el" href="examples_2sara_8cc_source.html">sara.cc</a>.</p>
 <div class="fragment"><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                             {</div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;  <span class="comment">// Creates SARA with two wavelets</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;  <span class="keyword">typedef</span> std::tuple&lt;std::string, sopt::t_uint&gt; t_i;</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;  <span class="keyword">using</span> t_i = std::tuple&lt;std::string, sopt::t_uint&gt;;</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;  <a class="code" href="classsopt_1_1wavelets_1_1SARA.html">sopt::wavelets::SARA</a> sara{t_i{<span class="stringliteral">&quot;DB4&quot;</span>, 5}, t_i{<span class="stringliteral">&quot;DB8&quot;</span>, 2}};</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;  <span class="comment">// Then another one for good measure</span></div>

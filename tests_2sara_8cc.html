@@ -135,7 +135,7 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a2b78fa46a1e414e56828982c20223ced"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacesopt.html#a31ab3e07b254312a99a9fe2918b0a625">sopt::t_int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tests_2sara_8cc.html#a2b78fa46a1e414e56828982c20223ced">random_integer</a> (<a class="el" href="namespacesopt.html#a31ab3e07b254312a99a9fe2918b0a625">sopt::t_int</a> min, <a class="el" href="namespacesopt.html#a31ab3e07b254312a99a9fe2918b0a625">sopt::t_int</a> max)</td></tr>
+<tr class="memitem:a2b78fa46a1e414e56828982c20223ced"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacesopt.html#a47796df8f5f6bbffc226292ef1ca8196">sopt::t_int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tests_2sara_8cc.html#a2b78fa46a1e414e56828982c20223ced">random_integer</a> (<a class="el" href="namespacesopt.html#a47796df8f5f6bbffc226292ef1ca8196">sopt::t_int</a> min, <a class="el" href="namespacesopt.html#a47796df8f5f6bbffc226292ef1ca8196">sopt::t_int</a> max)</td></tr>
 <tr class="separator:a2b78fa46a1e414e56828982c20223ced"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac7522da5be4e528df7a665b87857e1cb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tests_2sara_8cc.html#ac7522da5be4e528df7a665b87857e1cb">TEST_CASE</a> (&quot;Check <a class="el" href="classsopt_1_1wavelets_1_1SARA.html">SARA</a> implementation mechanically&quot;, &quot;[wavelet]&quot;)</td></tr>
 <tr class="separator:ac7522da5be4e528df7a665b87857e1cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -150,15 +150,15 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespacesopt.html#a31ab3e07b254312a99a9fe2918b0a625">sopt::t_int</a> random_integer </td>
+          <td class="memname"><a class="el" href="namespacesopt.html#a47796df8f5f6bbffc226292ef1ca8196">sopt::t_int</a> random_integer </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespacesopt.html#a31ab3e07b254312a99a9fe2918b0a625">sopt::t_int</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="namespacesopt.html#a47796df8f5f6bbffc226292ef1ca8196">sopt::t_int</a>&#160;</td>
           <td class="paramname"><em>min</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="namespacesopt.html#a31ab3e07b254312a99a9fe2918b0a625">sopt::t_int</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="namespacesopt.html#a47796df8f5f6bbffc226292ef1ca8196">sopt::t_int</a>&#160;</td>
           <td class="paramname"><em>max</em>&#160;</td>
         </tr>
         <tr>
@@ -211,7 +211,7 @@ Functions</h2></td></tr>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;  <span class="keyword">using namespace </span><a class="code" href="namespacesopt_1_1wavelets.html">sopt::wavelets</a>;</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;  <span class="keyword">using namespace </span><a class="code" href="namespacesopt.html">sopt</a>;</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  <span class="keyword">typedef</span> std::tuple&lt;std::string, sopt::t_uint&gt; t_i;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  <span class="keyword">using</span> t_i = std::tuple&lt;std::string, sopt::t_uint&gt;;</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;  <a class="code" href="classsopt_1_1wavelets_1_1SARA.html">SARA</a> <span class="keyword">const</span> sara{t_i{std::string{<span class="stringliteral">&quot;DB3&quot;</span>}, 1u}, t_i{std::string{<span class="stringliteral">&quot;DB1&quot;</span>}, 2u},</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;                  t_i{std::string{<span class="stringliteral">&quot;DB1&quot;</span>}, 3u}};</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  SECTION(<span class="stringliteral">&quot;Construction and vector functionality&quot;</span>) {</div>

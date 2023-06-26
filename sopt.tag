@@ -321,7 +321,7 @@
       <type>sopt::Array&lt; sopt::t_uint &gt;</type>
       <name>t_iVector</name>
       <anchorfile>tests_2wavelets_8cc.html</anchorfile>
-      <anchor>a323990a3197526205f706ab114148ed5</anchor>
+      <anchor>a60a6ca32f7529c3853daadce1b8a2173</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -538,28 +538,28 @@
       <type>double</type>
       <name>Scalar</name>
       <anchorfile>tests_2inpainting_8cc.html</anchorfile>
-      <anchor>a508fc58b5dc3c81865305f6498457063</anchor>
+      <anchor>a8c2981f3f834be9448a6ab06c28748eb</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>sopt::Vector&lt; Scalar &gt;</type>
       <name>Vector</name>
       <anchorfile>tests_2inpainting_8cc.html</anchorfile>
-      <anchor>a6fd0dc2cf65e56d59d152836caa7a634</anchor>
+      <anchor>a47c194cae73625ab3a13b62e4234f46f</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>sopt::Matrix&lt; Scalar &gt;</type>
       <name>Matrix</name>
       <anchorfile>tests_2inpainting_8cc.html</anchorfile>
-      <anchor>a13b14861c460865de4cd78381e258bf4</anchor>
+      <anchor>ab86a00c212fb2233871e057014ded6a6</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>sopt::Image&lt; Scalar &gt;</type>
       <name>Image</name>
       <anchorfile>tests_2inpainting_8cc.html</anchorfile>
-      <anchor>a597c232bc74255c74fa9d7b0dadff132</anchor>
+      <anchor>aeeca20f5186519056cf53849afb07e6e</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -1744,7 +1744,7 @@
       <type>decltype(std::bind(soft_threshhold&lt; SCALAR &gt;, std::placeholders::_1, typename real_type&lt; SCALAR &gt;::type(1)))</type>
       <name>SoftThreshhold</name>
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1details.html</anchorfile>
-      <anchor>afb4d080f72ab33d8ac369ae1abf26bb9</anchor>
+      <anchor>a9b2c8778a2d73aff0499c9f899fe16df</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -2479,28 +2479,28 @@
       <type>int</type>
       <name>t_int</name>
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt.html</anchorfile>
-      <anchor>a31ab3e07b254312a99a9fe2918b0a625</anchor>
+      <anchor>a47796df8f5f6bbffc226292ef1ca8196</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>size_t</type>
       <name>t_uint</name>
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt.html</anchorfile>
-      <anchor>a96a6515fd2aa0c9f5789d33e09fa6477</anchor>
+      <anchor>a7237c0991f6ec8c2bbdab8929b564964</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>double</type>
       <name>t_real</name>
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt.html</anchorfile>
-      <anchor>ac63d8bc953beeb56a063f174ce7f2a0a</anchor>
+      <anchor>a71bfb8f70b432862d3d654b9dcff77cc</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>std::complex&lt; t_real &gt;</type>
       <name>t_complex</name>
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt.html</anchorfile>
-      <anchor>a7d57def65a6a53f6b5b39dd9b4bb870c</anchor>
+      <anchor>ad24bc0cbf4f1391b3d1440213329d13f</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
@@ -3130,21 +3130,21 @@
       <type>sopt::t_real</type>
       <name>Scalar</name>
       <anchorfile>bisection__method_8cc.html</anchorfile>
-      <anchor>aaa5809f25d167ed398d63ae4dbc63648</anchor>
+      <anchor>aa0bfbe32b639db5c015dd41a0ac7ca35</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>sopt::Vector&lt; Scalar &gt;</type>
       <name>t_Vector</name>
       <anchorfile>bisection__method_8cc.html</anchorfile>
-      <anchor>a4aacec93fc3bad0dfbec9fa2912c1aaf</anchor>
+      <anchor>a150b8eda2681eca0377a440541891747</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>sopt::Matrix&lt; Scalar &gt;</type>
       <name>t_Matrix</name>
       <anchorfile>bisection__method_8cc.html</anchorfile>
-      <anchor>aadaf1c1fa629b56227feb65f3cbbf8b7</anchor>
+      <anchor>af5108e9a04c373219bb09b4d5dd53451</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -3272,14 +3272,14 @@
       <type>double</type>
       <name>Scalar</name>
       <anchorfile>cppflow__model_8cc.html</anchorfile>
-      <anchor>a508fc58b5dc3c81865305f6498457063</anchor>
+      <anchor>a8c2981f3f834be9448a6ab06c28748eb</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>sopt::Image&lt; Scalar &gt;</type>
       <name>Image</name>
       <anchorfile>cppflow__model_8cc.html</anchorfile>
-      <anchor>a597c232bc74255c74fa9d7b0dadff132</anchor>
+      <anchor>aeeca20f5186519056cf53849afb07e6e</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -3301,21 +3301,21 @@
       <type>t_complex</type>
       <name>Scalar</name>
       <anchorfile>credible__region_8cc.html</anchorfile>
-      <anchor>a5d18f8e4ae45d0359379fc8b65368aef</anchor>
+      <anchor>a2347294fdd41052ca5fcf094e671f436</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>Vector&lt; Scalar &gt;</type>
       <name>t_Vector</name>
       <anchorfile>credible__region_8cc.html</anchorfile>
-      <anchor>a533c16055ca8840f4ab0e5c74d80beea</anchor>
+      <anchor>a90b7f369945ab869d4b0dcc03b7475fc</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>Image&lt; Scalar &gt;</type>
       <name>t_Image</name>
       <anchorfile>credible__region_8cc.html</anchorfile>
-      <anchor>a00f08ed9d34581f9b20d971435fba1a9</anchor>
+      <anchor>a428908316d6c85e77d127ec366f99b47</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -3385,21 +3385,21 @@
       <type>sopt::t_real</type>
       <name>Scalar</name>
       <anchorfile>forward__backward_8cc.html</anchorfile>
-      <anchor>aaa5809f25d167ed398d63ae4dbc63648</anchor>
+      <anchor>aa0bfbe32b639db5c015dd41a0ac7ca35</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>sopt::Vector&lt; Scalar &gt;</type>
       <name>t_Vector</name>
       <anchorfile>forward__backward_8cc.html</anchorfile>
-      <anchor>a4aacec93fc3bad0dfbec9fa2912c1aaf</anchor>
+      <anchor>a150b8eda2681eca0377a440541891747</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>sopt::t_real</type>
       <name>t_real</name>
       <anchorfile>forward__backward_8cc.html</anchorfile>
-      <anchor>a06ea74880cd1ee9d09d85ebee340d286</anchor>
+      <anchor>adf3dc3fe16f041e337211cca9c8882dc</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -3615,21 +3615,21 @@
       <type>sopt::t_real</type>
       <name>Scalar</name>
       <anchorfile>padmm_8cc.html</anchorfile>
-      <anchor>aaa5809f25d167ed398d63ae4dbc63648</anchor>
+      <anchor>aa0bfbe32b639db5c015dd41a0ac7ca35</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>sopt::Vector&lt; Scalar &gt;</type>
       <name>t_Vector</name>
       <anchorfile>padmm_8cc.html</anchorfile>
-      <anchor>a4aacec93fc3bad0dfbec9fa2912c1aaf</anchor>
+      <anchor>a150b8eda2681eca0377a440541891747</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>sopt::Matrix&lt; Scalar &gt;</type>
       <name>t_Matrix</name>
       <anchorfile>padmm_8cc.html</anchorfile>
-      <anchor>aadaf1c1fa629b56227feb65f3cbbf8b7</anchor>
+      <anchor>af5108e9a04c373219bb09b4d5dd53451</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -3672,21 +3672,21 @@
       <type>sopt::t_real</type>
       <name>Scalar</name>
       <anchorfile>padmm__warm__start_8cc.html</anchorfile>
-      <anchor>aaa5809f25d167ed398d63ae4dbc63648</anchor>
+      <anchor>aa0bfbe32b639db5c015dd41a0ac7ca35</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>sopt::Vector&lt; Scalar &gt;</type>
       <name>t_Vector</name>
       <anchorfile>padmm__warm__start_8cc.html</anchorfile>
-      <anchor>a4aacec93fc3bad0dfbec9fa2912c1aaf</anchor>
+      <anchor>a150b8eda2681eca0377a440541891747</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>sopt::Matrix&lt; Scalar &gt;</type>
       <name>t_Matrix</name>
       <anchorfile>padmm__warm__start_8cc.html</anchorfile>
-      <anchor>aadaf1c1fa629b56227feb65f3cbbf8b7</anchor>
+      <anchor>af5108e9a04c373219bb09b4d5dd53451</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -3717,21 +3717,21 @@
       <type>sopt::t_real</type>
       <name>Scalar</name>
       <anchorfile>primal__dual_8cc.html</anchorfile>
-      <anchor>aaa5809f25d167ed398d63ae4dbc63648</anchor>
+      <anchor>aa0bfbe32b639db5c015dd41a0ac7ca35</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>sopt::Vector&lt; Scalar &gt;</type>
       <name>t_Vector</name>
       <anchorfile>primal__dual_8cc.html</anchorfile>
-      <anchor>a4aacec93fc3bad0dfbec9fa2912c1aaf</anchor>
+      <anchor>a150b8eda2681eca0377a440541891747</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>sopt::Matrix&lt; Scalar &gt;</type>
       <name>t_Matrix</name>
       <anchorfile>primal__dual_8cc.html</anchorfile>
-      <anchor>aadaf1c1fa629b56227feb65f3cbbf8b7</anchor>
+      <anchor>af5108e9a04c373219bb09b4d5dd53451</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -3839,21 +3839,21 @@
       <type>sopt::t_real</type>
       <name>Scalar</name>
       <anchorfile>sdmm_8cc.html</anchorfile>
-      <anchor>aaa5809f25d167ed398d63ae4dbc63648</anchor>
+      <anchor>aa0bfbe32b639db5c015dd41a0ac7ca35</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>sopt::Vector&lt; Scalar &gt;</type>
       <name>t_Vector</name>
       <anchorfile>sdmm_8cc.html</anchorfile>
-      <anchor>a4aacec93fc3bad0dfbec9fa2912c1aaf</anchor>
+      <anchor>a150b8eda2681eca0377a440541891747</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>sopt::Matrix&lt; Scalar &gt;</type>
       <name>t_Matrix</name>
       <anchorfile>sdmm_8cc.html</anchorfile>
-      <anchor>aadaf1c1fa629b56227feb65f3cbbf8b7</anchor>
+      <anchor>af5108e9a04c373219bb09b4d5dd53451</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -3903,21 +3903,21 @@
       <type>sopt::t_real</type>
       <name>Scalar</name>
       <anchorfile>sdmm__warm__start_8cc.html</anchorfile>
-      <anchor>aaa5809f25d167ed398d63ae4dbc63648</anchor>
+      <anchor>aa0bfbe32b639db5c015dd41a0ac7ca35</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>sopt::Vector&lt; Scalar &gt;</type>
       <name>t_Vector</name>
       <anchorfile>sdmm__warm__start_8cc.html</anchorfile>
-      <anchor>a4aacec93fc3bad0dfbec9fa2912c1aaf</anchor>
+      <anchor>a150b8eda2681eca0377a440541891747</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>sopt::Matrix&lt; Scalar &gt;</type>
       <name>t_Matrix</name>
       <anchorfile>sdmm__warm__start_8cc.html</anchorfile>
-      <anchor>aadaf1c1fa629b56227feb65f3cbbf8b7</anchor>
+      <anchor>af5108e9a04c373219bb09b4d5dd53451</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -3975,28 +3975,28 @@
       <type>double</type>
       <name>Scalar</name>
       <anchorfile>tf__inpainting_8cc.html</anchorfile>
-      <anchor>a508fc58b5dc3c81865305f6498457063</anchor>
+      <anchor>a8c2981f3f834be9448a6ab06c28748eb</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>sopt::Vector&lt; Scalar &gt;</type>
       <name>Vector</name>
       <anchorfile>tf__inpainting_8cc.html</anchorfile>
-      <anchor>a6fd0dc2cf65e56d59d152836caa7a634</anchor>
+      <anchor>a47c194cae73625ab3a13b62e4234f46f</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>sopt::Matrix&lt; Scalar &gt;</type>
       <name>Matrix</name>
       <anchorfile>tf__inpainting_8cc.html</anchorfile>
-      <anchor>a13b14861c460865de4cd78381e258bf4</anchor>
+      <anchor>ab86a00c212fb2233871e057014ded6a6</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>sopt::Image&lt; Scalar &gt;</type>
       <name>Image</name>
       <anchorfile>tf__inpainting_8cc.html</anchorfile>
-      <anchor>a597c232bc74255c74fa9d7b0dadff132</anchor>
+      <anchor>aeeca20f5186519056cf53849afb07e6e</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -4159,17 +4159,17 @@
     <templarg></templarg>
     <templarg></templarg>
     <member kind="typedef">
-      <type>DERIVED::PlainObject</type>
+      <type>typename DERIVED::PlainObject</type>
       <name>PlainObject</name>
       <anchorfile>classsopt_1_1details_1_1AppliedFunction.html</anchorfile>
-      <anchor>a5e7b8e1b154c62b4c420f873913832c1</anchor>
+      <anchor>a1c62d07a2fc580ae4ec8fa03330aeddb</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>DERIVED::Index</type>
+      <type>typename DERIVED::Index</type>
       <name>Index</name>
       <anchorfile>classsopt_1_1details_1_1AppliedFunction.html</anchorfile>
-      <anchor>a41f1a1442b04d947ea1febf44817bb28</anchor>
+      <anchor>afbeb92a0c96c09f6f0613c4fd5b03c2d</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -4226,10 +4226,10 @@
     <name>sopt::proximal::L1::Breaker</name>
     <filename>http://astro-informatics.github.io/sopt/classsopt_1_1proximal_1_1L1_1_1Breaker.html</filename>
     <member kind="typedef">
-      <type>real_type&lt; SCALAR &gt;::type</type>
+      <type>typename real_type&lt; SCALAR &gt;::type</type>
       <name>Real</name>
       <anchorfile>classsopt_1_1proximal_1_1L1_1_1Breaker.html</anchorfile>
-      <anchor>a24361b4e24e0be7693d0d992077294e8</anchor>
+      <anchor>aadd7640a9a05de59fef679fdf094da8e</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -4304,7 +4304,7 @@
       <type>Eigen::Matrix&lt; T, Eigen::Dynamic, 1 &gt;</type>
       <name>t_Vector</name>
       <anchorfile>structsopt_1_1CData.html</anchorfile>
-      <anchor>a8be3605648915f36824f3f601b8779cf</anchor>
+      <anchor>ab08e1e0aff082fd9461ad0713fad9323</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -4418,24 +4418,24 @@
     <templarg></templarg>
     <templarg></templarg>
     <member kind="typedef">
-      <type>DERIVED::PlainObject</type>
+      <type>typename DERIVED::PlainObject</type>
       <name>PlainObject</name>
       <anchorfile>classsopt_1_1proximal_1_1details_1_1DelayedProximalEnveloppeFunction.html</anchorfile>
-      <anchor>ab0c50dfd1653076d494c5be42191fd8d</anchor>
+      <anchor>a29e15676262668b6e00b147f74fef273</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>DERIVED::Index</type>
+      <type>typename DERIVED::Index</type>
       <name>Index</name>
       <anchorfile>classsopt_1_1proximal_1_1details_1_1DelayedProximalEnveloppeFunction.html</anchorfile>
-      <anchor>a3e7be8ec59526567e819cf5b6d4a8d7c</anchor>
+      <anchor>a67d88b95c1a97d5d606efdca6059b4a6</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>real_type&lt; typename DERIVED::Scalar &gt;::type</type>
+      <type>typename real_type&lt; typename DERIVED::Scalar &gt;::type</type>
       <name>Real</name>
       <anchorfile>classsopt_1_1proximal_1_1details_1_1DelayedProximalEnveloppeFunction.html</anchorfile>
-      <anchor>ad5cb4893585f5b0d3d78ae66792492db</anchor>
+      <anchor>a4084c7ecff4316eb58d8c15a8b976cff</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -4487,24 +4487,24 @@
     <templarg></templarg>
     <templarg></templarg>
     <member kind="typedef">
-      <type>DERIVED::PlainObject</type>
+      <type>typename DERIVED::PlainObject</type>
       <name>PlainObject</name>
       <anchorfile>classsopt_1_1proximal_1_1details_1_1DelayedProximalFunction.html</anchorfile>
-      <anchor>adb1c969fdcff1479094396647bfaac14</anchor>
+      <anchor>a5d95e12f74bc66b3d61c285a30fa22c6</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>DERIVED::Index</type>
+      <type>typename DERIVED::Index</type>
       <name>Index</name>
       <anchorfile>classsopt_1_1proximal_1_1details_1_1DelayedProximalFunction.html</anchorfile>
-      <anchor>ae353ce2017036d7bc3eefce7fb60798d</anchor>
+      <anchor>a76cd6f37192d4d7f4b515c60e142983a</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>real_type&lt; typename DERIVED::Scalar &gt;::type</type>
+      <type>typename real_type&lt; typename DERIVED::Scalar &gt;::type</type>
       <name>Real</name>
       <anchorfile>classsopt_1_1proximal_1_1details_1_1DelayedProximalFunction.html</anchorfile>
-      <anchor>ae309862b4adf196d722179b198661797</anchor>
+      <anchor>ad469fa8699b4999cd56c7c6c0080bf54</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -5104,21 +5104,21 @@
       <type>t_real</type>
       <name>Scalar</name>
       <anchorfile>structDummyAlgorithm.html</anchorfile>
-      <anchor>aa8185539b9f4b34046095439f1ca6626</anchor>
+      <anchor>a89839b63a08bfd3ce83db055aade39fc</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>Vector&lt; Scalar &gt;</type>
       <name>t_Vector</name>
       <anchorfile>structDummyAlgorithm.html</anchorfile>
-      <anchor>a64bee4bab63f1f3787c962d5dbe911e0</anchor>
+      <anchor>aeef736e25169a392ac046c8f1f700749</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>ConvergenceFunction&lt; Scalar &gt;</type>
       <name>t_IsConverged</name>
       <anchorfile>structDummyAlgorithm.html</anchorfile>
-      <anchor>a85b4308706fc5231ad772c4ce6e6e7c9</anchor>
+      <anchor>ac334cd2f87afba5c2cb55660e4e8f28f</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -5244,10 +5244,10 @@
     <name>sopt::proximal::L1::FistaMixing</name>
     <filename>http://astro-informatics.github.io/sopt/classsopt_1_1proximal_1_1L1_1_1FistaMixing.html</filename>
     <member kind="typedef">
-      <type>real_type&lt; SCALAR &gt;::type</type>
+      <type>typename real_type&lt; SCALAR &gt;::type</type>
       <name>Real</name>
       <anchorfile>classsopt_1_1proximal_1_1L1_1_1FistaMixing.html</anchorfile>
-      <anchor>a866b176369c8c152b0e1ead477a2f0fa</anchor>
+      <anchor>a8dc3dbbe6e015b07d4171c667affb59a</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -5282,56 +5282,56 @@
       <type>SCALAR</type>
       <name>value_type</name>
       <anchorfile>classsopt_1_1algorithm_1_1ForwardBackward.html</anchorfile>
-      <anchor>a6e6ec416d2f9ef6195d25454168536b9</anchor>
+      <anchor>a7f3a7b49b585fe0e2d0bcca1adae3f4e</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>value_type</type>
       <name>Scalar</name>
       <anchorfile>classsopt_1_1algorithm_1_1ForwardBackward.html</anchorfile>
-      <anchor>a3a5a59e0350c29665917e4c963e0fa9e</anchor>
+      <anchor>a8609e35c90eccd296886177afa25c61b</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>real_type&lt; Scalar &gt;::type</type>
+      <type>typename real_type&lt; Scalar &gt;::type</type>
       <name>Real</name>
       <anchorfile>classsopt_1_1algorithm_1_1ForwardBackward.html</anchorfile>
-      <anchor>aa7791539cc847df1840e505b91818c7c</anchor>
+      <anchor>a1eff61e02bfdda72cbb09b3ca89ef5ad</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>Vector&lt; Scalar &gt;</type>
       <name>t_Vector</name>
       <anchorfile>classsopt_1_1algorithm_1_1ForwardBackward.html</anchorfile>
-      <anchor>aaeb1333f18a3980db7d96f59bef11ac6</anchor>
+      <anchor>a8e179c92b2f7c350d9ee3bdf2b9c7edc</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>LinearTransform&lt; t_Vector &gt;</type>
       <name>t_LinearTransform</name>
       <anchorfile>classsopt_1_1algorithm_1_1ForwardBackward.html</anchorfile>
-      <anchor>a9af14f4832155b785663c90941c45f42</anchor>
+      <anchor>aaa95cc7ccbbddac6bf905079875f3fdf</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>std::function&lt; bool(t_Vector const &amp;, t_Vector const &amp;)&gt;</type>
+      <type>std::function&lt; bool(const t_Vector &amp;, const t_Vector &amp;)&gt;</type>
       <name>t_IsConverged</name>
       <anchorfile>classsopt_1_1algorithm_1_1ForwardBackward.html</anchorfile>
-      <anchor>af10c94de1ecf19a2ac6f113eb9ba9755</anchor>
+      <anchor>af84c3056f186a532ca262ed9233c697b</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>ProximalFunction&lt; Scalar &gt;</type>
       <name>t_Proximal</name>
       <anchorfile>classsopt_1_1algorithm_1_1ForwardBackward.html</anchorfile>
-      <anchor>a33426d740990b36c62486ac27d83cf63</anchor>
+      <anchor>abbcb952f644a8f41d3129a774bb0cddd</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>std::function&lt; void(t_Vector &amp;, const t_Vector &amp;)&gt;</type>
+      <type>typename std::function&lt; void(t_Vector &amp;, const t_Vector &amp;)&gt;</type>
       <name>t_Gradient</name>
       <anchorfile>classsopt_1_1algorithm_1_1ForwardBackward.html</anchorfile>
-      <anchor>a86c736c1f8d6273ba1364d3bd210c900</anchor>
+      <anchor>aecfa1469aa8a0ccf5da71deec9a8c68e</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -5628,59 +5628,59 @@
     <class kind="struct">sopt::algorithm::ImagingForwardBackward::Diagnostic</class>
     <class kind="struct">sopt::algorithm::ImagingForwardBackward::DiagnosticAndResult</class>
     <member kind="typedef">
-      <type>FB::value_type</type>
+      <type>typename FB::value_type</type>
       <name>value_type</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
-      <anchor>a1cb8fa7f92440e2489b01022a971c29f</anchor>
+      <anchor>a519b240eee940504861465aa37f43dc8</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>FB::Scalar</type>
+      <type>typename FB::Scalar</type>
       <name>Scalar</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
-      <anchor>a463b0d7642525e30a9c36776df9f4711</anchor>
+      <anchor>a060572e9f2986ad1990301335efe6ecb</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>FB::Real</type>
+      <type>typename FB::Real</type>
       <name>Real</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
-      <anchor>a92583e3baedd939f3a023fdb5673d7e4</anchor>
+      <anchor>aee7462800f2cabbcd5dfc6dd12049332</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>FB::t_Vector</type>
+      <type>typename FB::t_Vector</type>
       <name>t_Vector</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
-      <anchor>aca16da0346d9338dced6b8552182e00a</anchor>
+      <anchor>a720edc20fbae186fd3f6491ae6a3217f</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>FB::t_LinearTransform</type>
+      <type>typename FB::t_LinearTransform</type>
       <name>t_LinearTransform</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
-      <anchor>ad164bb1bc460c738b7df9af827858dc2</anchor>
+      <anchor>a0f6582e53b23a6dec6cf8b5f00f55a48</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>FB::t_Proximal</type>
+      <type>typename FB::t_Proximal</type>
       <name>t_Proximal</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
-      <anchor>ae17ca51f704f154d48ede0930a763c5b</anchor>
+      <anchor>a362cb60f7d34ef7a5f207661b4a22d85</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>FB::t_Gradient</type>
+      <type>typename FB::t_Gradient</type>
       <name>t_Gradient</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
-      <anchor>acff2a0141f3f6624f753826cfa0a293d</anchor>
+      <anchor>a03c5b50dd8cf296cb89e627e1e51aa60</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>FB::t_IsConverged</type>
+      <type>typename FB::t_IsConverged</type>
       <name>t_IsConverged</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
-      <anchor>ae39e46ef30f7c167fd6fe56bb1f5dfc1</anchor>
+      <anchor>a969aca86a227e6cb6d392fada385491b</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -5922,38 +5922,38 @@
     <class kind="struct">sopt::algorithm::ImagingPrimalDual::Diagnostic</class>
     <class kind="struct">sopt::algorithm::ImagingPrimalDual::DiagnosticAndResult</class>
     <member kind="typedef">
-      <type>PD::value_type</type>
+      <type>typename PD::value_type</type>
       <name>value_type</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
-      <anchor>a914c2d826117c0d2ef12b1ed956678a6</anchor>
+      <anchor>aa47585b8224ae199363506c0f6ea71d2</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>PD::Scalar</type>
+      <type>typename PD::Scalar</type>
       <name>Scalar</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
-      <anchor>a2c8b1ae0a90cf4227f669b887a151e51</anchor>
+      <anchor>a34ac8a6c86f7ee68dc268b1345f3bad2</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>PD::Real</type>
+      <type>typename PD::Real</type>
       <name>Real</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
-      <anchor>a29cc8ed3d46609ab885719531d517285</anchor>
+      <anchor>a8e75bf491f6e1d49534170263eafd3b1</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>PD::t_Vector</type>
+      <type>typename PD::t_Vector</type>
       <name>t_Vector</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
-      <anchor>a33d8f7b9cc0c133263e24dc5715acb5c</anchor>
+      <anchor>a2c81ed11a3d97e4f8ea4e0abdb7251c3</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>PD::t_LinearTransform</type>
+      <type>typename PD::t_LinearTransform</type>
       <name>t_LinearTransform</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
-      <anchor>aac0e1205915a7dcc11bd27ec077d08cf</anchor>
+      <anchor>a78a01a347892a7e40b9d07fb7dea56d3</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
@@ -5964,59 +5964,59 @@
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>PD::t_IsConverged</type>
+      <type>typename PD::t_IsConverged</type>
       <name>t_IsConverged</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
-      <anchor>ae70857353d44c8ba5a09ae82d82284df</anchor>
+      <anchor>afff638fd31d09370f9d49552de84105b</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>PD::t_Constraint</type>
+      <type>typename PD::t_Constraint</type>
       <name>t_Constraint</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
-      <anchor>ae817bbf4c8d9a8f490f810ec87e9fdb7</anchor>
+      <anchor>a83fe7f0f57d06157903a3d0298be2321</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>PD::t_Random_Updater</type>
+      <type>typename PD::t_Random_Updater</type>
       <name>t_Random_Updater</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
-      <anchor>a8fa101c13b38ae6c440aa51003f49d94</anchor>
+      <anchor>af73a8476cdd970c1f69af1ce1c6f56cb</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>PD::value_type</type>
+      <type>typename PD::value_type</type>
       <name>value_type</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
-      <anchor>a914c2d826117c0d2ef12b1ed956678a6</anchor>
+      <anchor>aa47585b8224ae199363506c0f6ea71d2</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>PD::Scalar</type>
+      <type>typename PD::Scalar</type>
       <name>Scalar</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
-      <anchor>a2c8b1ae0a90cf4227f669b887a151e51</anchor>
+      <anchor>a34ac8a6c86f7ee68dc268b1345f3bad2</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>PD::Real</type>
+      <type>typename PD::Real</type>
       <name>Real</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
-      <anchor>a29cc8ed3d46609ab885719531d517285</anchor>
+      <anchor>a8e75bf491f6e1d49534170263eafd3b1</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>PD::t_Vector</type>
+      <type>typename PD::t_Vector</type>
       <name>t_Vector</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
-      <anchor>a33d8f7b9cc0c133263e24dc5715acb5c</anchor>
+      <anchor>a2c81ed11a3d97e4f8ea4e0abdb7251c3</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>PD::t_LinearTransform</type>
+      <type>typename PD::t_LinearTransform</type>
       <name>t_LinearTransform</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
-      <anchor>aac0e1205915a7dcc11bd27ec077d08cf</anchor>
+      <anchor>a78a01a347892a7e40b9d07fb7dea56d3</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
@@ -6027,24 +6027,24 @@
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>PD::t_IsConverged</type>
+      <type>typename PD::t_IsConverged</type>
       <name>t_IsConverged</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
-      <anchor>ae70857353d44c8ba5a09ae82d82284df</anchor>
+      <anchor>afff638fd31d09370f9d49552de84105b</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>PD::t_Constraint</type>
+      <type>typename PD::t_Constraint</type>
       <name>t_Constraint</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
-      <anchor>ae817bbf4c8d9a8f490f810ec87e9fdb7</anchor>
+      <anchor>a83fe7f0f57d06157903a3d0298be2321</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>PD::t_Random_Updater</type>
+      <type>typename PD::t_Random_Updater</type>
       <name>t_Random_Updater</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
-      <anchor>a8fa101c13b38ae6c440aa51003f49d94</anchor>
+      <anchor>af73a8476cdd970c1f69af1ce1c6f56cb</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -6692,52 +6692,52 @@
     <class kind="struct">sopt::algorithm::ImagingProximalADMM::Diagnostic</class>
     <class kind="struct">sopt::algorithm::ImagingProximalADMM::DiagnosticAndResult</class>
     <member kind="typedef">
-      <type>PADMM::value_type</type>
+      <type>typename PADMM::value_type</type>
       <name>value_type</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingProximalADMM.html</anchorfile>
-      <anchor>aa4cbd53535297824e6cb7b3be969ade3</anchor>
+      <anchor>ab798c7ff74151af9af2175ce3de9107f</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>PADMM::Scalar</type>
+      <type>typename PADMM::Scalar</type>
       <name>Scalar</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingProximalADMM.html</anchorfile>
-      <anchor>a2c83a3aa5d477fb1d0fac5931a4dc4a0</anchor>
+      <anchor>a26cde62588355a949c3f678943626149</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>PADMM::Real</type>
+      <type>typename PADMM::Real</type>
       <name>Real</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingProximalADMM.html</anchorfile>
-      <anchor>a72266bb6f1a0ddb574f71aa6293c2ad0</anchor>
+      <anchor>a5d171be24d068aaa1638b7180fc6bf06</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>PADMM::t_Vector</type>
+      <type>typename PADMM::t_Vector</type>
       <name>t_Vector</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingProximalADMM.html</anchorfile>
-      <anchor>ad414782c188ee62a05c34b695566c5ed</anchor>
+      <anchor>a65eb83693568a840443f7b1820509894</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>PADMM::t_LinearTransform</type>
+      <type>typename PADMM::t_LinearTransform</type>
       <name>t_LinearTransform</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingProximalADMM.html</anchorfile>
-      <anchor>a4f967edceea1b1fa0d4d81954bf16df7</anchor>
+      <anchor>a1522a6fa469f0c4e752be210c661e94e</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>PADMM::t_Proximal</type>
+      <type>typename PADMM::t_Proximal</type>
       <name>t_Proximal</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingProximalADMM.html</anchorfile>
-      <anchor>a6d8451f8db3378556f6c86f3818dfcf9</anchor>
+      <anchor>ae9157e1865fed8dea0b884faa18d554d</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>PADMM::t_IsConverged</type>
+      <type>typename PADMM::t_IsConverged</type>
       <name>t_IsConverged</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingProximalADMM.html</anchorfile>
-      <anchor>adf13601746cf5ed05b2a4ebcb91d7bef</anchor>
+      <anchor>a7110840f605e18c6e550e0377adc72c3</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -7167,17 +7167,17 @@
     <class kind="class">sopt::proximal::L1::FistaMixing</class>
     <class kind="class">sopt::proximal::L1::NoMixing</class>
     <member kind="typedef">
-      <type>L1TightFrame&lt; SCALAR &gt;::Scalar</type>
+      <type>typename L1TightFrame&lt; SCALAR &gt;::Scalar</type>
       <name>Scalar</name>
       <anchorfile>classsopt_1_1proximal_1_1L1.html</anchorfile>
-      <anchor>a24e74d032b3fab9d5ec13031aac4fcde</anchor>
+      <anchor>adaf15454c9337af69e5b04869c805587</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>L1TightFrame&lt; SCALAR &gt;::Real</type>
+      <type>typename L1TightFrame&lt; SCALAR &gt;::Real</type>
       <name>Real</name>
       <anchorfile>classsopt_1_1proximal_1_1L1.html</anchorfile>
-      <anchor>aa38a570f0a075f13b66928793ded7c00</anchor>
+      <anchor>aa0849fe22174798f8bc05c68782b96f0</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -7298,17 +7298,17 @@
     <filename>http://astro-informatics.github.io/sopt/classsopt_1_1proximal_1_1L1.html</filename>
     <base protection="private">L1TightFrame&lt; Scalar &gt;</base>
     <member kind="typedef">
-      <type>L1TightFrame&lt; Scalar &gt;::Scalar</type>
+      <type>typename L1TightFrame&lt; Scalar &gt;::Scalar</type>
       <name>Scalar</name>
       <anchorfile>classsopt_1_1proximal_1_1L1.html</anchorfile>
-      <anchor>a24e74d032b3fab9d5ec13031aac4fcde</anchor>
+      <anchor>adaf15454c9337af69e5b04869c805587</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>L1TightFrame&lt; Scalar &gt;::Real</type>
+      <type>typename L1TightFrame&lt; Scalar &gt;::Real</type>
       <name>Real</name>
       <anchorfile>classsopt_1_1proximal_1_1L1.html</anchorfile>
-      <anchor>aa38a570f0a075f13b66928793ded7c00</anchor>
+      <anchor>aa0849fe22174798f8bc05c68782b96f0</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -7433,42 +7433,42 @@
       <type>ForwardBackward&lt; SCALAR &gt;</type>
       <name>FB</name>
       <anchorfile>classsopt_1_1algorithm_1_1L1GProximal.html</anchorfile>
-      <anchor>aa6432b50229822807468e63d1b8a369f</anchor>
+      <anchor>ab2ec0dac927c3001dd0b2e339a28d2c3</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>FB::Real</type>
+      <type>typename FB::Real</type>
       <name>Real</name>
       <anchorfile>classsopt_1_1algorithm_1_1L1GProximal.html</anchorfile>
-      <anchor>a88529f3ea7852c38bb4c68986404f8e9</anchor>
+      <anchor>a37271ee5199c9c09c4cd2e96142f4d7a</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>FB::Scalar</type>
+      <type>typename FB::Scalar</type>
       <name>Scalar</name>
       <anchorfile>classsopt_1_1algorithm_1_1L1GProximal.html</anchorfile>
-      <anchor>a9ba5d8a0280ad81d22ac154d1e57f4a4</anchor>
+      <anchor>a0c9546defe4c97919188d856501b9ac5</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>FB::t_Vector</type>
+      <type>typename FB::t_Vector</type>
       <name>t_Vector</name>
       <anchorfile>classsopt_1_1algorithm_1_1L1GProximal.html</anchorfile>
-      <anchor>ad5144761504c84130252885421a0c646</anchor>
+      <anchor>a71ca8a4c435710ec37a928d0f69bed00</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>FB::t_Proximal</type>
+      <type>typename FB::t_Proximal</type>
       <name>t_Proximal</name>
       <anchorfile>classsopt_1_1algorithm_1_1L1GProximal.html</anchorfile>
-      <anchor>ad71d6e4f4e441a64445b2eea0ab009a9</anchor>
+      <anchor>a2d2dea58efebddc37a16f3d12339271a</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>FB::t_LinearTransform</type>
+      <type>typename FB::t_LinearTransform</type>
       <name>t_LinearTransform</name>
       <anchorfile>classsopt_1_1algorithm_1_1L1GProximal.html</anchorfile>
-      <anchor>af4513fa73d84b8cee3ae7cab3a1daef5</anchor>
+      <anchor>a57fe7a5f6e4b80cc8e0705336486597c</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -7592,14 +7592,14 @@
       <type>SCALAR</type>
       <name>Scalar</name>
       <anchorfile>classsopt_1_1proximal_1_1L1TightFrame.html</anchorfile>
-      <anchor>a17f4a4e362ed391d67e9ce5b69904ffb</anchor>
+      <anchor>aea4afdb1952684df513c585a5e562a9b</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>real_type&lt; Scalar &gt;::type</type>
+      <type>typename real_type&lt; Scalar &gt;::type</type>
       <name>Real</name>
       <anchorfile>classsopt_1_1proximal_1_1L1TightFrame.html</anchorfile>
-      <anchor>af0080e10172908f1088bd19ca6cd1a9e</anchor>
+      <anchor>a86ac1a28fb7511827cde7f7e9bde0617</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -7680,14 +7680,14 @@
       <type>Scalar</type>
       <name>Scalar</name>
       <anchorfile>classsopt_1_1proximal_1_1L1TightFrame.html</anchorfile>
-      <anchor>a17f4a4e362ed391d67e9ce5b69904ffb</anchor>
+      <anchor>aea4afdb1952684df513c585a5e562a9b</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>real_type&lt; Scalar &gt;::type</type>
+      <type>typename real_type&lt; Scalar &gt;::type</type>
       <name>Real</name>
       <anchorfile>classsopt_1_1proximal_1_1L1TightFrame.html</anchorfile>
-      <anchor>af0080e10172908f1088bd19ca6cd1a9e</anchor>
+      <anchor>a86ac1a28fb7511827cde7f7e9bde0617</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -7766,10 +7766,10 @@
     <filename>http://astro-informatics.github.io/sopt/classsopt_1_1proximal_1_1L2Ball.html</filename>
     <templarg></templarg>
     <member kind="typedef">
-      <type>real_type&lt; T &gt;::type</type>
+      <type>typename real_type&lt; T &gt;::type</type>
       <name>Real</name>
       <anchorfile>classsopt_1_1proximal_1_1L2Ball.html</anchorfile>
-      <anchor>abf3d72bd6f57ad6cb97afb7561795056</anchor>
+      <anchor>acdd61917fc738477b5cac14b66c7537c</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -7829,38 +7829,38 @@
     <class kind="struct">sopt::algorithm::L2ForwardBackward::Diagnostic</class>
     <class kind="struct">sopt::algorithm::L2ForwardBackward::DiagnosticAndResult</class>
     <member kind="typedef">
-      <type>FB::value_type</type>
+      <type>typename FB::value_type</type>
       <name>value_type</name>
       <anchorfile>classsopt_1_1algorithm_1_1L2ForwardBackward.html</anchorfile>
-      <anchor>a462ee4d321bb638c19b3f18de715f1ab</anchor>
+      <anchor>ac6538e42f6ae967990cbf3f3f2d624e3</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>FB::Scalar</type>
+      <type>typename FB::Scalar</type>
       <name>Scalar</name>
       <anchorfile>classsopt_1_1algorithm_1_1L2ForwardBackward.html</anchorfile>
-      <anchor>a02413fee5314a719f18f2c72b369b3f1</anchor>
+      <anchor>a4581b824cbd0a2216aa61242f5153ca1</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>FB::Real</type>
+      <type>typename FB::Real</type>
       <name>Real</name>
       <anchorfile>classsopt_1_1algorithm_1_1L2ForwardBackward.html</anchorfile>
-      <anchor>aab08114f05ad47f6b7f6e6a10f4cb247</anchor>
+      <anchor>aec275ec6cca281cd0d597c16c5b9252a</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>FB::t_Vector</type>
+      <type>typename FB::t_Vector</type>
       <name>t_Vector</name>
       <anchorfile>classsopt_1_1algorithm_1_1L2ForwardBackward.html</anchorfile>
-      <anchor>abac5e0fceacf440fa4d4f242ed8f9f58</anchor>
+      <anchor>a628fbda762ed482f1d5c5d82fc80d1c8</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>FB::t_LinearTransform</type>
+      <type>typename FB::t_LinearTransform</type>
       <name>t_LinearTransform</name>
       <anchorfile>classsopt_1_1algorithm_1_1L2ForwardBackward.html</anchorfile>
-      <anchor>afa742205786ae07078c57d77024ed473</anchor>
+      <anchor>a53d8d258741f7f048ff21a1451be7c2b</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
@@ -7871,17 +7871,17 @@
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>FB::t_Gradient</type>
+      <type>typename FB::t_Gradient</type>
       <name>t_Gradient</name>
       <anchorfile>classsopt_1_1algorithm_1_1L2ForwardBackward.html</anchorfile>
-      <anchor>a4874a760d4bd200e846381e9372edcb7</anchor>
+      <anchor>a56e9332c70f1a8f9e9e65c0ce389356c</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>FB::t_IsConverged</type>
+      <type>typename FB::t_IsConverged</type>
       <name>t_IsConverged</name>
       <anchorfile>classsopt_1_1algorithm_1_1L2ForwardBackward.html</anchorfile>
-      <anchor>aed2a97024590b94363e0ab531e69ac22</anchor>
+      <anchor>ae7792e7ee5c0bb9a0680957eb2567474</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -8135,10 +8135,10 @@
     <filename>http://astro-informatics.github.io/sopt/classsopt_1_1proximal_1_1L2Norm.html</filename>
     <templarg></templarg>
     <member kind="typedef">
-      <type>real_type&lt; T &gt;::type</type>
+      <type>typename real_type&lt; T &gt;::type</type>
       <name>Real</name>
       <anchorfile>classsopt_1_1proximal_1_1L2Norm.html</anchorfile>
-      <anchor>acbcdd73c0ba5a02f2aeaaed98c85ea01</anchor>
+      <anchor>a8f5d0016f758d2286d23f4544415b8a9</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -8179,7 +8179,7 @@
       <type>OperatorFunction&lt; VECTOR &gt;</type>
       <name>t_Function</name>
       <anchorfile>classsopt_1_1LinearTransform.html</anchorfile>
-      <anchor>a1ac3c9d55225a7353f26554e18900db1</anchor>
+      <anchor>a4f14b87d902be4bf46e2ea5ad1801ef5</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -8247,7 +8247,7 @@
       <type>OperatorFunction&lt; t_Vector &gt;</type>
       <name>t_Function</name>
       <anchorfile>classsopt_1_1LinearTransform.html</anchorfile>
-      <anchor>a1ac3c9d55225a7353f26554e18900db1</anchor>
+      <anchor>a4f14b87d902be4bf46e2ea5ad1801ef5</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -8312,10 +8312,10 @@
     <filename>http://astro-informatics.github.io/sopt/classsopt_1_1details_1_1MatrixAdjointToLinearTransform.html</filename>
     <templarg></templarg>
     <member kind="typedef">
-      <type>MatrixToLinearTransform&lt; EIGEN &gt;::PlainObject</type>
+      <type>typename MatrixToLinearTransform&lt; EIGEN &gt;::PlainObject</type>
       <name>PlainObject</name>
       <anchorfile>classsopt_1_1details_1_1MatrixAdjointToLinearTransform.html</anchorfile>
-      <anchor>a11fc36ddad36a774bfcbdbb8872d9670</anchor>
+      <anchor>accb3b6fbefd511ff5db53afac630bb4b</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -8352,10 +8352,10 @@
     <filename>http://astro-informatics.github.io/sopt/classsopt_1_1details_1_1MatrixToLinearTransform.html</filename>
     <templarg></templarg>
     <member kind="typedef">
-      <type>std::conditional&lt; std::is_base_of&lt; Eigen::MatrixBase&lt; PlainMatrix &gt;, PlainMatrix &gt;::value, Vector&lt; typename PlainMatrix::Scalar &gt;, Array&lt; typename PlainMatrix::Scalar &gt; &gt;::type</type>
+      <type>typename std::conditional&lt; std::is_base_of&lt; Eigen::MatrixBase&lt; PlainMatrix &gt;, PlainMatrix &gt;::value, Vector&lt; typename PlainMatrix::Scalar &gt;, Array&lt; typename PlainMatrix::Scalar &gt; &gt;::type</type>
       <name>PlainObject</name>
       <anchorfile>classsopt_1_1details_1_1MatrixToLinearTransform.html</anchorfile>
-      <anchor>a6c2805e87e0b102528b3bd99ad3d48ac</anchor>
+      <anchor>afdd83f9048e9530ab421b0aae719cb70</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -8406,42 +8406,42 @@
       <type>ALGORITHM</type>
       <name>Algorithm</name>
       <anchorfile>classsopt_1_1algorithm_1_1PositiveQuadrant.html</anchorfile>
-      <anchor>af9b47575b9a759068144c0a5b26d6b25</anchor>
+      <anchor>a43f66b6b8e9d25eea2397aeda41c1850</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>Algorithm::Scalar</type>
+      <type>typename Algorithm::Scalar</type>
       <name>Scalar</name>
       <anchorfile>classsopt_1_1algorithm_1_1PositiveQuadrant.html</anchorfile>
-      <anchor>acad644d7fffdc005d9dbcf91347bf626</anchor>
+      <anchor>a0170e51d0c3d57e12cc1dbf9dd0b067f</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>Algorithm::t_Vector</type>
+      <type>typename Algorithm::t_Vector</type>
       <name>t_Vector</name>
       <anchorfile>classsopt_1_1algorithm_1_1PositiveQuadrant.html</anchorfile>
-      <anchor>a398bd1957ce31fb9b8ccb8747efdcb6a</anchor>
+      <anchor>a9dc2fa3de9cf464e2650a59c6c896c1d</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>Algorithm::t_IsConverged</type>
+      <type>typename Algorithm::t_IsConverged</type>
       <name>t_IsConverged</name>
       <anchorfile>classsopt_1_1algorithm_1_1PositiveQuadrant.html</anchorfile>
-      <anchor>ac528efdab2e752be699a8f91f3f5ea4e</anchor>
+      <anchor>aeb7e169b274efdd8b504791905ae47f4</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>ALGORITHM::Diagnostic</type>
+      <type>typename ALGORITHM::Diagnostic</type>
       <name>Diagnostic</name>
       <anchorfile>classsopt_1_1algorithm_1_1PositiveQuadrant.html</anchorfile>
-      <anchor>a66f58aaf856f33aef8d16a9cf1c3af0a</anchor>
+      <anchor>a77875d316a901a3a9eb0d59c8f45c8ff</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>ALGORITHM::DiagnosticAndResult</type>
+      <type>typename ALGORITHM::DiagnosticAndResult</type>
       <name>DiagnosticAndResult</name>
       <anchorfile>classsopt_1_1algorithm_1_1PositiveQuadrant.html</anchorfile>
-      <anchor>a3e1562def8d85880669f02ad43ddbb14</anchor>
+      <anchor>ad68ef5762a4e3788a2815981261a4f37</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -8496,35 +8496,35 @@
       <type>SCALAR</type>
       <name>value_type</name>
       <anchorfile>classsopt_1_1algorithm_1_1PowerMethod.html</anchorfile>
-      <anchor>a4b3b49efce9d36d6a365615531190858</anchor>
+      <anchor>aa673e6b1811cf721a090332308e1d545</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>value_type</type>
       <name>Scalar</name>
       <anchorfile>classsopt_1_1algorithm_1_1PowerMethod.html</anchorfile>
-      <anchor>a5fc88487d221740b3d43bca96be5000d</anchor>
+      <anchor>a2bfaa89a1522b9630a8636f235eb21fe</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>real_type&lt; Scalar &gt;::type</type>
+      <type>typename real_type&lt; Scalar &gt;::type</type>
       <name>Real</name>
       <anchorfile>classsopt_1_1algorithm_1_1PowerMethod.html</anchorfile>
-      <anchor>aaabdeea31455a5b15c4610e2819460c9</anchor>
+      <anchor>a1aca95e32e368d0c15a930e23d8eace7</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>Vector&lt; Scalar &gt;</type>
       <name>t_Vector</name>
       <anchorfile>classsopt_1_1algorithm_1_1PowerMethod.html</anchorfile>
-      <anchor>aab6c341dc8ca2fec5377d240c8cbe6fa</anchor>
+      <anchor>ad4d0aed19499ff3f3578541a5a5aa41b</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>LinearTransform&lt; t_Vector &gt;</type>
       <name>t_LinearTransform</name>
       <anchorfile>classsopt_1_1algorithm_1_1PowerMethod.html</anchorfile>
-      <anchor>a684c008c7d5605f8d3dcbeb6e3d037e4</anchor>
+      <anchor>a9619d9eec1c83ae919b932ee1b74e2ca</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -8573,63 +8573,63 @@
       <type>SCALAR</type>
       <name>value_type</name>
       <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
-      <anchor>a5685560af81016e815f2680dbe09d2a1</anchor>
+      <anchor>a11ae92bd3d052e6ec91c338286e868a1</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>value_type</type>
       <name>Scalar</name>
       <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
-      <anchor>a02375c0ffe0773f78739a533b53a7325</anchor>
+      <anchor>a78acc5d464746851a2b84f43ec0edf58</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>real_type&lt; Scalar &gt;::type</type>
+      <type>typename real_type&lt; Scalar &gt;::type</type>
       <name>Real</name>
       <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
-      <anchor>a12ba8253a9e3fa968d0cc2c5f366ee4a</anchor>
+      <anchor>aedc9c9a8e07ddba1c3c133deaae603b3</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>Vector&lt; Scalar &gt;</type>
       <name>t_Vector</name>
       <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
-      <anchor>a1c2ff92022ae69b6b873643219e3b2c3</anchor>
+      <anchor>a45b60197f33e97195be934b70d975375</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>LinearTransform&lt; t_Vector &gt;</type>
       <name>t_LinearTransform</name>
       <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
-      <anchor>a7fcbea9893e5699fddbb218ba9221f1e</anchor>
+      <anchor>a5c25983367c62fb5093979c15919c18d</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>std::function&lt; bool(t_Vector const &amp;, t_Vector const &amp;)&gt;</type>
+      <type>std::function&lt; bool(const t_Vector &amp;, const t_Vector &amp;)&gt;</type>
       <name>t_IsConverged</name>
       <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
-      <anchor>adbaf20471267b0d22b3e3af914dc7d14</anchor>
+      <anchor>a9b6d3c0265db819115024f368f86f527</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>std::function&lt; void(t_Vector &amp;, const t_Vector &amp;)&gt;</type>
       <name>t_Constraint</name>
       <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
-      <anchor>acbfddce9878793083a9a1dc9ef062b9d</anchor>
+      <anchor>a8845568abf535f9eed8db01829d78b3b</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>std::function&lt; bool()&gt;</type>
       <name>t_Random_Updater</name>
       <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
-      <anchor>a74ee6a689aa677cb6e119909568cbaf9</anchor>
+      <anchor>a42e08c0a14495e244cc03bd45b30e38c</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>ProximalFunction&lt; Scalar &gt;</type>
       <name>t_Proximal</name>
       <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
-      <anchor>a622e8bf20c291f6b740f3590434f7463</anchor>
+      <anchor>a03ae6fd37b1978d33d4cc47921975781</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -8919,49 +8919,49 @@
       <type>SCALAR</type>
       <name>value_type</name>
       <anchorfile>classsopt_1_1algorithm_1_1ProximalADMM.html</anchorfile>
-      <anchor>a70b259c2fdb19e4d3858f7eb6470a271</anchor>
+      <anchor>a218a9c4a840086f3d434f69339f2871c</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>value_type</type>
       <name>Scalar</name>
       <anchorfile>classsopt_1_1algorithm_1_1ProximalADMM.html</anchorfile>
-      <anchor>a11dc151099bf44a84c46698385e27b70</anchor>
+      <anchor>a664a7aca60af0c2c2484e0946686809c</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>real_type&lt; Scalar &gt;::type</type>
+      <type>typename real_type&lt; Scalar &gt;::type</type>
       <name>Real</name>
       <anchorfile>classsopt_1_1algorithm_1_1ProximalADMM.html</anchorfile>
-      <anchor>a73ee22ab8800b6131f5279d78b8061f2</anchor>
+      <anchor>ae475041c6e6ade17751f236f31fc4844</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>Vector&lt; Scalar &gt;</type>
       <name>t_Vector</name>
       <anchorfile>classsopt_1_1algorithm_1_1ProximalADMM.html</anchorfile>
-      <anchor>aa6ca639ce956cbe2b610b86151e7e84a</anchor>
+      <anchor>a54fd131397766313d73e9693f0699e9b</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>LinearTransform&lt; t_Vector &gt;</type>
       <name>t_LinearTransform</name>
       <anchorfile>classsopt_1_1algorithm_1_1ProximalADMM.html</anchorfile>
-      <anchor>a84395bd0d1f40dccc3da2c9e4d861394</anchor>
+      <anchor>a5448e30adfb236dbcd628b335bbe7bf9</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>std::function&lt; bool(t_Vector const &amp;, t_Vector const &amp;)&gt;</type>
+      <type>std::function&lt; bool(const t_Vector &amp;, const t_Vector &amp;)&gt;</type>
       <name>t_IsConverged</name>
       <anchorfile>classsopt_1_1algorithm_1_1ProximalADMM.html</anchorfile>
-      <anchor>abdfb00fbff1ee281d4d486c4e78de6b4</anchor>
+      <anchor>ac4633437b78e15536df6a56a5175954d</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>ProximalFunction&lt; Scalar &gt;</type>
       <name>t_Proximal</name>
       <anchorfile>classsopt_1_1algorithm_1_1ProximalADMM.html</anchorfile>
-      <anchor>a25488fa1c9baf8ac10c7d1508d3ef0fa</anchor>
+      <anchor>a7ee844f51ffef27475c6709580ed6e07</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -9155,14 +9155,14 @@
       <type>TYPE</type>
       <name>Scalar</name>
       <anchorfile>classsopt_1_1RelativeVariation.html</anchorfile>
-      <anchor>ac143e4ad2527a4190b0985d59b7d26f4</anchor>
+      <anchor>a07968ec5945360b6e0cc01d74f3048cb</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>real_type&lt; Scalar &gt;::type</type>
+      <type>typename real_type&lt; Scalar &gt;::type</type>
       <name>Real</name>
       <anchorfile>classsopt_1_1RelativeVariation.html</anchorfile>
-      <anchor>a20f8121a71edf89d17eb422f4b0834e9</anchor>
+      <anchor>a24a70997c6474537b0ffe5ea15bf4aca</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -9231,63 +9231,63 @@
       <type>ALGORITHM</type>
       <name>Algorithm</name>
       <anchorfile>classsopt_1_1algorithm_1_1Reweighted.html</anchorfile>
-      <anchor>acafa7db5b2a33aa860f0c16401f26973</anchor>
+      <anchor>a10e9eb54d07d3441cf19ad2e02e93c9b</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>Algorithm::Scalar</type>
+      <type>typename Algorithm::Scalar</type>
       <name>Scalar</name>
       <anchorfile>classsopt_1_1algorithm_1_1Reweighted.html</anchorfile>
-      <anchor>ae21be560031f26a79bce9da0fbd11fae</anchor>
+      <anchor>af9b31075e440420edc317eb80d248e41</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>real_type&lt; Scalar &gt;::type</type>
+      <type>typename real_type&lt; Scalar &gt;::type</type>
       <name>Real</name>
       <anchorfile>classsopt_1_1algorithm_1_1Reweighted.html</anchorfile>
-      <anchor>a189191a1a0a0ede92d0fde264b7bf45e</anchor>
+      <anchor>ac094e45489e7dcc435abb4d2dda3202d</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>Vector&lt; Real &gt;</type>
       <name>WeightVector</name>
       <anchorfile>classsopt_1_1algorithm_1_1Reweighted.html</anchorfile>
-      <anchor>a92e555514d56092d5239c34b812f4864</anchor>
+      <anchor>a85ee526be62b83b372ba4f28298520f8</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>Algorithm::t_Vector</type>
+      <type>typename Algorithm::t_Vector</type>
       <name>XVector</name>
       <anchorfile>classsopt_1_1algorithm_1_1Reweighted.html</anchorfile>
-      <anchor>aeb9ed2e019449671ce2373fcef7a490a</anchor>
+      <anchor>af084f978bfeaa198aeabce8a75f53017</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>ConvergenceFunction&lt; Scalar &gt;</type>
       <name>t_IsConverged</name>
       <anchorfile>classsopt_1_1algorithm_1_1Reweighted.html</anchorfile>
-      <anchor>a50089e6a0e4971162497a8ab5da7f0df</anchor>
+      <anchor>afd1a2374c45b50a296015432c9f17464</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>std::function&lt; XVector(Algorithm const &amp;, XVector const &amp;)&gt;</type>
+      <type>std::function&lt; XVector(const Algorithm &amp;, const XVector &amp;)&gt;</type>
       <name>t_Reweightee</name>
       <anchorfile>classsopt_1_1algorithm_1_1Reweighted.html</anchorfile>
-      <anchor>a1453691c73190c48467367ff5a3e7823</anchor>
+      <anchor>a898dc9d0702e42e3eabf4b18bb5c669e</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>std::function&lt; void(Algorithm &amp;, WeightVector const &amp;)&gt;</type>
+      <type>std::function&lt; void(Algorithm &amp;, const WeightVector &amp;)&gt;</type>
       <name>t_SetWeights</name>
       <anchorfile>classsopt_1_1algorithm_1_1Reweighted.html</anchorfile>
-      <anchor>a6c7c71634ee9e58f5c769f9c88693b22</anchor>
+      <anchor>a502a97b554cea1f2a27005eaf07cc47b</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>std::function&lt; Real(Real)&gt;</type>
       <name>t_DeltaUpdate</name>
       <anchorfile>classsopt_1_1algorithm_1_1Reweighted.html</anchorfile>
-      <anchor>ab356dc6c5dbc6df65d31ab680c0c1a8f</anchor>
+      <anchor>a46c01d2dac3d126ec8321e3f1d6fb510</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -9675,14 +9675,14 @@
       <type>TYPE</type>
       <name>Scalar</name>
       <anchorfile>classsopt_1_1ScalarRelativeVariation.html</anchorfile>
-      <anchor>ac1182ea9b294036df94fc8b1050db0f5</anchor>
+      <anchor>aab862d556d3b86f96c9c94cf07f3ec1e</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>real_type&lt; Scalar &gt;::type</type>
+      <type>typename real_type&lt; Scalar &gt;::type</type>
       <name>Real</name>
       <anchorfile>classsopt_1_1ScalarRelativeVariation.html</anchorfile>
-      <anchor>acf6c1f29d0a5a894c0956f6b641731bc</anchor>
+      <anchor>a6d076ab2c26f8319e10721bd241d79ba</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -9766,49 +9766,49 @@
       <type>SCALAR</type>
       <name>value_type</name>
       <anchorfile>classsopt_1_1algorithm_1_1SDMM.html</anchorfile>
-      <anchor>aea6ca6473f711803ee60c7340b1ac484</anchor>
+      <anchor>aaa61b8e2160cd20c6864111da36574ca</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>value_type</type>
       <name>Scalar</name>
       <anchorfile>classsopt_1_1algorithm_1_1SDMM.html</anchorfile>
-      <anchor>ae40289cc31766ddcbfe9d683ac80a25a</anchor>
+      <anchor>a69511914c6550ae3093f3b645a00748b</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>real_type&lt; Scalar &gt;::type</type>
+      <type>typename real_type&lt; Scalar &gt;::type</type>
       <name>Real</name>
       <anchorfile>classsopt_1_1algorithm_1_1SDMM.html</anchorfile>
-      <anchor>a2932b1a75e646edef1a70f033221a37d</anchor>
+      <anchor>a7534aa081bd37c246412b6c0cb9b2749</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>Vector&lt; SCALAR &gt;</type>
       <name>t_Vector</name>
       <anchorfile>classsopt_1_1algorithm_1_1SDMM.html</anchorfile>
-      <anchor>a129b706723989f42ea58e0d320871cb1</anchor>
+      <anchor>a65cd119773a58a8b59007f8e9637af8d</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>LinearTransform&lt; t_Vector &gt;</type>
       <name>t_LinearTransform</name>
       <anchorfile>classsopt_1_1algorithm_1_1SDMM.html</anchorfile>
-      <anchor>ac3965673176360a164934d29242e1b62</anchor>
+      <anchor>aabf1f7a9b2e77cc06e88db5e89b545cd</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>ProximalFunction&lt; SCALAR &gt;</type>
       <name>t_Proximal</name>
       <anchorfile>classsopt_1_1algorithm_1_1SDMM.html</anchorfile>
-      <anchor>aa2f7ae9ac6330cfc054d0b93a11e676f</anchor>
+      <anchor>a9df7202b8ff882d8542e3c4fc5ad87a0</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>ConvergenceFunction&lt; SCALAR &gt;</type>
       <name>t_IsConverged</name>
       <anchorfile>classsopt_1_1algorithm_1_1SDMM.html</anchorfile>
-      <anchor>af8a3f7933aaf2b391127437e68999927</anchor>
+      <anchor>aad9f3f2dd16782ebe3be31dc1d8813f8</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -10008,49 +10008,49 @@
       <type>Scalar</type>
       <name>value_type</name>
       <anchorfile>classsopt_1_1algorithm_1_1SDMM.html</anchorfile>
-      <anchor>aea6ca6473f711803ee60c7340b1ac484</anchor>
+      <anchor>aaa61b8e2160cd20c6864111da36574ca</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>value_type</type>
       <name>Scalar</name>
       <anchorfile>classsopt_1_1algorithm_1_1SDMM.html</anchorfile>
-      <anchor>ae40289cc31766ddcbfe9d683ac80a25a</anchor>
+      <anchor>a69511914c6550ae3093f3b645a00748b</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>real_type&lt; Scalar &gt;::type</type>
+      <type>typename real_type&lt; Scalar &gt;::type</type>
       <name>Real</name>
       <anchorfile>classsopt_1_1algorithm_1_1SDMM.html</anchorfile>
-      <anchor>a2932b1a75e646edef1a70f033221a37d</anchor>
+      <anchor>a7534aa081bd37c246412b6c0cb9b2749</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>Vector&lt; Scalar &gt;</type>
       <name>t_Vector</name>
       <anchorfile>classsopt_1_1algorithm_1_1SDMM.html</anchorfile>
-      <anchor>a129b706723989f42ea58e0d320871cb1</anchor>
+      <anchor>a65cd119773a58a8b59007f8e9637af8d</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>LinearTransform&lt; t_Vector &gt;</type>
       <name>t_LinearTransform</name>
       <anchorfile>classsopt_1_1algorithm_1_1SDMM.html</anchorfile>
-      <anchor>ac3965673176360a164934d29242e1b62</anchor>
+      <anchor>aabf1f7a9b2e77cc06e88db5e89b545cd</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>ProximalFunction&lt; Scalar &gt;</type>
       <name>t_Proximal</name>
       <anchorfile>classsopt_1_1algorithm_1_1SDMM.html</anchorfile>
-      <anchor>aa2f7ae9ac6330cfc054d0b93a11e676f</anchor>
+      <anchor>a9df7202b8ff882d8542e3c4fc5ad87a0</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>ConvergenceFunction&lt; Scalar &gt;</type>
       <name>t_IsConverged</name>
       <anchorfile>classsopt_1_1algorithm_1_1SDMM.html</anchorfile>
-      <anchor>af8a3f7933aaf2b391127437e68999927</anchor>
+      <anchor>aad9f3f2dd16782ebe3be31dc1d8813f8</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -10252,42 +10252,42 @@
       <type>ForwardBackward&lt; SCALAR &gt;</type>
       <name>FB</name>
       <anchorfile>classsopt_1_1algorithm_1_1TFGProximal.html</anchorfile>
-      <anchor>a8d9d726de2d13522f8f2c66df2987a52</anchor>
+      <anchor>a596de6d25fec19553936cc874ea8b918</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>FB::Real</type>
+      <type>typename FB::Real</type>
       <name>Real</name>
       <anchorfile>classsopt_1_1algorithm_1_1TFGProximal.html</anchorfile>
-      <anchor>ae2bf0418fdaeef3a8d290790305d6aed</anchor>
+      <anchor>abad886c15adc3724d101748a4dcaf669</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>FB::Scalar</type>
+      <type>typename FB::Scalar</type>
       <name>Scalar</name>
       <anchorfile>classsopt_1_1algorithm_1_1TFGProximal.html</anchorfile>
-      <anchor>ab11afc411791e04d3cd073091b110588</anchor>
+      <anchor>a1090aa5b8306692a482536d0b0058188</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>FB::t_Vector</type>
+      <type>typename FB::t_Vector</type>
       <name>t_Vector</name>
       <anchorfile>classsopt_1_1algorithm_1_1TFGProximal.html</anchorfile>
-      <anchor>aff990fe7976b6cb89149e9c520b99d11</anchor>
+      <anchor>a4a84feda70e76aaccf5a718607645170</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>FB::t_Proximal</type>
+      <type>typename FB::t_Proximal</type>
       <name>t_Proximal</name>
       <anchorfile>classsopt_1_1algorithm_1_1TFGProximal.html</anchorfile>
-      <anchor>aa29a394481d31b343017cf1913598f77</anchor>
+      <anchor>a5a2ce70fcb5ab36b0d8a0b3b1ea060dd</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>FB::t_LinearTransform</type>
+      <type>typename FB::t_LinearTransform</type>
       <name>t_LinearTransform</name>
       <anchorfile>classsopt_1_1algorithm_1_1TFGProximal.html</anchorfile>
-      <anchor>a0b16324ed6f2ad452a084aca3fc77d92</anchor>
+      <anchor>ab5a5e53eff1e665d5cb5ac0e7256afe7</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -10346,10 +10346,10 @@
     <templarg></templarg>
     <templarg></templarg>
     <member kind="typedef">
-      <type>VECTOR::PlainObject</type>
+      <type>typename VECTOR::PlainObject</type>
       <name>ReturnType</name>
       <anchorfile>structEigen_1_1internal_1_1traits_3_01sopt_1_1details_1_1AppliedFunction_3_01FUNCTION_00_01VECTOR_01_4_01_4.html</anchorfile>
-      <anchor>a728ce89bb7b5efec530c0be8b4ced0fc</anchor>
+      <anchor>a8d3b46a7b031302979e4affda5234612</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -10359,10 +10359,10 @@
     <templarg></templarg>
     <templarg></templarg>
     <member kind="typedef">
-      <type>VECTOR::PlainObject</type>
+      <type>typename VECTOR::PlainObject</type>
       <name>ReturnType</name>
       <anchorfile>structEigen_1_1internal_1_1traits_3_01sopt_1_1proximal_1_1details_1_1DelayedProximalEnveloppeFun79592fbe5478856d047186d1851c9c0b.html</anchorfile>
-      <anchor>adf8efd23f910cc80f00803ce23b05600</anchor>
+      <anchor>a42c31546ed85ef5f13c6c5587b51d7db</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -10372,10 +10372,10 @@
     <templarg></templarg>
     <templarg></templarg>
     <member kind="typedef">
-      <type>VECTOR::PlainObject</type>
+      <type>typename VECTOR::PlainObject</type>
       <name>ReturnType</name>
       <anchorfile>structEigen_1_1internal_1_1traits_3_01sopt_1_1proximal_1_1details_1_1DelayedProximalFunction_3_01FUNCTION_00_01VECTOR_01_4_01_4.html</anchorfile>
-      <anchor>aeaba78315ee231f914df27a386d66ef7</anchor>
+      <anchor>af211119bfec5bc92b9f9052abeb27e06</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -10420,38 +10420,38 @@
     <class kind="struct">sopt::algorithm::TVPrimalDual::Diagnostic</class>
     <class kind="struct">sopt::algorithm::TVPrimalDual::DiagnosticAndResult</class>
     <member kind="typedef">
-      <type>PD::value_type</type>
+      <type>typename PD::value_type</type>
       <name>value_type</name>
       <anchorfile>classsopt_1_1algorithm_1_1TVPrimalDual.html</anchorfile>
-      <anchor>a7852c698c4d4f0fc9f7a674463901fe4</anchor>
+      <anchor>a51fb8480a1a0167180d79fb34db5730c</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>PD::Scalar</type>
+      <type>typename PD::Scalar</type>
       <name>Scalar</name>
       <anchorfile>classsopt_1_1algorithm_1_1TVPrimalDual.html</anchorfile>
-      <anchor>ad5d93728c3820de1fda97c7cfc383f5b</anchor>
+      <anchor>a48e2e515fb2ec279edbdc5327436d09c</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>PD::Real</type>
+      <type>typename PD::Real</type>
       <name>Real</name>
       <anchorfile>classsopt_1_1algorithm_1_1TVPrimalDual.html</anchorfile>
-      <anchor>ad6462abd5a4ef27bdba6103cf87f6f45</anchor>
+      <anchor>a065875c572ddb264ac5bfd9296cc78a4</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>PD::t_Vector</type>
+      <type>typename PD::t_Vector</type>
       <name>t_Vector</name>
       <anchorfile>classsopt_1_1algorithm_1_1TVPrimalDual.html</anchorfile>
-      <anchor>a3c9384652702c6e69f254d241ff100fb</anchor>
+      <anchor>a8db506832f3cccf979c6c3ac79d0793f</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>PD::t_LinearTransform</type>
+      <type>typename PD::t_LinearTransform</type>
       <name>t_LinearTransform</name>
       <anchorfile>classsopt_1_1algorithm_1_1TVPrimalDual.html</anchorfile>
-      <anchor>aa4f3d3c27dd00c4469bbc27013496ade</anchor>
+      <anchor>a9ce08409aba17ed9051d762ce73d12e4</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
@@ -10462,24 +10462,24 @@
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>PD::t_IsConverged</type>
+      <type>typename PD::t_IsConverged</type>
       <name>t_IsConverged</name>
       <anchorfile>classsopt_1_1algorithm_1_1TVPrimalDual.html</anchorfile>
-      <anchor>a10bb96c2db91e2be96d04e119351af6f</anchor>
+      <anchor>a656b5b5c9ff6fe15adff101476ad2a3a</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>PD::t_Constraint</type>
+      <type>typename PD::t_Constraint</type>
       <name>t_Constraint</name>
       <anchorfile>classsopt_1_1algorithm_1_1TVPrimalDual.html</anchorfile>
-      <anchor>a488074515cb08123eb2f222b88340e48</anchor>
+      <anchor>ab89548eb37b6df2c94c8fe4497e5cd32</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>PD::t_Random_Updater</type>
+      <type>typename PD::t_Random_Updater</type>
       <name>t_Random_Updater</name>
       <anchorfile>classsopt_1_1algorithm_1_1TVPrimalDual.html</anchorfile>
-      <anchor>a84936e27fc52de6cf9c98e2e36bf5b44</anchor>
+      <anchor>a1b6b708d989fdf5b2ee6b787fa929831</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -10824,7 +10824,7 @@
       <type>T</type>
       <name>type</name>
       <anchorfile>classsopt_1_1details_1_1underlying__value__type_3_01T_00_01false_01_4.html</anchorfile>
-      <anchor>a1d73b927f535e64006556d46017f81df</anchor>
+      <anchor>a868eecca5c5885f2ac813fc06de45bfc</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -10833,10 +10833,10 @@
     <filename>http://astro-informatics.github.io/sopt/classsopt_1_1details_1_1underlying__value__type_3_01T_00_01true_01_4.html</filename>
     <templarg></templarg>
     <member kind="typedef">
-      <type>underlying_value_type&lt; typename T::value_type &gt;::type</type>
+      <type>typename underlying_value_type&lt; typename T::value_type &gt;::type</type>
       <name>type</name>
       <anchorfile>classsopt_1_1details_1_1underlying__value__type_3_01T_00_01true_01_4.html</anchorfile>
-      <anchor>a55ac681ad0380ce3792a2836739b185a</anchor>
+      <anchor>a845d34c20196a329028268320bc0e137</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -10927,14 +10927,14 @@
       <type>t_real</type>
       <name>t_scalar</name>
       <anchorfile>structsopt_1_1wavelets_1_1WaveletData.html</anchorfile>
-      <anchor>aa82eab631dd6d37c100dc6c48d4d85ff</anchor>
+      <anchor>ab435424bac2f83bfa409820a2651f75e</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>Array&lt; t_real &gt;</type>
       <name>t_vector</name>
       <anchorfile>structsopt_1_1wavelets_1_1WaveletData.html</anchorfile>
-      <anchor>ae07560c6d9e6311984d4e38ead10b566</anchor>
+      <anchor>abceb9fb7d565fff98658b51780120a37</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -11007,17 +11007,17 @@
     <templarg></templarg>
     <base>sopt::proximal::L2Ball</base>
     <member kind="typedef">
-      <type>L2Ball&lt; T &gt;::Real</type>
+      <type>typename L2Ball&lt; T &gt;::Real</type>
       <name>Real</name>
       <anchorfile>classsopt_1_1proximal_1_1WeightedL2Ball.html</anchorfile>
-      <anchor>ad86b8c069f3d3287587be49578cb77f5</anchor>
+      <anchor>afc532aaefb2b019879134b5876e55035</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>Vector&lt; Real &gt;</type>
       <name>t_Vector</name>
       <anchorfile>classsopt_1_1proximal_1_1WeightedL2Ball.html</anchorfile>
-      <anchor>a1af65d6b9808607e1f729cba9387c23c</anchor>
+      <anchor>a04033cf6cdc1e404315ba1b3dd63bfdb</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -11099,7 +11099,7 @@
       <type>OperatorFunction&lt; VECTOR &gt;</type>
       <name>t_Function</name>
       <anchorfile>classsopt_1_1details_1_1WrapFunction.html</anchorfile>
-      <anchor>ab22ba7cf3383145891d70356fc962936</anchor>
+      <anchor>a0f3e11172f290c6702faa27c02358741</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -11187,7 +11187,7 @@
       <type>OperatorFunction&lt; t_Vector &gt;</type>
       <name>t_Function</name>
       <anchorfile>classsopt_1_1details_1_1WrapFunction.html</anchorfile>
-      <anchor>ab22ba7cf3383145891d70356fc962936</anchor>
+      <anchor>a0f3e11172f290c6702faa27c02358741</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -11315,28 +11315,28 @@
       <type>int</type>
       <name>t_int</name>
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt.html</anchorfile>
-      <anchor>a31ab3e07b254312a99a9fe2918b0a625</anchor>
+      <anchor>a47796df8f5f6bbffc226292ef1ca8196</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>size_t</type>
       <name>t_uint</name>
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt.html</anchorfile>
-      <anchor>a96a6515fd2aa0c9f5789d33e09fa6477</anchor>
+      <anchor>a7237c0991f6ec8c2bbdab8929b564964</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>double</type>
       <name>t_real</name>
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt.html</anchorfile>
-      <anchor>ac63d8bc953beeb56a063f174ce7f2a0a</anchor>
+      <anchor>a71bfb8f70b432862d3d654b9dcff77cc</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>std::complex&lt; t_real &gt;</type>
       <name>t_complex</name>
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt.html</anchorfile>
-      <anchor>a7d57def65a6a53f6b5b39dd9b4bb870c</anchor>
+      <anchor>ad24bc0cbf4f1391b3d1440213329d13f</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
@@ -11892,7 +11892,7 @@
       <type>decltype(std::bind(soft_threshhold&lt; SCALAR &gt;, std::placeholders::_1, typename real_type&lt; SCALAR &gt;::type(1)))</type>
       <name>SoftThreshhold</name>
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1details.html</anchorfile>
-      <anchor>afb4d080f72ab33d8ac369ae1abf26bb9</anchor>
+      <anchor>a9b2c8778a2d73aff0499c9f899fe16df</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">

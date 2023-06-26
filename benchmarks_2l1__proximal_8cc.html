@@ -126,9 +126,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ac706381e094e043a54341044d681f705"><td class="memTemplParams" colspan="2">template&lt;class TYPE &gt; </td></tr>
 <tr class="memitem:ac706381e094e043a54341044d681f705"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="benchmarks_2l1__proximal_8cc.html#ac706381e094e043a54341044d681f705">function_l1p</a> (benchmark::State &amp;state)</td></tr>
 <tr class="separator:ac706381e094e043a54341044d681f705"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f8c2f49e3a2b2789a512182489ba37c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="benchmarks_2l1__proximal_8cc.html#a2f8c2f49e3a2b2789a512182489ba37c">BENCHMARK_TEMPLATE</a> (<a class="el" href="benchmarks_2l1__proximal_8cc.html#ac706381e094e043a54341044d681f705">function_l1p</a>, <a class="el" href="namespacesopt.html#a7d57def65a6a53f6b5b39dd9b4bb870c">sopt::t_complex</a>) -&gt; RangePair(1, 256, 4, 12) -&gt;UseRealTime()</td></tr>
+<tr class="memitem:a2f8c2f49e3a2b2789a512182489ba37c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="benchmarks_2l1__proximal_8cc.html#a2f8c2f49e3a2b2789a512182489ba37c">BENCHMARK_TEMPLATE</a> (<a class="el" href="benchmarks_2l1__proximal_8cc.html#ac706381e094e043a54341044d681f705">function_l1p</a>, <a class="el" href="namespacesopt.html#ad24bc0cbf4f1391b3d1440213329d13f">sopt::t_complex</a>) -&gt; RangePair(1, 256, 4, 12) -&gt;UseRealTime()</td></tr>
 <tr class="separator:a2f8c2f49e3a2b2789a512182489ba37c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c089d0a2a916132316c0983e5fd9d69"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="benchmarks_2l1__proximal_8cc.html#a9c089d0a2a916132316c0983e5fd9d69">BENCHMARK_TEMPLATE</a> (<a class="el" href="benchmarks_2l1__proximal_8cc.html#ac706381e094e043a54341044d681f705">function_l1p</a>, <a class="el" href="namespacesopt.html#ac63d8bc953beeb56a063f174ce7f2a0a">sopt::t_real</a>) -&gt; RangePair(1, 256, 4, 12) -&gt;UseRealTime()</td></tr>
+<tr class="memitem:a9c089d0a2a916132316c0983e5fd9d69"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="benchmarks_2l1__proximal_8cc.html#a9c089d0a2a916132316c0983e5fd9d69">BENCHMARK_TEMPLATE</a> (<a class="el" href="benchmarks_2l1__proximal_8cc.html#ac706381e094e043a54341044d681f705">function_l1p</a>, <a class="el" href="namespacesopt.html#a71bfb8f70b432862d3d654b9dcff77cc">sopt::t_real</a>) -&gt; RangePair(1, 256, 4, 12) -&gt;UseRealTime()</td></tr>
 <tr class="separator:a9c089d0a2a916132316c0983e5fd9d69"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
@@ -147,7 +147,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="namespacesopt.html#a7d57def65a6a53f6b5b39dd9b4bb870c">sopt::t_complex</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="namespacesopt.html#ad24bc0cbf4f1391b3d1440213329d13f">sopt::t_complex</a>&#160;</td>
           <td class="paramname">&#160;</td>
         </tr>
         <tr>
@@ -175,7 +175,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="namespacesopt.html#ac63d8bc953beeb56a063f174ce7f2a0a">sopt::t_real</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="namespacesopt.html#a71bfb8f70b432862d3d654b9dcff77cc">sopt::t_real</a>&#160;</td>
           <td class="paramname">&#160;</td>
         </tr>
         <tr>
@@ -208,7 +208,7 @@ template&lt;class TYPE &gt; </div>
 
 <p class="definition">Definition at line <a class="el" href="benchmarks_2l1__proximal_8cc_source.html#l00008">8</a> of file <a class="el" href="benchmarks_2l1__proximal_8cc_source.html">l1_proximal.cc</a>.</p>
 <div class="fragment"><div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;                                         {</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;  <span class="keyword">typedef</span> <span class="keyword">typename</span> <a class="code" href="classsopt_1_1details_1_1underlying__value__type.html">sopt::real_type&lt;TYPE&gt;::type</a> Real;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;  <span class="keyword">using</span> Real = <span class="keyword">typename</span> <a class="code" href="classsopt_1_1details_1_1underlying__value__type.html">sopt::real_type&lt;TYPE&gt;::type</a>;</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> <a class="code" href="benchmarks_2wavelets_8cc.html#a61a80266d367e479ef40417f4f681bea">N</a> = state.range_x();</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> input = <a class="code" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">sopt::Vector&lt;TYPE&gt;::Random</a>(<a class="code" href="benchmarks_2wavelets_8cc.html#a61a80266d367e479ef40417f4f681bea">N</a>).eval();</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> Psi = <a class="code" href="namespacesopt.html#adedb6b3e862bd2968bf3026599121630">sopt::Matrix&lt;TYPE&gt;::Random</a>(input.size(), input.size() * 10).eval();</div>

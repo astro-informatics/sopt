@@ -149,9 +149,9 @@ Functions</h2></td></tr>
 <p class="definition">Definition at line <a class="el" href="wrapper_8cc_source.html#l00006">6</a> of file <a class="el" href="wrapper_8cc_source.html">wrapper.cc</a>.</p>
 <div class="fragment"><div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;                                            {</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;  <span class="keyword">using namespace </span><a class="code" href="namespacesopt.html">sopt</a>;</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;  <span class="keyword">typedef</span> <a class="code" href="namespacesopt.html#a9de8d7c976f608fe47220203047b5cb8">Array&lt;int&gt;</a> t_Array;</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;  <span class="keyword">typedef</span> t_Array &amp;t_RefArray;</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;  <span class="keyword">typedef</span> t_Array <span class="keyword">const</span> t_ConstRefArray;</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;  <span class="keyword">using</span> t_Array = <a class="code" href="namespacesopt.html#a9de8d7c976f608fe47220203047b5cb8">Array&lt;int&gt;</a>;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;  <span class="keyword">using</span> t_RefArray = t_Array&amp;;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;  <span class="keyword">using</span> t_ConstRefArray = t_Array <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;  SECTION(<span class="stringliteral">&quot;Square function&quot;</span>) {</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keyword">auto</span> func = [](t_RefArray output, t_ConstRefArray <span class="keyword">const</span> &amp;input) { output = input * 2 + 1; };</div>

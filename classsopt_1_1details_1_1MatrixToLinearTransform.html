@@ -91,9 +91,9 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a6c2805e87e0b102528b3bd99ad3d48ac"><td class="memItemLeft" align="right" valign="top">typedef std::conditional&lt; std::is_base_of&lt; Eigen::MatrixBase&lt; PlainMatrix &gt;, PlainMatrix &gt;::value, <a class="el" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">Vector</a>&lt; typename <a class="el" href="tf__inpainting_8cc.html#a508fc58b5dc3c81865305f6498457063">PlainMatrix::Scalar</a> &gt;, <a class="el" href="namespacesopt.html#a9de8d7c976f608fe47220203047b5cb8">Array</a>&lt; typename <a class="el" href="tf__inpainting_8cc.html#a508fc58b5dc3c81865305f6498457063">PlainMatrix::Scalar</a> &gt; &gt;::type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsopt_1_1details_1_1MatrixToLinearTransform.html#a6c2805e87e0b102528b3bd99ad3d48ac">PlainObject</a></td></tr>
-<tr class="memdesc:a6c2805e87e0b102528b3bd99ad3d48ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">The output type.  <a href="classsopt_1_1details_1_1MatrixToLinearTransform.html#a6c2805e87e0b102528b3bd99ad3d48ac">More...</a><br /></td></tr>
-<tr class="separator:a6c2805e87e0b102528b3bd99ad3d48ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afdd83f9048e9530ab421b0aae719cb70"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsopt_1_1details_1_1MatrixToLinearTransform.html#afdd83f9048e9530ab421b0aae719cb70">PlainObject</a> = typename std::conditional&lt; std::is_base_of&lt; Eigen::MatrixBase&lt; PlainMatrix &gt;, PlainMatrix &gt;::value, <a class="el" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">Vector</a>&lt; typename <a class="el" href="tf__inpainting_8cc.html#a8c2981f3f834be9448a6ab06c28748eb">PlainMatrix::Scalar</a> &gt;, <a class="el" href="namespacesopt.html#a9de8d7c976f608fe47220203047b5cb8">Array</a>&lt; typename <a class="el" href="tf__inpainting_8cc.html#a8c2981f3f834be9448a6ab06c28748eb">PlainMatrix::Scalar</a> &gt; &gt;::type</td></tr>
+<tr class="memdesc:afdd83f9048e9530ab421b0aae719cb70"><td class="mdescLeft">&#160;</td><td class="mdescRight">The output type.  <a href="classsopt_1_1details_1_1MatrixToLinearTransform.html#afdd83f9048e9530ab421b0aae719cb70">More...</a><br /></td></tr>
+<tr class="separator:afdd83f9048e9530ab421b0aae719cb70"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -104,7 +104,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a4100c5c6fc4ee7602a2ae2e3845738db"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsopt_1_1details_1_1MatrixToLinearTransform.html#a4100c5c6fc4ee7602a2ae2e3845738db">MatrixToLinearTransform</a> (std::shared_ptr&lt; EIGEN &gt; const &amp;x)</td></tr>
 <tr class="memdesc:a4100c5c6fc4ee7602a2ae2e3845738db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates from a shared matrix.  <a href="classsopt_1_1details_1_1MatrixToLinearTransform.html#a4100c5c6fc4ee7602a2ae2e3845738db">More...</a><br /></td></tr>
 <tr class="separator:a4100c5c6fc4ee7602a2ae2e3845738db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e9234d60ffc70517dbd9c239e548567"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsopt_1_1details_1_1MatrixToLinearTransform.html#a9e9234d60ffc70517dbd9c239e548567">operator()</a> (<a class="el" href="classsopt_1_1details_1_1MatrixToLinearTransform.html#a6c2805e87e0b102528b3bd99ad3d48ac">PlainObject</a> &amp;out, <a class="el" href="classsopt_1_1details_1_1MatrixToLinearTransform.html#a6c2805e87e0b102528b3bd99ad3d48ac">PlainObject</a> const &amp;x) const</td></tr>
+<tr class="memitem:a9e9234d60ffc70517dbd9c239e548567"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsopt_1_1details_1_1MatrixToLinearTransform.html#a9e9234d60ffc70517dbd9c239e548567">operator()</a> (<a class="el" href="classsopt_1_1details_1_1MatrixToLinearTransform.html#afdd83f9048e9530ab421b0aae719cb70">PlainObject</a> &amp;out, <a class="el" href="classsopt_1_1details_1_1MatrixToLinearTransform.html#afdd83f9048e9530ab421b0aae719cb70">PlainObject</a> const &amp;x) const</td></tr>
 <tr class="memdesc:a9e9234d60ffc70517dbd9c239e548567"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs operation.  <a href="classsopt_1_1details_1_1MatrixToLinearTransform.html#a9e9234d60ffc70517dbd9c239e548567">More...</a><br /></td></tr>
 <tr class="separator:a9e9234d60ffc70517dbd9c239e548567"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a82a0cca5b726d48b913f2bc4e69d594d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsopt_1_1details_1_1MatrixAdjointToLinearTransform.html">MatrixAdjointToLinearTransform</a>&lt; EIGEN &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsopt_1_1details_1_1MatrixToLinearTransform.html#a82a0cca5b726d48b913f2bc4e69d594d">adjoint</a> () const</td></tr>
@@ -120,8 +120,8 @@ class sopt::details::MatrixToLinearTransform&lt; EIGEN &gt;</h3>
 
 <p class="definition">Definition at line <a class="el" href="linear__transform_8h_source.html#l00021">21</a> of file <a class="el" href="linear__transform_8h_source.html">linear_transform.h</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a6c2805e87e0b102528b3bd99ad3d48ac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6c2805e87e0b102528b3bd99ad3d48ac">&#9670;&nbsp;</a></span>PlainObject</h2>
+<a id="afdd83f9048e9530ab421b0aae719cb70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afdd83f9048e9530ab421b0aae719cb70">&#9670;&nbsp;</a></span>PlainObject</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -129,7 +129,7 @@ class sopt::details::MatrixToLinearTransform&lt; EIGEN &gt;</h3>
 template&lt;class EIGEN &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">typedef std::conditional&lt;std::is_base_of&lt;Eigen::MatrixBase&lt;PlainMatrix&gt;, PlainMatrix&gt;::value, <a class="el" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">Vector</a>&lt;typename <a class="el" href="tf__inpainting_8cc.html#a508fc58b5dc3c81865305f6498457063">PlainMatrix::Scalar</a>&gt;, <a class="el" href="namespacesopt.html#a9de8d7c976f608fe47220203047b5cb8">Array</a>&lt;typename <a class="el" href="tf__inpainting_8cc.html#a508fc58b5dc3c81865305f6498457063">PlainMatrix::Scalar</a>&gt; &gt;::type <a class="el" href="classsopt_1_1details_1_1MatrixToLinearTransform.html">sopt::details::MatrixToLinearTransform</a>&lt; EIGEN &gt;::<a class="el" href="classsopt_1_1details_1_1MatrixToLinearTransform.html#a6c2805e87e0b102528b3bd99ad3d48ac">PlainObject</a></td>
+          <td class="memname">using <a class="el" href="classsopt_1_1details_1_1MatrixToLinearTransform.html">sopt::details::MatrixToLinearTransform</a>&lt; EIGEN &gt;::<a class="el" href="classsopt_1_1details_1_1MatrixToLinearTransform.html#afdd83f9048e9530ab421b0aae719cb70">PlainObject</a> =  typename std::conditional&lt;std::is_base_of&lt;Eigen::MatrixBase&lt;PlainMatrix&gt;, PlainMatrix&gt;::value, <a class="el" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">Vector</a>&lt;typename <a class="el" href="tf__inpainting_8cc.html#a8c2981f3f834be9448a6ab06c28748eb">PlainMatrix::Scalar</a>&gt;, <a class="el" href="namespacesopt.html#a9de8d7c976f608fe47220203047b5cb8">Array</a>&lt;typename <a class="el" href="tf__inpainting_8cc.html#a8c2981f3f834be9448a6ab06c28748eb">PlainMatrix::Scalar</a>&gt; &gt;::type</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -262,13 +262,13 @@ template&lt;class EIGEN &gt; </div>
         <tr>
           <td class="memname">void <a class="el" href="classsopt_1_1details_1_1MatrixToLinearTransform.html">sopt::details::MatrixToLinearTransform</a>&lt; EIGEN &gt;::operator() </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classsopt_1_1details_1_1MatrixToLinearTransform.html#a6c2805e87e0b102528b3bd99ad3d48ac">PlainObject</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classsopt_1_1details_1_1MatrixToLinearTransform.html#afdd83f9048e9530ab421b0aae719cb70">PlainObject</a> &amp;&#160;</td>
           <td class="paramname"><em>out</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classsopt_1_1details_1_1MatrixToLinearTransform.html#a6c2805e87e0b102528b3bd99ad3d48ac">PlainObject</a> const &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classsopt_1_1details_1_1MatrixToLinearTransform.html#afdd83f9048e9530ab421b0aae719cb70">PlainObject</a> const &amp;&#160;</td>
           <td class="paramname"><em>x</em>&#160;</td>
         </tr>
         <tr>
