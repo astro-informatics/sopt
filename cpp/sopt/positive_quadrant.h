@@ -15,17 +15,17 @@ template <class ALGORITHM>
 class PositiveQuadrant {
  public:
   //! Underlying algorithm
-  typedef ALGORITHM Algorithm;
+  using Algorithm = ALGORITHM;
   //! Underlying scalar
-  typedef typename Algorithm::Scalar Scalar;
+  using Scalar = typename Algorithm::Scalar;
   //! Underlying vector
-  typedef typename Algorithm::t_Vector t_Vector;
+  using t_Vector = typename Algorithm::t_Vector;
   //! Underlying convergence functions
-  typedef typename Algorithm::t_IsConverged t_IsConverged;
+  using t_IsConverged = typename Algorithm::t_IsConverged;
   //! Underlying result type
-  typedef typename ALGORITHM::Diagnostic Diagnostic;
+  using Diagnostic = typename ALGORITHM::Diagnostic;
   //! Underlying result type
-  typedef typename ALGORITHM::DiagnosticAndResult DiagnosticAndResult;
+  using DiagnosticAndResult = typename ALGORITHM::DiagnosticAndResult;
 
   PositiveQuadrant(Algorithm const &algo) : algorithm_(algo) {}
   PositiveQuadrant(Algorithm &&algo) : algorithm_(std::move(algo)) {}

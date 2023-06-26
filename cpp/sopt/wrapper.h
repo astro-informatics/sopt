@@ -15,8 +15,8 @@ namespace sopt::details {
 template <class FUNCTION, class DERIVED>
 class AppliedFunction : public Eigen::ReturnByValue<AppliedFunction<FUNCTION, DERIVED>> {
  public:
-  typedef typename DERIVED::PlainObject PlainObject;
-  typedef typename DERIVED::Index Index;
+  using PlainObject = typename DERIVED::PlainObject;
+  using Index = typename DERIVED::Index;
 
   AppliedFunction(FUNCTION const &func, DERIVED const &x, Index rows)
       : func(func), x(x), rows_(rows) {}
@@ -46,7 +46,7 @@ template <class VECTOR>
 class WrapFunction {
  public:
   //! Type of function wrapped here
-  typedef OperatorFunction<VECTOR> t_Function;
+  using t_Function = OperatorFunction<VECTOR>;
 
   //! Initializes the wrapper
   //! \param[in] func: function to wrap
@@ -137,7 +137,7 @@ WrapFunction<VECTOR> wrap(OperatorFunction<VECTOR> const &func,
 namespace Eigen::internal {
 template <class FUNCTION, class VECTOR>
 struct traits<sopt::details::AppliedFunction<FUNCTION, VECTOR>> {
-  typedef typename VECTOR::PlainObject ReturnType;
+  using ReturnType = typename VECTOR::PlainObject;
 };
 } // namespace Eigen::internal
 #endif

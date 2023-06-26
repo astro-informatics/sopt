@@ -25,17 +25,17 @@ namespace sopt::algorithm {
 template <class SCALAR>
 class ImagingForwardBackward {
   //! Underlying algorithm
-  typedef ForwardBackward<SCALAR> FB;
+  using FB = ForwardBackward<SCALAR>;
 
  public:
-  typedef typename FB::value_type value_type;
-  typedef typename FB::Scalar Scalar;
-  typedef typename FB::Real Real;
-  typedef typename FB::t_Vector t_Vector;
-  typedef typename FB::t_LinearTransform t_LinearTransform;
-  typedef typename FB::t_Proximal t_Proximal;
-  typedef typename FB::t_Gradient t_Gradient;
-  typedef typename FB::t_IsConverged t_IsConverged;
+  using value_type = typename FB::value_type;
+  using Scalar = typename FB::Scalar;
+  using Real = typename FB::Real;
+  using t_Vector = typename FB::t_Vector;
+  using t_LinearTransform = typename FB::t_LinearTransform;
+  using t_Proximal = typename FB::t_Proximal;
+  using t_Gradient = typename FB::t_Gradient;
+  using t_IsConverged = typename FB::t_IsConverged;
 
   //! Values indicating how the algorithm ran
   struct Diagnostic : public FB::Diagnostic {
@@ -81,7 +81,7 @@ class ImagingForwardBackward {
 // auto padmm = ImagingForwardBackward<float>().prop0(value).prop1(value);
 #define SOPT_MACRO(NAME, TYPE)                             \
   TYPE const &NAME() const { return NAME##_; }             \
-  ImagingForwardBackward<SCALAR> &NAME(TYPE const &NAME) { \
+  ImagingForwardBackward<SCALAR> &NAME(TYPE const &(NAME)) { \
     NAME##_ = NAME;                                        \
     return *this;                                          \
   }                                                        \

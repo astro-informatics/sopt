@@ -22,9 +22,9 @@ sopt::t_int random_integer(sopt::t_int min, sopt::t_int max) {
   return uniform_dist(*mersenne);
 };
 
-typedef sopt::t_real Scalar;
-typedef sopt::Vector<Scalar> t_Vector;
-typedef sopt::t_real t_real;
+using Scalar = sopt::t_real;
+using t_Vector = sopt::Vector<Scalar>;
+using t_real = sopt::t_real;
 auto const N = 5;
 
 TEST_CASE("Forward Backward with ||x - x0||_2^2 function", "[fb]") {
@@ -77,7 +77,7 @@ TEST_CASE("Check type returned on setting variables") {
   CHECK(is_imaging_proximal_ref<decltype(fb.l2_gradient(grad))>::value);
   CHECK(is_imaging_proximal_ref<decltype(fb.residual_convergence(1.001))>::value);
   CHECK(is_imaging_proximal_ref<decltype(fb.target(Vector<double>::Zero(0)))>::value);
-  typedef ConvergenceFunction<double> ConvFunc;
+  using ConvFunc = ConvergenceFunction<double>;
   CHECK(is_imaging_proximal_ref<decltype(fb.is_converged(std::declval<ConvFunc>()))>::value);
   CHECK(is_imaging_proximal_ref<decltype(fb.is_converged(std::declval<ConvFunc &>()))>::value);
   CHECK(is_imaging_proximal_ref<decltype(fb.is_converged(std::declval<ConvFunc &&>()))>::value);
@@ -92,7 +92,7 @@ TEST_CASE("Check type returned on setting variables") {
   CHECK(is_l1_g_proximal_ref<decltype(gp->l1_proximal_itermax(50))>::value);
   CHECK(is_l1_g_proximal_ref<decltype(gp->l1_proximal_positivity_constraint(true))>::value);
   CHECK(is_l1_g_proximal_ref<decltype(gp->l1_proximal_real_constraint(true))>::value);
-  typedef LinearTransform<Vector<double>> LinTrans;
+  using LinTrans = LinearTransform<Vector<double>>;
   CHECK(is_l1_g_proximal_ref<decltype(gp->Psi(linear_transform_identity<double>()))>::value);
   CHECK(is_l1_g_proximal_ref<decltype(gp->Psi(std::declval<LinTrans>()))>::value);
   CHECK(is_l1_g_proximal_ref<decltype(gp->Psi(std::declval<LinTrans &&>()))>::value);

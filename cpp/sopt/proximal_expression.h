@@ -19,9 +19,9 @@ template <class FUNCTION, class DERIVED>
 class DelayedProximalFunction
     : public Eigen::ReturnByValue<DelayedProximalFunction<FUNCTION, DERIVED>> {
  public:
-  typedef typename DERIVED::PlainObject PlainObject;
-  typedef typename DERIVED::Index Index;
-  typedef typename real_type<typename DERIVED::Scalar>::type Real;
+  using PlainObject = typename DERIVED::PlainObject;
+  using Index = typename DERIVED::Index;
+  using Real = typename real_type<typename DERIVED::Scalar>::type;
 
   DelayedProximalFunction(FUNCTION const &func, Real const &gamma, DERIVED const &x)
       : func(func), gamma(gamma), x(x) {}
@@ -53,9 +53,9 @@ template <class FUNCTION, class DERIVED>
 class DelayedProximalEnveloppeFunction
     : public Eigen::ReturnByValue<DelayedProximalEnveloppeFunction<FUNCTION, DERIVED>> {
  public:
-  typedef typename DERIVED::PlainObject PlainObject;
-  typedef typename DERIVED::Index Index;
-  typedef typename real_type<typename DERIVED::Scalar>::type Real;
+  using PlainObject = typename DERIVED::PlainObject;
+  using Index = typename DERIVED::Index;
+  using Real = typename real_type<typename DERIVED::Scalar>::type;
 
   DelayedProximalEnveloppeFunction(FUNCTION const &func, DERIVED const &x) : func(func), x(x) {}
   DelayedProximalEnveloppeFunction(DelayedProximalEnveloppeFunction const &c)
@@ -90,11 +90,11 @@ using EnveloppeExpression = details::DelayedProximalEnveloppeFunction<FUNC, Eige
 namespace Eigen::internal {
 template <class FUNCTION, class VECTOR>
 struct traits<sopt::proximal::details::DelayedProximalFunction<FUNCTION, VECTOR>> {
-  typedef typename VECTOR::PlainObject ReturnType;
+  using ReturnType = typename VECTOR::PlainObject;
 };
 template <class FUNCTION, class VECTOR>
 struct traits<sopt::proximal::details::DelayedProximalEnveloppeFunction<FUNCTION, VECTOR>> {
-  typedef typename VECTOR::PlainObject ReturnType;
+  using ReturnType = typename VECTOR::PlainObject;
 };
 } // namespace Eigen::internal
 

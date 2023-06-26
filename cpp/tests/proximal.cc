@@ -88,7 +88,7 @@ TEST_CASE("Tight-Frame L1 proximal", "[l1][proximal]") {
   using namespace sopt;
   auto l1 = proximal::L1TightFrame<t_complex>();
   auto check_is_minimum = [&l1](Vector<t_complex> const &x, t_real gamma = 1e0) {
-    typedef t_complex Scalar;
+    using Scalar = t_complex;
     Vector<t_complex> const p = l1(gamma, x);
     auto const mini = l1.objective(x, p, gamma);
     auto const eps = 1e-4;
@@ -141,7 +141,7 @@ TEST_CASE("Tight-Frame L1 proximal", "[l1][proximal]") {
 
 TEST_CASE("L1 proximal utilities", "[l1][utilities]") {
   using namespace sopt;
-  typedef t_complex Scalar;
+  using Scalar = t_complex;
 
   SECTION("Mixing") {
     auto const input = Vector<Scalar>::Random(10).eval();
@@ -201,7 +201,7 @@ TEST_CASE("L1 proximal utilities", "[l1][utilities]") {
 
 TEST_CASE("L1 proximal", "[l1][proximal]") {
   using namespace sopt;
-  typedef t_complex Scalar;
+  using Scalar = t_complex;
   auto l1 = proximal::L1<Scalar>().tolerance(1e-10);
 
   Vector<Scalar> const input = Vector<Scalar>::Random(4);

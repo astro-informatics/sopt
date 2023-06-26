@@ -31,16 +31,16 @@ class Wavelet : public WaveletData {
 
 // Temporary macros that checks constraints on input
 #define SOPT_WAVELET_MACRO_MULTIPLE(NAME)                                                   \
-  if ((NAME.rows() == 1 or NAME.cols() == 1)) {                                             \
-    if (NAME.size() % (1 << levels()) != 0)                                                 \
+  if (((NAME).rows() == 1 or (NAME).cols() == 1)) {                                             \
+    if ((NAME).size() % (1 << levels()) != 0)                                                 \
       throw std::length_error("Size of " #NAME " must number a multiple of 2^levels or 1"); \
-  } else if (NAME.rows() != 1 and NAME.rows() % (1 << levels()) != 0)                       \
+  } else if ((NAME).rows() != 1 and (NAME).rows() % (1 << levels()) != 0)                       \
     throw std::length_error("Rows of " #NAME " must number a multiple of 2^levels or 1");   \
-  else if (NAME.cols() % (1 << levels()) != 0)                                              \
+  else if ((NAME).cols() % (1 << levels()) != 0)                                              \
     throw std::length_error("Columns of " #NAME " must number a multiple of 2^levels");
 #define SOPT_WAVELET_MACRO_EQUAL_SIZE(A, B)                                                 \
-  if (A.rows() != B.rows() or A.cols() != B.cols()) A.derived().resize(B.rows(), B.cols()); \
-  if (A.rows() != B.rows() or A.cols() != B.cols())                                         \
+  if ((A).rows() != (B).rows() or (A).cols() != (B).cols()) (A).derived().resize((B).rows(), (B).cols()); \
+  if ((A).rows() != (B).rows() or (A).cols() != (B).cols())                                         \
   throw std::length_error("Incorrect size for output matrix(or could not resize)")
   //! \brief Direct transform
   //! \param[in] signal: computes wavelet coefficients for this signal. Its size must be a
