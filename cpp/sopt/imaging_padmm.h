@@ -72,7 +72,7 @@ class ImagingProximalADMM {
 // auto padmm = ImagingProximalADMM<float>().prop0(value).prop1(value);
 #define SOPT_MACRO(NAME, TYPE)                          \
   TYPE const &NAME() const { return NAME##_; }          \
-  ImagingProximalADMM<SCALAR> &NAME(TYPE const &NAME) { \
+  ImagingProximalADMM<SCALAR> &NAME(TYPE const &(NAME)) { \
     NAME##_ = NAME;                                     \
     return *this;                                       \
   }                                                     \
@@ -211,7 +211,7 @@ class ImagingProximalADMM {
   }                                                                                                \
   /** \brief Forwards to l1_proximal **/                                                           \
   ImagingProximalADMM<Scalar> &NAME##_proximal_##VAR(                                              \
-      decltype(std::declval<proximal::PROXIMAL<Scalar> const>().VAR()) VAR) {                      \
+      decltype(std::declval<proximal::PROXIMAL<Scalar> const>().VAR()) (VAR)) {                      \
     NAME##_proximal().VAR(VAR);                                                                    \
     return *this;                                                                                  \
   }

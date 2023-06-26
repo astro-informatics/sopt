@@ -94,7 +94,7 @@ class PrimalDual {
 // auto sdmm  = PrimalDual<float>().prop0(value).prop1(value);
 #define SOPT_MACRO(NAME, TYPE)                 \
   TYPE const &NAME() const { return NAME##_; } \
-  PrimalDual<SCALAR> &NAME(TYPE const &NAME) { \
+  PrimalDual<SCALAR> &NAME(TYPE const &(NAME)) { \
     NAME##_ = NAME;                            \
     return *this;                              \
   }                                            \

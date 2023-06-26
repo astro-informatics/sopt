@@ -72,7 +72,7 @@ class ProximalADMM {
 // auto sdmm  = ProximalADMM<float>().prop0(value).prop1(value);
 #define SOPT_MACRO(NAME, TYPE)                   \
   TYPE const &NAME() const { return NAME##_; }   \
-  ProximalADMM<SCALAR> &NAME(TYPE const &NAME) { \
+  ProximalADMM<SCALAR> &NAME(TYPE const &(NAME)) { \
     NAME##_ = NAME;                              \
     return *this;                                \
   }                                              \

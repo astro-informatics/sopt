@@ -75,7 +75,7 @@ class ForwardBackward {
 // auto sdmm  = ForwardBackward<float>().prop0(value).prop1(value);
 #define SOPT_MACRO(NAME, TYPE)                      \
   TYPE const &NAME() const { return NAME##_; }      \
-  ForwardBackward<SCALAR> &NAME(TYPE const &NAME) { \
+  ForwardBackward<SCALAR> &NAME(TYPE const &(NAME)) { \
     NAME##_ = NAME;                                 \
     return *this;                                   \
   }                                                 \

@@ -82,7 +82,7 @@ class L2ForwardBackward {
 // auto padmm = L2ForwardBackward<float>().prop0(value).prop1(value);
 #define SOPT_MACRO(NAME, TYPE)                             \
   TYPE const &NAME() const { return NAME##_; }             \
-  L2ForwardBackward<SCALAR> &NAME(TYPE const &NAME) { \
+  L2ForwardBackward<SCALAR> &NAME(TYPE const &(NAME)) { \
     NAME##_ = NAME;                                        \
     return *this;                                          \
   }                                                        \

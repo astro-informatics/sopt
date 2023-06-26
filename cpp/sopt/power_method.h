@@ -165,7 +165,7 @@ class PowerMethod {
 // auto sdmm  = ProximalADMM<float>().prop0(value).prop1(value);
 #define SOPT_MACRO(NAME, TYPE)                  \
   TYPE const &NAME() const { return NAME##_; }  \
-  PowerMethod<SCALAR> &NAME(TYPE const &NAME) { \
+  PowerMethod<SCALAR> &NAME(TYPE const &(NAME)) { \
     NAME##_ = NAME;                             \
     return *this;                               \
   }                                             \
