@@ -7,8 +7,9 @@
 
 TEST_CASE("Power Method") {
   using namespace sopt;
-  typedef t_real Scalar;
+  using Scalar = t_real;
   auto constexpr N = 10;
+
   Eigen::EigenSolver<Matrix<Scalar>> es;
   Matrix<Scalar> A(N, N);
   std::iota(A.data(), A.data() + A.size(), 0);
@@ -46,7 +47,7 @@ TEST_CASE("Power Method") {
 
 TEST_CASE("Power Method (from Purify)") {
   using namespace sopt;
-  typedef t_real Scalar;
+  using Scalar = t_real;
   auto constexpr N = 10;
   constexpr t_uint power_iters = 100000;
   constexpr t_real power_tol = 1e-6;

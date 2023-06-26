@@ -8,7 +8,7 @@
 #include "sopt/wavelets/wavelet_data.h"
 #include "sopt/wavelets/wavelets.h"
 
-typedef sopt::Array<sopt::t_uint> t_iVector;
+using t_iVector = sopt::Array<sopt::t_uint>;
 t_iVector even(t_iVector const &x) {
   t_iVector result((x.size() + 1) / 2);
   for (t_iVector::Index i(0); i < x.size(); i += 2) result(i / 2) = x(i);
@@ -22,7 +22,7 @@ t_iVector odd(t_iVector const &x) {
 template <class T>
 Eigen::Array<typename T::Scalar, T::RowsAtCompileTime, T::ColsAtCompileTime> upsample(
     Eigen::ArrayBase<T> const &input) {
-  typedef Eigen::Array<typename T::Scalar, T::RowsAtCompileTime, T::ColsAtCompileTime> Matrix;
+  using Matrix = Eigen::Array<typename T::Scalar, T::RowsAtCompileTime, T::ColsAtCompileTime>;
   Matrix result(input.size() * 2);
   for (t_iVector::Index i(0); i < input.size(); ++i) {
     result(2 * i) = input(i);

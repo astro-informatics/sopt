@@ -6,7 +6,7 @@
 
 template <class TYPE>
 void function_l1p(benchmark::State &state) {
-  typedef typename sopt::real_type<TYPE>::type Real;
+  using Real = typename sopt::real_type<TYPE>::type;
   auto const N = state.range_x();
   auto const input = sopt::Vector<TYPE>::Random(N).eval();
   auto const Psi = sopt::Matrix<TYPE>::Random(input.size(), input.size() * 10).eval();

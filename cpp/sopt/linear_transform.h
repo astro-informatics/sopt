@@ -29,7 +29,7 @@ template <class VECTOR>
 class LinearTransform : public details::WrapFunction<VECTOR> {
  public:
   //! Type of the wrapped functions
-  typedef OperatorFunction<VECTOR> t_Function;
+  using t_Function = OperatorFunction<VECTOR>;
 
   //! Constructor
   //! \param[in] direct: function with signature void(VECTOR&, VECTOR const&) which applies a
@@ -136,16 +136,16 @@ namespace details {
 template <class EIGEN>
 class MatrixToLinearTransform {
   //! The underlying raw matrix type
-  typedef typename std::remove_const<typename std::remove_reference<EIGEN>::type>::type Raw;
+  using Raw = typename std::remove_const<typename std::remove_reference<EIGEN>::type>::type;
   //! The matrix underlying the expression
-  typedef typename Raw::PlainObject PlainMatrix;
+  using PlainMatrix = typename Raw::PlainObject;
 
  public:
   //! The output type
-  typedef
+  using PlainObject =
       typename std::conditional<std::is_base_of<Eigen::MatrixBase<PlainMatrix>, PlainMatrix>::value,
                                 Vector<typename PlainMatrix::Scalar>,
-                                Array<typename PlainMatrix::Scalar>>::type PlainObject;
+                                Array<typename PlainMatrix::Scalar>>::type;
   //! \brief Creates from an expression
   //! \details Expression is evaluated and the result stored internally. This object owns a
   //! copy of the matrix. It might share it with a few friendly neighbors.
@@ -177,7 +177,7 @@ class MatrixToLinearTransform {
 template <class EIGEN>
 class MatrixAdjointToLinearTransform {
  public:
-  typedef typename MatrixToLinearTransform<EIGEN>::PlainObject PlainObject;
+  using PlainObject = typename MatrixToLinearTransform<EIGEN>::PlainObject;
   //! \brief Creates from an expression
   //! \details Expression is evaluated and the result stored internally. This object owns a
   //! copy of the matrix. It might share it with a few friendly neighbors.

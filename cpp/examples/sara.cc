@@ -2,7 +2,7 @@
 
 int main(int, char const **) {
   // Creates SARA with two wavelets
-  typedef std::tuple<std::string, sopt::t_uint> t_i;
+  using t_i = std::tuple<std::string, sopt::t_uint>;
   sopt::wavelets::SARA sara{t_i{"DB4", 5}, t_i{"DB8", 2}};
 
   // Then another one for good measure

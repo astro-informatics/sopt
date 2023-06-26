@@ -29,24 +29,24 @@ template <class ALGORITHM>
 class Reweighted {
  public:
   //! Inner-loop algorithm
-  typedef ALGORITHM Algorithm;
+  using Algorithm = ALGORITHM;
   //! Scalar type
-  typedef typename Algorithm::Scalar Scalar;
+  using Scalar = typename Algorithm::Scalar;
   //! Real type
-  typedef typename real_type<Scalar>::type Real;
+  using Real = typename real_type<Scalar>::type;
   //! Weight vector type
-  typedef Vector<Real> WeightVector;
+  using WeightVector = Vector<Real>;
   //! Type of then underlying vectors
-  typedef typename Algorithm::t_Vector XVector;
+  using XVector = typename Algorithm::t_Vector;
   //! Type of the convergence function
-  typedef ConvergenceFunction<Scalar> t_IsConverged;
+  using t_IsConverged = ConvergenceFunction<Scalar>;
   //! \brief Type of the function that is subject to reweighting
   //! \details E.g. \f$Ψ^Tx\f$. Note that l1-norm is not applied here.
-  typedef std::function<XVector(Algorithm const &, XVector const &)> t_Reweightee;
+  using t_Reweightee = std::function<XVector (const Algorithm &, const XVector &)>;
   //! Type of the function to set weights
-  typedef std::function<void(Algorithm &, WeightVector const &)> t_SetWeights;
+  using t_SetWeights = std::function<void (Algorithm &, const WeightVector &)>;
   //! Function to update delta at each turn
-  typedef std::function<Real(Real)> t_DeltaUpdate;
+  using t_DeltaUpdate = std::function<Real (Real)>;
 
   //! output from running reweighting scheme
   struct ReweightedResult {
@@ -248,8 +248,8 @@ template <class SCALAR>
 Reweighted<PositiveQuadrant<ImagingProximalADMM<SCALAR>>> reweighted(
     ImagingProximalADMM<SCALAR> const &algo) {
   auto const posq = positive_quadrant(algo);
-  typedef typename std::remove_const<decltype(posq)>::type Algorithm;
-  typedef Reweighted<Algorithm> RW;
+  using Algorithm = typename std::remove_const<decltype(posq)>::type;
+  using RW = Reweighted<Algorithm>;
   auto const reweightee =
       [](Algorithm const &posq, typename RW::XVector const &x) -> typename RW::XVector {
     return posq.algorithm().Psi().adjoint() * x;
@@ -271,8 +271,8 @@ positive_quadrant(Eigen::DenseBase<T> const &input);
 template <class SCALAR>
 Reweighted<PositiveQuadrant<PrimalDual<SCALAR>>> reweighted(PrimalDual<SCALAR> const &algo) {
   auto const posq = positive_quadrant(algo);
-  typedef typename std::remove_const<decltype(posq)>::type Algorithm;
-  typedef Reweighted<Algorithm> RW;
+  using Algorithm = typename std::remove_const<decltype(posq)>::type;
+  using RW = Reweighted<Algorithm>;
   auto const reweightee =
       [](Algorithm const &posq, typename RW::XVector const &x) -> typename RW::XVector {
     return posq.algorithm().Psi().adjoint() * x;

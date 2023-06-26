@@ -8,8 +8,8 @@
 TEST_CASE("Linear Transforms", "[ops]") {
   using namespace sopt;
 
-  typedef int SCALAR;
-  typedef Vector<SCALAR> t_Vector;
+  using SCALAR = int;
+  using t_Vector = Vector<SCALAR>;
   auto constexpr N = 5;
 
   SECTION("1 Functions") {

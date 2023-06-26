@@ -16,7 +16,7 @@ TEST_CASE("Check SARA implementation mechanically", "[wavelet]") {
   using namespace sopt::wavelets;
   using namespace sopt;
 
-  typedef std::tuple<std::string, sopt::t_uint> t_i;
+  using t_i = std::tuple<std::string, sopt::t_uint>;
   SARA const sara{t_i{std::string{"DB3"}, 1u}, t_i{std::string{"DB1"}, 2u},
                   t_i{std::string{"DB1"}, 3u}};
   SECTION("Construction and vector functionality") {

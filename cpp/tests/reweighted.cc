@@ -8,12 +8,12 @@
 
 using namespace sopt;
 
-//! \brief Minimum set of functions and typedefs needed by reweighting
+//! \brief Minimum set of functions and type aliases needed by reweighting
 //! \details The attributes are public and static so we can access them during the tests.
 struct DummyAlgorithm {
-  typedef t_real Scalar;
-  typedef Vector<Scalar> t_Vector;
-  typedef ConvergenceFunction<Scalar> t_IsConverged;
+  using Scalar = t_real;
+  using t_Vector = Vector<Scalar>;
+  using t_IsConverged = ConvergenceFunction<Scalar>;
 
   struct DiagnosticAndResult {
     //! Expected by reweighted algorithm

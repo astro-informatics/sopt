@@ -25,9 +25,9 @@ template <class SCALAR>
 class L1TightFrame {
  public:
   //! Underlying scalar type
-  typedef SCALAR Scalar;
+  using Scalar = SCALAR;
   //! Underlying real scalar type
-  typedef typename real_type<Scalar>::type Real;
+  using Real = typename real_type<Scalar>::type;
 
 #ifdef SOPT_MPI
   //! \brief MPI constructor with direct and adjoint space communicators
@@ -49,7 +49,7 @@ class L1TightFrame {
 
 #define SOPT_MACRO(NAME, TYPE)                   \
   TYPE const &NAME() const { return NAME##_; }   \
-  L1TightFrame<Scalar> &NAME(TYPE const &NAME) { \
+  L1TightFrame<Scalar> &NAME(TYPE const &(NAME)) { \
     NAME##_ = NAME;                              \
     return *this;                                \
   }                                              \
@@ -181,9 +181,9 @@ class L1 : protected L1TightFrame<SCALAR> {
 #endif
 
   //! Underlying scalar type
-  typedef typename L1TightFrame<SCALAR>::Scalar Scalar;
+  using Scalar = typename L1TightFrame<SCALAR>::Scalar;
   //! Underlying real scalar type
-  typedef typename L1TightFrame<SCALAR>::Real Real;
+  using Real = typename L1TightFrame<SCALAR>::Real;
 
   //! How did calling L1 go?
   struct Diagnostic {
@@ -253,7 +253,7 @@ class L1 : protected L1TightFrame<SCALAR> {
 
 #define SOPT_MACRO(NAME, TYPE)                 \
   TYPE const &NAME() const { return NAME##_; } \
-  L1<Scalar> &NAME(TYPE const &NAME) {         \
+  L1<Scalar> &NAME(TYPE const &(NAME)) {         \
     NAME##_ = NAME;                            \
     return *this;                              \
   }                                            \
@@ -390,7 +390,7 @@ void L1<SCALAR>::apply_constraints(Eigen::MatrixBase<T0> &out,
 template <class SCALAR>
 class L1<SCALAR>::FistaMixing {
  public:
-  typedef typename real_type<SCALAR>::type Real;
+  using Real = typename real_type<SCALAR>::type;
   FistaMixing() : t(1){};
   template <class T1>
   void operator()(Vector<SCALAR> &previous, Eigen::MatrixBase<T1> const &unmixed, t_uint iter) {
@@ -423,7 +423,7 @@ class L1<SCALAR>::NoMixing {
 template <class SCALAR>
 class L1<SCALAR>::Breaker {
  public:
-  typedef typename real_type<SCALAR>::type Real;
+  using Real = typename real_type<SCALAR>::type;
   //! Constructs a breaker object
   //! \param[in] objective: the first objective function
   //! \param[in] tolerance: Convergence criteria for convergence

@@ -26,10 +26,10 @@ TEST_CASE("Parallel vs serial inpainting") {
   auto const split_comm = world.split(world.is_root());
   if (world.size() < 2) return;
 
-  // Some typedefs for simplicity
-  typedef double Scalar;
-  typedef sopt::Vector<Scalar> Vector;
-  typedef sopt::Image<Scalar> Image;
+  // Some type aliases for simplicity
+  using Scalar = double;
+  using Vector = sopt::Vector<Scalar>;
+  using Image = sopt::Image<Scalar>;
 
   std::string const input = "cameraman256";
   // Read input file

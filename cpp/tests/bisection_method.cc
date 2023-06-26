@@ -6,9 +6,9 @@
 #include "sopt/bisection_method.h"
 #include "sopt/types.h"
 
-typedef sopt::t_real Scalar;
-typedef sopt::Vector<Scalar> t_Vector;
-typedef sopt::Matrix<Scalar> t_Matrix;
+using Scalar = sopt::t_real;
+using t_Vector = sopt::Vector<Scalar>;
+using t_Matrix = sopt::Matrix<Scalar>;
 
 constexpr Scalar a = -0.5;
 constexpr Scalar b = 1.;

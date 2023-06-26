@@ -5,9 +5,9 @@
 #include "sopt/types.h"
 
 using namespace sopt;
-typedef t_complex Scalar;
-typedef Vector<Scalar> t_Vector;
-typedef Image<Scalar> t_Image;
+using Scalar = t_complex;
+using t_Vector = Vector<Scalar>;
+using t_Image = Image<Scalar>;
 t_uint rows = 128;
 t_uint cols = 128;
 t_uint N = rows * cols;

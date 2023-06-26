@@ -14,9 +14,9 @@ sopt::t_int random_integer(sopt::t_int min, sopt::t_int max) {
   return uniform_dist(*mersenne);
 };
 
-typedef sopt::t_real Scalar;
-typedef sopt::Vector<Scalar> t_Vector;
-typedef sopt::Matrix<Scalar> t_Matrix;
+using Scalar = sopt::t_real;
+using t_Vector = sopt::Vector<Scalar>;
+using t_Matrix = sopt::Matrix<Scalar>;
 
 auto constexpr N = 5;
 
@@ -67,13 +67,13 @@ TEST_CASE("Check type returned on setting variables") {
   CHECK(is_imaging_proximal_ref<decltype(admm.lagrange_update_scale(0.9))>::value);
   CHECK(is_imaging_proximal_ref<decltype(admm.nu(1e0))>::value);
   CHECK(is_imaging_proximal_ref<decltype(admm.target(Vector<double>::Zero(0)))>::value);
-  typedef ConvergenceFunction<double> ConvFunc;
+  using ConvFunc = ConvergenceFunction<double>;
   CHECK(is_imaging_proximal_ref<decltype(admm.is_converged(std::declval<ConvFunc>()))>::value);
   CHECK(is_imaging_proximal_ref<decltype(admm.is_converged(std::declval<ConvFunc &>()))>::value);
   CHECK(is_imaging_proximal_ref<decltype(admm.is_converged(std::declval<ConvFunc &&>()))>::value);
   CHECK(is_imaging_proximal_ref<decltype(
             admm.is_converged(std::declval<ConvFunc const &>()))>::value);
-  typedef LinearTransform<Vector<double>> LinTrans;
+  using LinTrans = LinearTransform<Vector<double>>;
   CHECK(is_imaging_proximal_ref<decltype(admm.Phi(linear_transform_identity<double>()))>::value);
   CHECK(is_imaging_proximal_ref<decltype(admm.Phi(std::declval<LinTrans>()))>::value);
   CHECK(is_imaging_proximal_ref<decltype(admm.Phi(std::declval<LinTrans &&>()))>::value);

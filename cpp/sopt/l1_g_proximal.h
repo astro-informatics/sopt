@@ -28,12 +28,12 @@ template <class SCALAR>
 class L1GProximal : public GProximal<SCALAR> {
 
 public:
-  typedef ForwardBackward<SCALAR> FB;
-  typedef typename FB::Real Real;
-  typedef typename FB::Scalar Scalar;
-  typedef typename FB::t_Vector t_Vector;
-  typedef typename FB::t_Proximal t_Proximal;
-  typedef typename FB::t_LinearTransform t_LinearTransform;
+  using FB = ForwardBackward<SCALAR>;
+  using Real = typename FB::Real;
+  using Scalar = typename FB::Scalar;
+  using t_Vector = typename FB::t_Vector;
+  using t_Proximal = typename FB::t_Proximal;
+  using t_LinearTransform = typename FB::t_LinearTransform;
 
   // In the constructor we need to construct the private l1_proximal_
   // object that contains the real implementation details. The tight_frame

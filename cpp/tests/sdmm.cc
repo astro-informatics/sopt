@@ -13,9 +13,9 @@ sopt::t_int random_integer(sopt::t_int min, sopt::t_int max) {
   return uniform_dist(*mersenne);
 };
 
-typedef sopt::t_real Scalar;
-typedef sopt::Vector<Scalar> t_Vector;
-typedef sopt::Matrix<Scalar> t_Matrix;
+using Scalar = sopt::t_real;
+using t_Vector = sopt::Vector<Scalar>;
+using t_Matrix = sopt::Matrix<Scalar>;
 
 auto constexpr N = 4;
 

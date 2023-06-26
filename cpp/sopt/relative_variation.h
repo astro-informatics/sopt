@@ -13,9 +13,9 @@ template <class TYPE>
 class RelativeVariation {
  public:
   //! Underlying scalar type
-  typedef TYPE Scalar;
+  using Scalar = TYPE;
   //! Underlying scalar type
-  typedef typename real_type<Scalar>::type Real;
+  using Real = typename real_type<Scalar>::type;
   //! Maximum variation from one step to the next
   RelativeVariation(Real tolerance = 1e-12, std::string const &name = "")
       : tolerance_(tolerance), previous_(typename Array<Scalar>::Index(0)), name_(name){};
@@ -55,9 +55,9 @@ template <class TYPE>
 class ScalarRelativeVariation {
  public:
   //! Underlying scalar type
-  typedef TYPE Scalar;
+  using Scalar = TYPE;
   //! Underlying scalar type
-  typedef typename real_type<Scalar>::type Real;
+  using Real = typename real_type<Scalar>::type;
   //! Maximum variation from one step to the next
   ScalarRelativeVariation(Real relative_tolerance = 1e-12, Real absolute_tolerance = 1e-12,
                           std::string const &name = "")

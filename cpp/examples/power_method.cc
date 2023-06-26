@@ -3,7 +3,7 @@
 #include "sopt/power_method.h"
 
 int main(int, char const **) {
-  typedef sopt::t_real Scalar;
+  using Scalar = sopt::t_real;
   auto constexpr N = 10;
 
   // Create some kind of matrix

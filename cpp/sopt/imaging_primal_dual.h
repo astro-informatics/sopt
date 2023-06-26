@@ -18,19 +18,19 @@ namespace sopt::algorithm {
 template <class SCALAR>
 class ImagingPrimalDual {
   //! Underlying algorithm
-  typedef PrimalDual<SCALAR> PD;
+  using PD = PrimalDual<SCALAR>;
 
  public:
-  typedef typename PD::value_type value_type;
-  typedef typename PD::Scalar Scalar;
-  typedef typename PD::Real Real;
-  typedef typename PD::t_Vector t_Vector;
-  typedef typename PD::t_LinearTransform t_LinearTransform;
+  using value_type = typename PD::value_type;
+  using Scalar = typename PD::Scalar;
+  using Real = typename PD::Real;
+  using t_Vector = typename PD::t_Vector;
+  using t_LinearTransform = typename PD::t_LinearTransform;
   template <class T>
   using t_Proximal = std::function<void(t_Vector &, const T &, const t_Vector &)>;
-  typedef typename PD::t_IsConverged t_IsConverged;
-  typedef typename PD::t_Constraint t_Constraint;
-  typedef typename PD::t_Random_Updater t_Random_Updater;
+  using t_IsConverged = typename PD::t_IsConverged;
+  using t_Constraint = typename PD::t_Constraint;
+  using t_Random_Updater = typename PD::t_Random_Updater;
 
   //! Values indicating how the algorithm ran
   struct Diagnostic : public PD::Diagnostic {
@@ -84,7 +84,7 @@ class ImagingPrimalDual {
 // auto padmm = ImagingPrimalDual<float>().prop0(value).prop1(value);
 #define SOPT_MACRO(NAME, TYPE)                        \
   TYPE const &NAME() const { return NAME##_; }        \
-  ImagingPrimalDual<SCALAR> &NAME(TYPE const &NAME) { \
+  ImagingPrimalDual<SCALAR> &NAME(TYPE const &(NAME)) { \
     NAME##_ = NAME;                                   \
     return *this;                                     \
   }                                                   \
@@ -243,7 +243,7 @@ class ImagingPrimalDual {
   }                                                                                                \
   /** \brief Forwards to l1_proximal **/                                                           \
   ImagingPrimalDual<Scalar> &NAME##_proximal_##VAR(                                                \
-      decltype(std::declval<proximal::PROXIMAL<Scalar> const>().VAR()) VAR) {                      \
+      decltype(std::declval<proximal::PROXIMAL<Scalar> const>().VAR()) (VAR)) {                      \
     NAME##_proximal().VAR(VAR);                                                                    \
     return *this;                                                                                  \
   }
