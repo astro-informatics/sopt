@@ -11,9 +11,8 @@
 #include "sopt/mpi/utilities.h"
 #endif
 
-namespace sopt {
 //! Holds some standard proximals
-namespace proximal {
+namespace sopt::proximal {
 
 //! Proximal of euclidian norm
 class EuclidianNorm {
@@ -30,7 +29,7 @@ class EuclidianNorm {
   void operator()(Vector<typename T0::Scalar> &out,
                   typename real_type<typename T0::Scalar>::type const &t,
                   Eigen::MatrixBase<T0> const &x) const {
-    typedef typename T0::Scalar Scalar;
+    using Scalar = typename T0::Scalar;
 #ifdef SOPT_MPI
     auto const norm = mpi::l2_norm(x, comm_);
 #else
@@ -157,7 +156,7 @@ void positive_quadrant(Vector<T> &out, typename real_type<T>::type, Vector<T> co
 template <class T>
 class L2Norm {
  public:
-  typedef typename real_type<T>::type Real;
+  using Real = typename real_type<T>::type;
   //! Constructs an L2 ball proximal of size gamma
   L2Norm() {}
 
@@ -182,7 +181,7 @@ class L2Norm {
 template <class T>
 class L2Ball {
  public:
-  typedef typename real_type<T>::type Real;
+  using Real = typename real_type<T>::type;
 //! Constructs an L2 ball proximal of size epsilon
 #ifdef SOPT_MPI
   L2Ball(Real epsilon, mpi::Communicator const &comm = mpi::Communicator())
@@ -246,8 +245,8 @@ class L2Ball {
 template <class T>
 class WeightedL2Ball : public L2Ball<T> {
  public:
-  typedef typename L2Ball<T>::Real Real;
-  typedef Vector<Real> t_Vector;
+  using Real = typename L2Ball<T>::Real;
+  using t_Vector = Vector<Real>;
 #ifdef SOPT_MPI
   //! Constructs an L2 ball proximal of size epsilon with given weights
   template <class T0>
@@ -363,7 +362,6 @@ template <class FUNCTION, class VECTOR>
 Translation<FUNCTION, VECTOR> translate(FUNCTION const &func, VECTOR const &translation) {
   return Translation<FUNCTION, VECTOR>(func, translation);
 }
-}  // namespace proximal
-}  // namespace sopt
+} // namespace sopt::proximal
 
 #endif

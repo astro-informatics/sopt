@@ -4,8 +4,10 @@
 #include "sopt/linear_transform.h"
 #include "sopt/types.h"
 
-namespace sopt {
-namespace algorithm {
+#include <utility> // for std::forward
+
+namespace sopt::algorithm {
+
 //! \brief Computes according to given algorithm and then projects it to the positive quadrant
 //! \details C implementation of the reweighted algorithms uses this, even-though the solutions are
 //! already constrained to the positive quadrant.
@@ -13,17 +15,17 @@ template <class ALGORITHM>
 class PositiveQuadrant {
  public:
   //! Underlying algorithm
-  typedef ALGORITHM Algorithm;
+  using Algorithm = ALGORITHM;
   //! Underlying scalar
-  typedef typename Algorithm::Scalar Scalar;
+  using Scalar = typename Algorithm::Scalar;
   //! Underlying vector
-  typedef typename Algorithm::t_Vector t_Vector;
+  using t_Vector = typename Algorithm::t_Vector;
   //! Underlying convergence functions
-  typedef typename Algorithm::t_IsConverged t_IsConverged;
+  using t_IsConverged = typename Algorithm::t_IsConverged;
   //! Underlying result type
-  typedef typename ALGORITHM::Diagnostic Diagnostic;
+  using Diagnostic = typename ALGORITHM::Diagnostic;
   //! Underlying result type
-  typedef typename ALGORITHM::DiagnosticAndResult DiagnosticAndResult;
+  using DiagnosticAndResult = typename ALGORITHM::DiagnosticAndResult;
 
   PositiveQuadrant(Algorithm const &algo) : algorithm_(algo) {}
   PositiveQuadrant(Algorithm &&algo) : algorithm_(std::move(algo)) {}
@@ -57,7 +59,6 @@ template <class ALGORITHM>
 PositiveQuadrant<ALGORITHM> positive_quadrant(ALGORITHM const &algo) {
   return {algo};
 }
-}  // namespace algorithm
-}  // namespace sopt
+} // namespace sopt::algorithm
 
 #endif

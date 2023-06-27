@@ -107,8 +107,8 @@ class ConjugateGradient {
 template <class VECTOR, class T1, class MATRIXLIKE>
 ConjugateGradient::Diagnostic ConjugateGradient::implementation(
     VECTOR &x, MATRIXLIKE const &A, Eigen::MatrixBase<T1> const &b) const {
-  typedef typename T1::Scalar Scalar;
-  typedef typename real_type<Scalar>::type Real;
+  using Scalar = typename T1::Scalar;
+  using Real = typename real_type<Scalar>::type;
 
   x.resize(b.size());
   if (std::abs((b.transpose().conjugate() * b)(0)) < tolerance()) {

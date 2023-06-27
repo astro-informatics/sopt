@@ -4,6 +4,7 @@
 #include "sopt/config.h"
 #include <limits>
 #include <numeric>
+#include <utility> // for std::forward<>
 #include <vector>
 #include "sopt/conjugate_gradient.h"
 #include "sopt/exception.h"
@@ -14,8 +15,7 @@
 #include "sopt/types.h"
 #include "sopt/wrapper.h"
 
-namespace sopt {
-namespace algorithm {
+namespace sopt::algorithm {
 
 //! \brief Simultaneous-direction method of the multipliers
 //! \details The algorithm is detailed in (doi) 10.1093/mnras/stu202.
@@ -36,19 +36,19 @@ class SDMM {
     Vector<SCALAR> x;
   };
   //! Scalar type
-  typedef SCALAR value_type;
+  using value_type = SCALAR;
   //! Scalar type
-  typedef value_type Scalar;
+  using Scalar = value_type;
   //! Real type
-  typedef typename real_type<Scalar>::type Real;
+  using Real = typename real_type<Scalar>::type;
   //! Type of then underlying vectors
-  typedef Vector<SCALAR> t_Vector;
+  using t_Vector = Vector<SCALAR>;
   //! Type of the A and A^H operations
-  typedef LinearTransform<t_Vector> t_LinearTransform;
+  using t_LinearTransform = LinearTransform<t_Vector>;
   //! Type of the proximal functions
-  typedef ProximalFunction<SCALAR> t_Proximal;
+  using t_Proximal = ProximalFunction<SCALAR>;
   //! Type of the convergence function
-  typedef ConvergenceFunction<SCALAR> t_IsConverged;
+  using t_IsConverged = ConvergenceFunction<SCALAR>;
 
   SDMM()
       : itermax_(std::numeric_limits<t_uint>::max()),
@@ -61,7 +61,7 @@ class SDMM {
 // auto sdmm  = SDMM<float>().prop0(value).prop1(value);
 #define SOPT_MACRO(NAME, TYPE)                 \
   TYPE const &NAME() const { return NAME##_; } \
-  SDMM<SCALAR> &NAME(TYPE const &NAME) {       \
+  SDMM<SCALAR> &NAME(TYPE const &(NAME)) {       \
     NAME##_ = NAME;                            \
     return *this;                              \
   }                                            \
@@ -178,7 +178,7 @@ class SDMM {
   std::vector<t_Proximal> proximals_;
 
   //! Type of the list of vectors
-  typedef std::vector<t_Vector> t_Vectors;
+  using t_Vectors = std::vector<t_Vector>;
   //! Conjugate gradient step
   virtual ConjugateGradient::Diagnostic solve_for_xn(t_Vector &out, t_Vectors const &y,
                                                      t_Vectors const &z) const;
@@ -303,6 +303,5 @@ void SDMM<SCALAR>::sanity_check(t_Vector const &x) const {
   }
   if (doexit) SOPT_THROW("Input to SDMM is inconsistent");
 }
-}  // namespace algorithm
-}  // namespace sopt
+} // namespace sopt::algorithm
 #endif

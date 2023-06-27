@@ -2,11 +2,11 @@
 #define SOPT_WAVELETS_INNARDS_H
 
 #include "sopt/config.h"
+#include <algorithm> // for std::copy<>
 #include <Eigen/Core>
 
 // Function inside anonymouns namespace won't appear in library
-namespace sopt {
-namespace wavelets {
+namespace sopt::wavelets {
 namespace {
 //! \brief Returns evaluated expression or copy of input
 //! \details Gets C++ to figure out what the exact type is. Eigen tries and avoids copies. But
@@ -138,6 +138,5 @@ void up_convolve_sum(Eigen::ArrayBase<T0> &result, Eigen::ArrayBase<T1> const &c
   }
 }
 }  // namespace
-}  // namespace wavelets
-}  // namespace sopt
+} // namespace sopt::wavelets
 #endif

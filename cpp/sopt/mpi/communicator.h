@@ -6,6 +6,7 @@
 
 #ifdef SOPT_MPI
 
+#include <algorithm> // for std::copy
 #include <iostream>
 #include <memory>
 #include <mpi.h>
@@ -19,8 +20,7 @@
 #include <cxxabi.h>
 #include <typeinfo>
 
-namespace sopt {
-namespace mpi {
+namespace sopt::mpi {
 
 //! \brief A C++ wrapper for an mpi communicator
 //! \details All copies made of this communicator are shallow: they reference
@@ -47,7 +47,7 @@ class Communicator {
   static Communicator World() { return Communicator(MPI_COMM_WORLD); }
   static Communicator Self() { return Communicator(MPI_COMM_SELF); }
 
-  virtual ~Communicator(){};
+  virtual ~Communicator(){}
 
   //! The number of processes
   decltype(Impl::size) size() const { return impl ? impl->size : 1; }
@@ -342,7 +342,7 @@ Communicator::all_to_allv(const std::vector<T> &vec, std::vector<t_int> const &s
   }
 
   return all_to_allv<T>(vec, send_sizes, rec_sizes);
-};
+}
 template <class T>
 typename std::enable_if<is_registered_type<T>::value, std::vector<T>>::type
 Communicator::all_to_allv(const std::vector<T> &vec, std::vector<t_int> const &send_sizes,
@@ -372,7 +372,7 @@ Communicator::all_to_allv(const std::vector<T> &vec, std::vector<t_int> const &s
                 sdispls.data(), registered_type(T(0)), output.data(), rsizes_.data(),
                 rdispls.data(), registered_type(T(0)), **this);
   return output;
-};
+}
 
 template <class T>
 typename std::enable_if<is_registered_type<T>::value, Vector<T>>::type Communicator::all_to_allv(
@@ -391,7 +391,7 @@ typename std::enable_if<is_registered_type<T>::value, Vector<T>>::type Communica
   }
 
   return all_to_allv<T>(vec, send_sizes, rec_sizes);
-};
+}
 
 template <class T>
 typename std::enable_if<is_registered_type<T>::value, Vector<T>>::type Communicator::all_to_allv(
@@ -422,7 +422,7 @@ typename std::enable_if<is_registered_type<T>::value, Vector<T>>::type Communica
                 sdispls.data(), registered_type(T(0)), output.data(), rsizes_.data(),
                 rdispls.data(), registered_type(T(0)), **this);
   return output;
-};
+}
 
 template <class T>
 typename std::enable_if<is_registered_type<T>::value, std::vector<T>>::type Communicator::gather(
@@ -584,7 +584,6 @@ Communicator::broadcast(t_uint const root) const {
   MPI_Bcast(result.data(), result.size(), Type<typename T::value_type>::value, root, **this);
   return result;
 }
-}  // namespace mpi
-}  // namespace sopt
+} // namespace sopt::mpi
 #endif /* ifdef SOPT_MPI */
 #endif /* ifndef SOPT_MPI_COMMUNICATOR */

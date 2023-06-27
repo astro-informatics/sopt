@@ -117,7 +117,7 @@ TEST_CASE("Soft threshhold", "[utility][threshhold]") {
 }
 
 TEST_CASE("Sampling", "[utility][sampling]") {
-  typedef sopt::Vector<int> t_Vector;
+  using t_Vector = sopt::Vector<int>;
   t_Vector const input = t_Vector::Random(12);
 
   sopt::Sampling const sampling(12, {1, 3, 6, 5});
@@ -168,7 +168,7 @@ TEST_CASE("Standard deviation", "[utility]") {
   sopt::t_real stddev = 0e0;
   for (sopt::Vector<>::Index i(0); i < input.size(); ++i)
     stddev += std::real(std::conj(input(i) - mean) * (input(i) - mean));
-  stddev = std::sqrt(stddev) / std::sqrt(sopt::t_real(input.size()));
+  stddev = std::sqrt(stddev) / std::sqrt(static_cast<sopt::t_real>(input.size()));
 
   CHECK(std::abs(sopt::standard_deviation(input) - stddev) < 1e-8);
   CHECK(std::abs(sopt::standard_deviation(input.matrix()) - stddev) < 1e-8);

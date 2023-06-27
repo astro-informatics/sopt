@@ -3,6 +3,7 @@
 // TODO: Clean up unnecessary includes
 #include "sopt/config.h"
 #include <numeric>
+#include <string> // for std::string
 #include <tuple>
 #include <utility>
 #include "sopt/exception.h"
@@ -19,8 +20,7 @@
 #include "cppflow/model.h"
 #include "sopt/cppflow_utils.h"
 
-namespace sopt {
-namespace algorithm {
+namespace sopt::algorithm {
 
 // Implementation of g_proximal with a TensorFlow model. Owns private
 // object model_ and implements the
@@ -29,12 +29,12 @@ template <class SCALAR>
 class TFGProximal : public GProximal<SCALAR> {
 
 public:
-  typedef ForwardBackward<SCALAR> FB;
-  typedef typename FB::Real Real;
-  typedef typename FB::Scalar Scalar;
-  typedef typename FB::t_Vector t_Vector;
-  typedef typename FB::t_Proximal t_Proximal;
-  typedef typename FB::t_LinearTransform t_LinearTransform;
+  using FB = ForwardBackward<SCALAR>;
+  using Real = typename FB::Real;
+  using Scalar = typename FB::Scalar;
+  using t_Vector = typename FB::t_Vector;
+  using t_Proximal = typename FB::t_Proximal;
+  using t_LinearTransform = typename FB::t_LinearTransform;
 
   // The constructor constructs a cppflow model object from a saved model saved
   // to the file filename
@@ -105,13 +105,12 @@ protected:
     // Added template keyword to suppress error on apple-clang, for reference
     // https://stackoverflow.com/questions/3786360/confusing-template-error
     auto output_vector = model_output[0].template get_data<float>();
-    
+
     for(int i = 0; i < image_size; i++) {
       image_out[i] = static_cast<Scalar>(output_vector[i]);
     }
   }
 
 };
-}
-}
+} // namespace sopt::algorithm
 #endif

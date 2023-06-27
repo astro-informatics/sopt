@@ -4,14 +4,12 @@
 #include "sopt/config.h"
 #include <string>
 
-namespace sopt {
-namespace notinstalled {
+namespace sopt::notinstalled {
 //! Holds images and such
 inline std::string data_directory() { return "@PROJECT_SOURCE_DIR@/cpp/tests/test_data"; }
 //! Output artefacts from tests
 inline std::string output_directory() { return "@PROJECT_BINARY_DIR@/outputs"; }
 //! Tensorflow models
 inline std::string models_directory() { return "@PROJECT_SOURCE_DIR@/cpp/tests/test_data"; }
-}
-} /* sopt::notinstalled */
+} // namespace sopt::notinstalled
 #endif

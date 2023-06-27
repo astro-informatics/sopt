@@ -9,11 +9,11 @@
 // Abstract base class providing the interface to the g_proximal function
 template <class SCALAR> class GProximal {
 
-  typedef sopt::algorithm::ForwardBackward<SCALAR> FB;
-  typedef typename FB::Real Real;
-  typedef typename FB::t_Vector t_Vector;
-  typedef typename FB::t_Proximal t_Proximal;
-  typedef typename FB::t_LinearTransform t_LinearTransform;
+  using FB = sopt::algorithm::ForwardBackward<SCALAR>;
+  using Real = typename FB::Real;
+  using t_Vector = typename FB::t_Vector;
+  using t_Proximal = typename FB::t_Proximal;
+  using t_LinearTransform = typename FB::t_LinearTransform;
   
 public:
 

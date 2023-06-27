@@ -5,13 +5,12 @@
 #ifdef SOPT_MPI
 #include <complex>
 #include <mpi.h>
-namespace sopt {
-namespace mpi {
+namespace sopt::mpi {
 //! Type of an mpi tupe
-typedef decltype(MPI_CHAR) MPIType;
+using MPIType = decltype(MPI_CHAR);
 // Some MPI libraries don't actually have a type defined that will work in the above line
 // so the line below can be used instead
-// typedef int MPIType;
+// using MPIType = int;
 
 //! MPI type associated with a c++ type
 template <class T>
@@ -59,7 +58,7 @@ inline constexpr MPIType registered_type(T const &) {
 namespace details {
 template <typename... Ts>
 struct make_void {
-  typedef void type;
+  using type = void;
 };
 //! \brief Defines c++17 metafunction
 //! \details This implements [std::void_t](http://en.cppreference.com/w/cpp/types/void_t). See
@@ -73,7 +72,6 @@ template <class T, class = details::void_t<>>
 class is_registered_type : public std::false_type {};
 template <class T>
 class is_registered_type<T, details::void_t<decltype(Type<T>::value)>> : public std::true_type {};
-}  // namespace mpi
-}  // namespace sopt
+} // namespace sopt::mpi
 #endif
 #endif /* ifndef SOPT_TYPES */

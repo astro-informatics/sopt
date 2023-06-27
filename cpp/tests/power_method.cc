@@ -7,7 +7,7 @@
 
 TEST_CASE("Power Method") {
   using namespace sopt;
-  typedef t_real Scalar;
+  using Scalar = t_real;
   auto const N = 10;
   Eigen::EigenSolver<Matrix<Scalar>> es;
   Matrix<Scalar> A(N, N);
@@ -46,7 +46,7 @@ TEST_CASE("Power Method") {
 
 TEST_CASE("Power Method (from Purify)") {
   using namespace sopt;
-  typedef t_real Scalar;
+  using Scalar = t_real;
   auto const N = 10;
   const t_uint power_iters = 100000;
   const t_real power_tol = 1e-6;

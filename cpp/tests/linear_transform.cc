@@ -7,9 +7,9 @@
 TEST_CASE("Linear Transforms", "[ops]") {
   using namespace sopt;
 
-  typedef int SCALAR;
-  typedef Array<SCALAR> t_Vector;
-  typedef Image<SCALAR> t_Matrix;
+  using SCALAR = int;
+  using t_Vector = Array<SCALAR>;
+  using t_Matrix = Image<SCALAR>;
   auto const N = 10;
 
   SECTION("Functions") {
@@ -60,9 +60,9 @@ TEST_CASE("Linear Transforms", "[ops]") {
 TEST_CASE("Array of Linear transforms", "[ops]") {
   using namespace sopt;
 
-  typedef int SCALAR;
-  typedef Vector<SCALAR> t_Vector;
-  typedef Matrix<SCALAR> t_Matrix;
+  using SCALAR = int;
+  using t_Vector = Vector<SCALAR>;
+  using t_Matrix = Matrix<SCALAR>;
 
   auto const N = 10;
   t_Vector const x = t_Vector::Random(N) * 5;

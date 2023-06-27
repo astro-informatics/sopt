@@ -2,6 +2,7 @@
 #define SOPT_L2_PRIMAL_DUAL_H
 
 #include "sopt/config.h"
+#include <limits>  // for std::numeric_limits<>
 #include <numeric>
 #include <tuple>
 #include <utility>
@@ -13,24 +14,23 @@
 #include "sopt/relative_variation.h"
 #include "sopt/types.h"
 
-namespace sopt {
-namespace algorithm {
+namespace sopt::algorithm {
 template <class SCALAR>
 class ImagingPrimalDual {
   //! Underlying algorithm
-  typedef PrimalDual<SCALAR> PD;
+  using PD = PrimalDual<SCALAR>;
 
  public:
-  typedef typename PD::value_type value_type;
-  typedef typename PD::Scalar Scalar;
-  typedef typename PD::Real Real;
-  typedef typename PD::t_Vector t_Vector;
-  typedef typename PD::t_LinearTransform t_LinearTransform;
+  using value_type = typename PD::value_type;
+  using Scalar = typename PD::Scalar;
+  using Real = typename PD::Real;
+  using t_Vector = typename PD::t_Vector;
+  using t_LinearTransform = typename PD::t_LinearTransform;
   template <class T>
   using t_Proximal = std::function<void(t_Vector &, const T &, const t_Vector &)>;
-  typedef typename PD::t_IsConverged t_IsConverged;
-  typedef typename PD::t_Constraint t_Constraint;
-  typedef typename PD::t_Random_Updater t_Random_Updater;
+  using t_IsConverged = typename PD::t_IsConverged;
+  using t_Constraint = typename PD::t_Constraint;
+  using t_Random_Updater = typename PD::t_Random_Updater;
 
   //! Values indicating how the algorithm ran
   struct Diagnostic : public PD::Diagnostic {
@@ -84,7 +84,7 @@ class ImagingPrimalDual {
 // auto padmm = ImagingPrimalDual<float>().prop0(value).prop1(value);
 #define SOPT_MACRO(NAME, TYPE)                        \
   TYPE const &NAME() const { return NAME##_; }        \
-  ImagingPrimalDual<SCALAR> &NAME(TYPE const &NAME) { \
+  ImagingPrimalDual<SCALAR> &NAME(TYPE const &(NAME)) { \
     NAME##_ = NAME;                                   \
     return *this;                                     \
   }                                                   \
@@ -242,7 +242,7 @@ class ImagingPrimalDual {
   }                                                                                                \
   /** \brief Forwards to l2ball_proximal **/                                                       \
   ImagingPrimalDual<Scalar> &NAME##_proximal_##VAR(                                                \
-      decltype(std::declval<proximal::PROXIMAL<Scalar> const>().VAR()) VAR) {                      \
+      decltype(std::declval<proximal::PROXIMAL<Scalar> const>().VAR()) (VAR)) {                      \
     NAME##_proximal().VAR(VAR);                                                                    \
     return *this;                                                                                  \
   }
@@ -296,7 +296,7 @@ class ImagingPrimalDual {
     no_weights(output, 1, x);
     with_weights(outputw, Vector<Real>::Ones(1), x);
     return output.isApprox(outputw);
-  };
+  }
 };
 
 template <class SCALAR>
@@ -370,7 +370,7 @@ bool ImagingPrimalDual<SCALAR>::residual_convergence(t_Vector const &x,
   auto const residual_norm = sopt::l2_norm(residual, l2ball_proximal_weights());
   SOPT_LOW_LOG("    - [Primal Dual] Residuals: {} <? {}", residual_norm, residual_tolerance());
   return residual_norm < residual_tolerance();
-};
+}
 
 template <class SCALAR>
 bool ImagingPrimalDual<SCALAR>::objective_convergence(ScalarRelativeVariation<Scalar> &scalvar,
@@ -383,7 +383,7 @@ bool ImagingPrimalDual<SCALAR>::objective_convergence(ScalarRelativeVariation<Sc
           ? sopt::l2_norm(l2_proximal_weights().array() * (Psi().adjoint() * x).array())
           : sopt::l2_norm(l2_proximal_weights()(0) * (Psi().adjoint() * x));
   return scalvar(current);
-};
+}
 
 template <class SCALAR>
 bool ImagingPrimalDual<SCALAR>::is_converged(ScalarRelativeVariation<Scalar> &scalvar,
@@ -395,6 +395,5 @@ bool ImagingPrimalDual<SCALAR>::is_converged(ScalarRelativeVariation<Scalar> &sc
   // better evaluate each convergence function everytime, especially with mpi
   return user and res and obj;
 }
-}  // namespace algorithm
-}  // namespace sopt
+} // namespace sopt::algorithm
 #endif

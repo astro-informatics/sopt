@@ -43,12 +43,12 @@ class underlying_value_type;
 template <class T>
 class underlying_value_type<T, false> {
  public:
-  typedef T type;
+  using type = T;
 };
 template <class T>
 class underlying_value_type<T, true> {
  public:
-  typedef typename underlying_value_type<typename T::value_type>::type type;
+  using type = typename underlying_value_type<typename T::value_type>::type;
 };
 }  // namespace details
 //! Gets to the underlying real type

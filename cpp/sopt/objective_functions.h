@@ -9,8 +9,7 @@
 #include "sopt/maths.h"
 #include "sopt/types.h"
 
-namespace sopt {
-namespace objective_functions {
+namespace sopt::objective_functions {
 //! returns g(x) + ||y - Φ x||_2^2 as a function
 template <class T>
 std::function<t_real(T)> const unconstrained_regularisation(
@@ -31,10 +30,8 @@ std::function<t_real(T)> const unconstrained_l1_regularisation(
     const t_real &gamma, const t_real &sig, const T &y,
     const sopt::LinearTransform<T> &measurement_operator,
     const sopt::LinearTransform<T> &wavelet_operator);
-}  // namespace objective_functions
-}  // namespace sopt
-namespace sopt {
-namespace objective_functions {
+} // namespace sopt::objective_functions
+namespace sopt::objective_functions {
 
 template <class T>
 std::function<t_real(T)> const unconstrained_regularisation(
@@ -70,6 +67,5 @@ std::function<t_real(T)> const unconstrained_l1_regularisation(
   const LinearTransform<T> mop = {measurement_operator, measurement_operator};
   return unconstrained_l1_regularisation<T>(gamma, sig, mop * y, mop, wavelet_operator);
 }
-}  // namespace objective_functions
-}  // namespace sopt
+} // namespace sopt::objective_functions
 #endif

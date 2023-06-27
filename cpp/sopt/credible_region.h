@@ -2,16 +2,18 @@
 #define SOPT_CREDIBLE_REGION_H
 
 #include "sopt/config.h"
+#include <algorithm> // for std::min()
 #include <functional>
 #include <iostream>
+#include <memory> // for make_shared<>
+#include <tuple> // for tuple<>
 #include <type_traits>
 #include "sopt/bisection_method.h"
 #include "sopt/exception.h"
 #include "sopt/logging.h"
 #include "sopt/types.h"
 
-namespace sopt {
-namespace credible_region {
+namespace sopt::credible_region {
 
 template <class T>
 t_real compute_energy_upper_bound(
@@ -54,11 +56,9 @@ credible_interval(const Eigen::MatrixBase<T> &solution, const t_uint &rows, cons
                   const std::tuple<t_uint, t_uint> &grid_pixel_size,
                   const std::function<t_real(typename T::PlainObject)> &objective_function,
                   const t_real &alpha);
-}  // namespace credible_region
-}  // namespace sopt
+} // namespace sopt::credible_region
 
-namespace sopt {
-namespace credible_region {
+namespace sopt::credible_region {
 
 template <class T>
 t_real compute_energy_upper_bound(
@@ -80,7 +80,7 @@ std::tuple<t_real, t_real, t_real> find_credible_interval(
     const std::tuple<t_uint, t_uint, t_uint, t_uint> &region,
     const std::function<t_real(typename T::PlainObject)> &objective_function,
     const t_real &energy_upperbound) {
-  typedef typename T::PlainObject Derived;
+  using Derived = typename T::PlainObject;
   assert(energy_upperbound > 0);
   if (solution.size() != cols * rows) SOPT_THROW("Solution is wrong size for credible interval.");
   if ((std::get<2>(region) > rows) or (std::get<3>(region) > cols))
@@ -136,7 +136,7 @@ credible_interval_grid(const Eigen::MatrixBase<T> &solution, const t_uint &rows,
                        const t_real &energy_upperbound) {
   if ((std::get<0>(grid_pixel_size) > rows) or (std::get<1>(grid_pixel_size) > cols))
     SOPT_THROW("Grid pixel size too big.");
-  typedef typename T::PlainObject Derived;
+  using Derived = typename T::PlainObject;
   const t_uint drow = std::get<0>(grid_pixel_size);
   const t_uint dcol = std::get<1>(grid_pixel_size);
   const t_uint grid_rows = std::floor(static_cast<t_real>(rows) / drow);
@@ -197,8 +197,6 @@ credible_interval(const Eigen::MatrixBase<T> &solution, const t_uint &rows, cons
   return credible_interval_grid<typename T::PlainObject, K>(solution, rows, cols, grid_pixel_size,
                                                             objective_function, energy_upperbound);
 }
-}  // namespace credible_region
-
-}  // namespace sopt
+} // namespace sopt::credible_region
 
 #endif

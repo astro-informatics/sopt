@@ -8,10 +8,10 @@ int main(int, char const **) {
   // See set_level function for levels.
   sopt::logging::initialize();
 
-  // Some typedefs for simplicity
-  typedef sopt::t_complex t_Scalar;
-  typedef sopt::Vector<t_Scalar> t_Vector;
-  typedef sopt::Matrix<t_Scalar> t_Matrix;
+  // Some type aliases for simplicity
+  using t_Scalar = sopt::t_complex;
+  using t_Vector = sopt::Vector<t_Scalar>;
+  using t_Matrix = sopt::Matrix<t_Scalar>;
 
   // Creates the transformation matrices
   auto const N = 10;

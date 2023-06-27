@@ -3,20 +3,20 @@
 
 #include <array>
 #include <type_traits>
+#include <utility> // for std::move<>
 
 #include "sopt/config.h"
 #include "sopt/exception.h"
 #include "sopt/maths.h"
 #include "sopt/types.h"
 
-namespace sopt {
-namespace details {
+namespace sopt::details {
 //! Expression referencing the result of a function call
 template <class FUNCTION, class DERIVED>
 class AppliedFunction : public Eigen::ReturnByValue<AppliedFunction<FUNCTION, DERIVED>> {
  public:
-  typedef typename DERIVED::PlainObject PlainObject;
-  typedef typename DERIVED::Index Index;
+  using PlainObject = typename DERIVED::PlainObject;
+  using Index = typename DERIVED::Index;
 
   AppliedFunction(FUNCTION const &func, DERIVED const &x, Index rows)
       : func(func), x(x), rows_(rows) {}
@@ -46,7 +46,7 @@ template <class VECTOR>
 class WrapFunction {
  public:
   //! Type of function wrapped here
-  typedef OperatorFunction<VECTOR> t_Function;
+  using t_Function = OperatorFunction<VECTOR>;
 
   //! Initializes the wrapper
   //! \param[in] func: function to wrap
@@ -132,15 +132,12 @@ WrapFunction<VECTOR> wrap(OperatorFunction<VECTOR> const &func,
                           std::array<t_int, 3> sizes = {{1, 1, 0}}) {
   return WrapFunction<VECTOR>(func, sizes);
 }
-}  // namespace details
-}  // namespace sopt
+} // namespace sopt::details
 
-namespace Eigen {
-namespace internal {
+namespace Eigen::internal {
 template <class FUNCTION, class VECTOR>
 struct traits<sopt::details::AppliedFunction<FUNCTION, VECTOR>> {
-  typedef typename VECTOR::PlainObject ReturnType;
+  using ReturnType = typename VECTOR::PlainObject;
 };
-}  // namespace internal
-}  // namespace Eigen
+} // namespace Eigen::internal
 #endif

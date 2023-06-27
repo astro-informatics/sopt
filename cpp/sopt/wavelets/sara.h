@@ -2,8 +2,10 @@
 #define SOPT_WAVELETS_SARA_H
 
 #include "sopt/config.h"
+#include <algorithm> // for std::min<>
 #include <cmath>
 #include <initializer_list>
+#include <string> // for std::string
 #include <tuple>
 #include <vector>
 #include "sopt/logging.h"
@@ -12,8 +14,7 @@
 #include "sopt/mpi/communicator.h"
 #endif
 
-namespace sopt {
-namespace wavelets {
+namespace sopt::wavelets {
 
 //! Sparsity Averaging Reweighted Analysis
 class SARA : public std::vector<Wavelet> {
@@ -116,9 +117,9 @@ class SARA : public std::vector<Wavelet> {
 };
 
 #define SOPT_WAVELET_ERROR_MACRO(INPUT)                                           \
-  if (INPUT.rows() % (1u << max_levels()) != 0)                                   \
+  if ((INPUT).rows() % (1u << max_levels()) != 0)                                   \
     throw std::length_error("Inconsistent number of columns and wavelet levels"); \
-  else if (INPUT.cols() != 1 and INPUT.cols() % (1u << max_levels()))             \
+  else if ((INPUT).cols() != 1 and (INPUT).cols() % (1u << max_levels()))             \
     throw std::length_error("Inconsistent number of rows and wavelet levels");
 
 template <class T0, class T1>
@@ -178,7 +179,7 @@ void SARA::indirect(Eigen::ArrayBase<T1> const &coeffs, Eigen::ArrayBase<T0> &si
 
 template <class T0>
 typename T0::PlainObject SARA::indirect(Eigen::ArrayBase<T0> const &coeffs) const {
-  typedef decltype(this->front().indirect(coeffs)) t_Output;
+  using t_Output = decltype(this->front().indirect(coeffs));
   t_Output signal = t_Output::Zero(coeffs.rows(), coeffs.cols() / size());
   (*this).indirect(coeffs, signal);
   return signal;
@@ -186,7 +187,7 @@ typename T0::PlainObject SARA::indirect(Eigen::ArrayBase<T0> const &coeffs) cons
 
 template <class T0>
 typename T0::PlainObject SARA::direct(Eigen::ArrayBase<T0> const &signal) const {
-  typedef decltype(this->front().direct(signal)) t_Output;
+  using t_Output = decltype(this->front().direct(signal));
   t_Output result = t_Output::Zero(signal.rows(), signal.cols() * size());
   (*this).direct(result, signal);
   return result;
@@ -210,6 +211,5 @@ T distribute_sara(T const &all_wavelets, mpi::Communicator const &comm) {
   return distribute_sara<T>(all_wavelets, comm.size(), comm.rank());
 }
 #endif
-}  // namespace wavelets
-}  // namespace sopt
+} // namespace sopt::wavelets
 #endif

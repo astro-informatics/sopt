@@ -2,13 +2,14 @@
 #define SOPT_LOGGING_ENABLED_H
 
 #include "sopt/config.h"
+#include <memory> // for std::shared_ptr<>
+#include <string> // for std::string
 #include <spdlog/fmt/ostr.h>
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/stdout_sinks.h>
 #include "sopt/exception.h"
 
-namespace sopt {
-namespace logging {
+namespace sopt::logging {
 void set_level(std::string const &level, std::string const &name = "");
 
 //! \brief Initializes a logger.
@@ -65,8 +66,7 @@ inline bool has_level(std::string const &level, std::string const &name = "") {
 #undef SOPT_MACRO
   else SOPT_THROW("Unknown logging level ") << level << "\n";
 }
-}  // namespace logging
-}  // namespace sopt
+} // namespace sopt::logging
 
 //! \macro For internal use only
 #define SOPT_LOG_(NAME, TYPE, ...)                                          \

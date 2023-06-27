@@ -8,8 +8,8 @@ int main(int, char const **) {
   // Lets try both approaches.
 
   // Creates the input.
-  typedef sopt::Vector<sopt::t_complex> t_Vector;
-  typedef sopt::Matrix<sopt::t_complex> t_Matrix;
+  using t_Vector = sopt::Vector<sopt::t_complex>;
+  using t_Matrix = sopt::Matrix<sopt::t_complex>;
   t_Vector const b = t_Vector::Random(8);
   t_Matrix const A = t_Matrix::Random(b.size(), b.size());
 

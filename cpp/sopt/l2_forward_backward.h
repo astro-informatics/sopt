@@ -2,6 +2,7 @@
 #define SOPT_L2_FORWARD_BACKWARD_H
 
 #include "sopt/config.h"
+#include <limits> // for std::numeric_limits<>
 #include <numeric>
 #include <tuple>
 #include <utility>
@@ -18,23 +19,22 @@
 #include "sopt/mpi/utilities.h"
 #endif
 
-namespace sopt {
-namespace algorithm {
+namespace sopt::algorithm {
 template <class SCALAR>
 class L2ForwardBackward {
   //! Underlying algorithm
-  typedef ForwardBackward<SCALAR> FB;
+  using FB = ForwardBackward<SCALAR>;
 
  public:
-  typedef typename FB::value_type value_type;
-  typedef typename FB::Scalar Scalar;
-  typedef typename FB::Real Real;
-  typedef typename FB::t_Vector t_Vector;
-  typedef typename FB::t_LinearTransform t_LinearTransform;
+  using value_type = typename FB::value_type;
+  using Scalar = typename FB::Scalar;
+  using Real = typename FB::Real;
+  using t_Vector = typename FB::t_Vector;
+  using t_LinearTransform = typename FB::t_LinearTransform;
   template <class T>
   using t_Proximal = std::function<void(t_Vector &, const T &, const t_Vector &)>;
-  typedef typename FB::t_Gradient t_Gradient;
-  typedef typename FB::t_IsConverged t_IsConverged;
+  using t_Gradient = typename FB::t_Gradient;
+  using t_IsConverged = typename FB::t_IsConverged;
 
   //! Values indicating how the algorithm ran
   struct Diagnostic : public FB::Diagnostic {
@@ -83,7 +83,7 @@ class L2ForwardBackward {
 // auto padmm = L2ForwardBackward<float>().prop0(value).prop1(value);
 #define SOPT_MACRO(NAME, TYPE)                             \
   TYPE const &NAME() const { return NAME##_; }             \
-  L2ForwardBackward<SCALAR> &NAME(TYPE const &NAME) { \
+  L2ForwardBackward<SCALAR> &NAME(TYPE const &(NAME)) { \
     NAME##_ = NAME;                                        \
     return *this;                                          \
   }                                                        \
@@ -138,7 +138,7 @@ class L2ForwardBackward {
   //! Vector of target measurements
   t_Vector const &target() const { return target_; }
   //! Minimun of objective_function
-  Real objmin() const { return objmin_; };
+  Real objmin() const { return objmin_; }
   //! Sets the vector of target measurements
   template <class DERIVED>
   L2ForwardBackward<Scalar> &target(Eigen::MatrixBase<DERIVED> const &target) {
@@ -294,7 +294,7 @@ bool L2ForwardBackward<SCALAR>::residual_convergence(t_Vector const &x,
   auto const residual_norm = sopt::l2_norm(residual);
   SOPT_LOW_LOG("    - [FB] Residuals: {} <? {}", residual_norm, residual_tolerance());
   return residual_norm < residual_tolerance();
-};
+}
 
 template <class SCALAR>
 bool L2ForwardBackward<SCALAR>::objective_convergence(ScalarRelativeVariation<Scalar> &scalvar,
@@ -305,7 +305,7 @@ bool L2ForwardBackward<SCALAR>::objective_convergence(ScalarRelativeVariation<Sc
   auto const current = ((gamma() > 0) ? sopt::l2_norm(x, l2_proximal_weights()) * gamma() : 0) +
                        std::pow(sopt::l2_norm(residual), 2) / (2 * sigma() * sigma());
   return scalvar(current);
-};
+}
 
 #ifdef SOPT_MPI
 template <class SCALAR>
@@ -319,7 +319,7 @@ bool L2ForwardBackward<SCALAR>::objective_convergence(mpi::Communicator const &o
       ((gamma() > 0) ? sopt::l2_norm(x, l2_proximal_weights()) * gamma() : 0) +
       std::pow(sopt::l2_norm(residual), 2) / (2 * sigma() * sigma()));
   return scalvar(current);
-};
+}
 #endif
 
 template <class SCALAR>
@@ -337,6 +337,5 @@ bool L2ForwardBackward<SCALAR>::is_converged(ScalarRelativeVariation<Scalar> &sc
   // better evaluate each convergence function everytime, especially with mpi
   return user and res and obj;
 }
-}  // namespace algorithm
-}  // namespace sopt
+} // namespace sopt::algorithm
 #endif

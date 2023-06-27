@@ -4,6 +4,8 @@
 #include "sopt/config.h"
 #include <functional>
 #include <limits>
+#include <memory> // for std::shared_ptr<>
+#include <utility> // for std::forward<>
 #include "sopt/exception.h"
 #include "sopt/forward_backward.h"
 #include "sopt/imaging_forward_backward.h"
@@ -11,16 +13,15 @@
 #include "sopt/logging.h"
 #include "sopt/types.h"
 
-namespace sopt {
-namespace algorithm {
+namespace sopt::algorithm {
 
 template <class ALGORITHM>
 class JointMAP {
-  typedef typename ALGORITHM::t_Vector t_Vector;
-  typedef typename std::function<t_real(const t_Vector &)> t_Reg_Term;
-  typedef typename ALGORITHM::DiagnosticAndResult ResultType;
+  using t_Vector = typename ALGORITHM::t_Vector;
+  using t_Reg_Term = typename std::function<t_real (const t_Vector &)>;
+  using ResultType = typename ALGORITHM::DiagnosticAndResult;
   //! Type of the convergence function
-  typedef std::function<bool(t_Vector const &, t_Vector const &, t_real const)> t_IsConverged;
+  using t_IsConverged = std::function<bool (const t_Vector &, const t_Vector &, const t_real)>;
 
  public:
   //! Holds results and reg parameter
@@ -43,11 +44,11 @@ class JointMAP {
         is_converged_([](t_Vector const &, t_Vector const &, t_real const) { return true; }),
         relative_variation_(1e-3),
         objective_variation_(1e-3),
-        itermax_(std::numeric_limits<t_uint>::max()){};
+        itermax_(std::numeric_limits<t_uint>::max()){}
 
 #define SOPT_MACRO(NAME, TYPE)                  \
   TYPE const &NAME() const { return NAME##_; }  \
-  JointMAP<ALGORITHM> &NAME(TYPE const &NAME) { \
+  JointMAP<ALGORITHM> &NAME(TYPE const &(NAME)) { \
     NAME##_ = NAME;                             \
     return *this;                               \
   }                                             \
@@ -101,7 +102,7 @@ class JointMAP {
     sanity_check(this->algo_ptr_->gamma(), beta(), alpha());
     t_uint niters(0);
     bool converged = false;
-    typedef typename ALGORITHM::DiagnosticAndResult ResultType;
+    using ResultType = typename ALGORITHM::DiagnosticAndResult;
     ResultType result = (*(this->algo_ptr_))(std::forward<ARGS>(args)...);
     t_real gamma = 0;
     niters++;
@@ -132,10 +133,9 @@ class JointMAP {
     diagnostic.reg_niters = niters;
     diagnostic.reg_term = gamma;
     return diagnostic;
-  };
+  }
 };
 
-}  // namespace algorithm
-}  // namespace sopt
+} // namespace sopt::algorithm
 
 #endif
