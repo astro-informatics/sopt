@@ -68,6 +68,7 @@ TEST_CASE("Array of Linear transforms", "[ops]") {
   t_Vector const x = t_Vector::Random(N) * 5;
   std::vector<t_Matrix> Ls{t_Matrix::Random(N, N), t_Matrix::Random(N, N)};
   std::vector<LinearTransform<t_Vector>> ops;
+  ops.reserve(Ls.size());
   for (auto const &matrix : Ls) ops.emplace_back(sopt::linear_transform(matrix));
 
   for (decltype(Ls)::size_type i(0); i < ops.size(); ++i) {
