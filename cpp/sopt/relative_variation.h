@@ -4,6 +4,7 @@
 #include "sopt/config.h"
 #include <string>
 #include <Eigen/Core>
+#include <utility>
 #include "sopt/logging.h"
 #include "sopt/maths.h"
 
@@ -17,8 +18,8 @@ class RelativeVariation {
   //! Underlying scalar type
   using Real = typename real_type<Scalar>::type;
   //! Maximum variation from one step to the next
-  RelativeVariation(Real tolerance = 1e-12, std::string const &name = "")
-      : tolerance_(tolerance), previous_(typename Array<Scalar>::Index(0)), name_(name){};
+  RelativeVariation(Real tolerance = 1e-12, std::string name = "")
+      : tolerance_(tolerance), previous_(typename Array<Scalar>::Index(0)), name_(std::move(name)){};
   //! Copy constructor
   RelativeVariation(RelativeVariation const &c)
       : tolerance_(c.tolerance_), previous_(c.previous_){};
@@ -60,8 +61,8 @@ class ScalarRelativeVariation {
   using Real = typename real_type<Scalar>::type;
   //! Maximum variation from one step to the next
   ScalarRelativeVariation(Real relative_tolerance = 1e-12, Real absolute_tolerance = 1e-12,
-                          std::string const &name = "")
-      : name_(name),
+                          std::string name = "")
+      : name_(std::move(name)),
         relative_tolerance_(relative_tolerance),
         absolute_tolerance_(absolute_tolerance),
         previous_(0),
