@@ -9,7 +9,8 @@ using namespace sopt;
 
 #ifdef SOPT_MPI
 TEST_CASE("Creates an mpi communicator") {
-  int rank, size;
+  int rank;
+  int size;
   MPI_Comm_rank(MPI_COMM_WORLD, &rank);
   MPI_Comm_size(MPI_COMM_WORLD, &size);
 
@@ -42,7 +43,8 @@ TEST_CASE("Creates an mpi communicator") {
   }
 
   SECTION("ScatterV") {
-    std::vector<t_int> sizes(world.size()), displs(world.size());
+    std::vector<t_int> sizes(world.size());
+    std::vector<t_int> displs(world.size());
     for (t_uint i(0); i < world.rank(); ++i) sizes[i] = world.rank() * 2 + i;
     for (t_uint i(1); i < world.rank(); ++i) displs[i] = displs[i - 1] + sizes[i - 1];
     Vector<t_int> const sendee =

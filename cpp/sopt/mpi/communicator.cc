@@ -13,7 +13,8 @@ void Communicator::delete_comm(Communicator::Impl *const impl) {
 
 Communicator::Communicator(MPI_Comm const &comm) : impl(nullptr), session(session_singleton()) {
   if (comm == MPI_COMM_NULL) return;
-  int size, rank;
+  int size;
+  int rank;
   MPI_Comm_size(comm, &size);
   MPI_Comm_rank(comm, &rank);
 
