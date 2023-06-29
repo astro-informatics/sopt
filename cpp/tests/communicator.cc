@@ -20,7 +20,7 @@ TEST_CASE("Creates an mpi communicator") {
     REQUIRE(static_cast<t_int>(world.rank()) == rank);
     REQUIRE(static_cast<t_int>(world.size()) == size);
 
-    mpi::Communicator shallow = world;
+    const mpi::Communicator& shallow = world;
     CHECK(*shallow == *world);
   }
 
