@@ -63,7 +63,7 @@ public:
 
   // Return g_proximal as a lambda function. Used in operator() in base class.
   t_Proximal proximal_function() const override {
-    return [this](t_Vector &out, Real gamma, t_Vector const &x) {
+    return [this](t_Vector &out, Real  /*gamma*/, t_Vector const &x) {
 	     this -> call_model(out, x);
 	   };
   }

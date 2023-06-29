@@ -108,7 +108,7 @@ Vector<T> &get_wavelet_basis_coefficients(Vector<T> &coeffs, const t_uint basis_
   return coeffs.segment(basis_index * size, size);
 }
 template <class T>
-Vector<T> &get_wavelet_levels_1d(Vector<T> &coeffs, const t_uint level, const t_uint size) {
+Vector<T> &get_wavelet_levels_1d(Vector<T> &coeffs, const t_uint level, const t_uint  /*size*/) {
   auto const N = static_cast<t_uint>(coeffs.size()) >> level;  // bitshift to divide by 2^level
   return coeffs.head(N);
 }

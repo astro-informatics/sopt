@@ -132,7 +132,7 @@ void tv_norm(Eigen::DenseBase<T0> &out, Eigen::DenseBase<T2> const &gamma,
 
 //! Proximal of a function that is always zero, the identity
 template <class T0, class T1>
-void id(Eigen::DenseBase<T0> &out, typename real_type<typename T0::Scalar>::type gamma,
+void id(Eigen::DenseBase<T0> &out, typename real_type<typename T0::Scalar>::type  /*gamma*/,
         Eigen::DenseBase<T1> const &x) {
   out = x;
 }
