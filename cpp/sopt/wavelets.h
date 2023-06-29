@@ -221,7 +221,7 @@ LinearTransform<Vector<T>> linear_transform(wavelets::SARA const &sara, t_uint r
       [sara, rows, cols, factor, comm, normalization](Vector<T> &out, Vector<T> const &x) {
         assert(static_cast<t_uint>(x.size()) == rows * cols * factor);
         out.resize(rows * cols);
-        if (sara.size() == 0)
+        if (sara.empty())
           out.fill(0);
         else {
           auto signal = Image<T>::Map(out.data(), rows, cols);
