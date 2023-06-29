@@ -19,7 +19,7 @@ template <class T0, class T1>
 typename std::enable_if<T1::IsVectorAtCompileTime, void>::type indirect_transform_impl(
     Eigen::ArrayBase<T0> const &coeffs, Eigen::ArrayBase<T1> const &signal_,
     WaveletData const &wavelet) {
-  Eigen::ArrayBase<T1> &signal = const_cast<Eigen::ArrayBase<T1> &>(signal_);
+  auto &signal = const_cast<Eigen::ArrayBase<T1> &>(signal_);
 
   assert(coeffs.size() == signal.size());
   assert(coeffs.size() % 2 == 0);
@@ -35,8 +35,8 @@ template <class T0, class T1>
 typename std::enable_if<not T1::IsVectorAtCompileTime, void>::type indirect_transform_impl(
     Eigen::ArrayBase<T0> const &coeffs_, Eigen::ArrayBase<T1> const &signal_,
     WaveletData const &wavelet) {
-  Eigen::ArrayBase<T0> &coeffs = const_cast<Eigen::ArrayBase<T0> &>(coeffs_);
-  Eigen::ArrayBase<T1> &signal = const_cast<Eigen::ArrayBase<T1> &>(signal_);
+  auto &coeffs = const_cast<Eigen::ArrayBase<T0> &>(coeffs_);
+  auto &signal = const_cast<Eigen::ArrayBase<T1> &>(signal_);
   assert(coeffs.rows() == signal.rows() and coeffs.cols() == signal.cols());
   assert(coeffs.rows() % 2 == 0 and coeffs.cols() % 2 == 0);
 
@@ -82,8 +82,8 @@ template <class T0, class T1>
 typename std::enable_if<not T1::IsVectorAtCompileTime, void>::type indirect_transform(
     Eigen::ArrayBase<T0> const &coeffs_, Eigen::ArrayBase<T1> const &signal_, t_uint levels,
     WaveletData const &wavelet) {
-  Eigen::ArrayBase<T0> &coeffs = const_cast<Eigen::ArrayBase<T0> &>(coeffs_);
-  Eigen::ArrayBase<T1> &signal = const_cast<Eigen::ArrayBase<T1> &>(signal_);
+  auto &coeffs = const_cast<Eigen::ArrayBase<T0> &>(coeffs_);
+  auto &signal = const_cast<Eigen::ArrayBase<T1> &>(signal_);
   assert(coeffs.rows() == signal.rows());
   assert(coeffs.cols() == signal.cols());
   assert(coeffs.size() % (1u << levels) == 0);

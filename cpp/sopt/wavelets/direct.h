@@ -19,7 +19,7 @@ template <class T0, class T1>
 typename std::enable_if<T1::IsVectorAtCompileTime, void>::type direct_transform_impl(
     Eigen::ArrayBase<T0> const &coeffs_, Eigen::ArrayBase<T1> const &signal,
     WaveletData const &wavelet) {
-  Eigen::ArrayBase<T0> &coeffs = const_cast<Eigen::ArrayBase<T0> &>(coeffs_);
+  auto &coeffs = const_cast<Eigen::ArrayBase<T0> &>(coeffs_);
   assert(coeffs.size() == signal.size());
   assert(wavelet.direct_filter.low.size() == wavelet.direct_filter.high.size());
 
@@ -36,8 +36,8 @@ template <class T0, class T1>
 typename std::enable_if<not T1::IsVectorAtCompileTime, void>::type direct_transform_impl(
     Eigen::ArrayBase<T0> const &coeffs_, Eigen::ArrayBase<T1> const &signal_,
     WaveletData const &wavelet) {
-  Eigen::ArrayBase<T0> &coeffs = const_cast<Eigen::ArrayBase<T0> &>(coeffs_);
-  Eigen::ArrayBase<T1> &signal = const_cast<Eigen::ArrayBase<T1> &>(signal_);
+  auto &coeffs = const_cast<Eigen::ArrayBase<T0> &>(coeffs_);
+  auto &signal = const_cast<Eigen::ArrayBase<T1> &>(signal_);
   assert(coeffs.rows() == signal.rows());
   assert(coeffs.cols() == signal.cols());
   assert(wavelet.direct_filter.low.size() == wavelet.direct_filter.high.size());
@@ -83,7 +83,7 @@ typename std::enable_if<not T1::IsVectorAtCompileTime, void>::type direct_transf
     WaveletData const &wavelet) {
   assert(coeffs_.rows() == signal.rows());
   assert(coeffs_.cols() == signal.cols());
-  Eigen::ArrayBase<T0> &coeffs = const_cast<Eigen::ArrayBase<T0> &>(coeffs_);
+  auto &coeffs = const_cast<Eigen::ArrayBase<T0> &>(coeffs_);
 
   if (levels == 0) {
     coeffs = signal;
