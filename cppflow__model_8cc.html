@@ -203,7 +203,7 @@ Functions</h2></td></tr>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  cppflow::tensor input_tensor = <a class="code" href="namespacesopt_1_1cppflowutils.html#a3db2be4ce233b68cb59e14bb41479afa">sopt::cppflowutils::convert_image_to_tensor</a>(image, image_rows, image_cols);</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <span class="comment">// Read in model</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  cppflow::model model(std::string(<a class="code" href="namespacesopt_1_1notinstalled.html#a2fa3d08c375b7e60e38382025a454314">sopt::notinstalled::models_directory</a>() + <span class="stringliteral">&quot;/DnCNN/snr_15_model.pb/&quot;</span>));</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  cppflow::model model(std::string(<a class="code" href="namespacesopt_1_1notinstalled.html#a2fa3d08c375b7e60e38382025a454314">sopt::notinstalled::models_directory</a>() + <span class="stringliteral">&quot;/snr_15_model.pb/&quot;</span>));</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <span class="comment">// Run model on image</span></div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <span class="comment">// TODO: Automatically detect the string parameters, see issue #320</span></div>
