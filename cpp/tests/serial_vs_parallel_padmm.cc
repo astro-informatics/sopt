@@ -23,7 +23,7 @@ TEST_CASE("Parallel vs serial inpainting") {
   using namespace sopt;
   auto const world = mpi::Communicator::World();
   // split into serial and parallel
-  auto const split_comm = world.split(world.is_root());
+  auto const split_comm = world.split(static_cast<t_int>(world.is_root()));
   if (world.size() < 2) return;
 
   // Some type aliases for simplicity
