@@ -5,7 +5,7 @@
 
 namespace sopt::wavelets {
 
-Wavelet factory(std::string name, t_uint nlevels) {
+Wavelet factory(const std::string& name, t_uint nlevels) {
   if (name == "dirac" or name == "Dirac") {
     SOPT_MEDIUM_LOG("Creating Dirac Wavelet");
     return Wavelet(daubechies_data(1), 0);
