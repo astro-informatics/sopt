@@ -71,12 +71,12 @@ class Communicator {
   void abort(const std::string &reason) const;
 
   //! Helper function for reducing
-  template <class T>
+  template <typename T>
   typename std::enable_if<is_registered_type<T>::value, T>::type all_reduce(T const &value,
                                                                             MPI_Op operation) const;
 
   //! In-place reduction over an image
-  template <class T>
+  template <typename T>
   typename std::enable_if<is_registered_type<T>::value>::type all_reduce(Matrix<T> &image,
                                                                          MPI_Op operation) const {
     if (size() == 1) return;
@@ -84,7 +84,7 @@ class Communicator {
     MPI_Allreduce(MPI_IN_PLACE, image.data(), image.size(), registered_type(T(0)), operation,
                   **this);
   }
-  template <class T>
+  template <typename T>
   typename std::enable_if<is_registered_type<T>::value>::type all_reduce(Image<T> &image,
                                                                          MPI_Op operation) const {
     if (size() == 1) return;
@@ -92,7 +92,7 @@ class Communicator {
     MPI_Allreduce(MPI_IN_PLACE, image.data(), image.size(), registered_type(T(0)), operation,
                   **this);
   }
-  template <class T>
+  template <typename T>
   typename std::enable_if<is_registered_type<T>::value>::type all_reduce(Vector<T> &image,
                                                                          MPI_Op operation) const {
     if (size() == 1) return;
@@ -102,16 +102,16 @@ class Communicator {
   }
 
   //! Helper function for reducing through sum
-  template <class T>
+  template <typename T>
   typename std::enable_if<is_registered_type<T>::value, T>::type all_sum_all(T const &value) const {
     return all_reduce(value, MPI_SUM);
   }
-  template <class T>
+  template <typename T>
   typename std::enable_if<is_registered_type<typename T::Scalar>::value>::type all_sum_all(
       T &image) const {
     all_reduce(image, MPI_SUM);
   }
-  template <class T>
+  template <typename T>
   typename std::enable_if<is_registered_type<typename T::Scalar>::value, T>::type all_sum_all(
       T const &image) const {
     T result(image);
@@ -120,25 +120,25 @@ class Communicator {
   }
 
   //! Broadcasts object
-  template <class T>
+  template <typename T>
   typename std::enable_if<is_registered_type<T>::value, T>::type broadcast(
       T const &value, t_uint const root = root_id()) const;
   //! Receive broadcast object
-  template <class T>
+  template <typename T>
   typename std::enable_if<is_registered_type<T>::value, T>::type broadcast(
       t_uint const root = root_id()) const;
-  template <class T>
+  template <typename T>
   typename std::enable_if<is_registered_type<typename T::Scalar>::value, T>::type broadcast(
       T const &vec, t_uint const root = root_id()) const;
-  template <class T>
+  template <typename T>
   typename std::enable_if<is_registered_type<typename T::Scalar>::value, T>::type broadcast(
       t_uint const root = root_id()) const;
-  template <class T>
+  template <typename T>
   typename std::enable_if<is_registered_type<typename T::value_type>::value and
                               not std::is_base_of<Eigen::EigenBase<T>, T>::value,
                           T>::type
   broadcast(T const &vec, t_uint const root = root_id()) const;
-  template <class T>
+  template <typename T>
   typename std::enable_if<is_registered_type<typename T::value_type>::value and
                               not std::is_base_of<Eigen::EigenBase<T>, T>::value,
                           T>::type
@@ -146,69 +146,69 @@ class Communicator {
   std::string broadcast(std::string const &input, t_uint const root = root_id()) const;
 
   //! Scatter one object per proc
-  template <class T>
+  template <typename T>
   typename std::enable_if<is_registered_type<T>::value, T>::type scatter_one(
       std::vector<T> const &values, t_uint const root = root_id()) const;
   //! Receive scattered objects
-  template <class T>
+  template <typename T>
   typename std::enable_if<is_registered_type<T>::value, T>::type scatter_one(
       t_uint const root = root_id()) const;
 
   //! Scatter
-  template <class T>
+  template <typename T>
   typename std::enable_if<is_registered_type<T>::value, Vector<T>>::type scatterv(
       Vector<T> const &vec, std::vector<t_int> const &sizes, t_uint const root = root_id()) const;
-  template <class T>
+  template <typename T>
   typename std::enable_if<is_registered_type<T>::value, Vector<T>>::type scatterv(
       t_int local_size, t_uint const root = root_id()) const;
 
   // Gather one object per proc
-  template <class T>
+  template <typename T>
   typename std::enable_if<is_registered_type<T>::value, std::vector<T>>::type gather(
       T const value, t_uint const root = root_id()) const;
 
   //! Gather
-  template <class T>
+  template <typename T>
   typename std::enable_if<is_registered_type<T>::value, Vector<T>>::type gather(
       Vector<T> const &vec, std::vector<t_int> const &sizes, t_uint const root = root_id()) const {
     return gather_<Vector<T>, T>(vec, sizes, root);
   }
-  template <class T>
+  template <typename T>
   typename std::enable_if<is_registered_type<T>::value, Vector<T>>::type gather(
       Vector<T> const &vec, t_uint const root = root_id()) const {
     return gather_<Vector<T>, T>(vec, root);
   }
 
-  template <class T>
+  template <typename T>
   typename std::enable_if<is_registered_type<T>::value, std::set<T>>::type gather(
       std::set<T> const &set, std::vector<t_int> const &sizes, t_uint const root = root_id()) const;
-  template <class T>
+  template <typename T>
   typename std::enable_if<is_registered_type<T>::value, std::set<T>>::type gather(
       std::set<T> const &vec, t_uint const root = root_id()) const;
-  template <class T>
+  template <typename T>
   typename std::enable_if<is_registered_type<T>::value, std::vector<T>>::type gather(
       std::vector<T> const &vec, std::vector<t_int> const &sizes,
       t_uint const root = root_id()) const {
     return gather_<std::vector<T>, T>(vec, sizes, root);
   }
-  template <class T>
+  template <typename T>
   typename std::enable_if<is_registered_type<T>::value, std::vector<T>>::type gather(
       std::vector<T> const &vec, t_uint const root = root_id()) const {
     return gather_<std::vector<T>, T>(vec, root);
   }
   //! All to all
-  template <class T>
+  template <typename T>
   typename std::enable_if<is_registered_type<T>::value, Vector<T>>::type all_to_allv(
       const Vector<T> &vec, std::vector<t_int> const &send_sizes) const;
-  template <class T>
+  template <typename T>
   typename std::enable_if<is_registered_type<T>::value, Vector<T>>::type all_to_allv(
       const Vector<T> &vec, std::vector<t_int> const &send_sizes,
       std::vector<t_int> const &rec_sizes) const;
-  template <class T>
+  template <typename T>
   typename std::enable_if<is_registered_type<T>::value, std::vector<T>>::type all_to_allv(
       const std::vector<T> &vec, std::vector<t_int> const &send_sizes,
       std::vector<t_int> const &rec_sizes) const;
-  template <class T>
+  template <typename T>
   typename std::enable_if<is_registered_type<T>::value, std::vector<T>>::type all_to_allv(
       const std::vector<T> &vec, std::vector<t_int> const &send_sizes) const;
 
@@ -246,14 +246,14 @@ class Communicator {
   Communicator(MPI_Comm const &comm);
 
   //! Gather
-  template <class CONTAINER, class T>
+  template <typename CONTAINER, typename T>
   CONTAINER gather_(CONTAINER const &vec, std::vector<t_int> const &sizes,
                     t_uint const root = root_id()) const;
-  template <class CONTAINER, class T>
+  template <typename CONTAINER, typename T>
   CONTAINER gather_(CONTAINER const &vec, t_uint const root = root_id()) const;
 };
 
-template <class T>
+template <typename T>
 typename std::enable_if<is_registered_type<T>::value, T>::type Communicator::all_reduce(
     T const &value, MPI_Op operation) const {
   if (size() == 1) return value;
@@ -264,7 +264,7 @@ typename std::enable_if<is_registered_type<T>::value, T>::type Communicator::all
   return result;
 }
 
-template <class T>
+template <typename T>
 typename std::enable_if<is_registered_type<T>::value, T>::type Communicator::scatter_one(
     std::vector<T> const &values, t_uint const root) const {
   assert(root < size());
@@ -276,7 +276,7 @@ typename std::enable_if<is_registered_type<T>::value, T>::type Communicator::sca
   return result;
 }
 //! Receive scattered objects
-template <class T>
+template <typename T>
 typename std::enable_if<is_registered_type<T>::value, T>::type Communicator::scatter_one(
     t_uint const root) const {
   T result;
@@ -285,7 +285,7 @@ typename std::enable_if<is_registered_type<T>::value, T>::type Communicator::sca
   return result;
 }
 
-template <class T>
+template <typename T>
 typename std::enable_if<is_registered_type<T>::value, Vector<T>>::type Communicator::scatterv(
     Vector<T> const &vec, std::vector<t_int> const &sizes, t_uint const root) const {
   if (size() == 1) {
@@ -313,7 +313,7 @@ typename std::enable_if<is_registered_type<T>::value, Vector<T>>::type Communica
   return result;
 }
 
-template <class T>
+template <typename T>
 typename std::enable_if<is_registered_type<T>::value, Vector<T>>::type Communicator::scatterv(
     t_int local_size, t_uint const root) const {
   if (rank() == root) throw std::runtime_error("Root should call the *other* scatterv");
@@ -325,7 +325,7 @@ typename std::enable_if<is_registered_type<T>::value, Vector<T>>::type Communica
   return result;
 }
 
-template <class T>
+template <typename T>
 typename std::enable_if<is_registered_type<T>::value, std::vector<T>>::type
 Communicator::all_to_allv(const std::vector<T> &vec, std::vector<t_int> const &send_sizes) const {
   if (size() == 1) {
@@ -343,7 +343,7 @@ Communicator::all_to_allv(const std::vector<T> &vec, std::vector<t_int> const &s
 
   return all_to_allv<T>(vec, send_sizes, rec_sizes);
 }
-template <class T>
+template <typename T>
 typename std::enable_if<is_registered_type<T>::value, std::vector<T>>::type
 Communicator::all_to_allv(const std::vector<T> &vec, std::vector<t_int> const &send_sizes,
                           std::vector<t_int> const &rec_sizes) const {
@@ -374,7 +374,7 @@ Communicator::all_to_allv(const std::vector<T> &vec, std::vector<t_int> const &s
   return output;
 }
 
-template <class T>
+template <typename T>
 typename std::enable_if<is_registered_type<T>::value, Vector<T>>::type Communicator::all_to_allv(
     const Vector<T> &vec, std::vector<t_int> const &send_sizes) const {
   if (size() == 1) {
@@ -393,7 +393,7 @@ typename std::enable_if<is_registered_type<T>::value, Vector<T>>::type Communica
   return all_to_allv<T>(vec, send_sizes, rec_sizes);
 }
 
-template <class T>
+template <typename T>
 typename std::enable_if<is_registered_type<T>::value, Vector<T>>::type Communicator::all_to_allv(
     const Vector<T> &vec, std::vector<t_int> const &send_sizes,
     std::vector<t_int> const &rec_sizes) const {
@@ -424,7 +424,7 @@ typename std::enable_if<is_registered_type<T>::value, Vector<T>>::type Communica
   return output;
 }
 
-template <class T>
+template <typename T>
 typename std::enable_if<is_registered_type<T>::value, std::vector<T>>::type Communicator::gather(
     T const value, t_uint const root) const {
   assert(root < size());
@@ -440,7 +440,7 @@ typename std::enable_if<is_registered_type<T>::value, std::vector<T>>::type Comm
   return result;
 }
 
-template <class CONTAINER, class T>
+template <typename CONTAINER, typename T>
 CONTAINER Communicator::gather_(CONTAINER const &vec, std::vector<t_int> const &sizes,
                                 t_uint const root) const {
   assert(root < size());
@@ -471,7 +471,7 @@ CONTAINER Communicator::gather_(CONTAINER const &vec, std::vector<t_int> const &
   return result;
 }
 
-template <class CONTAINER, class T>
+template <typename CONTAINER, typename T>
 CONTAINER Communicator::gather_(CONTAINER const &vec, t_uint const root) const {
   assert(root < size());
   if (rank() == root) throw std::runtime_error("Root should call the *other* gather");
@@ -481,7 +481,7 @@ CONTAINER Communicator::gather_(CONTAINER const &vec, t_uint const root) const {
   return CONTAINER();
 }
 
-template <class T>
+template <typename T>
 typename std::enable_if<is_registered_type<T>::value, std::set<T>>::type Communicator::gather(
     std::set<T> const &set, std::vector<t_int> const &sizes, t_uint const root) const {
   assert(root < size());
@@ -498,7 +498,7 @@ typename std::enable_if<is_registered_type<T>::value, std::set<T>>::type Communi
   return std::set<T>(buffer.data(), buffer.data() + buffer.size());
 }
 
-template <class T>
+template <typename T>
 typename std::enable_if<is_registered_type<T>::value, std::set<T>>::type Communicator::gather(
     std::set<T> const &set, t_uint const root) const {
   assert(root < size());
@@ -510,7 +510,7 @@ typename std::enable_if<is_registered_type<T>::value, std::set<T>>::type Communi
   return std::set<T>();
 }
 
-template <class T>
+template <typename T>
 typename std::enable_if<is_registered_type<T>::value, T>::type Communicator::broadcast(
     T const &value, t_uint const root) const {
   assert(root < size());
@@ -521,7 +521,7 @@ typename std::enable_if<is_registered_type<T>::value, T>::type Communicator::bro
   return result;
 }
 //! Receive broadcast object
-template <class T>
+template <typename T>
 typename std::enable_if<is_registered_type<T>::value, T>::type Communicator::broadcast(
     t_uint const root) const {
   assert(root < size());
@@ -532,7 +532,7 @@ typename std::enable_if<is_registered_type<T>::value, T>::type Communicator::bro
   return result;
 }
 
-template <class T>
+template <typename T>
 typename std::enable_if<is_registered_type<typename T::Scalar>::value, T>::type
 Communicator::broadcast(T const &vec, t_uint const root) const {
   if (size() == 1) return vec;
@@ -545,7 +545,7 @@ Communicator::broadcast(T const &vec, t_uint const root) const {
             root, **this);
   return vec;
 }
-template <class T>
+template <typename T>
 typename std::enable_if<is_registered_type<typename T::Scalar>::value, T>::type
 Communicator::broadcast(t_uint const root) const {
   assert(root < size());
@@ -557,7 +557,7 @@ Communicator::broadcast(t_uint const root) const {
   MPI_Bcast(result.data(), result.size(), Type<typename T::Scalar>::value, root, **this);
   return result;
 }
-template <class T>
+template <typename T>
 typename std::enable_if<is_registered_type<typename T::value_type>::value and
                             not std::is_base_of<Eigen::EigenBase<T>, T>::value,
                         T>::type
@@ -571,7 +571,7 @@ Communicator::broadcast(T const &vec, t_uint const root) const {
             Type<typename T::value_type>::value, root, **this);
   return vec;
 }
-template <class T>
+template <typename T>
 typename std::enable_if<is_registered_type<typename T::value_type>::value and
                             not std::is_base_of<Eigen::EigenBase<T>, T>::value,
                         T>::type

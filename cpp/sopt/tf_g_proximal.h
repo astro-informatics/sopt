@@ -25,7 +25,7 @@ namespace sopt::algorithm {
 // Implementation of g_proximal with a TensorFlow model. Owns private
 // object model_ and implements the
 // interface defined by the GProximal class
-template <class SCALAR>
+template <typename SCALAR>
 class TFGProximal : public GProximal<SCALAR> {
 
 public:

@@ -15,7 +15,7 @@ namespace details {
 //! \details It helps transform the call ``proximal(out, gamma, input)``
 //! to ``out = proximal(gamma, input)`` without incurring copy or allocation overhead if ``out``
 //! already exists.
-template <class FUNCTION, class DERIVED>
+template <typename FUNCTION, typename DERIVED>
 class DelayedProximalFunction
     : public Eigen::ReturnByValue<DelayedProximalFunction<FUNCTION, DERIVED>> {
  public:
@@ -30,7 +30,7 @@ class DelayedProximalFunction
   DelayedProximalFunction(DelayedProximalFunction &&c)
       : func(std::move(c.func)), gamma(c.gamma), x(c.x) {}
 
-  template <class DESTINATION>
+  template <typename DESTINATION>
   void evalTo(DESTINATION &destination) const {
     destination.resizeLike(x);
     func(destination, gamma, x);
@@ -49,7 +49,7 @@ class DelayedProximalFunction
 //! \details It helps transform the call ``proximal(out, input)``
 //! to ``out = proximal(input)`` without incurring copy or allocation overhead if ``out``
 //! already exists.
-template <class FUNCTION, class DERIVED>
+template <typename FUNCTION, typename DERIVED>
 class DelayedProximalEnveloppeFunction
     : public Eigen::ReturnByValue<DelayedProximalEnveloppeFunction<FUNCTION, DERIVED>> {
  public:
@@ -63,7 +63,7 @@ class DelayedProximalEnveloppeFunction
   DelayedProximalEnveloppeFunction(DelayedProximalEnveloppeFunction &&c)
       : func(std::move(c.func)), x(c.x) {}
 
-  template <class DESTINATION>
+  template <typename DESTINATION>
   void evalTo(DESTINATION &destination) const {
     destination.resizeLike(x);
     func(destination, x);
@@ -80,19 +80,19 @@ class DelayedProximalEnveloppeFunction
 }  // namespace details
 
 //! Eigen expression from proximal functions
-template <class FUNC, class T0>
+template <typename FUNC, typename T0>
 using ProximalExpression = details::DelayedProximalFunction<FUNC, Eigen::MatrixBase<T0>>;
 //! Eigen expression from proximal enveloppe functions
-template <class FUNC, class T0>
+template <typename FUNC, typename T0>
 using EnveloppeExpression = details::DelayedProximalEnveloppeFunction<FUNC, Eigen::MatrixBase<T0>>;
 } // namespace sopt::proximal
 
 namespace Eigen::internal {
-template <class FUNCTION, class VECTOR>
+template <typename FUNCTION, typename VECTOR>
 struct traits<sopt::proximal::details::DelayedProximalFunction<FUNCTION, VECTOR>> {
   using ReturnType = typename VECTOR::PlainObject;
 };
-template <class FUNCTION, class VECTOR>
+template <typename FUNCTION, typename VECTOR>
 struct traits<sopt::proximal::details::DelayedProximalEnveloppeFunction<FUNCTION, VECTOR>> {
   using ReturnType = typename VECTOR::PlainObject;
 };

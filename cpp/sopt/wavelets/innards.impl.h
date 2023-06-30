@@ -11,7 +11,7 @@ namespace {
 //! \brief Returns evaluated expression or copy of input
 //! \details Gets C++ to figure out what the exact type is. Eigen tries and avoids copies. But
 //! sometimes we actually want a copy, to make sure the arguments of a function are not modified
-template <class T0>
+template <typename T0>
 auto copy(Eigen::ArrayBase<T0> const &a) ->
     typename std::remove_const<typename std::remove_reference<decltype(a.eval())>::type>::type {
   return a.eval();
@@ -22,7 +22,7 @@ auto copy(Eigen::ArrayBase<T0> const &a) ->
 //! - `a` can be seen as a periodic vector: `a[i] == a[i % a.size()]`
 //! - `a'` is the segment `a` = a[offset:offset+b.size()]`
 //! - the result is the scalar product of `a'` by `b`.
-template <class T0, class T2>
+template <typename T0, typename T2>
 typename T0::Scalar periodic_scalar_product(Eigen::ArrayBase<T0> const &a,
                                             Eigen::ArrayBase<T2> const &b,
                                             typename T0::Index offset) {
@@ -43,7 +43,7 @@ typename T0::Scalar periodic_scalar_product(Eigen::ArrayBase<T0> const &a,
 
 //! \brief Convolves the signal by the filter
 //! \details The signal is seen as a periodic vector during convolution
-template <class T0, class T1, class T2>
+template <typename T0, typename T1, typename T2>
 void convolve(Eigen::ArrayBase<T0> &result, Eigen::ArrayBase<T1> const &signal,
               Eigen::ArrayBase<T2> const &filter) {
   assert(result.size() == signal.size());
@@ -51,7 +51,7 @@ void convolve(Eigen::ArrayBase<T0> &result, Eigen::ArrayBase<T1> const &signal,
     result(i) = periodic_scalar_product(signal, filter, i);
 }
 //! \brief Convolve variation for vector blocks
-template <class T0, class T1, class T2>
+template <typename T0, typename T1, typename T2>
 void convolve(Eigen::VectorBlock<T0> &&result, Eigen::ArrayBase<T1> const &signal,
               Eigen::ArrayBase<T2> const &filter) {
   return convolve(result, signal, filter);
@@ -59,7 +59,7 @@ void convolve(Eigen::VectorBlock<T0> &&result, Eigen::ArrayBase<T1> const &signa
 
 //! \brief Convolves and down-samples the signal by the filter
 //! \details Just like convolve, but does every other point.
-template <class T0, class T1, class T2>
+template <typename T0, typename T1, typename T2>
 void down_convolve(Eigen::ArrayBase<T0> &result, Eigen::ArrayBase<T1> const &signal,
                    Eigen::ArrayBase<T2> const &filter) {
   assert(result.size() * 2 <= signal.size());
@@ -78,14 +78,14 @@ void down_convolve(Eigen::ArrayBase<T0> &result, Eigen::ArrayBase<T1> const &sig
   }
 }
 //! \brief Dowsampling + convolve variation for vector blocks
-template <class T0, class T1, class T2>
+template <typename T0, typename T1, typename T2>
 void down_convolve(Eigen::VectorBlock<T0> &&result, Eigen::ArrayBase<T1> const &signal,
                    Eigen::ArrayBase<T2> const &filter) {
   down_convolve(result, signal, filter);
 }
 
 //! Convolve and sims low and high pass of a signal
-template <class T0, class T1, class T2, class T3, class T4>
+template <typename T0, typename T1, typename T2, typename T3, typename T4>
 void convolve_sum(Eigen::ArrayBase<T0> &result, Eigen::ArrayBase<T1> const &low_pass_signal,
                   Eigen::ArrayBase<T2> const &low_pass,
                   Eigen::ArrayBase<T3> const &high_pass_signal,
@@ -109,7 +109,7 @@ void convolve_sum(Eigen::ArrayBase<T0> &result, Eigen::ArrayBase<T1> const &low_
 //! some unnecessary operations (multiplying and summing zeros) and removes the
 //! need for temporary copies.  Testing shows the operations are equivalent. But
 //! I certainly cannot show how on paper.
-template <class T0, class T1, class T2, class T3, class T4, class T5>
+template <typename T0, typename T1, typename T2, typename T3, typename T4, typename T5>
 void up_convolve_sum(Eigen::ArrayBase<T0> &result, Eigen::ArrayBase<T1> const &coeffs,
                      Eigen::ArrayBase<T2> const &low_even, Eigen::ArrayBase<T3> const &low_odd,
                      Eigen::ArrayBase<T4> const &high_even, Eigen::ArrayBase<T5> const &high_odd) {

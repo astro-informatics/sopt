@@ -15,7 +15,7 @@ namespace sopt::algorithm {
 
 //! \brief Proximal Alternate Direction method of mutltipliers
 //! \details \f$\min_{x, z} f(x) + h(z)\f$ subject to \f$Φx + z = y\f$. \f$y\f$ is a target vector.
-template <class SCALAR>
+template <typename SCALAR>
 class ProximalADMM {
  public:
   //! Scalar type
@@ -56,7 +56,7 @@ class ProximalADMM {
   //! Setups ProximalADMM
   //! \param[in] f_proximal: proximal operator of the \f$f\f$ function.
   //! \param[in] g_proximal: proximal operator of the \f$g\f$ function
-  template <class DERIVED>
+  template <typename DERIVED>
   ProximalADMM(t_Proximal const &f_proximal, t_Proximal const &g_proximal,
                Eigen::MatrixBase<DERIVED> const &target)
       : itermax_(std::numeric_limits<t_uint>::max()),
@@ -119,7 +119,7 @@ class ProximalADMM {
   //! Vector of target measurements
   t_Vector const &target() const { return target_; }
   //! Sets the vector of target measurements
-  template <class DERIVED>
+  template <typename DERIVED>
   ProximalADMM<Scalar> &target(Eigen::MatrixBase<DERIVED> const &target) {
     target_ = target;
     return *this;
@@ -173,7 +173,7 @@ class ProximalADMM {
     return result;
   }
   //! Set Φ and Φ^† using arguments that sopt::linear_transform understands
-  template <class... ARGS>
+  template <typename... ARGS>
   typename std::enable_if<sizeof...(ARGS) >= 1, ProximalADMM &>::type Phi(ARGS &&... args) {
     Phi_ = linear_transform(std::forward<ARGS>(args)...);
     return *this;
@@ -226,7 +226,7 @@ class ProximalADMM {
   t_Vector target_;
 };
 
-template <class SCALAR>
+template <typename SCALAR>
 void ProximalADMM<SCALAR>::iteration_step(t_Vector &out, t_Vector &residual, t_Vector &lambda,
                                           t_Vector &z) const {
   g_proximal(z, gamma(), -lambda - residual);
@@ -236,7 +236,7 @@ void ProximalADMM<SCALAR>::iteration_step(t_Vector &out, t_Vector &residual, t_V
   lambda += lagrange_update_scale() * (residual + z);
 }
 
-template <class SCALAR>
+template <typename SCALAR>
 typename ProximalADMM<SCALAR>::Diagnostic ProximalADMM<SCALAR>::operator()(
     t_Vector &out, t_Vector const &x_guess, t_Vector const &res_guess) const {
   SOPT_HIGH_LOG("Performing Proximal ADMM");

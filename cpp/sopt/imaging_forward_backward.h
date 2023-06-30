@@ -22,7 +22,7 @@
 #endif
 
 namespace sopt::algorithm {
-template <class SCALAR>
+template <typename SCALAR>
 class ImagingForwardBackward {
   //! Underlying algorithm
   using FB = ForwardBackward<SCALAR>;
@@ -56,7 +56,7 @@ class ImagingForwardBackward {
   // Note: Using setter injection instead of constructior injection to follow the
   // style in the rest of the class, although constructor might be more appropriate
   //! \param[in] target: Vector of target measurements
-  template <class DERIVED>
+  template <typename DERIVED>
   ImagingForwardBackward(Eigen::MatrixBase<DERIVED> const &target)
     : g_proximal_(nullptr),
       l2_gradient_([](t_Vector &output, const t_Vector &x) -> void {
@@ -145,7 +145,7 @@ class ImagingForwardBackward {
   //! Minimun of objective_function
   Real objmin() const { return objmin_; }
   //! Sets the vector of target measurements
-  template <class DERIVED>
+  template <typename DERIVED>
   ImagingForwardBackward<Scalar> &target(Eigen::MatrixBase<DERIVED> const &target) {
     target_ = target;
     return *this;
@@ -198,7 +198,7 @@ class ImagingForwardBackward {
   }
 
   //! Set Φ and Φ^† using arguments that sopt::linear_transform understands
-  template <class... ARGS>
+  template <typename... ARGS>
   typename std::enable_if<sizeof...(ARGS) >= 1, ImagingForwardBackward &>::type Phi(
       ARGS &&... args) {
     Phi_ = linear_transform(std::forward<ARGS>(args)...);
@@ -256,7 +256,7 @@ class ImagingForwardBackward {
                     t_Vector const &residual) const;
 };
 
-template <class SCALAR>
+template <typename SCALAR>
 typename ImagingForwardBackward<SCALAR>::Diagnostic ImagingForwardBackward<SCALAR>::operator()(
     t_Vector &out, t_Vector const &guess, t_Vector const &res) const {
   g_proximal_->log_message();
@@ -287,7 +287,7 @@ typename ImagingForwardBackward<SCALAR>::Diagnostic ImagingForwardBackward<SCALA
   return result;
 }
 
-template <class SCALAR>
+template <typename SCALAR>
 bool ImagingForwardBackward<SCALAR>::residual_convergence(t_Vector const &x,
                                                           t_Vector const &residual) const {
   if (static_cast<bool>(residual_convergence())) return residual_convergence()(x, residual);
@@ -297,7 +297,7 @@ bool ImagingForwardBackward<SCALAR>::residual_convergence(t_Vector const &x,
   return residual_norm < residual_tolerance();
 }
 
-template <class SCALAR>
+template <typename SCALAR>
 bool ImagingForwardBackward<SCALAR>::objective_convergence(ScalarRelativeVariation<Scalar> &scalvar,
                                                            t_Vector const &x,
                                                            t_Vector const &residual) const {
@@ -309,7 +309,7 @@ bool ImagingForwardBackward<SCALAR>::objective_convergence(ScalarRelativeVariati
 }
 
 #ifdef SOPT_MPI
-template <class SCALAR>
+template <typename SCALAR>
 bool ImagingForwardBackward<SCALAR>::objective_convergence(mpi::Communicator const &obj_comm,
                                                            ScalarRelativeVariation<Scalar> &scalvar,
                                                            t_Vector const &x,
@@ -323,7 +323,7 @@ bool ImagingForwardBackward<SCALAR>::objective_convergence(mpi::Communicator con
 }
 #endif
 
-template <class SCALAR>
+template <typename SCALAR>
 bool ImagingForwardBackward<SCALAR>::is_converged(ScalarRelativeVariation<Scalar> &scalvar,
                                                   t_Vector const &x,
                                                   t_Vector const &residual) const {

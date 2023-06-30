@@ -10,11 +10,11 @@
 
 namespace sopt::algorithm {
 
-template <class ALGORITHM>
+template <typename ALGORITHM>
 class Reweighted;
 
 //! Factory function to create an l0-approximation by reweighting an l1 norm
-template <class ALGORITHM>
+template <typename ALGORITHM>
 Reweighted<ALGORITHM> reweighted(ALGORITHM const &algo,
                                  typename Reweighted<ALGORITHM>::t_SetWeights const &set_weights,
                                  typename Reweighted<ALGORITHM>::t_Reweightee const &reweightee);
@@ -30,7 +30,7 @@ Reweighted<ALGORITHM> reweighted(ALGORITHM const &algo,
 //! - the inner algorithm, e.g. ImagingProximalADMM
 //! - a function returning Ψ^Tx given x
 //! - a function to modify the inner algorithm with new weights
-template <class ALGORITHM>
+template <typename ALGORITHM>
 class Reweighted {
  public:
   //! Inner-loop algorithm
@@ -136,7 +136,7 @@ class Reweighted {
 
   //! \brief Performs reweighting
   //! \details This overload will compute an initial result without initial weights set to one.
-  template <class INPUT>
+  template <typename INPUT>
   typename std::enable_if<not(std::is_same<INPUT, typename Algorithm::DiagnosticAndResult>::value or
                               std::is_same<INPUT, ReweightedResult>::value),
                           ReweightedResult>::type
@@ -174,8 +174,8 @@ class Reweighted {
   t_DeltaUpdate update_delta_;
 };
 
-template <class ALGORITHM>
-template <class INPUT>
+template <typename ALGORITHM>
+template <typename INPUT>
 typename std::enable_if<
     not(std::is_same<INPUT, typename ALGORITHM::DiagnosticAndResult>::value or
         std::is_same<INPUT, typename Reweighted<ALGORITHM>::ReweightedResult>::value),
@@ -186,14 +186,14 @@ Reweighted<ALGORITHM>::operator()(INPUT const &input) const {
   return operator()(algo(input));
 }
 
-template <class ALGORITHM>
+template <typename ALGORITHM>
 typename Reweighted<ALGORITHM>::ReweightedResult Reweighted<ALGORITHM>::operator()() const {
   Algorithm algo = algorithm();
   set_weights(algo, WeightVector::Ones(1));
   return operator()(algo());
 }
 
-template <class ALGORITHM>
+template <typename ALGORITHM>
 typename Reweighted<ALGORITHM>::ReweightedResult Reweighted<ALGORITHM>::operator()(
     typename Algorithm::DiagnosticAndResult const &warm) const {
   ReweightedResult result;
@@ -202,7 +202,7 @@ typename Reweighted<ALGORITHM>::ReweightedResult Reweighted<ALGORITHM>::operator
   return operator()(result);
 }
 
-template <class ALGORITHM>
+template <typename ALGORITHM>
 typename Reweighted<ALGORITHM>::ReweightedResult Reweighted<ALGORITHM>::operator()(
     ReweightedResult const &warm) const {
   SOPT_HIGH_LOG("Starting reweighted scheme");
@@ -234,22 +234,22 @@ typename Reweighted<ALGORITHM>::ReweightedResult Reweighted<ALGORITHM>::operator
 }
 
 //! Factory function to create an l0-approximation by reweighting an l1 norm
-template <class ALGORITHM>
+template <typename ALGORITHM>
 Reweighted<ALGORITHM> reweighted(ALGORITHM const &algo,
                                  typename Reweighted<ALGORITHM>::t_SetWeights const &set_weights,
                                  typename Reweighted<ALGORITHM>::t_Reweightee const &reweightee) {
   return {algo, set_weights, reweightee};
 }
 
-template <class SCALAR>
+template <typename SCALAR>
 class ImagingProximalADMM;
-template <class ALGORITHM>
+template <typename ALGORITHM>
 class PositiveQuadrant;
-template <class T>
+template <typename T>
 Eigen::CwiseUnaryOp<const details::ProjectPositiveQuadrant<typename T::Scalar>, const T>
 positive_quadrant(Eigen::DenseBase<T> const &input);
 
-template <class SCALAR>
+template <typename SCALAR>
 Reweighted<PositiveQuadrant<ImagingProximalADMM<SCALAR>>> reweighted(
     ImagingProximalADMM<SCALAR> const &algo) {
   auto const posq = positive_quadrant(algo);
@@ -265,15 +265,15 @@ Reweighted<PositiveQuadrant<ImagingProximalADMM<SCALAR>>> reweighted(
   return {posq, set_weights, reweightee};
 }
 
-template <class SCALAR>
+template <typename SCALAR>
 class PrimalDual;
-template <class ALGORITHM>
+template <typename ALGORITHM>
 class PositiveQuadrant;
-template <class T>
+template <typename T>
 Eigen::CwiseUnaryOp<const details::ProjectPositiveQuadrant<typename T::Scalar>, const T>
 positive_quadrant(Eigen::DenseBase<T> const &input);
 
-template <class SCALAR>
+template <typename SCALAR>
 Reweighted<PositiveQuadrant<PrimalDual<SCALAR>>> reweighted(PrimalDual<SCALAR> const &algo) {
   auto const posq = positive_quadrant(algo);
   using Algorithm = typename std::remove_const<decltype(posq)>::type;

@@ -7,7 +7,7 @@
 #include "sopt/proximal.h"
 #include "sopt/types.h"
 
-template <class T>
+template <typename T>
 sopt::Matrix<T> concatenated_permutations(sopt::t_uint i, sopt::t_uint j) {
   extern std::unique_ptr<std::mt19937_64> mersenne;
   std::vector<size_t> cols(j);

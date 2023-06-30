@@ -20,7 +20,7 @@ namespace sopt::algorithm {
 
 //! \brief Primal Dual Algorithm
 //! \details \f$\min_{x, z} f(x) + h(z)\f$ subject to \f$Φx + z = y\f$. \f$y\f$ is a target vector.
-template <class SCALAR>
+template <typename SCALAR>
 class PrimalDual {
  public:
   //! Scalar type
@@ -65,7 +65,7 @@ class PrimalDual {
   //! Setups PrimalDual
   //! \param[in] f_proximal: proximal operator of the \f$f\f$ function.
   //! \param[in] g_proximal: proximal operator of the \f$g\f$ function
-  template <class DERIVED>
+  template <typename DERIVED>
   PrimalDual(t_Proximal const &f_proximal, t_Proximal const &g_proximal,
              Eigen::MatrixBase<DERIVED> const &target)
       : itermax_(std::numeric_limits<t_uint>::max()),
@@ -163,7 +163,7 @@ class PrimalDual {
   //! Vector of target measurements
   t_Vector const &target() const { return target_; }
   //! Sets the vector of target measurements
-  template <class DERIVED>
+  template <typename DERIVED>
   PrimalDual<Scalar> &target(Eigen::MatrixBase<DERIVED> const &target) {
     target_ = target;
     return *this;
@@ -217,13 +217,13 @@ class PrimalDual {
     return result;
   }
   //! Set Φ and Φ^† using arguments that sopt::linear_transform understands
-  template <class... ARGS>
+  template <typename... ARGS>
   typename std::enable_if<sizeof...(ARGS) >= 1, PrimalDual &>::type Phi(ARGS &&... args) {
     Phi_ = linear_transform(std::forward<ARGS>(args)...);
     return *this;
   }
   //! Set Φ and Φ^† using arguments that sopt::linear_transform understands
-  template <class... ARGS>
+  template <typename... ARGS>
   typename std::enable_if<sizeof...(ARGS) >= 1, PrimalDual &>::type Psi(ARGS &&... args) {
     Psi_ = linear_transform(std::forward<ARGS>(args)...);
     return *this;
@@ -279,7 +279,7 @@ class PrimalDual {
   t_Vector target_;
 };
 
-template <class SCALAR>
+template <typename SCALAR>
 void PrimalDual<SCALAR>::iteration_step(t_Vector &out, t_Vector &out_hold, t_Vector &u,
                                         t_Vector &u_hold, t_Vector &v, t_Vector &v_hold,
                                         t_Vector &residual, t_Vector &q, t_Vector &r,
@@ -321,7 +321,7 @@ void PrimalDual<SCALAR>::iteration_step(t_Vector &out, t_Vector &out_hold, t_Vec
     residual = static_cast<t_Vector>(Phi() * out_hold) * xi() - target();
 }
 
-template <class SCALAR>
+template <typename SCALAR>
 typename PrimalDual<SCALAR>::Diagnostic PrimalDual<SCALAR>::operator()(
     t_Vector &out, t_Vector const &x_guess, t_Vector const &res_guess) const {
   SOPT_HIGH_LOG("Performing Primal Dual");

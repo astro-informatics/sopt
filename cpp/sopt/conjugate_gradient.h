@@ -14,7 +14,7 @@ namespace sopt {
 class ConjugateGradient {
   //! \brief Wraps around a matrix to fake a functor
   //! \details xout = A * xin becomes apply_matrix_instance(xout, xin);
-  template <class T>
+  template <typename T>
   class ApplyMatrix;
 
  public:
@@ -28,7 +28,7 @@ class ConjugateGradient {
     bool good;
   };
   //! Values indicating how the algorithm ran and its result;
-  template <class T>
+  template <typename T>
   struct DiagnosticAndResult : public Diagnostic {
     Vector<T> result;
   };
@@ -45,7 +45,7 @@ class ConjugateGradient {
   //! This convertion is only so we write the conjugate-gradient algorithm only once for
   //! A as a matrix and A as a functor. A as a functor means A can be a complex operation, e.g. an
   //! FFT or two.
-  template <class VECTOR, class T1, class T2>
+  template <typename VECTOR, typename T1, typename T2>
   Diagnostic operator()(VECTOR &x, Eigen::MatrixBase<T1> const &A,
                         Eigen::MatrixBase<T2> const &b) const {
     return implementation(x, A, b);
@@ -53,7 +53,7 @@ class ConjugateGradient {
   //! \brief Computes $x$ for $Ax=b$
   //! \details Specialisation where A is a functor and b and x are matrix-like objects. This is
   //! the innermost specialization.
-  template <class VECTOR, class T1, class T2>
+  template <typename VECTOR, typename T1, typename T2>
   typename std::enable_if<not std::is_base_of<Eigen::EigenBase<T1>, T1>::value, Diagnostic>::type
   operator()(VECTOR &x, T1 const &A, Eigen::MatrixBase<T2> const &b) const {
     return implementation(x, details::wrap<typename VECTOR::PlainObject>(A), b);
@@ -61,7 +61,7 @@ class ConjugateGradient {
   //! \brief Computes $x$ for $Ax=b$
   //! \details Specialisation where x is constructed during call and returned. And x is a matrix
   //! rather than an array.
-  template <class T0, class A_TYPE>
+  template <typename T0, typename A_TYPE>
   DiagnosticAndResult<typename T0::Scalar> operator()(A_TYPE const &A,
                                                       Eigen::MatrixBase<T0> const &b) const {
     DiagnosticAndResult<typename T0::Scalar> result;
@@ -100,11 +100,11 @@ class ConjugateGradient {
   //! \brief Just one implementation for all types
   //! \note This is a template function, to avoid repetition, but it is not declared in the
   //! header.
-  template <class VECTOR, class T1, class MATRIXLIKE>
+  template <typename VECTOR, typename T1, typename MATRIXLIKE>
   Diagnostic implementation(VECTOR &x, MATRIXLIKE const &A, Eigen::MatrixBase<T1> const &b) const;
 };
 
-template <class VECTOR, class T1, class MATRIXLIKE>
+template <typename VECTOR, typename T1, typename MATRIXLIKE>
 ConjugateGradient::Diagnostic ConjugateGradient::implementation(
     VECTOR &x, MATRIXLIKE const &A, Eigen::MatrixBase<T1> const &b) const {
   using Scalar = typename T1::Scalar;

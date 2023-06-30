@@ -24,7 +24,7 @@ namespace sopt::algorithm {
 // Implementation of g_proximal with l1 proximal.
 // Owns the private object l1_proximal_ and implements the
 // interface defined by the GProximal class
-template <class SCALAR>
+template <typename SCALAR>
 class L1GProximal : public GProximal<SCALAR> {
 
 public:
@@ -110,7 +110,7 @@ public:
 #undef SOPT_MACRO
 
   //! Analysis operator Ψ
-  template <class... ARGS>
+  template <typename... ARGS>
   typename std::enable_if<sizeof...(ARGS) >= 1, L1GProximal<SCALAR> &>::type Psi(
       ARGS &&... args) {
     l1_proximal().Psi(std::forward<ARGS>(args)...);
@@ -124,7 +124,7 @@ protected:
 
   // Helper functions for calling l1_proximal
   //! Calls l1 proximal operator, checking for real constraints
-  template <class T0, class T1>
+  template <typename T0, typename T1>
   typename proximal::L1<Scalar>::Diagnostic l1_proximal(Eigen::MatrixBase<T0> &out, Real gamma,
                                                         Eigen::MatrixBase<T1> const &x) const {
     return l1_proximal_real_constraint()
@@ -133,7 +133,7 @@ protected:
   }
 
   //! Calls l1 proximal operator, checking for tight frame
-  template <class T0, class T1>
+  template <typename T0, typename T1>
   typename proximal::L1<Scalar>::Diagnostic call_l1_proximal(Eigen::MatrixBase<T0> &out, Real gamma,
                                                              Eigen::MatrixBase<T1> const &x) const {
     if (tight_frame_) {

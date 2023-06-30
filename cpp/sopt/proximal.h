@@ -25,7 +25,7 @@ class EuclidianNorm {
     return *this;
   }
 #endif
-  template <class T0>
+  template <typename T0>
   void operator()(Vector<typename T0::Scalar> &out,
                   typename real_type<typename T0::Scalar>::type const &t,
                   Eigen::MatrixBase<T0> const &x) const {
@@ -41,7 +41,7 @@ class EuclidianNorm {
       out.fill(0);
   }
   //! Lazy version
-  template <class T0>
+  template <typename T0>
   ProximalExpression<EuclidianNorm, T0> operator()(typename T0::Scalar const &t,
                                                    Eigen::MatrixBase<T0> const &x) const {
     return {*this, t, x};
@@ -53,20 +53,20 @@ class EuclidianNorm {
 };
 
 //! Proximal of the euclidian norm
-template <class T0>
+template <typename T0>
 auto euclidian_norm(typename real_type<typename T0::Scalar>::type const &t,
                     Eigen::MatrixBase<T0> const &x) -> decltype(EuclidianNorm(), t, x) {
   return EuclidianNorm()(t, x);
 }
 
 //! Proximal of the l1 norm
-template <class T0, class T1>
+template <typename T0, typename T1>
 void l1_norm(Eigen::DenseBase<T0> &out, typename real_type<typename T0::Scalar>::type gamma,
              Eigen::DenseBase<T1> const &x) {
   out = sopt::soft_threshhold<T0>(x, gamma);
 }
 //! Proxmal of the weighted l1 norm
-template <class T0, class T1, class T2>
+template <typename T0, typename T1, typename T2>
 void l1_norm(Eigen::DenseBase<T0> &out, Eigen::DenseBase<T2> const &gamma,
              Eigen::DenseBase<T1> const &x) {
   out = sopt::soft_threshhold<T0, T2>(x, gamma);
@@ -74,26 +74,26 @@ void l1_norm(Eigen::DenseBase<T0> &out, Eigen::DenseBase<T2> const &gamma,
 
 //! \brief Proximal of the l1 norm
 //! \detail This specialization makes it easier to use in algorithms, e.g. within `SDMM::append`.
-template <class S>
+template <typename S>
 void l1_norm(Vector<S> &out, typename real_type<S>::type gamma, Vector<S> const &x) {
   l1_norm<Vector<S>, Vector<S>>(out, gamma, x);
 }
 
 //! Proximal of the l2 norm (note this is different from the l2 ball indicator function)
-template <class T0, class T1>
+template <typename T0, typename T1>
 void l2_norm(Eigen::DenseBase<T0> &out, typename real_type<typename T0::Scalar>::type gamma,
              Eigen::DenseBase<T1> const &x) {
   out = x.derived() * 1. / (1. + gamma);
 }
 
-template <class T0, class T1, class T2>
+template <typename T0, typename T1, typename T2>
 void l2_norm(Eigen::DenseBase<T0> &out, Eigen::DenseBase<T2> const &gamma,
              Eigen::DenseBase<T1> const &x) {
   out = x.derived().array() * 1. / (1. + gamma.derived().array()).array();
 }
 
 //! Proximal of the l1,2 norm that is used in the TV norm
-template <class T0, class T1>
+template <typename T0, typename T1>
 void tv_norm(Eigen::DenseBase<T0> &out, typename real_type<typename T0::Scalar>::type gamma,
              Eigen::DenseBase<T1> const &x) {
   typename Eigen::Index const size = x.size() / 2;
@@ -111,7 +111,7 @@ void tv_norm(Eigen::DenseBase<T0> &out, typename real_type<typename T0::Scalar>:
     }
   }
 }
-template <class T0, class T1, class T2>
+template <typename T0, typename T1, typename T2>
 void tv_norm(Eigen::DenseBase<T0> &out, Eigen::DenseBase<T2> const &gamma,
              Eigen::DenseBase<T1> const &x) {
   typename Eigen::Index const size = x.size() / 2;
@@ -131,7 +131,7 @@ void tv_norm(Eigen::DenseBase<T0> &out, Eigen::DenseBase<T2> const &gamma,
 }
 
 //! Proximal of a function that is always zero, the identity
-template <class T0, class T1>
+template <typename T0, typename T1>
 void id(Eigen::DenseBase<T0> &out, typename real_type<typename T0::Scalar>::type gamma,
         Eigen::DenseBase<T1> const &x) {
   out = x;
@@ -140,20 +140,20 @@ void id(Eigen::DenseBase<T0> &out, typename real_type<typename T0::Scalar>::type
 //! \brief Proximal of l1 norm
 //! \details For more complex version involving linear transforms and weights, see L1TightFrame and
 //! L1 classes. In practice, this is an alias for soft_threshhold.
-template <class T>
+template <typename T>
 auto l1_norm(typename real_type<typename T::Scalar>::type gamma, Eigen::DenseBase<T> const &x)
     -> decltype(sopt::soft_threshhold(x, gamma)) {
   return sopt::soft_threshhold(x, gamma);
 }
 
 //! Proximal for projection on the positive quadrant
-template <class T>
+template <typename T>
 void positive_quadrant(Vector<T> &out, typename real_type<T>::type, Vector<T> const &x) {
   out = sopt::positive_quadrant(x);
 };
 
 //! Proximal for the L2 norm
-template <class T>
+template <typename T>
 class L2Norm {
  public:
   using Real = typename real_type<T>::type;
@@ -165,20 +165,20 @@ class L2Norm {
     proximal::l2_norm(out, gamma, x);
   }
   //! Lazy version
-  template <class T0>
+  template <typename T0>
   EnveloppeExpression<L2Norm, T0> operator()(Real const &, Eigen::MatrixBase<T0> const &x) const {
     return {*this, x};
   }
 
   //! Lazy version
-  template <class T0>
+  template <typename T0>
   EnveloppeExpression<L2Norm, T0> operator()(Eigen::MatrixBase<T0> const &x) const {
     return {*this, x};
   }
 };
 
 //! Proximal for indicator function of L2 ball
-template <class T>
+template <typename T>
 class L2Ball {
  public:
   using Real = typename real_type<T>::type;
@@ -207,13 +207,13 @@ class L2Ball {
       out = x;
   }
   //! Lazy version
-  template <class T0>
+  template <typename T0>
   EnveloppeExpression<L2Ball, T0> operator()(Real const &, Eigen::MatrixBase<T0> const &x) const {
     return {*this, x};
   }
 
   //! Lazy version
-  template <class T0>
+  template <typename T0>
   EnveloppeExpression<L2Ball, T0> operator()(Eigen::MatrixBase<T0> const &x) const {
     return {*this, x};
   }
@@ -242,14 +242,14 @@ class L2Ball {
 #endif
 };
 
-template <class T>
+template <typename T>
 class WeightedL2Ball : public L2Ball<T> {
  public:
   using Real = typename L2Ball<T>::Real;
   using t_Vector = Vector<Real>;
 #ifdef SOPT_MPI
   //! Constructs an L2 ball proximal of size epsilon with given weights
-  template <class T0>
+  template <typename T0>
   WeightedL2Ball(Real epsilon, Eigen::DenseBase<T0> const &w,
                  mpi::Communicator const &comm = mpi::Communicator())
       : L2Ball<T>(epsilon, comm), weights_(w) {}
@@ -263,7 +263,7 @@ class WeightedL2Ball : public L2Ball<T> {
   }
 #else
   //! Constructs an L2 ball proximal of size epsilon with given weights
-  template <class T0>
+  template <typename T0>
   WeightedL2Ball(Real epsilon, Eigen::DenseBase<T0> const &w) : L2Ball<T>(epsilon), weights_(w) {}
   //! Constructs an L2 ball proximal of size epsilon
   WeightedL2Ball(Real epsilon) : WeightedL2Ball(epsilon, t_Vector::Ones(1)) {}
@@ -287,13 +287,13 @@ class WeightedL2Ball : public L2Ball<T> {
       out = x;
   }
   //! Lazy version
-  template <class T0>
+  template <typename T0>
   EnveloppeExpression<WeightedL2Ball, T0> operator()(Real const &,
                                                      Eigen::MatrixBase<T0> const &x) const {
     return {*this, x};
   }
   //! Lazy version
-  template <class T0>
+  template <typename T0>
   EnveloppeExpression<WeightedL2Ball, T0> operator()(Eigen::MatrixBase<T0> const &x) const {
     return {*this, x};
   }
@@ -301,7 +301,7 @@ class WeightedL2Ball : public L2Ball<T> {
   //! Weights associated with each dimension
   t_Vector const &weights() const { return weights_; }
   //! Weights associated with each dimension
-  template <class T0>
+  template <typename T0>
   WeightedL2Ball<T> &weights(Eigen::MatrixBase<T0> const &w) {
     if ((w.array() < 0e0).any()) SOPT_THROW("Weights cannot be negative");
     if (w.stableNorm() < 1e-12) SOPT_THROW("Weights cannot be null");
@@ -321,14 +321,14 @@ class WeightedL2Ball : public L2Ball<T> {
 };
 
 //! Translation over proximal function
-template <class FUNCTION, class VECTOR>
+template <typename FUNCTION, typename VECTOR>
 class Translation {
  public:
   //! Creates proximal of translated function
-  template <class T_VECTOR>
+  template <typename T_VECTOR>
   Translation(FUNCTION const &func, T_VECTOR const &trans) : func(func), trans(trans) {}
   //! Computes proximal of translated function
-  template <class OUTPUT, class T0>
+  template <typename OUTPUT, typename T0>
   typename std::enable_if<std::is_reference<OUTPUT>::value, void>::type operator()(
       OUTPUT out, typename real_type<typename T0::Scalar>::type const &t,
       Eigen::MatrixBase<T0> const &x) const {
@@ -336,7 +336,7 @@ class Translation {
     out -= trans;
   }
   //! Computes proximal of translated function
-  template <class T0>
+  template <typename T0>
   void operator()(Vector<typename T0::Scalar> &out,
                   typename real_type<typename T0::Scalar>::type const &t,
                   Eigen::MatrixBase<T0> const &x) const {
@@ -344,7 +344,7 @@ class Translation {
     out -= trans;
   }
   //! Lazy version
-  template <class T0>
+  template <typename T0>
   ProximalExpression<Translation<FUNCTION, VECTOR> const &, T0> operator()(
       typename T0::Scalar const &t, Eigen::MatrixBase<T0> const &x) const {
     return {*this, t, x};
@@ -358,7 +358,7 @@ class Translation {
 };
 
 //! Translates given proximal by given vector
-template <class FUNCTION, class VECTOR>
+template <typename FUNCTION, typename VECTOR>
 Translation<FUNCTION, VECTOR> translate(FUNCTION const &func, VECTOR const &translation) {
   return Translation<FUNCTION, VECTOR>(func, translation);
 }

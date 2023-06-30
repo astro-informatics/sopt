@@ -11,21 +11,21 @@
 
 namespace sopt::objective_functions {
 //! returns g(x) + ||y - Φ x||_2^2 as a function
-template <class T>
+template <typename T>
 std::function<t_real(T)> const unconstrained_regularisation(
     const std::function<t_real(T)> &g, const t_real &sig, const T &y,
     const sopt::OperatorFunction<T> &measurement_operator);
 //! returns ||ψ^t x||_1 + ||y - Φ x||_2^2 as a function
-template <class T>
+template <typename T>
 std::function<t_real(T)> const unconstrained_L1_regularisation(
     const t_real &gamma, const t_real &sig, const T &y,
     const sopt::OperatorFunction<T> &measurement_operator,
     const sopt::LinearTransform<T> &wavelet_operator);
-template <class T>
+template <typename T>
 std::function<t_real(T)> const unconstrained_regularisation(
     const std::function<t_real(T)> &g, const t_real &sig, const T &y,
     const sopt::LinearTransform<T> &measurement_operator);
-template <class T>
+template <typename T>
 std::function<t_real(T)> const unconstrained_l1_regularisation(
     const t_real &gamma, const t_real &sig, const T &y,
     const sopt::LinearTransform<T> &measurement_operator,
@@ -33,7 +33,7 @@ std::function<t_real(T)> const unconstrained_l1_regularisation(
 } // namespace sopt::objective_functions
 namespace sopt::objective_functions {
 
-template <class T>
+template <typename T>
 std::function<t_real(T)> const unconstrained_regularisation(
     const std::function<t_real(T)> &g, const t_real &sig, const T &y,
     const sopt::LinearTransform<T> &measurement_operator) {
@@ -41,7 +41,7 @@ std::function<t_real(T)> const unconstrained_regularisation(
     return g(x) + 0.5 * std::pow(sopt::l2_norm(y - measurement_operator * x) / sig, 2);
   };
 }
-template <class T>
+template <typename T>
 std::function<t_real(T)> const unconstrained_l1_regularisation(
     const t_real &gamma, const t_real &sig, const T &y,
     const sopt::LinearTransform<T> &measurement_operator,
@@ -52,14 +52,14 @@ std::function<t_real(T)> const unconstrained_l1_regularisation(
   };
   return unconstrained_regularisation<T>(g, sig, y, measurement_operator);
 }
-template <class T>
+template <typename T>
 std::function<t_real(T)> const unconstrained_regularisation(
     const std::function<t_real(T)> &g, const t_real &sig, const T &y,
     const sopt::OperatorFunction<T> &measurement_operator) {
   const LinearTransform<T> mop = {measurement_operator, measurement_operator};
   return unconstrained_regularisation<T>(g, sig, mop * y, mop);
 }
-template <class T>
+template <typename T>
 std::function<t_real(T)> const unconstrained_l1_regularisation(
     const t_real &gamma, const t_real &sig, const T &y,
     const sopt::OperatorFunction<T> &measurement_operator,

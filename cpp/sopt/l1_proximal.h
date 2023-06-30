@@ -22,7 +22,7 @@ namespace sopt::proximal {
 //!  \f[ min_{z} 0.5||x - z||_2^2 + γ ||Ψ^† z||_w1 \f]
 //!  where \f$Ψ \in C^{N_x \times N_r} \f$ is the sparsifying operator, and \f[|| ||_w1\f] is the
 //!  weighted L1 norm.
-template <class SCALAR>
+template <typename SCALAR>
 class L1TightFrame {
  public:
   //! Underlying scalar type
@@ -73,7 +73,7 @@ class L1TightFrame {
   //! Weights of the l1 norm
   Vector<Real> const &weights() const { return weights_; }
   //! Weights of the l1 norm
-  template <class T>
+  template <typename T>
   L1TightFrame<Scalar> &weights(Eigen::MatrixBase<T> const &w) {
     if ((w.array() < 0e0).any()) SOPT_THROW("Weights cannot be negative");
     if (w.stableNorm() < 1e-12) SOPT_THROW("Weights cannot be null");
@@ -89,27 +89,27 @@ class L1TightFrame {
   }
 
   //! Set Ψ and Ψ^† using arguments that sopt::linear_transform understands
-  template <class... ARGS>
+  template <typename... ARGS>
   typename std::enable_if<sizeof...(ARGS) >= 1, L1TightFrame &>::type Psi(ARGS &&... args) {
     Psi_ = linear_transform(std::forward<ARGS>(args)...);
     return *this;
   }
 
   //! Computes proximal for given γ
-  template <class T0, class T1>
+  template <typename T0, typename T1>
   typename std::enable_if<is_complex<Scalar>::value == is_complex<typename T0::Scalar>::value and
                           is_complex<Scalar>::value == is_complex<typename T1::Scalar>::value>::type
   operator()(Eigen::MatrixBase<T0> &out, Real gamma, Eigen::MatrixBase<T1> const &x) const;
 
   //! Lazy version
-  template <class T0>
+  template <typename T0>
   ProximalExpression<L1TightFrame<Scalar> const &, T0> operator()(
       Real const &gamma, Eigen::MatrixBase<T0> const &x) const {
     return {*this, gamma, x};
   }
 
   //! \f[ 0.5||x - z||_2^2 + γ||Ψ^† z||_w1 \f]
-  template <class T0, class T1>
+  template <typename T0, typename T1>
   typename std::enable_if<is_complex<Scalar>::value == is_complex<typename T0::Scalar>::value and
                               is_complex<Scalar>::value == is_complex<typename T1::Scalar>::value,
                           Real>::type
@@ -121,8 +121,8 @@ class L1TightFrame {
   Vector<Real> weights_;
 };
 
-template <class SCALAR>
-template <class T0, class T1>
+template <typename SCALAR>
+template <typename T0, typename T1>
 typename std::enable_if<is_complex<SCALAR>::value == is_complex<typename T0::Scalar>::value and
                         is_complex<SCALAR>::value == is_complex<typename T1::Scalar>::value>::type
 L1TightFrame<SCALAR>::operator()(Eigen::MatrixBase<T0> &out, Real gamma,
@@ -141,8 +141,8 @@ L1TightFrame<SCALAR>::operator()(Eigen::MatrixBase<T0> &out, Real gamma,
   SOPT_LOW_LOG("Prox L1: objective = {}", objective(x, out, gamma));
 }
 
-template <class SCALAR>
-template <class T0, class T1>
+template <typename SCALAR>
+template <typename T0, typename T1>
 typename std::enable_if<is_complex<SCALAR>::value == is_complex<typename T0::Scalar>::value and
                             is_complex<SCALAR>::value == is_complex<typename T1::Scalar>::value,
                         typename real_type<SCALAR>::type>::type
@@ -165,7 +165,7 @@ L1TightFrame<SCALAR>::objective(Eigen::MatrixBase<T0> const &x, Eigen::MatrixBas
 //!  \f[ min_{z} 0.5||x - z||_2^2 + γ ||Ψ^† z||_w1 \f]
 //!  where \f$Ψ \in C^{N_x \times N_r} \f$ is the sparsifying operator, and \f[|| ||_w1\f] is the
 //!  weighted L1 norm.
-template <class SCALAR>
+template <typename SCALAR>
 class L1 : protected L1TightFrame<SCALAR> {
  public:
   //! Functor to do fista mixing
@@ -211,7 +211,7 @@ class L1 : protected L1TightFrame<SCALAR> {
   };
 
   //! Computes proximal for given γ
-  template <class T0>
+  template <typename T0>
   Diagnostic operator()(Eigen::MatrixBase<T0> &out, Real gamma, Vector<Scalar> const &x) const {
     // Note that we *must* call eval on x, in case it is an expression involving out
     if (gamma <= 0) {
@@ -226,7 +226,7 @@ class L1 : protected L1TightFrame<SCALAR> {
   }
 
   //! Lazy version
-  template <class T0>
+  template <typename T0>
   DiagnosticAndResult operator()(Real const &gamma, Eigen::MatrixBase<T0> const &x) const {
     DiagnosticAndResult result;
     static_cast<Diagnostic &>(result) = operator()(result.proximal, gamma, x);
@@ -279,7 +279,7 @@ class L1 : protected L1TightFrame<SCALAR> {
   //! Weights of the l1 norm
   Vector<Real> const &weights() const { return L1TightFrame<Scalar>::weights(); }
   //! Set weights to an array of values
-  template <class T>
+  template <typename T>
   L1<Scalar> &weights(Eigen::MatrixBase<T> const &w) {
     L1TightFrame<Scalar>::weights(w);
     return *this;
@@ -301,7 +301,7 @@ class L1 : protected L1TightFrame<SCALAR> {
   //! Linear transform applied to input prior to L1 norm
   LinearTransform<Vector<Scalar>> const &Psi() const { return L1TightFrame<Scalar>::Psi(); }
   //! Set Ψ and Ψ^† using a matrix
-  template <class... ARGS>
+  template <typename... ARGS>
   typename std::enable_if<sizeof...(ARGS) >= 1, L1<Scalar> &>::type Psi(ARGS &&... args) {
     L1TightFrame<Scalar>::Psi(std::forward<ARGS>(args)...);
     return *this;
@@ -309,7 +309,7 @@ class L1 : protected L1TightFrame<SCALAR> {
 
   //! \brief Special case if Ψ ia a tight frame.
   //! \see L1TightFrame
-  template <class... T>
+  template <typename... T>
   auto tight_frame(T &&... args) const
       -> decltype(this->L1TightFrame<Scalar>::operator()(std::forward<T>(args)...)) {
     return this->L1TightFrame<Scalar>::operator()(std::forward<T>(args)...);
@@ -317,21 +317,21 @@ class L1 : protected L1TightFrame<SCALAR> {
 
  protected:
   //! Applies one or another soft-threshhold, depending on weight
-  template <class T1>
+  template <typename T1>
   Vector<SCALAR> apply_soft_threshhold(Real gamma, Eigen::MatrixBase<T1> const &x) const;
   //! Applies constraints to input expression
-  template <class T0, class T1>
+  template <typename T0, typename T1>
   void apply_constraints(Eigen::MatrixBase<T0> &out, Eigen::MatrixBase<T1> const &x) const;
 
   //! Operation with explicit mixing step
-  template <class T0, class MIXING>
+  template <typename T0, typename MIXING>
   Diagnostic operator()(Eigen::MatrixBase<T0> &out, Real gamma, Vector<Scalar> const &x,
                         MIXING mixing) const;
 };
 
 //! Computes proximal for given γ
-template <class SCALAR>
-template <class T0, class MIXING>
+template <typename SCALAR>
+template <typename T0, typename MIXING>
 typename L1<SCALAR>::Diagnostic L1<SCALAR>::operator()(Eigen::MatrixBase<T0> &out, Real gamma,
                                                        Vector<Scalar> const &x,
                                                        MIXING mixing) const {
@@ -367,8 +367,8 @@ typename L1<SCALAR>::Diagnostic L1<SCALAR>::operator()(Eigen::MatrixBase<T0> &ou
   return {niters, breaker.relative_variation(), breaker.current(), breaker.converged()};
 }
 
-template <class SCALAR>
-template <class T1>
+template <typename SCALAR>
+template <typename T1>
 Vector<SCALAR> L1<SCALAR>::apply_soft_threshhold(Real gamma, Eigen::MatrixBase<T1> const &x) const {
   if (weights().size() == 1)
     return soft_threshhold(x, gamma * weights()(0));
@@ -376,8 +376,8 @@ Vector<SCALAR> L1<SCALAR>::apply_soft_threshhold(Real gamma, Eigen::MatrixBase<T
     return soft_threshhold(x, gamma * weights());
 }
 
-template <class SCALAR>
-template <class T0, class T1>
+template <typename SCALAR>
+template <typename T0, typename T1>
 void L1<SCALAR>::apply_constraints(Eigen::MatrixBase<T0> &out,
                                    Eigen::MatrixBase<T1> const &x) const {
   if (positivity_constraint())
@@ -388,12 +388,12 @@ void L1<SCALAR>::apply_constraints(Eigen::MatrixBase<T0> &out,
     out = x;
 }
 
-template <class SCALAR>
+template <typename SCALAR>
 class L1<SCALAR>::FistaMixing {
  public:
   using Real = typename real_type<SCALAR>::type;
   FistaMixing() : t(1){};
-  template <class T1>
+  template <typename T1>
   void operator()(Vector<SCALAR> &previous, Eigen::MatrixBase<T1> const &unmixed, t_uint iter) {
     // reset
     if (iter == 0) {
@@ -412,16 +412,16 @@ class L1<SCALAR>::FistaMixing {
   Real t;
 };
 
-template <class SCALAR>
+template <typename SCALAR>
 class L1<SCALAR>::NoMixing {
  public:
-  template <class T1>
+  template <typename T1>
   void operator()(Vector<SCALAR> &previous, Eigen::MatrixBase<T1> const &unmixed, t_uint) {
     previous = unmixed;
   }
 };
 
-template <class SCALAR>
+template <typename SCALAR>
 class L1<SCALAR>::Breaker {
  public:
   using Real = typename real_type<SCALAR>::type;

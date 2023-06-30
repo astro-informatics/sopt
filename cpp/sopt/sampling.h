@@ -19,25 +19,25 @@ class Sampling {
   //! Constructs from a vector
   Sampling(t_uint size, std::vector<t_uint> const &indices) : indices_(indices), size(size) {}
   //! Constructs from the size and the number of samples to pick
-  template <class RNG>
+  template <typename RNG>
   Sampling(t_uint size, t_uint samples, RNG &&rng);
   //! Constructs from the size and the number of samples to pick
   Sampling(t_uint size, t_uint samples)
       : Sampling(size, samples, std::mt19937_64(std::random_device()())) {}
 
   // Performs sampling
-  template <class T0, class T1>
+  template <typename T0, typename T1>
   void operator()(Eigen::DenseBase<T0> &out, Eigen::DenseBase<T1> const &x) const;
   // Performs sampling
-  template <class T0, class T1>
+  template <typename T0, typename T1>
   void operator()(Eigen::DenseBase<T0> &&out, Eigen::DenseBase<T1> const &x) const {
     operator()(out, x);
   }
   // Performs adjunct of sampling
-  template <class T0, class T1>
+  template <typename T0, typename T1>
   void adjoint(Eigen::DenseBase<T0> &out, Eigen::DenseBase<T1> const &x) const;
   // Performs adjunct sampling
-  template <class T0, class T1>
+  template <typename T0, typename T1>
   void adjoint(Eigen::DenseBase<T0> &&out, Eigen::DenseBase<T1> const &x) const {
     adjoint(out, x);
   }
@@ -57,7 +57,7 @@ class Sampling {
   t_uint size;
 };
 
-template <class T0, class T1>
+template <typename T0, typename T1>
 void Sampling::operator()(Eigen::DenseBase<T0> &out, Eigen::DenseBase<T1> const &x) const {
   out.resize(indices_.size());
   for (decltype(indices_.size()) i(0); i < indices_.size(); ++i) {
@@ -66,7 +66,7 @@ void Sampling::operator()(Eigen::DenseBase<T0> &out, Eigen::DenseBase<T1> const 
   }
 }
 
-template <class T0, class T1>
+template <typename T0, typename T1>
 void Sampling::adjoint(Eigen::DenseBase<T0> &out, Eigen::DenseBase<T1> const &x) const {
   assert(static_cast<t_uint>(x.size()) == indices_.size());
   out.resize(out.size());
@@ -78,7 +78,7 @@ void Sampling::adjoint(Eigen::DenseBase<T0> &out, Eigen::DenseBase<T1> const &x)
 }
 
 //! Returns linear transform version of this object.
-template <class T>
+template <typename T>
 LinearTransform<Vector<T>> linear_transform(Sampling const &sampling) {
   return linear_transform<Vector<T>>(
       [sampling](Vector<T> &out, Vector<T> const &x) { sampling(out, x); },
@@ -87,7 +87,7 @@ LinearTransform<Vector<T>> linear_transform(Sampling const &sampling) {
       {{0, 1, static_cast<t_int>(sampling.cols())}});
 }
 
-template <class RNG>
+template <typename RNG>
 Sampling::Sampling(t_uint size, t_uint samples, RNG &&rng) : indices_(size), size(size) {
   std::iota(indices_.begin(), indices_.end(), 0);
   std::shuffle(indices_.begin(), indices_.end(), rng);

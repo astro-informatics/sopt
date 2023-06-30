@@ -8,7 +8,7 @@
 #include "sopt/types.h"
 
 namespace sopt {
-template <class T0, class... T>
+template <typename T0, typename... T>
 OperatorFunction<T0> chained_operators(OperatorFunction<T0> const &arg0, T const &... args) {
   if (sizeof...(args) == 0) return arg0;
 
