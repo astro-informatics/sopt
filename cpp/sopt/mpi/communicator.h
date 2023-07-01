@@ -329,7 +329,7 @@ template <class T>
 typename std::enable_if<is_registered_type<T>::value, std::vector<T>>::type
 Communicator::all_to_allv(const std::vector<T> &vec, std::vector<t_int> const &send_sizes) const {
   if (size() == 1) {
-    if (send_sizes.size() == 1 and vec.size() != send_sizes.front())
+    if constexpr (send_sizes.size() == 1 and vec.size() != send_sizes.front())
       throw std::runtime_error("Input vector size and sizes are inconsistent on root");
     return vec;
   }
@@ -348,7 +348,7 @@ typename std::enable_if<is_registered_type<T>::value, std::vector<T>>::type
 Communicator::all_to_allv(const std::vector<T> &vec, std::vector<t_int> const &send_sizes,
                           std::vector<t_int> const &rec_sizes) const {
   if (size() == 1) {
-    if (send_sizes.size() == 1 and vec.size() != send_sizes.front())
+    if constexpr (send_sizes.size() == 1 and vec.size() != send_sizes.front())
       throw std::runtime_error("Input vector size and sizes are inconsistent on root");
     return vec;
   }

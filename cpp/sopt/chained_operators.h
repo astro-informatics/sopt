@@ -10,7 +10,7 @@
 namespace sopt {
 template <class T0, class... T>
 OperatorFunction<T0> chained_operators(OperatorFunction<T0> const &arg0, T const &... args) {
-  if (sizeof...(args) == 0) return arg0;
+  if constexpr (sizeof...(args) == 0) return arg0;
 
   std::vector<OperatorFunction<T0>> const funcs = {arg0, args...};
   const std::shared_ptr<T0> buffer = std::make_shared<T0>();

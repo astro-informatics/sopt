@@ -309,7 +309,7 @@ typename ImagingPrimalDual<SCALAR>::Diagnostic ImagingPrimalDual<SCALAR>::operat
         "l1 proximal and weighted l1 proximal appear to be different functions. Please make sure "
         "both are the same function.");
   auto const f_proximal = [this](t_Vector &out, Real gamma, t_Vector const &x) {
-    if (this->l2_proximal_weights().size() > 1)
+    if constexpr (this->l2_proximal_weights().size() > 1)
       this->l2_proximal_weighted()(out, this->l2_proximal_weights() * gamma, x);
     else
       this->l2_proximal()(out, this->l2_proximal_weights()(0) * gamma, x);
@@ -323,7 +323,7 @@ typename ImagingPrimalDual<SCALAR>::Diagnostic ImagingPrimalDual<SCALAR>::operat
           out - this->precondition_stepsize() *
                     (out.array() * this->precondition_weights().array() - x.array()).matrix());
 
-    if (this->precondition_iters() > 0) out = out.array() * this->precondition_weights().array();
+    if constexpr (this->precondition_iters() > 0) out = out.array() * this->precondition_weights().array();
   };
   ScalarRelativeVariation<Scalar> scalvar(relative_variation(), relative_variation(),
                                           "Objective function");
@@ -366,7 +366,7 @@ template <class SCALAR>
 bool ImagingPrimalDual<SCALAR>::residual_convergence(t_Vector const &x,
                                                      t_Vector const &residual) const {
   if (static_cast<bool>(residual_convergence())) return residual_convergence()(x, residual);
-  if (residual_tolerance() <= 0e0) return true;
+  if constexpr (residual_tolerance() <= 0e0) return true;
   auto const residual_norm = sopt::l2_norm(residual, l2ball_proximal_weights());
   SOPT_LOW_LOG("    - [Primal Dual] Residuals: {} <? {}", residual_norm, residual_tolerance());
   return residual_norm < residual_tolerance();
@@ -377,7 +377,7 @@ bool ImagingPrimalDual<SCALAR>::objective_convergence(ScalarRelativeVariation<Sc
                                                       t_Vector const &x,
                                                       t_Vector const &residual) const {
   if (static_cast<bool>(objective_convergence())) return objective_convergence()(x, residual);
-  if (scalvar.relative_tolerance() <= 0e0) return true;
+  if constexpr (scalvar.relative_tolerance() <= 0e0) return true;
   auto const current =
       (l2_proximal_weights().size() > 1)
           ? sopt::l2_norm(l2_proximal_weights().array() * (Psi().adjoint() * x).array())
