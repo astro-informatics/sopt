@@ -2,7 +2,7 @@ var searchData=
 [
   ['f_5fgradient_134',['f_gradient',['../classsopt_1_1algorithm_1_1ForwardBackward.html#ad5ff963c11f8f31a2fb3802daf99d16b',1,'sopt::algorithm::ForwardBackward']]],
   ['f_5fproximal_135',['f_proximal',['../classsopt_1_1algorithm_1_1ProximalADMM.html#a96a4fb1c1b4e9aaf8c716d2c3d416538',1,'sopt::algorithm::ProximalADMM::f_proximal()'],['../classsopt_1_1algorithm_1_1PrimalDual.html#aa68279f9bc2127ea66e52012022d86d9',1,'sopt::algorithm::PrimalDual::f_proximal()']]],
-  ['factory_136',['factory',['../classsopt_1_1wavelets_1_1Wavelet.html#a127561e37a23c4cfde3ec8935ebded8f',1,'sopt::wavelets::Wavelet::factory()'],['../namespacesopt_1_1wavelets.html#a65aedf4b737bb07c94642b42fe99bfab',1,'sopt::wavelets::factory()']]],
+  ['factory_136',['factory',['../classsopt_1_1wavelets_1_1Wavelet.html#a2474a833def6b33cdd616632ba718bf8',1,'sopt::wavelets::Wavelet::factory()'],['../namespacesopt_1_1wavelets.html#a6cf9c9fa9d08421074515a284f7bcbfa',1,'sopt::wavelets::factory()']]],
   ['fallback_137',['Fallback',['../structsopt_1_1details_1_1HasValueType_1_1Fallback.html',1,'sopt::details::HasValueType']]],
   ['fb_138',['FB',['../classsopt_1_1algorithm_1_1L1GProximal.html#ab2ec0dac927c3001dd0b2e339a28d2c3',1,'sopt::algorithm::L1GProximal::FB()'],['../classsopt_1_1algorithm_1_1TFGProximal.html#a596de6d25fec19553936cc874ea8b918',1,'sopt::algorithm::TFGProximal::FB()']]],
   ['finalize_139',['finalize',['../namespacesopt_1_1mpi.html#abfd53bf09013dc265c50e4c1ca0773e5',1,'sopt::mpi']]],

@@ -83,14 +83,15 @@ $(function() {
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="types_8h.html">sopt/types.h</a>&quot;</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
 <div class="line"><a name="l00004"></a><span class="lineno"><a class="line" href="l1__norm_8cc.html#a2b760810e5bb0cfb55f0c7d6d74d4438">    4</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="l1__norm_8cc.html#a2b760810e5bb0cfb55f0c7d6d74d4438">main</a>(<span class="keywordtype">int</span>, <span class="keywordtype">char</span> <span class="keyword">const</span> **) {</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;  <a class="code" href="namespacesopt.html#a7d7971e5566e597eb907614917e30c78">sopt::Image&lt;std::complex&lt;int&gt;</a>&gt; input(2, 2), weights(2, 2);</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;  input &lt;&lt; 1, -2, 3, -4;</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;  weights &lt;&lt; 5, 6, 7, 8;</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="namespacesopt.html#ad992ab663c3f521cad1deff62844c4cc">sopt::l1_norm</a>(input, weights) != 1 * 5 + 2 * 6 + 3 * 7 + 4 * 8) <span class="keywordflow">throw</span> std::exception();</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;  <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;}</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;  <a class="code" href="namespacesopt.html#a7d7971e5566e597eb907614917e30c78">sopt::Image&lt;std::complex&lt;int&gt;</a>&gt; input(2, 2);</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;  <a class="code" href="namespacesopt.html#a7d7971e5566e597eb907614917e30c78">sopt::Image&lt;std::complex&lt;int&gt;</a>&gt; weights(2, 2);</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;  input &lt;&lt; 1, -2, 3, -4;</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;  weights &lt;&lt; 5, 6, 7, 8;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="namespacesopt.html#ad992ab663c3f521cad1deff62844c4cc">sopt::l1_norm</a>(input, weights) != 1 * 5 + 2 * 6 + 3 * 7 + 4 * 8) <span class="keywordflow">throw</span> std::exception();</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;  <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="al1__norm_8cc_html_a2b760810e5bb0cfb55f0c7d6d74d4438"><div class="ttname"><a href="l1__norm_8cc.html#a2b760810e5bb0cfb55f0c7d6d74d4438">main</a></div><div class="ttdeci">int main(int, char const **)</div><div class="ttdef"><b>Definition:</b> <a href="l1__norm_8cc_source.html#l00004">l1_norm.cc:4</a></div></div>
 <div class="ttc" id="atypes_8h_html"><div class="ttname"><a href="types_8h.html">types.h</a></div></div>

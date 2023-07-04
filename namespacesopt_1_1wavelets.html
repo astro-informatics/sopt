@@ -123,9 +123,9 @@ Functions</h2></td></tr>
 <tr class="memitem:af4b021fa0322242bb199585c12803a0e"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structsopt_1_1wavelets_1_1WaveletData.html">WaveletData</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesopt_1_1wavelets.html#af4b021fa0322242bb199585c12803a0e">daubechies_data</a> (<a class="el" href="namespacesopt.html#a7237c0991f6ec8c2bbdab8929b564964">t_uint</a>)</td></tr>
 <tr class="memdesc:af4b021fa0322242bb199585c12803a0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Factory function returning specific daubechie wavelet data.  <a href="namespacesopt_1_1wavelets.html#af4b021fa0322242bb199585c12803a0e">More...</a><br /></td></tr>
 <tr class="separator:af4b021fa0322242bb199585c12803a0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a65aedf4b737bb07c94642b42fe99bfab"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsopt_1_1wavelets_1_1Wavelet.html">Wavelet</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesopt_1_1wavelets.html#a65aedf4b737bb07c94642b42fe99bfab">factory</a> (std::string name=&quot;DB1&quot;, t_uint nlevels=1)</td></tr>
-<tr class="memdesc:a65aedf4b737bb07c94642b42fe99bfab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a wavelet transform object.  <a href="namespacesopt_1_1wavelets.html#a65aedf4b737bb07c94642b42fe99bfab">More...</a><br /></td></tr>
-<tr class="separator:a65aedf4b737bb07c94642b42fe99bfab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6cf9c9fa9d08421074515a284f7bcbfa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsopt_1_1wavelets_1_1Wavelet.html">Wavelet</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesopt_1_1wavelets.html#a6cf9c9fa9d08421074515a284f7bcbfa">factory</a> (const std::string &amp;name=&quot;DB1&quot;, t_uint nlevels=1)</td></tr>
+<tr class="memdesc:a6cf9c9fa9d08421074515a284f7bcbfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a wavelet transform object.  <a href="namespacesopt_1_1wavelets.html#a6cf9c9fa9d08421074515a284f7bcbfa">More...</a><br /></td></tr>
+<tr class="separator:a6cf9c9fa9d08421074515a284f7bcbfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -423,7 +423,7 @@ template&lt;class T0 , class T1 &gt; </div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="benchmarks_2wavelets_8cc_source.html#l00057">N</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="tests_2wavelets_8cc_source.html#l00049">check_round_trip()</a>, <a class="el" href="wavelets_2wavelets_8h_source.html#l00052">sopt::wavelets::Wavelet::direct()</a>, <a class="el" href="direct_8h_source.html#l00107">direct_transform()</a>, and <a class="el" href="tests_2wavelets_8cc_source.html#l00188">TEST_CASE()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="tests_2wavelets_8cc_source.html#l00049">check_round_trip()</a>, <a class="el" href="wavelets_2wavelets_8h_source.html#l00052">sopt::wavelets::Wavelet::direct()</a>, <a class="el" href="direct_8h_source.html#l00107">direct_transform()</a>, and <a class="el" href="tests_2wavelets_8cc_source.html#l00189">TEST_CASE()</a>.</p>
 
 </div>
 </div>
@@ -546,8 +546,8 @@ template&lt;class T0 &gt; </div>
 
 </div>
 </div>
-<a id="a65aedf4b737bb07c94642b42fe99bfab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a65aedf4b737bb07c94642b42fe99bfab">&#9670;&nbsp;</a></span>factory()</h2>
+<a id="a6cf9c9fa9d08421074515a284f7bcbfa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6cf9c9fa9d08421074515a284f7bcbfa">&#9670;&nbsp;</a></span>factory()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -555,7 +555,7 @@ template&lt;class T0 &gt; </div>
         <tr>
           <td class="memname"><a class="el" href="classsopt_1_1wavelets_1_1Wavelet.html">Wavelet</a> sopt::wavelets::factory </td>
           <td>(</td>
-          <td class="paramtype">std::string&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>name</em>, </td>
         </tr>
         <tr>
@@ -575,7 +575,7 @@ template&lt;class T0 &gt; </div>
 <p>Creates a wavelet transform object. </p>
 
 <p class="definition">Definition at line <a class="el" href="sopt_2wavelets_2wavelets_8cc_source.html#l00008">8</a> of file <a class="el" href="sopt_2wavelets_2wavelets_8cc_source.html">wavelets.cc</a>.</p>
-<div class="fragment"><div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;                                                {</div>
+<div class="fragment"><div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;                                                       {</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;  <span class="keywordflow">if</span> (name == <span class="stringliteral">&quot;dirac&quot;</span> or name == <span class="stringliteral">&quot;Dirac&quot;</span>) {</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <a class="code" href="logging_8h.html#add63e5a2a432d1c74e89ac839cea59ec">SOPT_MEDIUM_LOG</a>(<span class="stringliteral">&quot;Creating Dirac Wavelet&quot;</span>);</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <span class="keywordflow">return</span> Wavelet(<a class="code" href="namespacesopt_1_1wavelets.html#af4b021fa0322242bb199585c12803a0e">daubechies_data</a>(1), 0);</div>
@@ -594,7 +594,7 @@ template&lt;class T0 &gt; </div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="wavelet__data_8cc_source.html#l01597">daubechies_data()</a>, and <a class="el" href="logging_8h_source.html#l00029">SOPT_MEDIUM_LOG</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="benchmarks_2wavelets_8cc_source.html#l00016">direct_matrix()</a>, <a class="el" href="benchmarks_2wavelets_8cc_source.html#l00038">direct_vector()</a>, <a class="el" href="sara_8h_source.html#l00114">sopt::wavelets::SARA::emplace_back()</a>, <a class="el" href="benchmarks_2wavelets_8cc_source.html#l00027">indirect_matrix()</a>, <a class="el" href="benchmarks_2wavelets_8cc_source.html#l00047">indirect_vector()</a>, <a class="el" href="examples_2wavelets_8cc_source.html#l00003">main()</a>, and <a class="el" href="tests_2wavelets_8cc_source.html#l00276">TEST_CASE()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="benchmarks_2wavelets_8cc_source.html#l00016">direct_matrix()</a>, <a class="el" href="benchmarks_2wavelets_8cc_source.html#l00038">direct_vector()</a>, <a class="el" href="sara_8h_source.html#l00114">sopt::wavelets::SARA::emplace_back()</a>, <a class="el" href="benchmarks_2wavelets_8cc_source.html#l00027">indirect_matrix()</a>, <a class="el" href="benchmarks_2wavelets_8cc_source.html#l00047">indirect_vector()</a>, <a class="el" href="examples_2wavelets_8cc_source.html#l00003">main()</a>, and <a class="el" href="tests_2wavelets_8cc_source.html#l00278">TEST_CASE()</a>.</p>
 
 </div>
 </div>
@@ -667,7 +667,7 @@ template&lt;class T0 , class T1 &gt; </div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="benchmarks_2wavelets_8cc_source.html#l00057">N</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="tests_2wavelets_8cc_source.html#l00049">check_round_trip()</a>, <a class="el" href="wavelets_2wavelets_8h_source.html#l00095">sopt::wavelets::Wavelet::indirect()</a>, <a class="el" href="indirect_8h_source.html#l00112">indirect_transform()</a>, and <a class="el" href="tests_2wavelets_8cc_source.html#l00188">TEST_CASE()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="tests_2wavelets_8cc_source.html#l00049">check_round_trip()</a>, <a class="el" href="wavelets_2wavelets_8h_source.html#l00095">sopt::wavelets::Wavelet::indirect()</a>, <a class="el" href="indirect_8h_source.html#l00112">indirect_transform()</a>, and <a class="el" href="tests_2wavelets_8cc_source.html#l00189">TEST_CASE()</a>.</p>
 
 </div>
 </div>
