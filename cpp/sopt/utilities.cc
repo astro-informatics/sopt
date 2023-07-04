@@ -91,7 +91,7 @@ void write_tiff(Image<> const &image, std::string const &filename) {
     for (uint32_t j(0); j < width; ++j, ++pixel) *pixel = convert_from_greyscale(image(i, j));
 
   SOPT_TRACE("Writing strip");
-  TIFFWriteEncodedStrip(tif, 0, &raster[0], width * height * sizeof(decltype(raster)::value_type));
+  TIFFWriteEncodedStrip(tif, 0, raster.data(), width * height * sizeof(decltype(raster)::value_type));
 
   TIFFWriteDirectory(tif);
   SOPT_TRACE("Closing tif");
