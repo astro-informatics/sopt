@@ -304,8 +304,8 @@
       <type>Wavelet</type>
       <name>factory</name>
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1wavelets.html</anchorfile>
-      <anchor>a6cf9c9fa9d08421074515a284f7bcbfa</anchor>
-      <arglist>(const std::string &amp;name=&quot;DB1&quot;, t_uint nlevels=1)</arglist>
+      <anchor>a65aedf4b737bb07c94642b42fe99bfab</anchor>
+      <arglist>(std::string name=&quot;DB1&quot;, t_uint nlevels=1)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -2992,8 +2992,8 @@
       <type>Wavelet</type>
       <name>factory</name>
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1wavelets.html</anchorfile>
-      <anchor>a6cf9c9fa9d08421074515a284f7bcbfa</anchor>
-      <arglist>(const std::string &amp;name=&quot;DB1&quot;, t_uint nlevels=1)</arglist>
+      <anchor>a65aedf4b737bb07c94642b42fe99bfab</anchor>
+      <arglist>(std::string name=&quot;DB1&quot;, t_uint nlevels=1)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -10294,15 +10294,15 @@
       <type></type>
       <name>TFGProximal</name>
       <anchorfile>classsopt_1_1algorithm_1_1TFGProximal.html</anchorfile>
-      <anchor>a278f89fb5ab249e01eab884193571f56</anchor>
-      <arglist>(const std::string &amp;path)</arglist>
+      <anchor>a7bac2fe9a426854d0eb96f8149bef88d</anchor>
+      <arglist>(std::string path)</arglist>
     </member>
     <member kind="function">
       <type></type>
       <name>TFGProximal</name>
       <anchorfile>classsopt_1_1algorithm_1_1TFGProximal.html</anchorfile>
-      <anchor>acac65fb8980788ae8392f918286a8e99</anchor>
-      <arglist>(const std::string &amp;path, const int rows, const int cols)</arglist>
+      <anchor>ae6d92dd58c619a6a5609e09635b7d112</anchor>
+      <arglist>(std::string path, const int rows, const int cols)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -10915,8 +10915,8 @@
       <type>friend Wavelet</type>
       <name>factory</name>
       <anchorfile>classsopt_1_1wavelets_1_1Wavelet.html</anchorfile>
-      <anchor>a2474a833def6b33cdd616632ba718bf8</anchor>
-      <arglist>(const std::string &amp;name, t_uint nlevels)</arglist>
+      <anchor>a127561e37a23c4cfde3ec8935ebded8f</anchor>
+      <arglist>(std::string name, t_uint nlevels)</arglist>
     </member>
   </compound>
   <compound kind="struct">
@@ -12373,8 +12373,8 @@
       <type>Wavelet</type>
       <name>factory</name>
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1wavelets.html</anchorfile>
-      <anchor>a6cf9c9fa9d08421074515a284f7bcbfa</anchor>
-      <arglist>(const std::string &amp;name=&quot;DB1&quot;, t_uint nlevels=1)</arglist>
+      <anchor>a65aedf4b737bb07c94642b42fe99bfab</anchor>
+      <arglist>(std::string name=&quot;DB1&quot;, t_uint nlevels=1)</arglist>
     </member>
     <member kind="variable">
       <type>const WaveletData</type>
