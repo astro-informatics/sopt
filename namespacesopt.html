@@ -683,50 +683,50 @@ template&lt;class K &gt; </div>
 
 <p>Find root to a function within an interval. </p>
 
-<p class="definition">Definition at line <a class="el" href="bisection__method_8h_source.html#l00019">19</a> of file <a class="el" href="bisection__method_8h_source.html">bisection_method.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;                                   {</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  <a class="code" href="forward__backward_8cc.html#adf3dc3fe16f041e337211cca9c8882dc">t_real</a> lower_eta = <a class="code" href="bisection__method_8cc.html#a6d7237bd6650f7fc770cd55be22e4245">a</a>;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  <a class="code" href="forward__backward_8cc.html#adf3dc3fe16f041e337211cca9c8882dc">t_real</a> upper_eta = <a class="code" href="bisection__method_8cc.html#af7e17cd5ee7bef04f22c8e26709dd6e2">b</a>;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  <a class="code" href="forward__backward_8cc.html#adf3dc3fe16f041e337211cca9c8882dc">t_real</a> relative_difference = 1;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  <a class="code" href="forward__backward_8cc.html#adf3dc3fe16f041e337211cca9c8882dc">t_real</a> eta = (<a class="code" href="bisection__method_8cc.html#a6d7237bd6650f7fc770cd55be22e4245">a</a> + <a class="code" href="bisection__method_8cc.html#af7e17cd5ee7bef04f22c8e26709dd6e2">b</a>) * 0.5;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  <a class="code" href="logging_8h.html#a4a497e6b273bf510772846ac52cef095">SOPT_LOW_LOG</a>(<span class="stringliteral">&quot;Starting bisection method over x ∈ [{}, {}], to estimate f(x) = {}&quot;</span>, <a class="code" href="bisection__method_8cc.html#a6d7237bd6650f7fc770cd55be22e4245">a</a>, <a class="code" href="bisection__method_8cc.html#af7e17cd5ee7bef04f22c8e26709dd6e2">b</a>,</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;               function_value);</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  <span class="keyword">const</span> <span class="keyword">auto</span> estimate = [&amp;](<span class="keyword">const</span> K &amp;x) { <span class="keywordflow">return</span> func(x) - function_value; };</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  <span class="keyword">const</span> <a class="code" href="forward__backward_8cc.html#adf3dc3fe16f041e337211cca9c8882dc">t_real</a> eb = estimate(<a class="code" href="bisection__method_8cc.html#af7e17cd5ee7bef04f22c8e26709dd6e2">b</a>);</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  <span class="keyword">const</span> <a class="code" href="forward__backward_8cc.html#adf3dc3fe16f041e337211cca9c8882dc">t_real</a> ea = estimate(<a class="code" href="bisection__method_8cc.html#a6d7237bd6650f7fc770cd55be22e4245">a</a>);</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <span class="keywordflow">if</span> (eb == 0) <span class="keywordflow">return</span> <a class="code" href="bisection__method_8cc.html#af7e17cd5ee7bef04f22c8e26709dd6e2">b</a>;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  <span class="keywordflow">if</span> (ea == 0) <span class="keywordflow">return</span> <a class="code" href="bisection__method_8cc.html#a6d7237bd6650f7fc770cd55be22e4245">a</a>;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <span class="keywordflow">if</span> ((ea &gt; 0 and eb &gt; 0) or (ea &lt; 0 and eb &lt; 0))</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="exception_8h.html#a57974308768f9fafc7107b626a394f4f">SOPT_THROW</a>(<span class="stringliteral">&quot;f(a) = &quot;</span> &lt;&lt; ea &lt;&lt; <span class="stringliteral">&quot; and f(b) = &quot;</span> &lt;&lt; eb</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                         &lt;&lt; <span class="stringliteral">&quot; have the wrong sign.&quot;</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                            <span class="stringliteral">&quot;Where a = &quot;</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                         &lt;&lt; <a class="code" href="bisection__method_8cc.html#a6d7237bd6650f7fc770cd55be22e4245">a</a> &lt;&lt; <span class="stringliteral">&quot; and b = &quot;</span> &lt;&lt; <a class="code" href="bisection__method_8cc.html#af7e17cd5ee7bef04f22c8e26709dd6e2">b</a></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                         &lt;&lt; <span class="stringliteral">&quot; Bisection Method not applicable for &quot;</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;                            <span class="stringliteral">&quot;this function.&quot;</span>);</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <span class="keyword">const</span> <span class="keyword">auto</span> sign = [&amp;](<span class="keyword">const</span> K &amp;x) { <span class="keywordflow">return</span> (x &gt; 0) ? 1 : ((x &lt; 0) ? -1 : 0); };</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <span class="comment">// SOPT_LOW_LOG(&quot;Convergence when: |f((a+b)/2) -f(x)| &lt; {} or |a - b| &lt; {}&quot;, rel_convergence,</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <span class="comment">//              rel_convergence);</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  <span class="keywordflow">while</span> (rel_convergence &lt; relative_difference or</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;         std::abs(upper_eta - lower_eta) &gt; rel_convergence) {</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordflow">if</span> (upper_eta == lower_eta) <a class="code" href="exception_8h.html#a57974308768f9fafc7107b626a394f4f">SOPT_THROW</a>(<span class="stringliteral">&quot;a == b, something is wrong.&quot;</span>);</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    eta = (lower_eta + upper_eta) * 0.5;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">auto</span> <span class="keyword">const</span> function_est = estimate(eta);</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordflow">if</span> (sign(estimate(lower_eta)) == sign(estimate(eta)))</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;      lower_eta = eta;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;      upper_eta = eta;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    relative_difference = std::abs(function_est);</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    assert(!(estimate(lower_eta) &gt; 0 and estimate(upper_eta) &gt; 0) and</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;           !(estimate(lower_eta) &lt; 0 and estimate(upper_eta) &lt; 0));</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="comment">//   SOPT_LOW_LOG(&quot;|f(x_0) - f(x)| = {}, x = {}, [{}, {}]&quot;, relative_difference, eta, lower_eta,</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="comment">//                upper_eta);</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  }</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <span class="keywordflow">return</span> eta;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="bisection__method_8h_source.html#l00018">18</a> of file <a class="el" href="bisection__method_8h_source.html">bisection_method.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;                                   {</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  <a class="code" href="forward__backward_8cc.html#adf3dc3fe16f041e337211cca9c8882dc">t_real</a> lower_eta = <a class="code" href="bisection__method_8cc.html#a6d7237bd6650f7fc770cd55be22e4245">a</a>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  <a class="code" href="forward__backward_8cc.html#adf3dc3fe16f041e337211cca9c8882dc">t_real</a> upper_eta = <a class="code" href="bisection__method_8cc.html#af7e17cd5ee7bef04f22c8e26709dd6e2">b</a>;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  <a class="code" href="forward__backward_8cc.html#adf3dc3fe16f041e337211cca9c8882dc">t_real</a> relative_difference = 1;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  <a class="code" href="forward__backward_8cc.html#adf3dc3fe16f041e337211cca9c8882dc">t_real</a> eta = (<a class="code" href="bisection__method_8cc.html#a6d7237bd6650f7fc770cd55be22e4245">a</a> + <a class="code" href="bisection__method_8cc.html#af7e17cd5ee7bef04f22c8e26709dd6e2">b</a>) * 0.5;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  <a class="code" href="logging_8h.html#a4a497e6b273bf510772846ac52cef095">SOPT_LOW_LOG</a>(<span class="stringliteral">&quot;Starting bisection method over x ∈ [{}, {}], to estimate f(x) = {}&quot;</span>, <a class="code" href="bisection__method_8cc.html#a6d7237bd6650f7fc770cd55be22e4245">a</a>, <a class="code" href="bisection__method_8cc.html#af7e17cd5ee7bef04f22c8e26709dd6e2">b</a>,</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;               function_value);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  <span class="keyword">const</span> <span class="keyword">auto</span> estimate = [&amp;](<span class="keyword">const</span> K &amp;x) { <span class="keywordflow">return</span> func(x) - function_value; };</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  <span class="keyword">const</span> <a class="code" href="forward__backward_8cc.html#adf3dc3fe16f041e337211cca9c8882dc">t_real</a> eb = estimate(<a class="code" href="bisection__method_8cc.html#af7e17cd5ee7bef04f22c8e26709dd6e2">b</a>);</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  <span class="keyword">const</span> <a class="code" href="forward__backward_8cc.html#adf3dc3fe16f041e337211cca9c8882dc">t_real</a> ea = estimate(<a class="code" href="bisection__method_8cc.html#a6d7237bd6650f7fc770cd55be22e4245">a</a>);</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  <span class="keywordflow">if</span> (eb == 0) <span class="keywordflow">return</span> <a class="code" href="bisection__method_8cc.html#af7e17cd5ee7bef04f22c8e26709dd6e2">b</a>;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <span class="keywordflow">if</span> (ea == 0) <span class="keywordflow">return</span> <a class="code" href="bisection__method_8cc.html#a6d7237bd6650f7fc770cd55be22e4245">a</a>;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  <span class="keywordflow">if</span> ((ea &gt; 0 and eb &gt; 0) or (ea &lt; 0 and eb &lt; 0))</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <a class="code" href="exception_8h.html#a57974308768f9fafc7107b626a394f4f">SOPT_THROW</a>(<span class="stringliteral">&quot;f(a) = &quot;</span> &lt;&lt; ea &lt;&lt; <span class="stringliteral">&quot; and f(b) = &quot;</span> &lt;&lt; eb</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;                         &lt;&lt; <span class="stringliteral">&quot; have the wrong sign.&quot;</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                            <span class="stringliteral">&quot;Where a = &quot;</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                         &lt;&lt; <a class="code" href="bisection__method_8cc.html#a6d7237bd6650f7fc770cd55be22e4245">a</a> &lt;&lt; <span class="stringliteral">&quot; and b = &quot;</span> &lt;&lt; <a class="code" href="bisection__method_8cc.html#af7e17cd5ee7bef04f22c8e26709dd6e2">b</a></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                         &lt;&lt; <span class="stringliteral">&quot; Bisection Method not applicable for &quot;</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                            <span class="stringliteral">&quot;this function.&quot;</span>);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <span class="keyword">const</span> <span class="keyword">auto</span> sign = [&amp;](<span class="keyword">const</span> K &amp;x) { <span class="keywordflow">return</span> (x &gt; 0) ? 1 : ((x &lt; 0) ? -1 : 0); };</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <span class="comment">// SOPT_LOW_LOG(&quot;Convergence when: |f((a+b)/2) -f(x)| &lt; {} or |a - b| &lt; {}&quot;, rel_convergence,</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <span class="comment">//              rel_convergence);</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <span class="keywordflow">while</span> (rel_convergence &lt; relative_difference or</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;         std::abs(upper_eta - lower_eta) &gt; rel_convergence) {</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordflow">if</span> (upper_eta == lower_eta) <a class="code" href="exception_8h.html#a57974308768f9fafc7107b626a394f4f">SOPT_THROW</a>(<span class="stringliteral">&quot;a == b, something is wrong.&quot;</span>);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    eta = (lower_eta + upper_eta) * 0.5;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">auto</span> <span class="keyword">const</span> function_est = estimate(eta);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordflow">if</span> (sign(estimate(lower_eta)) == sign(estimate(eta)))</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;      lower_eta = eta;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;      upper_eta = eta;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    relative_difference = std::abs(function_est);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    assert(!(estimate(lower_eta) &gt; 0 and estimate(upper_eta) &gt; 0) and</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;           !(estimate(lower_eta) &lt; 0 and estimate(upper_eta) &lt; 0));</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="comment">//   SOPT_LOW_LOG(&quot;|f(x_0) - f(x)| = {}, x = {}, [{}, {}]&quot;, relative_difference, eta, lower_eta,</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="comment">//                upper_eta);</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  }</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  <span class="keywordflow">return</span> eta;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;}</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="bisection__method_8cc_source.html#l00013">a</a>, <a class="el" href="bisection__method_8cc_source.html#l00014">b</a>, <a class="el" href="logging_8h_source.html#l00031">SOPT_LOW_LOG</a>, and <a class="el" href="exception_8h_source.html#l00046">SOPT_THROW</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="credible__region_8h_source.html#l00078">sopt::credible_region::find_credible_interval()</a>, and <a class="el" href="bisection__method_8cc_source.html#l00016">TEST_CASE()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="credible__region_8h_source.html#l00075">sopt::credible_region::find_credible_interval()</a>, and <a class="el" href="bisection__method_8cc_source.html#l00016">TEST_CASE()</a>.</p>
 
 </div>
 </div>
@@ -1112,7 +1112,7 @@ template&lt;class T0 , class T1 &gt; </div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;  <span class="keywordflow">return</span> (input * weights).cwiseAbs().sum();</div>
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="maths_8h_source.html#l00123">l1_norm()</a>, <a class="el" href="examples_2sdmm_2inpainting_8cc_source.html#l00023">main()</a>, <a class="el" href="l1__proximal_8h_source.html#l00149">sopt::proximal::L1TightFrame&lt; Scalar &gt;::objective()</a>, <a class="el" href="l1__g__proximal_8h_source.html#l00054">sopt::algorithm::L1GProximal&lt; SCALAR &gt;::proximal_norm()</a>, <a class="el" href="tf__g__proximal_8h_source.html#l00059">sopt::algorithm::TFGProximal&lt; SCALAR &gt;::proximal_norm()</a>, <a class="el" href="maths_8cc_source.html#l00053">TEST_CASE()</a>, and <a class="el" href="objective__functions_8h_source.html#l00045">sopt::objective_functions::unconstrained_l1_regularisation()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="maths_8h_source.html#l00123">l1_norm()</a>, <a class="el" href="examples_2sdmm_2inpainting_8cc_source.html#l00023">main()</a>, <a class="el" href="l1__proximal_8h_source.html#l00149">sopt::proximal::L1TightFrame&lt; Scalar &gt;::objective()</a>, <a class="el" href="l1__g__proximal_8h_source.html#l00054">sopt::algorithm::L1GProximal&lt; SCALAR &gt;::proximal_norm()</a>, <a class="el" href="tf__g__proximal_8h_source.html#l00059">sopt::algorithm::TFGProximal&lt; SCALAR &gt;::proximal_norm()</a>, <a class="el" href="maths_8cc_source.html#l00053">TEST_CASE()</a>, and <a class="el" href="objective__functions_8h_source.html#l00043">sopt::objective_functions::unconstrained_l1_regularisation()</a>.</p>
 
 </div>
 </div>
@@ -1251,7 +1251,7 @@ template&lt;class T0 , class T1 &gt; </div>
 <div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;  <span class="keywordflow">return</span> (input * weights).matrix().stableNorm();</div>
 <div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="maths_8h_source.html#l00147">l2_norm()</a>, <a class="el" href="inpainting__credible__interval_8cc_source.html#l00025">main()</a>, <a class="el" href="serial__vs__parallel__padmm_8cc_source.html#l00021">TEST_CASE()</a>, and <a class="el" href="objective__functions_8h_source.html#l00037">sopt::objective_functions::unconstrained_regularisation()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="maths_8h_source.html#l00147">l2_norm()</a>, <a class="el" href="inpainting__credible__interval_8cc_source.html#l00025">main()</a>, <a class="el" href="serial__vs__parallel__padmm_8cc_source.html#l00021">TEST_CASE()</a>, and <a class="el" href="objective__functions_8h_source.html#l00035">sopt::objective_functions::unconstrained_regularisation()</a>.</p>
 
 </div>
 </div>

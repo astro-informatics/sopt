@@ -149,14 +149,14 @@ template&lt;class T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="objective__functions_8h_source.html#l00045">45</a> of file <a class="el" href="objective__functions_8h_source.html">objective_functions.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                                                    {</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <span class="keywordflow">if</span> (gamma &lt;= 0) <a class="code" href="exception_8h.html#a57974308768f9fafc7107b626a394f4f">SOPT_THROW</a>(<span class="stringliteral">&quot;regularsiation paramter is not greater than 0.&quot;</span>);</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <span class="keyword">const</span> std::function&lt;<a class="code" href="forward__backward_8cc.html#adf3dc3fe16f041e337211cca9c8882dc">t_real</a>(T)&gt; g = [=](<span class="keyword">const</span> T &amp;x) -&gt; <a class="code" href="forward__backward_8cc.html#adf3dc3fe16f041e337211cca9c8882dc">t_real</a> {</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="namespacesopt.html#ad992ab663c3f521cad1deff62844c4cc">sopt::l1_norm</a>(wavelet_operator.<a class="code" href="classsopt_1_1LinearTransform.html#af9fe77b8afc0761cf9d07f432df85a0d">adjoint</a>() * x) * gamma;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  };</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  <span class="keywordflow">return</span> unconstrained_regularisation&lt;T&gt;(g, sig, y, measurement_operator);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="objective__functions_8h_source.html#l00043">43</a> of file <a class="el" href="objective__functions_8h_source.html">objective_functions.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;                                                    {</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <span class="keywordflow">if</span> (gamma &lt;= 0) <a class="code" href="exception_8h.html#a57974308768f9fafc7107b626a394f4f">SOPT_THROW</a>(<span class="stringliteral">&quot;regularsiation paramter is not greater than 0.&quot;</span>);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <span class="keyword">const</span> std::function&lt;<a class="code" href="forward__backward_8cc.html#adf3dc3fe16f041e337211cca9c8882dc">t_real</a>(T)&gt; g = [=](<span class="keyword">const</span> T &amp;x) -&gt; <a class="code" href="forward__backward_8cc.html#adf3dc3fe16f041e337211cca9c8882dc">t_real</a> {</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="namespacesopt.html#ad992ab663c3f521cad1deff62844c4cc">sopt::l1_norm</a>(wavelet_operator.<a class="code" href="classsopt_1_1LinearTransform.html#af9fe77b8afc0761cf9d07f432df85a0d">adjoint</a>() * x) * gamma;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  };</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  <span class="keywordflow">return</span> unconstrained_regularisation&lt;T&gt;(g, sig, y, measurement_operator);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;}</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="linear__transform_8h_source.html#l00079">sopt::LinearTransform&lt; VECTOR &gt;::adjoint()</a>, <a class="el" href="maths_8h_source.html#l00116">sopt::l1_norm()</a>, and <a class="el" href="exception_8h_source.html#l00046">SOPT_THROW</a>.</p>
 
@@ -258,11 +258,11 @@ template&lt;class T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="objective__functions_8h_source.html#l00063">63</a> of file <a class="el" href="objective__functions_8h_source.html">objective_functions.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                                                    {</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  <span class="keyword">const</span> LinearTransform&lt;T&gt; mop = {measurement_operator, measurement_operator};</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  <span class="keywordflow">return</span> unconstrained_l1_regularisation&lt;T&gt;(gamma, sig, mop * y, mop, wavelet_operator);</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="objective__functions_8h_source.html#l00061">61</a> of file <a class="el" href="objective__functions_8h_source.html">objective_functions.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                                                    {</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  <span class="keyword">const</span> LinearTransform&lt;T&gt; mop = {measurement_operator, measurement_operator};</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  <span class="keywordflow">return</span> unconstrained_l1_regularisation&lt;T&gt;(gamma, sig, mop * y, mop, wavelet_operator);</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -306,12 +306,12 @@ template&lt;class T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="objective__functions_8h_source.html#l00037">37</a> of file <a class="el" href="objective__functions_8h_source.html">objective_functions.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;                                                        {</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <span class="keywordflow">return</span> [=](<span class="keyword">const</span> T &amp;x) -&gt; <a class="code" href="forward__backward_8cc.html#adf3dc3fe16f041e337211cca9c8882dc">t_real</a> {</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordflow">return</span> g(x) + 0.5 * std::pow(<a class="code" href="namespacesopt.html#ae78479408b10b1fa67e712247d4eefec">sopt::l2_norm</a>(y - measurement_operator * x) / sig, 2);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  };</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="objective__functions_8h_source.html#l00035">35</a> of file <a class="el" href="objective__functions_8h_source.html">objective_functions.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                                                        {</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <span class="keywordflow">return</span> [=](<span class="keyword">const</span> T &amp;x) -&gt; <a class="code" href="forward__backward_8cc.html#adf3dc3fe16f041e337211cca9c8882dc">t_real</a> {</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordflow">return</span> g(x) + 0.5 * std::pow(<a class="code" href="namespacesopt.html#ae78479408b10b1fa67e712247d4eefec">sopt::l2_norm</a>(y - measurement_operator * x) / sig, 2);</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  };</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;}</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="maths_8h_source.html#l00140">sopt::l2_norm()</a>.</p>
 
@@ -359,11 +359,11 @@ template&lt;class T &gt; </div>
 
 <p>returns g(x) + ||y - Φ x||_2^2 as a function </p>
 
-<p class="definition">Definition at line <a class="el" href="objective__functions_8h_source.html#l00056">56</a> of file <a class="el" href="objective__functions_8h_source.html">objective_functions.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                                                         {</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  <span class="keyword">const</span> LinearTransform&lt;T&gt; mop = {measurement_operator, measurement_operator};</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  <span class="keywordflow">return</span> unconstrained_regularisation&lt;T&gt;(g, sig, mop * y, mop);</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="objective__functions_8h_source.html#l00054">54</a> of file <a class="el" href="objective__functions_8h_source.html">objective_functions.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                                                         {</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  <span class="keyword">const</span> LinearTransform&lt;T&gt; mop = {measurement_operator, measurement_operator};</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <span class="keywordflow">return</span> unconstrained_regularisation&lt;T&gt;(g, sig, mop * y, mop);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
