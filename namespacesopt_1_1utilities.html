@@ -650,7 +650,7 @@ template&lt;class T &gt; </div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keywordflow">for</span> (uint32_t j(0); j &lt; width; ++j, ++pixel) *pixel = convert_from_greyscale(image(i, j));</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;  <a class="code" href="logging_8h.html#a7409cc356d0a5c6a8ce41da7a680ff62">SOPT_TRACE</a>(<span class="stringliteral">&quot;Writing strip&quot;</span>);</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;  TIFFWriteEncodedStrip(tif, 0, &amp;raster[0], width * height * <span class="keyword">sizeof</span>(decltype(raster)::value_type));</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;  TIFFWriteEncodedStrip(tif, 0, raster.data(), width * height * <span class="keyword">sizeof</span>(decltype(raster)::value_type));</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  TIFFWriteDirectory(tif);</div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;  <a class="code" href="logging_8h.html#a7409cc356d0a5c6a8ce41da7a680ff62">SOPT_TRACE</a>(<span class="stringliteral">&quot;Closing tif&quot;</span>);</div>
