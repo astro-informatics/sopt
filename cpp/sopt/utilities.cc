@@ -40,7 +40,9 @@ Image<> read_tiff(std::string const &filename) {
   TIFF *tif = TIFFOpen(filename.c_str(), "r");
   if (not tif) SOPT_THROW("Could not open file ") << filename;
 
-  uint32_t width, height, t;
+  uint32_t width;
+  uint32_t height;
+  uint32_t t;
 
   TIFFGetField(tif, TIFFTAG_IMAGEWIDTH, &width);
   TIFFGetField(tif, TIFFTAG_IMAGELENGTH, &height);

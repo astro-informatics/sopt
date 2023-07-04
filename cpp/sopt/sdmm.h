@@ -206,7 +206,8 @@ typename SDMM<SCALAR>::Diagnostic SDMM<SCALAR>::operator()(t_Vector &out,
 
   SOPT_HIGH_LOG("Performing SDMM ");
   out = input;
-  t_Vectors y(transforms().size()), z(transforms().size());
+  t_Vectors y(transforms().size());
+  t_Vectors z(transforms().size());
 
   // Initial step replaces iteration update with initialization
   initialization(y, z, input);
