@@ -151,7 +151,7 @@ TEST_CASE("Creates an mpi communicator") {
     }
 
     SECTION("std::string") {
-      auto const expected = "Hello World!";
+      const auto *const expected = "Hello World!";
       std::string const input = world.is_root() ? expected : "";
       CHECK(world.broadcast(input) == expected);
     }
