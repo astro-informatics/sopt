@@ -1,4 +1,10 @@
 cmake_minimum_required(VERSION 3.13.4) # CMake 3.13.4 is the currently default in Debian 10 repositories
+
+# Do not allow in-source builds.
+if(PROJECT_SOURCE_DIR STREQUAL PROJECT_BINARY_DIR)
+	message(FATAL_ERROR "In-source builds are not allowed!\nCreate a \"build\" dir and remove:\n- ${CMAKE_SOURCE_DIR}/CMakeCache.txt\n- ${CMAKE_SOURCE_DIR}/CMakeFiles")
+endif()
+
 project(Sopt
         DESCRIPTION "Sparse OPTimisation using state-of-the-art convex optimisation algorithms."
         HOMEPAGE_URL "http://astro-informatics.github.io/sopt/"
