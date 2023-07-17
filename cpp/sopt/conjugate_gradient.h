@@ -113,7 +113,7 @@ ConjugateGradient::Diagnostic ConjugateGradient::implementation(
   x.resize(b.size());
   if (std::abs((b.transpose().conjugate() * b)(0)) < tolerance()) {
     x.fill(0);
-    return {0, 0, 1};
+    return {0, 0, true};
   }
 
   Vector<Scalar> Ap(b.size());
