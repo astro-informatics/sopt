@@ -166,13 +166,14 @@ Functions</h2></td></tr>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> <span class="keyword">const</span> x = t_Vector::Random(<a class="code" href="benchmarks_2wavelets_8cc.html#a61a80266d367e479ef40417f4f681bea">N</a>) * 5;</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  std::vector&lt;t_Matrix&gt; Ls{t_Matrix::Random(<a class="code" href="benchmarks_2wavelets_8cc.html#a61a80266d367e479ef40417f4f681bea">N</a>, <a class="code" href="benchmarks_2wavelets_8cc.html#a61a80266d367e479ef40417f4f681bea">N</a>), t_Matrix::Random(<a class="code" href="benchmarks_2wavelets_8cc.html#a61a80266d367e479ef40417f4f681bea">N</a>, <a class="code" href="benchmarks_2wavelets_8cc.html#a61a80266d367e479ef40417f4f681bea">N</a>)};</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  std::vector&lt;LinearTransform&lt;t_Vector&gt;&gt; ops;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  <span class="keywordflow">for</span> (<span class="keyword">auto</span> <span class="keyword">const</span> &amp;matrix : Ls) ops.emplace_back(<a class="code" href="namespacesopt.html#a27b8391ddefe157e732bebe05696170e">sopt::linear_transform</a>(matrix));</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  <span class="keywordflow">for</span> (decltype(Ls)::size_type i(0); i &lt; ops.size(); ++i) {</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    CHECK(ops[i] * x == Ls[i] * x);</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    CHECK(ops[i].adjoint() * x == Ls[i].conjugate().transpose() * x);</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  }</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;}</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  ops.reserve(Ls.size());</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  <span class="keywordflow">for</span> (<span class="keyword">auto</span> <span class="keyword">const</span> &amp;matrix : Ls) ops.emplace_back(<a class="code" href="namespacesopt.html#a27b8391ddefe157e732bebe05696170e">sopt::linear_transform</a>(matrix));</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  <span class="keywordflow">for</span> (decltype(Ls)::size_type i(0); i &lt; ops.size(); ++i) {</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    CHECK(ops[i] * x == Ls[i] * x);</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    CHECK(ops[i].adjoint() * x == Ls[i].conjugate().transpose() * x);</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  }</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;}</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="linear__transform_8h_source.html#l00101">sopt::linear_transform()</a>, and <a class="el" href="benchmarks_2wavelets_8cc_source.html#l00057">N</a>.</p>
 
