@@ -157,7 +157,7 @@ $(function() {
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;  x.resize(<a class="code" href="bisection__method_8cc.html#af7e17cd5ee7bef04f22c8e26709dd6e2">b</a>.size());</div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;  <span class="keywordflow">if</span> (std::abs((<a class="code" href="bisection__method_8cc.html#af7e17cd5ee7bef04f22c8e26709dd6e2">b</a>.transpose().conjugate() * <a class="code" href="bisection__method_8cc.html#af7e17cd5ee7bef04f22c8e26709dd6e2">b</a>)(0)) &lt; <a class="code" href="classsopt_1_1ConjugateGradient.html#a3127aa8d57904dac88b71d71a343e725">tolerance</a>()) {</div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    x.fill(0);</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keywordflow">return</span> {0, 0, 1};</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keywordflow">return</span> {0, 0, <span class="keyword">true</span>};</div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;  }</div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;  <a class="code" href="tests_2inpainting_8cc.html#a47c194cae73625ab3a13b62e4234f46f">Vector&lt;Scalar&gt;</a> Ap(<a class="code" href="bisection__method_8cc.html#af7e17cd5ee7bef04f22c8e26709dd6e2">b</a>.size());</div>
