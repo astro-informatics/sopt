@@ -175,7 +175,8 @@ TEST_CASE("Wavelet transform innards with integer data", "[wavelet]") {
       auto const low = random_ivector(Nfilters, -10, 10);
       auto const high = random_ivector(Nfilters, -10, 10);
 
-      t_iVector actual(Ncoeffs), expected(Ncoeffs);
+      t_iVector actual(Ncoeffs);
+      t_iVector expected(Ncoeffs);
       // does all in go, more complicated but compuationally less intensive
       up_convolve_sum(actual, coeffs, even(low), odd(low), even(high), odd(high));
       // first up-samples, then does convolve: conceptually simpler but does unnecessary operations
@@ -197,7 +198,8 @@ TEST_CASE("1D wavelet transform with floating point data", "[wavelet]") {
 
   SECTION("Direct transform == two downsample + convolution") {
     auto const actual = direct_transform(data.row(0), 1, wavelet);
-    Array<> high(data.cols() / 2), low(data.cols() / 2);
+    Array<> high(data.cols() / 2);
+    Array<> low(data.cols() / 2);
     down_convolve(high, data.row(0), wavelet.direct_filter.high);
     down_convolve(low, data.row(0), wavelet.direct_filter.low);
     CHECK(low.transpose().isApprox(actual.head(data.row(0).size() / 2)));

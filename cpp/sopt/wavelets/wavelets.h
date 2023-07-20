@@ -15,11 +15,11 @@ namespace sopt::wavelets {
 class Wavelet;
 
 //! \brief Creates a wavelet transform object
-Wavelet factory(std::string name = "DB1", t_uint nlevels = 1);
+Wavelet factory(const std::string& name = "DB1", t_uint nlevels = 1);
 
 //! Performs direct and indirect wavelet transforms
 class Wavelet : public WaveletData {
-  friend Wavelet factory(std::string name, t_uint nlevels);
+  friend Wavelet factory(const std::string& name, t_uint nlevels);
 
  protected:
   //! Should be called through factory function

@@ -30,8 +30,6 @@ std::function<t_real(T)> const unconstrained_l1_regularisation(
     const t_real &gamma, const t_real &sig, const T &y,
     const sopt::LinearTransform<T> &measurement_operator,
     const sopt::LinearTransform<T> &wavelet_operator);
-} // namespace sopt::objective_functions
-namespace sopt::objective_functions {
 
 template <typename T>
 std::function<t_real(T)> const unconstrained_regularisation(

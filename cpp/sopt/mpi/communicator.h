@@ -294,7 +294,8 @@ typename std::enable_if<is_registered_type<T>::value, Vector<T>>::type Communica
     return vec;
   }
   if (rank() != root) return scatterv<T>(sizes.at(rank()), root);
-  std::vector<int> sizes_, displs;
+  std::vector<int> sizes_;
+  std::vector<int> displs;
   int i = 0;
   for (auto const size : sizes) {
     sizes_.push_back(static_cast<int>(size));
@@ -354,14 +355,16 @@ Communicator::all_to_allv(const std::vector<T> &vec, std::vector<t_int> const &s
   }
 
   int i = 0;
-  std::vector<int> ssizes_, sdispls;
+  std::vector<int> ssizes_;
+  std::vector<int> sdispls;
   for (auto const size : send_sizes) {
     ssizes_.push_back(static_cast<int>(size));
     sdispls.push_back(i);
     i += size;
   }
   int total = 0;
-  std::vector<int> rsizes_, rdispls;
+  std::vector<int> rsizes_;
+  std::vector<int> rdispls;
   for (auto const size : rec_sizes) {
     rsizes_.push_back(static_cast<int>(size));
     rdispls.push_back(total);
@@ -404,14 +407,16 @@ typename std::enable_if<is_registered_type<T>::value, Vector<T>>::type Communica
   }
 
   int i = 0;
-  std::vector<int> ssizes_, sdispls;
+  std::vector<int> ssizes_;
+  std::vector<int> sdispls;
   for (auto const size : send_sizes) {
     ssizes_.push_back(static_cast<int>(size));
     sdispls.push_back(i);
     i += size;
   }
   int total = 0;
-  std::vector<int> rsizes_, rdispls;
+  std::vector<int> rsizes_;
+  std::vector<int> rdispls;
   for (auto const size : rec_sizes) {
     rsizes_.push_back(static_cast<int>(size));
     rdispls.push_back(total);
@@ -456,7 +461,8 @@ CONTAINER Communicator::gather_(CONTAINER const &vec, std::vector<t_int> const &
 
   if (rank() != root) return gather_<CONTAINER, T>(vec, root);
 
-  std::vector<int> sizes_, displs;
+  std::vector<int> sizes_;
+  std::vector<int> displs;
   int result_size = 0;
   for (auto const size : sizes) {
     sizes_.push_back(static_cast<int>(size));
