@@ -38,7 +38,7 @@ namespace sopt::utilities {
 Image<> read_tiff(std::string const &filename) {
   SOPT_MEDIUM_LOG("Reading image file {} ", filename);
   TIFF *tif = TIFFOpen(filename.c_str(), "r");
-  if (not tif) SOPT_THROW("Could not open file ") << filename;
+  if (tif == nullptr) SOPT_THROW("Could not open file ") << filename;
 
   uint32_t width;
   uint32_t height;
@@ -51,8 +51,8 @@ Image<> read_tiff(std::string const &filename) {
   Image<> result = Image<>::Zero(height, width);
 
   uint32_t *raster = static_cast<uint32_t *>(_TIFFmalloc(width * height * sizeof(uint32_t)));
-  if (not raster) SOPT_THROW("Could not allocate memory to read file ") << filename;
-  if (not TIFFReadRGBAImage(tif, width, height, raster, 0))
+  if (raster == nullptr) SOPT_THROW("Could not allocate memory to read file ") << filename;
+  if (TIFFReadRGBAImage(tif, width, height, raster, 0) == 0)
     SOPT_THROW("Could not read file ") << filename;
 
   uint32_t *pixel = (uint32_t *)raster;
@@ -69,7 +69,7 @@ void write_tiff(Image<> const &image, std::string const &filename) {
   SOPT_MEDIUM_LOG("Writing image file {} ", filename);
   SOPT_LOW_LOG("- image size {}, {} ", image.rows(), image.cols());
   TIFF *tif = TIFFOpen(filename.c_str(), "w");
-  if (not tif) SOPT_THROW("Could not open file ") << filename;
+  if (tif == nullptr) SOPT_THROW("Could not open file ") << filename;
 
   uint32_t const width = image.cols();
   uint32_t const height = image.rows();

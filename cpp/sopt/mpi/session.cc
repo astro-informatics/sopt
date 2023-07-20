@@ -9,7 +9,7 @@ namespace sopt::mpi {
 
 namespace details {
 void initializer::deleter(initializer *tag) {
-  if (not tag) return;
+  if (tag == nullptr) return;
 
   delete tag;
 
@@ -71,7 +71,7 @@ bool initialized() {
 bool finalized() {
   int finalized;
   MPI_Finalized(&finalized);
-  return finalized;
+  return finalized != 0;
 }
 
 void finalize() {
