@@ -265,17 +265,17 @@
       <arglist>(indirect_vector, sopt::t_real, 1, 1) -&gt; Range(n, N) -&gt;UseRealTime()</arglist>
     </member>
     <member kind="variable">
-      <type>const auto</type>
+      <type>constexpr auto</type>
       <name>n</name>
       <anchorfile>benchmarks_2wavelets_8cc.html</anchorfile>
-      <anchor>ab3476af6ef43e8e3137d27a301208cb0</anchor>
+      <anchor>aab81ff0bb1fb0df11cec0c298b500db3</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>const auto</type>
+      <type>constexpr auto</type>
       <name>N</name>
       <anchorfile>benchmarks_2wavelets_8cc.html</anchorfile>
-      <anchor>a61a80266d367e479ef40417f4f681bea</anchor>
+      <anchor>abf5832df28c04314f2887376d47dca71</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -1066,10 +1066,10 @@
       <arglist>(std::vector&lt; float &gt; model_output, int image_rows, int image_cols)</arglist>
     </member>
     <member kind="variable">
-      <type>const double</type>
+      <type>constexpr double</type>
       <name>imaginary_threshold</name>
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1cppflowutils.html</anchorfile>
-      <anchor>a4974785f862defec690cf6e52f16f78b</anchor>
+      <anchor>a006e690d644841aada3fa59f29d68216</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -3169,24 +3169,24 @@
       <arglist>(&quot;Bisection exp()&quot;)</arglist>
     </member>
     <member kind="variable">
-      <type>const Scalar</type>
+      <type>constexpr Scalar</type>
       <name>a</name>
       <anchorfile>bisection__method_8cc.html</anchorfile>
-      <anchor>a6d7237bd6650f7fc770cd55be22e4245</anchor>
+      <anchor>abe0def96c0a846f46d6fe7c115ff2a7f</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>const Scalar</type>
+      <type>constexpr Scalar</type>
       <name>b</name>
       <anchorfile>bisection__method_8cc.html</anchorfile>
-      <anchor>af7e17cd5ee7bef04f22c8e26709dd6e2</anchor>
+      <anchor>a63a56f8266f9d4e2b7904199812311c4</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>const Scalar</type>
+      <type>constexpr Scalar</type>
       <name>tol</name>
       <anchorfile>bisection__method_8cc.html</anchorfile>
-      <anchor>a871c6485151c4b58dcfcacee7fbec4cc</anchor>
+      <anchor>a5ce54f08467e596d20bfdbe1e6a2b368</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -3424,10 +3424,10 @@
       <arglist>(&quot;Check type returned on setting variables&quot;)</arglist>
     </member>
     <member kind="variable">
-      <type>const auto</type>
+      <type>constexpr auto</type>
       <name>N</name>
       <anchorfile>forward__backward_8cc.html</anchorfile>
-      <anchor>a61a80266d367e479ef40417f4f681bea</anchor>
+      <anchor>abf5832df28c04314f2887376d47dca71</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -3654,10 +3654,10 @@
       <arglist>(&quot;Check type returned on setting variables&quot;)</arglist>
     </member>
     <member kind="variable">
-      <type>const auto</type>
+      <type>constexpr auto</type>
       <name>N</name>
       <anchorfile>padmm_8cc.html</anchorfile>
-      <anchor>a61a80266d367e479ef40417f4f681bea</anchor>
+      <anchor>abf5832df28c04314f2887376d47dca71</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -3697,10 +3697,10 @@
       <arglist>(&quot;ProximalADMM with warm start&quot;, &quot;[padmm][integration]&quot;)</arglist>
     </member>
     <member kind="variable">
-      <type>const auto</type>
+      <type>constexpr auto</type>
       <name>N</name>
       <anchorfile>padmm__warm__start_8cc.html</anchorfile>
-      <anchor>a61a80266d367e479ef40417f4f681bea</anchor>
+      <anchor>abf5832df28c04314f2887376d47dca71</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -3756,10 +3756,10 @@
       <arglist>(&quot;Check type returned on setting variables&quot;)</arglist>
     </member>
     <member kind="variable">
-      <type>const auto</type>
+      <type>constexpr auto</type>
       <name>N</name>
       <anchorfile>primal__dual_8cc.html</anchorfile>
-      <anchor>a61a80266d367e479ef40417f4f681bea</anchor>
+      <anchor>abf5832df28c04314f2887376d47dca71</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -3885,10 +3885,10 @@
       <arglist>(&quot;SDMM with ||x - x0||_2 functions&quot;, &quot;[sdmm][integration]&quot;)</arglist>
     </member>
     <member kind="variable">
-      <type>const auto</type>
+      <type>constexpr auto</type>
       <name>N</name>
       <anchorfile>sdmm_8cc.html</anchorfile>
-      <anchor>a61a80266d367e479ef40417f4f681bea</anchor>
+      <anchor>abf5832df28c04314f2887376d47dca71</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -3928,10 +3928,10 @@
       <arglist>(&quot;SDMM with warm start&quot;, &quot;[sdmm][integration]&quot;)</arglist>
     </member>
     <member kind="variable">
-      <type>const auto</type>
+      <type>constexpr auto</type>
       <name>N</name>
       <anchorfile>sdmm__warm__start_8cc.html</anchorfile>
-      <anchor>a61a80266d367e479ef40417f4f681bea</anchor>
+      <anchor>abf5832df28c04314f2887376d47dca71</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -11818,10 +11818,10 @@
       <arglist>(std::vector&lt; float &gt; model_output, int image_rows, int image_cols)</arglist>
     </member>
     <member kind="variable">
-      <type>const double</type>
+      <type>constexpr double</type>
       <name>imaginary_threshold</name>
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1cppflowutils.html</anchorfile>
-      <anchor>a4974785f862defec690cf6e52f16f78b</anchor>
+      <anchor>a006e690d644841aada3fa59f29d68216</anchor>
       <arglist></arglist>
     </member>
   </compound>

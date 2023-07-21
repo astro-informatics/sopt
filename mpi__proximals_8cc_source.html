@@ -90,7 +90,7 @@ $(function() {
 <div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="mpi__proximals_8cc.html#a4f46a7dc56bba9e4b244262075acad1d">    9</a></span>&#160;<a class="code" href="mpi__proximals_8cc.html#a4f46a7dc56bba9e4b244262075acad1d">TEST_CASE</a>(<span class="stringliteral">&quot;Parallel Euclidian norm&quot;</span>, <span class="stringliteral">&quot;[proximal]&quot;</span>) {</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;  <span class="keyword">using namespace </span><a class="code" href="namespacesopt.html">sopt</a>;</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> world = mpi::Communicator::World();</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;  <a class="code" href="classsopt_1_1proximal_1_1EuclidianNorm.html">proximal::EuclidianNorm</a> eucl(world);</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;  <a class="code" href="classsopt_1_1proximal_1_1EuclidianNorm.html">proximal::EuclidianNorm</a> <span class="keyword">const</span> eucl(world);</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;  <a class="code" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">Vector&lt;t_real&gt;</a> out(5);</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;  <a class="code" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">Vector&lt;t_real&gt;</a> x(5);</div>
@@ -126,7 +126,7 @@ $(function() {
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  x &lt;&lt; 1, 2, 3, 4, 5;</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  x *= world.rank();</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <a class="code" href="classsopt_1_1proximal_1_1WeightedL2Ball.html">proximal::WeightedL2Ball&lt;t_real&gt;</a> wball(0.5, weights, world);</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <a class="code" href="classsopt_1_1proximal_1_1L2Ball.html">proximal::L2Ball&lt;t_real&gt;</a> ball(0.5, world);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <a class="code" href="classsopt_1_1proximal_1_1L2Ball.html">proximal::L2Ball&lt;t_real&gt;</a> <span class="keyword">const</span> ball(0.5, world);</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <a class="code" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">Vector&lt;t_real&gt;</a> <span class="keyword">const</span> expected =</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;      ball((x.array() * weights.array()).matrix()).array() / weights.array();</div>

@@ -101,8 +101,8 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a4974785f862defec690cf6e52f16f78b"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesopt_1_1cppflowutils.html#a4974785f862defec690cf6e52f16f78b">imaginary_threshold</a> = 1e-10</td></tr>
-<tr class="separator:a4974785f862defec690cf6e52f16f78b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a006e690d644841aada3fa59f29d68216"><td class="memItemLeft" align="right" valign="top">constexpr double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesopt_1_1cppflowutils.html#a006e690d644841aada3fa59f29d68216">imaginary_threshold</a> = 1e-10</td></tr>
+<tr class="separator:a006e690d644841aada3fa59f29d68216"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a9dad4c45792a6d14f3cf6663e4cff776"></a>
@@ -150,7 +150,7 @@ Variables</h2></td></tr>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; image.rows(); ++i) {</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; image.cols(); ++j) {</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;          <span class="keywordflow">if</span>(std::abs(image(i,j).real()) &gt; <a class="code" href="namespacesopt_1_1cppflowutils.html#a4974785f862defec690cf6e52f16f78b">cppflowutils::imaginary_threshold</a>)</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;          <span class="keywordflow">if</span>(std::abs(image(i,j).real()) &gt; <a class="code" href="namespacesopt_1_1cppflowutils.html#a006e690d644841aada3fa59f29d68216">cppflowutils::imaginary_threshold</a>)</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;          {</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Cannot convert to tensorflow format: imaginary component of image is non-negligible.&quot;</span>);</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;          }</div>
@@ -309,7 +309,7 @@ Variables</h2></td></tr>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    std::vector&lt;float&gt; input_values(image_rows);</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; image_rows; i++)</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    {</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;      <span class="keywordflow">if</span>(std::abs(image(i).real()) &gt; <a class="code" href="namespacesopt_1_1cppflowutils.html#a4974785f862defec690cf6e52f16f78b">cppflowutils::imaginary_threshold</a>)</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;      <span class="keywordflow">if</span>(std::abs(image(i).real()) &gt; <a class="code" href="namespacesopt_1_1cppflowutils.html#a006e690d644841aada3fa59f29d68216">cppflowutils::imaginary_threshold</a>)</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;      {</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Cannot conver to tensorflow format: imaginary component of image vector is non negligible.&quot;</span>);</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;      }</div>
@@ -373,16 +373,24 @@ Variables</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
-<a id="a4974785f862defec690cf6e52f16f78b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4974785f862defec690cf6e52f16f78b">&#9670;&nbsp;</a></span>imaginary_threshold</h2>
+<a id="a006e690d644841aada3fa59f29d68216"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a006e690d644841aada3fa59f29d68216">&#9670;&nbsp;</a></span>imaginary_threshold</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const double sopt::cppflowutils::imaginary_threshold = 1e-10</td>
+          <td class="memname">constexpr double sopt::cppflowutils::imaginary_threshold = 1e-10</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="cppflow__utils_8cc_source.html#l00012">12</a> of file <a class="el" href="cppflow__utils_8cc_source.html">cppflow_utils.cc</a>.</p>
@@ -392,7 +400,7 @@ Variables</h2></td></tr>
 </div>
 </div>
 </div><!-- contents -->
-<div class="ttc" id="anamespacesopt_1_1cppflowutils_html_a4974785f862defec690cf6e52f16f78b"><div class="ttname"><a href="namespacesopt_1_1cppflowutils.html#a4974785f862defec690cf6e52f16f78b">sopt::cppflowutils::imaginary_threshold</a></div><div class="ttdeci">const double imaginary_threshold</div><div class="ttdef"><b>Definition:</b> <a href="cppflow__utils_8cc_source.html#l00012">cppflow_utils.cc:12</a></div></div>
+<div class="ttc" id="anamespacesopt_1_1cppflowutils_html_a006e690d644841aada3fa59f29d68216"><div class="ttname"><a href="namespacesopt_1_1cppflowutils.html#a006e690d644841aada3fa59f29d68216">sopt::cppflowutils::imaginary_threshold</a></div><div class="ttdeci">constexpr double imaginary_threshold</div><div class="ttdef"><b>Definition:</b> <a href="cppflow__utils_8cc_source.html#l00012">cppflow_utils.cc:12</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

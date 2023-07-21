@@ -139,12 +139,12 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a6d7237bd6650f7fc770cd55be22e4245"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="bisection__method_8cc.html#aa0bfbe32b639db5c015dd41a0ac7ca35">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bisection__method_8cc.html#a6d7237bd6650f7fc770cd55be22e4245">a</a> = -0.5</td></tr>
-<tr class="separator:a6d7237bd6650f7fc770cd55be22e4245"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af7e17cd5ee7bef04f22c8e26709dd6e2"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="bisection__method_8cc.html#aa0bfbe32b639db5c015dd41a0ac7ca35">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bisection__method_8cc.html#af7e17cd5ee7bef04f22c8e26709dd6e2">b</a> = 1.</td></tr>
-<tr class="separator:af7e17cd5ee7bef04f22c8e26709dd6e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a871c6485151c4b58dcfcacee7fbec4cc"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="bisection__method_8cc.html#aa0bfbe32b639db5c015dd41a0ac7ca35">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bisection__method_8cc.html#a871c6485151c4b58dcfcacee7fbec4cc">tol</a> = 1e-4</td></tr>
-<tr class="separator:a871c6485151c4b58dcfcacee7fbec4cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe0def96c0a846f46d6fe7c115ff2a7f"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="bisection__method_8cc.html#aa0bfbe32b639db5c015dd41a0ac7ca35">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bisection__method_8cc.html#abe0def96c0a846f46d6fe7c115ff2a7f">a</a> = -0.5</td></tr>
+<tr class="separator:abe0def96c0a846f46d6fe7c115ff2a7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63a56f8266f9d4e2b7904199812311c4"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="bisection__method_8cc.html#aa0bfbe32b639db5c015dd41a0ac7ca35">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bisection__method_8cc.html#a63a56f8266f9d4e2b7904199812311c4">b</a> = 1.</td></tr>
+<tr class="separator:a63a56f8266f9d4e2b7904199812311c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ce54f08467e596d20bfdbe1e6a2b368"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="bisection__method_8cc.html#aa0bfbe32b639db5c015dd41a0ac7ca35">Scalar</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bisection__method_8cc.html#a5ce54f08467e596d20bfdbe1e6a2b368">tol</a> = 1e-4</td></tr>
+<tr class="separator:a5ce54f08467e596d20bfdbe1e6a2b368"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
 <a id="aa0bfbe32b639db5c015dd41a0ac7ca35"></a>
@@ -216,9 +216,9 @@ Variables</h2></td></tr>
 <div class="fragment"><div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;                             {</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  <span class="keyword">using namespace </span><a class="code" href="namespacesopt.html">sopt</a>;</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  std::function&lt;<a class="code" href="bisection__method_8cc.html#aa0bfbe32b639db5c015dd41a0ac7ca35">Scalar</a>(<a class="code" href="bisection__method_8cc.html#aa0bfbe32b639db5c015dd41a0ac7ca35">Scalar</a>)&gt; <span class="keyword">const</span> func = [](<span class="keyword">const</span> <a class="code" href="bisection__method_8cc.html#aa0bfbe32b639db5c015dd41a0ac7ca35">Scalar</a> &amp;x) -&gt; <a class="code" href="bisection__method_8cc.html#aa0bfbe32b639db5c015dd41a0ac7ca35">Scalar</a> { <span class="keywordflow">return</span> std::exp(-x); };</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <span class="keyword">const</span> <a class="code" href="bisection__method_8cc.html#aa0bfbe32b639db5c015dd41a0ac7ca35">Scalar</a> x0 = 1;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="keyword">const</span> <a class="code" href="bisection__method_8cc.html#aa0bfbe32b639db5c015dd41a0ac7ca35">Scalar</a> x0_est = <a class="code" href="namespacesopt.html#a7574fac5dcbb3569bad1e0d08a553406">bisection_method</a>(func(x0), func, <a class="code" href="bisection__method_8cc.html#a6d7237bd6650f7fc770cd55be22e4245">a</a>, <a class="code" href="bisection__method_8cc.html#af7e17cd5ee7bef04f22c8e26709dd6e2">b</a>, <a class="code" href="bisection__method_8cc.html#a871c6485151c4b58dcfcacee7fbec4cc">tol</a>);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  CHECK(std::abs(x0_est - x0) &lt;= <a class="code" href="bisection__method_8cc.html#a871c6485151c4b58dcfcacee7fbec4cc">tol</a>);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  constexpr <a class="code" href="bisection__method_8cc.html#aa0bfbe32b639db5c015dd41a0ac7ca35">Scalar</a> x0 = 1;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="keyword">const</span> <a class="code" href="bisection__method_8cc.html#aa0bfbe32b639db5c015dd41a0ac7ca35">Scalar</a> x0_est = <a class="code" href="namespacesopt.html#a7574fac5dcbb3569bad1e0d08a553406">bisection_method</a>(func(x0), func, <a class="code" href="bisection__method_8cc.html#abe0def96c0a846f46d6fe7c115ff2a7f">a</a>, <a class="code" href="bisection__method_8cc.html#a63a56f8266f9d4e2b7904199812311c4">b</a>, <a class="code" href="bisection__method_8cc.html#a5ce54f08467e596d20bfdbe1e6a2b368">tol</a>);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  CHECK(std::abs(x0_est - x0) &lt;= <a class="code" href="bisection__method_8cc.html#a5ce54f08467e596d20bfdbe1e6a2b368">tol</a>);</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;}</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="bisection__method_8cc_source.html#l00013">a</a>, <a class="el" href="bisection__method_8cc_source.html#l00014">b</a>, <a class="el" href="bisection__method_8h_source.html#l00018">sopt::bisection_method()</a>, and <a class="el" href="bisection__method_8cc_source.html#l00015">tol</a>.</p>
@@ -244,9 +244,9 @@ Variables</h2></td></tr>
 <div class="fragment"><div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;                                {</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  <span class="keyword">using namespace </span><a class="code" href="namespacesopt.html">sopt</a>;</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  std::function&lt;<a class="code" href="bisection__method_8cc.html#aa0bfbe32b639db5c015dd41a0ac7ca35">Scalar</a>(<a class="code" href="bisection__method_8cc.html#aa0bfbe32b639db5c015dd41a0ac7ca35">Scalar</a>)&gt; <span class="keyword">const</span> func = [](<span class="keyword">const</span> <a class="code" href="bisection__method_8cc.html#aa0bfbe32b639db5c015dd41a0ac7ca35">Scalar</a> &amp;x) -&gt; <a class="code" href="bisection__method_8cc.html#aa0bfbe32b639db5c015dd41a0ac7ca35">Scalar</a> { <span class="keywordflow">return</span> x; };</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  <span class="keyword">const</span> <a class="code" href="bisection__method_8cc.html#aa0bfbe32b639db5c015dd41a0ac7ca35">Scalar</a> x0 = 0.23235104239409;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  <span class="keyword">const</span> <a class="code" href="bisection__method_8cc.html#aa0bfbe32b639db5c015dd41a0ac7ca35">Scalar</a> x0_est = <a class="code" href="namespacesopt.html#a7574fac5dcbb3569bad1e0d08a553406">bisection_method</a>(func(x0), func, <a class="code" href="bisection__method_8cc.html#a6d7237bd6650f7fc770cd55be22e4245">a</a>, <a class="code" href="bisection__method_8cc.html#af7e17cd5ee7bef04f22c8e26709dd6e2">b</a>, <a class="code" href="bisection__method_8cc.html#a871c6485151c4b58dcfcacee7fbec4cc">tol</a>);</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  CHECK(std::abs(x0_est - x0) &lt;= <a class="code" href="bisection__method_8cc.html#a871c6485151c4b58dcfcacee7fbec4cc">tol</a>);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  constexpr <a class="code" href="bisection__method_8cc.html#aa0bfbe32b639db5c015dd41a0ac7ca35">Scalar</a> x0 = 0.23235104239409;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  <span class="keyword">const</span> <a class="code" href="bisection__method_8cc.html#aa0bfbe32b639db5c015dd41a0ac7ca35">Scalar</a> x0_est = <a class="code" href="namespacesopt.html#a7574fac5dcbb3569bad1e0d08a553406">bisection_method</a>(func(x0), func, <a class="code" href="bisection__method_8cc.html#abe0def96c0a846f46d6fe7c115ff2a7f">a</a>, <a class="code" href="bisection__method_8cc.html#a63a56f8266f9d4e2b7904199812311c4">b</a>, <a class="code" href="bisection__method_8cc.html#a5ce54f08467e596d20bfdbe1e6a2b368">tol</a>);</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  CHECK(std::abs(x0_est - x0) &lt;= <a class="code" href="bisection__method_8cc.html#a5ce54f08467e596d20bfdbe1e6a2b368">tol</a>);</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;}</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="bisection__method_8cc_source.html#l00013">a</a>, <a class="el" href="bisection__method_8cc_source.html#l00014">b</a>, <a class="el" href="bisection__method_8h_source.html#l00018">sopt::bisection_method()</a>, and <a class="el" href="bisection__method_8cc_source.html#l00015">tol</a>.</p>
@@ -274,9 +274,9 @@ Variables</h2></td></tr>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;  <span class="keyword">using namespace </span><a class="code" href="namespacesopt.html">sopt</a>;</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;  <a class="code" href="namespacesopt_1_1logging.html#a1a3ff36211cc8e01a397f484fb967f41">sopt::logging::set_level</a>(<span class="stringliteral">&quot;debug&quot;</span>);</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  std::function&lt;<a class="code" href="bisection__method_8cc.html#aa0bfbe32b639db5c015dd41a0ac7ca35">Scalar</a>(<a class="code" href="bisection__method_8cc.html#aa0bfbe32b639db5c015dd41a0ac7ca35">Scalar</a>)&gt; <span class="keyword">const</span> func = [](<span class="keyword">const</span> <a class="code" href="bisection__method_8cc.html#aa0bfbe32b639db5c015dd41a0ac7ca35">Scalar</a> &amp;x) -&gt; <a class="code" href="bisection__method_8cc.html#aa0bfbe32b639db5c015dd41a0ac7ca35">Scalar</a> { <span class="keywordflow">return</span> x * x * x; };</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;  <span class="keyword">const</span> <a class="code" href="bisection__method_8cc.html#aa0bfbe32b639db5c015dd41a0ac7ca35">Scalar</a> x0 = 0;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  <span class="keyword">const</span> <a class="code" href="bisection__method_8cc.html#aa0bfbe32b639db5c015dd41a0ac7ca35">Scalar</a> x0_est = <a class="code" href="namespacesopt.html#a7574fac5dcbb3569bad1e0d08a553406">bisection_method</a>(func(x0), func, <a class="code" href="bisection__method_8cc.html#a6d7237bd6650f7fc770cd55be22e4245">a</a>, <a class="code" href="bisection__method_8cc.html#af7e17cd5ee7bef04f22c8e26709dd6e2">b</a>, <a class="code" href="bisection__method_8cc.html#a871c6485151c4b58dcfcacee7fbec4cc">tol</a>);</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  CHECK(std::abs(x0_est - x0) &lt;= <a class="code" href="bisection__method_8cc.html#a871c6485151c4b58dcfcacee7fbec4cc">tol</a>);</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;  constexpr <a class="code" href="bisection__method_8cc.html#aa0bfbe32b639db5c015dd41a0ac7ca35">Scalar</a> x0 = 0;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  <span class="keyword">const</span> <a class="code" href="bisection__method_8cc.html#aa0bfbe32b639db5c015dd41a0ac7ca35">Scalar</a> x0_est = <a class="code" href="namespacesopt.html#a7574fac5dcbb3569bad1e0d08a553406">bisection_method</a>(func(x0), func, <a class="code" href="bisection__method_8cc.html#abe0def96c0a846f46d6fe7c115ff2a7f">a</a>, <a class="code" href="bisection__method_8cc.html#a63a56f8266f9d4e2b7904199812311c4">b</a>, <a class="code" href="bisection__method_8cc.html#a5ce54f08467e596d20bfdbe1e6a2b368">tol</a>);</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  CHECK(std::abs(x0_est - x0) &lt;= <a class="code" href="bisection__method_8cc.html#a5ce54f08467e596d20bfdbe1e6a2b368">tol</a>);</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;}</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="bisection__method_8cc_source.html#l00013">a</a>, <a class="el" href="bisection__method_8cc_source.html#l00014">b</a>, <a class="el" href="bisection__method_8h_source.html#l00018">sopt::bisection_method()</a>, <a class="el" href="logging_8disabled_8h_source.html#l00016">sopt::logging::set_level()</a>, and <a class="el" href="bisection__method_8cc_source.html#l00015">tol</a>.</p>
@@ -284,16 +284,24 @@ Variables</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
-<a id="a6d7237bd6650f7fc770cd55be22e4245"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6d7237bd6650f7fc770cd55be22e4245">&#9670;&nbsp;</a></span>a</h2>
+<a id="abe0def96c0a846f46d6fe7c115ff2a7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe0def96c0a846f46d6fe7c115ff2a7f">&#9670;&nbsp;</a></span>a</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="bisection__method_8cc.html#aa0bfbe32b639db5c015dd41a0ac7ca35">Scalar</a> a = -0.5</td>
+          <td class="memname">constexpr <a class="el" href="bisection__method_8cc.html#aa0bfbe32b639db5c015dd41a0ac7ca35">Scalar</a> a = -0.5</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="bisection__method_8cc_source.html#l00013">13</a> of file <a class="el" href="bisection__method_8cc_source.html">bisection_method.cc</a>.</p>
@@ -302,16 +310,24 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="af7e17cd5ee7bef04f22c8e26709dd6e2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af7e17cd5ee7bef04f22c8e26709dd6e2">&#9670;&nbsp;</a></span>b</h2>
+<a id="a63a56f8266f9d4e2b7904199812311c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63a56f8266f9d4e2b7904199812311c4">&#9670;&nbsp;</a></span>b</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="bisection__method_8cc.html#aa0bfbe32b639db5c015dd41a0ac7ca35">Scalar</a> b = 1.</td>
+          <td class="memname">constexpr <a class="el" href="bisection__method_8cc.html#aa0bfbe32b639db5c015dd41a0ac7ca35">Scalar</a> b = 1.</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="bisection__method_8cc_source.html#l00014">14</a> of file <a class="el" href="bisection__method_8cc_source.html">bisection_method.cc</a>.</p>
@@ -320,16 +336,24 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a871c6485151c4b58dcfcacee7fbec4cc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a871c6485151c4b58dcfcacee7fbec4cc">&#9670;&nbsp;</a></span>tol</h2>
+<a id="a5ce54f08467e596d20bfdbe1e6a2b368"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ce54f08467e596d20bfdbe1e6a2b368">&#9670;&nbsp;</a></span>tol</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="bisection__method_8cc.html#aa0bfbe32b639db5c015dd41a0ac7ca35">Scalar</a> tol = 1e-4</td>
+          <td class="memname">constexpr <a class="el" href="bisection__method_8cc.html#aa0bfbe32b639db5c015dd41a0ac7ca35">Scalar</a> tol = 1e-4</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="bisection__method_8cc_source.html#l00015">15</a> of file <a class="el" href="bisection__method_8cc_source.html">bisection_method.cc</a>.</p>
@@ -340,12 +364,12 @@ Variables</h2></td></tr>
 </div>
 </div><!-- contents -->
 <div class="ttc" id="anamespacesopt_html"><div class="ttname"><a href="namespacesopt.html">sopt</a></div><div class="ttdef"><b>Definition:</b> <a href="bisection__method_8h_source.html#l00010">bisection_method.h:10</a></div></div>
-<div class="ttc" id="abisection__method_8cc_html_a871c6485151c4b58dcfcacee7fbec4cc"><div class="ttname"><a href="bisection__method_8cc.html#a871c6485151c4b58dcfcacee7fbec4cc">tol</a></div><div class="ttdeci">const Scalar tol</div><div class="ttdef"><b>Definition:</b> <a href="bisection__method_8cc_source.html#l00015">bisection_method.cc:15</a></div></div>
 <div class="ttc" id="abisection__method_8cc_html_aa0bfbe32b639db5c015dd41a0ac7ca35"><div class="ttname"><a href="bisection__method_8cc.html#aa0bfbe32b639db5c015dd41a0ac7ca35">Scalar</a></div><div class="ttdeci">sopt::t_real Scalar</div><div class="ttdef"><b>Definition:</b> <a href="bisection__method_8cc_source.html#l00009">bisection_method.cc:9</a></div></div>
-<div class="ttc" id="abisection__method_8cc_html_af7e17cd5ee7bef04f22c8e26709dd6e2"><div class="ttname"><a href="bisection__method_8cc.html#af7e17cd5ee7bef04f22c8e26709dd6e2">b</a></div><div class="ttdeci">const Scalar b</div><div class="ttdef"><b>Definition:</b> <a href="bisection__method_8cc_source.html#l00014">bisection_method.cc:14</a></div></div>
 <div class="ttc" id="anamespacesopt_html_a7574fac5dcbb3569bad1e0d08a553406"><div class="ttname"><a href="namespacesopt.html#a7574fac5dcbb3569bad1e0d08a553406">sopt::bisection_method</a></div><div class="ttdeci">std::enable_if&lt; std::is_same&lt; t_real, K &gt;::value, K &gt;::type bisection_method(const K &amp;function_value, const std::function&lt; K(K)&gt; &amp;func, const K &amp;a, const K &amp;b, const t_real &amp;rel_convergence=1e-4)</div><div class="ttdoc">Find root to a function within an interval.</div><div class="ttdef"><b>Definition:</b> <a href="bisection__method_8h_source.html#l00018">bisection_method.h:18</a></div></div>
-<div class="ttc" id="abisection__method_8cc_html_a6d7237bd6650f7fc770cd55be22e4245"><div class="ttname"><a href="bisection__method_8cc.html#a6d7237bd6650f7fc770cd55be22e4245">a</a></div><div class="ttdeci">const Scalar a</div><div class="ttdef"><b>Definition:</b> <a href="bisection__method_8cc_source.html#l00013">bisection_method.cc:13</a></div></div>
+<div class="ttc" id="abisection__method_8cc_html_abe0def96c0a846f46d6fe7c115ff2a7f"><div class="ttname"><a href="bisection__method_8cc.html#abe0def96c0a846f46d6fe7c115ff2a7f">a</a></div><div class="ttdeci">constexpr Scalar a</div><div class="ttdef"><b>Definition:</b> <a href="bisection__method_8cc_source.html#l00013">bisection_method.cc:13</a></div></div>
 <div class="ttc" id="anamespacesopt_1_1logging_html_a1a3ff36211cc8e01a397f484fb967f41"><div class="ttname"><a href="namespacesopt_1_1logging.html#a1a3ff36211cc8e01a397f484fb967f41">sopt::logging::set_level</a></div><div class="ttdeci">void set_level(std::string const &amp;, std::string const &amp;)</div><div class="ttdoc">Sets loggin level.</div><div class="ttdef"><b>Definition:</b> <a href="logging_8disabled_8h_source.html#l00016">logging.disabled.h:16</a></div></div>
+<div class="ttc" id="abisection__method_8cc_html_a63a56f8266f9d4e2b7904199812311c4"><div class="ttname"><a href="bisection__method_8cc.html#a63a56f8266f9d4e2b7904199812311c4">b</a></div><div class="ttdeci">constexpr Scalar b</div><div class="ttdef"><b>Definition:</b> <a href="bisection__method_8cc_source.html#l00014">bisection_method.cc:14</a></div></div>
+<div class="ttc" id="abisection__method_8cc_html_a5ce54f08467e596d20bfdbe1e6a2b368"><div class="ttname"><a href="bisection__method_8cc.html#a5ce54f08467e596d20bfdbe1e6a2b368">tol</a></div><div class="ttdeci">constexpr Scalar tol</div><div class="ttdef"><b>Definition:</b> <a href="bisection__method_8cc_source.html#l00015">bisection_method.cc:15</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

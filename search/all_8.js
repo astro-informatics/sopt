@@ -2,7 +2,7 @@ var searchData=
 [
   ['id_180',['id',['../namespacesopt_1_1proximal.html#a22e3b74782df4c0aa0058babbc4ddd89',1,'sopt::proximal']]],
   ['image_181',['Image',['../namespacesopt.html#a7d7971e5566e597eb907614917e30c78',1,'sopt::Image()'],['../cppflow__model_8cc.html#aeeca20f5186519056cf53849afb07e6e',1,'Image():&#160;cppflow_model.cc'],['../tests_2inpainting_8cc.html#aeeca20f5186519056cf53849afb07e6e',1,'Image():&#160;inpainting.cc'],['../tf__inpainting_8cc.html#aeeca20f5186519056cf53849afb07e6e',1,'Image():&#160;tf_inpainting.cc']]],
-  ['imaginary_5fthreshold_182',['imaginary_threshold',['../namespacesopt_1_1cppflowutils.html#a4974785f862defec690cf6e52f16f78b',1,'sopt::cppflowutils']]],
+  ['imaginary_5fthreshold_182',['imaginary_threshold',['../namespacesopt_1_1cppflowutils.html#a006e690d644841aada3fa59f29d68216',1,'sopt::cppflowutils']]],
   ['imaging_5fforward_5fbackward_2eh_183',['imaging_forward_backward.h',['../imaging__forward__backward_8h.html',1,'']]],
   ['imaging_5fpadmm_2eh_184',['imaging_padmm.h',['../imaging__padmm_8h.html',1,'']]],
   ['imaging_5fprimal_5fdual_2eh_185',['imaging_primal_dual.h',['../imaging__primal__dual_8h.html',1,'']]],

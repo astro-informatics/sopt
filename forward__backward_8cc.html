@@ -173,8 +173,8 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a61a80266d367e479ef40417f4f681bea"><td class="memItemLeft" align="right" valign="top">const auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="forward__backward_8cc.html#a61a80266d367e479ef40417f4f681bea">N</a> = 5</td></tr>
-<tr class="separator:a61a80266d367e479ef40417f4f681bea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf5832df28c04314f2887376d47dca71"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="forward__backward_8cc.html#abf5832df28c04314f2887376d47dca71">N</a> = 5</td></tr>
+<tr class="separator:abf5832df28c04314f2887376d47dca71"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
 <a id="aa0bfbe32b639db5c015dd41a0ac7ca35"></a>
@@ -289,7 +289,7 @@ Variables</h2></td></tr>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  CHECK(<a class="code" href="structis__imaging__proximal__ref.html">is_imaging_proximal_ref</a>&lt;decltype(fb.beta(1e-1))&gt;::value);</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  CHECK(<a class="code" href="structis__imaging__proximal__ref.html">is_imaging_proximal_ref</a>&lt;decltype(fb.gamma(1e-1))&gt;::value);</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  CHECK(<a class="code" href="structis__imaging__proximal__ref.html">is_imaging_proximal_ref</a>&lt;decltype(fb.sigma(1e-1))&gt;::value);</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  std::function&lt;void(<a class="code" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">Vector&lt;double&gt;</a> &amp;, <span class="keyword">const</span> <a class="code" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">Vector&lt;double&gt;</a> &amp;)&gt; grad;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  std::function&lt;void(<a class="code" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">Vector&lt;double&gt;</a> &amp;, <span class="keyword">const</span> <a class="code" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">Vector&lt;double&gt;</a> &amp;)&gt; <span class="keyword">const</span> grad;</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  CHECK(<a class="code" href="structis__imaging__proximal__ref.html">is_imaging_proximal_ref</a>&lt;decltype(fb.l2_gradient(grad))&gt;::value);</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  CHECK(<a class="code" href="structis__imaging__proximal__ref.html">is_imaging_proximal_ref</a>&lt;decltype(fb.residual_convergence(1.001))&gt;::value);</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  CHECK(<a class="code" href="structis__imaging__proximal__ref.html">is_imaging_proximal_ref</a>&lt;decltype(fb.target(<a class="code" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">Vector&lt;double&gt;::Zero</a>(0)))&gt;::value);</div>
@@ -349,10 +349,10 @@ Variables</h2></td></tr>
 <p class="definition">Definition at line <a class="el" href="forward__backward_8cc_source.html#l00030">30</a> of file <a class="el" href="forward__backward_8cc_source.html">forward_backward.cc</a>.</p>
 <div class="fragment"><div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;                                                                   {</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <span class="keyword">using namespace </span><a class="code" href="namespacesopt.html">sopt</a>;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> <span class="keyword">const</span> target0 = t_Vector::Random(<a class="code" href="forward__backward_8cc.html#a61a80266d367e479ef40417f4f681bea">N</a>);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <a class="code" href="namespacesopt.html#a71bfb8f70b432862d3d654b9dcff77cc">t_real</a> <span class="keyword">const</span> beta = 0.2;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <a class="code" href="namespacesopt.html#a71bfb8f70b432862d3d654b9dcff77cc">t_real</a> <span class="keyword">const</span> gamma = 0.1;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="keywordtype">int</span> <span class="keyword">const</span> itermax = 300;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> <span class="keyword">const</span> target0 = t_Vector::Random(<a class="code" href="forward__backward_8cc.html#abf5832df28c04314f2887376d47dca71">N</a>);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <a class="code" href="namespacesopt.html#a71bfb8f70b432862d3d654b9dcff77cc">t_real</a> constexpr beta = 0.2;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <a class="code" href="namespacesopt.html#a71bfb8f70b432862d3d654b9dcff77cc">t_real</a> constexpr gamma = 0.1;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="keywordtype">int</span> constexpr itermax = 300;</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> g0 = [](<a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> &amp;out, <span class="keyword">const</span> <a class="code" href="namespacesopt.html#a71bfb8f70b432862d3d654b9dcff77cc">t_real</a> gamma, <span class="keyword">const</span> <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> &amp;x) {</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <a class="code" href="namespacesopt_1_1proximal.html#a22e3b74782df4c0aa0058babbc4ddd89">proximal::id</a>(out, gamma, x);</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  };</div>
@@ -384,16 +384,24 @@ Variables</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
-<a id="a61a80266d367e479ef40417f4f681bea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a61a80266d367e479ef40417f4f681bea">&#9670;&nbsp;</a></span>N</h2>
+<a id="abf5832df28c04314f2887376d47dca71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf5832df28c04314f2887376d47dca71">&#9670;&nbsp;</a></span>N</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const auto N = 5</td>
+          <td class="memname">constexpr auto N = 5</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="forward__backward_8cc_source.html#l00028">28</a> of file <a class="el" href="forward__backward_8cc_source.html">forward_backward.cc</a>.</p>
@@ -415,7 +423,7 @@ Variables</h2></td></tr>
 <div class="ttc" id="anamespacesopt_1_1proximal_html_a22e3b74782df4c0aa0058babbc4ddd89"><div class="ttname"><a href="namespacesopt_1_1proximal.html#a22e3b74782df4c0aa0058babbc4ddd89">sopt::proximal::id</a></div><div class="ttdeci">void id(Eigen::DenseBase&lt; T0 &gt; &amp;out, typename real_type&lt; typename T0::Scalar &gt;::type gamma, Eigen::DenseBase&lt; T1 &gt; const &amp;x)</div><div class="ttdoc">Proximal of a function that is always zero, the identity.</div><div class="ttdef"><b>Definition:</b> <a href="proximal_8h_source.html#l00135">proximal.h:135</a></div></div>
 <div class="ttc" id="aclasssopt_1_1LinearTransform_html"><div class="ttname"><a href="classsopt_1_1LinearTransform.html">sopt::LinearTransform</a></div><div class="ttdoc">Joins together direct and indirect operators.</div><div class="ttdef"><b>Definition:</b> <a href="linear__transform_8h_source.html#l00030">linear_transform.h:30</a></div></div>
 <div class="ttc" id="astructis__imaging__proximal__ref_html"><div class="ttname"><a href="structis__imaging__proximal__ref.html">is_imaging_proximal_ref</a></div><div class="ttdef"><b>Definition:</b> <a href="forward__backward_8cc_source.html#l00062">forward_backward.cc:62</a></div></div>
-<div class="ttc" id="aforward__backward_8cc_html_a61a80266d367e479ef40417f4f681bea"><div class="ttname"><a href="forward__backward_8cc.html#a61a80266d367e479ef40417f4f681bea">N</a></div><div class="ttdeci">const auto N</div><div class="ttdef"><b>Definition:</b> <a href="forward__backward_8cc_source.html#l00028">forward_backward.cc:28</a></div></div>
+<div class="ttc" id="aforward__backward_8cc_html_abf5832df28c04314f2887376d47dca71"><div class="ttname"><a href="forward__backward_8cc.html#abf5832df28c04314f2887376d47dca71">N</a></div><div class="ttdeci">constexpr auto N</div><div class="ttdef"><b>Definition:</b> <a href="forward__backward_8cc_source.html#l00028">forward_backward.cc:28</a></div></div>
 <div class="ttc" id="anamespacesopt_html_a71bfb8f70b432862d3d654b9dcff77cc"><div class="ttname"><a href="namespacesopt.html#a71bfb8f70b432862d3d654b9dcff77cc">sopt::t_real</a></div><div class="ttdeci">double t_real</div><div class="ttdoc">Root of the type hierarchy for real numbers.</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00017">types.h:17</a></div></div>
 <div class="ttc" id="aclasssopt_1_1algorithm_1_1ForwardBackward_html_a71cb1304377e1b7a0fde6c7b2b7696cd"><div class="ttname"><a href="classsopt_1_1algorithm_1_1ForwardBackward.html#a71cb1304377e1b7a0fde6c7b2b7696cd">sopt::algorithm::ForwardBackward::is_converged</a></div><div class="ttdeci">ForwardBackward&lt; Scalar &gt; &amp; is_converged(std::function&lt; bool(t_Vector const &amp;x)&gt; const &amp;func)</div><div class="ttdoc">Convergence function that takes only the output as argument.</div><div class="ttdef"><b>Definition:</b> <a href="forward__backward_8h_source.html#l00118">forward_backward.h:118</a></div></div>
 <!-- start footer part -->

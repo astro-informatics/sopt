@@ -182,8 +182,8 @@ Functions</h2></td></tr>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  <a class="code" href="classsopt_1_1wavelets_1_1SARA.html">sopt::wavelets::SARA</a> <span class="keyword">const</span> parallel(serial.begin() + start, serial.begin() + end);</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> Nx = 32;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> Ny = 32;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  <span class="keyword">auto</span> constexpr Nx = 32;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  <span class="keyword">auto</span> constexpr Ny = 32;</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> psi_serial = linear_transform&lt;t_real&gt;(serial, Nx, Ny);</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> psi_parallel = linear_transform&lt;t_real&gt;(parallel, Nx, Ny, world);</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>

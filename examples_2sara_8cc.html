@@ -159,7 +159,7 @@ Functions</h2></td></tr>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;  sara.<a class="code" href="classsopt_1_1wavelets_1_1SARA.html#a372d3908f026eb02c41c5d46462c0382">emplace_back</a>(<span class="stringliteral">&quot;DB3&quot;</span>, 7);</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;  <span class="comment">// Creates a random signal</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;  <a class="code" href="namespacesopt.html#a7d7971e5566e597eb907614917e30c78">sopt::Image&lt;sopt::t_complex&gt;</a> input = <a class="code" href="namespacesopt.html#a7d7971e5566e597eb907614917e30c78">sopt::Image&lt;sopt::t_complex&gt;::Random</a>(128, 128);</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;  <a class="code" href="namespacesopt.html#a7d7971e5566e597eb907614917e30c78">sopt::Image&lt;sopt::t_complex&gt;</a> <span class="keyword">const</span> input = <a class="code" href="namespacesopt.html#a7d7971e5566e597eb907614917e30c78">sopt::Image&lt;sopt::t_complex&gt;::Random</a>(128, 128);</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;  <span class="comment">// Now gets its coefficients</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;  <span class="keyword">auto</span> coefficients = sara.direct(input);</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;  <span class="comment">// And transform back. We pass a pre-defined matrix explicitly to illustrate that API.</span></div>

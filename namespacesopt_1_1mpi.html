@@ -192,7 +192,7 @@ Functions</h2></td></tr>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="namespacesopt_1_1mpi.html#a92069429796f1e2f2263162af26bbdb7">finalized</a>()) <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;MPI session has already been finalized&quot;</span>);</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  <span class="keywordflow">if</span> (not <a class="code" href="namespacesopt_1_1mpi.html#ad44f35d3f51dfcc0fc3b40867f9dd6f3">initialized</a>()) {</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    assert(details::initializer::singleton.expired());</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    std::shared_ptr&lt;details::initializer&gt; ptr(<span class="keyword">new</span> details::initializer,</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    std::shared_ptr&lt;details::initializer&gt; <span class="keyword">const</span> ptr(<span class="keyword">new</span> details::initializer,</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                                              &amp;details::initializer::deleter);</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#ifdef SOPT_OPENMP</span></div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordtype">int</span> provided;</div>
@@ -276,7 +276,7 @@ Functions</h2></td></tr>
 <div class="fragment"><div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;                                                      {</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  <span class="keywordflow">if</span> (not <a class="code" href="namespacesopt_1_1mpi.html#ad44f35d3f51dfcc0fc3b40867f9dd6f3">initialized</a>()) <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;MPI session not initialized&quot;</span>);</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <span class="keywordflow">if</span> (details::initializer::singleton.expired()) {</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    std::shared_ptr&lt;details::initializer&gt; ptr(<span class="keyword">new</span> details::initializer,</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    std::shared_ptr&lt;details::initializer&gt; <span class="keyword">const</span> ptr(<span class="keyword">new</span> details::initializer,</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                                              &amp;details::initializer::deleter);</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    details::initializer::singleton = ptr;</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordflow">return</span> details::initializer::singleton.lock();</div>
