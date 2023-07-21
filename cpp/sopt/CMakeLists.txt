@@ -23,7 +23,7 @@ if(TIFF_FOUND)
   list(APPEND headers utilities.h)
 endif()
 if(SOPT_MPI)
-  list(APPEND sources mpi/communicator.cc mpi/registered_types.cc mpi/session.cc wavelets/sara.cc)
+  list(APPEND sources mpi/communicator.cc mpi/registered_types.cc mpi/session.cc)
   list(APPEND mpi_headers mpi/communicator.h mpi/registered_types.h mpi/utilities.h mpi/session.h)
 endif()
 if (cppflow)
@@ -85,7 +85,7 @@ if (cppflow)
 endif()
 
 
-target_link_libraries(sopt ${CONAN_LIBS}) 
+target_link_libraries(sopt ${CONAN_LIBS})
 
 install(FILES ${headers} DESTINATION include/sopt)
 install(FILES ${wavelet_headers} DESTINATION include/sopt/wavelets)
