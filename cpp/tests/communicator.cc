@@ -9,7 +9,8 @@ using namespace sopt;
 
 #ifdef SOPT_MPI
 TEST_CASE("Creates an mpi communicator") {
-  int rank, size;
+  int rank;
+  int size;
   MPI_Comm_rank(MPI_COMM_WORLD, &rank);
   MPI_Comm_size(MPI_COMM_WORLD, &size);
 
@@ -42,7 +43,8 @@ TEST_CASE("Creates an mpi communicator") {
   }
 
   SECTION("ScatterV") {
-    std::vector<t_int> sizes(world.size()), displs(world.size());
+    std::vector<t_int> sizes(world.size());
+    std::vector<t_int> displs(world.size());
     for (t_uint i(0); i < world.rank(); ++i) sizes[i] = world.rank() * 2 + i;
     for (t_uint i(1); i < world.rank(); ++i) displs[i] = displs[i - 1] + sizes[i - 1];
     Vector<t_int> const sendee =
@@ -66,7 +68,7 @@ TEST_CASE("Creates an mpi communicator") {
       auto const result = world.scatter_one<t_int>();
       REQUIRE(result == world.rank() + 2);
       auto const gather = world.gather(result);
-      CHECK(gather.size() == 0);
+      CHECK(gather.empty());
     }
   }
 
@@ -94,7 +96,7 @@ TEST_CASE("Creates an mpi communicator") {
       CHECK(result.size() == world.size() + 1);
       for (decltype(world.size()) i(0); i <= world.size(); ++i) CHECK(result.count(i) == 1);
     } else
-      CHECK(result.size() == 0);
+      CHECK(result.empty());
   }
 
   SECTION("Gather an std::vector") {
@@ -108,7 +110,7 @@ TEST_CASE("Creates an mpi communicator") {
         CHECK(result[2 * i + 1] == i);
       }
     } else
-      CHECK(result.size() == 0);
+      CHECK(result.empty());
   }
 
   SECTION("All sum all over image") {
@@ -149,7 +151,7 @@ TEST_CASE("Creates an mpi communicator") {
     }
 
     SECTION("std::string") {
-      auto const expected = "Hello World!";
+      const auto *const expected = "Hello World!";
       std::string const input = world.is_root() ? expected : "";
       CHECK(world.broadcast(input) == expected);
     }

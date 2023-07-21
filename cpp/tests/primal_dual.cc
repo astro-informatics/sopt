@@ -1,7 +1,7 @@
 #include <catch.hpp>
 #include <random>
 
-#include <assert.h>
+#include <cassert>
 
 #include <Eigen/Dense>
 

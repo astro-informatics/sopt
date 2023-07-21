@@ -13,8 +13,8 @@ inline std::shared_ptr<int> initialize(std::string const &) { return nullptr; }
 inline std::shared_ptr<int> initialize() { return nullptr; }
 inline std::shared_ptr<int> get(std::string const &) { return nullptr; }
 inline std::shared_ptr<int> get() { return nullptr; }
-inline void set_level(std::string const &, std::string const &){};
-inline void set_level(std::string const &){};
+inline void set_level(std::string const &, std::string const &){}
+inline void set_level(std::string const &){}
 inline bool has_level(std::string const &, std::string const &) { return false; }
 } // namespace sopt::logging
 

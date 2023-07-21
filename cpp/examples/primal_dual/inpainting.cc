@@ -16,7 +16,6 @@
 #include "sopt/power_method.h"
 #include "sopt/relative_variation.h"
 #include "sopt/sampling.h"
-#include "sopt/types.h"
 #include "sopt/utilities.h"
 #include "sopt/wavelets.h"
 #include "sopt/wavelets/sara.h"

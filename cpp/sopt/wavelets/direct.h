@@ -2,6 +2,7 @@
 #define SOPT_WAVELETS_DIRECT_H
 
 #include "sopt/config.h"
+#include <algorithm> // for std::copy<>
 #include <type_traits>
 #include "sopt/types.h"
 #include "sopt/wavelets/wavelet_data.h"

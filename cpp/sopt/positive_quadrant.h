@@ -4,7 +4,10 @@
 #include "sopt/linear_transform.h"
 #include "sopt/types.h"
 
+#include <utility> // for std::forward
+
 namespace sopt::algorithm {
+
 //! \brief Computes according to given algorithm and then projects it to the positive quadrant
 //! \details C implementation of the reweighted algorithms uses this, even-though the solutions are
 //! already constrained to the positive quadrant.

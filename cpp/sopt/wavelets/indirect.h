@@ -6,6 +6,8 @@
 #include "sopt/wavelets/innards.impl.h"
 #include "sopt/wavelets/wavelet_data.h"
 
+#include <algorithm> // for std::copy<>
+
 // Function inside anonymouns namespace won't appear in library
 namespace sopt::wavelets {
 namespace {

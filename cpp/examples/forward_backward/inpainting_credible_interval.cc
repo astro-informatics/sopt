@@ -141,7 +141,9 @@ int main(int argc, char const **argv) {
            0.5 * std::pow(sopt::l2_norm(sampling * x - y), 2) / (sigma * sigma);
   };
 
-  sopt::Image<sopt::t_real> lower_error, upper_error, mean_solution;
+  sopt::Image<sopt::t_real> lower_error;
+  sopt::Image<sopt::t_real> upper_error;
+  sopt::Image<sopt::t_real> mean_solution;
   std::tie(lower_error, mean_solution, upper_error) =
       sopt::credible_region::credible_interval<sopt::Vector<sopt::t_real>, sopt::t_real>(
           diagnostic.x, image.rows(), image.cols(), grid_pixel_size, objective_function, alpha);

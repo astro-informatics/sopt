@@ -3,6 +3,7 @@
 // TODO: Clean up unnecessary includes
 #include "sopt/config.h"
 #include <numeric>
+#include <string> // for std::string
 #include <tuple>
 #include <utility>
 #include "sopt/exception.h"
@@ -37,11 +38,11 @@ public:
 
   // The constructor constructs a cppflow model object from a saved model saved
   // to the file filename
-  TFGProximal(std::string path)
+  TFGProximal(const std::string& path)
     : model_(path),
       square_image_(true),
       Psi_(linear_transform_identity<Scalar>()) {}
-  TFGProximal(std::string path, const int rows, const int cols)
+  TFGProximal(const std::string& path, const int rows, const int cols)
     : model_(path),
       square_image_(false),
       image_rows_(rows),

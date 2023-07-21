@@ -6,6 +6,7 @@
 
 #ifdef SOPT_MPI
 
+#include <algorithm> // for std::copy
 #include <iostream>
 #include <memory>
 #include <mpi.h>
@@ -46,7 +47,7 @@ class Communicator {
   static Communicator World() { return Communicator(MPI_COMM_WORLD); }
   static Communicator Self() { return Communicator(MPI_COMM_SELF); }
 
-  virtual ~Communicator(){};
+  virtual ~Communicator(){}
 
   //! The number of processes
   decltype(Impl::size) size() const { return impl ? impl->size : 1; }
@@ -293,7 +294,8 @@ typename std::enable_if<is_registered_type<T>::value, Vector<T>>::type Communica
     return vec;
   }
   if (rank() != root) return scatterv<T>(sizes.at(rank()), root);
-  std::vector<int> sizes_, displs;
+  std::vector<int> sizes_;
+  std::vector<int> displs;
   int i = 0;
   for (auto const size : sizes) {
     sizes_.push_back(static_cast<int>(size));
@@ -341,7 +343,7 @@ Communicator::all_to_allv(const std::vector<T> &vec, std::vector<t_int> const &s
   }
 
   return all_to_allv<T>(vec, send_sizes, rec_sizes);
-};
+}
 template <class T>
 typename std::enable_if<is_registered_type<T>::value, std::vector<T>>::type
 Communicator::all_to_allv(const std::vector<T> &vec, std::vector<t_int> const &send_sizes,
@@ -353,14 +355,16 @@ Communicator::all_to_allv(const std::vector<T> &vec, std::vector<t_int> const &s
   }
 
   int i = 0;
-  std::vector<int> ssizes_, sdispls;
+  std::vector<int> ssizes_;
+  std::vector<int> sdispls;
   for (auto const size : send_sizes) {
     ssizes_.push_back(static_cast<int>(size));
     sdispls.push_back(i);
     i += size;
   }
   int total = 0;
-  std::vector<int> rsizes_, rdispls;
+  std::vector<int> rsizes_;
+  std::vector<int> rdispls;
   for (auto const size : rec_sizes) {
     rsizes_.push_back(static_cast<int>(size));
     rdispls.push_back(total);
@@ -371,7 +375,7 @@ Communicator::all_to_allv(const std::vector<T> &vec, std::vector<t_int> const &s
                 sdispls.data(), registered_type(T(0)), output.data(), rsizes_.data(),
                 rdispls.data(), registered_type(T(0)), **this);
   return output;
-};
+}
 
 template <class T>
 typename std::enable_if<is_registered_type<T>::value, Vector<T>>::type Communicator::all_to_allv(
@@ -390,7 +394,7 @@ typename std::enable_if<is_registered_type<T>::value, Vector<T>>::type Communica
   }
 
   return all_to_allv<T>(vec, send_sizes, rec_sizes);
-};
+}
 
 template <class T>
 typename std::enable_if<is_registered_type<T>::value, Vector<T>>::type Communicator::all_to_allv(
@@ -403,14 +407,16 @@ typename std::enable_if<is_registered_type<T>::value, Vector<T>>::type Communica
   }
 
   int i = 0;
-  std::vector<int> ssizes_, sdispls;
+  std::vector<int> ssizes_;
+  std::vector<int> sdispls;
   for (auto const size : send_sizes) {
     ssizes_.push_back(static_cast<int>(size));
     sdispls.push_back(i);
     i += size;
   }
   int total = 0;
-  std::vector<int> rsizes_, rdispls;
+  std::vector<int> rsizes_;
+  std::vector<int> rdispls;
   for (auto const size : rec_sizes) {
     rsizes_.push_back(static_cast<int>(size));
     rdispls.push_back(total);
@@ -421,7 +427,7 @@ typename std::enable_if<is_registered_type<T>::value, Vector<T>>::type Communica
                 sdispls.data(), registered_type(T(0)), output.data(), rsizes_.data(),
                 rdispls.data(), registered_type(T(0)), **this);
   return output;
-};
+}
 
 template <class T>
 typename std::enable_if<is_registered_type<T>::value, std::vector<T>>::type Communicator::gather(
@@ -445,7 +451,7 @@ CONTAINER Communicator::gather_(CONTAINER const &vec, std::vector<t_int> const &
   assert(root < size());
   if (sizes.size() != size() and rank() == root)
     throw std::runtime_error("Sizes and communicator size do not match on root");
-  else if (rank() != root and sizes.size() != 0 and sizes.size() != size())
+  else if (rank() != root and !sizes.empty() and sizes.size() != size())
     throw std::runtime_error(
         "Outside root, sizes should be either empty or match the number of procs");
   else if (sizes.size() == size() and sizes[rank()] != static_cast<t_int>(vec.size()))
@@ -455,7 +461,8 @@ CONTAINER Communicator::gather_(CONTAINER const &vec, std::vector<t_int> const &
 
   if (rank() != root) return gather_<CONTAINER, T>(vec, root);
 
-  std::vector<int> sizes_, displs;
+  std::vector<int> sizes_;
+  std::vector<int> displs;
   int result_size = 0;
   for (auto const size : sizes) {
     sizes_.push_back(static_cast<int>(size));

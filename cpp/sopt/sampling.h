@@ -5,6 +5,7 @@
 #include <initializer_list>
 #include <memory>
 #include <random>
+#include <vector> // for std::vector<>
 #include <Eigen/Core>
 #include "sopt/linear_transform.h"
 #include "sopt/types.h"

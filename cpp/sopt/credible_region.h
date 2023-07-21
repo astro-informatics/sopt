@@ -2,8 +2,11 @@
 #define SOPT_CREDIBLE_REGION_H
 
 #include "sopt/config.h"
+#include <algorithm> // for std::min()
 #include <functional>
 #include <iostream>
+#include <memory> // for make_shared<>
+#include <tuple> // for tuple<>
 #include <type_traits>
 #include "sopt/bisection_method.h"
 #include "sopt/exception.h"
@@ -53,9 +56,6 @@ credible_interval(const Eigen::MatrixBase<T> &solution, const t_uint &rows, cons
                   const std::tuple<t_uint, t_uint> &grid_pixel_size,
                   const std::function<t_real(typename T::PlainObject)> &objective_function,
                   const t_real &alpha);
-} // namespace sopt::credible_region
-
-namespace sopt::credible_region {
 
 template <class T>
 t_real compute_energy_upper_bound(
