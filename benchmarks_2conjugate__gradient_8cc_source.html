@@ -83,7 +83,7 @@ $(function() {
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;sstream&gt;</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;benchmark/benchmark.h&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> TYPE&gt;</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> TYPE&gt;</div>
 <div class="line"><a name="l00006"></a><span class="lineno"><a class="line" href="benchmarks_2conjugate__gradient_8cc.html#ae0aae8393480513a27dfab2944c4055a">    6</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="benchmarks_2conjugate__gradient_8cc.html#ae0aae8393480513a27dfab2944c4055a">matrix_cg</a>(benchmark::State &amp;state) {</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> <a class="code" href="benchmarks_2wavelets_8cc.html#abf5832df28c04314f2887376d47dca71">N</a> = state.range_x();</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> <a class="code" href="namespacesopt.html#a974f99e567f8ac05a0fe5e50fbfd215b">epsilon</a> = std::pow(10, -state.range_y());</div>
@@ -98,7 +98,7 @@ $(function() {
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;  state.SetBytesProcessed(int64_t(state.iterations()) * int64_t(<a class="code" href="benchmarks_2wavelets_8cc.html#abf5832df28c04314f2887376d47dca71">N</a>) * <span class="keyword">sizeof</span>(TYPE));</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;}</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> TYPE&gt;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> TYPE&gt;</div>
 <div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="benchmarks_2conjugate__gradient_8cc.html#a1f13a158f7684a40baeb025b05716471">   21</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="benchmarks_2conjugate__gradient_8cc.html#a1f13a158f7684a40baeb025b05716471">function_cg</a>(benchmark::State &amp;state) {</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> <a class="code" href="benchmarks_2wavelets_8cc.html#abf5832df28c04314f2887376d47dca71">N</a> = state.range_x();</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> <a class="code" href="namespacesopt.html#a974f99e567f8ac05a0fe5e50fbfd215b">epsilon</a> = std::pow(10, -state.range_y());</div>

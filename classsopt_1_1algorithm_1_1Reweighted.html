@@ -176,7 +176,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a51138feecd63a9df214c95d802415c8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a28449d4380b6ebf25201132bbaf8181d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsopt_1_1algorithm_1_1Reweighted.html#a28449d4380b6ebf25201132bbaf8181d">is_converged</a> (<a class="el" href="classsopt_1_1algorithm_1_1Reweighted.html#af084f978bfeaa198aeabce8a75f53017">XVector</a> const &amp;x) const</td></tr>
 <tr class="separator:a28449d4380b6ebf25201132bbaf8181d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a31f2e65cef4a072002ba2a8773f63bc8"><td class="memTemplParams" colspan="2">template&lt;class INPUT &gt; </td></tr>
+<tr class="memitem:a31f2e65cef4a072002ba2a8773f63bc8"><td class="memTemplParams" colspan="2">template&lt;typename INPUT &gt; </td></tr>
 <tr class="memitem:a31f2e65cef4a072002ba2a8773f63bc8"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if&lt; not(std::is_same&lt; INPUT, typename Algorithm::DiagnosticAndResult &gt;::value or std::is_same&lt; INPUT, <a class="el" href="structsopt_1_1algorithm_1_1Reweighted_1_1ReweightedResult.html">ReweightedResult</a> &gt;::value), <a class="el" href="structsopt_1_1algorithm_1_1Reweighted_1_1ReweightedResult.html">ReweightedResult</a> &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsopt_1_1algorithm_1_1Reweighted.html#a31f2e65cef4a072002ba2a8773f63bc8">operator()</a> (INPUT const &amp;input) const</td></tr>
 <tr class="memdesc:a31f2e65cef4a072002ba2a8773f63bc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs reweighting.  <a href="classsopt_1_1algorithm_1_1Reweighted.html#a31f2e65cef4a072002ba2a8773f63bc8">More...</a><br /></td></tr>
 <tr class="separator:a31f2e65cef4a072002ba2a8773f63bc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -200,7 +200,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a98ec3ad03f985a4f954dff65a72bc250"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;class ALGORITHM&gt;<br />
+<div class="textblock"><h3>template&lt;typename ALGORITHM&gt;<br />
 class sopt::algorithm::Reweighted&lt; ALGORITHM &gt;</h3>
 
 <p>L0-approximation algorithm, through reweighting. </p>
@@ -219,7 +219,7 @@ class sopt::algorithm::Reweighted&lt; ALGORITHM &gt;</h3>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class ALGORITHM &gt; </div>
+template&lt;typename ALGORITHM &gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">using <a class="el" href="classsopt_1_1algorithm_1_1Reweighted.html">sopt::algorithm::Reweighted</a>&lt; ALGORITHM &gt;::<a class="el" href="classsopt_1_1algorithm_1_1Reweighted.html#a10e9eb54d07d3441cf19ad2e02e93c9b">Algorithm</a> =  ALGORITHM</td>
@@ -239,7 +239,7 @@ template&lt;class ALGORITHM &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class ALGORITHM &gt; </div>
+template&lt;typename ALGORITHM &gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">using <a class="el" href="classsopt_1_1algorithm_1_1Reweighted.html">sopt::algorithm::Reweighted</a>&lt; ALGORITHM &gt;::<a class="el" href="classsopt_1_1algorithm_1_1Reweighted.html#ac094e45489e7dcc435abb4d2dda3202d">Real</a> =  typename <a class="el" href="namespacesopt.html#a7ee75936aaae93251b12abb77c3e02aa">real_type</a>&lt;<a class="el" href="classsopt_1_1algorithm_1_1Reweighted.html#af9b31075e440420edc317eb80d248e41">Scalar</a>&gt;::type</td>
@@ -259,7 +259,7 @@ template&lt;class ALGORITHM &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class ALGORITHM &gt; </div>
+template&lt;typename ALGORITHM &gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">using <a class="el" href="classsopt_1_1algorithm_1_1Reweighted.html">sopt::algorithm::Reweighted</a>&lt; ALGORITHM &gt;::<a class="el" href="classsopt_1_1algorithm_1_1Reweighted.html#af9b31075e440420edc317eb80d248e41">Scalar</a> =  typename Algorithm::Scalar</td>
@@ -279,7 +279,7 @@ template&lt;class ALGORITHM &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class ALGORITHM &gt; </div>
+template&lt;typename ALGORITHM &gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">using <a class="el" href="classsopt_1_1algorithm_1_1Reweighted.html">sopt::algorithm::Reweighted</a>&lt; ALGORITHM &gt;::<a class="el" href="classsopt_1_1algorithm_1_1Reweighted.html#a46c01d2dac3d126ec8321e3f1d6fb510">t_DeltaUpdate</a> =  std::function&lt;<a class="el" href="classsopt_1_1algorithm_1_1Reweighted.html#ac094e45489e7dcc435abb4d2dda3202d">Real</a> (<a class="el" href="classsopt_1_1algorithm_1_1Reweighted.html#ac094e45489e7dcc435abb4d2dda3202d">Real</a>)&gt;</td>
@@ -299,7 +299,7 @@ template&lt;class ALGORITHM &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class ALGORITHM &gt; </div>
+template&lt;typename ALGORITHM &gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">using <a class="el" href="classsopt_1_1algorithm_1_1Reweighted.html">sopt::algorithm::Reweighted</a>&lt; ALGORITHM &gt;::<a class="el" href="classsopt_1_1algorithm_1_1Reweighted.html#afd1a2374c45b50a296015432c9f17464">t_IsConverged</a> =  <a class="el" href="namespacesopt.html#acc375c693a8c32c2a954d17a7773b7f8">ConvergenceFunction</a>&lt;<a class="el" href="classsopt_1_1algorithm_1_1Reweighted.html#af9b31075e440420edc317eb80d248e41">Scalar</a>&gt;</td>
@@ -319,7 +319,7 @@ template&lt;class ALGORITHM &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class ALGORITHM &gt; </div>
+template&lt;typename ALGORITHM &gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">using <a class="el" href="classsopt_1_1algorithm_1_1Reweighted.html">sopt::algorithm::Reweighted</a>&lt; ALGORITHM &gt;::<a class="el" href="classsopt_1_1algorithm_1_1Reweighted.html#a898dc9d0702e42e3eabf4b18bb5c669e">t_Reweightee</a> =  std::function&lt;<a class="el" href="classsopt_1_1algorithm_1_1Reweighted.html#af084f978bfeaa198aeabce8a75f53017">XVector</a> (const <a class="el" href="classsopt_1_1algorithm_1_1Reweighted.html#a10e9eb54d07d3441cf19ad2e02e93c9b">Algorithm</a> &amp;, const <a class="el" href="classsopt_1_1algorithm_1_1Reweighted.html#af084f978bfeaa198aeabce8a75f53017">XVector</a> &amp;)&gt;</td>
@@ -340,7 +340,7 @@ template&lt;class ALGORITHM &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class ALGORITHM &gt; </div>
+template&lt;typename ALGORITHM &gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">using <a class="el" href="classsopt_1_1algorithm_1_1Reweighted.html">sopt::algorithm::Reweighted</a>&lt; ALGORITHM &gt;::<a class="el" href="classsopt_1_1algorithm_1_1Reweighted.html#a502a97b554cea1f2a27005eaf07cc47b">t_SetWeights</a> =  std::function&lt;void (<a class="el" href="classsopt_1_1algorithm_1_1Reweighted.html#a10e9eb54d07d3441cf19ad2e02e93c9b">Algorithm</a> &amp;, const <a class="el" href="classsopt_1_1algorithm_1_1Reweighted.html#a85ee526be62b83b372ba4f28298520f8">WeightVector</a> &amp;)&gt;</td>
@@ -360,7 +360,7 @@ template&lt;class ALGORITHM &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class ALGORITHM &gt; </div>
+template&lt;typename ALGORITHM &gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">using <a class="el" href="classsopt_1_1algorithm_1_1Reweighted.html">sopt::algorithm::Reweighted</a>&lt; ALGORITHM &gt;::<a class="el" href="classsopt_1_1algorithm_1_1Reweighted.html#a85ee526be62b83b372ba4f28298520f8">WeightVector</a> =  <a class="el" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">Vector</a>&lt;<a class="el" href="classsopt_1_1algorithm_1_1Reweighted.html#ac094e45489e7dcc435abb4d2dda3202d">Real</a>&gt;</td>
@@ -380,7 +380,7 @@ template&lt;class ALGORITHM &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class ALGORITHM &gt; </div>
+template&lt;typename ALGORITHM &gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">using <a class="el" href="classsopt_1_1algorithm_1_1Reweighted.html">sopt::algorithm::Reweighted</a>&lt; ALGORITHM &gt;::<a class="el" href="classsopt_1_1algorithm_1_1Reweighted.html#af084f978bfeaa198aeabce8a75f53017">XVector</a> =  typename <a class="el" href="sdmm__warm__start_8cc.html#a150b8eda2681eca0377a440541891747">Algorithm::t_Vector</a></td>
@@ -401,7 +401,7 @@ template&lt;class ALGORITHM &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class ALGORITHM &gt; </div>
+template&lt;typename ALGORITHM &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -455,7 +455,7 @@ template&lt;class ALGORITHM &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class ALGORITHM &gt; </div>
+template&lt;typename ALGORITHM &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -489,7 +489,7 @@ template&lt;class ALGORITHM &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class ALGORITHM &gt; </div>
+template&lt;typename ALGORITHM &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -521,7 +521,7 @@ template&lt;class ALGORITHM &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class ALGORITHM &gt; </div>
+template&lt;typename ALGORITHM &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -557,7 +557,7 @@ template&lt;class ALGORITHM &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class ALGORITHM &gt; </div>
+template&lt;typename ALGORITHM &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -593,7 +593,7 @@ template&lt;class ALGORITHM &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class ALGORITHM &gt; </div>
+template&lt;typename ALGORITHM &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -625,7 +625,7 @@ template&lt;class ALGORITHM &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class ALGORITHM &gt; </div>
+template&lt;typename ALGORITHM &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -659,7 +659,7 @@ template&lt;class ALGORITHM &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class ALGORITHM &gt; </div>
+template&lt;typename ALGORITHM &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -694,7 +694,7 @@ template&lt;class ALGORITHM &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class ALGORITHM &gt; </div>
+template&lt;typename ALGORITHM &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -726,7 +726,7 @@ template&lt;class ALGORITHM &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class ALGORITHM &gt; </div>
+template&lt;typename ALGORITHM &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -760,7 +760,7 @@ template&lt;class ALGORITHM &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class ALGORITHM &gt; </div>
+template&lt;typename ALGORITHM &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -794,7 +794,7 @@ template&lt;class ALGORITHM &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class ALGORITHM &gt; </div>
+template&lt;typename ALGORITHM &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -830,7 +830,7 @@ template&lt;class ALGORITHM &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class ALGORITHM &gt; </div>
+template&lt;typename ALGORITHM &gt; </div>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="classsopt_1_1algorithm_1_1Reweighted.html">Reweighted</a>&lt; ALGORITHM &gt;::<a class="el" href="structsopt_1_1algorithm_1_1Reweighted_1_1ReweightedResult.html">ReweightedResult</a> <a class="el" href="classsopt_1_1algorithm_1_1Reweighted.html">sopt::algorithm::Reweighted</a>&lt; ALGORITHM &gt;::operator()</td>
@@ -856,9 +856,9 @@ template&lt;class ALGORITHM &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class ALGORITHM &gt; </div>
+template&lt;typename ALGORITHM &gt; </div>
 <div class="memtemplate">
-template&lt;class INPUT &gt; </div>
+template&lt;typename INPUT &gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">std::enable_if&lt; not(std::is_same&lt; INPUT, typename ALGORITHM::DiagnosticAndResult &gt;::value or std::is_same&lt; INPUT, typename <a class="el" href="classsopt_1_1algorithm_1_1Reweighted.html">Reweighted</a>&lt; ALGORITHM &gt;::<a class="el" href="structsopt_1_1algorithm_1_1Reweighted_1_1ReweightedResult.html">ReweightedResult</a> &gt;::value), typename <a class="el" href="classsopt_1_1algorithm_1_1Reweighted.html">Reweighted</a>&lt; ALGORITHM &gt;::<a class="el" href="structsopt_1_1algorithm_1_1Reweighted_1_1ReweightedResult.html">ReweightedResult</a> &gt;::type <a class="el" href="classsopt_1_1algorithm_1_1Reweighted.html">sopt::algorithm::Reweighted</a>&lt; ALGORITHM &gt;::operator() </td>
@@ -888,7 +888,7 @@ template&lt;class INPUT &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class ALGORITHM &gt; </div>
+template&lt;typename ALGORITHM &gt; </div>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="classsopt_1_1algorithm_1_1Reweighted.html">Reweighted</a>&lt; ALGORITHM &gt;::<a class="el" href="structsopt_1_1algorithm_1_1Reweighted_1_1ReweightedResult.html">ReweightedResult</a> <a class="el" href="classsopt_1_1algorithm_1_1Reweighted.html">sopt::algorithm::Reweighted</a>&lt; ALGORITHM &gt;::operator() </td>
@@ -942,7 +942,7 @@ template&lt;class ALGORITHM &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class ALGORITHM &gt; </div>
+template&lt;typename ALGORITHM &gt; </div>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="classsopt_1_1algorithm_1_1Reweighted.html">Reweighted</a>&lt; ALGORITHM &gt;::<a class="el" href="structsopt_1_1algorithm_1_1Reweighted_1_1ReweightedResult.html">ReweightedResult</a> <a class="el" href="classsopt_1_1algorithm_1_1Reweighted.html">sopt::algorithm::Reweighted</a>&lt; ALGORITHM &gt;::operator() </td>
@@ -974,7 +974,7 @@ template&lt;class ALGORITHM &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class ALGORITHM &gt; </div>
+template&lt;typename ALGORITHM &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1006,7 +1006,7 @@ template&lt;class ALGORITHM &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class ALGORITHM &gt; </div>
+template&lt;typename ALGORITHM &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1042,7 +1042,7 @@ template&lt;class ALGORITHM &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class ALGORITHM &gt; </div>
+template&lt;typename ALGORITHM &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1079,7 +1079,7 @@ template&lt;class ALGORITHM &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class ALGORITHM &gt; </div>
+template&lt;typename ALGORITHM &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1113,7 +1113,7 @@ template&lt;class ALGORITHM &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class ALGORITHM &gt; </div>
+template&lt;typename ALGORITHM &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1160,7 +1160,7 @@ template&lt;class ALGORITHM &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class ALGORITHM &gt; </div>
+template&lt;typename ALGORITHM &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1196,7 +1196,7 @@ template&lt;class ALGORITHM &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class ALGORITHM &gt; </div>
+template&lt;typename ALGORITHM &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1228,7 +1228,7 @@ template&lt;class ALGORITHM &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class ALGORITHM &gt; </div>
+template&lt;typename ALGORITHM &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1265,7 +1265,7 @@ template&lt;class ALGORITHM &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class ALGORITHM &gt; </div>
+template&lt;typename ALGORITHM &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">

@@ -92,7 +92,7 @@ $(function() {
 <div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="namespacesopt_1_1wavelets.html">   11</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacesopt_1_1wavelets.html">sopt::wavelets</a> {</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>{</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T0, <span class="keyword">class</span> T1&gt;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T0, <span class="keyword">typename</span> T1&gt;</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">typename</span> std::enable_if&lt;T1::IsVectorAtCompileTime, void&gt;::type direct_transform_impl(</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    Eigen::ArrayBase&lt;T0&gt; <span class="keyword">const</span> &amp;coeffs_, Eigen::ArrayBase&lt;T1&gt; <span class="keyword">const</span> &amp;signal,</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <a class="code" href="structsopt_1_1wavelets_1_1WaveletData.html">WaveletData</a> <span class="keyword">const</span> &amp;wavelet) {</div>
@@ -105,7 +105,7 @@ $(function() {
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  down_convolve(coeffs.tail(coeffs.size() - <a class="code" href="benchmarks_2wavelets_8cc.html#abf5832df28c04314f2887376d47dca71">N</a>), signal, wavelet.<a class="code" href="structsopt_1_1wavelets_1_1WaveletData.html#ad4395dfd2205fe0ef0092802ca7c982c">direct_filter</a>.<a class="code" href="structsopt_1_1wavelets_1_1WaveletData_1_1DirectFilter.html#aab76e2c0194364a8bc9bf1b2e641cb88">high</a>);</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;}</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T0, <span class="keyword">class</span> T1&gt;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T0, <span class="keyword">typename</span> T1&gt;</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">typename</span> std::enable_if&lt;not T1::IsVectorAtCompileTime, void&gt;::type direct_transform_impl(</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    Eigen::ArrayBase&lt;T0&gt; <span class="keyword">const</span> &amp;coeffs_, Eigen::ArrayBase&lt;T1&gt; <span class="keyword">const</span> &amp;signal_,</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <a class="code" href="structsopt_1_1wavelets_1_1WaveletData.html">WaveletData</a> <span class="keyword">const</span> &amp;wavelet) {</div>
@@ -124,7 +124,7 @@ $(function() {
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;}</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;}  <span class="comment">// namespace</span></div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T0, <span class="keyword">class</span> T1&gt;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T0, <span class="keyword">typename</span> T1&gt;</div>
 <div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="namespacesopt_1_1wavelets.html#a378f59ac3ce43c1f2e81fc6480efc8df">   61</a></span>&#160;<span class="keyword">typename</span> std::enable_if&lt;T1::IsVectorAtCompileTime, void&gt;::type <a class="code" href="namespacesopt_1_1wavelets.html#a378f59ac3ce43c1f2e81fc6480efc8df">direct_transform</a>(</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    Eigen::ArrayBase&lt;T0&gt; &amp;coeffs, Eigen::ArrayBase&lt;T1&gt; <span class="keyword">const</span> &amp;signal, <a class="code" href="namespacesopt.html#a7237c0991f6ec8c2bbdab8929b564964">t_uint</a> levels,</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <a class="code" href="structsopt_1_1wavelets_1_1WaveletData.html">WaveletData</a> <span class="keyword">const</span> &amp;wavelet) {</div>
@@ -139,7 +139,7 @@ $(function() {
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    direct_transform_impl(coeffs.head(<a class="code" href="benchmarks_2wavelets_8cc.html#abf5832df28c04314f2887376d47dca71">N</a>), input.head(<a class="code" href="benchmarks_2wavelets_8cc.html#abf5832df28c04314f2887376d47dca71">N</a>), wavelet);</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  }</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;}</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T0, <span class="keyword">class</span> T1&gt;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T0, <span class="keyword">typename</span> T1&gt;</div>
 <div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="namespacesopt_1_1wavelets.html#acfff953dbab406985efac546d60c5edc">   81</a></span>&#160;<span class="keyword">typename</span> std::enable_if&lt;not T1::IsVectorAtCompileTime, void&gt;::type <a class="code" href="namespacesopt_1_1wavelets.html#a378f59ac3ce43c1f2e81fc6480efc8df">direct_transform</a>(</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    Eigen::ArrayBase&lt;T0&gt; <span class="keyword">const</span> &amp;coeffs_, Eigen::ArrayBase&lt;T1&gt; <span class="keyword">const</span> &amp;signal, <a class="code" href="namespacesopt.html#a7237c0991f6ec8c2bbdab8929b564964">t_uint</a> levels,</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <a class="code" href="structsopt_1_1wavelets_1_1WaveletData.html">WaveletData</a> <span class="keyword">const</span> &amp;wavelet) {</div>
@@ -162,7 +162,7 @@ $(function() {
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;  }</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;}</div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T0&gt;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T0&gt;</div>
 <div class="line"><a name="l00107"></a><span class="lineno"><a class="line" href="namespacesopt_1_1wavelets.html#a3c43c452d5929aff9d653d27ac25a7d1">  107</a></span>&#160;<span class="keyword">auto</span> <a class="code" href="namespacesopt_1_1wavelets.html#a378f59ac3ce43c1f2e81fc6480efc8df">direct_transform</a>(Eigen::ArrayBase&lt;T0&gt; <span class="keyword">const</span> &amp;signal, <a class="code" href="namespacesopt.html#a7237c0991f6ec8c2bbdab8929b564964">t_uint</a> levels, <a class="code" href="structsopt_1_1wavelets_1_1WaveletData.html">WaveletData</a> <span class="keyword">const</span> &amp;wavelet)</div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    -&gt; decltype(copy(signal)) {</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;  <span class="keyword">auto</span> result = copy(signal);</div>

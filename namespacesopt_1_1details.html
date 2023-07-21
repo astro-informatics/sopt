@@ -125,7 +125,7 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a9b2c8778a2d73aff0499c9f899fe16df"><td class="memTemplParams" colspan="2">template&lt;class SCALAR &gt; </td></tr>
+<tr class="memitem:a9b2c8778a2d73aff0499c9f899fe16df"><td class="memTemplParams" colspan="2">template&lt;typename SCALAR &gt; </td></tr>
 <tr class="memitem:a9b2c8778a2d73aff0499c9f899fe16df"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacesopt_1_1details.html#a9b2c8778a2d73aff0499c9f899fe16df">SoftThreshhold</a> = decltype(std::bind(<a class="el" href="namespacesopt.html#a6494afff8ee7f1196ff67ce646359d3e">soft_threshhold</a>&lt; SCALAR &gt;, std::placeholders::_1, typename <a class="el" href="namespacesopt.html#a7ee75936aaae93251b12abb77c3e02aa">real_type</a>&lt; SCALAR &gt;::type(1)))</td></tr>
 <tr class="memdesc:a9b2c8778a2d73aff0499c9f899fe16df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper template type alias to instantiate soft_threshhold that takes an <a class="el" href="namespaceEigen.html">Eigen</a> object.  <a href="namespacesopt_1_1details.html#a9b2c8778a2d73aff0499c9f899fe16df">More...</a><br /></td></tr>
 <tr class="separator:a9b2c8778a2d73aff0499c9f899fe16df"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -135,7 +135,7 @@ Functions</h2></td></tr>
 <tr class="memitem:a19d03d9b49ed12e7f7b91cb8b19e1db2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacesopt.html#a47796df8f5f6bbffc226292ef1ca8196">t_int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesopt_1_1details.html#a19d03d9b49ed12e7f7b91cb8b19e1db2">gcd</a> (<a class="el" href="namespacesopt.html#a47796df8f5f6bbffc226292ef1ca8196">t_int</a> <a class="el" href="bisection__method_8cc.html#abe0def96c0a846f46d6fe7c115ff2a7f">a</a>, <a class="el" href="namespacesopt.html#a47796df8f5f6bbffc226292ef1ca8196">t_int</a> <a class="el" href="bisection__method_8cc.html#a63a56f8266f9d4e2b7904199812311c4">b</a>)</td></tr>
 <tr class="memdesc:a19d03d9b49ed12e7f7b91cb8b19e1db2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Greatest common divisor.  <a href="namespacesopt_1_1details.html#a19d03d9b49ed12e7f7b91cb8b19e1db2">More...</a><br /></td></tr>
 <tr class="separator:a19d03d9b49ed12e7f7b91cb8b19e1db2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa242c492d8954838a773f75c5a274729"><td class="memTemplParams" colspan="2">template&lt;class VECTOR &gt; </td></tr>
+<tr class="memitem:aa242c492d8954838a773f75c5a274729"><td class="memTemplParams" colspan="2">template&lt;typename VECTOR &gt; </td></tr>
 <tr class="memitem:aa242c492d8954838a773f75c5a274729"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classsopt_1_1details_1_1WrapFunction.html">WrapFunction</a>&lt; VECTOR &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacesopt_1_1details.html#aa242c492d8954838a773f75c5a274729">wrap</a> (<a class="el" href="namespacesopt.html#aa4353f012100677172534381f2801fa9">OperatorFunction</a>&lt; VECTOR &gt; const &amp;func, std::array&lt; <a class="el" href="namespacesopt.html#a47796df8f5f6bbffc226292ef1ca8196">t_int</a>, 3 &gt; sizes={{1, 1, 0}})</td></tr>
 <tr class="memdesc:aa242c492d8954838a773f75c5a274729"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function to wrap functor into expression-able object.  <a href="namespacesopt_1_1details.html#aa242c492d8954838a773f75c5a274729">More...</a><br /></td></tr>
 <tr class="separator:aa242c492d8954838a773f75c5a274729"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -147,7 +147,7 @@ Functions</h2></td></tr>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class SCALAR &gt; </div>
+template&lt;typename SCALAR &gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">using <a class="el" href="namespacesopt_1_1details.html#a9b2c8778a2d73aff0499c9f899fe16df">sopt::details::SoftThreshhold</a> = typedef decltype(std::bind(<a class="el" href="namespacesopt.html#a6494afff8ee7f1196ff67ce646359d3e">soft_threshhold</a>&lt;SCALAR&gt;, std::placeholders::_1, typename <a class="el" href="namespacesopt.html#a7ee75936aaae93251b12abb77c3e02aa">real_type</a>&lt;SCALAR&gt;::type(1)))</td>
@@ -213,7 +213,7 @@ template&lt;class SCALAR &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class VECTOR &gt; </div>
+template&lt;typename VECTOR &gt; </div>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="classsopt_1_1details_1_1WrapFunction.html">WrapFunction</a>&lt;VECTOR&gt; sopt::details::wrap </td>

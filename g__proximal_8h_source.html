@@ -88,14 +88,14 @@ $(function() {
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="forward__backward_8h.html">sopt/forward_backward.h</a>&quot;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">// Abstract base class providing the interface to the g_proximal function</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="classGProximal.html">   10</a></span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> SCALAR&gt; <span class="keyword">class </span><a class="code" href="classGProximal.html">GProximal</a> {</div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="classGProximal.html">   10</a></span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> SCALAR&gt; <span class="keyword">class </span><a class="code" href="classGProximal.html">GProximal</a> {</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;  <span class="keyword">using</span> <a class="code" href="classsopt_1_1algorithm_1_1ForwardBackward.html">FB</a> = <a class="code" href="classsopt_1_1algorithm_1_1ForwardBackward.html">sopt::algorithm::ForwardBackward&lt;SCALAR&gt;</a>;</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;  <span class="keyword">using</span> Real = <span class="keyword">typename</span> <a class="code" href="classsopt_1_1algorithm_1_1ForwardBackward.html#a1eff61e02bfdda72cbb09b3ca89ef5ad">FB::Real</a>;</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;  <span class="keyword">using</span> t_Vector = <span class="keyword">typename</span> <a class="code" href="classsopt_1_1algorithm_1_1ForwardBackward.html#a8e179c92b2f7c350d9ee3bdf2b9c7edc">FB::t_Vector</a>;</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;  <span class="keyword">using</span> t_Proximal = <span class="keyword">typename</span> <a class="code" href="classsopt_1_1algorithm_1_1ForwardBackward.html#abbcb952f644a8f41d3129a774bb0cddd">FB::t_Proximal</a>;</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;  <span class="keyword">using</span> t_LinearTransform = <span class="keyword">typename</span> <a class="code" href="classsopt_1_1algorithm_1_1ForwardBackward.html#aaa95cc7ccbbddac6bf905079875f3fdf">FB::t_LinearTransform</a>;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;  </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;  <span class="comment">// A function that prints a log message</span></div>

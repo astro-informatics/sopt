@@ -96,13 +96,13 @@ $(function() {
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacesopt.html">sopt</a> {</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
 <div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="namespacesopt_1_1details.html">   17</a></span>&#160;<span class="keyword">namespace </span>details {</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> EIGEN&gt;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> EIGEN&gt;</div>
 <div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="classsopt_1_1details_1_1MatrixToLinearTransform.html">   22</a></span>&#160;<span class="keyword">class </span><a class="code" href="classsopt_1_1details_1_1MatrixToLinearTransform.html">MatrixToLinearTransform</a>;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> EIGEN&gt;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> EIGEN&gt;</div>
 <div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="classsopt_1_1details_1_1MatrixAdjointToLinearTransform.html">   25</a></span>&#160;<span class="keyword">class </span><a class="code" href="classsopt_1_1details_1_1MatrixAdjointToLinearTransform.html">MatrixAdjointToLinearTransform</a>;</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;}  <span class="comment">// namespace details</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> VECTOR&gt;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> VECTOR&gt;</div>
 <div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="classsopt_1_1LinearTransform.html">   30</a></span>&#160;<span class="keyword">class </span><a class="code" href="classsopt_1_1LinearTransform.html">LinearTransform</a> : <span class="keyword">public</span> <a class="code" href="classsopt_1_1details_1_1WrapFunction.html">details::WrapFunction</a>&lt;VECTOR&gt; {</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="classsopt_1_1LinearTransform.html#a4f14b87d902be4bf46e2ea5ad1801ef5">   33</a></span>&#160;  <span class="keyword">using</span> <a class="code" href="classsopt_1_1LinearTransform.html#a4f14b87d902be4bf46e2ea5ad1801ef5">t_Function</a> = <a class="code" href="namespacesopt.html#aa4353f012100677172534381f2801fa9">OperatorFunction&lt;VECTOR&gt;</a>;</div>
@@ -145,13 +145,13 @@ $(function() {
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;  <a class="code" href="classsopt_1_1details_1_1WrapFunction.html">details::WrapFunction&lt;VECTOR&gt;</a> indirect_;</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;};</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> VECTOR&gt;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> VECTOR&gt;</div>
 <div class="line"><a name="l00101"></a><span class="lineno"><a class="line" href="namespacesopt.html#a27b8391ddefe157e732bebe05696170e">  101</a></span>&#160;<a class="code" href="classsopt_1_1LinearTransform.html">LinearTransform&lt;VECTOR&gt;</a> <a class="code" href="namespacesopt.html#a27b8391ddefe157e732bebe05696170e">linear_transform</a>(<a class="code" href="namespacesopt.html#aa4353f012100677172534381f2801fa9">OperatorFunction&lt;VECTOR&gt;</a> <span class="keyword">const</span> &amp;direct,</div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;                                         <a class="code" href="namespacesopt.html#aa4353f012100677172534381f2801fa9">OperatorFunction&lt;VECTOR&gt;</a> <span class="keyword">const</span> &amp;indirect,</div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;                                         std::array&lt;t_int, 3&gt; <span class="keyword">const</span> &amp;sizes = {{1, 1, 0}}) {</div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;  <span class="keywordflow">return</span> {direct, indirect, sizes};</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;}</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> VECTOR&gt;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> VECTOR&gt;</div>
 <div class="line"><a name="l00116"></a><span class="lineno"><a class="line" href="namespacesopt.html#a424b3b158a6f6c45c97eb244c688b429">  116</a></span>&#160;<a class="code" href="classsopt_1_1LinearTransform.html">LinearTransform&lt;VECTOR&gt;</a> <a class="code" href="namespacesopt.html#a27b8391ddefe157e732bebe05696170e">linear_transform</a>(<a class="code" href="namespacesopt.html#aa4353f012100677172534381f2801fa9">OperatorFunction&lt;VECTOR&gt;</a> <span class="keyword">const</span> &amp;direct,</div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;                                         std::array&lt;t_int, 3&gt; <span class="keyword">const</span> &amp;dsizes,</div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;                                         <a class="code" href="namespacesopt.html#aa4353f012100677172534381f2801fa9">OperatorFunction&lt;VECTOR&gt;</a> <span class="keyword">const</span> &amp;indirect,</div>
@@ -159,11 +159,11 @@ $(function() {
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;  <span class="keywordflow">return</span> {direct, dsizes, indirect, isizes};</div>
 <div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;}</div>
 <div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> VECTOR&gt;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> VECTOR&gt;</div>
 <div class="line"><a name="l00125"></a><span class="lineno"><a class="line" href="namespacesopt.html#a74ca3f91c20ceee3bb34066eda6824b8">  125</a></span>&#160;<a class="code" href="classsopt_1_1LinearTransform.html">LinearTransform&lt;VECTOR&gt;</a> &amp;<a class="code" href="namespacesopt.html#a27b8391ddefe157e732bebe05696170e">linear_transform</a>(<a class="code" href="classsopt_1_1LinearTransform.html">LinearTransform&lt;VECTOR&gt;</a> &amp;passthrough) {</div>
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;  <span class="keywordflow">return</span> passthrough;</div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;}</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> VECTOR&gt;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> VECTOR&gt;</div>
 <div class="line"><a name="l00130"></a><span class="lineno"><a class="line" href="namespacesopt.html#a5d99abe8892d0073763dedb050b95dd3">  130</a></span>&#160;<a class="code" href="classsopt_1_1LinearTransform.html">LinearTransform&lt;VECTOR&gt;</a> <a class="code" href="namespacesopt.html#a27b8391ddefe157e732bebe05696170e">linear_transform</a>(<a class="code" href="classsopt_1_1details_1_1WrapFunction.html">details::WrapFunction&lt;VECTOR&gt;</a> <span class="keyword">const</span> &amp;direct,</div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;                                         <a class="code" href="classsopt_1_1details_1_1WrapFunction.html">details::WrapFunction&lt;VECTOR&gt;</a> <span class="keyword">const</span> &amp;adjoint) {</div>
 <div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;  <span class="keywordflow">return</span> {direct, adjoint};</div>
@@ -171,7 +171,7 @@ $(function() {
 <div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160; </div>
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="keyword">namespace </span>details {</div>
 <div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160; </div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> EIGEN&gt;</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> EIGEN&gt;</div>
 <div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;<span class="keyword">class </span>MatrixToLinearTransform {</div>
 <div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;  <span class="keyword">using</span> Raw = <span class="keyword">typename</span> std::remove_const&lt;typename std::remove_reference&lt;EIGEN&gt;::type&gt;::type;</div>
 <div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;  <span class="keyword">using</span> PlainMatrix = <span class="keyword">typename</span> Raw::PlainObject;</div>
@@ -181,7 +181,7 @@ $(function() {
 <div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;      <span class="keyword">typename</span> std::conditional&lt;std::is_base_of&lt;Eigen::MatrixBase&lt;PlainMatrix&gt;, PlainMatrix&gt;::value,</div>
 <div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;                                <a class="code" href="tests_2inpainting_8cc.html#a47c194cae73625ab3a13b62e4234f46f">Vector&lt;typename PlainMatrix::Scalar&gt;</a>,</div>
 <div class="line"><a name="l00149"></a><span class="lineno"><a class="line" href="classsopt_1_1details_1_1MatrixToLinearTransform.html#afdd83f9048e9530ab421b0aae719cb70">  149</a></span>&#160;                                <a class="code" href="namespacesopt.html#a9de8d7c976f608fe47220203047b5cb8">Array&lt;typename PlainMatrix::Scalar&gt;</a>&gt;::type;</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">class</span> T0&gt;</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T0&gt;</div>
 <div class="line"><a name="l00154"></a><span class="lineno"><a class="line" href="classsopt_1_1details_1_1MatrixToLinearTransform.html#ad965988ccd40489168a0bd9c3c9d0834">  154</a></span>&#160;  <a class="code" href="classsopt_1_1details_1_1MatrixToLinearTransform.html#ad965988ccd40489168a0bd9c3c9d0834">MatrixToLinearTransform</a>(Eigen::MatrixBase&lt;T0&gt; <span class="keyword">const</span> &amp;A) : matrix(std::make_shared&lt;EIGEN&gt;(A)) {}</div>
 <div class="line"><a name="l00156"></a><span class="lineno"><a class="line" href="classsopt_1_1details_1_1MatrixToLinearTransform.html#a4100c5c6fc4ee7602a2ae2e3845738db">  156</a></span>&#160;  <a class="code" href="classsopt_1_1details_1_1MatrixToLinearTransform.html#a4100c5c6fc4ee7602a2ae2e3845738db">MatrixToLinearTransform</a>(std::shared_ptr&lt;EIGEN&gt; <span class="keyword">const</span> &amp;x) : matrix(x){}</div>
 <div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160; </div>
@@ -201,11 +201,11 @@ $(function() {
 <div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;  std::shared_ptr&lt;EIGEN&gt; matrix;</div>
 <div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;};</div>
 <div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160; </div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> EIGEN&gt;</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> EIGEN&gt;</div>
 <div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;<span class="keyword">class </span>MatrixAdjointToLinearTransform {</div>
 <div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160; <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00181"></a><span class="lineno"><a class="line" href="classsopt_1_1details_1_1MatrixAdjointToLinearTransform.html#accb3b6fbefd511ff5db53afac630bb4b">  181</a></span>&#160;  <span class="keyword">using</span> <a class="code" href="classsopt_1_1details_1_1MatrixAdjointToLinearTransform.html#accb3b6fbefd511ff5db53afac630bb4b">PlainObject</a> = <span class="keyword">typename</span> <a class="code" href="classsopt_1_1details_1_1MatrixToLinearTransform.html#afdd83f9048e9530ab421b0aae719cb70">MatrixToLinearTransform&lt;EIGEN&gt;::PlainObject</a>;</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">class</span> T0&gt;</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T0&gt;</div>
 <div class="line"><a name="l00186"></a><span class="lineno"><a class="line" href="classsopt_1_1details_1_1MatrixAdjointToLinearTransform.html#a7ce2f541316f9364bca8a2a82fbac9c4">  186</a></span>&#160;  <a class="code" href="classsopt_1_1details_1_1MatrixAdjointToLinearTransform.html#a7ce2f541316f9364bca8a2a82fbac9c4">MatrixAdjointToLinearTransform</a>(Eigen::MatrixBase&lt;T0&gt; <span class="keyword">const</span> &amp;A)</div>
 <div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;      : matrix(std::make_shared&lt;EIGEN&gt;(A)) {}</div>
 <div class="line"><a name="l00189"></a><span class="lineno"><a class="line" href="classsopt_1_1details_1_1MatrixAdjointToLinearTransform.html#a3f7a142fe5bd28d56a77cf336133f98f">  189</a></span>&#160;  <a class="code" href="classsopt_1_1details_1_1MatrixAdjointToLinearTransform.html#a3f7a142fe5bd28d56a77cf336133f98f">MatrixAdjointToLinearTransform</a>(std::shared_ptr&lt;EIGEN&gt; <span class="keyword">const</span> &amp;x) : matrix(x){}</div>
@@ -225,7 +225,7 @@ $(function() {
 <div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;};</div>
 <div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;}  <span class="comment">// namespace details</span></div>
 <div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160; </div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> DERIVED&gt;</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> DERIVED&gt;</div>
 <div class="line"><a name="l00211"></a><span class="lineno"><a class="line" href="namespacesopt.html#a09baebf7a38995a5fde7f7b4130ddcbe">  211</a></span>&#160;<a class="code" href="classsopt_1_1LinearTransform.html">LinearTransform&lt;Vector&lt;typename DERIVED::Scalar&gt;</a>&gt; <a class="code" href="namespacesopt.html#a27b8391ddefe157e732bebe05696170e">linear_transform</a>(</div>
 <div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    Eigen::MatrixBase&lt;DERIVED&gt; <span class="keyword">const</span> &amp;A) {</div>
 <div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;  <a class="code" href="classsopt_1_1details_1_1MatrixToLinearTransform.html">details::MatrixToLinearTransform&lt;Matrix&lt;typename DERIVED::Scalar&gt;</a>&gt; <span class="keyword">const</span> matrix(A);</div>
@@ -239,7 +239,7 @@ $(function() {
 <div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;  }</div>
 <div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;}</div>
 <div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160; </div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> SCALAR&gt;</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> SCALAR&gt;</div>
 <div class="line"><a name="l00226"></a><span class="lineno"><a class="line" href="namespacesopt.html#abf425c6640b07e4b2718d0a0db4c9cdd">  226</a></span>&#160;<a class="code" href="classsopt_1_1LinearTransform.html">LinearTransform&lt;Vector&lt;SCALAR&gt;</a>&gt; <a class="code" href="namespacesopt.html#abf425c6640b07e4b2718d0a0db4c9cdd">linear_transform_identity</a>() {</div>
 <div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;  <span class="keywordflow">return</span> {[](<a class="code" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">Vector&lt;SCALAR&gt;</a> &amp;out, <a class="code" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">Vector&lt;SCALAR&gt;</a> <span class="keyword">const</span> &amp;in) { out = in; },</div>
 <div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;          [](<a class="code" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">Vector&lt;SCALAR&gt;</a> &amp;out, <a class="code" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">Vector&lt;SCALAR&gt;</a> <span class="keyword">const</span> &amp;in) { out = in; }};</div>

@@ -92,16 +92,16 @@ $(function() {
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacesopt.html">sopt</a> {</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="namespacesopt.html#a239b0c108ec581a5b5f0c39276aefad8">   16</a></span>&#160;<span class="keyword">typename</span> <a class="code" href="classsopt_1_1details_1_1underlying__value__type.html">real_type&lt;typename T::Scalar&gt;::type</a> <a class="code" href="namespacesopt.html#a239b0c108ec581a5b5f0c39276aefad8">standard_deviation</a>(Eigen::ArrayBase&lt;T&gt; <span class="keyword">const</span> &amp;x) {</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;  <span class="keywordflow">return</span> (x - x.mean()).matrix().stableNorm() / std::sqrt(x.size());</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;}</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="namespacesopt.html#a009292a23363f1e290a92ce6a2786065">   21</a></span>&#160;<span class="keyword">typename</span> <a class="code" href="classsopt_1_1details_1_1underlying__value__type.html">real_type&lt;typename T::Scalar&gt;::type</a> <a class="code" href="namespacesopt.html#a239b0c108ec581a5b5f0c39276aefad8">standard_deviation</a>(Eigen::MatrixBase&lt;T&gt; <span class="keyword">const</span> &amp;x) {</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="namespacesopt.html#a239b0c108ec581a5b5f0c39276aefad8">standard_deviation</a>(x.array());</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;}</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> SCALAR&gt;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> SCALAR&gt;</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">typename</span> std::enable_if&lt;std::is_arithmetic&lt;SCALAR&gt;::value or is_complex&lt;SCALAR&gt;::value,</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;                        SCALAR&gt;::type</div>
 <div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="namespacesopt.html#a6494afff8ee7f1196ff67ce646359d3e">   29</a></span>&#160;<a class="code" href="namespacesopt.html#a6494afff8ee7f1196ff67ce646359d3e">soft_threshhold</a>(SCALAR <span class="keyword">const</span> &amp;x, <span class="keyword">typename</span> <a class="code" href="classsopt_1_1details_1_1underlying__value__type.html">real_type&lt;SCALAR&gt;::type</a> <span class="keyword">const</span> &amp;threshhold) {</div>
@@ -110,12 +110,12 @@ $(function() {
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;}</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">namespace </span>details {</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> SCALAR&gt;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> SCALAR&gt;</div>
 <div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="classsopt_1_1details_1_1ProjectPositiveQuadrant.html">   37</a></span>&#160;<span class="keyword">class </span><a class="code" href="classsopt_1_1details_1_1ProjectPositiveQuadrant.html">ProjectPositiveQuadrant</a> {</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="classsopt_1_1details_1_1ProjectPositiveQuadrant.html#a983af15bac34978f8ebcd947384f01e7">   39</a></span>&#160;  SCALAR <a class="code" href="classsopt_1_1details_1_1ProjectPositiveQuadrant.html#a983af15bac34978f8ebcd947384f01e7">operator()</a>(<span class="keyword">const</span> SCALAR &amp;value)<span class="keyword"> const </span>{ <span class="keywordflow">return</span> std::max(value, SCALAR(0)); }</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;};</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> SCALAR&gt;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> SCALAR&gt;</div>
 <div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="classsopt_1_1details_1_1ProjectPositiveQuadrant_3_01std_1_1complex_3_01SCALAR_01_4_01_4.html">   43</a></span>&#160;<span class="keyword">class </span><a class="code" href="classsopt_1_1details_1_1ProjectPositiveQuadrant.html">ProjectPositiveQuadrant</a>&lt;std::complex&lt;SCALAR&gt;&gt; {</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="classsopt_1_1details_1_1ProjectPositiveQuadrant_3_01std_1_1complex_3_01SCALAR_01_4_01_4.html#a770c8f2e5455d205339658ed912c03ed">   45</a></span>&#160;  SCALAR <a class="code" href="classsopt_1_1details_1_1ProjectPositiveQuadrant_3_01std_1_1complex_3_01SCALAR_01_4_01_4.html#a770c8f2e5455d205339658ed912c03ed">operator()</a>(SCALAR <span class="keyword">const</span> &amp;value)<span class="keyword"> const </span>{ <span class="keywordflow">return</span> std::max(value, SCALAR(0)); }</div>
@@ -124,12 +124,12 @@ $(function() {
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  }</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;};</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> SCALAR&gt;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> SCALAR&gt;</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="keyword">using</span> <a class="code" href="namespacesopt_1_1details.html#a9b2c8778a2d73aff0499c9f899fe16df">SoftThreshhold</a> = decltype(std::bind(soft_threshhold&lt;SCALAR&gt;, std::placeholders::_1,</div>
 <div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="namespacesopt_1_1details.html#a9b2c8778a2d73aff0499c9f899fe16df">   54</a></span>&#160;                                          <span class="keyword">typename</span> <a class="code" href="classsopt_1_1details_1_1underlying__value__type.html">real_type&lt;SCALAR&gt;::type</a>(1)));</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;}  <span class="comment">// namespace details</span></div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;Eigen::CwiseUnaryOp&lt;const details::ProjectPositiveQuadrant&lt;typename T::Scalar&gt;, <span class="keyword">const</span> T&gt;</div>
 <div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="namespacesopt_1_1algorithm.html#ad1377b8328b6fc78bd779dc9b852c9d7">   60</a></span>&#160;<a class="code" href="namespacesopt.html#a430768559bd58eab9a93942fb99d1918">positive_quadrant</a>(Eigen::DenseBase&lt;T&gt; <span class="keyword">const</span> &amp;input) {</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  <span class="keyword">using</span> Projector = <a class="code" href="classsopt_1_1details_1_1ProjectPositiveQuadrant.html">details::ProjectPositiveQuadrant&lt;typename T::Scalar&gt;</a>;</div>
@@ -137,7 +137,7 @@ $(function() {
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  <span class="keywordflow">return</span> UnaryOp(input.derived(), Projector());</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;}</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="namespacesopt.html#ac02ea9b606e6a1eef171de3447c77bc1">   68</a></span>&#160;Eigen::CwiseUnaryOp&lt;const details::SoftThreshhold&lt;typename T::Scalar&gt;, <span class="keyword">const</span> T&gt; <a class="code" href="namespacesopt.html#a6494afff8ee7f1196ff67ce646359d3e">soft_threshhold</a>(</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    Eigen::DenseBase&lt;T&gt; <span class="keyword">const</span> &amp;input,</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keyword">typename</span> <a class="code" href="classsopt_1_1details_1_1underlying__value__type.html">real_type&lt;typename T::Scalar&gt;::type</a> <span class="keyword">const</span> &amp;threshhold) {</div>
@@ -147,7 +147,7 @@ $(function() {
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;      input.derived(), std::bind(soft_threshhold&lt;Scalar&gt;, std::placeholders::_1, Real(threshhold))};</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;}</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T0, <span class="keyword">class</span> T1&gt;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T0, <span class="keyword">typename</span> T1&gt;</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="keyword">typename</span> std::enable_if&lt;std::is_arithmetic&lt;typename T0::Scalar&gt;::value and</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                            std::is_arithmetic&lt;typename T1::Scalar&gt;::value,</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                        Eigen::CwiseBinaryOp&lt;<span class="keyword">typename</span> <a class="code" href="bisection__method_8cc.html#aa0bfbe32b639db5c015dd41a0ac7ca35">T0::Scalar</a> (*)(<span class="keyword">typename</span> <a class="code" href="bisection__method_8cc.html#aa0bfbe32b639db5c015dd41a0ac7ca35">T0::Scalar</a> <span class="keyword">const</span> &amp;,</div>
@@ -159,7 +159,7 @@ $(function() {
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  <span class="keywordflow">return</span> {input.derived(), threshhold.derived(), soft_threshhold&lt;typename T0::Scalar&gt;};</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;}</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T0, <span class="keyword">class</span> T1&gt;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T0, <span class="keyword">typename</span> T1&gt;</div>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="keyword">typename</span> std::enable_if&lt;</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    is_complex&lt;typename T0::Scalar&gt;::value and std::is_arithmetic&lt;typename T1::Scalar&gt;::value,</div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    Eigen::CwiseBinaryOp&lt;</div>
@@ -176,51 +176,51 @@ $(function() {
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;  <span class="keywordflow">return</span> {input.derived(), threshhold.derived().template cast&lt;Complex&gt;(), func};</div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;}</div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T0, <span class="keyword">class</span> T1&gt;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T0, <span class="keyword">typename</span> T1&gt;</div>
 <div class="line"><a name="l00116"></a><span class="lineno"><a class="line" href="namespacesopt.html#ad992ab663c3f521cad1deff62844c4cc">  116</a></span>&#160;<span class="keyword">typename</span> <a class="code" href="classsopt_1_1details_1_1underlying__value__type.html">real_type&lt;typename T0::Scalar&gt;::type</a> <a class="code" href="namespacesopt.html#ad992ab663c3f521cad1deff62844c4cc">l1_norm</a>(Eigen::ArrayBase&lt;T0&gt; <span class="keyword">const</span> &amp;input,</div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;                                                      Eigen::ArrayBase&lt;T1&gt; <span class="keyword">const</span> &amp;weights) {</div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;  <span class="keywordflow">if</span> (weights.size() == 1) <span class="keywordflow">return</span> input.cwiseAbs().sum() * std::abs(weights(0));</div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;  <span class="keywordflow">return</span> (input * weights).cwiseAbs().sum();</div>
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;}</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T0, <span class="keyword">class</span> T1&gt;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T0, <span class="keyword">typename</span> T1&gt;</div>
 <div class="line"><a name="l00123"></a><span class="lineno"><a class="line" href="namespacesopt.html#a2db42dd287d02a4ff3ce6b7fa2f40857">  123</a></span>&#160;<span class="keyword">typename</span> <a class="code" href="classsopt_1_1details_1_1underlying__value__type.html">real_type&lt;typename T0::Scalar&gt;::type</a> <a class="code" href="namespacesopt.html#ad992ab663c3f521cad1deff62844c4cc">l1_norm</a>(Eigen::MatrixBase&lt;T0&gt; <span class="keyword">const</span> &amp;input,</div>
 <div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;                                                      Eigen::MatrixBase&lt;T1&gt; <span class="keyword">const</span> &amp;weight) {</div>
 <div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="namespacesopt.html#ad992ab663c3f521cad1deff62844c4cc">l1_norm</a>(input.array(), weight.array());</div>
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;}</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T0&gt;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T0&gt;</div>
 <div class="line"><a name="l00129"></a><span class="lineno"><a class="line" href="namespacesopt.html#aa8f62b39e20496c485d78f97f9afa3e4">  129</a></span>&#160;<span class="keyword">typename</span> <a class="code" href="classsopt_1_1details_1_1underlying__value__type.html">real_type&lt;typename T0::Scalar&gt;::type</a> <a class="code" href="namespacesopt.html#ad992ab663c3f521cad1deff62844c4cc">l1_norm</a>(Eigen::ArrayBase&lt;T0&gt; <span class="keyword">const</span> &amp;input) {</div>
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;  <span class="keywordflow">return</span> input.cwiseAbs().sum();</div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;}</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T0&gt;</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T0&gt;</div>
 <div class="line"><a name="l00134"></a><span class="lineno"><a class="line" href="namespacesopt.html#a5dac30fa2304a47833ce101737cebdbb">  134</a></span>&#160;<span class="keyword">typename</span> <a class="code" href="classsopt_1_1details_1_1underlying__value__type.html">real_type&lt;typename T0::Scalar&gt;::type</a> <a class="code" href="namespacesopt.html#ad992ab663c3f521cad1deff62844c4cc">l1_norm</a>(Eigen::MatrixBase&lt;T0&gt; <span class="keyword">const</span> &amp;input) {</div>
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="namespacesopt.html#ad992ab663c3f521cad1deff62844c4cc">l1_norm</a>(input.array());</div>
 <div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;}</div>
 <div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T0, <span class="keyword">class</span> T1&gt;</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T0, <span class="keyword">typename</span> T1&gt;</div>
 <div class="line"><a name="l00140"></a><span class="lineno"><a class="line" href="namespacesopt.html#ae78479408b10b1fa67e712247d4eefec">  140</a></span>&#160;<span class="keyword">typename</span> <a class="code" href="classsopt_1_1details_1_1underlying__value__type.html">real_type&lt;typename T0::Scalar&gt;::type</a> <a class="code" href="namespacesopt.html#ae78479408b10b1fa67e712247d4eefec">l2_norm</a>(Eigen::ArrayBase&lt;T0&gt; <span class="keyword">const</span> &amp;input,</div>
 <div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;                                                      Eigen::ArrayBase&lt;T1&gt; <span class="keyword">const</span> &amp;weights) {</div>
 <div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;  <span class="keywordflow">if</span> (weights.size() == 1) <span class="keywordflow">return</span> input.matrix().stableNorm() * std::abs(weights(0));</div>
 <div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;  <span class="keywordflow">return</span> (input * weights).matrix().stableNorm();</div>
 <div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;}</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T0, <span class="keyword">class</span> T1&gt;</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T0, <span class="keyword">typename</span> T1&gt;</div>
 <div class="line"><a name="l00147"></a><span class="lineno"><a class="line" href="namespacesopt.html#a57c3c1377f0345d2d3a5e5e16ae824e4">  147</a></span>&#160;<span class="keyword">typename</span> <a class="code" href="classsopt_1_1details_1_1underlying__value__type.html">real_type&lt;typename T0::Scalar&gt;::type</a> <a class="code" href="namespacesopt.html#ae78479408b10b1fa67e712247d4eefec">l2_norm</a>(Eigen::MatrixBase&lt;T0&gt; <span class="keyword">const</span> &amp;input,</div>
 <div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;                                                      Eigen::MatrixBase&lt;T1&gt; <span class="keyword">const</span> &amp;weights) {</div>
 <div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="namespacesopt.html#ae78479408b10b1fa67e712247d4eefec">l2_norm</a>(input.derived().array(), weights.derived().array());</div>
 <div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;}</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T0&gt;</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T0&gt;</div>
 <div class="line"><a name="l00153"></a><span class="lineno"><a class="line" href="namespacesopt.html#aaae7c4b4b28cf09cb81be6bdc78d2acd">  153</a></span>&#160;<span class="keyword">typename</span> <a class="code" href="classsopt_1_1details_1_1underlying__value__type.html">real_type&lt;typename T0::Scalar&gt;::type</a> <a class="code" href="namespacesopt.html#ae78479408b10b1fa67e712247d4eefec">l2_norm</a>(Eigen::ArrayBase&lt;T0&gt; <span class="keyword">const</span> &amp;input) {</div>
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;  <span class="keyword">typename</span> T0::PlainObject w(1);</div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;  w(0) = 1;</div>
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="namespacesopt.html#ae78479408b10b1fa67e712247d4eefec">l2_norm</a>(input, w);</div>
 <div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;}</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T0&gt;</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T0&gt;</div>
 <div class="line"><a name="l00160"></a><span class="lineno"><a class="line" href="namespacesopt.html#acc5e68fec339ce3ea64dd578483c1a19">  160</a></span>&#160;<span class="keyword">typename</span> <a class="code" href="classsopt_1_1details_1_1underlying__value__type.html">real_type&lt;typename T0::Scalar&gt;::type</a> <a class="code" href="namespacesopt.html#ae78479408b10b1fa67e712247d4eefec">l2_norm</a>(Eigen::MatrixBase&lt;T0&gt; <span class="keyword">const</span> &amp;input) {</div>
 <div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;  <span class="keyword">typename</span> T0::PlainObject w(1);</div>
 <div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;  w(0) = 1;</div>
 <div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="namespacesopt.html#ae78479408b10b1fa67e712247d4eefec">l2_norm</a>(input.derived().array(), w.array());</div>
 <div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;}</div>
 <div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160; </div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T0, <span class="keyword">class</span> T1&gt;</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T0, <span class="keyword">typename</span> T1&gt;</div>
 <div class="line"><a name="l00168"></a><span class="lineno"><a class="line" href="namespacesopt.html#a1f08c74e9b2cac9f30e52c2c6bdbd0f5">  168</a></span>&#160;<span class="keyword">typename</span> <a class="code" href="classsopt_1_1details_1_1underlying__value__type.html">real_type&lt;typename T0::Scalar&gt;::type</a> <a class="code" href="namespacesopt.html#a1f08c74e9b2cac9f30e52c2c6bdbd0f5">tv_norm</a>(Eigen::ArrayBase&lt;T0&gt; <span class="keyword">const</span> &amp;input,</div>
 <div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;                                                      Eigen::ArrayBase&lt;T1&gt; <span class="keyword">const</span> &amp;weights) {</div>
 <div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;  <span class="keyword">const</span> <span class="keyword">auto</span> size = input.size() / 2;</div>
@@ -237,18 +237,18 @@ $(function() {
 <div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;          .matrix()</div>
 <div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;          .sum());</div>
 <div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;}</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T0, <span class="keyword">class</span> T1&gt;</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T0, <span class="keyword">typename</span> T1&gt;</div>
 <div class="line"><a name="l00186"></a><span class="lineno"><a class="line" href="namespacesopt.html#ae0a7db0a39348c31cdb1475fbeb26c84">  186</a></span>&#160;<span class="keyword">typename</span> <a class="code" href="classsopt_1_1details_1_1underlying__value__type.html">real_type&lt;typename T0::Scalar&gt;::type</a> <a class="code" href="namespacesopt.html#a1f08c74e9b2cac9f30e52c2c6bdbd0f5">tv_norm</a>(Eigen::MatrixBase&lt;T0&gt; <span class="keyword">const</span> &amp;input,</div>
 <div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;                                                      Eigen::MatrixBase&lt;T1&gt; <span class="keyword">const</span> &amp;weights) {</div>
 <div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="namespacesopt.html#a1f08c74e9b2cac9f30e52c2c6bdbd0f5">tv_norm</a>(input.derived().array(), weights.derived().array());</div>
 <div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;}</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T0&gt;</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T0&gt;</div>
 <div class="line"><a name="l00192"></a><span class="lineno"><a class="line" href="namespacesopt.html#a1967222064d29c760e307ece5da21168">  192</a></span>&#160;<span class="keyword">typename</span> <a class="code" href="classsopt_1_1details_1_1underlying__value__type.html">real_type&lt;typename T0::Scalar&gt;::type</a> <a class="code" href="namespacesopt.html#a1f08c74e9b2cac9f30e52c2c6bdbd0f5">tv_norm</a>(Eigen::ArrayBase&lt;T0&gt; <span class="keyword">const</span> &amp;input) {</div>
 <div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;  <span class="keyword">typename</span> T0::PlainObject w(1);</div>
 <div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;  w(0) = 1;</div>
 <div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="namespacesopt.html#a1f08c74e9b2cac9f30e52c2c6bdbd0f5">tv_norm</a>(input, w);</div>
 <div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;}</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T0&gt;</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T0&gt;</div>
 <div class="line"><a name="l00199"></a><span class="lineno"><a class="line" href="namespacesopt.html#a96b301acf3c109ea862ff9e563d2a164">  199</a></span>&#160;<span class="keyword">typename</span> <a class="code" href="classsopt_1_1details_1_1underlying__value__type.html">real_type&lt;typename T0::Scalar&gt;::type</a> <a class="code" href="namespacesopt.html#a1f08c74e9b2cac9f30e52c2c6bdbd0f5">tv_norm</a>(Eigen::MatrixBase&lt;T0&gt; <span class="keyword">const</span> &amp;input) {</div>
 <div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;  <span class="keyword">typename</span> T0::PlainObject w(1);</div>
 <div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;  w(0) = 1;</div>
