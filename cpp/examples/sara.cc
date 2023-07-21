@@ -9,7 +9,7 @@ int main(int, char const **) {
   sara.emplace_back("DB3", 7);
 
   // Creates a random signal
-  sopt::Image<sopt::t_complex> input = sopt::Image<sopt::t_complex>::Random(128, 128);
+  sopt::Image<sopt::t_complex> const input = sopt::Image<sopt::t_complex>::Random(128, 128);
   // Now gets its coefficients
   auto coefficients = sara.direct(input);
   // And transform back. We pass a pre-defined matrix explicitly to illustrate that API.

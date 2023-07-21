@@ -18,7 +18,7 @@ using Scalar = sopt::t_real;
 using t_Vector = sopt::Vector<Scalar>;
 using t_Matrix = sopt::Matrix<Scalar>;
 
-auto const N = 5;
+auto constexpr N = 5;
 
 TEST_CASE("Proximal ADMM with ||x - x0||_2 functions", "[padmm][integration]") {
   using namespace sopt;

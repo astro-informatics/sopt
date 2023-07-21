@@ -60,7 +60,7 @@ int main(int argc, char const **argv) {
   SOPT_HIGH_LOG("Image size: {} x {} = {}", image.cols(), image.rows(), image.size());
 
   SOPT_HIGH_LOG("Initializing sensing operator");
-  sopt::t_uint nmeasure = std::floor(0.5 * image.size());
+  sopt::t_uint const nmeasure = std::floor(0.5 * image.size());
   sopt::LinearTransform<Vector> const sampling =
       sopt::linear_transform<Scalar>(sopt::Sampling(image.size(), nmeasure, mersenne));
   SOPT_HIGH_LOG("Initializing wavelets");
@@ -74,7 +74,7 @@ int main(int argc, char const **argv) {
 
   SOPT_HIGH_LOG("Computing Forward Backward parameters");
   Vector const y0 = sampling * Vector::Map(image.data(), image.size());
-  auto const snr = 30.0;
+  auto constexpr snr = 30.0;
   auto const sigma = y0.stableNorm() / std::sqrt(y0.size()) * std::pow(10.0, -(snr / 20.0));
   auto const epsilon = std::sqrt(nmeasure + 2 * std::sqrt(y0.size())) * sigma;
 
@@ -89,7 +89,7 @@ int main(int argc, char const **argv) {
                                 "dirty_" + output + ".tiff");
   }
 
-  sopt::t_real const gamma = 0;
+  sopt::t_real constexpr gamma = 0;
   sopt::t_real const beta = sigma * sigma * 0.5;
   SOPT_HIGH_LOG("Creating Foward Backward Functor");
   auto fb = std::make_shared<sopt::algorithm::ImagingForwardBackward<Scalar>>(y);

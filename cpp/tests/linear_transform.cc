@@ -10,7 +10,7 @@ TEST_CASE("Linear Transforms", "[ops]") {
   using SCALAR = int;
   using t_Vector = Array<SCALAR>;
   using t_Matrix = Image<SCALAR>;
-  auto const N = 10;
+  auto constexpr N = 10;
 
   SECTION("Functions") {
     auto direct = [](t_Vector &out, t_Vector const &input) { out = input * 2 - 1; };
@@ -64,7 +64,7 @@ TEST_CASE("Array of Linear transforms", "[ops]") {
   using t_Vector = Vector<SCALAR>;
   using t_Matrix = Matrix<SCALAR>;
 
-  auto const N = 10;
+  auto constexpr N = 10;
   t_Vector const x = t_Vector::Random(N) * 5;
   std::vector<t_Matrix> Ls{t_Matrix::Random(N, N), t_Matrix::Random(N, N)};
   std::vector<LinearTransform<t_Vector>> ops;

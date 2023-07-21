@@ -29,7 +29,7 @@ int main(int, char const **) {
   if (not result.good) SOPT_THROW("Did not converge");
 
   // Check the proximal is a minimum in any allowed direction (positivity constraint)
-  Real const eps = 1e-4;
+  Real constexpr eps = 1e-4;
   for (size_t i(0); i < 10; ++i) {
     sopt::Vector<Scalar> const dir = sopt::Vector<Scalar>::Random(input.size()).normalized() * eps;
     sopt::Vector<Scalar> const position = sopt::positive_quadrant(result.proximal + dir);

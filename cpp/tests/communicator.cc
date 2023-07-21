@@ -21,12 +21,12 @@ TEST_CASE("Creates an mpi communicator") {
     REQUIRE(static_cast<t_int>(world.rank()) == rank);
     REQUIRE(static_cast<t_int>(world.size()) == size);
 
-    mpi::Communicator shallow = world;
+    mpi::Communicator const shallow = world;
     CHECK(*shallow == *world);
   }
 
   SECTION("Duplicate") {
-    mpi::Communicator dup = world.duplicate();
+    mpi::Communicator const dup = world.duplicate();
     CHECK(*dup != *world);
   }
 
