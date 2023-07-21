@@ -244,7 +244,7 @@ class PrimalDual {
   //!
   //! This function simplifies creating overloads for operator() in PD wrappers.
   static std::tuple<t_Vector, t_Vector> initial_guess(t_Vector const &target,
-                                                      t_LinearTransform const &phi, Real nu) {
+                                                      t_LinearTransform const &phi, Real  /*nu*/) {
     std::tuple<t_Vector, t_Vector> guess;
     std::get<0>(guess) = static_cast<t_Vector>(phi.adjoint() * target);
     std::get<1>(guess) = target;
