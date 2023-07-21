@@ -579,7 +579,7 @@ template&lt;typename T &gt; </div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <span class="keywordflow">if</span> (TIFFReadRGBAImage(tif, width, height, raster, 0) == 0)</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <a class="code" href="exception_8h.html#a57974308768f9fafc7107b626a394f4f">SOPT_THROW</a>(<span class="stringliteral">&quot;Could not read file &quot;</span>) &lt;&lt; filename;</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  uint32_t *pixel = (uint32_t *)raster;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  uint32_t *pixel = raster;</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  <span class="keywordflow">for</span> (uint32_t i(0); i &lt; height; ++i)</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordflow">for</span> (uint32_t j(0); j &lt; width; ++j, ++pixel) result(i, j) = convert_to_greyscale(*pixel);</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>

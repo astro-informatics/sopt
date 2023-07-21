@@ -98,7 +98,7 @@ $(function() {
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;}</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;uint32_t convert_from_greyscale(<span class="keywordtype">double</span> pixel) {</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  uint32_t result = 0;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  uint8_t *ptr = (uint8_t *)&amp;result;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  uint8_t *ptr = <span class="keyword">reinterpret_cast&lt;</span>uint8_t *<span class="keyword">&gt;</span>(&amp;result);</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> g = [](<span class="keywordtype">double</span> p) -&gt; uint8_t {</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">auto</span> <span class="keyword">const</span> scaled = 255e0 * p;</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordflow">if</span> (scaled &lt; 0) <span class="keywordflow">return</span> 0;</div>
@@ -133,7 +133,7 @@ $(function() {
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <span class="keywordflow">if</span> (TIFFReadRGBAImage(tif, width, height, raster, 0) == 0)</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <a class="code" href="exception_8h.html#a57974308768f9fafc7107b626a394f4f">SOPT_THROW</a>(<span class="stringliteral">&quot;Could not read file &quot;</span>) &lt;&lt; filename;</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  uint32_t *pixel = (uint32_t *)raster;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  uint32_t *pixel = raster;</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  <span class="keywordflow">for</span> (uint32_t i(0); i &lt; height; ++i)</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordflow">for</span> (uint32_t j(0); j &lt; width; ++j, ++pixel) result(i, j) = convert_to_greyscale(*pixel);</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
