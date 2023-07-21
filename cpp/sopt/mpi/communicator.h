@@ -451,7 +451,7 @@ CONTAINER Communicator::gather_(CONTAINER const &vec, std::vector<t_int> const &
   assert(root < size());
   if (sizes.size() != size() and rank() == root)
     throw std::runtime_error("Sizes and communicator size do not match on root");
-  else if (rank() != root and sizes.size() != 0 and sizes.size() != size())
+  else if (rank() != root and !sizes.empty() and sizes.size() != size())
     throw std::runtime_error(
         "Outside root, sizes should be either empty or match the number of procs");
   else if (sizes.size() == size() and sizes[rank()] != static_cast<t_int>(vec.size()))
