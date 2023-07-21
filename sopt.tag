@@ -828,14 +828,6 @@
   </compound>
   <compound kind="file">
     <name>sara.cc</name>
-    <path>/home/runner/work/sopt/sopt/cpp/sopt/wavelets/</path>
-    <filename>http://astro-informatics.github.io/sopt/sopt_2wavelets_2sara_8cc.html</filename>
-    <includes id="sara_8h" name="sara.h" local="yes" imported="no">sara.h</includes>
-    <namespace>sopt</namespace>
-    <namespace>sopt::wavelets</namespace>
-  </compound>
-  <compound kind="file">
-    <name>sara.cc</name>
     <path>/home/runner/work/sopt/sopt/cpp/tests/</path>
     <filename>http://astro-informatics.github.io/sopt/tests_2sara_8cc.html</filename>
     <includes id="wavelets_8h" name="wavelets.h" local="yes" imported="no">sopt/wavelets.h</includes>
