@@ -15,7 +15,7 @@
 #include "sopt/types.h"
 
 namespace sopt::algorithm {
-template <class SCALAR>
+template <typename SCALAR>
 class TVPrimalDual {
   //! Underlying algorithm
   using PD = PrimalDual<SCALAR>;
@@ -26,7 +26,7 @@ class TVPrimalDual {
   using Real = typename PD::Real;
   using t_Vector = typename PD::t_Vector;
   using t_LinearTransform = typename PD::t_LinearTransform;
-  template <class T>
+  template <typename T>
   using t_Proximal = std::function<void(t_Vector &, const T &, const t_Vector &)>;
   using t_IsConverged = typename PD::t_IsConverged;
   using t_Constraint = typename PD::t_Constraint;
@@ -47,7 +47,7 @@ class TVPrimalDual {
   //! Setups imaging wrapper for PD
   //! \param[in] f_proximal: proximal operator of the \f$f\f$ function.
   //! \param[in] g_proximal: proximal operator of the \f$g\f$ function
-  template <class DERIVED>
+  template <typename DERIVED>
   TVPrimalDual(Eigen::MatrixBase<DERIVED> const &target)
       : tv_proximal_([](t_Vector &out, const Real &gamma, const t_Vector &x) {
           proximal::tv_norm<t_Vector, t_Vector>(out, gamma, x);
@@ -160,7 +160,7 @@ class TVPrimalDual {
   //! Vector of target measurements
   t_Vector const &target() const { return target_; }
   //! Sets the vector of target measurements
-  template <class DERIVED>
+  template <typename DERIVED>
   TVPrimalDual<Scalar> &target(Eigen::MatrixBase<DERIVED> const &target) {
     target_ = target;
     return *this;
@@ -213,7 +213,7 @@ class TVPrimalDual {
   }
 
   //! Set Φ and Φ^† using arguments that sopt::linear_transform understands
-  template <class... ARGS>
+  template <typename... ARGS>
   typename std::enable_if<sizeof...(ARGS) >= 1, TVPrimalDual &>::type Phi(ARGS &&... args) {
     Phi_ = linear_transform(std::forward<ARGS>(args)...);
     return *this;
@@ -224,7 +224,7 @@ class TVPrimalDual {
   proximal::WeightedL2Ball<Scalar> &l2ball_proximal() { return l2ball_proximal_; }
 
   //! Analysis operator Ψ
-  template <class... ARGS>
+  template <typename... ARGS>
   typename std::enable_if<sizeof...(ARGS) >= 1, TVPrimalDual &>::type Psi(ARGS &&... args) {
     Psi_ = linear_transform(std::forward<ARGS>(args)...);
     return *this;
@@ -298,7 +298,7 @@ class TVPrimalDual {
   };
 };
 
-template <class SCALAR>
+template <typename SCALAR>
 typename TVPrimalDual<SCALAR>::Diagnostic TVPrimalDual<SCALAR>::operator()(
     t_Vector &out, t_Vector const &guess, t_Vector const &res) const {
   SOPT_HIGH_LOG("Performing Primal Dual with TV and L2 operators");
@@ -361,7 +361,7 @@ typename TVPrimalDual<SCALAR>::Diagnostic TVPrimalDual<SCALAR>::operator()(
   return result;
 }
 
-template <class SCALAR>
+template <typename SCALAR>
 bool TVPrimalDual<SCALAR>::residual_convergence(t_Vector const &x, t_Vector const &residual) const {
   if (static_cast<bool>(residual_convergence())) return residual_convergence()(x, residual);
   if (residual_tolerance() <= 0e0) return true;
@@ -370,7 +370,7 @@ bool TVPrimalDual<SCALAR>::residual_convergence(t_Vector const &x, t_Vector cons
   return residual_norm < residual_tolerance();
 };
 
-template <class SCALAR>
+template <typename SCALAR>
 bool TVPrimalDual<SCALAR>::objective_convergence(ScalarRelativeVariation<Scalar> &scalvar,
                                                  t_Vector const &x,
                                                  t_Vector const &residual) const {
@@ -381,7 +381,7 @@ bool TVPrimalDual<SCALAR>::objective_convergence(ScalarRelativeVariation<Scalar>
   return scalvar(current);
 };
 
-template <class SCALAR>
+template <typename SCALAR>
 bool TVPrimalDual<SCALAR>::is_converged(ScalarRelativeVariation<Scalar> &scalvar, t_Vector const &x,
                                         t_Vector const &residual) const {
   auto const user = static_cast<bool>(is_converged()) == false or is_converged()(x, residual);

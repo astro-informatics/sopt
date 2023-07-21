@@ -2,7 +2,7 @@
 #include <sstream>
 #include <benchmark/benchmark.h>
 
-template <class TYPE>
+template <typename TYPE>
 void matrix_cg(benchmark::State &state) {
   auto const N = state.range_x();
   auto const epsilon = std::pow(10, -state.range_y());
@@ -17,7 +17,7 @@ void matrix_cg(benchmark::State &state) {
   state.SetBytesProcessed(int64_t(state.iterations()) * int64_t(N) * sizeof(TYPE));
 }
 
-template <class TYPE>
+template <typename TYPE>
 void function_cg(benchmark::State &state) {
   auto const N = state.range_x();
   auto const epsilon = std::pow(10, -state.range_y());

@@ -45,7 +45,7 @@ TEST_CASE("Proximal ADMM with ||x - x0||_2 functions", "[padmm][integration]") {
   CHECK((result.x - target0 - alpha * segment).stableNorm() < 1e-8);
 }
 
-template <class T>
+template <typename T>
 struct is_imaging_proximal_ref
     : public std::is_same<sopt::algorithm::ImagingProximalADMM<double> &, T> {};
 TEST_CASE("Check type returned on setting variables") {

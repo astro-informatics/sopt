@@ -12,7 +12,7 @@ std::string get_name(unsigned db) {
   return sstr.str();
 }
 
-template <class TYPE, unsigned DB = 1, unsigned LEVEL = 1>
+template <typename TYPE, unsigned DB = 1, unsigned LEVEL = 1>
 void direct_matrix(benchmark::State &state) {
   auto const Nx = get_size(state.range_x(), LEVEL);
   auto const Ny = get_size(state.range_y(), LEVEL);
@@ -23,7 +23,7 @@ void direct_matrix(benchmark::State &state) {
   state.SetBytesProcessed(int64_t(state.iterations()) * int64_t(Nx) * int64_t(Ny) * sizeof(TYPE));
 }
 
-template <class TYPE, unsigned DB = 1, unsigned LEVEL = 1>
+template <typename TYPE, unsigned DB = 1, unsigned LEVEL = 1>
 void indirect_matrix(benchmark::State &state) {
   auto const Nx = get_size(state.range_x(), LEVEL);
   auto const Ny = get_size(state.range_y(), LEVEL);
@@ -34,7 +34,7 @@ void indirect_matrix(benchmark::State &state) {
   state.SetBytesProcessed(int64_t(state.iterations()) * int64_t(Nx) * int64_t(Ny) * sizeof(TYPE));
 }
 
-template <class TYPE, unsigned DB = 1, unsigned LEVEL = 1>
+template <typename TYPE, unsigned DB = 1, unsigned LEVEL = 1>
 void direct_vector(benchmark::State &state) {
   auto const Nx = get_size(state.range_x(), LEVEL);
   auto const input = sopt::Array<TYPE>::Random(Nx).eval();
@@ -43,7 +43,7 @@ void direct_vector(benchmark::State &state) {
   while (state.KeepRunning()) wavelet.direct(output, input);
   state.SetBytesProcessed(int64_t(state.iterations()) * int64_t(Nx) * sizeof(TYPE));
 }
-template <class TYPE, unsigned DB = 1, unsigned LEVEL = 1>
+template <typename TYPE, unsigned DB = 1, unsigned LEVEL = 1>
 void indirect_vector(benchmark::State &state) {
   auto const Nx = get_size(state.range_x(), LEVEL);
   auto const input = sopt::Array<TYPE>::Random(Nx).eval();

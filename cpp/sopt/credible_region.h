@@ -15,19 +15,19 @@
 
 namespace sopt::credible_region {
 
-template <class T>
+template <typename T>
 t_real compute_energy_upper_bound(
     const t_real &alpha, const Eigen::MatrixBase<T> &solution,
     const std::function<t_real(typename T::PlainObject)> &objective_function);
 
-template <class T>
+template <typename T>
 std::tuple<t_real, t_real, t_real> find_credible_interval(
     const Eigen::MatrixBase<T> &solution, const t_uint &rows, const t_uint &cols,
     const std::tuple<t_uint, t_uint, t_uint, t_uint> &region,
     const std::function<t_real(typename T::PlainObject)> &objective_function,
     const t_real &energy_upperbound);
 
-template <class T, class K>
+template <typename T, typename K>
 typename std::enable_if<is_complex<K>::value or std::is_arithmetic<K>::value,
                         std::tuple<Image<K>, Image<K>, Image<K>>>::type
 credible_interval_grid(const Eigen::MatrixBase<T> &solution, const t_uint &rows, const t_uint &cols,
@@ -35,21 +35,21 @@ credible_interval_grid(const Eigen::MatrixBase<T> &solution, const t_uint &rows,
                        const std::function<t_real(typename T::PlainObject)> &objective_function,
                        const t_real &energy_upperbound);
 
-template <class T, class K>
+template <typename T, typename K>
 typename std::enable_if<is_complex<K>::value or std::is_arithmetic<K>::value,
                         std::tuple<Image<K>, Image<K>, Image<K>>>::type
 credible_interval_grid(const Eigen::MatrixBase<T> &solution, const t_uint &rows, const t_uint &cols,
                        const std::tuple<t_uint, t_uint> &grid_pixel_size,
                        const std::function<t_real(typename T::PlainObject)> &objective_function,
                        const t_real &energy_upperbound);
-template <class T, class K>
+template <typename T, typename K>
 typename std::enable_if<is_complex<K>::value or std::is_arithmetic<K>::value,
                         std::tuple<Image<K>, Image<K>, Image<K>>>::type
 credible_interval(const Eigen::MatrixBase<T> &solution, const t_uint &rows, const t_uint &cols,
                   const t_uint &grid_pixel_size,
                   const std::function<t_real(typename T::PlainObject)> &objective_function,
                   const t_real &alpha);
-template <class T, class K>
+template <typename T, typename K>
 typename std::enable_if<is_complex<K>::value or std::is_arithmetic<K>::value,
                         std::tuple<Image<K>, Image<K>, Image<K>>>::type
 credible_interval(const Eigen::MatrixBase<T> &solution, const t_uint &rows, const t_uint &cols,
@@ -57,7 +57,7 @@ credible_interval(const Eigen::MatrixBase<T> &solution, const t_uint &rows, cons
                   const std::function<t_real(typename T::PlainObject)> &objective_function,
                   const t_real &alpha);
 
-template <class T>
+template <typename T>
 t_real compute_energy_upper_bound(
     const t_real &alpha, const Eigen::MatrixBase<T> &solution,
     const std::function<t_real(typename T::PlainObject)> &objective_function) {
@@ -71,7 +71,7 @@ t_real compute_energy_upper_bound(
   return gamma;
 }
 
-template <class T>
+template <typename T>
 std::tuple<t_real, t_real, t_real> find_credible_interval(
     const Eigen::MatrixBase<T> &solution, const t_uint &rows, const t_uint &cols,
     const std::tuple<t_uint, t_uint, t_uint, t_uint> &region,
@@ -111,7 +111,7 @@ std::tuple<t_real, t_real, t_real> find_credible_interval(
       sopt::bisection_method(energy_upperbound, bound_estimater, 0., b, 1e-3);
   return std::make_tuple(bound_lower, mean, bound_upper);
 }
-template <class T, class K>
+template <typename T, typename K>
 typename std::enable_if<is_complex<K>::value or std::is_arithmetic<K>::value,
                         std::tuple<Image<K>, Image<K>, Image<K>>>::type
 credible_interval_grid(const Eigen::MatrixBase<T> &solution, const t_uint &rows, const t_uint &cols,
@@ -124,7 +124,7 @@ credible_interval_grid(const Eigen::MatrixBase<T> &solution, const t_uint &rows,
       solution, rows, cols, grid_pixel_size_2d, objective_function, energy_upperbound);
 }
 
-template <class T, class K>
+template <typename T, typename K>
 typename std::enable_if<is_complex<K>::value or std::is_arithmetic<K>::value,
                         std::tuple<Image<K>, Image<K>, Image<K>>>::type
 credible_interval_grid(const Eigen::MatrixBase<T> &solution, const t_uint &rows, const t_uint &cols,
@@ -172,7 +172,7 @@ credible_interval_grid(const Eigen::MatrixBase<T> &solution, const t_uint &rows,
   }
   return std::make_tuple(credible_grid_lower_bound, credible_grid_mean, credible_grid_upper_bound);
 }
-template <class T, class K>
+template <typename T, typename K>
 typename std::enable_if<is_complex<K>::value or std::is_arithmetic<K>::value,
                         std::tuple<Image<K>, Image<K>, Image<K>>>::type
 credible_interval(const Eigen::MatrixBase<T> &solution, const t_uint &rows, const t_uint &cols,
@@ -183,7 +183,7 @@ credible_interval(const Eigen::MatrixBase<T> &solution, const t_uint &rows, cons
   return credible_interval_grid<typename T::PlainObject, K>(solution, rows, cols, grid_pixel_size,
                                                             objective_function, energy_upperbound);
 }
-template <class T, class K>
+template <typename T, typename K>
 typename std::enable_if<is_complex<K>::value or std::is_arithmetic<K>::value,
                         std::tuple<Image<K>, Image<K>, Image<K>>>::type
 credible_interval(const Eigen::MatrixBase<T> &solution, const t_uint &rows, const t_uint &cols,

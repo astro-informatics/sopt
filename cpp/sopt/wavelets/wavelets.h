@@ -48,7 +48,7 @@ class Wavelet : public WaveletData {
   //! column vector (1-d transform).
   //! \return wavelet coefficients
   //! \details Supports 1 and 2 dimensional tranforms for real and complex data.
-  template <class T0>
+  template <typename T0>
   auto direct(Eigen::ArrayBase<T0> const &signal) const
       -> decltype(direct_transform(signal, 1, *this)) {
     SOPT_WAVELET_MACRO_MULTIPLE(signal);
@@ -62,7 +62,7 @@ class Wavelet : public WaveletData {
   //! column vector
   //! (1-d transform).
   //! \details Supports 1 and 2 dimensional tranforms for real and complex data.
-  template <class T0, class T1>
+  template <typename T0, typename T1>
   auto direct(Eigen::ArrayBase<T1> &coefficients, Eigen::ArrayBase<T0> const &signal) const
       -> decltype(direct_transform(coefficients, signal, 1, *this)) {
     SOPT_WAVELET_MACRO_MULTIPLE(signal);
@@ -79,7 +79,7 @@ class Wavelet : public WaveletData {
   //! \details Supports 1 and 2 dimensional tranforms for real and complex data. This version
   //! allows non-constant Eigen expressions to be passe on without the ugly `const_cast` of the
   //! cannonical approach.
-  template <class T0, class T1>
+  template <typename T0, typename T1>
   auto direct(Eigen::ArrayBase<T1> &&coefficients, Eigen::ArrayBase<T0> const &signal) const
       -> decltype(direct_transform(coefficients, signal, 1, *this)) {
     SOPT_WAVELET_MACRO_MULTIPLE(signal);
@@ -91,7 +91,7 @@ class Wavelet : public WaveletData {
   //! where $l$ is the number of levels. Can be a matrix (2d-transform) or a column vector (1-d
   //! transform).
   //! \details Supports 1 and 2 dimensional tranforms for real and complex data.
-  template <class T0>
+  template <typename T0>
   auto indirect(Eigen::ArrayBase<T0> const &coefficients) const
       -> decltype(indirect_transform(coefficients, 1, *this)) {
     SOPT_WAVELET_MACRO_MULTIPLE(coefficients);
@@ -102,7 +102,7 @@ class Wavelet : public WaveletData {
   //! where $l$ is the number of levels. Can be a matrix (2d-transform) or a column vector (1-d
   //! \param[inout] signal: Reconstructed signal. Must be of the same size and type as the input.
   //! \details Supports 1 and 2 dimensional tranforms for real and complex data.
-  template <class T0, class T1>
+  template <typename T0, typename T1>
   auto indirect(Eigen::ArrayBase<T1> const &coefficients, Eigen::ArrayBase<T0> &signal) const
       -> decltype(indirect_transform(coefficients, signal, 1, *this)) {
     SOPT_WAVELET_MACRO_MULTIPLE(coefficients);
@@ -116,7 +116,7 @@ class Wavelet : public WaveletData {
   //! \details Supports 1 and 2 dimensional tranforms for real and complex data.  This version
   //! allows non-constant Eigen expressions to be passe on without the ugly `const_cast` of the
   //! cannonical approach.
-  template <class T0, class T1>
+  template <typename T0, typename T1>
   auto indirect(Eigen::ArrayBase<T1> const &coeffs, Eigen::ArrayBase<T0> &&signal) const
       -> decltype(indirect_transform(coeffs, signal, 1, *this)) {
     SOPT_WAVELET_MACRO_MULTIPLE(coeffs);

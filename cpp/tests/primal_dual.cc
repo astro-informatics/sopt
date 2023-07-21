@@ -81,7 +81,7 @@ TEST_CASE("Primal Dual with 0.5 * ||x - x0||_2^2 function", "[primaldual]") {
   CHECK(result.niters < 200);
 }
 
-template <class T>
+template <typename T>
 struct is_primal_dual_ref : public std::is_same<sopt::algorithm::ImagingPrimalDual<double> &, T> {};
 TEST_CASE("Check type returned on setting variables") {
   // Yeah, could be static asserts

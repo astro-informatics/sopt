@@ -15,7 +15,7 @@ namespace {
 //! \param[in] coeffs_: input coefficients
 //! \param[out] signal: output with the reconstituted signal
 //! \param[in] wavelet: contains wavelet coefficients
-template <class T0, class T1>
+template <typename T0, typename T1>
 typename std::enable_if<T1::IsVectorAtCompileTime, void>::type indirect_transform_impl(
     Eigen::ArrayBase<T0> const &coeffs, Eigen::ArrayBase<T1> const &signal_,
     WaveletData const &wavelet) {
@@ -31,7 +31,7 @@ typename std::enable_if<T1::IsVectorAtCompileTime, void>::type indirect_transfor
 //! \param[in] coeffs_: input coefficients
 //! \param[out] signal: output with the reconstituted signal
 //! \param[in] wavelet: contains wavelet coefficients
-template <class T0, class T1>
+template <typename T0, typename T1>
 typename std::enable_if<not T1::IsVectorAtCompileTime, void>::type indirect_transform_impl(
     Eigen::ArrayBase<T0> const &coeffs_, Eigen::ArrayBase<T1> const &signal_,
     WaveletData const &wavelet) {
@@ -54,7 +54,7 @@ typename std::enable_if<not T1::IsVectorAtCompileTime, void>::type indirect_tran
 //! \param[in] wavelet: contains wavelet coefficients
 //! \note The size  of the coefficients should a multiple of $2^l$ where $l$ is the number of
 //! levels.
-template <class T0, class T1>
+template <typename T0, typename T1>
 typename std::enable_if<T1::IsVectorAtCompileTime, void>::type indirect_transform(
     Eigen::ArrayBase<T0> const &coeffs, Eigen::ArrayBase<T1> &signal, t_uint levels,
     WaveletData const &wavelet) {
@@ -78,7 +78,7 @@ typename std::enable_if<T1::IsVectorAtCompileTime, void>::type indirect_transfor
 //! \param[in] wavelet: contains wavelet coefficients
 //! \note The size  of the signal and coefficients should a multiple of $2^l$ where $l$ is the
 //! number of levels.
-template <class T0, class T1>
+template <typename T0, typename T1>
 typename std::enable_if<not T1::IsVectorAtCompileTime, void>::type indirect_transform(
     Eigen::ArrayBase<T0> const &coeffs_, Eigen::ArrayBase<T1> const &signal_, t_uint levels,
     WaveletData const &wavelet) {
@@ -108,7 +108,7 @@ typename std::enable_if<not T1::IsVectorAtCompileTime, void>::type indirect_tran
 //! \returns the reconstituted signal
 //! \note The size  of the coefficients should a multiple of $2^l$ where $l$ is the number of
 //! levels.
-template <class T0>
+template <typename T0>
 auto indirect_transform(Eigen::ArrayBase<T0> const &coeffs, t_uint levels,
                         WaveletData const &wavelet) -> decltype(copy(coeffs)) {
   auto result = copy(coeffs);

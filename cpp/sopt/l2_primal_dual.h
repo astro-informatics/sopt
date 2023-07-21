@@ -15,7 +15,7 @@
 #include "sopt/types.h"
 
 namespace sopt::algorithm {
-template <class SCALAR>
+template <typename SCALAR>
 class ImagingPrimalDual {
   //! Underlying algorithm
   using PD = PrimalDual<SCALAR>;
@@ -26,7 +26,7 @@ class ImagingPrimalDual {
   using Real = typename PD::Real;
   using t_Vector = typename PD::t_Vector;
   using t_LinearTransform = typename PD::t_LinearTransform;
-  template <class T>
+  template <typename T>
   using t_Proximal = std::function<void(t_Vector &, const T &, const t_Vector &)>;
   using t_IsConverged = typename PD::t_IsConverged;
   using t_Constraint = typename PD::t_Constraint;
@@ -47,7 +47,7 @@ class ImagingPrimalDual {
   //! Setups imaging wrapper for PD
   //! \param[in] f_proximal: proximal operator of the \f$f\f$ function.
   //! \param[in] g_proximal: proximal operator of the \f$g\f$ function
-  template <class DERIVED>
+  template <typename DERIVED>
   ImagingPrimalDual(Eigen::MatrixBase<DERIVED> const &target)
       : l2_proximal_([](t_Vector &out, const Real &gamma, const t_Vector &x) {
           proximal::l2_norm(out, gamma, x);
@@ -160,7 +160,7 @@ class ImagingPrimalDual {
   //! Vector of target measurements
   t_Vector const &target() const { return target_; }
   //! Sets the vector of target measurements
-  template <class DERIVED>
+  template <typename DERIVED>
   ImagingPrimalDual<Scalar> &target(Eigen::MatrixBase<DERIVED> const &target) {
     target_ = target;
     return *this;
@@ -213,7 +213,7 @@ class ImagingPrimalDual {
   }
 
   //! Set Φ and Φ^† using arguments that sopt::linear_transform understands
-  template <class... ARGS>
+  template <typename... ARGS>
   typename std::enable_if<sizeof...(ARGS) >= 1, ImagingPrimalDual &>::type Phi(ARGS &&... args) {
     Phi_ = linear_transform(std::forward<ARGS>(args)...);
     return *this;
@@ -224,7 +224,7 @@ class ImagingPrimalDual {
   proximal::WeightedL2Ball<Scalar> &l2ball_proximal() { return l2ball_proximal_; }
 
   //! Analysis operator Ψ
-  template <class... ARGS>
+  template <typename... ARGS>
   typename std::enable_if<sizeof...(ARGS) >= 1, ImagingPrimalDual &>::type Psi(ARGS &&... args) {
     Psi_ = linear_transform(std::forward<ARGS>(args)...);
     return *this;
@@ -299,7 +299,7 @@ class ImagingPrimalDual {
   }
 };
 
-template <class SCALAR>
+template <typename SCALAR>
 typename ImagingPrimalDual<SCALAR>::Diagnostic ImagingPrimalDual<SCALAR>::operator()(
     t_Vector &out, t_Vector const &guess, t_Vector const &res) const {
   SOPT_HIGH_LOG("Performing Primal Dual with L1 and L2 operators");
@@ -362,7 +362,7 @@ typename ImagingPrimalDual<SCALAR>::Diagnostic ImagingPrimalDual<SCALAR>::operat
   return result;
 }
 
-template <class SCALAR>
+template <typename SCALAR>
 bool ImagingPrimalDual<SCALAR>::residual_convergence(t_Vector const &x,
                                                      t_Vector const &residual) const {
   if (static_cast<bool>(residual_convergence())) return residual_convergence()(x, residual);
@@ -372,7 +372,7 @@ bool ImagingPrimalDual<SCALAR>::residual_convergence(t_Vector const &x,
   return residual_norm < residual_tolerance();
 }
 
-template <class SCALAR>
+template <typename SCALAR>
 bool ImagingPrimalDual<SCALAR>::objective_convergence(ScalarRelativeVariation<Scalar> &scalvar,
                                                       t_Vector const &x,
                                                       t_Vector const &residual) const {
@@ -385,7 +385,7 @@ bool ImagingPrimalDual<SCALAR>::objective_convergence(ScalarRelativeVariation<Sc
   return scalvar(current);
 }
 
-template <class SCALAR>
+template <typename SCALAR>
 bool ImagingPrimalDual<SCALAR>::is_converged(ScalarRelativeVariation<Scalar> &scalvar,
                                              t_Vector const &x, t_Vector const &residual) const {
   auto const user = static_cast<bool>(is_converged()) == false or is_converged()(x, residual);

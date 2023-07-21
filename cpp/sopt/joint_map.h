@@ -15,7 +15,7 @@
 
 namespace sopt::algorithm {
 
-template <class ALGORITHM>
+template <typename ALGORITHM>
 class JointMAP {
   using t_Vector = typename ALGORITHM::t_Vector;
   using t_Reg_Term = typename std::function<t_real (const t_Vector &)>;
@@ -91,7 +91,7 @@ class JointMAP {
  public:
   //! \brief Calls Joint MAP estimation
   //! \param[out] out: Diagnostic and Solution
-  template <class... ARGS>
+  template <typename... ARGS>
   DiagnosticAndResultReg operator()(ARGS &&... args) const {
     SOPT_HIGH_LOG("Performing Joint MAP estimation");
 

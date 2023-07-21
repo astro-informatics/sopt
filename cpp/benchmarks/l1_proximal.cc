@@ -4,7 +4,7 @@
 #include "sopt/real_type.h"
 #include "sopt/types.h"
 
-template <class TYPE>
+template <typename TYPE>
 void function_l1p(benchmark::State &state) {
   using Real = typename sopt::real_type<TYPE>::type;
   auto const N = state.range_x();

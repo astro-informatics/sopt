@@ -30,7 +30,7 @@ class Exception : public std::exception {
   }
 
   //! Adds to message
-  template <class OBJECT>
+  template <typename OBJECT>
   Exception &operator<<(OBJECT const &object) {
     std::ostringstream msg;
     msg << message << object;

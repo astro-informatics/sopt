@@ -7,14 +7,14 @@
 #include "sopt/forward_backward.h"
 
 // Abstract base class providing the interface to the g_proximal function
-template <class SCALAR> class GProximal {
+template <typename SCALAR> class GProximal {
 
   using FB = sopt::algorithm::ForwardBackward<SCALAR>;
   using Real = typename FB::Real;
   using t_Vector = typename FB::t_Vector;
   using t_Proximal = typename FB::t_Proximal;
   using t_LinearTransform = typename FB::t_LinearTransform;
-  
+
 public:
 
   // A function that prints a log message
