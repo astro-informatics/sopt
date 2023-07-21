@@ -487,7 +487,7 @@ $(function() {
 <div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;  assert(root &lt; size());</div>
 <div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;  <span class="keywordflow">if</span> (sizes.size() != size() and rank() == root)</div>
 <div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;    <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Sizes and communicator size do not match on root&quot;</span>);</div>
-<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (rank() != root and sizes.size() != 0 and sizes.size() != size())</div>
+<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (rank() != root and !sizes.empty() and sizes.size() != size())</div>
 <div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;    <span class="keywordflow">throw</span> std::runtime_error(</div>
 <div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;        <span class="stringliteral">&quot;Outside root, sizes should be either empty or match the number of procs&quot;</span>);</div>
 <div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (sizes.size() == size() and sizes[rank()] != <span class="keyword">static_cast&lt;</span><a class="code" href="namespacesopt.html#a47796df8f5f6bbffc226292ef1ca8196">t_int</a><span class="keyword">&gt;</span>(vec.size()))</div>
