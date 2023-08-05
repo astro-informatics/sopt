@@ -22,6 +22,7 @@
 #cmakedefine SOPT_ULONG_ARCH
 
 
+#include <cstdint>
 #include <string>
 #include <tuple>
 
