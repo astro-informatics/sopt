@@ -13,7 +13,7 @@ using MPIType = decltype(MPI_CHAR);
 // using MPIType = int;
 
 //! MPI type associated with a c++ type
-template <class T>
+template <typename T>
 struct Type;
 
 static_assert(not std::is_same<char, std::int8_t>::value, "");
@@ -50,7 +50,7 @@ SOPT_MACRO(std::complex<long double>);
 #undef SOPT_MACRO
 
 //! MPI type associated with a c++ type
-template <class T>
+template <typename T>
 inline constexpr MPIType registered_type(T const &) {
   return Type<T>::value;
 }
@@ -68,9 +68,9 @@ template <typename... Ts>
 using void_t = typename make_void<Ts...>::type;
 }  // namespace details
 //! True if the type is registered
-template <class T, class = details::void_t<>>
+template <typename T, typename = details::void_t<>>
 class is_registered_type : public std::false_type {};
-template <class T>
+template <typename T>
 class is_registered_type<T, details::void_t<decltype(Type<T>::value)>> : public std::true_type {};
 } // namespace sopt::mpi
 #endif

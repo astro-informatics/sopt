@@ -15,7 +15,7 @@ namespace sopt::algorithm {
 
 //! \brief Forward Backward Splitting
 //! \details \f$\min_{x} f(\Phi x - y) + g(z)\f$. \f$y\f$ is a target vector.
-template <class SCALAR>
+template <typename SCALAR>
 class ForwardBackward {
  public:
   //! Scalar type
@@ -58,7 +58,7 @@ class ForwardBackward {
   //! Setups ForwardBackward
   //! \param[in] f_gradient: gradient of the \f$f\f$ function.
   //! \param[in] g_proximal: proximal operator of the \f$g\f$ function
-  template <class DERIVED>
+  template <typename DERIVED>
   ForwardBackward(t_Gradient const &f_gradient, t_Proximal const &g_proximal,
                   Eigen::MatrixBase<DERIVED> const &target)
       : itermax_(std::numeric_limits<t_uint>::max()),
@@ -122,7 +122,7 @@ class ForwardBackward {
   //! Vector of target measurements
   t_Vector const &target() const { return target_; }
   //! Sets the vector of target measurements
-  template <class DERIVED>
+  template <typename DERIVED>
   ForwardBackward<Scalar> &target(Eigen::MatrixBase<DERIVED> const &target) {
     target_ = target;
     return *this;
@@ -176,7 +176,7 @@ class ForwardBackward {
     return result;
   }
   //! Set Φ and Φ^† using arguments that sopt::linear_transform understands
-  template <class... ARGS>
+  template <typename... ARGS>
   typename std::enable_if<sizeof...(ARGS) >= 1, ForwardBackward &>::type Phi(ARGS &&... args) {
     Phi_ = linear_transform(std::forward<ARGS>(args)...);
     return *this;
@@ -230,7 +230,7 @@ class ForwardBackward {
   t_Vector target_;
 };
 
-template <class SCALAR>
+template <typename SCALAR>
 void ForwardBackward<SCALAR>::iteration_step(t_Vector &out, t_Vector &residual, t_Vector &p,
                                              t_Vector &z, const t_real lambda) const {
   p = out;
@@ -242,7 +242,7 @@ void ForwardBackward<SCALAR>::iteration_step(t_Vector &out, t_Vector &residual, 
   residual = (Phi() * p) - target();
 }
 
-template <class SCALAR>
+template <typename SCALAR>
 typename ForwardBackward<SCALAR>::Diagnostic ForwardBackward<SCALAR>::operator()(
     t_Vector &out, t_Vector const &x_guess, t_Vector const &res_guess) const {
   SOPT_HIGH_LOG("Performing Forward Backward Splitting");

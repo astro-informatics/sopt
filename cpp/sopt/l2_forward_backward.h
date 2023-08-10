@@ -20,7 +20,7 @@
 #endif
 
 namespace sopt::algorithm {
-template <class SCALAR>
+template <typename SCALAR>
 class L2ForwardBackward {
   //! Underlying algorithm
   using FB = ForwardBackward<SCALAR>;
@@ -31,7 +31,7 @@ class L2ForwardBackward {
   using Real = typename FB::Real;
   using t_Vector = typename FB::t_Vector;
   using t_LinearTransform = typename FB::t_LinearTransform;
-  template <class T>
+  template <typename T>
   using t_Proximal = std::function<void(t_Vector &, const T &, const t_Vector &)>;
   using t_Gradient = typename FB::t_Gradient;
   using t_IsConverged = typename FB::t_IsConverged;
@@ -51,7 +51,7 @@ class L2ForwardBackward {
   //! Setups imaging wrapper for ForwardBackward
   //! \param[in] f_proximal: proximal operator of the \f$f\f$ function.
   //! \param[in] g_proximal: proximal operator of the \f$g\f$ function
-  template <class DERIVED>
+  template <typename DERIVED>
   L2ForwardBackward(Eigen::MatrixBase<DERIVED> const &target)
       : l2_proximal_([](t_Vector &output, const t_real &gamma, const t_Vector &x) -> void {
           proximal::l2_norm(output, gamma, x);
@@ -140,7 +140,7 @@ class L2ForwardBackward {
   //! Minimun of objective_function
   Real objmin() const { return objmin_; }
   //! Sets the vector of target measurements
-  template <class DERIVED>
+  template <typename DERIVED>
   L2ForwardBackward<Scalar> &target(Eigen::MatrixBase<DERIVED> const &target) {
     target_ = target;
     return *this;
@@ -193,7 +193,7 @@ class L2ForwardBackward {
   }
 
   //! Set Φ and Φ^† using arguments that sopt::linear_transform understands
-  template <class... ARGS>
+  template <typename... ARGS>
   typename std::enable_if<sizeof...(ARGS) >= 1, L2ForwardBackward &>::type Phi(
       ARGS &&... args) {
     Phi_ = linear_transform(std::forward<ARGS>(args)...);
@@ -251,7 +251,7 @@ class L2ForwardBackward {
                     t_Vector const &residual) const;
 };
 
-template <class SCALAR>
+template <typename SCALAR>
 typename L2ForwardBackward<SCALAR>::Diagnostic L2ForwardBackward<SCALAR>::operator()(
     t_Vector &out, t_Vector const &guess, t_Vector const &res) const {
   SOPT_HIGH_LOG("Performing Forward Backward with L2 and L2 norms");
@@ -286,7 +286,7 @@ typename L2ForwardBackward<SCALAR>::Diagnostic L2ForwardBackward<SCALAR>::operat
   return result;
 }
 
-template <class SCALAR>
+template <typename SCALAR>
 bool L2ForwardBackward<SCALAR>::residual_convergence(t_Vector const &x,
                                                           t_Vector const &residual) const {
   if (static_cast<bool>(residual_convergence())) return residual_convergence()(x, residual);
@@ -296,7 +296,7 @@ bool L2ForwardBackward<SCALAR>::residual_convergence(t_Vector const &x,
   return residual_norm < residual_tolerance();
 }
 
-template <class SCALAR>
+template <typename SCALAR>
 bool L2ForwardBackward<SCALAR>::objective_convergence(ScalarRelativeVariation<Scalar> &scalvar,
                                                            t_Vector const &x,
                                                            t_Vector const &residual) const {
@@ -308,7 +308,7 @@ bool L2ForwardBackward<SCALAR>::objective_convergence(ScalarRelativeVariation<Sc
 }
 
 #ifdef SOPT_MPI
-template <class SCALAR>
+template <typename SCALAR>
 bool L2ForwardBackward<SCALAR>::objective_convergence(mpi::Communicator const &obj_comm,
                                                            ScalarRelativeVariation<Scalar> &scalvar,
                                                            t_Vector const &x,
@@ -322,7 +322,7 @@ bool L2ForwardBackward<SCALAR>::objective_convergence(mpi::Communicator const &o
 }
 #endif
 
-template <class SCALAR>
+template <typename SCALAR>
 bool L2ForwardBackward<SCALAR>::is_converged(ScalarRelativeVariation<Scalar> &scalvar,
                                                   t_Vector const &x,
                                                   t_Vector const &residual) const {

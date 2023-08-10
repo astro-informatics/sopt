@@ -19,7 +19,7 @@
 namespace sopt::algorithm {
 //! \brief Returns the eigenvalue and eigenvector for eigenvalue of the Linear Transform with
 //! largest magnitude
-template <class T>
+template <typename T>
 std::tuple<t_real, T> power_method(const sopt::LinearTransform<T> &op, const t_uint niters,
                                    const t_real relative_difference, const T &initial_vector) {
   /*
@@ -55,7 +55,7 @@ std::tuple<t_real, T> power_method(const sopt::LinearTransform<T> &op, const t_u
   return std::make_tuple(std::sqrt(old_value), estimate_eigen_vector);
 }
 
-template <class T>
+template <typename T>
 std::tuple<t_real, T, std::shared_ptr<sopt::LinearTransform<T>>> normalise_operator(
     const std::shared_ptr<sopt::LinearTransform<T> const> &op, const t_uint &niters,
     const t_real &relative_difference, const T &initial_vector) {
@@ -71,7 +71,7 @@ std::tuple<t_real, T, std::shared_ptr<sopt::LinearTransform<T>>> normalise_opera
           },
           op->adjoint().sizes()));
 }
-template <class T>
+template <typename T>
 std::tuple<t_real, T, sopt::LinearTransform<T>> normalise_operator(
     const sopt::LinearTransform<T> &op, const t_uint &niters, const t_real &relative_difference,
     const T &initial_vector) {
@@ -83,7 +83,7 @@ std::tuple<t_real, T, sopt::LinearTransform<T>> normalise_operator(
 }
 #ifdef SOPT_MPI
 //! Performs an all sum all operation to collectively normalise different serial operators
-template <class T>
+template <typename T>
 std::tuple<t_real, T> all_sum_all_power_method(const sopt::mpi::Communicator &comm,
                                                const sopt::LinearTransform<T> &op,
                                                const t_uint &niters,
@@ -97,7 +97,7 @@ std::tuple<t_real, T> all_sum_all_power_method(const sopt::mpi::Communicator &co
       op.adjoint().sizes());
   return power_method(all_sum_all_op, niters, relative_difference, initial_vector.derived());
 }
-template <class T>
+template <typename T>
 std::tuple<t_real, T, std::shared_ptr<sopt::LinearTransform<T>>> all_sum_all_normalise_operator(
     const sopt::mpi::Communicator &comm, const std::shared_ptr<sopt::LinearTransform<T> const> &op,
     const t_uint &niters, const t_real &relative_difference, const T &initial_vector) {
@@ -120,7 +120,7 @@ std::tuple<t_real, T, std::shared_ptr<sopt::LinearTransform<T>>> all_sum_all_nor
           },
           op->adjoint().sizes()));
 }
-template <class T>
+template <typename T>
 std::tuple<t_real, T, sopt::LinearTransform<T>> all_sum_all_normalise_operator(
     const sopt::mpi::Communicator &comm, const sopt::LinearTransform<T> &op, const t_uint &niters,
     const t_real &relative_difference, const T &initial_vector) {
@@ -133,7 +133,7 @@ std::tuple<t_real, T, sopt::LinearTransform<T>> all_sum_all_normalise_operator(
 }
 #endif
 //! \brief Eigenvalue and eigenvector for eigenvalue with largest magnitude
-template <class SCALAR>
+template <typename SCALAR>
 class PowerMethod {
  public:
   //! Scalar type
@@ -186,7 +186,7 @@ class PowerMethod {
   DiagnosticAndResult AtA(t_LinearTransform const &A, t_Vector const &input) const;
 
   //! \brief Calls the power method for A, with A a matrix
-  template <class DERIVED>
+  template <typename DERIVED>
   DiagnosticAndResult operator()(Eigen::DenseBase<DERIVED> const &A, t_Vector const &input) const;
 
   //! \brief Calls the power method for a given matrix-vector multiplication function
@@ -195,7 +195,7 @@ class PowerMethod {
  protected:
 };
 
-template <class SCALAR>
+template <typename SCALAR>
 typename PowerMethod<SCALAR>::DiagnosticAndResult PowerMethod<SCALAR>::AtA(
     t_LinearTransform const &A, t_Vector const &input) const {
   auto const op = [&A](t_Vector &out, t_Vector const &input) -> void {
@@ -204,8 +204,8 @@ typename PowerMethod<SCALAR>::DiagnosticAndResult PowerMethod<SCALAR>::AtA(
   return operator()(op, input);
 }
 
-template <class SCALAR>
-template <class DERIVED>
+template <typename SCALAR>
+template <typename DERIVED>
 typename PowerMethod<SCALAR>::DiagnosticAndResult PowerMethod<SCALAR>::operator()(
     Eigen::DenseBase<DERIVED> const &A, t_Vector const &input) const {
   Matrix<Scalar> const Ad = A.derived();
@@ -213,7 +213,7 @@ typename PowerMethod<SCALAR>::DiagnosticAndResult PowerMethod<SCALAR>::operator(
   return operator()(op, input);
 }
 
-template <class SCALAR>
+template <typename SCALAR>
 typename PowerMethod<SCALAR>::DiagnosticAndResult PowerMethod<SCALAR>::operator()(
     OperatorFunction<t_Vector> const &op, t_Vector const &input) const {
   SOPT_INFO("Computing the upper bound of a given operator");

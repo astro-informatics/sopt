@@ -16,7 +16,7 @@
 #include "sopt/types.h"
 
 namespace sopt::algorithm {
-template <class SCALAR>
+template <typename SCALAR>
 class ImagingProximalADMM {
   //! Underlying algorithm
   using PADMM = ProximalADMM<SCALAR>;
@@ -51,7 +51,7 @@ class ImagingProximalADMM {
   //! Setups imaging wrapper for ProximalADMM
   //! \param[in] f_proximal: proximal operator of the \f$f\f$ function.
   //! \param[in] g_proximal: proximal operator of the \f$g\f$ function
-  template <class DERIVED>
+  template <typename DERIVED>
   ImagingProximalADMM(Eigen::MatrixBase<DERIVED> const &target)
       : l1_proximal_(),
         l2ball_proximal_(1e0),
@@ -123,7 +123,7 @@ class ImagingProximalADMM {
   //! Vector of target measurements
   t_Vector const &target() const { return target_; }
   //! Sets the vector of target measurements
-  template <class DERIVED>
+  template <typename DERIVED>
   ImagingProximalADMM<Scalar> &target(Eigen::MatrixBase<DERIVED> const &target) {
     target_ = target;
     return *this;
@@ -176,7 +176,7 @@ class ImagingProximalADMM {
   }
 
   //! Set Φ and Φ^† using arguments that sopt::linear_transform understands
-  template <class... ARGS>
+  template <typename... ARGS>
   typename std::enable_if<sizeof...(ARGS) >= 1, ImagingProximalADMM &>::type Phi(ARGS &&... args) {
     Phi_ = linear_transform(std::forward<ARGS>(args)...);
     return *this;
@@ -193,7 +193,7 @@ class ImagingProximalADMM {
   //! \details Under-the-hood, the object is actually owned by the L1 proximal.
   t_LinearTransform const &Psi() const { return l1_proximal().Psi(); }
   //! Analysis operator Ψ
-  template <class... ARGS>
+  template <typename... ARGS>
   typename std::enable_if<sizeof...(ARGS) >= 1, ImagingProximalADMM<Scalar> &>::type Psi(
       ARGS &&... args) {
     l1_proximal().Psi(std::forward<ARGS>(args)...);
@@ -256,7 +256,7 @@ class ImagingProximalADMM {
   Diagnostic operator()(t_Vector &out, t_Vector const &guess, t_Vector const &res) const;
 
   //! Calls l1 proximal operator, checking for real constraints and tight frame
-  template <class T0, class T1>
+  template <typename T0, typename T1>
   typename proximal::L1<Scalar>::Diagnostic l1_proximal(Eigen::MatrixBase<T0> &out, Real gamma,
                                                         Eigen::MatrixBase<T1> const &x) const {
     return l1_proximal_real_constraint()
@@ -265,7 +265,7 @@ class ImagingProximalADMM {
   }
 
   //! Calls l1 proximal operator, checking for thight frame
-  template <class T0, class T1>
+  template <typename T0, typename T1>
   typename proximal::L1<Scalar>::Diagnostic call_l1_proximal(Eigen::MatrixBase<T0> &out, Real gamma,
                                                              Eigen::MatrixBase<T1> const &x) const {
     if (tight_frame()) {
@@ -287,7 +287,7 @@ class ImagingProximalADMM {
                     t_Vector const &residual) const;
 };
 
-template <class SCALAR>
+template <typename SCALAR>
 typename ImagingProximalADMM<SCALAR>::Diagnostic ImagingProximalADMM<SCALAR>::operator()(
     t_Vector &out, t_Vector const &guess, t_Vector const &res) const {
   SOPT_HIGH_LOG("Performing Proximal ADMM with L1 and L2 operators");
@@ -315,7 +315,7 @@ typename ImagingProximalADMM<SCALAR>::Diagnostic ImagingProximalADMM<SCALAR>::op
   return result;
 }
 
-template <class SCALAR>
+template <typename SCALAR>
 bool ImagingProximalADMM<SCALAR>::residual_convergence(t_Vector const &x,
                                                        t_Vector const &residual) const {
   if (static_cast<bool>(residual_convergence())) return residual_convergence()(x, residual);
@@ -325,7 +325,7 @@ bool ImagingProximalADMM<SCALAR>::residual_convergence(t_Vector const &x,
   return residual_norm < residual_tolerance();
 }
 
-template <class SCALAR>
+template <typename SCALAR>
 bool ImagingProximalADMM<SCALAR>::objective_convergence(ScalarRelativeVariation<Scalar> &scalvar,
                                                         t_Vector const &x,
                                                         t_Vector const &residual) const {
@@ -336,7 +336,7 @@ bool ImagingProximalADMM<SCALAR>::objective_convergence(ScalarRelativeVariation<
   return scalvar(current);
 }
 
-template <class SCALAR>
+template <typename SCALAR>
 bool ImagingProximalADMM<SCALAR>::is_converged(ScalarRelativeVariation<Scalar> &scalvar,
                                                t_Vector const &x, t_Vector const &residual) const {
   auto const user = static_cast<bool>(is_converged()) == false or is_converged()(x, residual);

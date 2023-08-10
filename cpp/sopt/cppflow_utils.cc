@@ -9,7 +9,7 @@
 namespace sopt::cppflowutils {
 
   // arbitrary constant for imaginary part of image vectors.
-  const double imaginary_threshold = 1e-10;
+    constexpr double imaginary_threshold = 1e-10;
 
     cppflow::tensor convert_image_to_tensor(Image<double> const &image, int image_rows, int image_cols){
         // Convert the Sopt::Image of doubles(wrapper for Eigen::Array) to a cppflow::tensor of floats

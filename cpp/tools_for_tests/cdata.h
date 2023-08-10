@@ -7,7 +7,7 @@
 
 namespace sopt {
 // Wraps calls to sampling and wavelets to C style
-template <class T>
+template <typename T>
 struct CData {
   using t_Vector = Eigen::Matrix<T, Eigen::Dynamic, 1>;
   typename t_Vector::Index nin, nout;
@@ -15,7 +15,7 @@ struct CData {
   t_uint direct_calls, adjoint_calls;
 };
 
-template <class T>
+template <typename T>
 void direct_transform(void *out, void *in, void **data) {
   CData<T> const &cdata = *(CData<T> *)data;
   using t_Vector = Eigen::Matrix<T, Eigen::Dynamic, 1>;
@@ -23,7 +23,7 @@ void direct_transform(void *out, void *in, void **data) {
   ++(((CData<T> *)data)->direct_calls);
   t_Vector::Map((T *)out, cdata.nout) = eval;
 }
-template <class T>
+template <typename T>
 void adjoint_transform(void *out, void *in, void **data) {
   CData<T> const &cdata = *(CData<T> *)data;
   using t_Vector = Eigen::Matrix<T, Eigen::Dynamic, 1>;

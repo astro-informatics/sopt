@@ -19,7 +19,7 @@ t_iVector odd(t_iVector const &x) {
   for (t_iVector::Index i(1); i < x.size(); i += 2) result(i / 2) = x(i);
   return result;
 };
-template <class T>
+template <typename T>
 Eigen::Array<typename T::Scalar, T::RowsAtCompileTime, T::ColsAtCompileTime> upsample(
     Eigen::ArrayBase<T> const &input) {
   using Matrix = Eigen::Array<typename T::Scalar, T::RowsAtCompileTime, T::ColsAtCompileTime>;
@@ -45,7 +45,7 @@ t_iVector random_ivector(sopt::t_int size, sopt::t_int min, sopt::t_int max) {
 };
 
 // Checks round trip operation
-template <class T0>
+template <typename T0>
 void check_round_trip(Eigen::ArrayBase<T0> const &input_, sopt::t_uint db,
                       sopt::t_uint nlevels = 1) {
   auto const input = input_.eval();
@@ -231,7 +231,7 @@ TEST_CASE("1D wavelet transform with floating point data", "[wavelet]") {
     check_round_trip(Array<>::Random(52), 10, 2);
   }
 
-  t_uint nlevels = 5;
+  t_uint constexpr nlevels = 5;
   SECTION("Round-trip test for multiple levels") {
     for (t_int i(0); i < 10; ++i) {
       auto const n = random_integer(2, nlevels);

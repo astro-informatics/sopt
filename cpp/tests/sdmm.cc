@@ -17,7 +17,7 @@ using Scalar = sopt::t_real;
 using t_Vector = sopt::Vector<Scalar>;
 using t_Matrix = sopt::Matrix<Scalar>;
 
-auto const N = 4;
+auto constexpr N = 4;
 
 // Makes members public so we can test one at a time
 class IntrospectSDMM : public sopt::algorithm::SDMM<Scalar> {

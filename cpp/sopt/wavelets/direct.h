@@ -15,7 +15,7 @@ namespace {
 //! \param[out] coeffs_: output of the function (despite the const)
 //! \param[in] signal: input signal for which to compute wavelet transform
 //! \param[in] wavelet: contains wavelet coefficients
-template <class T0, class T1>
+template <typename T0, typename T1>
 typename std::enable_if<T1::IsVectorAtCompileTime, void>::type direct_transform_impl(
     Eigen::ArrayBase<T0> const &coeffs_, Eigen::ArrayBase<T1> const &signal,
     WaveletData const &wavelet) {
@@ -32,7 +32,7 @@ typename std::enable_if<T1::IsVectorAtCompileTime, void>::type direct_transform_
 //! \param[out] coeffs_: output of the function (despite the const)
 //! \param[inout] signal: input signal for which to compute wavelet transform. Input is modified.
 //! \param[in] wavelet: contains wavelet coefficients
-template <class T0, class T1>
+template <typename T0, typename T1>
 typename std::enable_if<not T1::IsVectorAtCompileTime, void>::type direct_transform_impl(
     Eigen::ArrayBase<T0> const &coeffs_, Eigen::ArrayBase<T1> const &signal_,
     WaveletData const &wavelet) {
@@ -57,7 +57,7 @@ typename std::enable_if<not T1::IsVectorAtCompileTime, void>::type direct_transf
 //! \param[in] wavelet: contains wavelet coefficients
 //! \note The size  of the coefficients should a multiple of $2^l$ where $l$ is the number of
 //! levels.
-template <class T0, class T1>
+template <typename T0, typename T1>
 typename std::enable_if<T1::IsVectorAtCompileTime, void>::type direct_transform(
     Eigen::ArrayBase<T0> &coeffs, Eigen::ArrayBase<T1> const &signal, t_uint levels,
     WaveletData const &wavelet) {
@@ -77,7 +77,7 @@ typename std::enable_if<T1::IsVectorAtCompileTime, void>::type direct_transform(
 //! \param[in] wavelet: contains wavelet coefficients
 //! \note The size  of the coefficients should a multiple of $2^l$ where $l$ is the number of
 //! levels.
-template <class T0, class T1>
+template <typename T0, typename T1>
 typename std::enable_if<not T1::IsVectorAtCompileTime, void>::type direct_transform(
     Eigen::ArrayBase<T0> const &coeffs_, Eigen::ArrayBase<T1> const &signal, t_uint levels,
     WaveletData const &wavelet) {
@@ -103,7 +103,7 @@ typename std::enable_if<not T1::IsVectorAtCompileTime, void>::type direct_transf
 //! \brief Direct 1d and 2d transform
 //! \note The size  of the coefficients should a multiple of $2^l$ where $l$ is the number of
 //! levels.
-template <class T0>
+template <typename T0>
 auto direct_transform(Eigen::ArrayBase<T0> const &signal, t_uint levels, WaveletData const &wavelet)
     -> decltype(copy(signal)) {
   auto result = copy(signal);

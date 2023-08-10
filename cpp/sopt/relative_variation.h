@@ -9,7 +9,7 @@
 
 namespace sopt {
 
-template <class TYPE>
+template <typename TYPE>
 class RelativeVariation {
  public:
   //! Underlying scalar type
@@ -24,12 +24,12 @@ class RelativeVariation {
       : tolerance_(c.tolerance_), previous_(c.previous_){};
 
   //! True if object has changed by less than tolerance
-  template <class T>
+  template <typename T>
   bool operator()(Eigen::MatrixBase<T> const &input) {
     return operator()(input.array());
   }
   //! True if object has changed by less than tolerance
-  template <class T>
+  template <typename T>
   bool operator()(Eigen::ArrayBase<T> const &input);
   //! Allowed variation
   Real tolerance() const { return tolerance_; }
@@ -51,7 +51,7 @@ class RelativeVariation {
   std::string name_;
 };
 
-template <class TYPE>
+template <typename TYPE>
 class ScalarRelativeVariation {
  public:
   //! Underlying scalar type
@@ -107,8 +107,8 @@ class ScalarRelativeVariation {
   bool is_first_;
 };
 
-template <class SCALAR>
-template <class T>
+template <typename SCALAR>
+template <typename T>
 bool RelativeVariation<SCALAR>::operator()(Eigen::ArrayBase<T> const &input) {
   if (previous_.size() != input.size()) {
     previous_ = input;
@@ -120,7 +120,7 @@ bool RelativeVariation<SCALAR>::operator()(Eigen::ArrayBase<T> const &input) {
   return norm < tolerance() * tolerance();
 }
 
-template <class SCALAR>
+template <typename SCALAR>
 bool ScalarRelativeVariation<SCALAR>::operator()(Scalar const &current) {
   if (is_first_) {
     previous_ = current;

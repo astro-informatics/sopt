@@ -12,7 +12,7 @@
 
 namespace sopt::details {
 //! Expression referencing the result of a function call
-template <class FUNCTION, class DERIVED>
+template <typename FUNCTION, typename DERIVED>
 class AppliedFunction : public Eigen::ReturnByValue<AppliedFunction<FUNCTION, DERIVED>> {
  public:
   using PlainObject = typename DERIVED::PlainObject;
@@ -24,7 +24,7 @@ class AppliedFunction : public Eigen::ReturnByValue<AppliedFunction<FUNCTION, DE
   AppliedFunction(AppliedFunction const &c) : func(c.func), x(c.x), rows_(c.rows_) {}
   AppliedFunction(AppliedFunction &&c) : func(std::move(c.func)), x(c.x), rows_(c.rows_) {}
 
-  template <class DESTINATION>
+  template <typename DESTINATION>
   void evalTo(DESTINATION &destination) const {
     func(destination, x);
   }
@@ -42,7 +42,7 @@ class AppliedFunction : public Eigen::ReturnByValue<AppliedFunction<FUNCTION, DE
 //! \details This makes writing the application of a function more beautiful on the eye.
 //! A function call `func(output, input)` can be made to look like `output = func(input)` or `output
 //! = func * input`.
-template <class VECTOR>
+template <typename VECTOR>
 class WrapFunction {
  public:
   //! Type of function wrapped here
@@ -70,28 +70,28 @@ class WrapFunction {
   }
 
   //! Function application form
-  template <class T0>
+  template <typename T0>
   AppliedFunction<t_Function const &, Eigen::ArrayBase<T0>> operator()(
       Eigen::ArrayBase<T0> const &x) const {
     return AppliedFunction<t_Function const &, Eigen::ArrayBase<T0>>(func, x, rows(x));
   }
 
   //! Multiplication application form
-  template <class T0>
+  template <typename T0>
   AppliedFunction<t_Function const &, Eigen::ArrayBase<T0>> operator*(
       Eigen::ArrayBase<T0> const &x) const {
     return AppliedFunction<t_Function const &, Eigen::ArrayBase<T0>>(func, x, rows(x));
   }
 
   //! Function application form
-  template <class T0>
+  template <typename T0>
   AppliedFunction<t_Function const &, Eigen::MatrixBase<T0>> operator()(
       Eigen::MatrixBase<T0> const &x) const {
     return AppliedFunction<t_Function const &, Eigen::MatrixBase<T0>>(func, x, rows(x));
   }
 
   //! Multiplication application form
-  template <class T0>
+  template <typename T0>
   AppliedFunction<t_Function const &, Eigen::MatrixBase<T0>> operator*(
       Eigen::MatrixBase<T0> const &x) const {
     return AppliedFunction<t_Function const &, Eigen::MatrixBase<T0>>(func, x, rows(x));
@@ -106,7 +106,7 @@ class WrapFunction {
   std::array<t_int, 3> const &sizes() const { return sizes_; }
 
   //! Output vector size for a input with `xsize` elements
-  template <class T>
+  template <typename T>
   typename std::enable_if<std::is_integral<T>::value, T>::type rows(T xsize) const {
     auto const result = (static_cast<t_int>(xsize) * sizes_[0]) / sizes_[1] + sizes_[2];
     assert(result >= 0);
@@ -114,7 +114,7 @@ class WrapFunction {
   }
 
  protected:
-  template <class T>
+  template <typename T>
   t_uint rows(Eigen::DenseBase<T> const &x) const {
     return rows(x.size());
   }
@@ -127,7 +127,7 @@ class WrapFunction {
 };
 
 //! Helper function to wrap functor into expression-able object
-template <class VECTOR>
+template <typename VECTOR>
 WrapFunction<VECTOR> wrap(OperatorFunction<VECTOR> const &func,
                           std::array<t_int, 3> sizes = {{1, 1, 0}}) {
   return WrapFunction<VECTOR>(func, sizes);
@@ -135,7 +135,7 @@ WrapFunction<VECTOR> wrap(OperatorFunction<VECTOR> const &func,
 } // namespace sopt::details
 
 namespace Eigen::internal {
-template <class FUNCTION, class VECTOR>
+template <typename FUNCTION, typename VECTOR>
 struct traits<sopt::details::AppliedFunction<FUNCTION, VECTOR>> {
   using ReturnType = typename VECTOR::PlainObject;
 };

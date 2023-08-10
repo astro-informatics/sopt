@@ -57,7 +57,7 @@ DummyAlgorithm::t_Vector DummyAlgorithm::DiagnosticAndResult::x;
 DummyAlgorithm::t_Vector DummyAlgorithm::weights;
 
 TEST_CASE("L0-Approximation") {
-  auto const N = 6;
+  auto constexpr N = 6;
   DummyAlgorithm::t_Vector const input = DummyAlgorithm::t_Vector::Random(N);
 
   auto l0algo = algorithm::reweighted(DummyAlgorithm(), DummyAlgorithm::set_weights,

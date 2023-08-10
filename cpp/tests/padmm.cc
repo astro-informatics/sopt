@@ -18,7 +18,7 @@ using Scalar = sopt::t_real;
 using t_Vector = sopt::Vector<Scalar>;
 using t_Matrix = sopt::Matrix<Scalar>;
 
-auto const N = 5;
+auto constexpr N = 5;
 
 TEST_CASE("Proximal ADMM with ||x - x0||_2 functions", "[padmm][integration]") {
   using namespace sopt;
@@ -45,7 +45,7 @@ TEST_CASE("Proximal ADMM with ||x - x0||_2 functions", "[padmm][integration]") {
   CHECK((result.x - target0 - alpha * segment).stableNorm() < 1e-8);
 }
 
-template <class T>
+template <typename T>
 struct is_imaging_proximal_ref
     : public std::is_same<sopt::algorithm::ImagingProximalADMM<double> &, T> {};
 TEST_CASE("Check type returned on setting variables") {

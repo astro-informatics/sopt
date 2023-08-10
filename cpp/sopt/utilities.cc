@@ -20,7 +20,7 @@ double convert_to_greyscale(uint32_t &pixel) {
 //! Converts greyscale double value to RGBA
 uint32_t convert_from_greyscale(double pixel) {
   uint32_t result = 0;
-  uint8_t *ptr = (uint8_t *)&result;
+  uint8_t *ptr = reinterpret_cast<uint8_t *>(&result);
   auto const g = [](double p) -> uint8_t {
     auto const scaled = 255e0 * p;
     if (scaled < 0) return 0;
@@ -55,7 +55,7 @@ Image<> read_tiff(std::string const &filename) {
   if (TIFFReadRGBAImage(tif, width, height, raster, 0) == 0)
     SOPT_THROW("Could not read file ") << filename;
 
-  uint32_t *pixel = (uint32_t *)raster;
+  uint32_t *pixel = raster;
   for (uint32_t i(0); i < height; ++i)
     for (uint32_t j(0); j < width; ++j, ++pixel) result(i, j) = convert_to_greyscale(*pixel);
 

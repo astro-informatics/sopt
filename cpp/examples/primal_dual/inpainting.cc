@@ -65,7 +65,7 @@ int main(int argc, char const **argv) {
   Image const image = sopt::notinstalled::read_standard_tiff(input);
 
   SOPT_HIGH_LOG("Initializing sensing operator");
-  sopt::t_uint nmeasure = 0.33 * image.size();
+  sopt::t_uint const nmeasure = 0.33 * image.size();
   auto const sampling =
       sopt::linear_transform<Scalar>(sopt::Sampling(image.size(), nmeasure, mersenne));
 
@@ -81,7 +81,7 @@ int main(int argc, char const **argv) {
   SOPT_HIGH_LOG("Computing primal-dual parameters");
   Vector const y0 = sampling * Vector::Map(image.data(), image.size());
 
-  auto const snr = 30.0;
+  auto constexpr snr = 30.0;
   auto const sigma = y0.stableNorm() / std::sqrt(y0.size()) * std::pow(10.0, -(snr / 20.0));
   auto const epsilon = std::sqrt(nmeasure + 2 * std::sqrt(y0.size())) * sigma;
 
@@ -95,7 +95,7 @@ int main(int argc, char const **argv) {
     sopt::utilities::write_tiff(Matrix::Map(dirty.data(), image.rows(), image.cols()),
                                 "dirty_" + output + ".tiff");
   }
-  sopt::t_real gamma = (psi.adjoint() * (sampling.adjoint() * y)).real().maxCoeff() * 1e-2;
+  sopt::t_real const gamma = (psi.adjoint() * (sampling.adjoint() * y)).real().maxCoeff() * 1e-2;
 
   SOPT_HIGH_LOG("Creating primal-dual Functor");
   auto const pd = sopt::algorithm::ImagingPrimalDual<Scalar>(y)

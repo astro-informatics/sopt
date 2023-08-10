@@ -19,7 +19,7 @@ namespace sopt::algorithm {
 
 //! \brief Simultaneous-direction method of the multipliers
 //! \details The algorithm is detailed in (doi) 10.1093/mnras/stu202.
-template <class SCALAR>
+template <typename SCALAR>
 class SDMM {
  public:
   //! Values indicating how the algorithm ran
@@ -86,29 +86,29 @@ class SDMM {
     return *this;
   }
   //! \brief Appends a proximal and linear transform
-  template <class PROXIMAL, class T>
+  template <typename PROXIMAL, typename T>
   SDMM<SCALAR> &append(PROXIMAL proximal, T args) {
     proximals().emplace_back(proximal);
     transforms().emplace_back(linear_transform(args));
     return *this;
   }
   //! \brief Appends a proximal with identity as the linear transform
-  template <class PROXIMAL>
+  template <typename PROXIMAL>
   SDMM<SCALAR> &append(PROXIMAL proximal) {
     return append(proximal, linear_transform_identity<Scalar>());
   }
   //! \brief Appends a proximal with the linear transform as pair of functions
-  template <class PROXIMAL, class L, class LADJOINT>
+  template <typename PROXIMAL, typename L, typename LADJOINT>
   SDMM<SCALAR> &append(PROXIMAL proximal, L l, LADJOINT ladjoint) {
     return append(proximal, linear_transform<t_Vector>(l, ladjoint));
   }
   //! \brief Appends a proximal with the linear transform as pair of functions
-  template <class PROXIMAL, class L, class LADJOINT>
+  template <typename PROXIMAL, typename L, typename LADJOINT>
   SDMM<SCALAR> &append(PROXIMAL proximal, L l, LADJOINT ladjoint, std::array<t_int, 3> sizes) {
     return append(proximal, linear_transform<t_Vector>(l, ladjoint, sizes));
   }
   //! \brief Appends a proximal with the linear transform as pair of functions
-  template <class PROXIMAL, class L, class LADJOINT>
+  template <typename PROXIMAL, typename L, typename LADJOINT>
   SDMM<SCALAR> &append(PROXIMAL proximal, L l, std::array<t_int, 3> dsizes, LADJOINT ladjoint,
                        std::array<t_int, 3> isizes) {
     return append(proximal, linear_transform<t_Vector>(l, dsizes, ladjoint, isizes));
@@ -149,7 +149,7 @@ class SDMM {
   //! Proximal associated with a given objective function
   t_Proximal &proximals(t_uint i) { return proximals_[i]; }
   //! Lazy call to specific proximal function
-  template <class T0>
+  template <typename T0>
   proximal::ProximalExpression<t_Proximal const &, T0> proximals(
       t_uint i, Eigen::MatrixBase<T0> const &x) const {
     return {proximals()[i], gamma(), x};
@@ -162,7 +162,7 @@ class SDMM {
   // match the getter with the same name.
   //! \brief Forwards to internal conjugage gradient object
   //! \details Removes the need for ugly extra brackets.
-  template <class T0, class... T>
+  template <typename T0, typename... T>
   auto conjugate_gradient(T0 &&t0, T &&... args) const
       -> decltype(this->conjugate_gradient()(std::forward<T0>(t0), std::forward<T>(args)...)) {
     return conjugate_gradient()(std::forward<T0>(t0), std::forward<T>(args)...);
@@ -192,7 +192,7 @@ class SDMM {
   virtual void sanity_check(t_Vector const &input) const;
 };
 
-template <class SCALAR>
+template <typename SCALAR>
 typename SDMM<SCALAR>::Diagnostic SDMM<SCALAR>::operator()(t_Vector &out,
                                                            t_Vector const &input) const {
   sanity_check(input);
@@ -230,7 +230,7 @@ typename SDMM<SCALAR>::Diagnostic SDMM<SCALAR>::operator()(t_Vector &out,
   return {niters, convergence, cg_diagnostic};
 }
 
-template <class SCALAR>
+template <typename SCALAR>
 ConjugateGradient::Diagnostic SDMM<SCALAR>::solve_for_xn(t_Vector &out, t_Vectors const &y,
                                                          t_Vectors const &z) const {
   assert(z.size() == transforms().size());
@@ -263,7 +263,7 @@ ConjugateGradient::Diagnostic SDMM<SCALAR>::solve_for_xn(t_Vector &out, t_Vector
   return diagnostic;
 }
 
-template <class SCALAR>
+template <typename SCALAR>
 void SDMM<SCALAR>::update_directions(t_Vectors &y, t_Vectors &z, t_Vector const &x) const {
   SOPT_TRACE("Updating directions");
   for (t_uint i(0); i < transforms().size(); ++i) {
@@ -273,7 +273,7 @@ void SDMM<SCALAR>::update_directions(t_Vectors &y, t_Vectors &z, t_Vector const 
   }
 }
 
-template <class SCALAR>
+template <typename SCALAR>
 void SDMM<SCALAR>::initialization(t_Vectors &y, t_Vectors &z, t_Vector const &x) const {
   SOPT_TRACE("Initializing SDMM");
   for (t_uint i(0); i < transforms().size(); i++) {
@@ -285,7 +285,7 @@ void SDMM<SCALAR>::initialization(t_Vectors &y, t_Vectors &z, t_Vector const &x)
   }
 }
 
-template <class SCALAR>
+template <typename SCALAR>
 void SDMM<SCALAR>::sanity_check(t_Vector const &x) const {
   bool doexit = false;
   if (proximals().size() != transforms().size()) {

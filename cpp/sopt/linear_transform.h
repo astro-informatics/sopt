@@ -18,15 +18,15 @@ namespace details {
 //! \brief Wraps a matrix into a function and its conjugate transpose
 //! \details This class helps to wrap matrices into functions, such that we can use and store them
 //! such that SDMM algorithms can refer to them.
-template <class EIGEN>
+template <typename EIGEN>
 class MatrixToLinearTransform;
 //! Wraps a tranposed matrix into a function and its conjugate transpose
-template <class EIGEN>
+template <typename EIGEN>
 class MatrixAdjointToLinearTransform;
 }  // namespace details
 
 //! Joins together direct and indirect operators
-template <class VECTOR>
+template <typename VECTOR>
 class LinearTransform : public details::WrapFunction<VECTOR> {
  public:
   //! Type of the wrapped functions
@@ -97,7 +97,7 @@ class LinearTransform : public details::WrapFunction<VECTOR> {
 //! \param[in] sizes: 3 integer elements (a, b, c) such that if the input to linear operator is
 //!     of size N, then the output is of size (a * N) / b + c. A similar quantity is deduced for
 //!     the indirect operator.
-template <class VECTOR>
+template <typename VECTOR>
 LinearTransform<VECTOR> linear_transform(OperatorFunction<VECTOR> const &direct,
                                          OperatorFunction<VECTOR> const &indirect,
                                          std::array<t_int, 3> const &sizes = {{1, 1, 0}}) {
@@ -112,7 +112,7 @@ LinearTransform<VECTOR> linear_transform(OperatorFunction<VECTOR> const &direct,
 //!    the conjugate transpose linear operator to a vector.
 //! \param[in] dsizes: 3 integer elements (a, b, c) such that if the input to the indirect
 //!    linear operator is of size N, then the output is of size (a * N) / b + c.
-template <class VECTOR>
+template <typename VECTOR>
 LinearTransform<VECTOR> linear_transform(OperatorFunction<VECTOR> const &direct,
                                          std::array<t_int, 3> const &dsizes,
                                          OperatorFunction<VECTOR> const &indirect,
@@ -121,12 +121,12 @@ LinearTransform<VECTOR> linear_transform(OperatorFunction<VECTOR> const &direct,
 }
 
 //! Convenience no-op function
-template <class VECTOR>
+template <typename VECTOR>
 LinearTransform<VECTOR> &linear_transform(LinearTransform<VECTOR> &passthrough) {
   return passthrough;
 }
 //! Creates a linear transform from a pair of wrappers
-template <class VECTOR>
+template <typename VECTOR>
 LinearTransform<VECTOR> linear_transform(details::WrapFunction<VECTOR> const &direct,
                                          details::WrapFunction<VECTOR> const &adjoint) {
   return {direct, adjoint};
@@ -134,7 +134,7 @@ LinearTransform<VECTOR> linear_transform(details::WrapFunction<VECTOR> const &di
 
 namespace details {
 
-template <class EIGEN>
+template <typename EIGEN>
 class MatrixToLinearTransform {
   //! The underlying raw matrix type
   using Raw = typename std::remove_const<typename std::remove_reference<EIGEN>::type>::type;
@@ -150,7 +150,7 @@ class MatrixToLinearTransform {
   //! \brief Creates from an expression
   //! \details Expression is evaluated and the result stored internally. This object owns a
   //! copy of the matrix. It might share it with a few friendly neighbors.
-  template <class T0>
+  template <typename T0>
   MatrixToLinearTransform(Eigen::MatrixBase<T0> const &A) : matrix(std::make_shared<EIGEN>(A)) {}
   //! Creates from a shared matrix.
   MatrixToLinearTransform(std::shared_ptr<EIGEN> const &x) : matrix(x){}
@@ -175,14 +175,14 @@ class MatrixToLinearTransform {
   std::shared_ptr<EIGEN> matrix;
 };
 
-template <class EIGEN>
+template <typename EIGEN>
 class MatrixAdjointToLinearTransform {
  public:
   using PlainObject = typename MatrixToLinearTransform<EIGEN>::PlainObject;
   //! \brief Creates from an expression
   //! \details Expression is evaluated and the result stored internally. This object owns a
   //! copy of the matrix. It might share it with a few friendly neighbors.
-  template <class T0>
+  template <typename T0>
   MatrixAdjointToLinearTransform(Eigen::MatrixBase<T0> const &A)
       : matrix(std::make_shared<EIGEN>(A)) {}
   //! Creates from a shared matrix.
@@ -207,7 +207,7 @@ class MatrixAdjointToLinearTransform {
 }  // namespace details
 
 //! Helper function to creates a function operator
-template <class DERIVED>
+template <typename DERIVED>
 LinearTransform<Vector<typename DERIVED::Scalar>> linear_transform(
     Eigen::MatrixBase<DERIVED> const &A) {
   details::MatrixToLinearTransform<Matrix<typename DERIVED::Scalar>> const matrix(A);
@@ -222,7 +222,7 @@ LinearTransform<Vector<typename DERIVED::Scalar>> linear_transform(
 }
 
 //! Helper function to create a linear transform that's just the identity
-template <class SCALAR>
+template <typename SCALAR>
 LinearTransform<Vector<SCALAR>> linear_transform_identity() {
   return {[](Vector<SCALAR> &out, Vector<SCALAR> const &in) { out = in; },
           [](Vector<SCALAR> &out, Vector<SCALAR> const &in) { out = in; }};

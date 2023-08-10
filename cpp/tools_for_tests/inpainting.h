@@ -8,20 +8,20 @@
 
 namespace sopt {
 
-template <class T>
+template <typename T>
 Vector<T> target(sopt::LinearTransform<Vector<T>> const &sampling, sopt::Image<T> const &image) {
   return sampling * Vector<T>::Map(image.data(), image.size());
 }
 
-template <class T>
+template <typename T>
 typename real_type<T>::type sigma(sopt::LinearTransform<Vector<T>> const &sampling,
                                   sopt::Image<T> const &image) {
-  auto const snr = 30.0;
+  auto constexpr snr = 30.0;
   auto const y0 = target(sampling, image);
   return y0.stableNorm() / std::sqrt(y0.size()) * std::pow(10.0, -(snr / 20.0));
 }
 
-template <class T, class RANDOM>
+template <typename T, typename RANDOM>
 Vector<T> dirty(sopt::LinearTransform<Vector<T>> const &sampling, sopt::Image<T> const &image,
                 RANDOM &mersenne) {
   // values near the mean are the most likely
@@ -34,7 +34,7 @@ Vector<T> dirty(sopt::LinearTransform<Vector<T>> const &sampling, sopt::Image<T>
   return y;
 }
 
-template <class T>
+template <typename T>
 typename real_type<T>::type epsilon(sopt::LinearTransform<Vector<T>> const &sampling,
                                     sopt::Image<T> const &image) {
   auto const y0 = target(sampling, image);

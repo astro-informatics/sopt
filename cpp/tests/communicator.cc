@@ -21,12 +21,12 @@ TEST_CASE("Creates an mpi communicator") {
     REQUIRE(static_cast<t_int>(world.rank()) == rank);
     REQUIRE(static_cast<t_int>(world.size()) == size);
 
-    mpi::Communicator shallow = world;
+    mpi::Communicator const shallow = world;
     CHECK(*shallow == *world);
   }
 
   SECTION("Duplicate") {
-    mpi::Communicator dup = world.duplicate();
+    mpi::Communicator const dup = world.duplicate();
     CHECK(*dup != *world);
   }
 
@@ -68,7 +68,7 @@ TEST_CASE("Creates an mpi communicator") {
       auto const result = world.scatter_one<t_int>();
       REQUIRE(result == world.rank() + 2);
       auto const gather = world.gather(result);
-      CHECK(gather.size() == 0);
+      CHECK(gather.empty());
     }
   }
 
@@ -96,7 +96,7 @@ TEST_CASE("Creates an mpi communicator") {
       CHECK(result.size() == world.size() + 1);
       for (decltype(world.size()) i(0); i <= world.size(); ++i) CHECK(result.count(i) == 1);
     } else
-      CHECK(result.size() == 0);
+      CHECK(result.empty());
   }
 
   SECTION("Gather an std::vector") {
@@ -110,7 +110,7 @@ TEST_CASE("Creates an mpi communicator") {
         CHECK(result[2 * i + 1] == i);
       }
     } else
-      CHECK(result.size() == 0);
+      CHECK(result.empty());
   }
 
   SECTION("All sum all over image") {

@@ -21,8 +21,8 @@ TEST_CASE("Wavelet transform innards with integer data", "[wavelet]") {
 
   sopt::wavelets::SARA const parallel(serial.begin() + start, serial.begin() + end);
 
-  auto const Nx = 32;
-  auto const Ny = 32;
+  auto constexpr Nx = 32;
+  auto constexpr Ny = 32;
   auto const psi_serial = linear_transform<t_real>(serial, Nx, Ny);
   auto const psi_parallel = linear_transform<t_real>(parallel, Nx, Ny, world);
 
