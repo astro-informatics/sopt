@@ -1,4 +1,4 @@
-#include <catch.hpp>
+#include <catch2/catch_all.hpp>
 #include <numeric>
 #include <random>
 #include <utility>
@@ -17,6 +17,8 @@
 // It is only present in tests
 #include "tools_for_tests/directories.h"
 #include "tools_for_tests/tiffwrappers.h"
+
+using Catch::Approx;
 
 TEST_CASE("Parallel vs serial inpainting") {
   extern std::unique_ptr<std::mt19937_64> mersenne;

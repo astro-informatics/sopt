@@ -52,17 +52,9 @@ endif()
 # Add spdlog as direct dependency
 if(spdlog_FOUND)
   target_link_libraries(sopt spdlog::spdlog)
-  target_include_directories(sopt SYSTEM PUBLIC ${spdlog_INCLUDE_DIR})
 endif()
-# Add Eigen3 as direct dependency
-# On different platforms the CMakeDeps generator in conan seems to install eigen
-# as either "eigen" or "Eigen3" because the recipe does not explicitly define the
-# name (yet). To work around this we have to check for both.
-if(eigen_FOUND)
-  target_include_directories(sopt SYSTEM PUBLIC ${eigen_INCLUDE_DIR})
-endif()
-if(Eigen3_FOUND)
-  target_include_directories(sopt SYSTEM PUBLIC ${Eigen3_INCLUDE_DIR})
+if(EIGEN3_INCLUDE_DIR)
+  target_include_directories(sopt SYSTEM PUBLIC ${EIGEN3_INCLUDE_DIR})
 endif()
 if(TARGET openmp::openmp)
   target_link_libraries(sopt openmp::openmp)
@@ -85,7 +77,7 @@ if (cppflow)
 endif()
 
 
-target_link_libraries(sopt ${CONAN_LIBS}) 
+target_link_libraries(sopt ${CONAN_LIBS})
 
 install(FILES ${headers} DESTINATION include/sopt)
 install(FILES ${wavelet_headers} DESTINATION include/sopt/wavelets)

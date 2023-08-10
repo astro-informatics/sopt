@@ -1,4 +1,4 @@
-#include <catch.hpp>
+#include <catch2/catch_all.hpp>
 #include <random>
 
 #include <cassert>
@@ -13,6 +13,7 @@
 using Scalar = sopt::t_real;
 using t_Vector = sopt::Vector<Scalar>;
 using t_Matrix = sopt::Matrix<Scalar>;
+using Catch::Approx;
 
 auto const N = 5;
 

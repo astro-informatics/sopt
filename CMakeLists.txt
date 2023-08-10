@@ -22,14 +22,36 @@ execute_process(
 # Location of extra cmake includes for the project
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake_files)
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/build)
-# Downloads and installs GreatCMakeCookOff
-# It contains a number of cmake recipes
-include(LookUp-GreatCMakeCookOff)
 
 # Version and git hash id
-include(VersionAndGitRef)
-set_version(3.1.0)
-get_gitref()
+find_package(Git)
+
+# Set version variable
+# If git is found and this is a git workdir, then figure out build id
+# Stores results in ${PROJECT_NAME}_VERSION and ${PROJECT_NAME}_GITREF
+set(${PROJECT_NAME}_VERSION 3.1.0)
+
+# Set version variable
+# If git is found and this is a git workdir, then figure out build id
+# Stores results in ${PROJECT_NAME}_VERSION and ${PROJECT_NAME}_GITREF
+if(GIT_FOUND)
+  execute_process(
+    COMMAND ${GIT_EXECUTABLE} rev-parse HEAD
+    RESULT_VARIABLE HASH_RESULT
+    OUTPUT_VARIABLE GIT_HASH
+    ERROR_QUIET
+  )
+  if(HASH_RESULT EQUAL 0)
+    string(STRIP "${GIT_HASH}" GIT_HASH)
+  else()
+    set(GIT_HASH "NA")
+  endif()
+else()
+  set(GIT_HASH "NA")
+endif()
+
+set(${PROJECT_NAME}_GITREF ${GIT_HASH})
+
 
 option(tests          "Enable testing"                         on)
 option(benchmarks     "Enable benchmarking"                    off)
@@ -47,7 +69,7 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 message(STATUS "Building sopt in ${CMAKE_BUILD_TYPE} mode")
 
-if(tests)
+if(tests OR examples)
   enable_testing()
 endif()
 
@@ -69,14 +91,11 @@ if(SOPT_MPI)
   DetectIntegerArchitecture(SOPT)
 endif()
 
-if(tests OR examples)
-  enable_testing()
-endif()
-
 if(tests)
-  find_package(Catch)
+  find_package(Catch2)
   include(AddCatchTest)
 endif()
+
 if(examples)
   include(AddExample)
 endif()
@@ -85,6 +104,8 @@ if(benchmarks)
   set(GBenchmark_GIT_TAG "v1.3.0")
   include(AddBenchmark)
 endif()
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-command-line-argument")
 
 if(tests AND coverage)
   # Enable code coverage.
@@ -101,3 +122,4 @@ add_subdirectory(cpp)
 
 # Exports all Sopt so other packages can access it
 include(export_sopt)
+

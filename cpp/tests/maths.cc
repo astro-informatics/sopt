@@ -1,4 +1,4 @@
-#include <catch.hpp>
+#include <catch2/catch_all.hpp>
 #include <numeric>
 #include <random>
 #include <utility>
@@ -7,6 +7,8 @@
 #include "sopt/relative_variation.h"
 #include "sopt/sampling.h"
 #include "sopt/types.h"
+
+using Catch::Approx;
 
 TEST_CASE("Projector on positive quadrant", "[utility][project]") {
   using namespace sopt;

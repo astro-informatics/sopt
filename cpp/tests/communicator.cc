@@ -1,6 +1,6 @@
 #include <iostream>
 #include <numeric>
-#include "catch.hpp"
+#include "catch2/catch_all.hpp"
 
 #include "sopt/config.h"
 #include "sopt/mpi/communicator.h"

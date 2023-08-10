@@ -2,7 +2,7 @@
 #include <iterator>
 #include <regex>
 #include <vector>
-#include "catch.hpp"
+#include "catch2/catch_all.hpp"
 #include "sopt/logging.h"
 #include "sopt/mpi/session.h"
 using namespace sopt;

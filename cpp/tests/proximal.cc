@@ -1,4 +1,4 @@
-#include <catch.hpp>
+#include <catch2/catch_all.hpp>
 #include <numeric>
 #include <random>
 #include <utility>
@@ -6,6 +6,8 @@
 #include "sopt/l1_proximal.h"
 #include "sopt/proximal.h"
 #include "sopt/types.h"
+
+using Catch::Approx;
 
 template <class T>
 sopt::Matrix<T> concatenated_permutations(sopt::t_uint i, sopt::t_uint j) {

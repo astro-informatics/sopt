@@ -5,7 +5,7 @@
 #include <random>
 #include <vector>
 #include <ctime>
-#include <catch.hpp>
+#include <catch2/catch_all.hpp>
 
 #include "sopt/imaging_forward_backward.h"
 #include "sopt/tf_g_proximal.h"
