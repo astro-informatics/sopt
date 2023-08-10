@@ -4,7 +4,7 @@
 find_package(eigen QUIET)
 find_package(Eigen3 QUIET)
 if(eigen_FOUND)
-  set(EIGEN3_INCLUDE_DIR "$ENV{eigen_INCLUDE_DIR}" )
+  set(EIGEN3_INCLUDE_DIR ${eigen_INCLUDE_DIR} CACHE INTERNAL "")
 elseif(Eigen3_FOUND)
   if (NOT EIGEN3_INCLUDE_DIR)
     set(EIGEN3_INCLUDE_DIR ${Eigen3_INCLUDE_DIR} CACHE INTERNAL "")
