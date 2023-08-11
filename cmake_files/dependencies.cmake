@@ -26,10 +26,9 @@ if(logging)
 endif()
 
 if(docs)
-  cmake_policy(SET CMP0057 NEW)
-  find_package(doxygen REQUIRED dot)
-  if(NOT doxygen_FOUND)
-    mesage(FATAL_ERROR "Could not find Doxygen or dot")
+  find_package(Doxygen REQUIRED dot)
+  if(NOT Doxygen_FOUND)
+    message(FATAL_ERROR "Could not find Doxygen or dot")
   endif()
 endif()
 
