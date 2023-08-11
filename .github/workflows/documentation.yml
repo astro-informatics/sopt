@@ -78,10 +78,10 @@ jobs:
       - name: Build
         run: conan build ${{github.workspace}} -bf ${{github.workspace}}/build
 
-      - name: Make Docweb
-        run: |
-          cd build
-          make docweb VERBOSE=1
+      #- name: Make Docweb
+      #  run: |
+      #    cd build
+      #    make docweb VERBOSE=1
 
       - name: Deploy to GH pages
         if: ${{github.event_name == 'push'}}
