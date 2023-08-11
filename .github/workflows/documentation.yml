@@ -76,7 +76,7 @@ jobs:
           conan install ${{github.workspace}} -if ${{github.workspace}}/build --build missing -s compiler.libcxx=libstdc++11 -o mpi=off -o openmp=off -o docs=off -o cppflow=on -pr:h=default -pr:b=default
 
       - name: Build
-        run: conan build ${{github.workspace}} -of ${{github.workspace}}/build
+        run: conan build ${{github.workspace}} -bf ${{github.workspace}}/build
 
       - name: Make Docweb
         run: |
