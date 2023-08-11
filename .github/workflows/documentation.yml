@@ -42,7 +42,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt update
-          sudo apt install openmpi-bin libopenmpi-dev libyaml-cpp-dev doxygen graphviz
+          sudo apt install openmpi-bin libopenmpi-dev libyaml-cpp-dev doxygen graphviz ccache
 
       - name: Install Conan
         id: conan
