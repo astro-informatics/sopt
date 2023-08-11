@@ -72,8 +72,8 @@ jobs:
       - name: Configure
         run: |
           conan install doxygen/1.9.4@#2af713e135f12722e3536808017ba086 --update
-          ls ${{github.workspace}}
-          ls ${{github.workspace}}/
+          cd ${{github.workspace}}/build
+          ls
           conan install ${{github.workspace}} -of ${{github.workspace}}/build --build missing -s compiler.libcxx=libstdc++11 -o mpi=off -o openmp=off -o docs=on -o cppflow=on --profile=default
 
       - name: Build
