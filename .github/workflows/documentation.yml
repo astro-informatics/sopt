@@ -64,7 +64,9 @@ jobs:
           ref: master
 
       - name: Create cppflow package
-        run: conan create ./cppflow/
+        run: |
+          conan profile detect
+          conan create ./cppflow/
 
       - name: Configure
         run: |
