@@ -66,6 +66,7 @@ jobs:
       - name: Create cppflow package
         run: |
           conan profile detect
+          sed -i'' -e "s|generators|#generators|1" ./cppflow/conanfile.py
           conan create ./cppflow/
 
       - name: Configure
