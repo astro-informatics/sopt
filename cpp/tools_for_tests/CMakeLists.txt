@@ -1,6 +1,7 @@
 add_library(tools_for_tests STATIC tiffwrappers.cc tiffwrappers.h)
-target_link_libraries(tools_for_tests ${TIFF_LIBRARIES})
+#target_link_libraries(tools_for_tests ${TIFF_LIBRARIES})
 target_link_libraries(tools_for_tests TIFF::TIFF)
+target_link_libraries(tools_for_tests sopt)
 target_include_directories(tools_for_tests PUBLIC
   "${CMAKE_CURRENT_SOURCE_DIR}/.."
   "${PROJECT_BINARY_DIR}/include/"
