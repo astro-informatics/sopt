@@ -45,7 +45,14 @@ jobs:
           sudo apt update
           sudo apt install openmpi-bin libopenmpi-dev libyaml-cpp-dev doxygen graphviz ccache
           if [[ "$USE_CONAN" = 0 ]]; then
-            sudo apt install libeigen3-dev libspdlog-dev catch2
+            sudo apt install libeigen3-dev libspdlog-dev
+            git clone https://github.com/catchorg/Catch2.git -b v3.4.0
+            mkdir Catch2/build
+            cd Catch2/build
+            cmake .. -DBUILD_TESTING=OFF -DCMAKE_INSTALL_PREFIX=${PWD}
+            make -j
+            make -j install
+            export PATH=${{github.workspace}}/Catch2/build:$PATH
           fi
 
       - name: Install Conan
@@ -82,6 +89,7 @@ jobs:
             cmake .. -DCMAKE_INSTALL_PREFIX=${PWD}
             make -j
             make -j install
+            export PATH=${{github.workspace}}/cppflow/build:$PATH
           fi
 
       - name: Configure
@@ -91,7 +99,6 @@ jobs:
             #conan install doxygen/1.9.4@#2af713e135f12722e3536808017ba086 --update
             conan install ${{github.workspace}} -if ${{github.workspace}}/build --build missing -s compiler.libcxx=libstdc++11 -o mpi=off -o openmp=off -o docs=off -o cppflow=on -pr:h=default -pr:b=default
           else
-            export PATH=${PWD}/cppflow/build:$PATH
             mkdir ${{github.workspace}}/build
             cd ${{github.workspace}}/build
             cmake .. -DCMAKE_INSTALL_PREFIX=${PWD} -Ddompi=OFF -Dopenmp=OFF -Ddocs=ON -Dcppflow=ON
