@@ -52,7 +52,6 @@ jobs:
             cmake .. -DBUILD_TESTING=OFF -DCMAKE_INSTALL_PREFIX=${PWD}
             make -j
             make -j install
-            export PATH=${{github.workspace}}/Catch2/build:$PATH
           fi
 
       - name: Install Conan
@@ -89,7 +88,6 @@ jobs:
             cmake .. -DCMAKE_INSTALL_PREFIX=${PWD}
             make -j
             make -j install
-            export PATH=${{github.workspace}}/cppflow/build:$PATH
           fi
 
       - name: Configure
@@ -99,6 +97,8 @@ jobs:
             #conan install doxygen/1.9.4@#2af713e135f12722e3536808017ba086 --update
             conan install ${{github.workspace}} -if ${{github.workspace}}/build --build missing -s compiler.libcxx=libstdc++11 -o mpi=off -o openmp=off -o docs=off -o cppflow=on -pr:h=default -pr:b=default
           else
+            export PATH=${{github.workspace}}/cppflow/build:$PATH
+            export PATH=${{github.workspace}}/Catch2/build:$PATH
             mkdir ${{github.workspace}}/build
             cd ${{github.workspace}}/build
             cmake .. -DCMAKE_INSTALL_PREFIX=${PWD} -Ddompi=OFF -Dopenmp=OFF -Ddocs=ON -Dcppflow=ON
@@ -109,6 +109,8 @@ jobs:
           if [[ "$USE_CONAN" = 1 ]]; then
             conan build ${{github.workspace}} -bf ${{github.workspace}}/build
           else
+            export PATH=${{github.workspace}}/cppflow/build:$PATH
+            export PATH=${{github.workspace}}/Catch2/build:$PATH
             cd ${{github.workspace}}/build
             make -j
             make -j install
