@@ -44,6 +44,9 @@ jobs:
         run: |
           sudo apt update
           sudo apt install openmpi-bin libopenmpi-dev libyaml-cpp-dev doxygen graphviz ccache
+          if [[ "$USE_CONAN" = 0 ]]; then
+            sudo apt install libeigen3-dev
+          fi
 
       - name: Install Conan
         id: conan
@@ -89,7 +92,7 @@ jobs:
           else
             mkdir ${{github.workspace}}/build
             cd ${{github.workspace}}/build
-            cmake .. -DCMAKE_INSTALL_PREFIX=${PWD}
+            cmake .. -DCMAKE_INSTALL_PREFIX=${PWD} -Dmpi=OFF -Dopenmp=OFF -Ddocs=ON -Dcppflow=ON
           fi
 
       - name: Build
