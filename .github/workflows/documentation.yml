@@ -22,7 +22,7 @@ env:
 
 jobs:
   make-documentation:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - name: Check out sopt
         uses: actions/checkout@v3
@@ -45,7 +45,7 @@ jobs:
           sudo apt update
           sudo apt install openmpi-bin libopenmpi-dev libyaml-cpp-dev doxygen graphviz ccache
           if [[ "$USE_CONAN" = 0 ]]; then
-            sudo apt install libeigen3-dev libspdlog-dev catch-devel
+            sudo apt install libeigen3-dev libspdlog-dev catch2
           fi
 
       - name: Install Conan
