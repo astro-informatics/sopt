@@ -123,6 +123,7 @@ jobs:
           else
             export PATH=${{github.workspace}}/cppflow/build:$PATH
             export PATH=${{github.workspace}}/Catch2/build:$PATH
+            export CMAKE_MODULE_PATH=${{github.workspace}}/Catch2/build/lib/cmake/Catch2:$CMAKE_MODULE_PATH
             cd ${{github.workspace}}/build
             make -j
             make -j install
