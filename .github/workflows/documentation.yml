@@ -18,6 +18,7 @@ env:
   CONAN_REVISIONS_ENABLED: 1
   OMP_NUM_THREADS: 2
   CONAN_CPU_COUNT: 2
+  USE_CONAN: 0
 
 jobs:
   make-documentation:
@@ -46,6 +47,7 @@ jobs:
 
       - name: Install Conan
         id: conan
+        if: env.USE_CONAN == "1"
         uses: turtlebrowser/get-conan@main
         with:
           version: 1.60.2
@@ -66,9 +68,17 @@ jobs:
 
       - name: Create cppflow package
         run: |
-          #conan profile detect
-          #sed -i'' -e "s|generators|#generators|1" ./cppflow/conanfile.py
-          conan create ./cppflow/ -pr:h=default -pr:b=default
+          if [[ "$USE_CONAN" = 1 ]]; then
+            #conan profile detect
+            #sed -i'' -e "s|generators|#generators|1" ./cppflow/conanfile.py
+            conan create ./cppflow/ -pr:h=default -pr:b=default
+          else
+            mkdir cppflow/build
+            cd cppflow/build
+            cmake ..
+            make -j
+            make -j install
+          fi
 
       - name: Configure
         run: |
