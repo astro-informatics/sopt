@@ -46,25 +46,14 @@ jobs:
           sudo apt install openmpi-bin libopenmpi-dev libyaml-cpp-dev doxygen graphviz ccache
           if [[ "$USE_CONAN" = 0 ]]; then
             sudo apt install libeigen3-dev libspdlog-dev
+            git clone https://github.com/catchorg/Catch2.git -b v3.4.0
+            mkdir Catch2/build
+            cd Catch2/build
+            cmake .. -DBUILD_TESTING=OFF -DCMAKE_INSTALL_PREFIX=${PWD}
+            make -j
+            make -j install
+            cd -
           fi
-
-      - name: Checkout Catch2 repo
-        uses: actions/checkout@v3
-        if: env.USE_CONAN != '1'
-        with:
-          repository: catchorg/Catch2.git
-          path: Catch2
-          ref: v3.4.0
-
-      - name: Build Catch2
-        if: env.USE_CONAN != '1'
-        run: |
-          mkdir Catch2/build
-          cd Catch2/build
-          cmake .. -DBUILD_TESTING=OFF -DCMAKE_INSTALL_PREFIX=${PWD}
-          make -j
-          make -j install
-          cd -
 
       - name: Install Conan
         id: conan
@@ -124,8 +113,6 @@ jobs:
           else
             export PATH=${{github.workspace}}/cppflow/build:$PATH
             export PATH=${{github.workspace}}/Catch2/build:$PATH
-            export CMAKE_MODULE_PATH=${{github.workspace}}/Catch2/build/lib/cmake/Catch2:$CMAKE_MODULE_PATH
-            #export CMAKE_MODULE_PATH=${{github.workspace}}/Catch2/build/lib/cmake/Catch2:$CMAKE_MODULE_PATH
             cd ${{github.workspace}}/build
             make -j
             make -j install
