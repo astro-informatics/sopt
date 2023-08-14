@@ -47,7 +47,7 @@ jobs:
 
       - name: Install Conan
         id: conan
-        if: env.USE_CONAN
+        if: env.USE_CONAN != '0'
         uses: turtlebrowser/get-conan@main
         with:
           version: 1.60.2
