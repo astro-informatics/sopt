@@ -50,8 +50,8 @@ jobs:
             mkdir Catch2/build
             cd Catch2/build
             cmake .. -DBUILD_TESTING=OFF -DCMAKE_INSTALL_PREFIX=${PWD}
-            make -j
-            make -j install
+            make -j$(nproc --ignore 1)
+            make -j$(nproc --ignore 1) install
             cd -
           fi
 
@@ -87,8 +87,8 @@ jobs:
             mkdir cppflow/build
             cd cppflow/build
             cmake .. -DCMAKE_INSTALL_PREFIX=${PWD}
-            make -j
-            make -j install
+            make -j$(nproc --ignore 1)
+            make -j$(nproc --ignore 1) install
           fi
 
       - name: Configure
@@ -114,8 +114,8 @@ jobs:
             export PATH=${{github.workspace}}/cppflow/build:$PATH
             export PATH=${{github.workspace}}/Catch2/build:$PATH
             cd ${{github.workspace}}/build
-            make -j
-            make -j install
+            make -j$(nproc --ignore 1)
+            make -j$(nproc --ignore 1) install
           fi
 
       - name: Make Docweb
