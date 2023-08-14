@@ -1,12 +1,10 @@
 # On different platforms the CMakeDeps generator in conan seems to install eigen
-# as either "eigen" or "Eigen3" because the recipe does not explicitly define the
-# name (yet). To work around this we have to check for both.
-find_package(eigen QUIET)
-find_package(Eigen3 QUIET)
-if(eigen_FOUND)
-  set(EIGEN3_INCLUDE_DIR ${eigen_INCLUDE_DIR} CACHE INTERNAL "")
-elseif(Eigen3_FOUND)
-  if (NOT EIGEN3_INCLUDE_DIR)
+# as either "eigen" or "Eigen3", so we need to work around this for now.
+find_package(eigen NAMES Eigen3)
+if(eigen_FOUND OR Eigen3_FOUND)
+  if(eigen_INCLUDE_DIR)
+    set(EIGEN3_INCLUDE_DIR ${eigen_INCLUDE_DIR} CACHE INTERNAL "")
+  elseif(Eigen3_INCLUDE_DIR)
     set(EIGEN3_INCLUDE_DIR ${Eigen3_INCLUDE_DIR} CACHE INTERNAL "")
   endif()
 else()
