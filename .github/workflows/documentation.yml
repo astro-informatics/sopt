@@ -111,7 +111,8 @@ jobs:
           else
             export PATH=${{github.workspace}}/cppflow/build:$PATH
             export PATH=${{github.workspace}}/Catch2/build:$PATH
-            export CMAKE_MODULE_PATH=${{github.workspace}}/Catch2/build/lib/cmake/Catch2:$CMAKE_MODULE_PATH
+            #export Catch2_DIR=${{github.workspace}}/Catch2/build/lib/cmake/Catch2:$CMAKE_MODULE_PATH
+            export Catch2_DIR=${{github.workspace}}/Catch2/build:$Catch2_DIR
             mkdir ${{github.workspace}}/build
             cd ${{github.workspace}}/build
             cmake .. -DCMAKE_INSTALL_PREFIX=${PWD} -Ddompi=OFF -Dopenmp=OFF -Ddocs=ON -Dcppflow=ON
