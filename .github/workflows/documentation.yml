@@ -75,7 +75,7 @@ jobs:
           else
             mkdir cppflow/build
             cd cppflow/build
-            cmake ..
+            cmake .. -DCMAKE_INSTALL_PREFIX=${PWD}
             make -j
             make -j install
           fi
