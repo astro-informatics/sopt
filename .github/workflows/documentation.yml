@@ -45,7 +45,7 @@ jobs:
           sudo apt update
           sudo apt install openmpi-bin libopenmpi-dev libyaml-cpp-dev doxygen graphviz ccache
           if [[ "$USE_CONAN" = 0 ]]; then
-            sudo apt install libeigen3-dev libspdlog-dev catch2
+            sudo apt install libeigen3-dev libspdlog-dev catch-devel
           fi
 
       - name: Install Conan
