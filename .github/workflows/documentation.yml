@@ -94,7 +94,7 @@ jobs:
             export PATH=${PWD}/cppflow/build:$PATH
             mkdir ${{github.workspace}}/build
             cd ${{github.workspace}}/build
-            cmake .. -DCMAKE_INSTALL_PREFIX=${PWD} -Dmpi=OFF -Dopenmp=OFF -Ddocs=ON -Dcppflow=ON
+            cmake .. -DCMAKE_INSTALL_PREFIX=${PWD} -Ddompi=OFF -Dopenmp=OFF -Ddocs=ON -Dcppflow=ON
           fi
 
       - name: Build
@@ -102,6 +102,7 @@ jobs:
           if [[ "$USE_CONAN" = 1 ]]; then
             conan build ${{github.workspace}} -bf ${{github.workspace}}/build
           else
+            cd ${{github.workspace}}/build
             make -j
             make -j install
           fi
