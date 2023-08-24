@@ -103,20 +103,20 @@ conan build .. -of .
 
 If the dependencies are already available on your system, you can also install **SOPT** manually like so
 
-    ``` bash
-    cd /path/to/code
-    mkdir build
-    cd build
-    cmake .. -DCMAKE_INSTALL_PREFIX=${PWD}../local
-    make -j
-    make -j install
-    ```
+  ``` bash
+  cd /path/to/code
+  mkdir build
+  cd build
+  cmake .. -DCMAKE_INSTALL_PREFIX=${PWD}/../local
+  make -j
+  make -j install
+  ```
 
 On MacOS, you can also install most of the dependencies with Homebrew e.g.
 
-    ``` bash
-    brew install libtensorflow eigen tiff spdlog catch2
-    ```
+  ``` bash
+  brew install libtensorflow eigen tiff spdlog catch2
+  ```
 
 
 
