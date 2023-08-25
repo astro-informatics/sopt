@@ -2,13 +2,15 @@
 #define SOPT_LOGGING_ENABLED_H
 
 #include "sopt/config.h"
-#include <memory> // for std::shared_ptr<>
-#include <string> // for std::string
+#include <memory>
+#include <string>
 #include <Eigen/Core>
 #include <spdlog/fmt/ostr.h>
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/stdout_sinks.h>
 #include "sopt/exception.h"
+
+using spdlogPtr = std::shared_ptr<spdlog::logger>;
 
 #if FMT_VERSION >= 90000
     template <typename... Args>
@@ -19,18 +21,21 @@
 #endif
 
 namespace sopt::logging {
+
   void set_level(std::string const &level, std::string const &name = "");
 
   //! \brief Initializes a logger.
   //! \details Logger only exists as long as return is kept alive.
-  inline std::shared_ptr<spdlog::logger> initialize(std::string const &name = "") {
-    auto const result = spdlog::stdout_logger_mt(default_logger_name() + name);
+  inline spdlogPtr initialize(std::string const &name = "") {
+    const std::string loggerName = default_logger_name() + name;
+    const spdlogPtr result = spdlog::stdout_logger_mt(loggerName);
+    if (!spdlog::get(loggerName))  spdlog::register_logger(result);
     set_level(default_logging_level(), name);
     return result;
   }
 
   //! Returns shared pointer to logger or null if it does not exist
-  inline std::shared_ptr<spdlog::logger> get(std::string const &name = "") {
+  inline spdlogPtr get(std::string const &name = "") {
     return spdlog::get(default_logger_name() + name);
   }
 
@@ -44,7 +49,7 @@ namespace sopt::logging {
   //!     - "critical"
   //!     - "off"
   inline void set_level(std::string const &level, std::string const &name) {
-    auto const logger = get(name);
+    const spdlogPtr logger = get(name);
     if (not logger) SOPT_THROW("No logger by the name of ") << name << ".\n";
   #define SOPT_MACRO(LEVEL) \
     if (level == #LEVEL) logger->set_level(spdlog::level::LEVEL)
@@ -60,7 +65,7 @@ namespace sopt::logging {
   }
 
   inline bool has_level(std::string const &level, std::string const &name = "") {
-    auto const logger = get(name);
+    const spdlogPtr logger = get(name);
     if (not logger) return false;
 
   #define SOPT_MACRO(LEVEL) \
