@@ -39,7 +39,7 @@ This documentation outlines the necessary and optional [dependencies](#dependenc
 
 ### Using Conan v2 (recommended)
 
-[Conan](https://docs.conan.io/en/latest/installation.html) is C++ package manager that helps deal with most of the C++ dependencies
+[Conan](https://docs.conan.io/en/latest/installation.html) is a C++ package manager that helps deal with most of the C++ dependencies
 as well as the **SOPT** installation:
 
 1. If you are using a learned prior you must install the Tensorflow C API and `cppflow` package:
