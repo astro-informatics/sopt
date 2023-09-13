@@ -5,7 +5,7 @@ if(PROJECT_SOURCE_DIR STREQUAL PROJECT_BINARY_DIR)
 	message(FATAL_ERROR "In-source builds are not allowed!\nCreate a \"build\" dir and remove:\n- ${CMAKE_SOURCE_DIR}/CMakeCache.txt\n- ${CMAKE_SOURCE_DIR}/CMakeFiles")
 endif()
 
-project(Sopt
+project(sopt
         DESCRIPTION "Sparse OPTimisation using state-of-the-art convex optimisation algorithms."
         HOMEPAGE_URL "http://astro-informatics.github.io/sopt/"
         LANGUAGES CXX)
@@ -33,13 +33,10 @@ list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/build)
 find_package(Git)
 
 # Set version variable
-# If git is found and this is a git workdir, then figure out build id
-# Stores results in ${PROJECT_NAME}_VERSION and ${PROJECT_NAME}_GITREF
-set(${PROJECT_NAME}_VERSION 3.1.0)
+set(SOPT_VERSION 3.1.0)
 
-# Set version variable
 # If git is found and this is a git workdir, then figure out build id
-# Stores results in ${PROJECT_NAME}_VERSION and ${PROJECT_NAME}_GITREF
+# Stores results in SOPT_VERSION and SOPT_GITREF
 if(GIT_FOUND)
   execute_process(
     COMMAND ${GIT_EXECUTABLE} rev-parse HEAD
@@ -56,7 +53,7 @@ else()
   set(GIT_HASH "NA")
 endif()
 
-set(${PROJECT_NAME}_GITREF ${GIT_HASH})
+set(SOPT_GITREF ${GIT_HASH})
 
 
 option(tests          "Enable testing"                         on)
