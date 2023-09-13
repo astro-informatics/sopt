@@ -3,7 +3,7 @@ from conan.tools.cmake import CMake, CMakeToolchain, CMakeDeps
 from conan.tools.files import symlinks
 import os
 
-class SoptConan(ConanFile):
+class soptConan(ConanFile):
     name = "sopt"
     version = "4.0.0"
     url = "https://github.com/astro-informatics/sopt"

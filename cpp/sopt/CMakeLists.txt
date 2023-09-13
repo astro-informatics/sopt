@@ -32,8 +32,8 @@ if (cppflow)
 endif()
 
 add_library(sopt SHARED ${sources})
-set(version "${Sopt_VERSION_MAJOR}.${Sopt_VERSION_MINOR}.${Sopt_VERSION_PATCH}")
-set(soversion "${Sopt_VERSION_MAJOR}.${Sopt_VERSION_MINOR}")
+set(version "${SOPT_VERSION_MAJOR}.${SOPT_VERSION_MINOR}.${SOPT_VERSION_PATCH}")
+set(soversion "${SOPT_VERSION_MAJOR}.${SOPT_VERSION_MINOR}")
 set_target_properties(sopt PROPERTIES VERSION ${version} SOVERSION ${soversion})
 
 target_include_directories(sopt PUBLIC
@@ -83,9 +83,9 @@ install(FILES ${headers} DESTINATION include/sopt)
 install(FILES ${wavelet_headers} DESTINATION include/sopt/wavelets)
 install(FILES ${mpi_headers} DESTINATION include/sopt/mpi)
 install(TARGETS sopt
-  EXPORT SoptCPPTargets
+  EXPORT soptCPPTargets
   DESTINATION share/cmake/sopt
   LIBRARY DESTINATION lib
   ARCHIVE DESTINATION lib
   INCLUDES DESTINATION include
-  )
+)
