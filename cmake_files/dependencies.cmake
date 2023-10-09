@@ -1,9 +1,13 @@
 # On different platforms the CMakeDeps generator in conan seems to install eigen
-# as either "eigen" or "Eigen3" because the recipe does not explicitly define the
-# name (yet). To work around this we have to check for both.
-find_package(eigen)
-find_package(Eigen3)
-if(NOT (eigen_FOUND OR Eigen3_FOUND))
+# as either "eigen" or "Eigen3", so we need to work around this for now.
+find_package(eigen NAMES Eigen3)
+if(eigen_FOUND OR Eigen3_FOUND)
+  if(eigen_INCLUDE_DIR)
+    set(EIGEN3_INCLUDE_DIR ${eigen_INCLUDE_DIR} CACHE INTERNAL "")
+  elseif(Eigen3_INCLUDE_DIR)
+    set(EIGEN3_INCLUDE_DIR ${Eigen3_INCLUDE_DIR} CACHE INTERNAL "")
+  endif()
+else()
   message(FATAL_ERROR "Eigen is required")
 endif()
 
@@ -20,10 +24,9 @@ if(logging)
 endif()
 
 if(docs)
-  cmake_policy(SET CMP0057 NEW)
-  find_package(doxygen REQUIRED dot)
-  if(NOT doxygen_FOUND)
-    mesage(FATAL_ERROR "Could not find Doxygen or dot")
+  find_package(Doxygen REQUIRED dot)
+  if(NOT Doxygen_FOUND)
+    message(FATAL_ERROR "Could not find Doxygen or dot")
   endif()
 endif()
 

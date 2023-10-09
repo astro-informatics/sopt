@@ -82,6 +82,7 @@ python/tests/__pycache__
 *~
 
 ### CMake ###
+CMakeUserPresets.json
 CMakeLists.txt.user
 CMakeCache.txt
 CMakeFiles
@@ -93,6 +94,7 @@ install_manifest.txt
 compile_commands.json
 CTestTestfile.cmake
 _deps
+local
 
 # CMake External projects (created by CMake fetchcontent module)
 *-prefix/

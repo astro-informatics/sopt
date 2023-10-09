@@ -3,7 +3,7 @@ from conan.tools.cmake import CMake, CMakeToolchain, CMakeDeps
 from conan.tools.files import symlinks
 import os
 
-class SoptConan(ConanFile):
+class soptConan(ConanFile):
     name = "sopt"
     version = "4.0.0"
     url = "https://github.com/astro-informatics/sopt"
@@ -12,8 +12,8 @@ class SoptConan(ConanFile):
 
 
     settings = "os", "compiler", "build_type", "arch"
-    requires = ["eigen/3.3.7","catch2/2.13.7","benchmark/1.6.0", "libtiff/4.4.0",]
-    generators = "CMakeDeps"
+    requires = ["eigen/3.4.0","catch2/3.4.0","benchmark/1.8.2", "libtiff/4.5.1",]
+    #generators = "CMakeDeps"
     exports_sources = "cpp/*", "cmake_files/*", "CMakeLists.txt"
     options = {"docs":['on','off'],
                "examples":['on','off'],
@@ -37,7 +37,7 @@ class SoptConan(ConanFile):
     def requirements(self):
 
         if self.options.logging == 'on':
-            self.requires("spdlog/1.9.2")
+            self.requires("spdlog/1.12.0")
 
         if self.options.cppflow == 'on':
             self.requires("cppflow/2.0.0")

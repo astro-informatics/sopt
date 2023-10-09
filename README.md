@@ -1,12 +1,10 @@
-Sparse OPTimisation Library
-===========================
+# Sparse OPTimisation Library
 
 [![build](https://github.com/astro-informatics/sopt/actions/workflows/cmake.yml/badge.svg?branch=development)](https://github.com/astro-informatics/sopt/actions/workflows/cmake.yml?query=branch%3Adevelopment+)
 [![codecov](https://codecov.io/gh/astro-informatics/sopt/branch/development/graph/badge.svg)](https://codecov.io/gh/astro-informatics/sopt)
 [![DOI](http://img.shields.io/badge/DOI-10.5281/zenodo.2584256-blue.svg?style=flat)](https://doi.org/10.5281/zenodo.2584256)
 
-Description
--------------
+## Description
 
 **SOPT** is an open-source `C++` package available under the [license](#license) below. It performs Sparse OPTimisation using state-of-the-art convex optimisation algorithms. It solves a variety of sparse regularisation problems, including the Sparsity Averaging Reweighted Analysis (SARA) algorithm.
 
@@ -18,34 +16,31 @@ Description
 
 This documentation outlines the necessary and optional [dependencies](#dependencies-installation) upon which **SOPT** should be built, before describing [installation](#installing-and-building-SOPT) and [testing](#testing) details and [Matlab](#Matlab) support. [Contributors](#contributors), [references](#references-and-citation) and [license](#license) information then follows.
 
-Dependencies installation
--------------------------
+## Dependencies installation
 
-**SOPT** is mostly written in `C++11`. Pre-requisites and dependencies are listed in following and minimal versions required are tested against `Travis CI` meaning that they come natively with OSX and the Ubuntu Trusty release. These are also the default ones fetched by `CMake`.
+**SOPT** is mostly written in `C++17`. Pre-requisites and dependencies are listed in following and minimal versions required are tested against `Travis CI` meaning that they come natively with OSX and the Ubuntu Trusty release. These are also the default ones fetched by `CMake`.
 
 `C++` minimal dependencies:
 
 - [CMake](http://www.cmake.org/) v3.9.2 A free software that allows cross-platform compilation.
 - [GCC](https://gcc.gnu.org) v7.3.0 GNU compiler for `C++`.
-- [UCL/GreatCMakeCookOff](https://github.com/UCL/GreatCMakeCookOff) Collection of `CMake` recipes. Downloaded automatically if absent.
 - [OpenMP](http://openmp.org/wp/) v4.8.4 (Trusty) - Optional - Speeds up some of the operations.
-- [Cppflow](https://github.com/UCL/cppflow) - Optional - A warpper for the Tensorflow C API allowing us to read Tensorflow models into SOPT. Needed if you are using a learned prior.
-- [Conan](https://docs.conan.io/en/latest/installation.html) - C++ package manager which installs the following:
-  - [Eigen3](http://eigen.tuxfamily.org/index.php?title=Main_Page) v3.2.0 (Trusty) Modern `C++` linear algebra. Downloaded automatically if absent.
-  - [spdlog](https://github.com/gabime/spdlog) v* - Optional - Logging library. Downloaded automatically if
-      absent.
-  - [Catch2](https://github.com/catchorg/Catch2) v2.2.3 - Optional -  A `C++`
-      unit-testing framework only needed for testing. Downloaded automatically if absent.
-  - [google/benchmark](https://github.com/google/benchmark) - Optional - A `C++`
-      micro-benchmarking framework only needed for benchmarks. Downloaded automatically if absent.
-  - [tiff](http://www.libtiff.org/) v4.0.3 (Trusty) Tag Image File Format library - only installed if needed.
+- [Cppflow](https://github.com/UCL/cppflow) v2.0.0 - Optional - A warpper for the Tensorflow C API allowing us to read Tensorflow models into SOPT. Needed if you are using a learned prior.
+- [Eigen3](http://eigen.tuxfamily.org/index.php?title=Main_Page) v3.4.0 (Trusty) Modern `C++` linear algebra. Downloaded automatically if absent.
+- [spdlog](https://github.com/gabime/spdlog) v1.12.0 - Optional - Logging library. Downloaded automatically if
+    absent.
+- [Catch2](https://github.com/catchorg/Catch2) v3.4.0 - Optional -  A `C++`
+    unit-testing framework only needed for testing. Downloaded automatically if absent.
+- [google/benchmark](https://github.com/google/benchmark) - Optional - A `C++`
+    micro-benchmarking framework only needed for benchmarks. Downloaded automatically if absent.
+- [tiff](http://www.libtiff.org/) v4.5.1 (Trusty) Tag Image File Format library - only installed if needed.
 
-Installing and building SOPT
-----------------------------
+## Installing and building SOPT
 
-You can build **SOPT** entirely from the source code.
+### Using Conan v2 (recommended)
 
-
+[Conan](https://docs.conan.io/en/latest/installation.html) is a C++ package manager that helps deal with most of the C++ dependencies
+as well as the **SOPT** installation:
 
 1. If you are using a learned prior you must install the Tensorflow C API and `cppflow` package:
     - Install [TensorFlow C API](https://www.tensorflow.org/install/lang_c)
@@ -53,10 +48,11 @@ You can build **SOPT** entirely from the source code.
 
         ``` bash
         git clone git@github.com:UCL/cppflow.git
-        conan create ./cppflow/ -pr:h=default -pr:b=default
+        conan create ./cppflow/
         ```
       Note that conan requires you to specify the host (h) and the build (b) profiles on the command
-      line (`-pr:h=default -pr:b=default`), if you haven't defined them in your conan profile.
+      line (`-pr:h=default -pr:b=default`), unless you have defined them in your conan profile.
+      You can set up a default profile for your system using `conan profile detect` (only needs to be done once).
 
 1. Once the mandatory dependencies are present, `git clone` from the [GitHub repository](https://github.com/astro-informatics/sopt):
 
@@ -70,17 +66,20 @@ You can build **SOPT** entirely from the source code.
     cd /path/to/code
     mkdir build
     cd build
-    conan install .. --build missing -pr:h=default -pr:b=default
-    conan build ..
+    conan install .. -of . --build missing
+    conan build .. -of .
     ```
 
-    - To install in directory `INSTALL_FOLDER`, add the following options to the conan build command:
+Things to note:
 
-        ``` bash
-        conan build .. -bf INSTALL_FOLDER -if .
-        ```
+- To install in directory `INSTALL_FOLDER`, add the following options to the conan build command:
 
-    - CMake build options should be passed as options to `conan install` using the `-o` flag with a value `on` or `off`. Possible options are
+    ``` bash
+    conan build .. -of INSTALL_FOLDER
+    ```
+
+- CMake build options should be passed as options to `conan install` using the `-o` flag with a value `on` or `off`.
+Possible options are:
 
     - tests (default on)
     - benchmarks (default off)
@@ -90,28 +89,53 @@ You can build **SOPT** entirely from the source code.
     - mpi (default on)
     - docs (default off)
     - coverage (default off)
-	- cppflow (default off)
+    - cppflow (default off)
 
-        For example, to build with both MPI and OpenMP off you would use
+For example, to build with both MPI and OpenMP off you would use
 
-        ``` bash
-        conan install .. --build missing -o openmp=off -o mpi=off -pr:h=default -pr:b=default
-        conan build ..
-        ```
+``` bash
+conan install .. -of . --build missing -o openmp=off -o mpi=off -pr:h=default -pr:b=default
+conan build .. -of .
+```
 
-Common errors
--------
+
+### Using CMake
+
+If the dependencies are already available on your system, you can also install **SOPT** manually like so
+
+  ``` bash
+  cd /path/to/code
+  mkdir build
+  cd build
+  cmake .. -DCMAKE_INSTALL_PREFIX=${PWD}/../local
+  make -j
+  make -j install
+  ```
+
+On MacOS, you can also install most of the dependencies with Homebrew e.g.
+
+  ``` bash
+  brew install libtensorflow eigen tiff spdlog catch2
+  ```
+
+
+
+## Common errors
 
 If you are using the g++ compiler and get an error to do with the package `spdlog`, try adding the option `-s compiler.libcxx=libstdc++11` to the `conan build` command. This option is also necessary when building with gcc on MacOS.
 
-Conan tips
--------
 
-You can set commonly used options, choices of compilers, etc. in a [conan profile](https://docs.conan.io/en/latest/reference/profiles.html). You can list profiles available on your system using `conan profile list` and select the profile you want to use with `conan install` with `conan install .. -pr my_profile`. CMake build options can also be added to the profile under `[options]`. Here is an example of a conan profile for building with a homebrew installed gcc 11 on MacOS.
+## Conan tips
+
+You can set commonly used options, choices of compilers etc. in a
+[conan profile](https://docs.conan.io/en/latest/reference/profiles.html).
+You can list profiles available on your system using `conan profile list` and
+select the profile you want to use with `conan install` with
+`conan install .. -pr my_profile`.
+CMake build options can also be added to the profile under `[options]`.
+Here is an example of a conan profile for building with a homebrew installed gcc 11 on MacOS.
 
 ```
-GCC_PATH=/usr/local/Cellar/gcc/11.2.0_3/bin/
-
 [settings]
 os=Macos
 os_build=Macos
@@ -123,13 +147,9 @@ compiler.libcxx=libstdc++11
 build_type=Release
 [options]
 [build_requires]
-[env]
-CC=$GCC_PATH/gcc-11
-CXX=$GCC_PATH/g++-11
 ```
 
-Testing
--------
+## Testing
 
 To check everything went all right, run the test suite:
 
@@ -138,22 +158,25 @@ cd /path/to/code/build
 ctest .
 ```
 
-Matlab
-------
+## Matlab
 
-A separate Matlab implementation is provided with **SOPT**. This implementation includes some (but not all) of the optimisation algorithms implemented in the `C++` code, including the SARA algorithm.
+A separate Matlab implementation is provided with **SOPT**.
+This implementation includes some (but not all) of the optimisation algorithms implemented in the `C++` code, including the SARA algorithm.
 
-The Matlab implementation is contained in the matlab directory. This is a stand-alone implementation and does not call any of the `C++` code. In future, Matlab interfaces to the `C++` code may also be included in **SOPT**.
+The Matlab implementation is contained in the matlab directory.
+This is a stand-alone implementation and does not call any of the `C++` code.
+In future, Matlab interfaces to the `C++` code may also be included in **SOPT**.
 
-See `matlab/README.txt` for an overview of the Matlab implementation. The stand-alone Matlab implementation is also self-documenting; corresponding documentation can be found in `matlab/doc`. We thank Gilles Puy for contributing to this Matlab implementation.
+See `matlab/README.txt` for an overview of the Matlab implementation.
+The stand-alone Matlab implementation is also self-documenting;
+corresponding documentation can be found in `matlab/doc`.
+We thank Gilles Puy for contributing to this Matlab implementation.
 
-Contributors
-------------
+## Contributors
 
 Check the [contributors](@ref sopt_contributors) page ([github](cpp/docs/SOPT_CONTRIBUTORS.md)).
 
-References and citation
------------------------
+## References and citation
 
 If you use **SOPT** for work that results in publication, please reference the [webpage](#webpage) and our related academic papers:
 
@@ -167,11 +190,10 @@ If you use **SOPT** for work that results in publication, please reference the [
    Analysis (SARA): a novel algorithm for radio-interferometric imaging" _Mon.
    Not. Roy. Astron. Soc._ **426(2):1223-1234** (2012) [arXiv:1205.3123](http://arxiv.org/abs/arXiv:1205.3123)
 
-License
--------
+## License
 
 > SOPT: Sparse OPTimisation package
-> Copyright (C) 2013-2019
+> Copyright (C) 2013-2023
 >
 > This program is free software; you can redistribute it and/or
 > modify it under the terms of the GNU General Public License as
@@ -188,19 +210,16 @@ License
 > Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 > 02110-1301, USA.
 
-Webpage
--------
+## Webpage
 
 - [Documentation](http://astro-informatics.github.io/sopt)
 - [Repository](https://github.com/astro-informatics/sopt)
 
-Support
--------
+## Support
 
 For any questions or comments, feel free to contact [Jason McEwen](http://www.jasonmcewen.org), or add
 an issue to the [issue tracker](https://github.com/astro-informatics/sopt/issues).
 
-Notes
------
+## Notes
 
 The code is given for educational purpose. For the `Matlab` version of the code see the folder matlab.

@@ -18,10 +18,11 @@ env:
   CONAN_REVISIONS_ENABLED: 1
   OMP_NUM_THREADS: 2
   CONAN_CPU_COUNT: 2
+  USE_CONAN: 0
 
 jobs:
   make-documentation:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - name: Check out sopt
         uses: actions/checkout@v3
@@ -42,13 +43,25 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt update
-          sudo apt install openmpi-bin libopenmpi-dev libyaml-cpp-dev doxygen graphviz
+          sudo apt install openmpi-bin libopenmpi-dev libyaml-cpp-dev doxygen graphviz ccache
+          if [[ "$USE_CONAN" = 0 ]]; then
+            sudo apt install libeigen3-dev libspdlog-dev libtiff-dev
+            git clone https://github.com/catchorg/Catch2.git -b v3.4.0
+            mkdir Catch2/build
+            cd Catch2/build
+            cmake .. -DBUILD_TESTING=OFF -DCMAKE_INSTALL_PREFIX=${PWD}
+            make -j$(nproc --ignore 1)
+            make -j$(nproc --ignore 1) install
+            cd -
+          fi
 
       - name: Install Conan
         id: conan
+        if: env.USE_CONAN != '0'
         uses: turtlebrowser/get-conan@main
         with:
-          version: 1.59.0
+          version: 1.60.2
+          #version: 2.0.9
 
       - name: Install Tensorflow API on Ubuntu
         uses: UCL/install-tensorflow-action@main
@@ -64,20 +77,52 @@ jobs:
           ref: master
 
       - name: Create cppflow package
-        run: conan create ./cppflow/ -pr:h=default -pr:b=default
+        run: |
+          if [[ "$USE_CONAN" = 1 ]]; then
+            #conan profile detect
+            #sed -i'' -e "s|generators|#generators|1" ./cppflow/conanfile.py
+            conan create ./cppflow/ -pr:h=default -pr:b=default
+          else
+            mkdir cppflow/build
+            cd cppflow/build
+            cmake .. -DCMAKE_INSTALL_PREFIX=${PWD}
+            make -j$(nproc --ignore 1)
+            make -j$(nproc --ignore 1) install
+          fi
 
       - name: Configure
         run: |
-          conan install doxygen/1.9.4@#2af713e135f12722e3536808017ba086 --update
-          conan install ${{github.workspace}} -if ${{github.workspace}}/build --build missing  -s compiler.libcxx=libstdc++11 -o mpi=off -o openmp=off -o docs=on -o cppflow=on -pr:h=default -pr:b=default
+          if [[ "$USE_CONAN" = 1 ]]; then
+            # Doxygen currently broken in Conan v1 and v2
+            #conan install doxygen/1.9.4@#2af713e135f12722e3536808017ba086 --update
+            conan install ${{github.workspace}} -if ${{github.workspace}}/build --build missing -s compiler.libcxx=libstdc++11 -o mpi=off -o openmp=off -o docs=off -o cppflow=on -pr:h=default -pr:b=default
+          else
+            export PATH=${{github.workspace}}/cppflow/build:$PATH
+            export PATH=${{github.workspace}}/Catch2/build:$PATH
+            export CMAKE_PREFIX_PATH=${{github.workspace}}/Catch2/build/lib/cmake/Catch2:$CMAKE_PREFIX_PATH
+            mkdir ${{github.workspace}}/build
+            cd ${{github.workspace}}/build
+            cmake .. -DCMAKE_INSTALL_PREFIX=${PWD} -Ddompi=OFF -Dopenmp=OFF -Ddocs=ON -Dcppflow=ON
+          fi
 
       - name: Build
-        run: conan build ${{github.workspace}} -bf ${{github.workspace}}/build
+        run: |
+          if [[ "$USE_CONAN" = 1 ]]; then
+            conan build ${{github.workspace}} -bf ${{github.workspace}}/build
+          else
+            export PATH=${{github.workspace}}/cppflow/build:$PATH
+            export PATH=${{github.workspace}}/Catch2/build:$PATH
+            cd ${{github.workspace}}/build
+            make -j$(nproc --ignore 1)
+            make -j$(nproc --ignore 1) install
+          fi
 
       - name: Make Docweb
         run: |
-          cd build
-          make docweb VERBOSE=1
+          if [[ "$USE_CONAN" = 0 ]]; then
+            cd build
+            make docweb VERBOSE=1
+          fi
 
       - name: Deploy to GH pages
         if: ${{github.event_name == 'push'}}

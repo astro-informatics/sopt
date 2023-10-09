@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include <catch.hpp>
+#include <catch2/catch_all.hpp>
 
 #include "sopt/logging.h"
 #include "sopt/types.h"

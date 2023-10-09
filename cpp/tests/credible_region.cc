@@ -1,6 +1,6 @@
 #include "sopt/credible_region.h"
 #include <iostream>
-#include "catch.hpp"
+#include "catch2/catch_all.hpp"
 #include "sopt/objective_functions.h"
 #include "sopt/types.h"
 
@@ -8,6 +8,7 @@ using namespace sopt;
 using Scalar = t_complex;
 using t_Vector = Vector<Scalar>;
 using t_Image = Image<Scalar>;
+using Catch::Approx;
 t_uint rows = 128;
 t_uint cols = 128;
 t_uint N = rows * cols;
