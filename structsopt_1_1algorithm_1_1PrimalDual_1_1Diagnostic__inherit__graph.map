@@ -1,5 +1,5 @@
 <map id="sopt::algorithm::PrimalDual&lt; SCALAR &gt;::Diagnostic" name="sopt::algorithm::PrimalDual&lt; SCALAR &gt;::Diagnostic">
-<area shape="rect" id="node1" title="Values indicating how the algorithm ran." alt="" coords="5,86,207,127"/>
+<area shape="rect" id="node1" title="Values indicating how the algorithm ran." alt="" coords="5,50,207,91"/>
 <area shape="rect" id="node2" href="$structsopt_1_1algorithm_1_1ImagingPrimalDual_1_1Diagnostic.html" title="Values indicating how the algorithm ran." alt="" coords="286,5,470,61"/>
 <area shape="rect" id="node4" href="$structsopt_1_1algorithm_1_1PrimalDual_1_1DiagnosticAndResult.html" title="Holds result vector as well." alt="" coords="255,86,501,127"/>
 <area shape="rect" id="node5" href="$structsopt_1_1algorithm_1_1TVPrimalDual_1_1Diagnostic.html" title="Values indicating how the algorithm ran." alt="" coords="273,151,483,193"/>

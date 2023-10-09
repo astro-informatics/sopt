@@ -1,10 +1,10 @@
 <map id="/home/runner/work/sopt/sopt/cpp/tests/communicator.cc" name="/home/runner/work/sopt/sopt/cpp/tests/communicator.cc">
-<area shape="rect" id="node1" title=" " alt="" coords="135,5,367,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="169,5,401,47"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,95,85,121"/>
 <area shape="rect" id="node3" title=" " alt="" coords="109,95,184,121"/>
-<area shape="rect" id="node4" title=" " alt="" coords="208,95,293,121"/>
-<area shape="rect" id="node5" title=" " alt="" coords="326,244,431,271"/>
-<area shape="rect" id="node6" href="$communicator_8h.html" title=" " alt="" coords="369,95,557,121"/>
-<area shape="rect" id="node7" href="$session_8h.html" title=" " alt="" coords="419,169,563,196"/>
-<area shape="rect" id="node8" title=" " alt="" coords="455,244,532,271"/>
+<area shape="rect" id="node4" title=" " alt="" coords="208,95,363,121"/>
+<area shape="rect" id="node5" title=" " alt="" coords="395,244,501,271"/>
+<area shape="rect" id="node6" href="$communicator_8h.html" title=" " alt="" coords="438,95,626,121"/>
+<area shape="rect" id="node7" href="$session_8h.html" title=" " alt="" coords="488,169,632,196"/>
+<area shape="rect" id="node8" title=" " alt="" coords="524,244,601,271"/>
 </map>
