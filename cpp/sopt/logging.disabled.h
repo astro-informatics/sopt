@@ -19,6 +19,5 @@ inline bool has_level(std::string const &, std::string const &) { return false; 
 } // namespace sopt::logging
 
 //! \macro For internal use only
-#define SOPT_LOG_(...)
-
+#define SOPT_LOG_(...) ((void)0)
 #endif

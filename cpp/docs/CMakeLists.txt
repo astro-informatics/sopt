@@ -20,7 +20,13 @@ add_custom_target(doc ALL
 
 
 # This will create a target in the Makefile that's used to push docs to github.io
-add_custom_target(docweb
-  COMMAND sed -i -e 's@namespacesopt@http://astro-informatics.github.io/sopt/&@g' -e 's@<filename>@&http://astro-informatics.github.io/sopt/@g' ${CMAKE_CURRENT_BINARY_DIR}/html/sopt.tag
-  DEPENDS doc)
+if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+  add_custom_target(docweb
+    COMMAND sed -i '' -e 's@namespacesopt@http://astro-informatics.github.io/sopt/&@g' -e 's@<filename>@&http://astro-informatics.github.io/sopt/@g' ${CMAKE_CURRENT_BINARY_DIR}/html/sopt.tag
+    DEPENDS doc)
+else()
+  add_custom_target(docweb
+    COMMAND sed -i -e 's@namespacesopt@http://astro-informatics.github.io/sopt/&@g' -e 's@<filename>@&http://astro-informatics.github.io/sopt/@g' ${CMAKE_CURRENT_BINARY_DIR}/html/sopt.tag
+    DEPENDS doc)
+endif()
 

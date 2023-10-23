@@ -1,5 +1,5 @@
 #include <random>
-#include "catch.hpp"
+#include "catch2/catch_all.hpp"
 
 #include "sopt/conjugate_gradient.h"
 

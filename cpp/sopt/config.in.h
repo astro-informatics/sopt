@@ -27,14 +27,14 @@
 
 namespace sopt {
 //! Returns library version
-inline std::string version() { return "@Sopt_VERSION@"; }
+inline std::string version() { return "@SOPT_VERSION@"; }
 //! Returns library version
 inline std::tuple<uint8_t, uint8_t, uint8_t> version_tuple() {
   return std::tuple<uint8_t, uint8_t, uint8_t>(
-      @Sopt_VERSION_MAJOR@, @Sopt_VERSION_MINOR@, @Sopt_VERSION_PATCH@);
+      @SOPT_VERSION_MAJOR@, @SOPT_VERSION_MINOR@, @SOPT_VERSION_PATCH@);
 }
 //! Returns library git reference, if known
-inline std::string gitref() { return "@Sopt_GITREF@"; }
+inline std::string gitref() { return "@SOPT_GITREF@"; }
 //! Default logging level
 inline std::string default_logging_level() { return "@SOPT_TEST_LOG_LEVEL@"; }
 //! Default logger name

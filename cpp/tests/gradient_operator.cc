@@ -1,4 +1,4 @@
-#include <catch.hpp>
+#include <catch2/catch_all.hpp>
 #include <memory>
 #include <random>
 
@@ -33,13 +33,13 @@ TEST_CASE("Gradient Operator") {
   CHECK(output.size() == 2 * input.size());
   CHECK(output.segment(0, input.size()).isApprox(Vector::Zero(input.size())));
   CHECK(output.segment(input.size(), input.size() - 1)
-            .isApprox(Vector::Constant(0.5, input.size() - 1)));
+            .isApprox(Vector::Constant((Eigen::Index)0.5, input.size() - 1)));
   input = Matrix::Ones(image.rows(), image.cols());
   for (Eigen::Index i(0); i < image.cols(); i++) input.col(i) *= static_cast<Scalar>(i);
   output = psi.adjoint() * Vector::Map(input.data(), input.size());
   CAPTURE(output.segment(0, 5));
   CAPTURE(output.segment(image.size(), 5));
   CHECK(output.size() == 2 * input.size());
-  CHECK(output.segment(0, input.size() - 1).isApprox(Vector::Constant(0.5, input.size() - 1)));
+  CHECK(output.segment(0, input.size() - 1).isApprox(Vector::Constant((Eigen::Index)0.5, input.size() - 1)));
   CHECK(output.segment(input.size(), input.size()).isApprox(Vector::Zero(input.size())));
 }

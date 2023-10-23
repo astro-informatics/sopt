@@ -1,9 +1,11 @@
 #include <numeric>
 #include <random>
 #include <Eigen/Eigenvalues>
-#include "catch.hpp"
+#include "catch2/catch_all.hpp"
 
 #include "sopt/power_method.h"
+
+using Catch::Approx;
 
 TEST_CASE("Power Method") {
   using namespace sopt;

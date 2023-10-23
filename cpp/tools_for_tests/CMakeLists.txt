@@ -1,21 +1,13 @@
 add_library(tools_for_tests STATIC tiffwrappers.cc tiffwrappers.h)
-target_link_libraries(tools_for_tests ${TIFF_LIBRARY})
+target_link_libraries(tools_for_tests TIFF::TIFF)
+target_link_libraries(tools_for_tests sopt)
 target_include_directories(tools_for_tests PUBLIC
   "${CMAKE_CURRENT_SOURCE_DIR}/.."
   "${PROJECT_BINARY_DIR}/include/"
 )
 target_include_directories(tools_for_tests SYSTEM PUBLIC ${TIFF_INCLUDE_DIR})
-if(spdlog_INCLUDE_DIR)
-  target_include_directories(tools_for_tests SYSTEM PUBLIC ${spdlog_INCLUDE_DIR})
-endif()
-if(eigen_INCLUDE_DIR)
-  target_include_directories(tools_for_tests SYSTEM PUBLIC ${eigen_INCLUDE_DIR})
-endif()
-# On different platforms the CMakeDeps generator in conan seems to install eigen
-# as either "eigen" or "Eigen3" because the recipe does not explicitly define the
-# name (yet). To work around this we have to check for both.
-if(Eigen3_INCLUDE_DIR)
-  target_include_directories(tools_for_tests SYSTEM PUBLIC ${Eigen3_INCLUDE_DIR})
+if(EIGEN3_INCLUDE_DIR)
+  target_include_directories(tools_for_tests SYSTEM PUBLIC ${EIGEN3_INCLUDE_DIR})
 endif()
 
 

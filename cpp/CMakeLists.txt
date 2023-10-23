@@ -11,11 +11,11 @@ else()
   set(SOPT_TEST_LOG_LEVEL off)
 endif()
 
-set(version ${Sopt_VERSION})
-string(REGEX REPLACE "\\." ";" version "${Sopt_VERSION}")
-list(GET version 0 Sopt_VERSION_MAJOR)
-list(GET version 1 Sopt_VERSION_MINOR)
-list(GET version 2 Sopt_VERSION_PATCH)
+set(version ${SOPT_VERSION})
+string(REGEX REPLACE "\\." ";" version "${SOPT_VERSION}")
+list(GET version 0 SOPT_VERSION_MAJOR)
+list(GET version 1 SOPT_VERSION_MINOR)
+list(GET version 2 SOPT_VERSION_PATCH)
 
 configure_file(sopt/config.in.h "${PROJECT_BINARY_DIR}/include/sopt/config.h")
 

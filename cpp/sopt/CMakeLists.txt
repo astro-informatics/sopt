@@ -32,8 +32,8 @@ if (cppflow)
 endif()
 
 add_library(sopt SHARED ${sources})
-set(version "${Sopt_VERSION_MAJOR}.${Sopt_VERSION_MINOR}.${Sopt_VERSION_PATCH}")
-set(soversion "${Sopt_VERSION_MAJOR}.${Sopt_VERSION_MINOR}")
+set(version "${SOPT_VERSION_MAJOR}.${SOPT_VERSION_MINOR}.${SOPT_VERSION_PATCH}")
+set(soversion "${SOPT_VERSION_MAJOR}.${SOPT_VERSION_MINOR}")
 set_target_properties(sopt PROPERTIES VERSION ${version} SOVERSION ${soversion})
 
 target_include_directories(sopt PUBLIC
@@ -52,17 +52,9 @@ endif()
 # Add spdlog as direct dependency
 if(spdlog_FOUND)
   target_link_libraries(sopt spdlog::spdlog)
-  target_include_directories(sopt SYSTEM PUBLIC ${spdlog_INCLUDE_DIR})
 endif()
-# Add Eigen3 as direct dependency
-# On different platforms the CMakeDeps generator in conan seems to install eigen
-# as either "eigen" or "Eigen3" because the recipe does not explicitly define the
-# name (yet). To work around this we have to check for both.
-if(eigen_FOUND)
-  target_include_directories(sopt SYSTEM PUBLIC ${eigen_INCLUDE_DIR})
-endif()
-if(Eigen3_FOUND)
-  target_include_directories(sopt SYSTEM PUBLIC ${Eigen3_INCLUDE_DIR})
+if(EIGEN3_INCLUDE_DIR)
+  target_include_directories(sopt SYSTEM PUBLIC ${EIGEN3_INCLUDE_DIR})
 endif()
 if(TARGET openmp::openmp)
   target_link_libraries(sopt openmp::openmp)
@@ -91,9 +83,9 @@ install(FILES ${headers} DESTINATION include/sopt)
 install(FILES ${wavelet_headers} DESTINATION include/sopt/wavelets)
 install(FILES ${mpi_headers} DESTINATION include/sopt/mpi)
 install(TARGETS sopt
-  EXPORT SoptCPPTargets
+  EXPORT soptCPPTargets
   DESTINATION share/cmake/sopt
   LIBRARY DESTINATION lib
   ARCHIVE DESTINATION lib
   INCLUDES DESTINATION include
-  )
+)
