@@ -7,6 +7,18 @@
 
 namespace sopt::algorithm {
 
+  //! Values indicating how the algorithm ran
+  template <typename SCALAR>
+  struct AlgorithmResults {
+    //! Number of iterations
+    t_uint niters;
+    //! Wether convergence was achieved
+    bool good;
+    //! the residual from the last iteration
+    Vector<SCALAR> residual;
+    Vector<SCALAR> result;
+  };
+
 //! \brief Pure gradient descent algorithm
 //! \details Requires \f$\grad f, \grad g\f$ be analytically defined.
 //! \f$x_{n+1} = x_n + \alpha R(\grad f(x_n, y)) + \lambda \grad(g(\mu x_n))\f$
@@ -25,21 +37,44 @@ class GradientDescent
   using G_Gradient = typename std::function<Vector<SCALAR>(const Vector<SCALAR> &)>;
   using REAL = typename real_type<SCALAR>::type;
 
-  template <typename DERIVED>
-  GradientDescent(F_Gradient const &f_gradient, G_Gradient const &g_gradient,
-                  Eigen::MatrixBase<DERIVED> const &target,
-                  LinearTransform<Vector<SCALAR>> const &measurement_operator, REAL mu, REAL lambda,
-                  REAL Lipschitz_f, REAL Lipschitz_g, REAL delta_converged)
-      : mu(mu),
-        Lipschitz_f(Lipschitz_f),
-        Lipschitz_g(Lipschitz_g),
-        lambda(lambda),
-        Phi(measurement_operator),
-        threshold_delta(delta_converged),
+  GradientDescent(F_Gradient const &f_gradient,
+                  G_Gradient const &g_gradient,
+                  Vector<SCALAR> const &target)
+      : Phi(linear_transform_identity<SCALAR>()),
         f_gradient(f_gradient),
-        g_gradient(g_gradient)
+        g_gradient(g_gradient),
+        target(target)
   {
-    alpha = 0.98 / (Lipschitz_f + mu * lambda * Lipschitz_g);
+    //alpha = 0.98 / (Lipschitz_f + mu * lambda * Lipschitz_g);
+    alpha = 0.1;
+  }
+
+  AlgorithmResults<SCALAR> operator()(Vector<SCALAR> &x)
+  {
+    Vector<SCALAR> z = x;
+    bool converged = false;
+    uint iterations = 0;
+    while ((!converged) && (iterations < max_iterations))
+    {
+      iteration_step(x, z);
+      
+      converged = is_converged(x);
+
+      ++iterations;
+    }
+
+    if(converged)
+    {
+      // TODO: Log some relevant stuff about the convergence.
+    }
+
+    AlgorithmResults<SCALAR> results;
+    results.good = converged;
+    results.niters = iterations;
+    results.residual = (Phi * x) - target;
+    results.result = z;
+
+    return results;
   }
 
  protected:
@@ -47,17 +82,17 @@ class GradientDescent
   F_Gradient f_gradient;
   G_Gradient g_gradient;
   REAL alpha;
-  REAL lambda;
-  REAL mu;
-  REAL Lipschitz_f;
-  REAL Lipschitz_g;
+  REAL lambda = 1;
+  REAL mu = 1;
+  REAL Lipschitz_f = 1;
+  REAL Lipschitz_g = 1;
   Vector<SCALAR> target;
-  REAL threshold_delta;
+  REAL threshold_delta = 1e-4;
   Vector<SCALAR> delta_x;
   REAL theta_now;
   REAL theta_next;
   Vector<SCALAR> x_prev;
-  uint max_iterations;
+  uint max_iterations = 200;
 
   void iteration_step(Vector<SCALAR> &x, Vector<SCALAR> &z)
   {
@@ -74,29 +109,9 @@ class GradientDescent
     z = x + (theta_now - 1)/ theta_next * (x - x_prev);
   }
 
-  bool converged(Vector<SCALAR> &x)
+  bool is_converged(Vector<SCALAR> &x)
   {
     return (delta_x.norm() / x.norm()) < threshold_delta; 
-  }
-
-  void operator()(Vector<SCALAR> &x, Vector<SCALAR> &residual)
-  {
-    Vector<SCALAR> z = x;
-    bool converged = False;
-    for (uint i = 0; i < max_iterations; i++)
-    {
-      iteration_step(x, z);
-      
-      converged = converged(x);
-      if(converged) break;
-    }
-
-    if(converged)
-    {
-      // TODO: Log some relevant stuff about the convergence.
-    }
-
-    residual = (Phi * x) - target;
   }
 
 };
