@@ -39,14 +39,21 @@ class GradientDescent
 
   GradientDescent(F_Gradient const &f_gradient,
                   G_Gradient const &g_gradient,
-                  Vector<SCALAR> const &target)
+                  Vector<SCALAR> const &target,
+                  REAL const threshold,
+                  REAL const Lipschitz_f = 1,
+                  REAL const Lipschitz_g = 1,
+                  REAL const mu = 1,
+                  REAL const lambda = 1)
       : Phi(linear_transform_identity<SCALAR>()),
         f_gradient(f_gradient),
         g_gradient(g_gradient),
-        target(target)
+        target(target),
+        Lipschitz_f(Lipschitz_f),
+        Lipschitz_g(Lipschitz_g),
+        threshold_delta(threshold)
   {
-    //alpha = 0.98 / (Lipschitz_f + mu * lambda * Lipschitz_g);
-    alpha = 0.1;
+    alpha = 0.98 / (Lipschitz_f + mu * lambda * Lipschitz_g);
   }
 
   AlgorithmResults<SCALAR> operator()(Vector<SCALAR> &x)
@@ -87,7 +94,7 @@ class GradientDescent
   REAL Lipschitz_f = 1;
   REAL Lipschitz_g = 1;
   Vector<SCALAR> target;
-  REAL threshold_delta = 1e-4;
+  REAL threshold_delta;
   Vector<SCALAR> delta_x;
   REAL theta_now;
   REAL theta_next;

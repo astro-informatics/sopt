@@ -20,7 +20,7 @@ TEST_CASE("Gradient Descent with flat prior", "[GradDescent]")
 
     auto Phi = linear_transform_identity<float>();
 
-    algorithm::GradientDescent<float> gd(grad_likelihood, grad_prior, target);
+    algorithm::GradientDescent<float> gd(grad_likelihood, grad_prior, target, 1e-4);
     
     algorithm::AlgorithmResults<float> results = gd(init_guess);
 
@@ -69,7 +69,7 @@ TEST_CASE("Gradient Descent with smoothness prior", "[GradDescent]")
 
     auto Phi = linear_transform_identity<float>();
 
-    algorithm::GradientDescent<float> gd(grad_likelihood, grad_prior, data);
+    algorithm::GradientDescent<float> gd(grad_likelihood, grad_prior, data, 1e-4);
     
     algorithm::AlgorithmResults<float> results = gd(init_guess);
 
