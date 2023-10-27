@@ -59,7 +59,7 @@ class ORTsession {
     return outputs;
   }
 
-  /// Variant of calculate using input/output Eigen arrays
+  /// Variant of compute() using input/output Eigen arrays
   TENSOR2D compute(const TENSOR2D& input) const {
 
     // require an output note of the form {1, nRows, nCols}

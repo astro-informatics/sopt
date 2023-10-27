@@ -33,7 +33,7 @@ T lexical_cast(const U& in) {
   }
 }
 
-//! Split a string on a sepcified delimiter with optional cast to another type
+//! Split a string on a specified delimiter with optional cast to another type
 template <typename T = std::string>
 std::vector<T> split(std::string s, const std::string& sep) {
   std::vector<T> rtn;
