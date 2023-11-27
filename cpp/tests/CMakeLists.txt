@@ -41,6 +41,10 @@ add_catch_test(sdmm_warm_start LIBRARIES sopt SEED ${RAND_SEED})
 add_catch_test(wavelets LIBRARIES sopt SEED ${RAND_SEED})
 add_catch_test(wrapper LIBRARIES sopt SEED ${RAND_SEED})
 
+if(onnxrt)
+  add_catch_test(ort_model LIBRARIES sopt onnxruntime::onnxruntime)
+endif()
+
 if(cppflow)
   add_catch_test(cppflow_model LIBRARIES sopt tools_for_tests)
   add_catch_test(tf_inpainting LIBRARIES sopt tools_for_tests SEED ${RAND_SEED})

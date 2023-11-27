@@ -23,6 +23,7 @@ class soptConan(ConanFile):
                "openmp":['on','off'],
                "mpi":['on','off'],
                "coverage":['on','off'],
+               "onnxrt":['on','off'],
                "cppflow":['on','off'],}
     default_options = {"docs": 'off',
                        "examples":'on',
@@ -32,6 +33,7 @@ class soptConan(ConanFile):
                        "openmp": 'on',
                        "mpi": 'on',
                        "coverage": 'off',
+                       "onnxrt": 'off',
                        "cppflow": 'off'}
 
     def requirements(self):
