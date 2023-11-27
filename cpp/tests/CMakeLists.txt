@@ -28,6 +28,7 @@ add_catch_test(gradient_operator LIBRARIES sopt tools_for_tests SEED ${RAND_SEED
 add_catch_test(inpainting LIBRARIES sopt tools_for_tests SEED ${RAND_SEED})
 add_catch_test(linear_transform LIBRARIES sopt SEED ${RAND_SEED})
 add_catch_test(maths LIBRARIES sopt SEED ${RAND_SEED})
+add_catch_test(onnx_inpainting LIBRARIES sopt tools_for_tests SEED ${RAND_SEED})
 add_catch_test(padmm LIBRARIES sopt SEED ${RAND_SEED})
 add_catch_test(padmm_warm_start LIBRARIES sopt SEED ${RAND_SEED})
 add_catch_test(power_method LIBRARIES sopt SEED ${RAND_SEED})
