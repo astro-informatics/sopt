@@ -140,9 +140,15 @@ class ImagingForwardBackward {
     return *this;
   }
 
+  // Default f_gradient is gradient of l2-norm
+  std::function<void(t_Vector&, t_Vector const&)> f_gradient = [this](t_Vector &out, t_Vector const &x) {
+    this->l2_gradient()(out, x / (sigma() * sigma()));
+  };
+
   //! Vector of target measurements
   t_Vector const &target() const { return target_; }
-  //! Minimun of objective_function
+
+  //! Minimum of objective_function
   Real objmin() const { return objmin_; }
   //! Sets the vector of target measurements
   template <typename DERIVED>
@@ -263,10 +269,6 @@ typename ImagingForwardBackward<SCALAR>::Diagnostic ImagingForwardBackward<SCALA
   // The f proximal is an L1 proximal that stores some diagnostic result
   Diagnostic result;
   auto const g_proximal_function = g_proximal_->proximal_function();
-  const Real sigma_factor = sigma() * sigma();
-  auto const f_gradient = [this, sigma_factor](t_Vector &out, t_Vector const &x) {
-    this->l2_gradient()(out, x / sigma_factor);
-  };
   ScalarRelativeVariation<Scalar> scalvar(relative_variation(), relative_variation(),
                                           "Objective function");
   auto const convergence = [this, &scalvar](t_Vector const &x, t_Vector const &residual) mutable {
