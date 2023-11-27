@@ -8,6 +8,21 @@ endif()
 if(EIGEN3_INCLUDE_DIR)
   target_include_directories(common_catch_main_object SYSTEM PUBLIC ${EIGEN3_INCLUDE_DIR})
 endif()
+if(onnxruntime_INCLUDE_DIR)
+  # Conan uses a non-standard file structure for the ORT installation
+  # This block is to check where the relevant include file actually
+  # lives and copy over to a more canonical directory layout if need be
+  set(ort_CPP_HEADER "onnxruntime_cxx_api.h")
+  FIND_PATH(ort_CPP_INC_DIR ${ort_CPP_HEADER} ${onnxruntime_INCLUDE_DIR})
+  # get path component in which the file lives
+  get_filename_component(ort_CPP_DIR_NAME "${ort_CPP_INC_DIR}" NAME)
+  if(NOT "${ort_CPP_DIR_NAME}" STREQUAL "onnxruntime")
+    # Confirmed weird structure, now fix:
+    set(ort_INCLUDE_DIR "${PROJECT_BINARY_DIR}/include/onnxruntime")
+    configure_file(${ort_CPP_INC_DIR}/${ort_CPP_HEADER} ${ort_INCLUDE_DIR}/${ort_CPP_HEADER} COPYONLY)
+    target_include_directories(common_catch_main_object SYSTEM PUBLIC ${ort_INCLUDE_DIR})
+  endif()
+endif()
 target_include_directories(common_catch_main_object PUBLIC
   "${EXTERNAL_ROOT}/include/"
   "${PROJECT_BINARY_DIR}/include/"
