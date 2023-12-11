@@ -4,6 +4,7 @@
 #include "onnxruntime/onnxruntime_cxx_api.h"
 #include "sopt/logging.h"
 #include "sopt/utilities.h"
+#include "sopt/types.h"
 
 #include <memory>
 #include <sstream>
@@ -15,8 +16,6 @@ namespace sopt {
 
 /// @brief Sopt interface class to hold a ONNXrt session
 class ORTsession {
-
-  using TENSOR2D = typename Eigen::Map<Eigen::Array<double, Eigen::Dynamic, Eigen::Dynamic>>;
 
   public:
 
@@ -38,7 +37,7 @@ class ORTsession {
 
   /// Evaluates the network in the forward direction
   /// using a flattened tensor as input
-  std::vector<double> compute(std::vector<float>& inputs) const {
+  std::vector<float> compute(std::vector<float>& inputs) const {
 
     if (inputs.size() != _inDimsFlat[0]) {
       throw std::length_error("Incorrect size for input tensor! Expected length: " + std::to_string(_inDimsFlat[0]));
@@ -53,14 +52,15 @@ class ORTsession {
                                         _outNames.data(), _outNames.size());
 
     // retrieve the ouput tensor and return flattened version
-    double* floatarr = output_tensors.front().GetTensorMutableData<double>();
-    std::vector<double> outputs;
+    float* floatarr = output_tensors.front().GetTensorMutableData<float>();
+    std::vector<float> outputs;
     outputs.assign(floatarr, floatarr + _outDimsFlat[0]);
     return outputs;
   }
 
   /// Variant of compute() using input/output Eigen arrays
-  TENSOR2D compute(const TENSOR2D& input) const {
+  template<typename T = t_real>
+  Vector<T> compute(const Vector<T>& input) const {
 
     // require an output note of the form {1, nRows, nCols}
     // in order to be able to map this onto a 2D tensor
@@ -68,10 +68,16 @@ class ORTsession {
       throw std::length_error("Incorrect size for output tensor!");
     }
 
-    std::vector<float> flat_input; // ONNXrt requires floats as input
-    flat_input.assign(input.data(), input.data() + _inDimsFlat[0]);
-    std::vector<double> flat_output = compute(flat_input);
-    TENSOR2D rtn(flat_output.data(), _outDims[0][1], _outDims[0][2]);
+    std::vector<float> flat_input;
+    flat_input.reserve(input.size()); // ONNXrt requires floats as input
+    for (auto elem : input) {
+      flat_input.push_back(elem);
+    }
+    std::vector<float> flat_output = compute(flat_input);
+    Vector<T> rtn(flat_output.size());
+    for (size_t i = 0; i < flat_output.size(); ++i) {
+      rtn[i] = flat_output[i];
+    }
     return rtn;
   }
 
@@ -179,7 +185,7 @@ class ORTsession {
       _outNamesPtr.push_back(std::move(output_name));
       SOPT_DEBUG("ORT output node {} is called {}", i, _outNames[_outNames.size()-1]);
 
-      // query input node types
+      // query output node types
       auto out_type_info = _session->GetOutputTypeInfo(i);
       auto out_tensor_info = out_type_info.GetTensorTypeAndShapeInfo();
       _outTypes.push_back(out_tensor_info.GetElementType());
