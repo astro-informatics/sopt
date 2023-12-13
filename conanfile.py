@@ -44,6 +44,9 @@ class soptConan(ConanFile):
         if self.options.cppflow == 'on':
             self.requires("cppflow/2.0.0")
 
+        if self.options.onnxrt == 'on':
+            self.requires("onnxruntime/1.16.2")
+
     def build_requirements(self):
 
         if self.options.docs == 'on':
@@ -58,6 +61,7 @@ class soptConan(ConanFile):
         tc.variables['benchmarks'] = self.options.benchmarks
         tc.variables['logging'] = self.options.logging
         tc.variables['openmp'] = self.options.openmp
+        tc.variables['onnxrt'] = self.options.onnxrt
         tc.variables['dompi'] = self.options.mpi
         tc.variables['coverage'] = self.options.coverage
         tc.variables['cppflow'] = self.options.cppflow

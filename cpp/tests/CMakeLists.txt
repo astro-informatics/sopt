@@ -8,6 +8,9 @@ endif()
 if(EIGEN3_INCLUDE_DIR)
   target_include_directories(common_catch_main_object SYSTEM PUBLIC ${EIGEN3_INCLUDE_DIR})
 endif()
+if(onnxruntime_INCLUDE_DIR)
+  target_include_directories(common_catch_main_object SYSTEM PUBLIC ${onnxruntime_INCLUDE_DIR})
+endif()
 target_include_directories(common_catch_main_object PUBLIC
   "${EXTERNAL_ROOT}/include/"
   "${PROJECT_BINARY_DIR}/include/"
