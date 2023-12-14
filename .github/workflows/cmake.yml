@@ -142,6 +142,7 @@ jobs:
       run: |
         #conan create ./cppflow/ -pr:h=default -pr:b=default -s compiler.libcxx=libstdc++11
         conan profile detect
+        sed -i'' -e "s|generators|#generators|1" ./cppflow/conanfile.py
         conan create ./cppflow/ -s compiler.libcxx=libstdc++11
 
     - name: Create cppflow package on apple-clang
