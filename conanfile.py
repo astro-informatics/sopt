@@ -38,6 +38,8 @@ class soptConan(ConanFile):
 
     def requirements(self):
 
+        self.settings.compiler.cppstd = 17
+
         if self.options.logging == 'on':
             self.requires("spdlog/1.12.0")
 
