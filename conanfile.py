@@ -38,8 +38,6 @@ class soptConan(ConanFile):
 
     def requirements(self):
 
-        self.settings.compiler.cppstd = 17
-
         if self.options.logging == 'on':
             self.requires("spdlog/1.12.0")
 
@@ -53,6 +51,10 @@ class soptConan(ConanFile):
 
         if self.options.docs == 'on':
             self.tool_requires("doxygen/1.9.4@#2af713e135f12722e3536808017ba086")
+
+    def configure(self):
+
+        self.settings.compiler.cppstd = 17
 
     def generate(self):
         tc = CMakeToolchain(self)
