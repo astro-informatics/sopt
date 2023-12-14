@@ -148,6 +148,8 @@ jobs:
     - name: Create cppflow package on apple-clang
       if: ${{ contains(matrix.cxx, 'clang++') }}
       run: |
+        conan profile detect
+        sed -i'' -e "s|generators|#generators|1" ./cppflow/conanfile.py
         conan create ./cppflow/ -s compiler.cppstd=17
 
     - name: Conan install on gcc
