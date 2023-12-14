@@ -13,7 +13,11 @@ if(NOT ${onnxruntime_FOUND})
   set(ORT_URL "${ORT_URL_BASE}/v${ORT_VERSION}/onnxruntime-linux-${ARCH}-${ORT_VERSION}.tgz")
 
   include(FetchContent)
-  FetchContent_Declare(onnxruntime URL ${ORT_URL} URL_HASH SHA256=b072f989d6315ac0e22dcb4771b083c5156d974a3496ac3504c77f4062eb248e)
+  cmake_policy(SET CMP0025 NEW)
+  FetchContent_Declare(onnxruntime
+                       URL ${ORT_URL}
+                       URL_HASH SHA256=b072f989d6315ac0e22dcb4771b083c5156d974a3496ac3504c77f4062eb248e
+                       DOWNLOAD_DIR ${CMAKE_CURRENT_BINARY_DIR}/dependencies)
   FetchContent_MakeAvailable(onnxruntime)
   message(STATUS "Downloaded ONNXrt to ${onnxruntime_SOURCE_DIR}")
   set(onnxruntime_INCLUDE_DIR "${onnxruntime_SOURCE_DIR}/include")
