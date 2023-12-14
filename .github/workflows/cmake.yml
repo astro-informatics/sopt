@@ -141,6 +141,7 @@ jobs:
       if: ${{ contains(matrix.cxx, 'g++-10') }}
       run: |
         #conan create ./cppflow/ -pr:h=default -pr:b=default -s compiler.libcxx=libstdc++11
+        conan profile detect
         conan create ./cppflow/ -s compiler.libcxx=libstdc++11
 
     - name: Create cppflow package on apple-clang
