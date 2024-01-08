@@ -54,23 +54,7 @@ endif()
 set(SOPT_MPI ${MPI_FOUND})
 
 if(onnxrt)
-  find_package(onnxruntime REQUIRED)
-  if(onnxruntime_INCLUDE_DIR)
-    # Conan uses a non-standard file structure for the ORT installation
-    # This block is to check where the relevant include file actually
-    # lives and copy over to a more canonical directory layout if need be
-    set(onnxruntime_CPP_HEADER "onnxruntime_cxx_api.h")
-    FIND_PATH(onnxruntime_INC_PATH ${onnxruntime_CPP_HEADER} ${onnxruntime_INCLUDE_DIR})
-    # get path component in which the file lives
-    get_filename_component(onnxruntime_INC_PATHNAME "${onnxruntime_INC_PATH}" NAME)
-    if(NOT "${onnxruntime_INC_PATHNAME}" STREQUAL "onnxruntime")
-      # Confirmed weird structure, now fix:
-      set(onnxruntime_INCLUDE_DIR "${PROJECT_BINARY_DIR}/include/onnxruntime")
-      configure_file(${onnxruntime_INC_PATH}/${onnxruntime_CPP_HEADER}
-                     ${onnxruntime_INCLUDE_DIR}/${onnxruntime_CPP_HEADER}
-                     COPYONLY)
-    endif()
-  endif()
+  include(LookUpONNXRT)
 endif()
 
 if(cppflow)

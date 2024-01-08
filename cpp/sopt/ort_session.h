@@ -1,7 +1,7 @@
 #ifndef SOPT_ORT_SESSION_H
 #define SOPT_ORT_SESSION_H
 
-#include "onnxruntime/onnxruntime_cxx_api.h"
+#include "onnxruntime_cxx_api.h"
 #include "sopt/logging.h"
 #include "sopt/utilities.h"
 #include "sopt/types.h"
@@ -67,11 +67,10 @@ class ORTsession {
     if (_outDims[0].size() < 3) {
       throw std::length_error("Incorrect size for output tensor!");
     }
-
-    std::vector<float> flat_input;
-    flat_input.reserve(input.size()); // ONNXrt requires floats as input
-    for (auto elem : input) {
-      flat_input.push_back(elem);
+    // ONNXrt requires floats as input
+    std::vector<float> flat_input(input.size());
+    for (size_t i=0; i < input.size(); ++i) {
+      flat_input[i] = input[i];
     }
     std::vector<float> flat_output = compute(flat_input);
     Vector<T> rtn(flat_output.size());
