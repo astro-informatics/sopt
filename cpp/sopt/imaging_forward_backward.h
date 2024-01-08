@@ -141,8 +141,9 @@ class ImagingForwardBackward {
   }
 
   // Default f_gradient is gradient of l2-norm
-  std::function<void(t_Vector&, t_Vector const&)> f_gradient = [this](t_Vector &out, t_Vector const &x) {
-    this->l2_gradient()(out, x / (sigma() * sigma()));
+  // Gradient ignores x and is based only on residual. (x is required for other forms of gradient)
+  std::function<void(t_Vector&, t_Vector const&, t_Vector const&)> f_gradient = [this](t_Vector &out, t_Vector const &x, t_Vector const &res) {
+    this->l2_gradient()(out, res / (sigma() * sigma()));
   };
 
   //! Vector of target measurements
