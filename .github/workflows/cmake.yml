@@ -80,7 +80,7 @@ jobs:
         echo "CMAKE_PREFIX_PATH=/usr/local/opt/libomp" >> $GITHUB_ENV
 
     - name: Install Dependencies on MacOS
-      if: ${{ contains(matrix.os, 'macos') && contains(matrix.cxx, 'clang++') }}
+      if: ${{ contains(matrix.os, 'macos') && contains(matrix.cxx, 'g++') }}
       run: |
         brew install gcc@10
 
