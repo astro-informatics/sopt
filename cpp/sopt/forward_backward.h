@@ -13,8 +13,11 @@
 
 namespace sopt::algorithm {
 
-//! \brief Forward Backward Splitting
-//! \details \f$\min_{x} f(\Phi x - y) + g(z)\f$. \f$y\f$ is a target vector.
+/*! \brief Forward Backward Splitting 
+  \f$\min_{x} f(\Phi x - y) + g(z)\f$. \f$y\f$ is a target vector.
+  \f$f$ is a differntiable function. It is necessary to supply the gradient.
+  \f$g$ is a non-differentiable function. It is necessary to supply a proximal operator.
+*/
 template <typename SCALAR>
 class ForwardBackward {
  public:
@@ -33,7 +36,8 @@ class ForwardBackward {
   //! Type of the proximal operator
   using t_Proximal = ProximalFunction<Scalar>;
   //! Type of the gradient
-  using t_Gradient = typename std::function<void(t_Vector &, const t_Vector &)>;
+  // The first argument is the output vector, the second is the input vector, and the third is the input residual
+  using t_Gradient = typename std::function<void(t_Vector &, const t_Vector &, const t_Vector &)>;
 
   //! Values indicating how the algorithm ran
   struct Diagnostic {
@@ -66,7 +70,7 @@ class ForwardBackward {
         beta_(1),
         nu_(1),
         is_converged_(),
-	fista_(true),
+	      fista_(true),
         Phi_(linear_transform_identity<Scalar>()),
         f_gradient_(f_gradient),
         g_proximal_(g_proximal),
@@ -108,7 +112,7 @@ class ForwardBackward {
   SOPT_MACRO(g_proximal, t_Proximal);
 #undef SOPT_MACRO
   //! \brief Simplifies calling the proximal of f.
-  void f_gradient(t_Vector &out, t_Vector const &x) const { f_gradient()(out, x); }
+  void f_gradient(t_Vector &out, t_Vector const &x, t_Vector const &res) const { f_gradient()(out, x, res); }
   //! \brief Simplifies calling the proximal of f.
   void g_proximal(t_Vector &out, Real gamma, t_Vector const &x) const {
     g_proximal()(out, gamma, x);
@@ -231,15 +235,15 @@ class ForwardBackward {
 };
 
 template <typename SCALAR>
-void ForwardBackward<SCALAR>::iteration_step(t_Vector &out, t_Vector &residual, t_Vector &p,
-                                             t_Vector &z, const t_real lambda) const {
-  p = out;
-  f_gradient(z, residual);
-  const t_Vector input = out - beta() / nu() * (Phi().adjoint() * z);
+void ForwardBackward<SCALAR>::iteration_step(t_Vector &image, t_Vector &residual, t_Vector &z,
+                                             t_Vector &z_res, const t_real lambda) const {
+  // z = image;  // store previous image in buffer; this looks incorrect. 
+  f_gradient(z_res, z, residual);  // takes residual and calculates the grad = 1/sig^2 residual
+  const t_Vector input = z - beta() / nu() * (Phi().adjoint() * z_res);
   const Real weight = gamma() * beta();
-  g_proximal(out, weight, input);
-  p = out + lambda * (out - p);
-  residual = (Phi() * p) - target();
+  g_proximal(image, weight, input);
+  z = image + lambda * (image - z);  
+  residual = (Phi() * z) - target();
 }
 
 template <typename SCALAR>
