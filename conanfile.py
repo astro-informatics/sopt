@@ -45,7 +45,7 @@ class soptConan(ConanFile):
             self.requires("cppflow/2.0.0")
 
         if self.options.onnxrt == 'on':
-            self.requires("onnxruntime/1.16.2")
+            self.requires("onnxruntime/1.16.3")
 
     def build_requirements(self):
 
