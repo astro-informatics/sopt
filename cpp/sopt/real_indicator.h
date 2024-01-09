@@ -3,6 +3,7 @@
 
 #include "sopt/g_proximal.h"
 #include "sopt/linear_transform.h"
+#include <complex>
 
 // Implementation of real indicator (non differentiable) function
 // The proximal operator is just a real projection
@@ -13,20 +14,22 @@ class RealIndicator : public NonDifferentiableFunc<SCALAR>
 {
     public: 
     using NDF = NonDifferentiableFunc<SCALAR>;
+    using Real = typename NDF::Real;
+    using t_Vector = typename NDF::t_Vector;
+    using t_Proximal = typename NDF::t_Proximal;
+    using t_LinearTransform = typename NDF::t_LinearTransform;
+
+    RealIndicator() {}
 
     void log_message() const override
     {
         SOPT_HIGH_LOG("Performing Forward Backward TensorFlow model");
     }
-
-    // Indicator function
-    NDF::Real function(NDF::t_Vector const &x) const override
-    {
-        return ((x.imag() != 0).any()) ? 0 : 1;
-    }
+    
+    Real function(t_Vector const &x) const override;
 
     // Real projection
-    NDF::t_Proximal proximal_operator() const override
+    t_Proximal proximal_operator() const override
     {
         return [this](t_Vector &out, Real gamma, t_Vector const &image) {
 	     out = image.real();
@@ -35,10 +38,27 @@ class RealIndicator : public NonDifferentiableFunc<SCALAR>
 
     // Return the identity by default since the Psi operator
     // should not be used in this case
-    NDF::t_LinearTransform const &Psi() const override
+    t_LinearTransform const &Psi() const override
     {
         return sopt::linear_transform_identity<SCALAR>();
     }
 };
+
+template<>
+typename RealIndicator<std::complex<double>>::Real RealIndicator<std::complex<double>>::function(typename RealIndicator<std::complex<double>>::t_Vector const &x) const
+{
+  for (auto &z : x) {
+    if (z.imag() != 0) {
+      return 0;
+    }
+  }
+  return 1;
+}
+
+template<typename SCALAR>
+typename RealIndicator<SCALAR>::Real RealIndicator<SCALAR>::function(typename RealIndicator<SCALAR>::t_Vector const &x) const
+{
+    return 1;
+}
 
 #endif

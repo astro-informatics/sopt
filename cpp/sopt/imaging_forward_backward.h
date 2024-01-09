@@ -147,7 +147,7 @@ class ImagingForwardBackward {
     this->l2_gradient()(out, res / (sigma() * sigma()));
   };
 
-  void f_gradient(t_Gradient &fgrad)
+  void set_f_gradient(t_Gradient const &fgrad)
   {
     f_gradient = fgrad;
   }

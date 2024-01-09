@@ -8,7 +8,7 @@
 #include <catch2/catch_all.hpp>
 
 #include "sopt/imaging_forward_backward.h"
-#include "sopt/l1_g_proximal.h"
+#include "sopt/real_indicator.h"
 #include "sopt/logging.h"
 #include "sopt/maths.h"
 #include "sopt/relative_variation.h"
@@ -36,7 +36,7 @@ TEST_CASE("Inpainting"){
   std::string const model_path = std::string(sopt::notinstalled::models_directory() + "/example_CRR_sigma_5_t_5.onnx");
   sopt::ORTsession onnx_model(model_path);
 
-  auto const l2_norm = [](t_Vector &output, const t_Vector &res) -> void { output = res; };
+  auto const l2_norm = [](Vector &output, const Vector &res) -> void { output = res; };
 
   Image const image = sopt::notinstalled::read_standard_tiff(input);
 
@@ -56,10 +56,10 @@ TEST_CASE("Inpainting"){
   sopt::t_real constexpr gamma = 18;
   sopt::t_real const beta = sigma * sigma * 0.5;
 
-  auto const f_gradient = [&onnx_model, &sampling](t_Vector &output, const t_Vector image,
-                                        const t_Vector &residual) -> void {
-    output = sampling.adjoint() * residual;  // L2 norm
-    t_Vector ANN_gradient = onnx_model.compute(image);  // regulariser 
+  auto const f_gradient = [&onnx_model, &sampling, sigma](Vector &output, const Vector &image,
+                                        const Vector &residual) -> void {
+    output = sampling.adjoint() * residual / (sigma * sigma);  // L2 norm
+    Vector ANN_gradient = onnx_model.compute(image);  // regulariser 
     output += ANN_gradient;
   };
 
@@ -74,20 +74,13 @@ TEST_CASE("Inpainting"){
     .tight_frame(true)
     .Phi(sampling);
   
-  fb.f_gradient(f_gradient);
+  fb.set_f_gradient(f_gradient);
 
-  // Create a shared pointer to an instance of the TFGProximal class
-  auto gp = std::make_shared<sopt::algorithm::L1GProximal<Scalar>>(false);
+  // Create a shared pointer to the real indicator (non differentiable) function
+  auto non_diff_func = std::make_shared<RealIndicator<Scalar>>();
 
   // Inject it into the ImagingForwardBackward object
-  fb.g_proximal(gp);
-  
-  // Set the gradient function 
-  fb.f_gradient = [&fb, model](Vector &out, Vector const &x)
-  {
-    fb.l2_gradient()(out, x / fb.sigma() * fb.sigma());
-    out += model(x);
-  };
+  fb.g_proximal(non_diff_func);
 
   auto const diagnostic = fb();
 
