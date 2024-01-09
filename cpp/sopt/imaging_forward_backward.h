@@ -35,6 +35,7 @@ class ImagingForwardBackward {
   using t_LinearTransform = typename FB::t_LinearTransform;
   using t_Proximal = typename FB::t_Proximal;
   using t_Gradient = typename FB::t_Gradient;
+  using t_l2Gradient = typename std::function<void(t_Vector &, const t_Vector &)>;
   using t_IsConverged = typename FB::t_IsConverged;
 
   //! Values indicating how the algorithm ran
@@ -59,8 +60,8 @@ class ImagingForwardBackward {
   template <typename DERIVED>
   ImagingForwardBackward(Eigen::MatrixBase<DERIVED> const &target)
     : g_proximal_(nullptr),
-      l2_gradient_([](t_Vector &output, const t_Vector &x) -> void {
-		     output = x; }),  // gradient of 1/2 * x^2 = x;
+      l2_gradient_([](t_Vector &output, const t_Vector &res) -> void {
+		     output = res; }),  // gradient of 1/2 * x^2 = x;
       tight_frame_(false),
       residual_tolerance_(0.),
       relative_variation_(1e-4),
@@ -92,7 +93,7 @@ class ImagingForwardBackward {
  public:
 
   //! Gradient of the l2 norm
-  SOPT_MACRO(l2_gradient, t_Gradient);
+  SOPT_MACRO(l2_gradient, t_l2Gradient);
   //! Whether Ψ is a tight-frame or not
   SOPT_MACRO(tight_frame, bool);
   //! \brief Convergence of the relative variation of the objective functions
@@ -214,7 +215,7 @@ class ImagingForwardBackward {
 
   //! \brief Proximal of the L2 ball
   //! \details Non-const version to setup the object.
-  t_Gradient &l2_gradient() { return l2_gradient_; }
+  t_l2Gradient &l2_gradient() { return l2_gradient_; }
 
   //! Helper function to set-up default residual convergence function
   ImagingForwardBackward<Scalar> &residual_convergence(Real const &tolerance) {
