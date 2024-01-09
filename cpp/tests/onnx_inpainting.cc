@@ -15,6 +15,7 @@
 #include "sopt/sampling.h"
 #include "sopt/types.h"
 #include "sopt/utilities.h"
+#include "sopt/ort_session.h"
 
 // This header is not part of the installed sopt interface
 // It is only present in tests
@@ -32,9 +33,10 @@ TEST_CASE("Inpainting"){
   extern std::unique_ptr<std::mt19937_64> mersenne;
   std::string const input = "cameraman256";
 
-  std::string const model_path = std::string(sopt::notinstalled::models_directory() + "/snr_15_model.pb/");
+  std::string const model_path = std::string(sopt::notinstalled::models_directory() + "/example_CRR_sigma_5_t_5.onnx");
+  sopt::ORTsession onnx_model(model_path);
 
-  std::function<Vector(Vector&)> model; //TODO fill in with ONNX model
+  auto const l2_norm = [](t_Vector &output, const t_Vector &res) -> void { output = res; };
 
   Image const image = sopt::notinstalled::read_standard_tiff(input);
 
@@ -54,6 +56,13 @@ TEST_CASE("Inpainting"){
   sopt::t_real constexpr gamma = 18;
   sopt::t_real const beta = sigma * sigma * 0.5;
 
+  auto const f_gradient = [&onnx_model, &sampling](t_Vector &output, const t_Vector image,
+                                        const t_Vector &residual) -> void {
+    output = sampling.adjoint() * residual;  // L2 norm
+    t_Vector ANN_gradient = onnx_model.compute(image);  // regulariser 
+    output += ANN_gradient;
+  };
+
   auto fb = sopt::algorithm::ImagingForwardBackward<Scalar>(y);
   fb.itermax(500)
     .beta(beta)    // stepsize
@@ -64,6 +73,8 @@ TEST_CASE("Inpainting"){
     .residual_tolerance(0)
     .tight_frame(true)
     .Phi(sampling);
+  
+  fb.f_gradient(f_gradient);
 
   // Create a shared pointer to an instance of the TFGProximal class
   auto gp = std::make_shared<sopt::algorithm::L1GProximal<Scalar>>(false);
