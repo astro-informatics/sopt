@@ -26,6 +26,8 @@ class RealIndicator : public NonDifferentiableFunc<SCALAR>
         SOPT_HIGH_LOG("Performing Forward Backward TensorFlow model");
     }
     
+    // Indicator function. This is usually only used for the 
+    // objective function, so this will probably not be called.
     Real function(t_Vector const &x) const override;
 
     // Real projection
