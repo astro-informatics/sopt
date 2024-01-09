@@ -25,7 +25,7 @@ namespace sopt::algorithm {
 // Owns the private object l1_proximal_ and implements the
 // interface defined by the GProximal class
 template <typename SCALAR>
-class L1GProximal : public GProximal<SCALAR> {
+class L1GProximal : public NonDifferentiableFunc<SCALAR> {
 
 public:
   using FB = ForwardBackward<SCALAR>;
@@ -51,14 +51,14 @@ public:
   }
 
   // Return the norm associated with this implementation
-  Real proximal_norm(t_Vector const &x) const override {
+  Real function(t_Vector const &x) const override {
     auto &weights = l1_proximal_weights();
     auto input = static_cast<t_Vector>(Psi().adjoint() * x);
     return sopt::l1_norm(input, weights);
   }
 
   // Return g_proximal as a lambda function. Used in operator() in base class.
-  t_Proximal proximal_function() const override {
+  t_Proximal proximal_operator() const override {
     return [this](t_Vector &out, Real gamma, t_Vector const &x) {
 	     this -> l1_proximal(out, gamma, x);
 	   };

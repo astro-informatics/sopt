@@ -135,8 +135,8 @@ class ImagingForwardBackward {
   // Getter and setter for the g_proximal object
   // The getter of g_proximal can not return a const because it will be used
   // to call setters of its internal properties
-  std::shared_ptr<GProximal<SCALAR>> g_proximal() { return g_proximal_; }
-  ImagingForwardBackward<SCALAR>& g_proximal( std::shared_ptr<GProximal<SCALAR>> g_proximal) {
+  std::shared_ptr<NonDifferentiableFunc<SCALAR>> g_proximal() { return g_proximal_; }
+  ImagingForwardBackward<SCALAR>& g_proximal( std::shared_ptr<NonDifferentiableFunc<SCALAR>> g_proximal) {
     g_proximal_ = std::move(g_proximal);
     return *this;
   }
@@ -239,7 +239,7 @@ class ImagingForwardBackward {
 
   // Store a pointer of the abstract base class GProximal type that should
   // point to an instance of a derived class (e.g. L1GProximal) once set up
-  std::shared_ptr<GProximal<SCALAR>> g_proximal_;
+  std::shared_ptr<NonDifferentiableFunc<SCALAR>> g_proximal_;
   //! Vector of measurements
   t_Vector target_;
   //! Mininum of objective function
@@ -275,7 +275,7 @@ typename ImagingForwardBackward<SCALAR>::Diagnostic ImagingForwardBackward<SCALA
   g_proximal_->log_message();
   // The f proximal is an L1 proximal that stores some diagnostic result
   Diagnostic result;
-  auto const g_proximal_function = g_proximal_->proximal_function();
+  auto const g_proximal_function = g_proximal_->proximal_operator();
   ScalarRelativeVariation<Scalar> scalvar(relative_variation(), relative_variation(),
                                           "Objective function");
   auto const convergence = [this, &scalvar](t_Vector const &x, t_Vector const &residual) mutable {
@@ -312,7 +312,7 @@ bool ImagingForwardBackward<SCALAR>::objective_convergence(ScalarRelativeVariati
                                                            t_Vector const &residual) const {
   if (static_cast<bool>(objective_convergence())) return objective_convergence()(x, residual);
   if (scalvar.relative_tolerance() <= 0e0) return true;
-  auto const current = ((gamma() > 0) ? g_proximal_->proximal_norm(x)
+  auto const current = ((gamma() > 0) ? g_proximal_->function(x)
 			* gamma() : 0) + std::pow(sopt::l2_norm(residual), 2) / (2 * sigma() * sigma());
   return scalvar(current);
 }
@@ -326,7 +326,7 @@ bool ImagingForwardBackward<SCALAR>::objective_convergence(mpi::Communicator con
   if (static_cast<bool>(objective_convergence())) return objective_convergence()(x, residual);
   if (scalvar.relative_tolerance() <= 0e0) return true;
   auto const current = obj_comm.all_sum_all<t_real>(
-	((gamma() > 0) ? g_proximal_->proximal_norm(x)
+	((gamma() > 0) ? g_proximal_->function(x)
        * gamma() : 0) + std::pow(sopt::l2_norm(residual), 2) / (2 * sigma_ * sigma_));
   return scalvar(current);
 }
