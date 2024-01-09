@@ -40,8 +40,10 @@ class RealIndicator : public NonDifferentiableFunc<SCALAR>
     // should not be used in this case
     t_LinearTransform const &Psi() const override
     {
-        return sopt::linear_transform_identity<SCALAR>();
+        return linear_operator;
     }
+
+    t_LinearTransform linear_operator = sopt::linear_transform_identity<SCALAR>();
 };
 
 template<>
