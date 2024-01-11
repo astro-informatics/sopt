@@ -61,6 +61,9 @@ jobs:
               cxx: clang++
             - os: macos-12
               mpi: "on"
+            # This doesn't seem to work with ONNXrt yet:
+            - os: macos-12
+              cxx: g++-10
 
     steps:
     - uses: actions/checkout@v3
@@ -158,17 +161,17 @@ jobs:
     #    sed -i'' -e "s|generators|#generators|1" ./cppflow/conanfile.py
     #    conan create ./cppflow/ -s compiler.cppstd=gnu17
 
-    - name: Conan install on apple-clang / ubuntu-gcc
-      if: ${{ ! (contains(matrix.os, 'macos') && contains(matrix.cxx, 'g++')) }}
+    - name: Conan install on gcc
+      if: ${{ contains(matrix.cxx, 'g++') }}
       run: |
         conan profile detect
         conan install ${{github.workspace}} -of ${{github.workspace}}/build --build missing -o mpi=${{matrix.mpi}} -o openmp=${{matrix.omp}} -o cppflow=off -o onnxrt=on -s compiler.cppstd=gnu17
 
-    - name: Conan install on apple-gcc
-      if: ${{ contains(matrix.os, 'macos') && contains(matrix.cxx, 'g++') }}
+    - name: Conan install on clang
+      if: ${{ contains(matrix.cxx, 'clang') }}
       run: |
         conan profile detect
-        conan install ${{github.workspace}} -of ${{github.workspace}}/build --build missing -o mpi=${{matrix.mpi}} -o openmp=${{matrix.omp}} -o cppflow=off -o onnxrt=on -s compiler.cppstd=gnu17 --options=onnxruntime/*:shared=True
+        conan install ${{github.workspace}} -of ${{github.workspace}}/build --build missing -o mpi=${{matrix.mpi}} -o openmp=${{matrix.omp}} -o cppflow=off -o onnxrt=on -s compiler.cppstd=gnu17
 
     - name: Build
       # Build your program with the given configuration.
