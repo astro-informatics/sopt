@@ -162,13 +162,13 @@ jobs:
     #    conan create ./cppflow/ -s compiler.cppstd=gnu17
 
     - name: Conan install on gcc
-      if: ${{ contains(matrix.cxx, 'g++') }}
+      if: ${{ contains(matrix.cxx, 'g++-10') }}
       run: |
         conan profile detect
         conan install ${{github.workspace}} -of ${{github.workspace}}/build --build missing -o mpi=${{matrix.mpi}} -o openmp=${{matrix.omp}} -o cppflow=off -o onnxrt=on -s compiler.cppstd=gnu17
 
     - name: Conan install on clang
-      if: ${{ contains(matrix.cxx, 'clang') }}
+      if: ${{ contains(matrix.cxx, 'clang++') }}
       run: |
         conan profile detect
         conan install ${{github.workspace}} -of ${{github.workspace}}/build --build missing -o mpi=${{matrix.mpi}} -o openmp=${{matrix.omp}} -o cppflow=off -o onnxrt=on -s compiler.cppstd=gnu17
