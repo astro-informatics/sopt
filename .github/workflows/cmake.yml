@@ -82,10 +82,10 @@ jobs:
         brew install libtiff open-mpi libyaml ccache conan
         echo "CMAKE_PREFIX_PATH=/usr/local/opt/libomp" >> $GITHUB_ENV
 
-    - name: Install gcc on MacOS
-      if: ${{ contains(matrix.os, 'macos') && contains(matrix.cxx, 'g++') }}
-      run: |
-        brew install gcc@10
+    #- name: Install gcc on MacOS
+    #  if: ${{ contains(matrix.os, 'macos') && contains(matrix.cxx, 'g++10') }}
+    #  run: |
+    #    brew install gcc@10
 
     # Enable tmate debugging of manually-triggered workflows if the input option was provided
     - name: Setup tmate session
