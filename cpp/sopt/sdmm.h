@@ -276,7 +276,7 @@ void SDMM<SCALAR>::update_directions(t_Vectors &y, t_Vectors &z, t_Vector const 
 template <typename SCALAR>
 void SDMM<SCALAR>::initialization(t_Vectors &y, t_Vectors &z, t_Vector const &x) const {
   SOPT_TRACE("Initializing SDMM");
-  for (t_uint i(0); i < transforms().size(); i++) {
+  for (t_uint i(0); i < transforms().size(); ++i) {
     y[i] = transforms(i) * x;
     z[i].resize(y[i].size());
     z[i].fill(0);

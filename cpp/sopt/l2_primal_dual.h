@@ -317,7 +317,7 @@ typename ImagingPrimalDual<SCALAR>::Diagnostic ImagingPrimalDual<SCALAR>::operat
   auto const g_proximal = [this](t_Vector &out, Real gamma, t_Vector const &x) {
     this->l2ball_proximal()(out, gamma, x);
     // applying preconditioning
-    for (t_int i = 0; i < this->precondition_iters(); i++)
+    for (t_int i = 0; i < this->precondition_iters(); ++i)
       this->l2ball_proximal()(
           out, gamma,
           out - this->precondition_stepsize() *

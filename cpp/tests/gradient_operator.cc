@@ -26,7 +26,7 @@ TEST_CASE("Gradient Operator") {
   Image const image = sopt::notinstalled::read_standard_tiff("cameraman256");
   auto const psi = sopt::gradient_operator::gradient_operator<Scalar>(image.rows(), image.cols());
   Matrix input = Matrix::Ones(image.rows(), image.cols());
-  for (Eigen::Index i(0); i < image.rows(); i++) input.row(i) *= static_cast<Scalar>(i);
+  for (Eigen::Index i(0); i < image.rows(); ++i) input.row(i) *= static_cast<Scalar>(i);
   Vector output = psi.adjoint() * Vector::Map(input.data(), input.size());
   CAPTURE(output.segment(0, 5));
   CAPTURE(output.segment(image.size(), 5));
@@ -35,7 +35,7 @@ TEST_CASE("Gradient Operator") {
   CHECK(output.segment(input.size(), input.size() - 1)
             .isApprox(Vector::Constant((Eigen::Index)0.5, input.size() - 1)));
   input = Matrix::Ones(image.rows(), image.cols());
-  for (Eigen::Index i(0); i < image.cols(); i++) input.col(i) *= static_cast<Scalar>(i);
+  for (Eigen::Index i(0); i < image.cols(); ++i) input.col(i) *= static_cast<Scalar>(i);
   output = psi.adjoint() * Vector::Map(input.data(), input.size());
   CAPTURE(output.segment(0, 5));
   CAPTURE(output.segment(image.size(), 5));

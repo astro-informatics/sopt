@@ -69,7 +69,7 @@ namespace sopt::cppflowutils {
   cppflow::tensor convert_image_to_tensor(sopt::Vector<std::complex<double>> const &image, int image_rows, int image_cols) {
 
     std::vector<float> input_values(image_rows);
-    for(int i = 0; i < image_rows; i++)
+    for(int i = 0; i < image_rows; ++i)
     {
       if(std::abs(image(i).real()) > cppflowutils::imaginary_threshold)
       {

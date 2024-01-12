@@ -335,7 +335,7 @@ Communicator::all_to_allv(const std::vector<T> &vec, std::vector<t_int> const &s
     return vec;
   }
   std::vector<t_int> rec_sizes(send_sizes.size(), 0);
-  for (t_int i = 0; i < size(); i++) {
+  for (t_int i = 0; i < size(); ++i) {
     if (i == rank())
       rec_sizes = gather<t_int>(send_sizes[i], i);
     else
@@ -386,7 +386,7 @@ typename std::enable_if<is_registered_type<T>::value, Vector<T>>::type Communica
     return vec;
   }
   std::vector<t_int> rec_sizes(send_sizes.size(), 0);
-  for (t_int i = 0; i < size(); i++) {
+  for (t_int i = 0; i < size(); ++i) {
     if (i == rank())
       rec_sizes = gather<t_int>(send_sizes[i], i);
     else

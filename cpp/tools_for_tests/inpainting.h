@@ -29,7 +29,7 @@ Vector<T> dirty(sopt::LinearTransform<Vector<T>> const &sampling, sopt::Image<T>
   auto const y0 = target(sampling, image);
   std::normal_distribution<> gaussian_dist(0, sigma(sampling, image));
   Vector<T> y(y0.size());
-  for (t_int i = 0; i < y0.size(); i++) y(i) = y0(i) + gaussian_dist(mersenne);
+  for (t_int i = 0; i < y0.size(); ++i) y(i) = y0(i) + gaussian_dist(mersenne);
 
   return y;
 }

@@ -71,7 +71,7 @@ TEST_CASE("Parallel vs serial inpainting") {
   std::normal_distribution<> gaussian_dist(0, sigma);
   Vector y = world.is_root() ? y0 : world.broadcast<Vector>();
   if (world.is_root()) {
-    for (sopt::t_int i = 0; i < y0.size(); i++) y(i) += gaussian_dist(*mersenne);
+    for (sopt::t_int i = 0; i < y0.size(); ++i) y(i) += gaussian_dist(*mersenne);
     world.broadcast(y);
   }
   if (split_comm.size() > 1) {
