@@ -341,8 +341,8 @@ typename L1<SCALAR>::Diagnostic L1<SCALAR>::operator()(Eigen::MatrixBase<T0> &ou
 
   Breaker breaker(objective(out, x, gamma), tolerance(), false);  // not fista_mixing());
   SOPT_LOW_LOG("    - [ProxL1] iter {}, prox_fval = {}", niters, breaker.current());
-  Vector<Scalar> const res = Psi().adjoint() * out;
-  Vector<Scalar> u_l1 = 1e0 / nu() * (res - apply_soft_threshhold(gamma, res));
+  Vector<Scalar> const initial_res = Psi().adjoint() * out;
+  Vector<Scalar> u_l1 = 1e0 / nu() * (initial_res - apply_soft_threshhold(gamma, initial_res));
   apply_constraints(out, x - Psi() * u_l1);
 
   // Move on to other iterations
