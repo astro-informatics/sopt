@@ -117,7 +117,7 @@ On MacOS, you can also install most of the dependencies with Homebrew e.g.
   ``` bash
   brew install libtensorflow eigen tiff spdlog catch2
   ```
-
+**Note that the ONNXruntime interface is currently only supported when compiling with Clang on MacOS, but not with g++**
 
 
 ## Common errors
