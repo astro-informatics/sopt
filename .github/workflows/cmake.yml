@@ -38,7 +38,7 @@ jobs:
       matrix:
           os:
             - ubuntu-20.04
-            - macos-11
+            - macos-12
           cc:
             - gcc-10
             - clang
@@ -59,8 +59,11 @@ jobs:
             - os: ubuntu-20.04
               cc: clang
               cxx: clang++
-            - os: macos-11
+            - os: macos-12
               mpi: "on"
+            # This doesn't seem to work with ONNXrt yet:
+            - os: macos-12
+              cxx: g++-10
 
     steps:
     - uses: actions/checkout@v3
@@ -76,28 +79,33 @@ jobs:
     - name: Install Dependencies on MacOS
       if: ${{ contains(matrix.os, 'macos') }}
       run: |
-        brew install libtiff open-mpi libyaml ccache
+        brew install libtiff open-mpi libyaml ccache conan
         echo "CMAKE_PREFIX_PATH=/usr/local/opt/libomp" >> $GITHUB_ENV
+
+    #- name: Install gcc on MacOS
+    #  if: ${{ contains(matrix.os, 'macos') && contains(matrix.cxx, 'g++10') }}
+    #  run: |
+    #    brew install gcc@10
 
     # Enable tmate debugging of manually-triggered workflows if the input option was provided
     - name: Setup tmate session
       uses: mxschmitt/action-tmate@v3
       if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.debug_enabled }}
 
-    - name: Install Tensorflow API on Ubuntu
-      # TODO could this be combined with mac version somehow? if/else?
-      if: ${{ contains(matrix.os, 'ubuntu') }}
-      uses: UCL/install-tensorflow-action@main
-      with:
-        version: 2.11.0
-        os: linux
+    #- name: Install Tensorflow API on Ubuntu
+    #  # TODO could this be combined with mac version somehow? if/else?
+    #  if: ${{ contains(matrix.os, 'ubuntu') }}
+    #  uses: UCL/install-tensorflow-action@main
+    #  with:
+    #    version: 2.11.0
+    #    os: linux
 
-    - name: Install Tensorflow API on MacOS
-      if: ${{ contains(matrix.os, 'macos') }}
-      uses: UCL/install-tensorflow-action@main
-      with:
-        version: 2.11.0
-        os: darwin
+    #- name: Install Tensorflow API on MacOS
+    #  if: ${{ contains(matrix.os, 'macos') }}
+    #  uses: UCL/install-tensorflow-action@main
+    #  with:
+    #    version: 2.11.0
+    #    os: darwin
 
     - name: Select Python 3.10
       # otherwise turtlebrowser/get-conan@v1.1 fails on macos-12
@@ -108,9 +116,11 @@ jobs:
 
     - name: Install Conan
       id: conan
+      if: ${{ contains(matrix.os, 'ubuntu') }}
       uses: turtlebrowser/get-conan@main
       with:
-        version: 1.59.0
+        #version: 1.59.0
+        version: 2.0.9
 
     - name: Prepare ccache timestamp
       id: ccache_cache_timestamp
@@ -129,35 +139,44 @@ jobs:
           ${{ matrix.os }}-${{ matrix.cxx }}
           ${{ matrix.os }}
 
-    - name: Checkout cppflow repo
-      uses: actions/checkout@v3
-      with:
-        repository: UCL/cppflow.git
-        path: cppflow
-        ref: master
+    #- name: Checkout cppflow repo
+    #  uses: actions/checkout@v3
+    #  with:
+    #    repository: UCL/cppflow.git
+    #    path: cppflow
+    #    ref: master
 
-    - name: Create cppflow package on gcc
-      if: ${{ contains(matrix.cxx, 'g++-10') }}
-      run: |
-        conan create ./cppflow/ -pr:h=default -pr:b=default -s compiler.libcxx=libstdc++11
+    #- name: Create cppflow package on gcc
+    #  if: ${{ contains(matrix.cxx, 'g++-10') }}
+    #  run: |
+    #    #conan create ./cppflow/ -pr:h=default -pr:b=default -s compiler.libcxx=libstdc++11
+    #    conan profile detect
+    #    sed -i'' -e "s|generators|#generators|1" ./cppflow/conanfile.py
+    #    conan create ./cppflow/ -s compiler.cppstd=gnu17
 
-    - name: Create cppflow package on apple-clang
-      if: ${{ contains(matrix.cxx, 'clang++') }}
-      run: |
-        conan create ./cppflow/ -pr:h=default -pr:b=default
+    #- name: Create cppflow package on apple-clang
+    #  if: ${{ contains(matrix.cxx, 'clang++') }}
+    #  run: |
+    #    conan profile detect
+    #    sed -i'' -e "s|generators|#generators|1" ./cppflow/conanfile.py
+    #    conan create ./cppflow/ -s compiler.cppstd=gnu17
 
     - name: Conan install on gcc
       if: ${{ contains(matrix.cxx, 'g++-10') }}
-      run: conan install ${{github.workspace}} -if ${{github.workspace}}/build -s compiler.libcxx=libstdc++11 --build missing -o mpi=${{matrix.mpi}} -o openmp=${{matrix.omp}} -o cppflow=on -pr:h=default -pr:b=default
+      run: |
+        conan profile detect
+        conan install ${{github.workspace}} -of ${{github.workspace}}/build --build missing -o mpi=${{matrix.mpi}} -o openmp=${{matrix.omp}} -o cppflow=off -o onnxrt=on -s compiler.cppstd=17
 
     - name: Conan install on apple-clang
       if: ${{ contains(matrix.cxx, 'clang++') }}
-      run: conan install ${{github.workspace}} -if ${{github.workspace}}/build --build missing -o mpi=${{matrix.mpi}} -o openmp=${{matrix.omp}} -o cppflow=on -pr:h=default -pr:b=default
+      run: |
+        conan profile detect
+        conan install ${{github.workspace}} -of ${{github.workspace}}/build --build missing -o mpi=${{matrix.mpi}} -o openmp=${{matrix.omp}} -o cppflow=off -o onnxrt=on -s compiler.cppstd=17
 
     - name: Build
       # Build your program with the given configuration.
       # The Github Actions machines are dual-core so we can build faster using 2 parallel processes
-      run: conan build ${{github.workspace}} -bf ${{github.workspace}}/build
+      run: conan build ${{github.workspace}} -of ${{github.workspace}}/build -o mpi=${{matrix.mpi}} -o openmp=${{matrix.omp}} -o cppflow=off -o onnxrt=on -s compiler.cppstd=17
 
     - name: Test
       working-directory: ${{github.workspace}}/build

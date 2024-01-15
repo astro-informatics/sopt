@@ -23,6 +23,7 @@ class soptConan(ConanFile):
                "openmp":['on','off'],
                "mpi":['on','off'],
                "coverage":['on','off'],
+               "onnxrt":['on','off'],
                "cppflow":['on','off'],}
     default_options = {"docs": 'off',
                        "examples":'on',
@@ -32,6 +33,7 @@ class soptConan(ConanFile):
                        "openmp": 'on',
                        "mpi": 'on',
                        "coverage": 'off',
+                       "onnxrt": 'off',
                        "cppflow": 'off'}
 
     def requirements(self):
@@ -41,6 +43,9 @@ class soptConan(ConanFile):
 
         if self.options.cppflow == 'on':
             self.requires("cppflow/2.0.0")
+
+        if self.options.onnxrt == 'on':
+            self.requires("onnxruntime/1.16.3")
 
     def build_requirements(self):
 
@@ -56,6 +61,7 @@ class soptConan(ConanFile):
         tc.variables['benchmarks'] = self.options.benchmarks
         tc.variables['logging'] = self.options.logging
         tc.variables['openmp'] = self.options.openmp
+        tc.variables['onnxrt'] = self.options.onnxrt
         tc.variables['dompi'] = self.options.mpi
         tc.variables['coverage'] = self.options.coverage
         tc.variables['cppflow'] = self.options.cppflow

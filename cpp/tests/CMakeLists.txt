@@ -8,6 +8,9 @@ endif()
 if(EIGEN3_INCLUDE_DIR)
   target_include_directories(common_catch_main_object SYSTEM PUBLIC ${EIGEN3_INCLUDE_DIR})
 endif()
+if(onnxruntime_INCLUDE_DIR)
+  target_include_directories(common_catch_main_object SYSTEM PUBLIC ${onnxruntime_INCLUDE_DIR})
+endif()
 target_include_directories(common_catch_main_object PUBLIC
   "${EXTERNAL_ROOT}/include/"
   "${PROJECT_BINARY_DIR}/include/"
@@ -39,6 +42,10 @@ add_catch_test(sdmm LIBRARIES sopt SEED ${RAND_SEED})
 add_catch_test(sdmm_warm_start LIBRARIES sopt SEED ${RAND_SEED})
 add_catch_test(wavelets LIBRARIES sopt SEED ${RAND_SEED})
 add_catch_test(wrapper LIBRARIES sopt SEED ${RAND_SEED})
+
+if(onnxrt)
+  add_catch_test(ort_model LIBRARIES sopt onnxruntime::onnxruntime)
+endif()
 
 if(cppflow)
   add_catch_test(cppflow_model LIBRARIES sopt tools_for_tests)
