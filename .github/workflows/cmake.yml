@@ -61,6 +61,9 @@ jobs:
               cxx: clang++
             - os: macos-12
               mpi: "on"
+            # This doesn't seem to work with ONNXrt yet:
+            - os: macos-12
+              cxx: g++-10
 
     steps:
     - uses: actions/checkout@v3
@@ -79,10 +82,10 @@ jobs:
         brew install libtiff open-mpi libyaml ccache conan
         echo "CMAKE_PREFIX_PATH=/usr/local/opt/libomp" >> $GITHUB_ENV
 
-    - name: Install gcc on MacOS
-      if: ${{ contains(matrix.os, 'macos') && contains(matrix.cxx, 'g++') }}
-      run: |
-        brew install gcc@10
+    #- name: Install gcc on MacOS
+    #  if: ${{ contains(matrix.os, 'macos') && contains(matrix.cxx, 'g++10') }}
+    #  run: |
+    #    brew install gcc@10
 
     # Enable tmate debugging of manually-triggered workflows if the input option was provided
     - name: Setup tmate session
@@ -162,18 +165,18 @@ jobs:
       if: ${{ contains(matrix.cxx, 'g++-10') }}
       run: |
         conan profile detect
-        conan install ${{github.workspace}} -of ${{github.workspace}}/build --build missing -o mpi=${{matrix.mpi}} -o openmp=${{matrix.omp}} -o cppflow=off -o onnxrt=on -s compiler.cppstd=gnu17
+        conan install ${{github.workspace}} -of ${{github.workspace}}/build --build missing -o mpi=${{matrix.mpi}} -o openmp=${{matrix.omp}} -o cppflow=off -o onnxrt=on -s compiler.cppstd=17
 
     - name: Conan install on apple-clang
       if: ${{ contains(matrix.cxx, 'clang++') }}
       run: |
         conan profile detect
-        conan install ${{github.workspace}} -of ${{github.workspace}}/build --build missing -o mpi=${{matrix.mpi}} -o openmp=${{matrix.omp}} -o cppflow=off -o onnxrt=on -s compiler.cppstd=gnu17
+        conan install ${{github.workspace}} -of ${{github.workspace}}/build --build missing -o mpi=${{matrix.mpi}} -o openmp=${{matrix.omp}} -o cppflow=off -o onnxrt=on -s compiler.cppstd=17
 
     - name: Build
       # Build your program with the given configuration.
       # The Github Actions machines are dual-core so we can build faster using 2 parallel processes
-      run: conan build ${{github.workspace}} -of ${{github.workspace}}/build -o mpi=${{matrix.mpi}} -o openmp=${{matrix.omp}} -o cppflow=off -o onnxrt=on -s compiler.cppstd=gnu17
+      run: conan build ${{github.workspace}} -of ${{github.workspace}}/build -o mpi=${{matrix.mpi}} -o openmp=${{matrix.omp}} -o cppflow=off -o onnxrt=on -s compiler.cppstd=17
 
     - name: Test
       working-directory: ${{github.workspace}}/build
