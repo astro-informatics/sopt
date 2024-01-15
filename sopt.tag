@@ -1997,6 +1997,7 @@
     <path>/home/runner/work/sopt/sopt/cpp/sopt/</path>
     <filename>http://astro-informatics.github.io/sopt/utilities_8h.html</filename>
     <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
+    <class kind="struct">sopt::utilities::bad_lexical_cast</class>
     <namespace>sopt</namespace>
     <namespace>sopt::utilities</namespace>
     <member kind="function">
@@ -2012,6 +2013,20 @@
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1utilities.html</anchorfile>
       <anchor>a18ac636e4a560294191b1066bc3599b4</anchor>
       <arglist>(Image&lt;&gt; const &amp;image, std::string const &amp;filename)</arglist>
+    </member>
+    <member kind="function">
+      <type>T</type>
+      <name>lexical_cast</name>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1utilities.html</anchorfile>
+      <anchor>a5890c81f8bf7e46ea9115255c6a42326</anchor>
+      <arglist>(const U &amp;in)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; T &gt;</type>
+      <name>split</name>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1utilities.html</anchorfile>
+      <anchor>a2ebafd0ab3d0c68fa51b2b5045f6a408</anchor>
+      <arglist>(std::string s, const std::string &amp;sep)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -2060,6 +2075,16 @@
       <anchor>a7cb9cb604bf0ffb45b71d3dc31ed304f</anchor>
       <arglist>(const t_real &amp;gamma, const t_real &amp;sig, const T &amp;y, const sopt::OperatorFunction&lt; T &gt; &amp;measurement_operator, const sopt::LinearTransform&lt; T &gt; &amp;wavelet_operator)</arglist>
     </member>
+  </compound>
+  <compound kind="file">
+    <name>ort_session.h</name>
+    <path>/home/runner/work/sopt/sopt/cpp/sopt/</path>
+    <filename>http://astro-informatics.github.io/sopt/ort__session_8h.html</filename>
+    <includes id="logging_8h" name="logging.h" local="yes" imported="no">sopt/logging.h</includes>
+    <includes id="utilities_8h" name="utilities.h" local="yes" imported="no">sopt/utilities.h</includes>
+    <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
+    <class kind="class">sopt::ORTsession</class>
+    <namespace>sopt</namespace>
   </compound>
   <compound kind="file">
     <name>padmm.h</name>
@@ -3593,6 +3618,41 @@
     </member>
   </compound>
   <compound kind="file">
+    <name>ort_model.cc</name>
+    <path>/home/runner/work/sopt/sopt/cpp/tests/</path>
+    <filename>http://astro-informatics.github.io/sopt/ort__model_8cc.html</filename>
+    <includes id="ort__session_8h" name="ort_session.h" local="yes" imported="no">sopt/ort_session.h</includes>
+    <includes id="utilities_8h" name="utilities.h" local="yes" imported="no">sopt/utilities.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST_CASE</name>
+      <anchorfile>ort__model_8cc.html</anchorfile>
+      <anchor>acf627c289c69d89b5070333857ca0706</anchor>
+      <arglist>(&quot;Load an example ORT model&quot;, &quot;[ONNXrt]&quot;)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST_CASE</name>
+      <anchorfile>ort__model_8cc.html</anchorfile>
+      <anchor>aa754e691b4f3e930f7ab6eaadc65a308</anchor>
+      <arglist>(&quot;Check metadata of an example ORT model&quot;, &quot;[ONNXrt]&quot;)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST_CASE</name>
+      <anchorfile>ort__model_8cc.html</anchorfile>
+      <anchor>a4a3f7a6716384f3f736a0eeffc69c5be</anchor>
+      <arglist>(&quot;Check forward folding of an example ORT model using std::vectors&quot;, &quot;[ONNXrt]&quot;)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST_CASE</name>
+      <anchorfile>ort__model_8cc.html</anchorfile>
+      <anchor>a5139d8e5f8947af37dad3143484afbef</anchor>
+      <arglist>(&quot;Check forward folding of an example ORT model using sopt::Vectors&quot;, &quot;[ONNXrt]&quot;)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
     <name>padmm.cc</name>
     <path>/home/runner/work/sopt/sopt/cpp/tests/</path>
     <filename>http://astro-informatics.github.io/sopt/padmm_8cc.html</filename>
@@ -4210,6 +4270,17 @@
       <anchorfile>classsopt_1_1details_1_1AppliedFunction.html</anchorfile>
       <anchor>a86c33ea8cf97bf762ec224a4255480fe</anchor>
       <arglist>() const</arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>sopt::utilities::bad_lexical_cast</name>
+    <filename>http://astro-informatics.github.io/sopt/structsopt_1_1utilities_1_1bad__lexical__cast.html</filename>
+    <member kind="function">
+      <type></type>
+      <name>bad_lexical_cast</name>
+      <anchorfile>structsopt_1_1utilities_1_1bad__lexical__cast.html</anchorfile>
+      <anchor>afe54e877a6a12efbef6e8da1d7e494f9</anchor>
+      <arglist>(const std::string &amp;what)</arglist>
     </member>
   </compound>
   <compound kind="class">
@@ -8391,6 +8462,59 @@
     </member>
   </compound>
   <compound kind="class">
+    <name>sopt::ORTsession</name>
+    <filename>http://astro-informatics.github.io/sopt/classsopt_1_1ORTsession.html</filename>
+    <member kind="function">
+      <type></type>
+      <name>ORTsession</name>
+      <anchorfile>classsopt_1_1ORTsession.html</anchorfile>
+      <anchor>a4fead81f9d8f5b64e454c0ab98cf24e3</anchor>
+      <arglist>()=delete</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>ORTsession</name>
+      <anchorfile>classsopt_1_1ORTsession.html</anchorfile>
+      <anchor>a341772c6dd5fea8f3a677084f68f330a</anchor>
+      <arglist>(const std::string &amp;filename, const std::string &amp;runname=&quot;soptONNXrt&quot;)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; float &gt;</type>
+      <name>compute</name>
+      <anchorfile>classsopt_1_1ORTsession.html</anchorfile>
+      <anchor>ae4d8717c3eb7723e358b79eef5b4592f</anchor>
+      <arglist>(std::vector&lt; float &gt; &amp;inputs) const</arglist>
+    </member>
+    <member kind="function">
+      <type>Vector&lt; T &gt;</type>
+      <name>compute</name>
+      <anchorfile>classsopt_1_1ORTsession.html</anchorfile>
+      <anchor>a482bde75db295989a1aab20b9f0da711</anchor>
+      <arglist>(const Vector&lt; T &gt; &amp;input) const</arglist>
+    </member>
+    <member kind="function">
+      <type>const bool</type>
+      <name>hasKey</name>
+      <anchorfile>classsopt_1_1ORTsession.html</anchorfile>
+      <anchor>ae48d1233dcbd0e5490f8f9338e487316</anchor>
+      <arglist>(const std::string &amp;key) const</arglist>
+    </member>
+    <member kind="function">
+      <type>const T</type>
+      <name>retrieve</name>
+      <anchorfile>classsopt_1_1ORTsession.html</anchorfile>
+      <anchor>a681fa18300670ff2bfacd74e0c63266e</anchor>
+      <arglist>(const std::string &amp;key) const</arglist>
+    </member>
+    <member kind="function">
+      <type>const T</type>
+      <name>retrieve</name>
+      <anchorfile>classsopt_1_1ORTsession.html</anchorfile>
+      <anchor>add87ca124cce5f2b79a1dbdce5c31a68</anchor>
+      <arglist>(const std::string &amp;key, const T &amp;defaultreturn) const</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
     <name>sopt::algorithm::PositiveQuadrant</name>
     <filename>http://astro-informatics.github.io/sopt/classsopt_1_1algorithm_1_1PositiveQuadrant.html</filename>
     <templarg></templarg>
@@ -11198,6 +11322,7 @@
     <class kind="class">sopt::ConjugateGradient</class>
     <class kind="class">sopt::Exception</class>
     <class kind="class">sopt::LinearTransform</class>
+    <class kind="class">sopt::ORTsession</class>
     <class kind="struct">sopt::is_complex</class>
     <class kind="struct">sopt::is_complex&lt; std::complex&lt; T &gt;, void &gt;</class>
     <class kind="class">sopt::RelativeVariation</class>
@@ -12143,6 +12268,7 @@
   <compound kind="namespace">
     <name>sopt::utilities</name>
     <filename>http://astro-informatics.github.io/sopt/http://astro-informatics.github.io/sopt/namespacesopt_1_1utilities.html</filename>
+    <class kind="struct">sopt::utilities::bad_lexical_cast</class>
     <member kind="function">
       <type>Image</type>
       <name>read_tiff</name>
@@ -12156,6 +12282,20 @@
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1utilities.html</anchorfile>
       <anchor>a18ac636e4a560294191b1066bc3599b4</anchor>
       <arglist>(Image&lt;&gt; const &amp;image, std::string const &amp;filename)</arglist>
+    </member>
+    <member kind="function">
+      <type>T</type>
+      <name>lexical_cast</name>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1utilities.html</anchorfile>
+      <anchor>a5890c81f8bf7e46ea9115255c6a42326</anchor>
+      <arglist>(const U &amp;in)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; T &gt;</type>
+      <name>split</name>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1utilities.html</anchorfile>
+      <anchor>a2ebafd0ab3d0c68fa51b2b5045f6a408</anchor>
+      <arglist>(std::string s, const std::string &amp;sep)</arglist>
     </member>
     <member kind="function">
       <type>Vector&lt; T &gt; &amp;</type>

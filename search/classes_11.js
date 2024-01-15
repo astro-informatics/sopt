@@ -1,8 +1,9 @@
 var searchData=
 [
-  ['underlying_5fvalue_5ftype_578',['underlying_value_type',['../classsopt_1_1details_1_1underlying__value__type.html',1,'sopt::details']]],
-  ['underlying_5fvalue_5ftype_3c_20scalar_20_3e_579',['underlying_value_type&lt; Scalar &gt;',['../classsopt_1_1details_1_1underlying__value__type.html',1,'sopt::details']]],
-  ['underlying_5fvalue_5ftype_3c_20scalar_20_3e_580',['underlying_value_type&lt; SCALAR &gt;',['../classsopt_1_1details_1_1underlying__value__type.html',1,'sopt::details']]],
-  ['underlying_5fvalue_5ftype_3c_20t_2c_20false_20_3e_581',['underlying_value_type&lt; T, false &gt;',['../classsopt_1_1details_1_1underlying__value__type_3_01T_00_01false_01_4.html',1,'sopt::details']]],
-  ['underlying_5fvalue_5ftype_3c_20t_2c_20true_20_3e_582',['underlying_value_type&lt; T, true &gt;',['../classsopt_1_1details_1_1underlying__value__type_3_01T_00_01true_01_4.html',1,'sopt::details']]]
+  ['tfgproximal_583',['TFGProximal',['../classsopt_1_1algorithm_1_1TFGProximal.html',1,'sopt::algorithm']]],
+  ['traits_3c_20sopt_3a_3adetails_3a_3aappliedfunction_3c_20function_2c_20vector_20_3e_20_3e_584',['traits&lt; sopt::details::AppliedFunction&lt; FUNCTION, VECTOR &gt; &gt;',['../structEigen_1_1internal_1_1traits_3_01sopt_1_1details_1_1AppliedFunction_3_01FUNCTION_00_01VECTOR_01_4_01_4.html',1,'Eigen::internal']]],
+  ['traits_3c_20sopt_3a_3aproximal_3a_3adetails_3a_3adelayedproximalenveloppefunction_3c_20function_2c_20vector_20_3e_20_3e_585',['traits&lt; sopt::proximal::details::DelayedProximalEnveloppeFunction&lt; FUNCTION, VECTOR &gt; &gt;',['../structEigen_1_1internal_1_1traits_3_01sopt_1_1proximal_1_1details_1_1DelayedProximalEnveloppeFun79592fbe5478856d047186d1851c9c0b.html',1,'Eigen::internal']]],
+  ['traits_3c_20sopt_3a_3aproximal_3a_3adetails_3a_3adelayedproximalfunction_3c_20function_2c_20vector_20_3e_20_3e_586',['traits&lt; sopt::proximal::details::DelayedProximalFunction&lt; FUNCTION, VECTOR &gt; &gt;',['../structEigen_1_1internal_1_1traits_3_01sopt_1_1proximal_1_1details_1_1DelayedProximalFunction_3_01FUNCTION_00_01VECTOR_01_4_01_4.html',1,'Eigen::internal']]],
+  ['translation_587',['Translation',['../classsopt_1_1proximal_1_1Translation.html',1,'sopt::proximal']]],
+  ['tvprimaldual_588',['TVPrimalDual',['../classsopt_1_1algorithm_1_1TVPrimalDual.html',1,'sopt::algorithm']]]
 ];

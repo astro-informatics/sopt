@@ -146,7 +146,8 @@ $(function() {
 <div class="line">make -j install</div>
 </div><!-- fragment --><p>On MacOS, you can also install most of the dependencies with Homebrew e.g.</p>
 <div class="fragment"><div class="line">brew install libtensorflow eigen tiff spdlog catch2</div>
-</div><!-- fragment --><h1>Common errors</h1>
+</div><!-- fragment --><p> <b>Note that the ONNXruntime interface is currently only supported when compiling with Clang on MacOS, but not with g++</b></p>
+<h1>Common errors</h1>
 <p>If you are using the g++ compiler and get an error to do with the package <code>spdlog</code>, try adding the option <code>-s compiler.libcxx=libstdc++11</code> to the <code>conan build</code> command. This option is also necessary when building with gcc on MacOS.</p>
 <h1>Conan tips</h1>
 <p>You can set commonly used options, choices of compilers etc. in a <a href="https://docs.conan.io/en/latest/reference/profiles.html">conan profile</a>. You can list profiles available on your system using <code>conan profile list</code> and select the profile you want to use with <code>conan install</code> with <code>conan install .. -pr my_profile</code>. CMake build options can also be added to the profile under <code>[options]</code>. Here is an example of a conan profile for building with a homebrew installed gcc 11 on MacOS.</p>

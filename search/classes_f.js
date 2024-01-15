@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['sampling_567',['Sampling',['../classsopt_1_1Sampling.html',1,'sopt']]],
-  ['sara_568',['SARA',['../classsopt_1_1wavelets_1_1SARA.html',1,'sopt::wavelets']]],
-  ['scalarrelativevariation_569',['ScalarRelativeVariation',['../classsopt_1_1ScalarRelativeVariation.html',1,'sopt']]],
-  ['sdmm_570',['SDMM',['../classsopt_1_1algorithm_1_1SDMM.html',1,'sopt::algorithm']]],
-  ['sdmm_3c_20scalar_20_3e_571',['SDMM&lt; Scalar &gt;',['../classsopt_1_1algorithm_1_1SDMM.html',1,'sopt::algorithm']]]
+  ['relativevariation_575',['RelativeVariation',['../classsopt_1_1RelativeVariation.html',1,'sopt']]],
+  ['reweighted_576',['Reweighted',['../classsopt_1_1algorithm_1_1Reweighted.html',1,'sopt::algorithm']]],
+  ['reweightedresult_577',['ReweightedResult',['../structsopt_1_1algorithm_1_1Reweighted_1_1ReweightedResult.html',1,'sopt::algorithm::Reweighted']]]
 ];

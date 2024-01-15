@@ -82,21 +82,74 @@ $(function() {
 <a href="utilities_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef SOPT_UTILITIES_H</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define SOPT_UTILITIES_H</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;sopt/config.h&quot;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span> <span class="comment">// for std::string</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;Eigen/Core&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="types_8h.html">sopt/types.h</a>&quot;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacesopt_1_1utilities.html">sopt::utilities</a> {</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<a class="code" href="namespacesopt.html#a7d7971e5566e597eb907614917e30c78">sopt::Image&lt;&gt;</a> <a class="code" href="namespacesopt_1_1utilities.html#a571717c98b97e19d3d47d8507bb32a8a">read_tiff</a>(std::string <span class="keyword">const</span> &amp;name);</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keywordtype">void</span> <a class="code" href="namespacesopt_1_1utilities.html#a18ac636e4a560294191b1066bc3599b4">write_tiff</a>(<a class="code" href="cppflow__model_8cc.html#aeeca20f5186519056cf53849afb07e6e">Image&lt;&gt;</a> <span class="keyword">const</span> &amp;image, std::string <span class="keyword">const</span> &amp;filename);</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;} <span class="comment">// namespace sopt::utilities</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;Eigen/Core&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;sopt/config.h&quot;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="types_8h.html">sopt/types.h</a>&quot;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacesopt_1_1utilities.html">sopt::utilities</a> {</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<a class="code" href="namespacesopt.html#a7d7971e5566e597eb907614917e30c78">sopt::Image&lt;&gt;</a> <a class="code" href="namespacesopt_1_1utilities.html#a571717c98b97e19d3d47d8507bb32a8a">read_tiff</a>(std::string <span class="keyword">const</span> &amp;name);</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keywordtype">void</span> <a class="code" href="namespacesopt_1_1utilities.html#a18ac636e4a560294191b1066bc3599b4">write_tiff</a>(<a class="code" href="cppflow__model_8cc.html#aeeca20f5186519056cf53849afb07e6e">Image&lt;&gt;</a> <span class="keyword">const</span> &amp;image, std::string <span class="keyword">const</span> &amp;filename);</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="structsopt_1_1utilities_1_1bad__lexical__cast.html">   18</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structsopt_1_1utilities_1_1bad__lexical__cast.html">bad_lexical_cast</a> : <span class="keyword">public</span> std::runtime_error {</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="structsopt_1_1utilities_1_1bad__lexical__cast.html#afe54e877a6a12efbef6e8da1d7e494f9">   19</a></span>&#160;  <a class="code" href="structsopt_1_1utilities_1_1bad__lexical__cast.html#afe54e877a6a12efbef6e8da1d7e494f9">bad_lexical_cast</a>(<span class="keyword">const</span> std::string&amp; what) : std::runtime_error(what) {}</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;};</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> U&gt;</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="namespacesopt_1_1utilities.html#a5890c81f8bf7e46ea9115255c6a42326">   24</a></span>&#160;T <a class="code" href="namespacesopt_1_1utilities.html#a5890c81f8bf7e46ea9115255c6a42326">lexical_cast</a>(<span class="keyword">const</span> U&amp; in) {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  <span class="keywordflow">try</span> {</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    std::stringstream ss;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    ss &lt;&lt; in;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    T out;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    ss &gt;&gt; out;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordflow">return</span> out;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  } <span class="keywordflow">catch</span>(<span class="keyword">const</span> std::exception&amp; e) {</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordflow">throw</span> <a class="code" href="structsopt_1_1utilities_1_1bad__lexical__cast.html">bad_lexical_cast</a>(e.what());</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  }</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;}</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T = std::<span class="keywordtype">string</span>&gt;</div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="namespacesopt_1_1utilities.html#a2ebafd0ab3d0c68fa51b2b5045f6a408">   38</a></span>&#160;std::vector&lt;T&gt; <a class="code" href="namespacesopt_1_1utilities.html#a2ebafd0ab3d0c68fa51b2b5045f6a408">split</a>(std::string s, <span class="keyword">const</span> std::string&amp; sep) {</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  std::vector&lt;T&gt; rtn;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <span class="keywordflow">while</span> (<span class="keyword">true</span>) {</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">size_t</span> delim_pos = s.find(sep);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordflow">if</span> (delim_pos == std::string::npos)  <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">const</span> std::string sub = s.substr(0, delim_pos);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordflow">if</span> (sub.length()) {</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;      <span class="keywordflow">if</span> constexpr(std::is_same&lt;T, std::string&gt;::value) {</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        rtn.push_back(sub);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;      }</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;      <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        rtn.push_back(lexical_cast&lt;T&gt;(sub));</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;      }</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    }</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    s.replace(0, delim_pos+1, <span class="stringliteral">&quot;&quot;</span>);</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  }</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  <span class="comment">// check for trailing component</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <span class="keywordflow">if</span> (s.length()) {</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordflow">if</span> constexpr(std::is_same&lt;T, std::string&gt;::value) {</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      rtn.push_back(s);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    }</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;      rtn.push_back(lexical_cast&lt;T&gt;(s));</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    }</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  }</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  <span class="keywordflow">return</span> rtn;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;}</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;} <span class="comment">// namespace sopt::utilities</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="acppflow__model_8cc_html_aeeca20f5186519056cf53849afb07e6e"><div class="ttname"><a href="cppflow__model_8cc.html#aeeca20f5186519056cf53849afb07e6e">Image</a></div><div class="ttdeci">sopt::Image&lt; Scalar &gt; Image</div><div class="ttdef"><b>Definition:</b> <a href="cppflow__model_8cc_source.html#l00020">cppflow_model.cc:20</a></div></div>
 <div class="ttc" id="anamespacesopt_1_1utilities_html"><div class="ttname"><a href="namespacesopt_1_1utilities.html">sopt::utilities</a></div><div class="ttdef"><b>Definition:</b> <a href="utilities_8cc_source.html#l00037">utilities.cc:37</a></div></div>
 <div class="ttc" id="anamespacesopt_1_1utilities_html_a18ac636e4a560294191b1066bc3599b4"><div class="ttname"><a href="namespacesopt_1_1utilities.html#a18ac636e4a560294191b1066bc3599b4">sopt::utilities::write_tiff</a></div><div class="ttdeci">void write_tiff(Image&lt;&gt; const &amp;image, std::string const &amp;filename)</div><div class="ttdoc">Writes a tiff greyscale file.</div><div class="ttdef"><b>Definition:</b> <a href="utilities_8cc_source.html#l00068">utilities.cc:68</a></div></div>
+<div class="ttc" id="anamespacesopt_1_1utilities_html_a2ebafd0ab3d0c68fa51b2b5045f6a408"><div class="ttname"><a href="namespacesopt_1_1utilities.html#a2ebafd0ab3d0c68fa51b2b5045f6a408">sopt::utilities::split</a></div><div class="ttdeci">std::vector&lt; T &gt; split(std::string s, const std::string &amp;sep)</div><div class="ttdoc">Split a string on a specified delimiter with optional cast to another type.</div><div class="ttdef"><b>Definition:</b> <a href="utilities_8h_source.html#l00038">utilities.h:38</a></div></div>
 <div class="ttc" id="anamespacesopt_1_1utilities_html_a571717c98b97e19d3d47d8507bb32a8a"><div class="ttname"><a href="namespacesopt_1_1utilities.html#a571717c98b97e19d3d47d8507bb32a8a">sopt::utilities::read_tiff</a></div><div class="ttdeci">Image read_tiff(std::string const &amp;filename)</div><div class="ttdoc">Reads tiff image.</div><div class="ttdef"><b>Definition:</b> <a href="utilities_8cc_source.html#l00038">utilities.cc:38</a></div></div>
+<div class="ttc" id="anamespacesopt_1_1utilities_html_a5890c81f8bf7e46ea9115255c6a42326"><div class="ttname"><a href="namespacesopt_1_1utilities.html#a5890c81f8bf7e46ea9115255c6a42326">sopt::utilities::lexical_cast</a></div><div class="ttdeci">T lexical_cast(const U &amp;in)</div><div class="ttdoc">Convert between any types via stringstream.</div><div class="ttdef"><b>Definition:</b> <a href="utilities_8h_source.html#l00024">utilities.h:24</a></div></div>
 <div class="ttc" id="anamespacesopt_html_a7d7971e5566e597eb907614917e30c78"><div class="ttname"><a href="namespacesopt.html#a7d7971e5566e597eb907614917e30c78">sopt::Image</a></div><div class="ttdeci">Eigen::Array&lt; T, Eigen::Dynamic, Eigen::Dynamic &gt; Image</div><div class="ttdoc">A 2-dimensional list of elements of given type.</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00039">types.h:39</a></div></div>
+<div class="ttc" id="astructsopt_1_1utilities_1_1bad__lexical__cast_html"><div class="ttname"><a href="structsopt_1_1utilities_1_1bad__lexical__cast.html">sopt::utilities::bad_lexical_cast</a></div><div class="ttdoc">Exception to be thrown by lexical_cast (below)</div><div class="ttdef"><b>Definition:</b> <a href="utilities_8h_source.html#l00018">utilities.h:18</a></div></div>
+<div class="ttc" id="astructsopt_1_1utilities_1_1bad__lexical__cast_html_afe54e877a6a12efbef6e8da1d7e494f9"><div class="ttname"><a href="structsopt_1_1utilities_1_1bad__lexical__cast.html#afe54e877a6a12efbef6e8da1d7e494f9">sopt::utilities::bad_lexical_cast::bad_lexical_cast</a></div><div class="ttdeci">bad_lexical_cast(const std::string &amp;what)</div><div class="ttdef"><b>Definition:</b> <a href="utilities_8h_source.html#l00019">utilities.h:19</a></div></div>
 <div class="ttc" id="atypes_8h_html"><div class="ttname"><a href="types_8h.html">types.h</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

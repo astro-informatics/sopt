@@ -76,12 +76,19 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">sopt::utilities Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structsopt_1_1utilities_1_1bad__lexical__cast.html">bad_lexical_cast</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classsopt_1_1Exception.html" title="Root exception for sopt.">Exception</a> to be thrown by lexical_cast (below)  <a href="structsopt_1_1utilities_1_1bad__lexical__cast.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a571717c98b97e19d3d47d8507bb32a8a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacesopt.html#a7d7971e5566e597eb907614917e30c78">Image</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesopt_1_1utilities.html#a571717c98b97e19d3d47d8507bb32a8a">read_tiff</a> (std::string const &amp;name)</td></tr>
@@ -90,6 +97,14 @@ Functions</h2></td></tr>
 <tr class="memitem:a18ac636e4a560294191b1066bc3599b4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesopt_1_1utilities.html#a18ac636e4a560294191b1066bc3599b4">write_tiff</a> (<a class="el" href="namespacesopt.html#a7d7971e5566e597eb907614917e30c78">Image</a>&lt;&gt; const &amp;image, std::string const &amp;filename)</td></tr>
 <tr class="memdesc:a18ac636e4a560294191b1066bc3599b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes a tiff greyscale file.  <a href="namespacesopt_1_1utilities.html#a18ac636e4a560294191b1066bc3599b4">More...</a><br /></td></tr>
 <tr class="separator:a18ac636e4a560294191b1066bc3599b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5890c81f8bf7e46ea9115255c6a42326"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
+<tr class="memitem:a5890c81f8bf7e46ea9115255c6a42326"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacesopt_1_1utilities.html#a5890c81f8bf7e46ea9115255c6a42326">lexical_cast</a> (const U &amp;in)</td></tr>
+<tr class="memdesc:a5890c81f8bf7e46ea9115255c6a42326"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert between any types via stringstream.  <a href="namespacesopt_1_1utilities.html#a5890c81f8bf7e46ea9115255c6a42326">More...</a><br /></td></tr>
+<tr class="separator:a5890c81f8bf7e46ea9115255c6a42326"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ebafd0ab3d0c68fa51b2b5045f6a408"><td class="memTemplParams" colspan="2">template&lt;typename T  = std::string&gt; </td></tr>
+<tr class="memitem:a2ebafd0ab3d0c68fa51b2b5045f6a408"><td class="memTemplItemLeft" align="right" valign="top">std::vector&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacesopt_1_1utilities.html#a2ebafd0ab3d0c68fa51b2b5045f6a408">split</a> (std::string s, const std::string &amp;sep)</td></tr>
+<tr class="memdesc:a2ebafd0ab3d0c68fa51b2b5045f6a408"><td class="mdescLeft">&#160;</td><td class="mdescRight">Split a string on a specified delimiter with optional cast to another type.  <a href="namespacesopt_1_1utilities.html#a2ebafd0ab3d0c68fa51b2b5045f6a408">More...</a><br /></td></tr>
+<tr class="separator:a2ebafd0ab3d0c68fa51b2b5045f6a408"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa690cbbff2973dae8e221bb19cf332cd"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:aa690cbbff2973dae8e221bb19cf332cd"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">Vector</a>&lt; T &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacesopt_1_1utilities.html#aa690cbbff2973dae8e221bb19cf332cd">get_wavelet_basis_coefficients</a> (<a class="el" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">Vector</a>&lt; T &gt; &amp;coeffs, const <a class="el" href="namespacesopt.html#a7237c0991f6ec8c2bbdab8929b564964">t_uint</a> basis_index, const <a class="el" href="namespacesopt.html#a7237c0991f6ec8c2bbdab8929b564964">t_uint</a> size)</td></tr>
 <tr class="memdesc:aa690cbbff2973dae8e221bb19cf332cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">return wavelet basis coefficients from a dictionary  <a href="namespacesopt_1_1utilities.html#aa690cbbff2973dae8e221bb19cf332cd">More...</a><br /></td></tr>
@@ -547,6 +562,41 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
+<a id="a5890c81f8bf7e46ea9115255c6a42326"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5890c81f8bf7e46ea9115255c6a42326">&#9670;&nbsp;</a></span>lexical_cast()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename U &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">T sopt::utilities::lexical_cast </td>
+          <td>(</td>
+          <td class="paramtype">const U &amp;&#160;</td>
+          <td class="paramname"><em>in</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Convert between any types via stringstream. </p>
+
+<p class="definition">Definition at line <a class="el" href="utilities_8h_source.html#l00024">24</a> of file <a class="el" href="utilities_8h_source.html">utilities.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;                            {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  <span class="keywordflow">try</span> {</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    std::stringstream ss;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    ss &lt;&lt; in;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    T out;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    ss &gt;&gt; out;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordflow">return</span> out;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  } <span class="keywordflow">catch</span>(<span class="keyword">const</span> std::exception&amp; e) {</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordflow">throw</span> bad_lexical_cast(e.what());</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  }</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;}</div>
+</div><!-- fragment -->
+</div>
+</div>
 <a id="a571717c98b97e19d3d47d8507bb32a8a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a571717c98b97e19d3d47d8507bb32a8a">&#9670;&nbsp;</a></span>read_tiff()</h2>
 
@@ -604,6 +654,67 @@ template&lt;typename T &gt; </div>
 
 <p class="reference">Referenced by <a class="el" href="copy__tiff_8cc_source.html#l00014">main()</a>, and <a class="el" href="tiffwrappers_8cc_source.html#l00009">sopt::notinstalled::read_standard_tiff()</a>.</p>
 
+</div>
+</div>
+<a id="a2ebafd0ab3d0c68fa51b2b5045f6a408"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ebafd0ab3d0c68fa51b2b5045f6a408">&#9670;&nbsp;</a></span>split()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T  = std::string&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;T&gt; sopt::utilities::split </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>sep</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Split a string on a specified delimiter with optional cast to another type. </p>
+
+<p class="definition">Definition at line <a class="el" href="utilities_8h_source.html#l00038">38</a> of file <a class="el" href="utilities_8h_source.html">utilities.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                                                      {</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  std::vector&lt;T&gt; rtn;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <span class="keywordflow">while</span> (<span class="keyword">true</span>) {</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">size_t</span> delim_pos = s.find(sep);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordflow">if</span> (delim_pos == std::string::npos)  <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">const</span> std::string sub = s.substr(0, delim_pos);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordflow">if</span> (sub.length()) {</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;      <span class="keywordflow">if</span> constexpr(std::is_same&lt;T, std::string&gt;::value) {</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        rtn.push_back(sub);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;      }</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;      <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        rtn.push_back(lexical_cast&lt;T&gt;(sub));</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;      }</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    }</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    s.replace(0, delim_pos+1, <span class="stringliteral">&quot;&quot;</span>);</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  }</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  <span class="comment">// check for trailing component</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <span class="keywordflow">if</span> (s.length()) {</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordflow">if</span> constexpr(std::is_same&lt;T, std::string&gt;::value) {</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      rtn.push_back(s);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    }</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;      rtn.push_back(lexical_cast&lt;T&gt;(s));</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    }</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  }</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  <span class="keywordflow">return</span> rtn;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a18ac636e4a560294191b1066bc3599b4"></a>
