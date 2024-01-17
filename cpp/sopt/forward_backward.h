@@ -236,10 +236,10 @@ class ForwardBackward {
 
 template <typename SCALAR>
 void ForwardBackward<SCALAR>::iteration_step(t_Vector &image, t_Vector &residual, t_Vector &z,
-                                             t_Vector &z_res, const t_real lambda) const {
+                                             t_Vector &grad_f, const t_real lambda) const {
   // z = image;  // store previous image in buffer; this looks incorrect. 
-  f_gradient(z_res, z, residual);  // takes residual and calculates the grad = 1/sig^2 residual
-  const t_Vector input = z - beta() / nu() * (Phi().adjoint() * z_res);
+  f_gradient(grad_f, z, residual);  // takes residual and calculates the grad = 1/sig^2 residual
+  const t_Vector input = z - beta() / nu() * grad_f;
   const Real weight = gamma() * beta();
   g_proximal(image, weight, input);
   z = image + lambda * (image - z);  

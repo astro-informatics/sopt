@@ -142,9 +142,10 @@ class ImagingForwardBackward {
   }
 
   // Default f_gradient is gradient of l2-norm
-  // Gradient ignores x and is based only on residual. (x is required for other forms of gradient)
+  // This gradient ignores x and is based only on residual. (x is required for other forms of gradient)
   t_Gradient f_gradient = [this](t_Vector &out, t_Vector const &x, t_Vector const &res) {
     this->l2_gradient()(out, res / (sigma() * sigma()));
+    out = this->Phi_.adjoint() * out;
   };
 
   void set_f_gradient(t_Gradient const &fgrad)
