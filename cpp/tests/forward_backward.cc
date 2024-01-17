@@ -36,7 +36,7 @@ TEST_CASE("Forward Backward with ||x - x0||_2^2 function", "[fb]") {
   auto const g0 = [](t_Vector &out, const t_real gamma, const t_Vector &x) {
     proximal::id(out, gamma, x);
   };
-  auto const grad = [](t_Vector &out, const t_Vector &x) { out = x; };
+  auto const grad = [](t_Vector &out, const t_Vector image, const t_Vector &res) { out = res; };
   const t_Vector x_guess = t_Vector::Random(target0.size());
   const t_Vector res = x_guess - target0;
   auto const convergence = [&target0](const t_Vector &x, const t_Vector &res) -> bool {
