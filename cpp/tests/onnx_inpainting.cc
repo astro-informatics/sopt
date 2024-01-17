@@ -57,9 +57,9 @@ TEST_CASE("Inpainting"){
   sopt::t_real const beta = sigma * sigma * 0.5;
 
   auto const f_gradient = [&onnx_model, &sampling, sigma](Vector &output, const Vector &image,
-                                        const Vector &residual) -> void {
+                                                          const Vector &residual) -> void {
     output = sampling.adjoint() * residual / (sigma * sigma);  // L2 norm
-    Vector ANN_gradient = onnx_model.compute(image);  // regulariser 
+    Vector ANN_gradient = onnx_model.compute(image);           // regulariser
     output += ANN_gradient;
   };
 

@@ -45,7 +45,7 @@ using OperatorFunction = std::function<void(VECTOR &, VECTOR const &)>;
 //! Typical function signature for calls to proximal
 template <typename SCALAR = t_real>
 using ProximalFunction =
-    std::function<void(Vector<SCALAR> &, typename real_type<SCALAR>::type, Vector<SCALAR> const &)>;
+    std::function<void(Vector<SCALAR> &, typename real_type<SCALAR>::type const, Vector<SCALAR> const &)>;
 
 //! Typical function signature for convergence
 template <typename SCALAR = t_real>
