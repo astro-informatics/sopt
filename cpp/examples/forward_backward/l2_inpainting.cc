@@ -4,6 +4,7 @@
 #include <iostream>
 #include <random>
 #include <vector>
+#include <ctime>
 
 #include "sopt/l2_forward_backward.h"
 #include "sopt/logging.h"

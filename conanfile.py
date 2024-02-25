@@ -21,7 +21,7 @@ class soptConan(ConanFile):
                "benchmarks":['on','off'],
                "logging":['on','off'],
                "openmp":['on','off'],
-               "mpi":['on','off'],
+               "dompi":['on','off'],
                "coverage":['on','off'],
                "onnxrt":['on','off'],
                "cppflow":['on','off'],}
@@ -30,8 +30,8 @@ class soptConan(ConanFile):
                        "tests": 'on',
                        "benchmarks": 'off',
                        "logging": 'on',
-                       "openmp": 'on',
-                       "mpi": 'on',
+                       "openmp": 'off',
+                       "dompi": 'off',
                        "coverage": 'off',
                        "onnxrt": 'off',
                        "cppflow": 'off'}
@@ -55,16 +55,16 @@ class soptConan(ConanFile):
     def generate(self):
         tc = CMakeToolchain(self)
 
-        tc.variables['docs'] = self.options.docs
-        tc.variables['examples'] = self.options.examples
-        tc.variables['tests'] = self.options.tests
-        tc.variables['benchmarks'] = self.options.benchmarks
-        tc.variables['logging'] = self.options.logging
-        tc.variables['openmp'] = self.options.openmp
-        tc.variables['onnxrt'] = self.options.onnxrt
-        tc.variables['dompi'] = self.options.mpi
-        tc.variables['coverage'] = self.options.coverage
-        tc.variables['cppflow'] = self.options.cppflow
+        tc.cache_variables['docs'] = self.options.docs
+        tc.cache_variables['examples'] = self.options.examples
+        tc.cache_variables['tests'] = self.options.tests
+        tc.cache_variables['benchmarks'] = self.options.benchmarks
+        tc.cache_variables['logging'] = self.options.logging
+        tc.cache_variables['openmp'] = self.options.openmp
+        tc.cache_variables['onnxrt'] = self.options.onnxrt
+        tc.cache_variables['dompi'] = self.options.dompi
+        tc.cache_variables['coverage'] = self.options.coverage
+        tc.cache_variables['cppflow'] = self.options.cppflow
 
         # List cases where we don't use ccache
         if ('GITHUB_ACTIONS' in os.environ.keys() and self.options.docs == 'off'):
