@@ -38,14 +38,15 @@ jobs:
       # This is because there is no easy way of extracting the path to the doxygen executable from conan.
       # the apt installed doxygen is used in the Make Docweb step to build the html files,
       # while the conan installed version is used in the build step.
-      # The version we install from apt is older than the 1.9.4 we install from conan, but
-      # it is not causing any issues at the moment.
+      # -> Is this still true for Conan v2?
       - name: Install dependencies
         run: |
           sudo apt update
           sudo apt install openmpi-bin libopenmpi-dev libyaml-cpp-dev doxygen graphviz ccache
-          if [[ "$USE_CONAN" = 0 ]]; then
-            sudo apt install libeigen3-dev libspdlog-dev libtiff-dev
+          if [[ "$USE_CONAN" = 1 ]]; then
+            pip install conan
+          else
+            sudo apt install libeigen3-dev libtiff-dev
             git clone https://github.com/catchorg/Catch2.git -b v3.4.0
             mkdir Catch2/build
             cd Catch2/build
@@ -54,14 +55,6 @@ jobs:
             make -j$(nproc --ignore 1) install
             cd -
           fi
-
-      - name: Install Conan
-        id: conan
-        if: env.USE_CONAN != '0'
-        uses: turtlebrowser/get-conan@main
-        with:
-          version: 1.60.2
-          #version: 2.0.9
 
       - name: Install Tensorflow API on Ubuntu
         uses: UCL/install-tensorflow-action@main
@@ -79,9 +72,9 @@ jobs:
       - name: Create cppflow package
         run: |
           if [[ "$USE_CONAN" = 1 ]]; then
-            #conan profile detect
-            #sed -i'' -e "s|generators|#generators|1" ./cppflow/conanfile.py
-            conan create ./cppflow/ -pr:h=default -pr:b=default
+            conan profile detect
+            sed -i'' -e "s|generators|#generators|1" ./cppflow/conanfile.py
+            conan create ./cppflow/
           else
             mkdir cppflow/build
             cd cppflow/build
@@ -93,9 +86,7 @@ jobs:
       - name: Configure
         run: |
           if [[ "$USE_CONAN" = 1 ]]; then
-            # Doxygen currently broken in Conan v1 and v2
-            #conan install doxygen/1.9.4@#2af713e135f12722e3536808017ba086 --update
-            conan install ${{github.workspace}} -if ${{github.workspace}}/build --build missing -s compiler.libcxx=libstdc++11 -o mpi=off -o openmp=off -o docs=off -o cppflow=on -pr:h=default -pr:b=default
+            conan install ${{github.workspace}} -of ${{github.workspace}}/build --build missing -s compiler.libcxx=libstdc++11 -o dompi=off -o openmp=off -o docs=off -o cppflow=on
           else
             export PATH=${{github.workspace}}/cppflow/build:$PATH
             export PATH=${{github.workspace}}/Catch2/build:$PATH
@@ -108,7 +99,7 @@ jobs:
       - name: Build
         run: |
           if [[ "$USE_CONAN" = 1 ]]; then
-            conan build ${{github.workspace}} -bf ${{github.workspace}}/build
+            conan build ${{github.workspace}} -of ${{github.workspace}}/build
           else
             export PATH=${{github.workspace}}/cppflow/build:$PATH
             export PATH=${{github.workspace}}/Catch2/build:$PATH
