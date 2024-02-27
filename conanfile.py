@@ -19,7 +19,6 @@ class soptConan(ConanFile):
                "examples":['on','off'],
                "tests":['on','off'],
                "benchmarks":['on','off'],
-               "logging":['on','off'],
                "openmp":['on','off'],
                "dompi":['on','off'],
                "coverage":['on','off'],
@@ -29,7 +28,6 @@ class soptConan(ConanFile):
                        "examples":'on',
                        "tests": 'on',
                        "benchmarks": 'off',
-                       "logging": 'on',
                        "openmp": 'off',
                        "dompi": 'off',
                        "coverage": 'off',
@@ -37,9 +35,6 @@ class soptConan(ConanFile):
                        "cppflow": 'off'}
 
     def requirements(self):
-
-        if self.options.logging == 'on':
-            self.requires("spdlog/1.12.0")
 
         if self.options.cppflow == 'on':
             self.requires("cppflow/2.0.0")
@@ -59,7 +54,6 @@ class soptConan(ConanFile):
         tc.cache_variables['examples'] = self.options.examples
         tc.cache_variables['tests'] = self.options.tests
         tc.cache_variables['benchmarks'] = self.options.benchmarks
-        tc.cache_variables['logging'] = self.options.logging
         tc.cache_variables['openmp'] = self.options.openmp
         tc.cache_variables['onnxrt'] = self.options.onnxrt
         tc.cache_variables['dompi'] = self.options.dompi
