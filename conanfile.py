@@ -62,10 +62,10 @@ class soptConan(ConanFile):
 
         # List cases where we don't use ccache
         if ('GITHUB_ACTIONS' in os.environ.keys() and self.options.docs == 'off'):
-            tc.variables['CMAKE_C_COMPILER_LAUNCHER'] = "ccache"
-            tc.variables['CMAKE_CXX_COMPILER_LAUNCHER'] = "ccache"
+            tc.cache_variables['CMAKE_C_COMPILER_LAUNCHER'] = "ccache"
+            tc.cache_variables['CMAKE_CXX_COMPILER_LAUNCHER'] = "ccache"
 
-        tc.variables['CMAKE_VERBOSE_MAKEFILE:BOOL'] = "ON"
+        tc.cache_variables['CMAKE_VERBOSE_MAKEFILE:BOOL'] = "ON"
         tc.generate()
 
         deps = CMakeDeps(self)
