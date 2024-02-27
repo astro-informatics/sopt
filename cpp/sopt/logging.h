@@ -6,6 +6,7 @@
 
 #include <map>
 #include <memory>
+#include <cstring>
 
 namespace sopt::logging {
 
