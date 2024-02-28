@@ -181,9 +181,7 @@ inline std::string mkFormattedString(const char* txt, Args&& ... args) {
   return rtn.str();
 }
 
-inline std::string mkFormattedString(const std::string& txt) {
-  return mkFormattedString("{}", txt.data());
-}
+inline const std::string& mkFormattedString(const std::string& txt) { return txt; }
 
 /// @defgroup logmacros Logging macros
 /// @{
