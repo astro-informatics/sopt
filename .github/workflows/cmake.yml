@@ -79,7 +79,7 @@ jobs:
     - name: Install Dependencies on MacOS
       if: ${{ contains(matrix.os, 'macos') }}
       run: |
-        brew install libtiff open-mpi libyaml ccache conan
+        brew install libtiff libomp open-mpi libyaml ccache conan
         echo "CMAKE_PREFIX_PATH=/usr/local/opt/libomp" >> $GITHUB_ENV
 
     #- name: Install gcc on MacOS
@@ -161,14 +161,7 @@ jobs:
     #    sed -i'' -e "s|generators|#generators|1" ./cppflow/conanfile.py
     #    conan create ./cppflow/ -s compiler.cppstd=gnu17
 
-    - name: Conan install on gcc
-      if: ${{ contains(matrix.cxx, 'g++-10') }}
-      run: |
-        conan profile detect
-        conan install ${{github.workspace}} -of ${{github.workspace}}/build --build missing -o dompi=${{matrix.mpi}} -o openmp=${{matrix.omp}} -o cppflow=off -o onnxrt=on -s compiler.cppstd=17
-
-    - name: Conan install on apple-clang
-      if: ${{ contains(matrix.cxx, 'clang++') }}
+    - name: Dependencies
       run: |
         conan profile detect
         conan install ${{github.workspace}} -of ${{github.workspace}}/build --build missing -o dompi=${{matrix.mpi}} -o openmp=${{matrix.omp}} -o cppflow=off -o onnxrt=on -s compiler.cppstd=17
