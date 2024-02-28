@@ -3,7 +3,6 @@
 #include "sopt/types.h"
 
 int main(int, char const **) {
-  sopt::logging::initialize();
 
   using Scalar = sopt::t_complex;
   using Real = sopt::real_type<Scalar>::type;

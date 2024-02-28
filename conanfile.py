@@ -19,9 +19,8 @@ class soptConan(ConanFile):
                "examples":['on','off'],
                "tests":['on','off'],
                "benchmarks":['on','off'],
-               "logging":['on','off'],
                "openmp":['on','off'],
-               "mpi":['on','off'],
+               "dompi":['on','off'],
                "coverage":['on','off'],
                "onnxrt":['on','off'],
                "cppflow":['on','off'],}
@@ -29,17 +28,13 @@ class soptConan(ConanFile):
                        "examples":'on',
                        "tests": 'on',
                        "benchmarks": 'off',
-                       "logging": 'on',
-                       "openmp": 'on',
-                       "mpi": 'on',
+                       "openmp": 'off',
+                       "dompi": 'off',
                        "coverage": 'off',
                        "onnxrt": 'off',
                        "cppflow": 'off'}
 
     def requirements(self):
-
-        if self.options.logging == 'on':
-            self.requires("spdlog/1.12.0")
 
         if self.options.cppflow == 'on':
             self.requires("cppflow/2.0.0")
@@ -55,23 +50,22 @@ class soptConan(ConanFile):
     def generate(self):
         tc = CMakeToolchain(self)
 
-        tc.variables['docs'] = self.options.docs
-        tc.variables['examples'] = self.options.examples
-        tc.variables['tests'] = self.options.tests
-        tc.variables['benchmarks'] = self.options.benchmarks
-        tc.variables['logging'] = self.options.logging
-        tc.variables['openmp'] = self.options.openmp
-        tc.variables['onnxrt'] = self.options.onnxrt
-        tc.variables['dompi'] = self.options.mpi
-        tc.variables['coverage'] = self.options.coverage
-        tc.variables['cppflow'] = self.options.cppflow
+        tc.cache_variables['docs'] = self.options.docs
+        tc.cache_variables['examples'] = self.options.examples
+        tc.cache_variables['tests'] = self.options.tests
+        tc.cache_variables['benchmarks'] = self.options.benchmarks
+        tc.cache_variables['openmp'] = self.options.openmp
+        tc.cache_variables['onnxrt'] = self.options.onnxrt
+        tc.cache_variables['dompi'] = self.options.dompi
+        tc.cache_variables['coverage'] = self.options.coverage
+        tc.cache_variables['cppflow'] = self.options.cppflow
 
         # List cases where we don't use ccache
         if ('GITHUB_ACTIONS' in os.environ.keys() and self.options.docs == 'off'):
-            tc.variables['CMAKE_C_COMPILER_LAUNCHER'] = "ccache"
-            tc.variables['CMAKE_CXX_COMPILER_LAUNCHER'] = "ccache"
+            tc.cache_variables['CMAKE_C_COMPILER_LAUNCHER'] = "ccache"
+            tc.cache_variables['CMAKE_CXX_COMPILER_LAUNCHER'] = "ccache"
 
-        tc.variables['CMAKE_VERBOSE_MAKEFILE:BOOL'] = "ON"
+        tc.cache_variables['CMAKE_VERBOSE_MAKEFILE:BOOL'] = "ON"
         tc.generate()
 
         deps = CMakeDeps(self)

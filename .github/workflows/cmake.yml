@@ -38,7 +38,7 @@ jobs:
       matrix:
           os:
             - ubuntu-20.04
-            - macos-12
+            - macos-14
           cc:
             - gcc-10
             - clang
@@ -59,10 +59,10 @@ jobs:
             - os: ubuntu-20.04
               cc: clang
               cxx: clang++
-            - os: macos-12
+            - os: macos-14
               mpi: "on"
             # This doesn't seem to work with ONNXrt yet:
-            - os: macos-12
+            - os: macos-14
               cxx: g++-10
 
     steps:
@@ -75,12 +75,15 @@ jobs:
       run: |
         sudo apt update
         sudo apt install openmpi-bin libopenmpi-dev libyaml-cpp-dev ccache
+        pip install conan
 
     - name: Install Dependencies on MacOS
       if: ${{ contains(matrix.os, 'macos') }}
       run: |
-        brew install libtiff open-mpi libyaml ccache conan
-        echo "CMAKE_PREFIX_PATH=/usr/local/opt/libomp" >> $GITHUB_ENV
+        brew install libtiff libomp open-mpi libyaml ccache conan
+        echo "CMAKE_PREFIX_PATH=/opt/homebrew/opt/libomp" >> $GITHUB_ENV
+        echo "/opt/homebrew/opt/ccache/libexec" >> $GITHUB_PATH
+        #echo "/opt/homebrew/opt/libomp" >> $GITHUB_PATH
 
     #- name: Install gcc on MacOS
     #  if: ${{ contains(matrix.os, 'macos') && contains(matrix.cxx, 'g++10') }}
@@ -108,19 +111,11 @@ jobs:
     #    os: darwin
 
     - name: Select Python 3.10
-      # otherwise turtlebrowser/get-conan@v1.1 fails on macos-12
+      # otherwise turtlebrowser/get-conan@v1.1 fails on macos-14
       # ref: https://github.com/turtlebrowser/get-conan/issues/4
       uses: actions/setup-python@v4
       with:
         python-version: '3.10'
-
-    - name: Install Conan
-      id: conan
-      if: ${{ contains(matrix.os, 'ubuntu') }}
-      uses: turtlebrowser/get-conan@main
-      with:
-        #version: 1.59.0
-        version: 2.0.9
 
     - name: Prepare ccache timestamp
       id: ccache_cache_timestamp
@@ -161,22 +156,15 @@ jobs:
     #    sed -i'' -e "s|generators|#generators|1" ./cppflow/conanfile.py
     #    conan create ./cppflow/ -s compiler.cppstd=gnu17
 
-    - name: Conan install on gcc
-      if: ${{ contains(matrix.cxx, 'g++-10') }}
+    - name: Dependencies
       run: |
         conan profile detect
-        conan install ${{github.workspace}} -of ${{github.workspace}}/build --build missing -o mpi=${{matrix.mpi}} -o openmp=${{matrix.omp}} -o cppflow=off -o onnxrt=on -s compiler.cppstd=17
-
-    - name: Conan install on apple-clang
-      if: ${{ contains(matrix.cxx, 'clang++') }}
-      run: |
-        conan profile detect
-        conan install ${{github.workspace}} -of ${{github.workspace}}/build --build missing -o mpi=${{matrix.mpi}} -o openmp=${{matrix.omp}} -o cppflow=off -o onnxrt=on -s compiler.cppstd=17
+        conan install ${{github.workspace}} -of ${{github.workspace}}/build --build missing -o dompi=${{matrix.mpi}} -o openmp=${{matrix.omp}} -o cppflow=off -o onnxrt=on -s compiler.cppstd=17
 
     - name: Build
       # Build your program with the given configuration.
       # The Github Actions machines are dual-core so we can build faster using 2 parallel processes
-      run: conan build ${{github.workspace}} -of ${{github.workspace}}/build -o mpi=${{matrix.mpi}} -o openmp=${{matrix.omp}} -o cppflow=off -o onnxrt=on -s compiler.cppstd=17
+      run: conan build ${{github.workspace}} -of ${{github.workspace}}/build -o dompi=${{matrix.mpi}} -o openmp=${{matrix.omp}} -o cppflow=off -o onnxrt=on -s compiler.cppstd=17
 
     - name: Test
       working-directory: ${{github.workspace}}/build

@@ -16,7 +16,5 @@ int main(int argc, char const **argv) {
     return returnCode;
   mersenne.reset(new std::mt19937_64(session.configData().rngSeed));
 
-  sopt::logging::initialize();
-
   return session.run();
 }

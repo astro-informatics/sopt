@@ -14,7 +14,7 @@ t_uint cols = 128;
 t_uint N = rows * cols;
 
 TEST_CASE("calculating gamma") {
-  sopt::logging::set_level("debug");
+  logging::set_level("debug");
   const std::function<t_real(t_Vector)> energy_function = [](const t_Vector &input) -> t_real {
     return 0.;
   };

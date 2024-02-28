@@ -4,9 +4,6 @@
 
 // We will minimize ||L_0 x - x_0|| + ||L_1 x - x_1||, ||.|| the euclidian norm
 int main(int, char const **) {
-  // Initializes and sets logger (if compiled with logging)
-  // See set_level function for levels.
-  sopt::logging::initialize();
 
   // Some type aliases for simplicity
   using t_Scalar = sopt::t_complex;

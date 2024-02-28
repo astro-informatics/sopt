@@ -19,10 +19,6 @@ int main(int argc, char const **argv) {
     exit(0);
   }
 
-  // Initializes and sets logger (if compiled with logging)
-  // See set_level function for levels.
-  sopt::logging::initialize();
-
   // Read input file
   auto const image = sopt::notinstalled::read_standard_tiff(argv[1]);
   sopt::utilities::write_tiff(image, argv[2]);
