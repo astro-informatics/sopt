@@ -38,7 +38,7 @@ jobs:
       matrix:
           os:
             - ubuntu-20.04
-            - macos-12
+            - macos-14
           cc:
             - gcc-10
             - clang
@@ -59,10 +59,10 @@ jobs:
             - os: ubuntu-20.04
               cc: clang
               cxx: clang++
-            - os: macos-12
+            - os: macos-14
               mpi: "on"
             # This doesn't seem to work with ONNXrt yet:
-            - os: macos-12
+            - os: macos-14
               cxx: g++-10
 
     steps:
@@ -108,7 +108,7 @@ jobs:
     #    os: darwin
 
     - name: Select Python 3.10
-      # otherwise turtlebrowser/get-conan@v1.1 fails on macos-12
+      # otherwise turtlebrowser/get-conan@v1.1 fails on macos-14
       # ref: https://github.com/turtlebrowser/get-conan/issues/4
       uses: actions/setup-python@v4
       with:
