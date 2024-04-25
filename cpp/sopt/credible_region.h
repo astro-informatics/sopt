@@ -142,8 +142,8 @@ credible_interval_grid(const Eigen::MatrixBase<T> &solution, const t_uint &rows,
   Image<K> credible_grid_upper_bound = Image<K>::Zero(grid_rows, grid_cols);
   Image<K> credible_grid_mean = Image<K>::Zero(grid_rows, grid_cols);
   SOPT_LOW_LOG("Starting calculation of credible interval: {} x {} grid.", grid_rows, grid_cols);
-  for (t_uint i = 0; i < grid_rows; i++) {
-    for (t_uint j = 0; j < grid_cols; j++) {
+  for (t_uint i = 0; i < grid_rows; ++i) {
+    for (t_uint j = 0; j < grid_cols; ++j) {
       const t_uint start_row = i * drow;
       const t_uint start_col = j * dcol;
       if (static_cast<t_int>(rows - start_row - drow) < 0)
