@@ -49,7 +49,7 @@ as well as the **SOPT** installation:
         conan create ./cppflow/
         ```
       Note that conan requires you to specify the host (h) and the build (b) profiles on the command
-      line (`-pr=default`), unless you have defined them in your conan profile.
+      line (`-pr:b=default -pr:h=default` or simply `-pr:a=default`), unless you have defined them in your conan profile.
       You can set up a default profile for your system using `conan profile detect` (only needs to be done once).
 
 1. Once the mandatory dependencies are present, `git clone` from the [GitHub repository](https://github.com/astro-informatics/sopt):
