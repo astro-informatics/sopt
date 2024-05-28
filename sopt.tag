@@ -988,13 +988,6 @@
       <arglist>()</arglist>
     </member>
     <member kind="function">
-      <type>constexpr bool</type>
-      <name>color_logger</name>
-      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt.html</anchorfile>
-      <anchor>a8665e2e558cf502796c385e0b350d54d</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="function">
       <type>constexpr std::size_t</type>
       <name>number_of_threads_in_tests</name>
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt.html</anchorfile>
@@ -1525,144 +1518,49 @@
     </member>
   </compound>
   <compound kind="file">
-    <name>logging.disabled.h</name>
+    <name>logging.cc</name>
     <path>/home/runner/work/sopt/sopt/cpp/sopt/</path>
-    <filename>http://astro-informatics.github.io/sopt/logging_8disabled_8h.html</filename>
+    <filename>http://astro-informatics.github.io/sopt/logging_8cc.html</filename>
+    <includes id="logging_8h" name="logging.h" local="yes" imported="no">sopt/logging.h</includes>
     <namespace>sopt</namespace>
     <namespace>sopt::logging</namespace>
-    <member kind="define">
-      <type>#define</type>
-      <name>SOPT_LOG_</name>
-      <anchorfile>logging_8disabled_8h.html</anchorfile>
-      <anchor>aa64f240f46ed8708082955c6d66ff13f</anchor>
-      <arglist>(...)</arglist>
-    </member>
-    <member kind="function">
-      <type>std::shared_ptr&lt; int &gt;</type>
-      <name>initialize</name>
-      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1logging.html</anchorfile>
-      <anchor>a4b0ad6b43587c4601283b52da3c47800</anchor>
-      <arglist>(std::string const &amp;name=&quot;&quot;)</arglist>
-    </member>
-    <member kind="function">
-      <type>std::shared_ptr&lt; int &gt;</type>
-      <name>initialize</name>
-      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1logging.html</anchorfile>
-      <anchor>aa7efdb8dfaa270a5ee5915c08a64ebaa</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="function">
-      <type>std::shared_ptr&lt; int &gt;</type>
-      <name>get</name>
-      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1logging.html</anchorfile>
-      <anchor>a44a1302dbe6c3a0a187838fc246e1ee5</anchor>
-      <arglist>(std::string const &amp;name=&quot;&quot;)</arglist>
-    </member>
-    <member kind="function">
-      <type>std::shared_ptr&lt; int &gt;</type>
-      <name>get</name>
-      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1logging.html</anchorfile>
-      <anchor>a5109e37f29d40ef6695c4291fcbb063d</anchor>
-      <arglist>()</arglist>
-    </member>
     <member kind="function">
       <type>void</type>
-      <name>set_level</name>
+      <name>_updateLevels</name>
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1logging.html</anchorfile>
-      <anchor>a1a3ff36211cc8e01a397f484fb967f41</anchor>
-      <arglist>(std::string const &amp;level, std::string const &amp;name)</arglist>
+      <anchor>adcf103419e3ac1c9fea0403e7d87d8cf</anchor>
+      <arglist>(const Log::LevelMap &amp;defaultLevels, Log::LogMap &amp;existingLogs)</arglist>
     </member>
     <member kind="function">
-      <type>void</type>
-      <name>set_level</name>
+      <type>ostream &amp;</type>
+      <name>operator&lt;&lt;</name>
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1logging.html</anchorfile>
-      <anchor>a7f2d11c952cce70b2a92c7402c14d2f6</anchor>
-      <arglist>(std::string const &amp;)</arglist>
-    </member>
-    <member kind="function">
-      <type>bool</type>
-      <name>has_level</name>
-      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1logging.html</anchorfile>
-      <anchor>adfbe0795d12d3119704baf0f64dc9d3c</anchor>
-      <arglist>(std::string const &amp;, std::string const &amp;)</arglist>
-    </member>
-    <member kind="variable">
-      <type>const std::string</type>
-      <name>name_prefix</name>
-      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1logging.html</anchorfile>
-      <anchor>a6c538b24670a61401f0fabf038e07931</anchor>
-      <arglist></arglist>
-    </member>
-  </compound>
-  <compound kind="file">
-    <name>logging.enabled.h</name>
-    <path>/home/runner/work/sopt/sopt/cpp/sopt/</path>
-    <filename>http://astro-informatics.github.io/sopt/logging_8enabled_8h.html</filename>
-    <includes id="exception_8h" name="exception.h" local="yes" imported="no">sopt/exception.h</includes>
-    <namespace>sopt</namespace>
-    <namespace>sopt::logging</namespace>
-    <member kind="define">
-      <type>#define</type>
-      <name>SOPT_MACRO</name>
-      <anchorfile>logging_8enabled_8h.html</anchorfile>
-      <anchor>a1ed0e99f6e0e5337f165d2590412052b</anchor>
-      <arglist>(LEVEL)</arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>SOPT_MACRO</name>
-      <anchorfile>logging_8enabled_8h.html</anchorfile>
-      <anchor>a1ed0e99f6e0e5337f165d2590412052b</anchor>
-      <arglist>(LEVEL)</arglist>
-    </member>
-    <member kind="define">
-      <type>#define</type>
-      <name>SOPT_LOG_</name>
-      <anchorfile>logging_8enabled_8h.html</anchorfile>
-      <anchor>aa3140c50e21c9f1b55df324632c73a77</anchor>
-      <arglist>(NAME, TYPE,...)</arglist>
-    </member>
-    <member kind="typedef">
-      <type>std::shared_ptr&lt; spdlog::logger &gt;</type>
-      <name>spdlogPtr</name>
-      <anchorfile>logging_8enabled_8h.html</anchorfile>
-      <anchor>aa9892412af755840eb432b2132a55122</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>set_level</name>
-      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1logging.html</anchorfile>
-      <anchor>a1a3ff36211cc8e01a397f484fb967f41</anchor>
-      <arglist>(std::string const &amp;level, std::string const &amp;name)</arglist>
-    </member>
-    <member kind="function">
-      <type>std::shared_ptr&lt; int &gt;</type>
-      <name>initialize</name>
-      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1logging.html</anchorfile>
-      <anchor>a4b0ad6b43587c4601283b52da3c47800</anchor>
-      <arglist>(std::string const &amp;name=&quot;&quot;)</arglist>
-    </member>
-    <member kind="function">
-      <type>std::shared_ptr&lt; int &gt;</type>
-      <name>get</name>
-      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1logging.html</anchorfile>
-      <anchor>a44a1302dbe6c3a0a187838fc246e1ee5</anchor>
-      <arglist>(std::string const &amp;name=&quot;&quot;)</arglist>
-    </member>
-    <member kind="function">
-      <type>bool</type>
-      <name>has_level</name>
-      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1logging.html</anchorfile>
-      <anchor>adfbe0795d12d3119704baf0f64dc9d3c</anchor>
-      <arglist>(std::string const &amp;, std::string const &amp;)</arglist>
+      <anchor>a7cb336aaec82dbb82888b3139926505a</anchor>
+      <arglist>(Log &amp;log, int level)</arglist>
     </member>
   </compound>
   <compound kind="file">
     <name>logging.h</name>
     <path>/home/runner/work/sopt/sopt/cpp/sopt/</path>
     <filename>http://astro-informatics.github.io/sopt/logging_8h.html</filename>
-    <includes id="logging_8disabled_8h" name="logging.disabled.h" local="yes" imported="no">sopt/logging.disabled.h</includes>
+    <includes id="exception_8h" name="exception.h" local="yes" imported="no">sopt/exception.h</includes>
+    <class kind="class">sopt::logging::Log</class>
+    <namespace>sopt</namespace>
+    <namespace>sopt::logging</namespace>
+    <member kind="define">
+      <type>#define</type>
+      <name>SOPT_MSG_LVL</name>
+      <anchorfile>group__logmacros.html</anchorfile>
+      <anchor>gad278b21b198636a7aab4a64d32774f3e</anchor>
+      <arglist>(lvl,...)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>SOPT_LOG_</name>
+      <anchorfile>group__logmacros.html</anchorfile>
+      <anchor>ga029e05e5481737c5960823c4fff3b81f</anchor>
+      <arglist>(TYPE,...)</arglist>
+    </member>
     <member kind="define">
       <type>#define</type>
       <name>SOPT_NOTICE</name>
@@ -1725,6 +1623,48 @@
       <anchorfile>logging_8h.html</anchorfile>
       <anchor>a4a497e6b273bf510772846ac52cef095</anchor>
       <arglist>(...)</arglist>
+    </member>
+    <member kind="function">
+      <type>ostream &amp;</type>
+      <name>operator&lt;&lt;</name>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1logging.html</anchorfile>
+      <anchor>a7cb336aaec82dbb82888b3139926505a</anchor>
+      <arglist>(Log &amp;log, int level)</arglist>
+    </member>
+    <member kind="function">
+      <type>Log &amp;</type>
+      <name>getLog</name>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1logging.html</anchorfile>
+      <anchor>a42b7b103eba3224902e75a145a87c866</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>set_level</name>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1logging.html</anchorfile>
+      <anchor>a3849ca5dbfcb69aa22066146b8ee781d</anchor>
+      <arglist>(const std::string &amp;level)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>applyFormat</name>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1logging.html</anchorfile>
+      <anchor>ae20c08f799e58e2983a6ec139cf3dcc4</anchor>
+      <arglist>(std::stringstream &amp;ss, char *&amp;pos, Arg &amp;&amp;arg)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::string</type>
+      <name>mkFormattedString</name>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1logging.html</anchorfile>
+      <anchor>a60307772406264e603590704d663be39</anchor>
+      <arglist>(const char *txt, Args &amp;&amp;... args)</arglist>
+    </member>
+    <member kind="function">
+      <type>const std::string &amp;</type>
+      <name>mkFormattedString</name>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1logging.html</anchorfile>
+      <anchor>a45b4577bcf8a8042cf10881b9b824bb6</anchor>
+      <arglist>(const std::string &amp;txt)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -8371,6 +8311,218 @@
     </member>
   </compound>
   <compound kind="class">
+    <name>sopt::logging::Log</name>
+    <filename>http://astro-informatics.github.io/sopt/classsopt_1_1logging_1_1Log.html</filename>
+    <member kind="enumeration">
+      <type></type>
+      <name>Level</name>
+      <anchorfile>classsopt_1_1logging_1_1Log.html</anchorfile>
+      <anchor>ab99691d0c2f5fb7edbca87b38409dc5c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>trace</name>
+      <anchorfile>classsopt_1_1logging_1_1Log.html</anchorfile>
+      <anchor>ab99691d0c2f5fb7edbca87b38409dc5ca779e3f268322303fef9fcf8034aca5b0</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>debug</name>
+      <anchorfile>classsopt_1_1logging_1_1Log.html</anchorfile>
+      <anchor>ab99691d0c2f5fb7edbca87b38409dc5caf39f93723bcbe469657dba3ba3dcc5ea</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>info</name>
+      <anchorfile>classsopt_1_1logging_1_1Log.html</anchorfile>
+      <anchor>ab99691d0c2f5fb7edbca87b38409dc5ca528453dc18158f612a2cc32e0c63a952</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>warn</name>
+      <anchorfile>classsopt_1_1logging_1_1Log.html</anchorfile>
+      <anchor>ab99691d0c2f5fb7edbca87b38409dc5ca4e06ce88b88673f1df0216a6afa3f267</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>warning</name>
+      <anchorfile>classsopt_1_1logging_1_1Log.html</anchorfile>
+      <anchor>ab99691d0c2f5fb7edbca87b38409dc5ca439a24d07673e25dad5e155d046d77ce</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>error</name>
+      <anchorfile>classsopt_1_1logging_1_1Log.html</anchorfile>
+      <anchor>ab99691d0c2f5fb7edbca87b38409dc5caf4d6fe772a790054f4dcdc69286a3ff7</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>critical</name>
+      <anchorfile>classsopt_1_1logging_1_1Log.html</anchorfile>
+      <anchor>ab99691d0c2f5fb7edbca87b38409dc5ca49f7fcea9294a6525bdc8180d79d8351</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>always</name>
+      <anchorfile>classsopt_1_1logging_1_1Log.html</anchorfile>
+      <anchor>ab99691d0c2f5fb7edbca87b38409dc5ca9b93792f9b4e17c24fd89962127e91ec</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>std::map&lt; std::string, Log &gt;</type>
+      <name>LogMap</name>
+      <anchorfile>classsopt_1_1logging_1_1Log.html</anchorfile>
+      <anchor>a4297e552320dfbeb93fa6327440a52b1</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>std::map&lt; std::string, int &gt;</type>
+      <name>LevelMap</name>
+      <anchorfile>classsopt_1_1logging_1_1Log.html</anchorfile>
+      <anchor>a06f646b84fe3196be226c35ed83e4e85</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>std::map&lt; int, std::string &gt;</type>
+      <name>ColorCodes</name>
+      <anchorfile>classsopt_1_1logging_1_1Log.html</anchorfile>
+      <anchor>a829091a647340d761b1b363b8c4bf8a7</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>trace</name>
+      <anchorfile>classsopt_1_1logging_1_1Log.html</anchorfile>
+      <anchor>ab99691d0c2f5fb7edbca87b38409dc5ca779e3f268322303fef9fcf8034aca5b0</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>debug</name>
+      <anchorfile>classsopt_1_1logging_1_1Log.html</anchorfile>
+      <anchor>ab99691d0c2f5fb7edbca87b38409dc5caf39f93723bcbe469657dba3ba3dcc5ea</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>info</name>
+      <anchorfile>classsopt_1_1logging_1_1Log.html</anchorfile>
+      <anchor>ab99691d0c2f5fb7edbca87b38409dc5ca528453dc18158f612a2cc32e0c63a952</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>warn</name>
+      <anchorfile>classsopt_1_1logging_1_1Log.html</anchorfile>
+      <anchor>ab99691d0c2f5fb7edbca87b38409dc5ca4e06ce88b88673f1df0216a6afa3f267</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>warning</name>
+      <anchorfile>classsopt_1_1logging_1_1Log.html</anchorfile>
+      <anchor>ab99691d0c2f5fb7edbca87b38409dc5ca439a24d07673e25dad5e155d046d77ce</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>error</name>
+      <anchorfile>classsopt_1_1logging_1_1Log.html</anchorfile>
+      <anchor>ab99691d0c2f5fb7edbca87b38409dc5caf4d6fe772a790054f4dcdc69286a3ff7</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>critical</name>
+      <anchorfile>classsopt_1_1logging_1_1Log.html</anchorfile>
+      <anchor>ab99691d0c2f5fb7edbca87b38409dc5ca49f7fcea9294a6525bdc8180d79d8351</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>always</name>
+      <anchorfile>classsopt_1_1logging_1_1Log.html</anchorfile>
+      <anchor>ab99691d0c2f5fb7edbca87b38409dc5ca9b93792f9b4e17c24fd89962127e91ec</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>getLevel</name>
+      <anchorfile>classsopt_1_1logging_1_1Log.html</anchorfile>
+      <anchor>a5ca22451a5a48935565b02225f6594e2</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>Log &amp;</type>
+      <name>setLevel</name>
+      <anchorfile>classsopt_1_1logging_1_1Log.html</anchorfile>
+      <anchor>ae8f8e492392d320cdc107f0090b23ae9</anchor>
+      <arglist>(int level)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::string</type>
+      <name>getName</name>
+      <anchorfile>classsopt_1_1logging_1_1Log.html</anchorfile>
+      <anchor>ae67d78e7d41a85c839e23f88b2db5791</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>Log &amp;</type>
+      <name>setName</name>
+      <anchorfile>classsopt_1_1logging_1_1Log.html</anchorfile>
+      <anchor>aeb8f1a81ff808b403ef642d27f776535</anchor>
+      <arglist>(const std::string &amp;name)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>isActive</name>
+      <anchorfile>classsopt_1_1logging_1_1Log.html</anchorfile>
+      <anchor>a4003230356460180e2136e155f476bcc</anchor>
+      <arglist>(int level) const</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static void</type>
+      <name>setLevel</name>
+      <anchorfile>classsopt_1_1logging_1_1Log.html</anchorfile>
+      <anchor>adf3dc665ee8c3628d08bb8941644be92</anchor>
+      <arglist>(const std::string &amp;name, int level)</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static void</type>
+      <name>setLevels</name>
+      <anchorfile>classsopt_1_1logging_1_1Log.html</anchorfile>
+      <anchor>afcfc14315f7696eccd1d6acab9602f3f</anchor>
+      <arglist>(const LevelMap &amp;logLevels)</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static Log &amp;</type>
+      <name>getLog</name>
+      <anchorfile>classsopt_1_1logging_1_1Log.html</anchorfile>
+      <anchor>a0ddb98645dcbd641b283839958d811c8</anchor>
+      <arglist>(const std::string &amp;name)</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static Level</type>
+      <name>getLevelFromName</name>
+      <anchorfile>classsopt_1_1logging_1_1Log.html</anchorfile>
+      <anchor>a0f5d05e235de8856c0ff65bb81548ec5</anchor>
+      <arglist>(const std::string &amp;level)</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static std::string</type>
+      <name>getLevelName</name>
+      <anchorfile>classsopt_1_1logging_1_1Log.html</anchorfile>
+      <anchor>a1628728a88da08d57db2998efd21de89</anchor>
+      <arglist>(int level)</arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static const int</type>
+      <name>end_color</name>
+      <anchorfile>classsopt_1_1logging_1_1Log.html</anchorfile>
+      <anchor>a1c34fa06b82e3461e7a2773121568e13</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="friend">
+      <type>friend std::ostream &amp;</type>
+      <name>operator&lt;&lt;</name>
+      <anchorfile>classsopt_1_1logging_1_1Log.html</anchorfile>
+      <anchor>a249e58e04cd0cac940c864288681fcfc</anchor>
+      <arglist>(Log &amp;log, int level)</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
     <name>sopt::details::MatrixAdjointToLinearTransform</name>
     <filename>http://astro-informatics.github.io/sopt/classsopt_1_1details_1_1MatrixAdjointToLinearTransform.html</filename>
     <templarg></templarg>
@@ -11463,13 +11615,6 @@
       <arglist>()</arglist>
     </member>
     <member kind="function">
-      <type>constexpr bool</type>
-      <name>color_logger</name>
-      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt.html</anchorfile>
-      <anchor>a8665e2e558cf502796c385e0b350d54d</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="function">
       <type>constexpr std::size_t</type>
       <name>number_of_threads_in_tests</name>
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt.html</anchorfile>
@@ -11977,61 +12122,55 @@
   <compound kind="namespace">
     <name>sopt::logging</name>
     <filename>http://astro-informatics.github.io/sopt/http://astro-informatics.github.io/sopt/namespacesopt_1_1logging.html</filename>
+    <class kind="class">sopt::logging::Log</class>
     <member kind="function">
-      <type>std::shared_ptr&lt; int &gt;</type>
-      <name>initialize</name>
+      <type>void</type>
+      <name>_updateLevels</name>
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1logging.html</anchorfile>
-      <anchor>a4b0ad6b43587c4601283b52da3c47800</anchor>
-      <arglist>(std::string const &amp;name=&quot;&quot;)</arglist>
+      <anchor>adcf103419e3ac1c9fea0403e7d87d8cf</anchor>
+      <arglist>(const Log::LevelMap &amp;defaultLevels, Log::LogMap &amp;existingLogs)</arglist>
     </member>
     <member kind="function">
-      <type>std::shared_ptr&lt; int &gt;</type>
-      <name>initialize</name>
+      <type>ostream &amp;</type>
+      <name>operator&lt;&lt;</name>
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1logging.html</anchorfile>
-      <anchor>aa7efdb8dfaa270a5ee5915c08a64ebaa</anchor>
-      <arglist>()</arglist>
+      <anchor>a7cb336aaec82dbb82888b3139926505a</anchor>
+      <arglist>(Log &amp;log, int level)</arglist>
     </member>
     <member kind="function">
-      <type>std::shared_ptr&lt; int &gt;</type>
-      <name>get</name>
+      <type>Log &amp;</type>
+      <name>getLog</name>
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1logging.html</anchorfile>
-      <anchor>a44a1302dbe6c3a0a187838fc246e1ee5</anchor>
-      <arglist>(std::string const &amp;name=&quot;&quot;)</arglist>
-    </member>
-    <member kind="function">
-      <type>std::shared_ptr&lt; int &gt;</type>
-      <name>get</name>
-      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1logging.html</anchorfile>
-      <anchor>a5109e37f29d40ef6695c4291fcbb063d</anchor>
+      <anchor>a42b7b103eba3224902e75a145a87c866</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>set_level</name>
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1logging.html</anchorfile>
-      <anchor>a1a3ff36211cc8e01a397f484fb967f41</anchor>
-      <arglist>(std::string const &amp;level, std::string const &amp;name)</arglist>
+      <anchor>a3849ca5dbfcb69aa22066146b8ee781d</anchor>
+      <arglist>(const std::string &amp;level)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
-      <name>set_level</name>
+      <name>applyFormat</name>
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1logging.html</anchorfile>
-      <anchor>a7f2d11c952cce70b2a92c7402c14d2f6</anchor>
-      <arglist>(std::string const &amp;)</arglist>
+      <anchor>ae20c08f799e58e2983a6ec139cf3dcc4</anchor>
+      <arglist>(std::stringstream &amp;ss, char *&amp;pos, Arg &amp;&amp;arg)</arglist>
     </member>
     <member kind="function">
-      <type>bool</type>
-      <name>has_level</name>
+      <type>std::string</type>
+      <name>mkFormattedString</name>
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1logging.html</anchorfile>
-      <anchor>adfbe0795d12d3119704baf0f64dc9d3c</anchor>
-      <arglist>(std::string const &amp;, std::string const &amp;)</arglist>
+      <anchor>a60307772406264e603590704d663be39</anchor>
+      <arglist>(const char *txt, Args &amp;&amp;... args)</arglist>
     </member>
-    <member kind="variable">
-      <type>const std::string</type>
-      <name>name_prefix</name>
+    <member kind="function">
+      <type>const std::string &amp;</type>
+      <name>mkFormattedString</name>
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1logging.html</anchorfile>
-      <anchor>a6c538b24670a61401f0fabf038e07931</anchor>
-      <arglist></arglist>
+      <anchor>a45b4577bcf8a8042cf10881b9b824bb6</anchor>
+      <arglist>(const std::string &amp;txt)</arglist>
     </member>
   </compound>
   <compound kind="namespace">
@@ -12681,6 +12820,25 @@
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1wavelets.html</anchorfile>
       <anchor>a9da2d1bcb7c278c2f610ebff66615cfc</anchor>
       <arglist>({1.425776641674131672055420247567865803211784397464191115245081e-06, 3.576251994264023012742569014888876217958307227940126418281357e-05, 4.211702664727116432247014444906469155300573201130549739553848e-04, 3.083088119253751774288740090262741910177322520624582862578292e-03, 1.563724934757215617277490102724080070486270026632620664785632e-02, 5.788994361285925649727664279317241952513246287766481213301801e-02, 1.600719935641106973482800861166599685169395465055048951307626e-01, 3.307757814110146511493637534404611754800768677041577030757306e-01, 4.965911753117180976599171147718708939352414838951726087564419e-01, 4.933560785171007975728485346997317064969513623594359091115804e-01, 2.130505713555785138286743353458562451255624665951160445122307e-01, -1.828676677083358907975548507946239135218223185041410632924815e-01, -3.216756378089978628483471725406916361929841940528189059002548e-01, -6.226650604782432226643360160478765847565862101045597180310490e-02, 2.321259638353531085028708104285994998671615563662858079262996e-01, 1.499851196187170199586403453788927307298226028262603028635758e-01, -1.417956859730596216710053144522330276392591055375830654519080e-01, -1.599125651582443618288533214523534937804208844386102639177693e-01, 8.563812155615105741612217814369165313487129645536001850276987e-02, 1.414147340733826800884683119379170594092606174915755283496153e-01, -5.658645863072738145681787657843320646815509410635114234947902e-02, -1.147311707107443752394144019458942779715665489230169950201022e-01, 4.309589543304764288137871223616030624246568683595408792078602e-02, 8.720439826203975011910714164154456762073786124233088471855868e-02, -3.660510340287429567372071039506772372567938710943432838908247e-02, -6.176620870841315993604736705613246241897497782373337911398117e-02, 3.198987753153780630818381136366859026137035450576631134176875e-02, 4.005498110511594820952087086241114309038577379366732959648548e-02, -2.689149388089451438550851767715967313417890393287236700072071e-02, -2.311413402054931680856913553585621248925303865540203357180768e-02, 2.090464525565524340215982365351342094670261491526831672682244e-02, 1.129049727868596484270081487761544232851115891449843967151657e-02, -1.470188206539868213708986402816605045648481224662435114088245e-02, -4.131306656031089274123231103326745723188134548520938157995702e-03, 9.214785032197180512031534870181734003522861645903894504302286e-03, 5.625715748403532005741565594881148757066703437214522101740941e-04, -5.071314509218348093935061417505663002006821323958752649640329e-03, 7.169821821064019257784165364894915621888541496773370435889585e-04, 2.400697781890973183892306914082592143984140550210130139535193e-03, -8.448626665537775009068937851465856973251363010924003314643612e-04, -9.424614077227377964015942271780098283910230639908018778588910e-04, 5.810759750532863662020321063678196633409555706981476723988312e-04, 2.817639250380670746018048967535608190123523180612961062603672e-04, -3.031020460726611993600629020329784682496477106470427787747855e-04, -4.555682696668420274688683005987764360677217149927938344795290e-05, 1.262043350166170705382346537131817701361522387904917335958705e-04, -1.155409103833717192628479047983460953381959342642374175822863e-05, -4.175141648540397797296325065775711309197411926289412468280801e-05, 1.334176149921350382547503457286060922218070031330137601427324e-05, 1.037359184045599795632258335010065103524959844966094870217687e-05, -6.456730428469619160379910439617575420986972394137121953806236e-06, -1.550844350118602575853380148525912999401292473185534395740371e-06, 2.149960269939665207789548199790770596890252405076394885606038e-06, -8.487087586072593071869805266089426629606479876982221840833098e-08, -5.187733738874144426008474683378542368066310000602823096009187e-07, 1.396377545508355481227961581059961184519872502493462010264633e-07, 8.400351046895965526933587176781279507953080669259318722910523e-08, -4.884757937459286762082185411608763964041010392101914854918157e-08, -5.424274800287298511126684174854414928447521710664476410973981e-09, 1.034704539274858480924046490952803937328239537222908159451039e-08, -1.436329487795135706854539856979275911183628476521636251660849e-09, -1.349197753983448821850381770889786301246741304307934955997111e-09, 5.261132557357598494535766638772624572100332209198979659077082e-10, 6.732336490189308685740626964182623159759767536724844030164551e-11, -8.278256522538134727330692938158991115335384611795874767521731e-11, 1.101692934599454551150832622160224231280195362919498540913658e-11, 6.291537317039508581580913620859140835852886308989584198166174e-12, -2.484789237563642857043361214502760723611468591833262675852242e-12, 2.626496504065252070488282876470525379851429538389481576454618e-14, 1.808661236274530582267084846343959377085922019067808145635263e-13, -4.249817819571463006966616371554206572863122562744916796556474e-14, -4.563397162127373109101691643047923747796563449194075621854491e-16, 2.045099676788988907802272564402310095398641092819367167252952e-15, -4.405307042483461342449027139838301611006835285455050155842865e-16, 4.304596839558790016251867477122791508849697688058169053134463e-17, -1.716152451088744188732404281737964277713026087224248235541071e-18})</arglist>
+    </member>
+  </compound>
+  <compound kind="group">
+    <name>logmacros</name>
+    <title>Logging macros</title>
+    <filename>http://astro-informatics.github.io/sopt/group__logmacros.html</filename>
+    <member kind="define">
+      <type>#define</type>
+      <name>SOPT_MSG_LVL</name>
+      <anchorfile>group__logmacros.html</anchorfile>
+      <anchor>gad278b21b198636a7aab4a64d32774f3e</anchor>
+      <arglist>(lvl,...)</arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>SOPT_LOG_</name>
+      <anchorfile>group__logmacros.html</anchorfile>
+      <anchor>ga029e05e5481737c5960823c4fff3b81f</anchor>
+      <arglist>(TYPE,...)</arglist>
     </member>
   </compound>
   <compound kind="page">

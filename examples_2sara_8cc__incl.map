@@ -1,25 +1,29 @@
 <map id="/home/runner/work/sopt/sopt/cpp/examples/sara.cc" name="/home/runner/work/sopt/sopt/cpp/examples/sara.cc">
-<area shape="rect" id="node1" title=" " alt="" coords="319,5,518,47"/>
-<area shape="rect" id="node2" href="$sara_8h.html" title=" " alt="" coords="340,95,497,121"/>
-<area shape="rect" id="node3" title=" " alt="" coords="693,557,798,584"/>
-<area shape="rect" id="node4" title=" " alt="" coords="569,483,655,509"/>
-<area shape="rect" id="node5" title=" " alt="" coords="183,169,246,196"/>
-<area shape="rect" id="node6" title=" " alt="" coords="270,169,381,196"/>
-<area shape="rect" id="node7" title=" " alt="" coords="389,326,448,353"/>
-<area shape="rect" id="node8" title=" " alt="" coords="457,169,511,196"/>
-<area shape="rect" id="node9" title=" " alt="" coords="535,169,598,196"/>
-<area shape="rect" id="node10" href="$logging_8h.html" title=" " alt="" coords="44,169,159,196"/>
-<area shape="rect" id="node13" href="$wavelets_2wavelets_8h.html" title=" " alt="" coords="721,169,909,196"/>
-<area shape="rect" id="node11" href="$logging_8disabled_8h.html" title=" " alt="" coords="187,244,360,271"/>
-<area shape="rect" id="node12" title=" " alt="" coords="288,326,365,353"/>
-<area shape="rect" id="node14" href="$types_8h.html" title=" " alt="" coords="1011,408,1114,435"/>
-<area shape="rect" id="node20" href="$direct_8h.html" title=" " alt="" coords="877,244,1043,271"/>
-<area shape="rect" id="node21" href="$wavelet__data_8h.html" title=" " alt="" coords="726,319,895,360"/>
-<area shape="rect" id="node23" href="$indirect_8h.html" title=" " alt="" coords="599,244,777,271"/>
-<area shape="rect" id="node15" title=" " alt="" coords="1134,557,1213,584"/>
-<area shape="rect" id="node16" title=" " alt="" coords="1027,483,1114,509"/>
-<area shape="rect" id="node17" title=" " alt="" coords="809,483,901,509"/>
-<area shape="rect" id="node18" href="$real__type_8h.html" title=" " alt="" coords="1241,483,1367,509"/>
-<area shape="rect" id="node19" title=" " alt="" coords="1309,557,1401,584"/>
-<area shape="rect" id="node22" href="$innards_8impl_8h.html" title=" " alt="" coords="675,408,885,435"/>
+<area shape="rect" id="node1" title=" " alt="" coords="274,5,473,47"/>
+<area shape="rect" id="node2" href="$sara_8h.html" title=" " alt="" coords="295,95,452,121"/>
+<area shape="rect" id="node3" title=" " alt="" coords="934,557,1039,584"/>
+<area shape="rect" id="node4" title=" " alt="" coords="732,483,817,509"/>
+<area shape="rect" id="node5" title=" " alt="" coords="94,169,157,196"/>
+<area shape="rect" id="node6" title=" " alt="" coords="181,169,291,196"/>
+<area shape="rect" id="node7" title=" " alt="" coords="304,326,363,353"/>
+<area shape="rect" id="node8" title=" " alt="" coords="455,169,510,196"/>
+<area shape="rect" id="node9" title=" " alt="" coords="534,169,597,196"/>
+<area shape="rect" id="node10" href="$logging_8h.html" title=" " alt="" coords="316,169,431,196"/>
+<area shape="rect" id="node17" href="$wavelets_2wavelets_8h.html" title=" " alt="" coords="742,169,930,196"/>
+<area shape="rect" id="node11" href="$exception_8h.html" title=" " alt="" coords="45,244,176,271"/>
+<area shape="rect" id="node14" title=" " alt="" coords="343,244,393,271"/>
+<area shape="rect" id="node15" title=" " alt="" coords="417,244,495,271"/>
+<area shape="rect" id="node16" title=" " alt="" coords="252,244,319,271"/>
+<area shape="rect" id="node12" title=" " alt="" coords="43,326,130,353"/>
+<area shape="rect" id="node13" title=" " alt="" coords="155,326,229,353"/>
+<area shape="rect" id="node18" href="$types_8h.html" title=" " alt="" coords="1210,408,1313,435"/>
+<area shape="rect" id="node24" href="$direct_8h.html" title=" " alt="" coords="1062,244,1229,271"/>
+<area shape="rect" id="node25" href="$wavelet__data_8h.html" title=" " alt="" coords="925,319,1094,360"/>
+<area shape="rect" id="node27" href="$indirect_8h.html" title=" " alt="" coords="747,244,925,271"/>
+<area shape="rect" id="node19" title=" " alt="" coords="1323,557,1402,584"/>
+<area shape="rect" id="node20" title=" " alt="" coords="1411,483,1498,509"/>
+<area shape="rect" id="node21" title=" " alt="" coords="941,483,1033,509"/>
+<area shape="rect" id="node22" href="$real__type_8h.html" title=" " alt="" coords="1261,483,1387,509"/>
+<area shape="rect" id="node23" title=" " alt="" coords="1502,557,1594,584"/>
+<area shape="rect" id="node26" href="$innards_8impl_8h.html" title=" " alt="" coords="823,408,1033,435"/>
 </map>

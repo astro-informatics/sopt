@@ -76,13 +76,19 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#define-members">Macros</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">logging.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;sopt/config.h&quot;</code><br />
-<code>#include &quot;<a class="el" href="logging_8disabled_8h_source.html">sopt/logging.disabled.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="exception_8h_source.html">sopt/exception.h</a>&quot;</code><br />
+<code>#include &lt;map&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;cstring&gt;</code><br />
 </div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Include dependency graph for logging.h:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -90,11 +96,15 @@ $(function() {
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="logging_8h__incl.png" border="0" usemap="#a_2home_2runner_2work_2sopt_2sopt_2cpp_2sopt_2logging_8h" alt=""/></div>
 <map name="a_2home_2runner_2work_2sopt_2sopt_2cpp_2sopt_2logging_8h" id="a_2home_2runner_2work_2sopt_2sopt_2cpp_2sopt_2logging_8h">
-<area shape="rect" title=" " alt="" coords="27,5,204,47"/>
+<area shape="rect" title=" " alt="" coords="204,5,381,47"/>
 <area shape="rect" title=" " alt="" coords="5,169,111,196"/>
-<area shape="rect" href="logging_8disabled_8h.html" title=" " alt="" coords="91,95,265,121"/>
-<area shape="rect" title=" " alt="" coords="137,169,214,196"/>
-<area shape="rect" title=" " alt="" coords="238,169,297,196"/>
+<area shape="rect" href="exception_8h.html" title=" " alt="" coords="113,95,243,121"/>
+<area shape="rect" title=" " alt="" coords="267,95,318,121"/>
+<area shape="rect" title=" " alt="" coords="342,95,419,121"/>
+<area shape="rect" title=" " alt="" coords="443,95,510,121"/>
+<area shape="rect" title=" " alt="" coords="135,169,221,196"/>
+<area shape="rect" title=" " alt="" coords="246,169,321,196"/>
+<area shape="rect" title=" " alt="" coords="345,169,403,196"/>
 </map>
 </div>
 </div><div class="textblock"><div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -104,89 +114,129 @@ $(function() {
 <div id="dynsection-1-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="logging_8h__dep__incl.png" border="0" usemap="#a_2home_2runner_2work_2sopt_2sopt_2cpp_2sopt_2logging_8hdep" alt=""/></div>
 <map name="a_2home_2runner_2work_2sopt_2sopt_2cpp_2sopt_2logging_8hdep" id="a_2home_2runner_2work_2sopt_2sopt_2cpp_2sopt_2logging_8hdep">
-<area shape="rect" title=" " alt="" coords="2556,5,2733,47"/>
-<area shape="rect" href="examples_2forward__backward_2inpainting_8cc.html" title=" " alt="" coords="1009,414,1211,470"/>
-<area shape="rect" href="inpainting__credible__interval_8cc.html" title=" " alt="" coords="764,407,984,477"/>
-<area shape="rect" href="inpainting__joint__map_8cc.html" title=" " alt="" coords="1342,525,1593,581"/>
-<area shape="rect" href="l2__inpainting_8cc.html" title=" " alt="" coords="1995,414,2198,470"/>
-<area shape="rect" href="examples_2l1__proximal_8cc.html" title=" " alt="" coords="389,95,567,151"/>
-<area shape="rect" href="examples_2primal__dual_2inpainting_8cc.html" title=" " alt="" coords="3470,414,3665,470"/>
-<area shape="rect" href="tv__inpainting_8cc.html" title=" " alt="" coords="2814,414,3009,470"/>
-<area shape="rect" href="examples_2proximal__admm_2inpainting_8cc.html" title=" " alt="" coords="3766,414,3977,470"/>
-<area shape="rect" href="examples_2proximal__admm_2reweighted_8cc.html" title=" " alt="" coords="4010,414,4221,470"/>
-<area shape="rect" href="examples_2sdmm_2inpainting_8cc.html" title=" " alt="" coords="470,303,665,359"/>
-<area shape="rect" href="examples_2sdmm_2reweighted_8cc.html" title=" " alt="" coords="689,303,883,359"/>
-<area shape="rect" href="bisection__method_8h.html" title=" " alt="" coords="591,95,768,151"/>
-<area shape="rect" href="credible__region_8h.html" title=" " alt="" coords="35,199,212,255"/>
-<area shape="rect" href="conjugate__gradient_8h.html" title=" " alt="" coords="917,95,1098,151"/>
-<area shape="rect" href="sdmm_8h.html" title=" " alt="" coords="1092,206,1269,247"/>
-<area shape="rect" href="forward__backward_8h.html" title=" " alt="" coords="1548,199,1725,255"/>
-<area shape="rect" href="imaging__forward__backward_8h.html" title=" " alt="" coords="1356,303,1533,359"/>
-<area shape="rect" href="joint__map_8h.html" title=" " alt="" coords="1235,421,1430,463"/>
-<area shape="rect" href="forward__backward_8cc.html" title=" " alt="" coords="563,414,740,470"/>
-<area shape="rect" href="tests_2inpainting_8cc.html" title=" " alt="" coords="1505,421,1709,463"/>
-<area shape="rect" href="tf__inpainting_8cc.html" title=" " alt="" coords="1734,421,1955,463"/>
-<area shape="rect" href="l1__g__proximal_8h.html" title=" " alt="" coords="958,310,1179,351"/>
-<area shape="rect" href="l2__forward__backward_8h.html" title=" " alt="" coords="2003,303,2190,359"/>
-<area shape="rect" href="tf__g__proximal_8h.html" title=" " alt="" coords="1710,310,1929,351"/>
-<area shape="rect" href="gradient__operator_8h.html" title=" " alt="" coords="3076,199,3253,255"/>
-<area shape="rect" href="imaging__padmm_8h.html" title=" " alt="" coords="3783,303,3960,359"/>
-<area shape="rect" href="serial__vs__parallel__padmm_8cc.html" title=" " alt="" coords="2493,414,2671,470"/>
-<area shape="rect" href="imaging__primal__dual_8h.html" title=" " alt="" coords="3479,303,3656,359"/>
-<area shape="rect" href="l2__primal__dual_8h.html" title=" " alt="" coords="3025,303,3203,359"/>
-<area shape="rect" href="linear__transform_8h.html" title=" " alt="" coords="2620,95,2797,151"/>
-<area shape="rect" href="objective__functions_8h.html" title=" " alt="" coords="3329,199,3507,255"/>
-<area shape="rect" href="padmm_8h.html" title=" " alt="" coords="3683,206,3862,247"/>
-<area shape="rect" href="power__method_8h.html" title=" " alt="" coords="3227,310,3454,351"/>
-<area shape="rect" href="primal__dual_8h.html" title=" " alt="" coords="2721,199,2899,255"/>
-<area shape="rect" href="tv__primal__dual_8h.html" title=" " alt="" coords="2822,303,3001,359"/>
-<area shape="rect" href="session_8cc.html" title=" " alt="" coords="3886,102,4099,143"/>
-<area shape="rect" href="ort__session_8h.html" title=" " alt="" coords="4123,102,4326,143"/>
-<area shape="rect" href="relative__variation_8h.html" title=" " alt="" coords="2265,199,2443,255"/>
-<area shape="rect" href="utilities_8cc.html" title=" " alt="" coords="4401,102,4585,143"/>
-<area shape="rect" href="sara_8h.html" title=" " alt="" coords="4036,303,4213,359"/>
-<area shape="rect" href="sopt_2wavelets_2wavelets_8cc.html" title=" " alt="" coords="4660,95,4837,151"/>
-<area shape="rect" href="common__catch__main_8cc.html" title=" " alt="" coords="4862,95,5041,151"/>
-<area shape="rect" href="common__mpi__catch__main_8cc.html" title=" " alt="" coords="5065,95,5243,151"/>
-<area shape="rect" href="cppflow__model_8cc.html" title=" " alt="" coords="5268,95,5445,151"/>
-<area shape="rect" href="mpi__session_8cc.html" title=" " alt="" coords="5469,102,5689,143"/>
-<area shape="rect" href="copy__tiff_8cc.html" title=" " alt="" coords="5714,95,5895,151"/>
-<area shape="rect" href="bisection__method_8cc.html" title=" " alt="" coords="389,199,569,255"/>
-<area shape="rect" href="benchmarks_2conjugate__gradient_8cc.html" title=" " alt="" coords="593,199,827,255"/>
-<area shape="rect" href="examples_2conjugate__gradient_8cc.html" title=" " alt="" coords="851,199,1068,255"/>
+<area shape="rect" title=" " alt="" coords="2439,5,2616,47"/>
+<area shape="rect" href="examples_2forward__backward_2inpainting_8cc.html" title=" " alt="" coords="843,414,1046,470"/>
+<area shape="rect" href="inpainting__credible__interval_8cc.html" title=" " alt="" coords="599,407,819,477"/>
+<area shape="rect" href="inpainting__joint__map_8cc.html" title=" " alt="" coords="1177,525,1427,581"/>
+<area shape="rect" href="l2__inpainting_8cc.html" title=" " alt="" coords="1815,414,2018,470"/>
+<area shape="rect" href="examples_2l1__proximal_8cc.html" title=" " alt="" coords="333,95,511,151"/>
+<area shape="rect" href="examples_2primal__dual_2inpainting_8cc.html" title=" " alt="" coords="3341,414,3535,470"/>
+<area shape="rect" href="tv__inpainting_8cc.html" title=" " alt="" coords="2634,414,2829,470"/>
+<area shape="rect" href="examples_2proximal__admm_2inpainting_8cc.html" title=" " alt="" coords="3586,414,3797,470"/>
+<area shape="rect" href="examples_2proximal__admm_2reweighted_8cc.html" title=" " alt="" coords="3830,414,4041,470"/>
+<area shape="rect" href="examples_2sdmm_2inpainting_8cc.html" title=" " alt="" coords="290,303,485,359"/>
+<area shape="rect" href="examples_2sdmm_2reweighted_8cc.html" title=" " alt="" coords="509,303,703,359"/>
+<area shape="rect" href="bisection__method_8h.html" title=" " alt="" coords="535,95,712,151"/>
+<area shape="rect" href="credible__region_8h.html" title=" " alt="" coords="29,199,207,255"/>
+<area shape="rect" href="conjugate__gradient_8h.html" title=" " alt="" coords="793,95,974,151"/>
+<area shape="rect" href="sdmm_8h.html" title=" " alt="" coords="847,206,1024,247"/>
+<area shape="rect" href="forward__backward_8h.html" title=" " alt="" coords="1303,199,1480,255"/>
+<area shape="rect" href="imaging__forward__backward_8h.html" title=" " alt="" coords="1176,303,1353,359"/>
+<area shape="rect" href="joint__map_8h.html" title=" " alt="" coords="1070,421,1265,463"/>
+<area shape="rect" href="forward__backward_8cc.html" title=" " alt="" coords="397,414,575,470"/>
+<area shape="rect" href="tests_2inpainting_8cc.html" title=" " alt="" coords="1340,421,1544,463"/>
+<area shape="rect" href="tf__inpainting_8cc.html" title=" " alt="" coords="1569,421,1790,463"/>
+<area shape="rect" href="l1__g__proximal_8h.html" title=" " alt="" coords="778,310,999,351"/>
+<area shape="rect" href="l2__forward__backward_8h.html" title=" " alt="" coords="1823,303,2010,359"/>
+<area shape="rect" href="tf__g__proximal_8h.html" title=" " alt="" coords="1530,310,1749,351"/>
+<area shape="rect" href="gradient__operator_8h.html" title=" " alt="" coords="2489,199,2667,255"/>
+<area shape="rect" href="imaging__padmm_8h.html" title=" " alt="" coords="3603,303,3780,359"/>
+<area shape="rect" href="serial__vs__parallel__padmm_8cc.html" title=" " alt="" coords="2288,414,2465,470"/>
+<area shape="rect" href="imaging__primal__dual_8h.html" title=" " alt="" coords="3349,303,3527,359"/>
+<area shape="rect" href="l2__primal__dual_8h.html" title=" " alt="" coords="3146,303,3325,359"/>
+<area shape="rect" href="linear__transform_8h.html" title=" " alt="" coords="2439,95,2616,151"/>
+<area shape="rect" href="objective__functions_8h.html" title=" " alt="" coords="3148,199,3325,255"/>
+<area shape="rect" href="padmm_8h.html" title=" " alt="" coords="3502,206,3681,247"/>
+<area shape="rect" href="power__method_8h.html" title=" " alt="" coords="2895,310,3122,351"/>
+<area shape="rect" href="primal__dual_8h.html" title=" " alt="" coords="2844,199,3021,255"/>
+<area shape="rect" href="tv__primal__dual_8h.html" title=" " alt="" coords="2642,303,2821,359"/>
+<area shape="rect" href="logging_8cc.html" title=" " alt="" coords="3705,102,3888,143"/>
+<area shape="rect" href="session_8cc.html" title=" " alt="" coords="3913,102,4126,143"/>
+<area shape="rect" href="ort__session_8h.html" title=" " alt="" coords="4150,102,4353,143"/>
+<area shape="rect" href="relative__variation_8h.html" title=" " alt="" coords="2084,199,2261,255"/>
+<area shape="rect" href="utilities_8cc.html" title=" " alt="" coords="4427,102,4611,143"/>
+<area shape="rect" href="sara_8h.html" title=" " alt="" coords="3856,303,4033,359"/>
+<area shape="rect" href="sopt_2wavelets_2wavelets_8cc.html" title=" " alt="" coords="4687,95,4864,151"/>
+<area shape="rect" href="common__catch__main_8cc.html" title=" " alt="" coords="4889,95,5067,151"/>
+<area shape="rect" href="common__mpi__catch__main_8cc.html" title=" " alt="" coords="5091,95,5270,151"/>
+<area shape="rect" href="cppflow__model_8cc.html" title=" " alt="" coords="5295,95,5472,151"/>
+<area shape="rect" href="mpi__session_8cc.html" title=" " alt="" coords="5496,102,5716,143"/>
+<area shape="rect" href="copy__tiff_8cc.html" title=" " alt="" coords="5741,95,5922,151"/>
+<area shape="rect" href="bisection__method_8cc.html" title=" " alt="" coords="333,199,513,255"/>
+<area shape="rect" href="benchmarks_2conjugate__gradient_8cc.html" title=" " alt="" coords="589,199,823,255"/>
 </map>
 </div>
 </div>
 <p><a href="logging_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsopt_1_1logging_1_1Log.html">sopt::logging::Log</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logging system for controlled &amp; formatted writing to stdout.  <a href="classsopt_1_1logging_1_1Log.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:namespacesopt"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesopt.html">sopt</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespacesopt_1_1logging"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesopt_1_1logging.html">sopt::logging</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a0a79e962d24082188462673ac047331d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logging_8h.html#a0a79e962d24082188462673ac047331d">SOPT_NOTICE</a>(...)&#160;&#160;&#160;<a class="el" href="logging_8enabled_8h.html#aa3140c50e21c9f1b55df324632c73a77">SOPT_LOG_</a>(, critical, __VA_ARGS__)</td></tr>
+<tr class="memitem:gad278b21b198636a7aab4a64d32774f3e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__logmacros.html#gad278b21b198636a7aab4a64d32774f3e">SOPT_MSG_LVL</a>(lvl, ...)</td></tr>
+<tr class="memdesc:gad278b21b198636a7aab4a64d32774f3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Neat CPU-conserving logging macros. Use by preference!  <a href="group__logmacros.html#gad278b21b198636a7aab4a64d32774f3e">More...</a><br /></td></tr>
+<tr class="separator:gad278b21b198636a7aab4a64d32774f3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga029e05e5481737c5960823c4fff3b81f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__logmacros.html#ga029e05e5481737c5960823c4fff3b81f">SOPT_LOG_</a>(TYPE, ...)&#160;&#160;&#160;  <a class="el" href="group__logmacros.html#gad278b21b198636a7aab4a64d32774f3e">SOPT_MSG_LVL</a>(sopt::logging::Log::TYPE, __VA_ARGS__)</td></tr>
+<tr class="memdesc:ga029e05e5481737c5960823c4fff3b81f"><td class="mdescLeft">&#160;</td><td class="mdescRight">\macro For internal use only  <a href="group__logmacros.html#ga029e05e5481737c5960823c4fff3b81f">More...</a><br /></td></tr>
+<tr class="separator:ga029e05e5481737c5960823c4fff3b81f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a79e962d24082188462673ac047331d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logging_8h.html#a0a79e962d24082188462673ac047331d">SOPT_NOTICE</a>(...)&#160;&#160;&#160;<a class="el" href="group__logmacros.html#ga029e05e5481737c5960823c4fff3b81f">SOPT_LOG_</a>(critical, __VA_ARGS__)</td></tr>
 <tr class="memdesc:a0a79e962d24082188462673ac047331d"><td class="mdescLeft">&#160;</td><td class="mdescRight">\macro Normal but significant condition or critical error  <a href="logging_8h.html#a0a79e962d24082188462673ac047331d">More...</a><br /></td></tr>
 <tr class="separator:a0a79e962d24082188462673ac047331d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a647ff10c7a51d06f45a5cf5856f30ea8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logging_8h.html#a647ff10c7a51d06f45a5cf5856f30ea8">SOPT_ERROR</a>(...)&#160;&#160;&#160;<a class="el" href="logging_8enabled_8h.html#aa3140c50e21c9f1b55df324632c73a77">SOPT_LOG_</a>(, error, __VA_ARGS__)</td></tr>
+<tr class="memitem:a647ff10c7a51d06f45a5cf5856f30ea8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logging_8h.html#a647ff10c7a51d06f45a5cf5856f30ea8">SOPT_ERROR</a>(...)&#160;&#160;&#160;<a class="el" href="group__logmacros.html#ga029e05e5481737c5960823c4fff3b81f">SOPT_LOG_</a>(error, __VA_ARGS__)</td></tr>
 <tr class="memdesc:a647ff10c7a51d06f45a5cf5856f30ea8"><td class="mdescLeft">&#160;</td><td class="mdescRight">\macro Something is definitely wrong, algorithm exits  <a href="logging_8h.html#a647ff10c7a51d06f45a5cf5856f30ea8">More...</a><br /></td></tr>
 <tr class="separator:a647ff10c7a51d06f45a5cf5856f30ea8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd1d61c2422ec3ea1ffcfd497acae7e6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logging_8h.html#abd1d61c2422ec3ea1ffcfd497acae7e6">SOPT_WARN</a>(...)&#160;&#160;&#160;<a class="el" href="logging_8enabled_8h.html#aa3140c50e21c9f1b55df324632c73a77">SOPT_LOG_</a>(, warn, __VA_ARGS__)</td></tr>
+<tr class="memitem:abd1d61c2422ec3ea1ffcfd497acae7e6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logging_8h.html#abd1d61c2422ec3ea1ffcfd497acae7e6">SOPT_WARN</a>(...)&#160;&#160;&#160;<a class="el" href="group__logmacros.html#ga029e05e5481737c5960823c4fff3b81f">SOPT_LOG_</a>(warn, __VA_ARGS__)</td></tr>
 <tr class="memdesc:abd1d61c2422ec3ea1ffcfd497acae7e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">\macro Something might be going wrong  <a href="logging_8h.html#abd1d61c2422ec3ea1ffcfd497acae7e6">More...</a><br /></td></tr>
 <tr class="separator:abd1d61c2422ec3ea1ffcfd497acae7e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abdd5945cf65d3237a167bda06a71aaae"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logging_8h.html#abdd5945cf65d3237a167bda06a71aaae">SOPT_INFO</a>(...)&#160;&#160;&#160;<a class="el" href="logging_8enabled_8h.html#aa3140c50e21c9f1b55df324632c73a77">SOPT_LOG_</a>(, info, __VA_ARGS__)</td></tr>
+<tr class="memitem:abdd5945cf65d3237a167bda06a71aaae"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logging_8h.html#abdd5945cf65d3237a167bda06a71aaae">SOPT_INFO</a>(...)&#160;&#160;&#160;<a class="el" href="group__logmacros.html#ga029e05e5481737c5960823c4fff3b81f">SOPT_LOG_</a>(info, __VA_ARGS__)</td></tr>
 <tr class="memdesc:abdd5945cf65d3237a167bda06a71aaae"><td class="mdescLeft">&#160;</td><td class="mdescRight">\macro Verbose informational message about normal condition  <a href="logging_8h.html#abdd5945cf65d3237a167bda06a71aaae">More...</a><br /></td></tr>
 <tr class="separator:abdd5945cf65d3237a167bda06a71aaae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af43ef2984bde80ff9ff844540be74425"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logging_8h.html#af43ef2984bde80ff9ff844540be74425">SOPT_DEBUG</a>(...)&#160;&#160;&#160;<a class="el" href="logging_8enabled_8h.html#aa3140c50e21c9f1b55df324632c73a77">SOPT_LOG_</a>(, debug, __VA_ARGS__)</td></tr>
+<tr class="memitem:af43ef2984bde80ff9ff844540be74425"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logging_8h.html#af43ef2984bde80ff9ff844540be74425">SOPT_DEBUG</a>(...)&#160;&#160;&#160;<a class="el" href="group__logmacros.html#ga029e05e5481737c5960823c4fff3b81f">SOPT_LOG_</a>(debug, __VA_ARGS__)</td></tr>
 <tr class="memdesc:af43ef2984bde80ff9ff844540be74425"><td class="mdescLeft">&#160;</td><td class="mdescRight">\macro Output some debugging  <a href="logging_8h.html#af43ef2984bde80ff9ff844540be74425">More...</a><br /></td></tr>
 <tr class="separator:af43ef2984bde80ff9ff844540be74425"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7409cc356d0a5c6a8ce41da7a680ff62"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logging_8h.html#a7409cc356d0a5c6a8ce41da7a680ff62">SOPT_TRACE</a>(...)&#160;&#160;&#160;<a class="el" href="logging_8enabled_8h.html#aa3140c50e21c9f1b55df324632c73a77">SOPT_LOG_</a>(, trace, __VA_ARGS__)</td></tr>
+<tr class="memitem:a7409cc356d0a5c6a8ce41da7a680ff62"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logging_8h.html#a7409cc356d0a5c6a8ce41da7a680ff62">SOPT_TRACE</a>(...)&#160;&#160;&#160;<a class="el" href="group__logmacros.html#ga029e05e5481737c5960823c4fff3b81f">SOPT_LOG_</a>(trace, __VA_ARGS__)</td></tr>
 <tr class="separator:a7409cc356d0a5c6a8ce41da7a680ff62"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5bb43e65962554be1a16134dc4d0dba0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logging_8h.html#a5bb43e65962554be1a16134dc4d0dba0">SOPT_HIGH_LOG</a>(...)&#160;&#160;&#160;<a class="el" href="logging_8enabled_8h.html#aa3140c50e21c9f1b55df324632c73a77">SOPT_LOG_</a>(, critical, __VA_ARGS__)</td></tr>
+<tr class="memitem:a5bb43e65962554be1a16134dc4d0dba0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logging_8h.html#a5bb43e65962554be1a16134dc4d0dba0">SOPT_HIGH_LOG</a>(...)&#160;&#160;&#160;<a class="el" href="group__logmacros.html#ga029e05e5481737c5960823c4fff3b81f">SOPT_LOG_</a>(critical, __VA_ARGS__)</td></tr>
 <tr class="memdesc:a5bb43e65962554be1a16134dc4d0dba0"><td class="mdescLeft">&#160;</td><td class="mdescRight">High priority message.  <a href="logging_8h.html#a5bb43e65962554be1a16134dc4d0dba0">More...</a><br /></td></tr>
 <tr class="separator:a5bb43e65962554be1a16134dc4d0dba0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:add63e5a2a432d1c74e89ac839cea59ec"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logging_8h.html#add63e5a2a432d1c74e89ac839cea59ec">SOPT_MEDIUM_LOG</a>(...)&#160;&#160;&#160;<a class="el" href="logging_8enabled_8h.html#aa3140c50e21c9f1b55df324632c73a77">SOPT_LOG_</a>(, info, __VA_ARGS__)</td></tr>
+<tr class="memitem:add63e5a2a432d1c74e89ac839cea59ec"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logging_8h.html#add63e5a2a432d1c74e89ac839cea59ec">SOPT_MEDIUM_LOG</a>(...)&#160;&#160;&#160;<a class="el" href="group__logmacros.html#ga029e05e5481737c5960823c4fff3b81f">SOPT_LOG_</a>(info, __VA_ARGS__)</td></tr>
 <tr class="memdesc:add63e5a2a432d1c74e89ac839cea59ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Medium priority message.  <a href="logging_8h.html#add63e5a2a432d1c74e89ac839cea59ec">More...</a><br /></td></tr>
 <tr class="separator:add63e5a2a432d1c74e89ac839cea59ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a497e6b273bf510772846ac52cef095"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logging_8h.html#a4a497e6b273bf510772846ac52cef095">SOPT_LOW_LOG</a>(...)&#160;&#160;&#160;<a class="el" href="logging_8enabled_8h.html#aa3140c50e21c9f1b55df324632c73a77">SOPT_LOG_</a>(, debug, __VA_ARGS__)</td></tr>
+<tr class="memitem:a4a497e6b273bf510772846ac52cef095"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logging_8h.html#a4a497e6b273bf510772846ac52cef095">SOPT_LOW_LOG</a>(...)&#160;&#160;&#160;<a class="el" href="group__logmacros.html#ga029e05e5481737c5960823c4fff3b81f">SOPT_LOG_</a>(debug, __VA_ARGS__)</td></tr>
 <tr class="memdesc:a4a497e6b273bf510772846ac52cef095"><td class="mdescLeft">&#160;</td><td class="mdescRight">Low priority message.  <a href="logging_8h.html#a4a497e6b273bf510772846ac52cef095">More...</a><br /></td></tr>
 <tr class="separator:a4a497e6b273bf510772846ac52cef095"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a7cb336aaec82dbb82888b3139926505a"><td class="memItemLeft" align="right" valign="top">ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesopt_1_1logging.html#a7cb336aaec82dbb82888b3139926505a">sopt::logging::operator&lt;&lt;</a> (Log &amp;log, int level)</td></tr>
+<tr class="memdesc:a7cb336aaec82dbb82888b3139926505a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Streaming output to a logger must have a <a class="el" href="classsopt_1_1logging_1_1Log.html#ab99691d0c2f5fb7edbca87b38409dc5c" title="Log priority levels.">Log::Level</a>/int as its first argument.  <a href="namespacesopt_1_1logging.html#a7cb336aaec82dbb82888b3139926505a">More...</a><br /></td></tr>
+<tr class="separator:a7cb336aaec82dbb82888b3139926505a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42b7b103eba3224902e75a145a87c866"><td class="memItemLeft" align="right" valign="top">Log &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesopt_1_1logging.html#a42b7b103eba3224902e75a145a87c866">sopt::logging::getLog</a> ()</td></tr>
+<tr class="memdesc:a42b7b103eba3224902e75a145a87c866"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access method to default <a class="el" href="classsopt_1_1logging_1_1Log.html" title="Logging system for controlled &amp; formatted writing to stdout.">Log</a> object.  <a href="namespacesopt_1_1logging.html#a42b7b103eba3224902e75a145a87c866">More...</a><br /></td></tr>
+<tr class="separator:a42b7b103eba3224902e75a145a87c866"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3849ca5dbfcb69aa22066146b8ee781d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesopt_1_1logging.html#a3849ca5dbfcb69aa22066146b8ee781d">sopt::logging::set_level</a> (const std::string &amp;level)</td></tr>
+<tr class="memdesc:a3849ca5dbfcb69aa22066146b8ee781d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method to set the logging level of the default <a class="el" href="classsopt_1_1logging_1_1Log.html" title="Logging system for controlled &amp; formatted writing to stdout.">Log</a> object.  <a href="namespacesopt_1_1logging.html#a3849ca5dbfcb69aa22066146b8ee781d">More...</a><br /></td></tr>
+<tr class="separator:a3849ca5dbfcb69aa22066146b8ee781d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae20c08f799e58e2983a6ec139cf3dcc4"><td class="memTemplParams" colspan="2">template&lt;typename Arg &gt; </td></tr>
+<tr class="memitem:ae20c08f799e58e2983a6ec139cf3dcc4"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacesopt_1_1logging.html#ae20c08f799e58e2983a6ec139cf3dcc4">sopt::logging::applyFormat</a> (std::stringstream &amp;ss, char *&amp;pos, Arg &amp;&amp;arg)</td></tr>
+<tr class="separator:ae20c08f799e58e2983a6ec139cf3dcc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60307772406264e603590704d663be39"><td class="memTemplParams" colspan="2">template&lt;typename... Args&gt; </td></tr>
+<tr class="memitem:a60307772406264e603590704d663be39"><td class="memTemplItemLeft" align="right" valign="top">std::string&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacesopt_1_1logging.html#a60307772406264e603590704d663be39">sopt::logging::mkFormattedString</a> (const char *txt, Args &amp;&amp;... args)</td></tr>
+<tr class="memdesc:a60307772406264e603590704d663be39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method to construct formatted string.  <a href="namespacesopt_1_1logging.html#a60307772406264e603590704d663be39">More...</a><br /></td></tr>
+<tr class="separator:a60307772406264e603590704d663be39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45b4577bcf8a8042cf10881b9b824bb6"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesopt_1_1logging.html#a45b4577bcf8a8042cf10881b9b824bb6">sopt::logging::mkFormattedString</a> (const std::string &amp;txt)</td></tr>
+<tr class="separator:a45b4577bcf8a8042cf10881b9b824bb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="af43ef2984bde80ff9ff844540be74425"></a>
@@ -200,14 +250,14 @@ Macros</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>...</em></td><td>)</td>
-          <td>&#160;&#160;&#160;<a class="el" href="logging_8enabled_8h.html#aa3140c50e21c9f1b55df324632c73a77">SOPT_LOG_</a>(, debug, __VA_ARGS__)</td>
+          <td>&#160;&#160;&#160;<a class="el" href="group__logmacros.html#ga029e05e5481737c5960823c4fff3b81f">SOPT_LOG_</a>(debug, __VA_ARGS__)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>\macro Output some debugging </p>
 
-<p class="definition">Definition at line <a class="el" href="logging_8h_source.html#l00021">21</a> of file <a class="el" href="logging_8h_source.html">logging.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="logging_8h_source.html#l00217">217</a> of file <a class="el" href="logging_8h_source.html">logging.h</a>.</p>
 
 </div>
 </div>
@@ -222,14 +272,14 @@ Macros</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>...</em></td><td>)</td>
-          <td>&#160;&#160;&#160;<a class="el" href="logging_8enabled_8h.html#aa3140c50e21c9f1b55df324632c73a77">SOPT_LOG_</a>(, error, __VA_ARGS__)</td>
+          <td>&#160;&#160;&#160;<a class="el" href="group__logmacros.html#ga029e05e5481737c5960823c4fff3b81f">SOPT_LOG_</a>(error, __VA_ARGS__)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>\macro Something is definitely wrong, algorithm exits </p>
 
-<p class="definition">Definition at line <a class="el" href="logging_8h_source.html#l00015">15</a> of file <a class="el" href="logging_8h_source.html">logging.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="logging_8h_source.html#l00211">211</a> of file <a class="el" href="logging_8h_source.html">logging.h</a>.</p>
 
 </div>
 </div>
@@ -244,14 +294,14 @@ Macros</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>...</em></td><td>)</td>
-          <td>&#160;&#160;&#160;<a class="el" href="logging_8enabled_8h.html#aa3140c50e21c9f1b55df324632c73a77">SOPT_LOG_</a>(, critical, __VA_ARGS__)</td>
+          <td>&#160;&#160;&#160;<a class="el" href="group__logmacros.html#ga029e05e5481737c5960823c4fff3b81f">SOPT_LOG_</a>(critical, __VA_ARGS__)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>High priority message. </p>
 
-<p class="definition">Definition at line <a class="el" href="logging_8h_source.html#l00027">27</a> of file <a class="el" href="logging_8h_source.html">logging.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="logging_8h_source.html#l00223">223</a> of file <a class="el" href="logging_8h_source.html">logging.h</a>.</p>
 
 </div>
 </div>
@@ -266,14 +316,14 @@ Macros</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>...</em></td><td>)</td>
-          <td>&#160;&#160;&#160;<a class="el" href="logging_8enabled_8h.html#aa3140c50e21c9f1b55df324632c73a77">SOPT_LOG_</a>(, info, __VA_ARGS__)</td>
+          <td>&#160;&#160;&#160;<a class="el" href="group__logmacros.html#ga029e05e5481737c5960823c4fff3b81f">SOPT_LOG_</a>(info, __VA_ARGS__)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>\macro Verbose informational message about normal condition </p>
 
-<p class="definition">Definition at line <a class="el" href="logging_8h_source.html#l00019">19</a> of file <a class="el" href="logging_8h_source.html">logging.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="logging_8h_source.html#l00215">215</a> of file <a class="el" href="logging_8h_source.html">logging.h</a>.</p>
 
 </div>
 </div>
@@ -288,14 +338,14 @@ Macros</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>...</em></td><td>)</td>
-          <td>&#160;&#160;&#160;<a class="el" href="logging_8enabled_8h.html#aa3140c50e21c9f1b55df324632c73a77">SOPT_LOG_</a>(, debug, __VA_ARGS__)</td>
+          <td>&#160;&#160;&#160;<a class="el" href="group__logmacros.html#ga029e05e5481737c5960823c4fff3b81f">SOPT_LOG_</a>(debug, __VA_ARGS__)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Low priority message. </p>
 
-<p class="definition">Definition at line <a class="el" href="logging_8h_source.html#l00031">31</a> of file <a class="el" href="logging_8h_source.html">logging.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="logging_8h_source.html#l00227">227</a> of file <a class="el" href="logging_8h_source.html">logging.h</a>.</p>
 
 </div>
 </div>
@@ -310,14 +360,14 @@ Macros</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>...</em></td><td>)</td>
-          <td>&#160;&#160;&#160;<a class="el" href="logging_8enabled_8h.html#aa3140c50e21c9f1b55df324632c73a77">SOPT_LOG_</a>(, info, __VA_ARGS__)</td>
+          <td>&#160;&#160;&#160;<a class="el" href="group__logmacros.html#ga029e05e5481737c5960823c4fff3b81f">SOPT_LOG_</a>(info, __VA_ARGS__)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Medium priority message. </p>
 
-<p class="definition">Definition at line <a class="el" href="logging_8h_source.html#l00029">29</a> of file <a class="el" href="logging_8h_source.html">logging.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="logging_8h_source.html#l00225">225</a> of file <a class="el" href="logging_8h_source.html">logging.h</a>.</p>
 
 </div>
 </div>
@@ -332,14 +382,14 @@ Macros</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>...</em></td><td>)</td>
-          <td>&#160;&#160;&#160;<a class="el" href="logging_8enabled_8h.html#aa3140c50e21c9f1b55df324632c73a77">SOPT_LOG_</a>(, critical, __VA_ARGS__)</td>
+          <td>&#160;&#160;&#160;<a class="el" href="group__logmacros.html#ga029e05e5481737c5960823c4fff3b81f">SOPT_LOG_</a>(critical, __VA_ARGS__)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>\macro Normal but significant condition or critical error </p>
 
-<p class="definition">Definition at line <a class="el" href="logging_8h_source.html#l00013">13</a> of file <a class="el" href="logging_8h_source.html">logging.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="logging_8h_source.html#l00209">209</a> of file <a class="el" href="logging_8h_source.html">logging.h</a>.</p>
 
 </div>
 </div>
@@ -354,14 +404,14 @@ Macros</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>...</em></td><td>)</td>
-          <td>&#160;&#160;&#160;<a class="el" href="logging_8enabled_8h.html#aa3140c50e21c9f1b55df324632c73a77">SOPT_LOG_</a>(, trace, __VA_ARGS__)</td>
+          <td>&#160;&#160;&#160;<a class="el" href="group__logmacros.html#ga029e05e5481737c5960823c4fff3b81f">SOPT_LOG_</a>(trace, __VA_ARGS__)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 <p>\macro Output internal values of no interest to anyone</p>
 <p>Except maybe when debugging. </p>
 
-<p class="definition">Definition at line <a class="el" href="logging_8h_source.html#l00024">24</a> of file <a class="el" href="logging_8h_source.html">logging.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="logging_8h_source.html#l00220">220</a> of file <a class="el" href="logging_8h_source.html">logging.h</a>.</p>
 
 </div>
 </div>
@@ -376,14 +426,14 @@ Macros</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>...</em></td><td>)</td>
-          <td>&#160;&#160;&#160;<a class="el" href="logging_8enabled_8h.html#aa3140c50e21c9f1b55df324632c73a77">SOPT_LOG_</a>(, warn, __VA_ARGS__)</td>
+          <td>&#160;&#160;&#160;<a class="el" href="group__logmacros.html#ga029e05e5481737c5960823c4fff3b81f">SOPT_LOG_</a>(warn, __VA_ARGS__)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>\macro Something might be going wrong </p>
 
-<p class="definition">Definition at line <a class="el" href="logging_8h_source.html#l00017">17</a> of file <a class="el" href="logging_8h_source.html">logging.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="logging_8h_source.html#l00213">213</a> of file <a class="el" href="logging_8h_source.html">logging.h</a>.</p>
 
 </div>
 </div>

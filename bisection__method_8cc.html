@@ -95,25 +95,26 @@ $(function() {
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="bisection__method_8cc__incl.png" border="0" usemap="#a_2home_2runner_2work_2sopt_2sopt_2cpp_2tests_2bisection__method_8cc" alt=""/></div>
 <map name="a_2home_2runner_2work_2sopt_2sopt_2cpp_2tests_2bisection__method_8cc" id="a_2home_2runner_2work_2sopt_2sopt_2cpp_2tests_2bisection__method_8cc">
-<area shape="rect" title=" " alt="" coords="299,5,479,61"/>
-<area shape="rect" title=" " alt="" coords="62,109,217,136"/>
-<area shape="rect" title=" " alt="" coords="241,109,313,136"/>
-<area shape="rect" title=" " alt="" coords="337,109,440,136"/>
-<area shape="rect" href="bisection__method_8h.html" title=" " alt="" coords="464,109,647,136"/>
-<area shape="rect" href="types_8h.html" title=" " alt="" coords="667,184,769,211"/>
-<area shape="rect" title=" " alt="" coords="427,333,532,360"/>
-<area shape="rect" title=" " alt="" coords="593,259,680,285"/>
-<area shape="rect" title=" " alt="" coords="673,333,765,360"/>
-<area shape="rect" href="exception_8h.html" title=" " alt="" coords="89,259,219,285"/>
-<area shape="rect" href="logging_8h.html" title=" " alt="" coords="353,184,467,211"/>
-<area shape="rect" title=" " alt="" coords="5,333,92,360"/>
-<area shape="rect" title=" " alt="" coords="117,333,191,360"/>
-<area shape="rect" title=" " alt="" coords="215,333,274,360"/>
-<area shape="rect" href="logging_8disabled_8h.html" title=" " alt="" coords="243,259,417,285"/>
-<area shape="rect" title=" " alt="" coords="298,333,375,360"/>
-<area shape="rect" title=" " alt="" coords="831,333,909,360"/>
-<area shape="rect" title=" " alt="" coords="959,259,1051,285"/>
-<area shape="rect" href="real__type_8h.html" title=" " alt="" coords="756,259,883,285"/>
+<area shape="rect" title=" " alt="" coords="347,5,527,61"/>
+<area shape="rect" title=" " alt="" coords="111,109,265,136"/>
+<area shape="rect" title=" " alt="" coords="289,109,361,136"/>
+<area shape="rect" title=" " alt="" coords="386,109,489,136"/>
+<area shape="rect" href="bisection__method_8h.html" title=" " alt="" coords="513,109,695,136"/>
+<area shape="rect" href="types_8h.html" title=" " alt="" coords="715,184,818,211"/>
+<area shape="rect" title=" " alt="" coords="501,333,606,360"/>
+<area shape="rect" title=" " alt="" coords="642,259,729,285"/>
+<area shape="rect" title=" " alt="" coords="722,333,814,360"/>
+<area shape="rect" href="exception_8h.html" title=" " alt="" coords="68,259,199,285"/>
+<area shape="rect" href="logging_8h.html" title=" " alt="" coords="341,184,456,211"/>
+<area shape="rect" title=" " alt="" coords="187,333,274,360"/>
+<area shape="rect" title=" " alt="" coords="5,333,80,360"/>
+<area shape="rect" title=" " alt="" coords="104,333,163,360"/>
+<area shape="rect" title=" " alt="" coords="415,259,465,285"/>
+<area shape="rect" title=" " alt="" coords="223,259,300,285"/>
+<area shape="rect" title=" " alt="" coords="324,259,391,285"/>
+<area shape="rect" title=" " alt="" coords="879,333,958,360"/>
+<area shape="rect" title=" " alt="" coords="1007,259,1099,285"/>
+<area shape="rect" href="real__type_8h.html" title=" " alt="" coords="805,259,931,285"/>
 </map>
 </div>
 </div>
@@ -278,15 +279,15 @@ Variables</h2></td></tr>
 <p class="definition">Definition at line <a class="el" href="bisection__method_8cc_source.html#l00016">16</a> of file <a class="el" href="bisection__method_8cc_source.html">bisection_method.cc</a>.</p>
 <div class="fragment"><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;                           {</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;  <span class="keyword">using namespace </span><a class="code" href="namespacesopt.html">sopt</a>;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;  <a class="code" href="namespacesopt_1_1logging.html#a1a3ff36211cc8e01a397f484fb967f41">sopt::logging::set_level</a>(<span class="stringliteral">&quot;debug&quot;</span>);</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;  <a class="code" href="namespacesopt_1_1logging.html#a3849ca5dbfcb69aa22066146b8ee781d">sopt::logging::set_level</a>(<span class="stringliteral">&quot;debug&quot;</span>);</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  std::function&lt;<a class="code" href="bisection__method_8cc.html#aa0bfbe32b639db5c015dd41a0ac7ca35">Scalar</a>(<a class="code" href="bisection__method_8cc.html#aa0bfbe32b639db5c015dd41a0ac7ca35">Scalar</a>)&gt; <span class="keyword">const</span> func = [](<span class="keyword">const</span> <a class="code" href="bisection__method_8cc.html#aa0bfbe32b639db5c015dd41a0ac7ca35">Scalar</a> &amp;x) -&gt; <a class="code" href="bisection__method_8cc.html#aa0bfbe32b639db5c015dd41a0ac7ca35">Scalar</a> { <span class="keywordflow">return</span> x * x * x; };</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;  constexpr <a class="code" href="bisection__method_8cc.html#aa0bfbe32b639db5c015dd41a0ac7ca35">Scalar</a> x0 = 0;</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  <span class="keyword">const</span> <a class="code" href="bisection__method_8cc.html#aa0bfbe32b639db5c015dd41a0ac7ca35">Scalar</a> x0_est = <a class="code" href="namespacesopt.html#a7574fac5dcbb3569bad1e0d08a553406">bisection_method</a>(func(x0), func, <a class="code" href="bisection__method_8cc.html#abe0def96c0a846f46d6fe7c115ff2a7f">a</a>, <a class="code" href="bisection__method_8cc.html#a63a56f8266f9d4e2b7904199812311c4">b</a>, <a class="code" href="bisection__method_8cc.html#a5ce54f08467e596d20bfdbe1e6a2b368">tol</a>);</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  CHECK(std::abs(x0_est - x0) &lt;= <a class="code" href="bisection__method_8cc.html#a5ce54f08467e596d20bfdbe1e6a2b368">tol</a>);</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;}</div>
-<div class="ttc" id="anamespacesopt_1_1logging_html_a1a3ff36211cc8e01a397f484fb967f41"><div class="ttname"><a href="namespacesopt_1_1logging.html#a1a3ff36211cc8e01a397f484fb967f41">sopt::logging::set_level</a></div><div class="ttdeci">void set_level(std::string const &amp;, std::string const &amp;)</div><div class="ttdoc">Sets loggin level.</div><div class="ttdef"><b>Definition:</b> <a href="logging_8disabled_8h_source.html#l00016">logging.disabled.h:16</a></div></div>
+<div class="ttc" id="anamespacesopt_1_1logging_html_a3849ca5dbfcb69aa22066146b8ee781d"><div class="ttname"><a href="namespacesopt_1_1logging.html#a3849ca5dbfcb69aa22066146b8ee781d">sopt::logging::set_level</a></div><div class="ttdeci">void set_level(const std::string &amp;level)</div><div class="ttdoc">Method to set the logging level of the default Log object.</div><div class="ttdef"><b>Definition:</b> <a href="logging_8h_source.html#l00154">logging.h:154</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="bisection__method_8cc_source.html#l00013">a</a>, <a class="el" href="bisection__method_8cc_source.html#l00014">b</a>, <a class="el" href="bisection__method_8h_source.html#l00018">sopt::bisection_method()</a>, <a class="el" href="logging_8disabled_8h_source.html#l00016">sopt::logging::set_level()</a>, and <a class="el" href="bisection__method_8cc_source.html#l00015">tol</a>.</p>
+<p class="reference">References <a class="el" href="bisection__method_8cc_source.html#l00013">a</a>, <a class="el" href="bisection__method_8cc_source.html#l00014">b</a>, <a class="el" href="bisection__method_8h_source.html#l00018">sopt::bisection_method()</a>, <a class="el" href="logging_8h_source.html#l00154">sopt::logging::set_level()</a>, and <a class="el" href="bisection__method_8cc_source.html#l00015">tol</a>.</p>
 
 </div>
 </div>

@@ -1,13 +1,17 @@
 <map id="/home/runner/work/sopt/sopt/cpp/tests/common_mpi_catch_main.cc" name="/home/runner/work/sopt/sopt/cpp/tests/common_mpi_catch_main.cc">
-<area shape="rect" id="node1" title=" " alt="" coords="433,5,611,61"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,259,111,285"/>
-<area shape="rect" id="node3" title=" " alt="" coords="502,109,657,136"/>
-<area shape="rect" id="node4" title=" " alt="" coords="317,259,394,285"/>
-<area shape="rect" id="node5" title=" " alt="" coords="681,109,739,136"/>
-<area shape="rect" id="node6" title=" " alt="" coords="763,109,835,136"/>
-<area shape="rect" id="node7" title=" " alt="" coords="859,109,918,136"/>
-<area shape="rect" id="node8" href="$logging_8h.html" title=" " alt="" coords="115,109,230,136"/>
-<area shape="rect" id="node11" href="$session_8h.html" title=" " alt="" coords="283,184,427,211"/>
-<area shape="rect" id="node9" href="$logging_8disabled_8h.html" title=" " alt="" coords="86,184,259,211"/>
-<area shape="rect" id="node10" title=" " alt="" coords="143,259,202,285"/>
+<area shape="rect" id="node1" title=" " alt="" coords="535,5,714,61"/>
+<area shape="rect" id="node2" title=" " alt="" coords="557,259,663,285"/>
+<area shape="rect" id="node3" title=" " alt="" coords="322,109,477,136"/>
+<area shape="rect" id="node4" title=" " alt="" coords="475,184,553,211"/>
+<area shape="rect" id="node5" title=" " alt="" coords="551,109,610,136"/>
+<area shape="rect" id="node6" title=" " alt="" coords="634,109,706,136"/>
+<area shape="rect" id="node7" title=" " alt="" coords="730,109,789,136"/>
+<area shape="rect" id="node8" href="$logging_8h.html" title=" " alt="" coords="183,109,298,136"/>
+<area shape="rect" id="node15" href="$session_8h.html" title=" " alt="" coords="813,109,957,136"/>
+<area shape="rect" id="node9" href="$exception_8h.html" title=" " alt="" coords="89,184,219,211"/>
+<area shape="rect" id="node13" title=" " alt="" coords="294,184,345,211"/>
+<area shape="rect" id="node14" title=" " alt="" coords="369,184,435,211"/>
+<area shape="rect" id="node10" title=" " alt="" coords="5,259,92,285"/>
+<area shape="rect" id="node11" title=" " alt="" coords="117,259,191,285"/>
+<area shape="rect" id="node12" title=" " alt="" coords="215,259,274,285"/>
 </map>

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['matrix_1028',['Matrix',['../namespacesopt.html#adedb6b3e862bd2968bf3026599121630',1,'sopt::Matrix()'],['../tests_2inpainting_8cc.html#ab86a00c212fb2233871e057014ded6a6',1,'Matrix():&#160;inpainting.cc'],['../tf__inpainting_8cc.html#ab86a00c212fb2233871e057014ded6a6',1,'Matrix():&#160;tf_inpainting.cc']]]
+  ['levelmap_1059',['LevelMap',['../classsopt_1_1logging_1_1Log.html#a06f646b84fe3196be226c35ed83e4e85',1,'sopt::logging::Log']]],
+  ['logmap_1060',['LogMap',['../classsopt_1_1logging_1_1Log.html#a4297e552320dfbeb93fa6327440a52b1',1,'sopt::logging::Log']]]
 ];

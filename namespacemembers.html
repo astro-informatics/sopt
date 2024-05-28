@@ -73,9 +73,19 @@ $(function() {
 <div class="contents">
 <div class="textblock">Here is a list of all namespace members with links to the namespace documentation for each member:</div>
 
+<h3><a id="index__5F"></a>- _ -</h3><ul>
+<li>_updateLevels()
+: <a class="el" href="namespacesopt_1_1logging.html#adcf103419e3ac1c9fea0403e7d87d8cf">sopt::logging</a>
+</li>
+</ul>
+
+
 <h3><a id="index_a"></a>- a -</h3><ul>
 <li>adjoint_transform()
 : <a class="el" href="namespacesopt.html#a44810fe3a30c81d0c9c5c91dd60011f8">sopt</a>
+</li>
+<li>applyFormat()
+: <a class="el" href="namespacesopt_1_1logging.html#ae20c08f799e58e2983a6ec139cf3dcc4">sopt::logging</a>
 </li>
 <li>Array
 : <a class="el" href="namespacesopt.html#a9de8d7c976f608fe47220203047b5cb8">sopt</a>
@@ -93,9 +103,6 @@ $(function() {
 <h3><a id="index_c"></a>- c -</h3><ul>
 <li>chained_operators()
 : <a class="el" href="namespacesopt.html#a5e8a990d75711b892ac8bf2f030d8c1e">sopt</a>
-</li>
-<li>color_logger()
-: <a class="el" href="namespacesopt.html#a8665e2e558cf502796c385e0b350d54d">sopt</a>
 </li>
 <li>compute_energy_upper_bound()
 : <a class="el" href="namespacesopt_1_1credible__region.html#ae7771317b2309a9557ff17a942c11a48">sopt::credible_region</a>
@@ -300,9 +307,6 @@ $(function() {
 <li>gcd()
 : <a class="el" href="namespacesopt_1_1details.html#a19d03d9b49ed12e7f7b91cb8b19e1db2">sopt::details</a>
 </li>
-<li>get()
-: <a class="el" href="namespacesopt_1_1logging.html#a44a1302dbe6c3a0a187838fc246e1ee5">sopt::logging</a>
-</li>
 <li>get_wavelet_basis_coefficients()
 : <a class="el" href="namespacesopt_1_1utilities.html#aa690cbbff2973dae8e221bb19cf332cd">sopt::utilities</a>
 </li>
@@ -327,18 +331,14 @@ $(function() {
 <li>get_wavelet_low_low_pass()
 : <a class="el" href="namespacesopt_1_1utilities.html#a39d2d28fadb120962c1bfb9ca9009b20">sopt::utilities</a>
 </li>
+<li>getLog()
+: <a class="el" href="namespacesopt_1_1logging.html#a42b7b103eba3224902e75a145a87c866">sopt::logging</a>
+</li>
 <li>gitref()
 : <a class="el" href="namespacesopt.html#ae1029fa88c4dddd856802462d2121deb">sopt</a>
 </li>
 <li>gradient_operator()
 : <a class="el" href="namespacesopt_1_1gradient__operator.html#aa02bf3cc5fc1c24460d2173269d27b57">sopt::gradient_operator</a>
-</li>
-</ul>
-
-
-<h3><a id="index_h"></a>- h -</h3><ul>
-<li>has_level()
-: <a class="el" href="namespacesopt_1_1logging.html#adfbe0795d12d3119704baf0f64dc9d3c">sopt::logging</a>
 </li>
 </ul>
 
@@ -358,9 +358,6 @@ $(function() {
 </li>
 <li>init()
 : <a class="el" href="namespacesopt_1_1mpi.html#ad052cd83bbb11581f623f15e2a97b796">sopt::mpi</a>
-</li>
-<li>initialize()
-: <a class="el" href="namespacesopt_1_1logging.html#a4b0ad6b43587c4601283b52da3c47800">sopt::logging</a>
 </li>
 <li>initialized()
 : <a class="el" href="namespacesopt_1_1mpi.html#ad44f35d3f51dfcc0fc3b40867f9dd6f3">sopt::mpi</a>
@@ -393,6 +390,9 @@ $(function() {
 <li>Matrix
 : <a class="el" href="namespacesopt.html#adedb6b3e862bd2968bf3026599121630">sopt</a>
 </li>
+<li>mkFormattedString()
+: <a class="el" href="namespacesopt_1_1logging.html#a60307772406264e603590704d663be39">sopt::logging</a>
+</li>
 <li>models_directory()
 : <a class="el" href="namespacesopt_1_1notinstalled.html#a2fa3d08c375b7e60e38382025a454314">sopt::notinstalled</a>
 </li>
@@ -400,9 +400,6 @@ $(function() {
 
 
 <h3><a id="index_n"></a>- n -</h3><ul>
-<li>name_prefix
-: <a class="el" href="namespacesopt_1_1logging.html#a6c538b24670a61401f0fabf038e07931">sopt::logging</a>
-</li>
 <li>normalise_operator()
 : <a class="el" href="namespacesopt_1_1algorithm.html#a24d048a91054bfe01cf3b345c8783e9a">sopt::algorithm</a>
 </li>
@@ -413,6 +410,9 @@ $(function() {
 
 
 <h3><a id="index_o"></a>- o -</h3><ul>
+<li>operator&lt;&lt;()
+: <a class="el" href="namespacesopt_1_1logging.html#a7cb336aaec82dbb82888b3139926505a">sopt::logging</a>
+</li>
 <li>OperatorFunction
 : <a class="el" href="namespacesopt.html#aa4353f012100677172534381f2801fa9">sopt</a>
 </li>
@@ -461,7 +461,7 @@ $(function() {
 : <a class="el" href="namespacesopt_1_1mpi.html#a9f86b7b10e3a957b50d295c7b9a2040a">sopt::mpi</a>
 </li>
 <li>set_level()
-: <a class="el" href="namespacesopt_1_1logging.html#a1a3ff36211cc8e01a397f484fb967f41">sopt::logging</a>
+: <a class="el" href="namespacesopt_1_1logging.html#a3849ca5dbfcb69aa22066146b8ee781d">sopt::logging</a>
 </li>
 <li>sigma()
 : <a class="el" href="namespacesopt.html#ad7fbfa0f1f262d124020ccaf5e6cb573">sopt</a>

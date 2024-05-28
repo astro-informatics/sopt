@@ -91,7 +91,6 @@ $(function() {
 <li><a href="http://openmp.org/wp/">OpenMP</a> v4.8.4 (Trusty) - Optional - Speeds up some of the operations.</li>
 <li><a href="https://github.com/UCL/cppflow">Cppflow</a> v2.0.0 - Optional - A warpper for the Tensorflow C API allowing us to read Tensorflow models into SOPT. Needed if you are using a learned prior.</li>
 <li><a href="http://eigen.tuxfamily.org/index.php?title=Main_Page">Eigen3</a> v3.4.0 (Trusty) Modern <code>C++</code> linear algebra. Downloaded automatically if absent.</li>
-<li><a href="https://github.com/gabime/spdlog">spdlog</a> v1.12.0 - Optional - Logging library. Downloaded automatically if absent.</li>
 <li><a href="https://github.com/catchorg/Catch2">Catch2</a> v3.4.0 - Optional - A <code>C++</code> unit-testing framework only needed for testing. Downloaded automatically if absent.</li>
 <li><a href="https://github.com/google/benchmark">google/benchmark</a> - Optional - A <code>C++</code> micro-benchmarking framework only needed for benchmarks. Downloaded automatically if absent.</li>
 <li><a href="http://www.libtiff.org/">tiff</a> v4.5.1 (Trusty) Tag Image File Format library - only installed if needed.</li>
@@ -103,7 +102,7 @@ $(function() {
 <li>If you are using a learned prior you must install the Tensorflow C API and <code>cppflow</code> package:<ul>
 <li>Install <a href="https://www.tensorflow.org/install/lang_c">TensorFlow C API</a></li>
 <li><p class="startli">Clone the UCL fork of cppflow and create a conan package using</p>
-<p class="startli">``` bash git clone <a href="#" onclick="location.href='mai'+'lto:'+'git'+'@g'+'ith'+'ub'+'.co'+'m'; return false;">git@g<span style="display: none;">.nosp@m.</span>ithu<span style="display: none;">.nosp@m.</span>b.com</a>:UCL/cppflow.git conan create ./cppflow/ ``` Note that conan requires you to specify the host (h) and the build (b) profiles on the command line (<code>-pr:h=default -pr:b=default</code>), unless you have defined them in your conan profile. You can set up a default profile for your system using <code>conan profile detect</code> (only needs to be done once).</p>
+<p class="startli">``` bash git clone <a href="#" onclick="location.href='mai'+'lto:'+'git'+'@g'+'ith'+'ub'+'.co'+'m'; return false;">git@g<span style="display: none;">.nosp@m.</span>ithu<span style="display: none;">.nosp@m.</span>b.com</a>:UCL/cppflow.git conan create ./cppflow/ ``` Note that conan requires you to specify the host (h) and the build (b) profiles on the command line (<code>-pr:b=default -pr:h=default</code> or simply <code>-pr:a=default</code>), unless you have defined them in your conan profile. You can set up a default profile for your system using <code>conan profile detect</code> (only needs to be done once).</p>
 </li>
 </ul>
 </li>
@@ -126,15 +125,14 @@ $(function() {
 <li>CMake build options should be passed as options to <code>conan install</code> using the <code>-o</code> flag with a value <code>on</code> or <code>off</code>. Possible options are: <pre class="fragment">- tests (default on)
 - benchmarks (default off)
 - examples (default on)
-- logging (default on)
-- openmp (default on)
-- mpi (default on)
+- openmp (default off)
+- dompi (default off)
 - docs (default off)
 - coverage (default off)
 - cppflow (default off)
-</pre> For example, to build with both MPI and OpenMP off you would use</li>
+</pre> For example, to build with both MPI and OpenMP on you would use</li>
 </ul>
-<div class="fragment"><div class="line">conan install .. -of . --build missing -o openmp=off -o mpi=off -pr:h=default -pr:b=default</div>
+<div class="fragment"><div class="line">conan install .. -of . --build missing -o openmp=on -o dompi=on</div>
 <div class="line">conan build .. -of .</div>
 </div><!-- fragment --><h2>Using CMake</h2>
 <p>If the dependencies are already available on your system, you can also install <b>SOPT</b> manually like so</p>
@@ -145,10 +143,8 @@ $(function() {
 <div class="line">make -j</div>
 <div class="line">make -j install</div>
 </div><!-- fragment --><p>On MacOS, you can also install most of the dependencies with Homebrew e.g.</p>
-<div class="fragment"><div class="line">brew install libtensorflow eigen tiff spdlog catch2</div>
+<div class="fragment"><div class="line">brew install libtensorflow eigen tiff catch2</div>
 </div><!-- fragment --><p> <b>Note that the ONNXruntime interface is currently only supported when compiling with Clang on MacOS, but not with g++</b></p>
-<h1>Common errors</h1>
-<p>If you are using the g++ compiler and get an error to do with the package <code>spdlog</code>, try adding the option <code>-s compiler.libcxx=libstdc++11</code> to the <code>conan build</code> command. This option is also necessary when building with gcc on MacOS.</p>
 <h1>Conan tips</h1>
 <p>You can set commonly used options, choices of compilers etc. in a <a href="https://docs.conan.io/en/latest/reference/profiles.html">conan profile</a>. You can list profiles available on your system using <code>conan profile list</code> and select the profile you want to use with <code>conan install</code> with <code>conan install .. -pr my_profile</code>. CMake build options can also be added to the profile under <code>[options]</code>. Here is an example of a conan profile for building with a homebrew installed gcc 11 on MacOS.</p>
 <div class="fragment"><div class="line">[settings]</div>
@@ -184,7 +180,7 @@ $(function() {
 </ol>
 <h1>License</h1>
 <blockquote class="doxtable">
-<p>SOPT: Sparse OPTimisation package Copyright (C) 2013-2023</p>
+<p>SOPT: Sparse OPTimisation package Copyright (C) 2013-2024</p>
 <p>This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.</p>
 <p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details (LICENSE.txt).</p>
 <p>You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA. </p>

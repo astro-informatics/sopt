@@ -97,17 +97,21 @@ $(function() {
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="common__mpi__catch__main_8cc__incl.png" border="0" usemap="#a_2home_2runner_2work_2sopt_2sopt_2cpp_2tests_2common__mpi__catch__main_8cc" alt=""/></div>
 <map name="a_2home_2runner_2work_2sopt_2sopt_2cpp_2tests_2common__mpi__catch__main_8cc" id="a_2home_2runner_2work_2sopt_2sopt_2cpp_2tests_2common__mpi__catch__main_8cc">
-<area shape="rect" title=" " alt="" coords="433,5,611,61"/>
-<area shape="rect" title=" " alt="" coords="5,259,111,285"/>
-<area shape="rect" title=" " alt="" coords="502,109,657,136"/>
-<area shape="rect" title=" " alt="" coords="317,259,394,285"/>
-<area shape="rect" title=" " alt="" coords="681,109,739,136"/>
-<area shape="rect" title=" " alt="" coords="763,109,835,136"/>
-<area shape="rect" title=" " alt="" coords="859,109,918,136"/>
-<area shape="rect" href="logging_8h.html" title=" " alt="" coords="115,109,230,136"/>
-<area shape="rect" href="session_8h.html" title=" " alt="" coords="283,184,427,211"/>
-<area shape="rect" href="logging_8disabled_8h.html" title=" " alt="" coords="86,184,259,211"/>
-<area shape="rect" title=" " alt="" coords="143,259,202,285"/>
+<area shape="rect" title=" " alt="" coords="535,5,714,61"/>
+<area shape="rect" title=" " alt="" coords="557,259,663,285"/>
+<area shape="rect" title=" " alt="" coords="322,109,477,136"/>
+<area shape="rect" title=" " alt="" coords="475,184,553,211"/>
+<area shape="rect" title=" " alt="" coords="551,109,610,136"/>
+<area shape="rect" title=" " alt="" coords="634,109,706,136"/>
+<area shape="rect" title=" " alt="" coords="730,109,789,136"/>
+<area shape="rect" href="logging_8h.html" title=" " alt="" coords="183,109,298,136"/>
+<area shape="rect" href="session_8h.html" title=" " alt="" coords="813,109,957,136"/>
+<area shape="rect" href="exception_8h.html" title=" " alt="" coords="89,184,219,211"/>
+<area shape="rect" title=" " alt="" coords="294,184,345,211"/>
+<area shape="rect" title=" " alt="" coords="369,184,435,211"/>
+<area shape="rect" title=" " alt="" coords="5,259,92,285"/>
+<area shape="rect" title=" " alt="" coords="117,259,191,285"/>
+<area shape="rect" title=" " alt="" coords="215,259,274,285"/>
 </map>
 </div>
 </div>
@@ -204,18 +208,15 @@ Functions</h2></td></tr>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordflow">return</span> returnCode;</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <a class="code" href="common__mpi__catch__main_8cc.html#afd7b13def75c5d7feb77ac1ea2df5d0b">mersenne</a>.reset(<span class="keyword">new</span> std::mt19937_64(session.configData().rngSeed));</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <a class="code" href="namespacesopt_1_1logging.html#a4b0ad6b43587c4601283b52da3c47800">sopt::logging::initialize</a>();</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> result = session.run();</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> result = session.run();</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <span class="keywordflow">return</span> result;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;}</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;}</div>
 <div class="ttc" id="acommon__mpi__catch__main_8cc_html_afd7b13def75c5d7feb77ac1ea2df5d0b"><div class="ttname"><a href="common__mpi__catch__main_8cc.html#afd7b13def75c5d7feb77ac1ea2df5d0b">mersenne</a></div><div class="ttdeci">std::unique_ptr&lt; std::mt19937_64 &gt; mersenne(new std::mt19937_64(0))</div></div>
 <div class="ttc" id="ampi__session_8cc_html_a8a6282f51259c130e01e0e59e8201cf7"><div class="ttname"><a href="mpi__session_8cc.html#a8a6282f51259c130e01e0e59e8201cf7">cargs</a></div><div class="ttdeci">std::vector&lt; char const * &gt; cargs</div><div class="ttdef"><b>Definition:</b> <a href="mpi__session_8cc_source.html#l00010">mpi_session.cc:10</a></div></div>
-<div class="ttc" id="anamespacesopt_1_1logging_html_a4b0ad6b43587c4601283b52da3c47800"><div class="ttname"><a href="namespacesopt_1_1logging.html#a4b0ad6b43587c4601283b52da3c47800">sopt::logging::initialize</a></div><div class="ttdeci">std::shared_ptr&lt; int &gt; initialize(std::string const &amp;)</div><div class="ttdoc">Initializes a logger.</div><div class="ttdef"><b>Definition:</b> <a href="logging_8disabled_8h_source.html#l00012">logging.disabled.h:12</a></div></div>
 <div class="ttc" id="anamespacesopt_1_1mpi_html_ad052cd83bbb11581f623f15e2a97b796"><div class="ttname"><a href="namespacesopt_1_1mpi.html#ad052cd83bbb11581f623f15e2a97b796">sopt::mpi::init</a></div><div class="ttdeci">std::shared_ptr&lt; details::initializer &gt; init(int argc, const char **argv)</div><div class="ttdef"><b>Definition:</b> <a href="session_8cc_source.html#l00027">session.cc:27</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="mpi__session_8cc_source.html#l00010">cargs</a>, <a class="el" href="session_8cc_source.html#l00027">sopt::mpi::init()</a>, <a class="el" href="logging_8disabled_8h_source.html#l00012">sopt::logging::initialize()</a>, and <a class="el" href="common__mpi__catch__main_8cc.html#afd7b13def75c5d7feb77ac1ea2df5d0b">mersenne()</a>.</p>
+<p class="reference">References <a class="el" href="mpi__session_8cc_source.html#l00010">cargs</a>, <a class="el" href="session_8cc_source.html#l00027">sopt::mpi::init()</a>, and <a class="el" href="common__mpi__catch__main_8cc.html#afd7b13def75c5d7feb77ac1ea2df5d0b">mersenne()</a>.</p>
 
 </div>
 </div>

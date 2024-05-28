@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['operatorfunction_1029',['OperatorFunction',['../namespacesopt.html#aa4353f012100677172534381f2801fa9',1,'sopt']]]
+  ['matrix_1061',['Matrix',['../namespacesopt.html#adedb6b3e862bd2968bf3026599121630',1,'sopt::Matrix()'],['../tests_2inpainting_8cc.html#ab86a00c212fb2233871e057014ded6a6',1,'Matrix():&#160;inpainting.cc'],['../tf__inpainting_8cc.html#ab86a00c212fb2233871e057014ded6a6',1,'Matrix():&#160;tf_inpainting.cc']]]
 ];
