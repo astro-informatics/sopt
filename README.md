@@ -27,8 +27,6 @@ This documentation outlines the necessary and optional [dependencies](#dependenc
 - [OpenMP](http://openmp.org/wp/) v4.8.4 (Trusty) - Optional - Speeds up some of the operations.
 - [Cppflow](https://github.com/UCL/cppflow) v2.0.0 - Optional - A warpper for the Tensorflow C API allowing us to read Tensorflow models into SOPT. Needed if you are using a learned prior.
 - [Eigen3](http://eigen.tuxfamily.org/index.php?title=Main_Page) v3.4.0 (Trusty) Modern `C++` linear algebra. Downloaded automatically if absent.
-- [spdlog](https://github.com/gabime/spdlog) v1.12.0 - Optional - Logging library. Downloaded automatically if
-    absent.
 - [Catch2](https://github.com/catchorg/Catch2) v3.4.0 - Optional -  A `C++`
     unit-testing framework only needed for testing. Downloaded automatically if absent.
 - [google/benchmark](https://github.com/google/benchmark) - Optional - A `C++`
@@ -51,7 +49,7 @@ as well as the **SOPT** installation:
         conan create ./cppflow/
         ```
       Note that conan requires you to specify the host (h) and the build (b) profiles on the command
-      line (`-pr:h=default -pr:b=default`), unless you have defined them in your conan profile.
+      line (`-pr:b=default -pr:h=default` or simply `-pr:a=default`), unless you have defined them in your conan profile.
       You can set up a default profile for your system using `conan profile detect` (only needs to be done once).
 
 1. Once the mandatory dependencies are present, `git clone` from the [GitHub repository](https://github.com/astro-informatics/sopt):
@@ -84,17 +82,16 @@ Possible options are:
     - tests (default on)
     - benchmarks (default off)
     - examples (default on)
-    - logging (default on)
-    - openmp (default on)
-    - mpi (default on)
+    - openmp (default off)
+    - dompi (default off)
     - docs (default off)
     - coverage (default off)
     - cppflow (default off)
 
-For example, to build with both MPI and OpenMP off you would use
+For example, to build with both MPI and OpenMP on you would use
 
 ``` bash
-conan install .. -of . --build missing -o openmp=off -o mpi=off -pr:h=default -pr:b=default
+conan install .. -of . --build missing -o openmp=on -o dompi=on
 conan build .. -of .
 ```
 
@@ -115,14 +112,9 @@ If the dependencies are already available on your system, you can also install *
 On MacOS, you can also install most of the dependencies with Homebrew e.g.
 
   ``` bash
-  brew install libtensorflow eigen tiff spdlog catch2
+  brew install libtensorflow eigen tiff catch2
   ```
 **Note that the ONNXruntime interface is currently only supported when compiling with Clang on MacOS, but not with g++**
-
-
-## Common errors
-
-If you are using the g++ compiler and get an error to do with the package `spdlog`, try adding the option `-s compiler.libcxx=libstdc++11` to the `conan build` command. This option is also necessary when building with gcc on MacOS.
 
 
 ## Conan tips
@@ -193,7 +185,7 @@ If you use **SOPT** for work that results in publication, please reference the [
 ## License
 
 > SOPT: Sparse OPTimisation package
-> Copyright (C) 2013-2023
+> Copyright (C) 2013-2024
 >
 > This program is free software; you can redistribute it and/or
 > modify it under the terms of the GNU General Public License as

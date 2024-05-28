@@ -1,21 +1,23 @@
 add_library(common_catch_main_object OBJECT "common_catch_main.cc")
-if(spdlog_FOUND)
-  target_link_libraries(common_catch_main_object spdlog::spdlog)
-endif()
+
 if(Catch2_FOUND)
   target_link_libraries(common_catch_main_object Catch2::Catch2)
 endif()
+
 if(EIGEN3_INCLUDE_DIR)
   target_include_directories(common_catch_main_object SYSTEM PUBLIC ${EIGEN3_INCLUDE_DIR})
 endif()
+
 if(onnxruntime_INCLUDE_DIR)
   target_include_directories(common_catch_main_object SYSTEM PUBLIC ${onnxruntime_INCLUDE_DIR})
 endif()
+
 target_include_directories(common_catch_main_object PUBLIC
   "${EXTERNAL_ROOT}/include/"
   "${PROJECT_BINARY_DIR}/include/"
   "${CMAKE_CURRENT_SOURCE_DIR}/.."
-  )
+)
+
 if(CATCH_HAS_THROWS_AS)
   add_definitions(-DCATCH_HAS_THROWS_AS)
 endif()
@@ -55,14 +57,14 @@ endif()
 
 if(SOPT_MPI)
   add_library(common_mpi_catch_main_object OBJECT common_mpi_catch_main.cc)
+
   target_include_directories(common_mpi_catch_main_object
     PUBLIC ${PROJECT_SOURCE_DIR}/cpp ${PROJECT_BINARY_DIR}/include ${MPI_CXX_INCLUDE_PATH})
-  if(spdlog_FOUND)
-    target_link_libraries(common_mpi_catch_main_object spdlog::spdlog)
-  endif()
+
   if(Catch2_FOUND)
     target_link_libraries(common_mpi_catch_main_object Catch2::Catch2)
   endif()
+
   if(EIGEN3_INCLUDE_DIR)
     target_include_directories(common_mpi_catch_main_object SYSTEM PUBLIC ${EIGEN3_INCLUDE_DIR})
   endif()
