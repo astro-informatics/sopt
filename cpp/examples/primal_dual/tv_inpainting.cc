@@ -7,6 +7,7 @@
 #include <iostream>
 #include <random>
 #include <vector>
+#include <ctime>
 #include <Eigen/Eigenvalues>
 
 #include "sopt/types.h"
@@ -55,10 +56,6 @@ int main(int argc, char const **argv) {
   auto const seed = std::time(nullptr);
   std::srand(static_cast<unsigned int>(seed));
   std::mt19937 mersenne(std::time(nullptr));
-
-  // Initializes and sets logger (if compiled with logging)
-  // See set_level function for levels.
-  sopt::logging::initialize();
 
   SOPT_HIGH_LOG("Read input file {}", input);
   Image const image = sopt::notinstalled::read_standard_tiff(input);
