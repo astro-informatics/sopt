@@ -15,7 +15,7 @@ namespace sopt::algorithm {
 
 /*! \brief Forward Backward Splitting 
   \f$\min_{x} f(x, \Phi x - y) + g(z)\f$. \f$y\f$ is a target vector, while x is the current solution.
-  \f$f$ is a differntiable function. It is necessary to supply the gradient.
+  \f$f$ is a differentiable function. It is necessary to supply the gradient.
   \f$g$ is a non-differentiable function. It is necessary to supply a proximal operator.
 */
 template <typename SCALAR>
@@ -37,7 +37,7 @@ class ForwardBackward {
   using t_Proximal = ProximalFunction<Scalar>;
   //! Type of the gradient
   // The first argument is the output vector, the second is the input vector, and the third is the input residual
-  using t_Gradient = typename std::function<void(t_Vector &, const t_Vector &, const t_Vector &)>;
+  using t_Gradient = typename std::function<void(t_Vector &gradient, const t_Vector &image, const t_Vector &residual)>;
 
   //! Values indicating how the algorithm ran
   struct Diagnostic {
