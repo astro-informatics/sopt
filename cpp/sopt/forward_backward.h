@@ -14,7 +14,7 @@
 namespace sopt::algorithm {
 
 /*! \brief Forward Backward Splitting 
-  \f$\min_{x} f(\Phi x - y) + g(z)\f$. \f$y\f$ is a target vector.
+  \f$\min_{x} f(x, \Phi x - y) + g(z)\f$. \f$y\f$ is a target vector, while x is the current solution.
   \f$f$ is a differntiable function. It is necessary to supply the gradient.
   \f$g$ is a non-differentiable function. It is necessary to supply a proximal operator.
 */
@@ -235,15 +235,15 @@ class ForwardBackward {
 };
 
 template <typename SCALAR>
-void ForwardBackward<SCALAR>::iteration_step(t_Vector &image, t_Vector &residual, t_Vector &z,
-                                             t_Vector &grad_f, const t_real lambda) const {
+void ForwardBackward<SCALAR>::iteration_step(t_Vector &image_new, t_Vector &residual, t_Vector &image_current,
+                                             t_Vector &gradient_current, const t_real FISTA_ratio) const {
   // z = image;  // store previous image in buffer; this looks incorrect. 
-  f_gradient(grad_f, z, residual);  // takes residual and calculates the grad = 1/sig^2 residual
-  const t_Vector input = z - beta() / nu() * grad_f;
+  f_gradient(gradient_current, image_current, residual);  // takes residual and calculates the grad = 1/sig^2 residual
+  image_new = image_current - beta() / nu() * gradient_current;  // step to new image using gradient
   const Real weight = gamma() * beta();
-  g_proximal(image, weight, input);
-  z = image + lambda * (image - z);  
-  residual = (Phi() * z) - target();
+  g_proximal(image_new, weight, image_new);  // apply proximal operator to new image
+  image_current = image_new + FISTA_ratio * (image_new - image_current);  // FISTA acceleration step  
+  residual = (Phi() * image_current) - target();  // calculates the residual for the NEXT iteration.
 }
 
 template <typename SCALAR>
@@ -257,24 +257,26 @@ typename ForwardBackward<SCALAR>::Diagnostic ForwardBackward<SCALAR>::operator()
   }
   sanity_check(x_guess, res_guess);
 
-  t_Vector p = t_Vector::Zero(x_guess.size());
-  t_Vector z = t_Vector::Zero(target().size());
+  const uint image_size = x_guess.size();
+
+  t_Vector image_current = x_guess;
   t_Vector residual = res_guess;
+  t_Vector gradient_current = t_Vector::Zero(image_size);
   out = x_guess;
 
   t_uint niters(0);
   bool converged = false;
   Real theta = 1.0;
   Real theta_new = 1.0;
-  Real lambda = 0.0;
+  Real FISTA_ratio = 0.0;
   for (; (not converged) && (niters < itermax()); ++niters) {
     SOPT_LOW_LOG("    - [FB] Iteration {}/{}", niters, itermax());
     if (fista()) {
       theta_new = (1 + std::sqrt(1 + 4 * theta * theta)) / 2.;
-      lambda = (theta - 1) / (theta_new);
+      FISTA_ratio = (theta - 1) / (theta_new);
       theta = theta_new;
     }
-    iteration_step(out, residual, p, z, lambda);
+    iteration_step(out, residual, image_current, gradient_current, FISTA_ratio);
     SOPT_LOW_LOG("      - [FB] Sum of residuals: {}", residual.array().abs().sum());
     converged = is_converged(out, residual);
   }
