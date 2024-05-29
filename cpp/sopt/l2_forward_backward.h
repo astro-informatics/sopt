@@ -264,8 +264,9 @@ typename L2ForwardBackward<SCALAR>::Diagnostic L2ForwardBackward<SCALAR>::operat
       this->l2_proximal()(out, this->l2_proximal_weights()(0) * gamma, x);
   };
   const Real sigma_factor = sigma() * sigma();
-  auto const f_gradient = [this, sigma_factor](t_Vector &out, t_Vector const &x) {
-    this->l2_gradient()(out, x / sigma_factor);
+  auto const f_gradient = [this, sigma_factor](t_Vector &out, tVector const &image, t_Vector const &res) {
+    this->l2_gradient()(out, res / sigma_factor);
+    out = this->Phi_.adjoint() * out;
   };
   ScalarRelativeVariation<Scalar> scalvar(relative_variation(), relative_variation(),
                                           "Objective function");
