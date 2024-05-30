@@ -144,8 +144,13 @@ class ImagingForwardBackward {
   // Default f_gradient is gradient of l2-norm
   // This gradient ignores x and is based only on residual. (x is required for other forms of gradient)
   t_Gradient f_gradient = [this](t_Vector &out, t_Vector const &x, t_Vector const &res) {
-    this->l2_gradient()(out, res / (sigma() * sigma()));
-    out = this->Phi_.adjoint() * out;
+    SOPT_HIGH_LOG("Inside gradient lambda function");
+    t_Vector temp;
+    SOPT_HIGH_LOG("Calculate the l2 gradient");
+    this->l2_gradient()(temp, res / (sigma() * sigma()));
+    SOPT_HIGH_LOG("Apply adjoint linear operator {}", temp.size());
+    out = this->Phi().adjoint() * temp;
+    SOPT_HIGH_LOG("Finish gradient");
   };
 
   void set_f_gradient(t_Gradient const &fgrad)
@@ -277,6 +282,15 @@ typename ImagingForwardBackward<SCALAR>::Diagnostic ImagingForwardBackward<SCALA
   // The f proximal is an L1 proximal that stores some diagnostic result
   Diagnostic result;
   auto const g_proximal_function = g_proximal_->proximal_operator();
+  t_Gradient f_grad = [this](t_Vector &out, t_Vector const &x, t_Vector const &res) {
+    SOPT_HIGH_LOG("Inside NEW gradient lambda function");
+    t_Vector temp;
+    SOPT_HIGH_LOG("Calculate the l2 gradient");
+    this->l2_gradient()(temp, res / (sigma() * sigma()));
+    SOPT_HIGH_LOG("Apply adjoint linear operator {}", temp.size());
+    out = this->Phi().adjoint() * temp;
+    SOPT_HIGH_LOG("Finish gradient");
+  };
   ScalarRelativeVariation<Scalar> scalvar(relative_variation(), relative_variation(),
                                           "Objective function");
   auto const convergence = [this, &scalvar](t_Vector const &x, t_Vector const &residual) mutable {
@@ -284,7 +298,7 @@ typename ImagingForwardBackward<SCALAR>::Diagnostic ImagingForwardBackward<SCALA
     this->objmin_ = std::real(scalvar.previous());
     return result;
   };
-  auto const fb = ForwardBackward<SCALAR>(f_gradient, g_proximal_function, target())
+  auto const fb = ForwardBackward<SCALAR>(f_grad, g_proximal_function, target())
                       .itermax(itermax())
                       .beta(beta())
                       .gamma(gamma())
