@@ -7,7 +7,7 @@
 
 namespace sopt::notinstalled {
 Image<> read_standard_tiff(std::string const &name) {
-  std::string const stdname = "./test_data/" + name + ".tiff";
+  std::string const stdname = sopt::notinstalled::data_directory() + "/" + name + ".tiff";
   bool const is_std = std::ifstream(stdname).good();
   return sopt::utilities::read_tiff(is_std ? stdname : name);
 }
