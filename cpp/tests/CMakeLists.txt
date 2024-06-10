@@ -54,6 +54,8 @@ if(cppflow)
   add_catch_test(tf_inpainting LIBRARIES sopt tools_for_tests SEED ${RAND_SEED})
 endif()
 
+file(COPY test_data DESTINATION .)
+
 if(SOPT_MPI)
   add_library(common_mpi_catch_main_object OBJECT common_mpi_catch_main.cc)
 
