@@ -58,7 +58,7 @@ int main(int argc, char const **argv) {
   std::mt19937 mersenne(std::time(nullptr));
 
   SOPT_HIGH_LOG("Read input file {}", input);
-  Image const image = sopt::notinstalled::read_standard_tiff(input);
+  Image const image = sopt::tools::read_standard_tiff(input);
 
   SOPT_HIGH_LOG("Initializing sensing operator");
   sopt::t_uint const nmeasure = 0.33 * image.size();

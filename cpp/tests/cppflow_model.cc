@@ -24,7 +24,7 @@ TEST_CASE("Cppflow Model"){
 
   // read in image
   std::string const input_image = "cameraman256";
-  Image const image = sopt::notinstalled::read_standard_tiff(input_image);
+  Image const image = sopt::tools::read_standard_tiff(input_image);
 
   int const image_rows = image.rows();
   int const image_cols = image.cols();
@@ -32,7 +32,7 @@ TEST_CASE("Cppflow Model"){
   cppflow::tensor input_tensor = sopt::cppflowutils::convert_image_to_tensor(image, image_rows, image_cols);
 
   // Read in model
-  cppflow::model model(std::string(sopt::notinstalled::models_directory() + "/snr_15_model.pb/"));
+  cppflow::model model(std::string(sopt::tools::models_directory() + "/snr_15_model.pb/"));
 
   // Run model on image
   // TODO: Automatically detect the string parameters, see issue #320
