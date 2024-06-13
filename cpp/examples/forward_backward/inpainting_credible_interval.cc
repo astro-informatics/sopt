@@ -54,8 +54,8 @@ int main(int argc, char const **argv) {
   // See set_level function for levels.
   sopt::logging::set_level("debug");
   SOPT_HIGH_LOG("Read input file {}", input);
-  const Image image = sopt::notinstalled::read_standard_tiff(input) /
-                      sopt::notinstalled::read_standard_tiff(input).cwiseAbs().maxCoeff();
+  const Image image = sopt::tools::read_standard_tiff(input) /
+                      sopt::tools::read_standard_tiff(input).cwiseAbs().maxCoeff();
   SOPT_HIGH_LOG("Image size: {} x {} = {}", image.cols(), image.rows(), image.size());
 
   SOPT_HIGH_LOG("Initializing sensing operator");

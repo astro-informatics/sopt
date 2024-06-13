@@ -36,7 +36,7 @@ TEST_CASE("Parallel vs serial inpainting") {
   std::string const input = "cameraman256";
   // Read input file
   Image const image = world.is_root()
-                          ? world.broadcast(sopt::notinstalled::read_standard_tiff(input))
+                          ? world.broadcast(sopt::tools::read_standard_tiff(input))
                           : world.broadcast<Image>();
 
   // Initializing sensing operator

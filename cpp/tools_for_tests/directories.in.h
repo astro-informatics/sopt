@@ -4,12 +4,12 @@
 #include "sopt/config.h"
 #include <string>
 
-namespace sopt::notinstalled {
+namespace sopt::tools {
 //! Holds images and such
-inline std::string data_directory() { return "@PROJECT_SOURCE_DIR@/cpp/tests/test_data"; }
+inline std::string data_directory() { return "@CMAKE_INSTALL_PREFIX@/cpp/tests/test_data"; }
 //! Output artefacts from tests
-inline std::string output_directory() { return "@PROJECT_BINARY_DIR@/outputs"; }
+inline std::string output_directory() { return "@CMAKE_INSTALL_PREFIX@/outputs"; }
 //! Machine-learning models
-inline std::string models_directory() { return "@PROJECT_SOURCE_DIR@/cpp/tests/test_data"; }
-} // namespace sopt::notinstalled
+inline std::string models_directory() { return "@CMAKE_INSTALL_PREFIX@/cpp/tests/test_data"; }
+} // namespace sopt::tools
 #endif

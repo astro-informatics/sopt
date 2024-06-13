@@ -23,7 +23,7 @@ TEST_CASE("Gradient Operator") {
 
   using Image = sopt::Image<Scalar>;
 
-  Image const image = sopt::notinstalled::read_standard_tiff("cameraman256");
+  Image const image = sopt::tools::read_standard_tiff("cameraman256");
   auto const psi = sopt::gradient_operator::gradient_operator<Scalar>(image.rows(), image.cols());
   Matrix input = Matrix::Ones(image.rows(), image.cols());
   for (Eigen::Index i(0); i < image.rows(); i++) input.row(i) *= static_cast<Scalar>(i);

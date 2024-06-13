@@ -32,9 +32,9 @@ TEST_CASE("Inpainting"){
   extern std::unique_ptr<std::mt19937_64> mersenne;
   std::string const input = "cameraman256";
 
-  std::string const model_path = std::string(sopt::notinstalled::models_directory() + "/snr_15_model.pb/");
+  std::string const model_path = std::string(sopt::tools::models_directory() + "/snr_15_model.pb/");
 
-  Image const image = sopt::notinstalled::read_standard_tiff(input);
+  Image const image = sopt::tools::read_standard_tiff(input);
 
   sopt::t_uint nmeasure = std::floor(0.5 * image.size());
   sopt::LinearTransform<Vector> const sampling =

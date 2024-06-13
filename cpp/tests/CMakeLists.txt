@@ -54,6 +54,8 @@ if(cppflow)
   add_catch_test(tf_inpainting LIBRARIES sopt tools_for_tests SEED ${RAND_SEED})
 endif()
 
+file(COPY test_data DESTINATION .)
+
 if(SOPT_MPI)
   add_library(common_mpi_catch_main_object OBJECT common_mpi_catch_main.cc)
 
@@ -79,7 +81,7 @@ if(SOPT_MPI)
     add_test(NAME ${testname}
       COMMAND
       ${MPIEXEC} ${MPIEXEC_NUMPROC_FLAG} ${MPIEXEC_MAX_NUMPROCS} ${MPIEXEC_PREFLAGS}
-      $<TARGET_FILE:test_${testname}> ${arguments})
+      "./test_${testname}" ${arguments})
     set_tests_properties(${testname} PROPERTIES LABELS "catch;mpi")
   endfunction()
 

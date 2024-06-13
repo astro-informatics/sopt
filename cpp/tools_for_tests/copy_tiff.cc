@@ -20,7 +20,7 @@ int main(int argc, char const **argv) {
   }
 
   // Read input file
-  auto const image = sopt::notinstalled::read_standard_tiff(argv[1]);
+  auto const image = sopt::tools::read_standard_tiff(argv[1]);
   sopt::utilities::write_tiff(image, argv[2]);
 
   auto const reread = sopt::utilities::read_tiff(argv[2]);
