@@ -13,5 +13,5 @@ var searchData=
   ['ort_5fmodel_2ecc_310',['ort_model.cc',['../ort__model_8cc.html',1,'']]],
   ['ort_5fsession_2eh_311',['ort_session.h',['../ort__session_8h.html',1,'']]],
   ['ortsession_312',['ORTsession',['../classsopt_1_1ORTsession.html#a4fead81f9d8f5b64e454c0ab98cf24e3',1,'sopt::ORTsession::ORTsession()=delete'],['../classsopt_1_1ORTsession.html#a341772c6dd5fea8f3a677084f68f330a',1,'sopt::ORTsession::ORTsession(const std::string &amp;filename, const std::string &amp;runname=&quot;soptONNXrt&quot;)'],['../classsopt_1_1ORTsession.html',1,'sopt::ORTsession']]],
-  ['output_5fdirectory_313',['output_directory',['../namespacesopt_1_1notinstalled.html#a41591b69e6406ef3a36ded99be530efd',1,'sopt::notinstalled']]]
+  ['output_5fdirectory_313',['output_directory',['../namespacesopt_1_1tools.html#a3e5459c96ca50bd4de0c2e1622008c58',1,'sopt::tools']]]
 ];

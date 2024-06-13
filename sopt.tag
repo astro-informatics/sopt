@@ -4052,26 +4052,26 @@
     <path>/home/runner/work/sopt/sopt/cpp/tools_for_tests/</path>
     <filename>http://astro-informatics.github.io/sopt/directories_8in_8h.html</filename>
     <namespace>sopt</namespace>
-    <namespace>sopt::notinstalled</namespace>
+    <namespace>sopt::tools</namespace>
     <member kind="function">
       <type>std::string</type>
       <name>data_directory</name>
-      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1notinstalled.html</anchorfile>
-      <anchor>a1fcff7fb7b9de6604362ab009611d37f</anchor>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1tools.html</anchorfile>
+      <anchor>aac08e47401ad9b5791e305b511df1e0e</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
       <type>std::string</type>
       <name>output_directory</name>
-      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1notinstalled.html</anchorfile>
-      <anchor>a41591b69e6406ef3a36ded99be530efd</anchor>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1tools.html</anchorfile>
+      <anchor>a3e5459c96ca50bd4de0c2e1622008c58</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
       <type>std::string</type>
       <name>models_directory</name>
-      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1notinstalled.html</anchorfile>
-      <anchor>a2fa3d08c375b7e60e38382025a454314</anchor>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1tools.html</anchorfile>
+      <anchor>aeda5ba380aaf12ffc219fc436507e7d3</anchor>
       <arglist>()</arglist>
     </member>
   </compound>
@@ -4119,12 +4119,12 @@
     <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
     <includes id="utilities_8h" name="utilities.h" local="yes" imported="no">sopt/utilities.h</includes>
     <namespace>sopt</namespace>
-    <namespace>sopt::notinstalled</namespace>
+    <namespace>sopt::tools</namespace>
     <member kind="function">
       <type>Image</type>
       <name>read_standard_tiff</name>
-      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1notinstalled.html</anchorfile>
-      <anchor>a3008033a62397de1c2e272b6caab6648</anchor>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1tools.html</anchorfile>
+      <anchor>a7a29b5ae602984d1d93165eb0c1f0b54</anchor>
       <arglist>(std::string const &amp;name)</arglist>
     </member>
   </compound>
@@ -4134,12 +4134,12 @@
     <filename>http://astro-informatics.github.io/sopt/tiffwrappers_8h.html</filename>
     <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
     <namespace>sopt</namespace>
-    <namespace>sopt::notinstalled</namespace>
+    <namespace>sopt::tools</namespace>
     <member kind="function">
       <type>Image</type>
       <name>read_standard_tiff</name>
-      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1notinstalled.html</anchorfile>
-      <anchor>a3008033a62397de1c2e272b6caab6648</anchor>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1tools.html</anchorfile>
+      <anchor>a7a29b5ae602984d1d93165eb0c1f0b54</anchor>
       <arglist>(std::string const &amp;name)</arglist>
     </member>
   </compound>
@@ -11466,9 +11466,9 @@
     <namespace>sopt::gradient_operator</namespace>
     <namespace>sopt::logging</namespace>
     <namespace>sopt::mpi</namespace>
-    <namespace>sopt::notinstalled</namespace>
     <namespace>sopt::objective_functions</namespace>
     <namespace>sopt::proximal</namespace>
+    <namespace>sopt::tools</namespace>
     <namespace>sopt::utilities</namespace>
     <namespace>sopt::wavelets</namespace>
     <class kind="class">sopt::ConjugateGradient</class>
@@ -12218,38 +12218,6 @@
     <filename>http://astro-informatics.github.io/sopt/http://astro-informatics.github.io/sopt/namespacesopt_1_1mpi_1_1details.html</filename>
   </compound>
   <compound kind="namespace">
-    <name>sopt::notinstalled</name>
-    <filename>http://astro-informatics.github.io/sopt/http://astro-informatics.github.io/sopt/namespacesopt_1_1notinstalled.html</filename>
-    <member kind="function">
-      <type>std::string</type>
-      <name>data_directory</name>
-      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1notinstalled.html</anchorfile>
-      <anchor>a1fcff7fb7b9de6604362ab009611d37f</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="function">
-      <type>std::string</type>
-      <name>output_directory</name>
-      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1notinstalled.html</anchorfile>
-      <anchor>a41591b69e6406ef3a36ded99be530efd</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="function">
-      <type>std::string</type>
-      <name>models_directory</name>
-      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1notinstalled.html</anchorfile>
-      <anchor>a2fa3d08c375b7e60e38382025a454314</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="function">
-      <type>Image</type>
-      <name>read_standard_tiff</name>
-      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1notinstalled.html</anchorfile>
-      <anchor>a3008033a62397de1c2e272b6caab6648</anchor>
-      <arglist>(std::string const &amp;name)</arglist>
-    </member>
-  </compound>
-  <compound kind="namespace">
     <name>sopt::objective_functions</name>
     <filename>http://astro-informatics.github.io/sopt/http://astro-informatics.github.io/sopt/namespacesopt_1_1objective__functions.html</filename>
     <member kind="function">
@@ -12403,6 +12371,38 @@
     <filename>http://astro-informatics.github.io/sopt/http://astro-informatics.github.io/sopt/namespacesopt_1_1proximal_1_1details.html</filename>
     <class kind="class">sopt::proximal::details::DelayedProximalFunction</class>
     <class kind="class">sopt::proximal::details::DelayedProximalEnveloppeFunction</class>
+  </compound>
+  <compound kind="namespace">
+    <name>sopt::tools</name>
+    <filename>http://astro-informatics.github.io/sopt/http://astro-informatics.github.io/sopt/namespacesopt_1_1tools.html</filename>
+    <member kind="function">
+      <type>std::string</type>
+      <name>data_directory</name>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1tools.html</anchorfile>
+      <anchor>aac08e47401ad9b5791e305b511df1e0e</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>std::string</type>
+      <name>output_directory</name>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1tools.html</anchorfile>
+      <anchor>a3e5459c96ca50bd4de0c2e1622008c58</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>std::string</type>
+      <name>models_directory</name>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1tools.html</anchorfile>
+      <anchor>aeda5ba380aaf12ffc219fc436507e7d3</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>Image</type>
+      <name>read_standard_tiff</name>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1tools.html</anchorfile>
+      <anchor>a7a29b5ae602984d1d93165eb0c1f0b54</anchor>
+      <arglist>(std::string const &amp;name)</arglist>
+    </member>
   </compound>
   <compound kind="namespace">
     <name>sopt::utilities</name>

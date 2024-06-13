@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['data_5fdirectory_65',['data_directory',['../namespacesopt_1_1notinstalled.html#a1fcff7fb7b9de6604362ab009611d37f',1,'sopt::notinstalled']]],
+  ['data_5fdirectory_65',['data_directory',['../namespacesopt_1_1tools.html#aac08e47401ad9b5791e305b511df1e0e',1,'sopt::tools']]],
   ['daubechies1_66',['Daubechies1',['../namespacesopt_1_1wavelets.html#a5f7840849b50f7b4950db5d745038bf0',1,'sopt::wavelets']]],
   ['daubechies10_67',['Daubechies10',['../namespacesopt_1_1wavelets.html#ac06f75b2b69f1e513ae7e7d486e2f339',1,'sopt::wavelets']]],
   ['daubechies11_68',['Daubechies11',['../namespacesopt_1_1wavelets.html#a005d6a40b3bb0932f580c7e15eaae4d9',1,'sopt::wavelets']]],

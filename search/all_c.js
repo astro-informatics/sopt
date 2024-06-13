@@ -12,7 +12,7 @@ var searchData=
   ['mersenne_282',['mersenne',['../common__catch__main_8cc.html#afd7b13def75c5d7feb77ac1ea2df5d0b',1,'mersenne(new std::mt19937_64(0)):&#160;common_catch_main.cc'],['../common__mpi__catch__main_8cc.html#afd7b13def75c5d7feb77ac1ea2df5d0b',1,'mersenne(new std::mt19937_64(0)):&#160;common_mpi_catch_main.cc']]],
   ['min_5fdelta_283',['min_delta',['../classsopt_1_1algorithm_1_1Reweighted.html#a030c711934fd84eaea7e9319748851c4',1,'sopt::algorithm::Reweighted::min_delta(Real min_delta)'],['../classsopt_1_1algorithm_1_1Reweighted.html#abb7824f4677b3c4e82c5daff79cc8996',1,'sopt::algorithm::Reweighted::min_delta() const']]],
   ['mkformattedstring_284',['mkFormattedString',['../namespacesopt_1_1logging.html#a60307772406264e603590704d663be39',1,'sopt::logging::mkFormattedString(const char *txt, Args &amp;&amp;... args)'],['../namespacesopt_1_1logging.html#a45b4577bcf8a8042cf10881b9b824bb6',1,'sopt::logging::mkFormattedString(const std::string &amp;txt)']]],
-  ['models_5fdirectory_285',['models_directory',['../namespacesopt_1_1notinstalled.html#a2fa3d08c375b7e60e38382025a454314',1,'sopt::notinstalled']]],
+  ['models_5fdirectory_285',['models_directory',['../namespacesopt_1_1tools.html#aeda5ba380aaf12ffc219fc436507e7d3',1,'sopt::tools']]],
   ['mpi_5fproximals_2ecc_286',['mpi_proximals.cc',['../mpi__proximals_8cc.html',1,'']]],
   ['mpi_5fsession_2ecc_287',['mpi_session.cc',['../mpi__session_8cc.html',1,'']]],
   ['mpi_5fwavelets_2ecc_288',['mpi_wavelets.cc',['../mpi__wavelets_8cc.html',1,'']]]
