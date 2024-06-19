@@ -36,8 +36,8 @@ class ForwardBackward {
   //! Type of the proximal operator
   using t_Proximal = ProximalFunction<Scalar>;
   //! Type of the gradient
-  // The first argument is the output vector, the second is the input vector, and the third is the input residual
-  using t_Gradient = typename std::function<void(t_Vector &gradient, const t_Vector &image, const t_Vector &residual)>;
+  // The first argument is the output vector, the others are inputs
+  using t_Gradient = std::function<void(t_Vector &gradient, const t_Vector &image, const t_Vector &residual, const t_LinearTransform& Phi)>;
 
   //! Values indicating how the algorithm ran
   struct Diagnostic {
@@ -111,9 +111,9 @@ class ForwardBackward {
   //! Second proximal
   SOPT_MACRO(g_proximal, t_Proximal);
 #undef SOPT_MACRO
-  //! \brief Simplifies calling the proximal of f.
-  void f_gradient(t_Vector &out, t_Vector const &x, t_Vector const &res) const { f_gradient()(out, x, res); }
-  //! \brief Simplifies calling the proximal of f.
+  //! \brief Simplifies calling the gradient function
+  void f_gradient(t_Vector &out, t_Vector const &x, t_Vector const &res, t_LinearTransform const &Phi) const { f_gradient()(out, x, res, Phi); }
+  //! \brief Simplifies calling the proximal function
   void g_proximal(t_Vector &out, Real gamma, t_Vector const &x) const {
     g_proximal()(out, gamma, x);
   }
@@ -238,11 +238,17 @@ template <typename SCALAR>
 void ForwardBackward<SCALAR>::iteration_step(t_Vector &image_new, t_Vector &residual, t_Vector &image_current,
                                              t_Vector &gradient_current, const t_real FISTA_ratio) const {
   // z = image;  // store previous image in buffer; this looks incorrect. 
-  f_gradient(gradient_current, image_current, residual);  // takes residual and calculates the grad = 1/sig^2 residual
+  SOPT_HIGH_LOG("Calculate gradient");
+  f_gradient(gradient_current, image_current, residual, Phi());  // takes residual and calculates the grad = 1/sig^2 residual
+  SOPT_HIGH_LOG("Take a gradient step");
   image_new = image_current - beta() / nu() * gradient_current;  // step to new image using gradient
+  SOPT_HIGH_LOG("Calculate the weight");
   const Real weight = gamma() * beta();
+  SOPT_HIGH_LOG("Apply proximal operator");
   g_proximal(image_new, weight, image_new);  // apply proximal operator to new image
+  SOPT_HIGH_LOG("FISTA acceleration step");
   image_current = image_new + FISTA_ratio * (image_new - image_current);  // FISTA acceleration step  
+  SOPT_HIGH_LOG("Calculate the residual");
   residual = (Phi() * image_current) - target();  // calculates the residual for the NEXT iteration.
 }
 
@@ -270,19 +276,20 @@ typename ForwardBackward<SCALAR>::Diagnostic ForwardBackward<SCALAR>::operator()
   Real theta_new = 1.0;
   Real FISTA_ratio = 0.0;
   for (; (not converged) && (niters < itermax()); ++niters) {
-    SOPT_LOW_LOG("    - [FB] Iteration {}/{}", niters, itermax());
+    SOPT_HIGH_LOG("    - [FB] Iteration {}/{}", niters, itermax());
     if (fista()) {
       theta_new = (1 + std::sqrt(1 + 4 * theta * theta)) / 2.;
       FISTA_ratio = (theta - 1) / (theta_new);
       theta = theta_new;
     }
+    SOPT_HIGH_LOG("      - Call iteration step");
     iteration_step(out, residual, image_current, gradient_current, FISTA_ratio);
-    SOPT_LOW_LOG("      - [FB] Sum of residuals: {}", residual.array().abs().sum());
+    SOPT_HIGH_LOG("      - [FB] Sum of residuals: {}", residual.array().abs().sum());
     converged = is_converged(out, residual);
   }
 
   if (converged) {
-    SOPT_MEDIUM_LOG("    - [FB] converged in {} of {} iterations", niters, itermax());
+    SOPT_HIGH_LOG("    - [FB] converged in {} of {} iterations", niters, itermax());
   } else if (static_cast<bool>(is_converged())) {
     // not meaningful if not convergence function
     SOPT_ERROR("    - [FB] did not converge within {} iterations", itermax());

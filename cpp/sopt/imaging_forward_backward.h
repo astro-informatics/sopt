@@ -59,23 +59,23 @@ class ImagingForwardBackward {
   //! \param[in] target: Vector of target measurements
   template <typename DERIVED>
   ImagingForwardBackward(Eigen::MatrixBase<DERIVED> const &target)
-    : g_proximal_(nullptr),
-      l2_gradient_([](t_Vector &output, const t_Vector &res) -> void {
-		     output = res; }),  // gradient of 1/2 * x^2 = x;
-      tight_frame_(false),
-      residual_tolerance_(0.),
-      relative_variation_(1e-4),
-      residual_convergence_(nullptr),
-      objective_convergence_(nullptr),
-      itermax_(std::numeric_limits<t_uint>::max()),
-      gamma_(1e-8),
-      beta_(1),
-      sigma_(1),
-      nu_(1),
-      fista_(true),
-      is_converged_(),
-      Phi_(linear_transform_identity<Scalar>()),
-      target_(target) {}
+      : g_proximal_(nullptr),
+        l2_gradient_([](t_Vector &output, const t_Vector &res) -> void {
+          output = res; }),  // gradient of 1/2 * x^2 = x;
+        tight_frame_(false),
+        residual_tolerance_(0.),
+        relative_variation_(1e-4),
+        residual_convergence_(nullptr),
+        objective_convergence_(nullptr),
+        itermax_(std::numeric_limits<t_uint>::max()),
+        gamma_(1e-8),
+        beta_(1),
+        sigma_(1),
+        nu_(1),
+        fista_(true),
+        is_converged_(),
+        Phi_(linear_transform_identity<Scalar>()),
+        target_(target) {}
   virtual ~ImagingForwardBackward() {}
 
 // Macro helps define properties that can be initialized as in
@@ -143,17 +143,9 @@ class ImagingForwardBackward {
 
   // Default f_gradient is gradient of l2-norm
   // This gradient ignores x and is based only on residual. (x is required for other forms of gradient)
-  t_Gradient f_gradient = [this](t_Vector &out, t_Vector const &x, t_Vector const &res) {
-    SOPT_HIGH_LOG("Inside gradient lambda function");
-    t_Vector temp;
-    SOPT_HIGH_LOG("Calculate the l2 gradient");
-    this->l2_gradient()(temp, res / (sigma() * sigma()));
-    SOPT_HIGH_LOG("Apply adjoint linear operator {}", temp.size());
-    out = this->Phi().adjoint() * temp;
-    SOPT_HIGH_LOG("Finish gradient");
-  };
+  t_Gradient f_gradient;
 
-  void set_f_gradient(t_Gradient const &fgrad)
+  void set_f_gradient(t_Gradient &fgrad)
   {
     f_gradient = fgrad;
   }
@@ -282,15 +274,14 @@ typename ImagingForwardBackward<SCALAR>::Diagnostic ImagingForwardBackward<SCALA
   // The f proximal is an L1 proximal that stores some diagnostic result
   Diagnostic result;
   auto const g_proximal_function = g_proximal_->proximal_operator();
-  t_Gradient f_grad = [this](t_Vector &out, t_Vector const &x, t_Vector const &res) {
-    SOPT_HIGH_LOG("Inside NEW gradient lambda function");
-    t_Vector temp;
-    SOPT_HIGH_LOG("Calculate the l2 gradient");
-    this->l2_gradient()(temp, res / (sigma() * sigma()));
-    SOPT_HIGH_LOG("Apply adjoint linear operator {}", temp.size());
-    out = this->Phi().adjoint() * temp;
-    SOPT_HIGH_LOG("Finish gradient");
-  };
+
+  if(!f_gradient)
+  {
+    SOPT_HIGH_LOG("Gradient function has not been explicitly set; using default gradient. To set custom gradient set_gradient() must be called before the algorithm is run.");
+    f_gradient = [this](t_Vector &output, t_Vector const &x, t_Vector const &residual, t_LinearTransform const &Phi) {
+      output = Phi.adjoint() * (residual / (this->sigma() * this->sigma()));
+    };
+  }
   ScalarRelativeVariation<Scalar> scalvar(relative_variation(), relative_variation(),
                                           "Objective function");
   auto const convergence = [this, &scalvar](t_Vector const &x, t_Vector const &residual) mutable {
@@ -298,7 +289,7 @@ typename ImagingForwardBackward<SCALAR>::Diagnostic ImagingForwardBackward<SCALA
     this->objmin_ = std::real(scalvar.previous());
     return result;
   };
-  auto const fb = ForwardBackward<SCALAR>(f_grad, g_proximal_function, target())
+  auto const fb = ForwardBackward<SCALAR>(f_gradient, g_proximal_function, target())
                       .itermax(itermax())
                       .beta(beta())
                       .gamma(gamma())
