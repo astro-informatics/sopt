@@ -102,8 +102,8 @@ TEST_CASE("Inpainting"){
 
   auto const diagnostic = fb();
 
-  // CHECK(diagnostic.good);
-  // CHECK(diagnostic.niters < 500);
+  CHECK(diagnostic.good);
+  CHECK(diagnostic.niters < 500);
 
   // compare input image to cleaned output image
   // calculate mean squared error sum_i ( ( x_true(i) - x_est(i) ) **2 )
