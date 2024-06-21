@@ -88,10 +88,7 @@ TEST_CASE("Inpainting"){
   // check this is less than the number of pixels * 0.01
 
   Eigen::Map<const Eigen::VectorXd> flat_image(image.data(), image.size());
-  auto diff = (flat_image - diagnostic.x).array();
-  auto diff2 = diff.square();
-  auto sumdiff2 = diff2.sum();
-  auto mse = sumdiff2 / image.size();
+  auto mse = (flat_image - diagnostic.x).array().square().sum() / image.size();
   CAPTURE(mse);
   CHECK(mse < 0.01);
 }
