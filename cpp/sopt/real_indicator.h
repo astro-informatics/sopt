@@ -23,7 +23,7 @@ class RealIndicator : public NonDifferentiableFunc<SCALAR>
 
     void log_message() const override
     {
-        SOPT_HIGH_LOG("Performing Forward Backward TensorFlow model");
+        SOPT_HIGH_LOG("Using Real Indicator for g(x)");
     }
     
     // Indicator function. This is usually only used for the 
