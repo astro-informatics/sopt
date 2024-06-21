@@ -1,5 +1,5 @@
-#ifndef SOPT_G_PROXIMAL_H
-#define SOPT_G_PROXIMAL_H
+#ifndef SOPT_NON_DIFFERENTIABLE_FUNC_H
+#define SOPT_NON_DIFFERENTIABLE_FUNC_H
 
 #include <numeric>
 #include <tuple>

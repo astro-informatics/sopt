@@ -1,5 +1,5 @@
-#ifndef SOPT_TF_G_PROXIMAL_H
-#define SOPT_TF_G_PROXIMAL_H
+#ifndef SOPT_TF_NON_DIFF_FUNCTION_H
+#define SOPT_TF_NON_DIFF_FUNCTION_H
 // TODO: Clean up unnecessary includes
 #include "sopt/config.h"
 #include <numeric>
