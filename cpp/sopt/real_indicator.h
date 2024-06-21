@@ -1,7 +1,7 @@
 #ifndef SOPT_PROJECTION_PROXIMAL_H
 #define SOPT_PROJECTION_PROXIMAL_H
 
-#include "sopt/g_proximal.h"
+#include "sopt/non_differentiable_func.h"
 #include "sopt/linear_transform.h"
 #include <complex>
 

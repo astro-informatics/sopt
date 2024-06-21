@@ -12,7 +12,7 @@
 #include "sopt/proximal.h"
 #include "sopt/relative_variation.h"
 #include "sopt/types.h"
-#include "sopt/g_proximal.h"
+#include "sopt/non_differentiable_func.h"
 #include "sopt/l1_proximal.h"
 
 #ifdef SOPT_MPI
