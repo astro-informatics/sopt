@@ -75,8 +75,6 @@ TEST_CASE("Check type returned on setting variables") {
   CHECK(is_imaging_proximal_ref<decltype(fb.beta(1e-1))>::value);
   CHECK(is_imaging_proximal_ref<decltype(fb.gamma(1e-1))>::value);
   CHECK(is_imaging_proximal_ref<decltype(fb.sigma(1e-1))>::value);
-  std::function<void(Vector<double> &, const Vector<double> &)> const grad;
-  CHECK(is_imaging_proximal_ref<decltype(fb.l2_gradient(grad))>::value);
   CHECK(is_imaging_proximal_ref<decltype(fb.residual_convergence(1.001))>::value);
   CHECK(is_imaging_proximal_ref<decltype(fb.target(Vector<double>::Zero(0)))>::value);
   using ConvFunc = ConvergenceFunction<double>;
