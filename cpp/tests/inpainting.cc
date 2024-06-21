@@ -8,7 +8,7 @@
 #include <catch2/catch_all.hpp>
 
 #include "sopt/imaging_forward_backward.h"
-#include "sopt/l1_g_proximal.h"
+#include "sopt/l1_non_diff_function.h"
 #include "sopt/logging.h"
 #include "sopt/maths.h"
 #include "sopt/relative_variation.h"

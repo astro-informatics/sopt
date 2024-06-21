@@ -3,7 +3,7 @@ set(headers
   bisection_method.h chained_operators.h credible_region.h
   imaging_padmm.h logging.h
   forward_backward.h imaging_forward_backward.h
-  g_proximal.h l1_g_proximal.h joint_map.h
+  non_differentiable_func.h l1_non_diff_function.h joint_map.h
   imaging_primal_dual.h primal_dual.h
   maths.h proximal.h relative_variation.h sdmm.h
   wavelets.h conjugate_gradient.h l1_proximal.h padmm.h proximal_expression.h
@@ -36,7 +36,7 @@ endif()
 
 if(cppflow)
   list(APPEND sources cppflow_utils.cc)
-  list(APPEND headers cppflow_utils.h tf_g_proximal.h)
+  list(APPEND headers cppflow_utils.h tf_non_diff_function.h)
 endif()
 
 add_library(sopt SHARED ${sources})
