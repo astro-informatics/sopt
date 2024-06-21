@@ -64,7 +64,7 @@ TEST_CASE("Inpainting"){
     .residual_tolerance(0)
     .tight_frame(true)
     .Phi(sampling);
-
+  
   // Create a shared pointer to an instance of the L1GProximal class
   // and set its properties
   auto gp = std::make_shared<sopt::algorithm::L1GProximal<Scalar>>(false);
@@ -87,7 +87,11 @@ TEST_CASE("Inpainting"){
   // calculate mean squared error sum_i ( ( x_true(i) - x_est(i) ) **2 )
   // check this is less than the number of pixels * 0.01
 
-  auto mse = (image - diagnostic.x.array()).square().sum() / image.size();
+  Eigen::Map<const Eigen::VectorXd> flat_image(image.data(), image.size());
+  auto diff = (flat_image - diagnostic.x).array();
+  auto diff2 = diff.square();
+  auto sumdiff2 = diff2.sum();
+  auto mse = sumdiff2 / image.size();
   CAPTURE(mse);
   CHECK(mse < 0.01);
 }
