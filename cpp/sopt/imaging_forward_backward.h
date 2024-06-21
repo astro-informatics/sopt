@@ -145,7 +145,7 @@ class ImagingForwardBackward {
   // This gradient ignores x and is based only on residual. (x is required for other forms of gradient)
   t_Gradient f_gradient;
 
-  void set_f_gradient(t_Gradient &fgrad)
+  void set_f_gradient(const t_Gradient &fgrad)
   {
     f_gradient = fgrad;
   }
@@ -170,39 +170,39 @@ class ImagingForwardBackward {
   //! \brief Calls Forward Backward
   //! \param[out] out: Output vector x
   //! \param[in] guess: initial guess
-  Diagnostic operator()(t_Vector &out, std::tuple<t_Vector, t_Vector> const &guess) const {
+  Diagnostic operator()(t_Vector &out, std::tuple<t_Vector, t_Vector> const &guess)  {
     return operator()(out, std::get<0>(guess), std::get<1>(guess));
   }
   //! \brief Calls Forward Backward
   //! \param[out] out: Output vector x
   //! \param[in] guess: initial guess
   Diagnostic operator()(t_Vector &out,
-                        std::tuple<t_Vector const &, t_Vector const &> const &guess) const {
+                        std::tuple<t_Vector const &, t_Vector const &> const &guess)  {
     return operator()(out, std::get<0>(guess), std::get<1>(guess));
   }
   //! \brief Calls Forward Backward
   //! \param[in] guess: initial guess
-  DiagnosticAndResult operator()(std::tuple<t_Vector, t_Vector> const &guess) const {
+  DiagnosticAndResult operator()(std::tuple<t_Vector, t_Vector> const &guess)  {
     return operator()(std::tie(std::get<0>(guess), std::get<1>(guess)));
   }
   //! \brief Calls Forward Backward
   //! \param[in] guess: initial guess
   DiagnosticAndResult operator()(
-      std::tuple<t_Vector const &, t_Vector const &> const &guess) const {
+      std::tuple<t_Vector const &, t_Vector const &> const &guess)  {
     DiagnosticAndResult result;
     static_cast<Diagnostic &>(result) = operator()(result.x, guess);
     return result;
   }
   //! \brief Calls Forward Backward
   //! \param[in] guess: initial guess
-  DiagnosticAndResult operator()() const {
+  DiagnosticAndResult operator()()  {
     DiagnosticAndResult result;
     static_cast<Diagnostic &>(result) = operator()(
         result.x, ForwardBackward<SCALAR>::initial_guess(target(), Phi(), nu()));
     return result;
   }
   //! Makes it simple to chain different calls to FB
-  DiagnosticAndResult operator()(DiagnosticAndResult const &warmstart) const {
+  DiagnosticAndResult operator()(DiagnosticAndResult const &warmstart)  {
     DiagnosticAndResult result = warmstart;
     static_cast<Diagnostic &>(result) = operator()(result.x, warmstart.x, warmstart.residual);
     return result;
@@ -247,7 +247,7 @@ class ImagingForwardBackward {
   //! \param[out] out: Output vector x
   //! \param[in] guess: initial guess
   //! \param[in] residuals: initial residuals
-  Diagnostic operator()(t_Vector &out, t_Vector const &guess, t_Vector const &res) const;
+  Diagnostic operator()(t_Vector &out, t_Vector const &guess, t_Vector const &res) ;
 
   //! Helper function to simplify checking convergence
   bool residual_convergence(t_Vector const &x, t_Vector const &residual) const;
@@ -269,7 +269,7 @@ class ImagingForwardBackward {
 
 template <typename SCALAR>
 typename ImagingForwardBackward<SCALAR>::Diagnostic ImagingForwardBackward<SCALAR>::operator()(
-    t_Vector &out, t_Vector const &guess, t_Vector const &res) const {
+    t_Vector &out, t_Vector const &guess, t_Vector const &res) {
   g_proximal_->log_message();
   // The f proximal is an L1 proximal that stores some diagnostic result
   Diagnostic result;
@@ -277,7 +277,7 @@ typename ImagingForwardBackward<SCALAR>::Diagnostic ImagingForwardBackward<SCALA
 
   if(!f_gradient)
   {
-    SOPT_HIGH_LOG("Gradient function has not been explicitly set; using default gradient. To set custom gradient set_gradient() must be called before the algorithm is run.");
+    SOPT_HIGH_LOG("Gradient function has not been set; using default (gaussian likelihood) gradient. (To set a custom gradient set_gradient() must be called before the algorithm is run.)");
     f_gradient = [this](t_Vector &output, t_Vector const &x, t_Vector const &residual, t_LinearTransform const &Phi) {
       output = Phi.adjoint() * (residual / (this->sigma() * this->sigma()));
     };
