@@ -22,9 +22,9 @@
 
 namespace sopt::algorithm {
 
-// Implementation of g_proximal with a TensorFlow model. Owns private
-// object model_ and implements the
-// interface defined by the GProximal class
+// Implementation of non differentiable function g(x) with a TensorFlow model. 
+// The function represents an l1 norm.
+// The "proximal" operator is implemented using the neural net model (denoiser).
 template <typename SCALAR>
 class TFGProximal : public NonDifferentiableFunc<SCALAR> {
 

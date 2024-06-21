@@ -21,9 +21,8 @@
 
 namespace sopt::algorithm {
 
-// Implementation of g_proximal with l1 proximal.
-// Owns the private object l1_proximal_ and implements the
-// interface defined by the GProximal class
+// Implementation of non differentiable function g(x) = l1 norm.
+// Proximal operator is implemented using the private l1_proximal object.
 template <typename SCALAR>
 class L1GProximal : public NonDifferentiableFunc<SCALAR> {
 
