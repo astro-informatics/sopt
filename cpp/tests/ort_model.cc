@@ -8,16 +8,16 @@ using namespace sopt;
 
 TEST_CASE("Load an example ORT model", "[ONNXrt]") {
 
-  const std::string path(sopt::notinstalled::models_directory());
-  ORTsession model(path+"/example_CRR_sigma_5_t_5.onnx");
+  const std::string path(sopt::tools::models_directory());
+  ORTsession model(path+"/example_grad_CRR_sigma_5_t_5.onnx");
 
   CHECK(true);
 }
 
 TEST_CASE("Check metadata of an example ORT model", "[ONNXrt]") {
 
-  const std::string path(sopt::notinstalled::models_directory());
-  ORTsession model(path+"/example_CRR_sigma_5_t_5.onnx");
+  const std::string path(sopt::tools::models_directory());
+  ORTsession model(path+"/example_grad_CRR_sigma_5_t_5.onnx");
 
   const double L = model.retrieve<double>("L_CRR");
   const double L_ref = 0.769605;
@@ -27,8 +27,8 @@ TEST_CASE("Check metadata of an example ORT model", "[ONNXrt]") {
 
 TEST_CASE("Check forward folding of an example ORT model using std::vectors", "[ONNXrt]") {
 
-  const std::string path(sopt::notinstalled::models_directory());
-  ORTsession model(path+"/example_CRR_sigma_5_t_5.onnx");
+  const std::string path(sopt::tools::models_directory());
+  ORTsession model(path+"/example_grad_CRR_sigma_5_t_5.onnx");
 
   const size_t nROWS = 256, nCOLS = 256;
   const size_t input_size = 1 * nROWS * nCOLS;
@@ -58,8 +58,8 @@ TEST_CASE("Check forward folding of an example ORT model using std::vectors", "[
 
 TEST_CASE("Check forward folding of an example ORT model using sopt::Vectors", "[ONNXrt]") {
 
-  const std::string path(sopt::notinstalled::models_directory());
-  ORTsession model(path+"/example_CRR_sigma_5_t_5.onnx");
+  const std::string path(sopt::tools::models_directory());
+  ORTsession model(path+"/example_grad_CRR_sigma_5_t_5.onnx");
 
   const size_t nROWS = 256, nCOLS = 256;
   const size_t input_size = 1 * nROWS * nCOLS;

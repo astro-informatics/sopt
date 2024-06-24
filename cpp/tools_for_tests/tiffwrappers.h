@@ -6,8 +6,8 @@
 #include <Eigen/Core>
 #include "sopt/types.h"
 
-namespace sopt::notinstalled {
+namespace sopt::tools {
 //! Reads tiff image from sopt data directory if it exists
 sopt::Image<> read_standard_tiff(std::string const &name);
-} // namespace sopt::notinstalled
+} // namespace sopt::tools
 #endif
