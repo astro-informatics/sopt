@@ -4,6 +4,7 @@ set(headers
   imaging_padmm.h logging.h
   forward_backward.h imaging_forward_backward.h
   non_differentiable_func.h l1_non_diff_function.h joint_map.h
+  differentiable_func.h
   imaging_primal_dual.h primal_dual.h
   maths.h proximal.h relative_variation.h sdmm.h
   wavelets.h conjugate_gradient.h l1_proximal.h padmm.h proximal_expression.h
@@ -31,7 +32,7 @@ if(SOPT_MPI)
 endif()
 
 if(onnxrt)
-  list(APPEND headers ort_session.h)
+  list(APPEND headers ort_session.h onnx_differentiable_func.h)
 endif()
 
 if(cppflow)
