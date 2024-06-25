@@ -111,7 +111,7 @@ int main(int argc, char const **argv) {
     .Psi(psi);
 
   // Once the properties are set, inject it into the ImagingForwardBackward object
-  fb.g_proximal(gp);
+  fb.g_function(gp);
 
   SOPT_HIGH_LOG("Starting Forward Backward");
   // Alternatively, forward-backward can be called with a tuple (x, residual) as argument
