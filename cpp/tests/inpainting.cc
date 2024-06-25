@@ -76,7 +76,7 @@ TEST_CASE("Inpainting"){
     .Psi(psi);
 
   // Once the properties are set, inject it into the ImagingForwardBackward object
-  fb.g_proximal(gp);
+  fb.g_function(gp);
 
   auto const diagnostic = fb();
 

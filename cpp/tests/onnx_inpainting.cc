@@ -17,6 +17,7 @@
 #include "sopt/utilities.h"
 #include "sopt/ort_session.h"
 #include "sopt/relative_variation.h"
+#include "sopt/onnx_differentiable_func.h"
 
 // This header is not part of the installed sopt interface
 // It is only present in tests
@@ -40,10 +41,8 @@ TEST_CASE("Inpainting"){
   extern std::unique_ptr<std::mt19937_64> mersenne;
   std::string const input = "cameraman256";
 
-  std::string const model_path = std::string(sopt::notinstalled::models_directory() + "/example_CRR_sigma_5_t_5.onnx");
-  sopt::ORTsession onnx_model(model_path);
 
-  Image const image = sopt::notinstalled::read_standard_tiff(input);
+  Image const image = sopt::tools::read_standard_tiff(input);
 
   sopt::t_uint nmeasure = std::floor(0.5 * image.size());
   LinearTransform const sampling =
@@ -53,6 +52,12 @@ TEST_CASE("Inpainting"){
   auto constexpr snr = 30.0;
   auto const sigma = y0.stableNorm() / std::sqrt(y0.size()) * std::pow(10.0, -(snr / 20.0));
   auto const epsilon = std::sqrt(nmeasure + 2 * std::sqrt(y0.size())) * sigma;
+
+  // set the model function and gradient
+  std::string const prior_path = std::string(sopt::tools::models_directory() + "/example_cost_CRR_sigma_5_t_5.onnx");
+  std::string const prior_gradient_path = std::string(sopt::tools::models_directory() + "/example_grad_CRR_sigma_5_t_5.onnx");
+  //sopt::ORTsession onnx_model(model_path);
+  std::shared_ptr<sopt::ONNXDifferentiableFunc<Scalar>> diff_function = std::make_shared<sopt::ONNXDifferentiableFunc<Scalar>>(prior_path, prior_gradient_path, sigma, mu, lambda, sampling);
 
   std::normal_distribution<> gaussian_dist(0, sigma);
   Vector y(y0.size());
@@ -65,13 +70,13 @@ TEST_CASE("Inpainting"){
 
   sopt::t_real constexpr gamma = 18;
   sopt::t_real const beta = sigma * sigma * 0.5;
-  auto const f_gradient = [&onnx_model, sigma, lambda, mu](Vector &output, const Vector &image,
-                                                          const Vector &residual, const LinearTransform &Phi) -> void {
-    output = Phi.adjoint() * (residual / (sigma * sigma));  // L2 norm
-    Vector scaled_image = image*mu;
-    Vector ANN_gradient = onnx_model.compute(scaled_image);           // regulariser
-    output += (ANN_gradient * lambda);
-  };
+  //auto const f_gradient = [&onnx_model, sigma, lambda, mu](Vector &output, const Vector &image,
+  //                                                        const Vector &residual, const LinearTransform &Phi) -> void {
+  //  output = Phi.adjoint() * (residual / (sigma * sigma));  // L2 norm
+  //  Vector scaled_image = image*mu;
+  //  Vector ANN_gradient = onnx_model.compute(scaled_image);           // regulariser
+  //  output += (ANN_gradient * lambda);
+  //};
 
   // Arbitrary (absolute) tolerance level to produce a reasonable image which converges
   sopt::RelativeVariation<Scalar> scalvar(0.4,
@@ -92,13 +97,14 @@ TEST_CASE("Inpainting"){
     .Phi(sampling)
     .is_converged(convergence);
   
-  fb.set_f_gradient(f_gradient);
+  //fb.set_f_gradient(f_gradient);
+  fb.f_function(diff_function);
 
   // Create a shared pointer to the real indicator (non differentiable) function
   auto non_diff_func = std::make_shared<RealIndicator<Scalar>>();
 
   // Inject it into the ImagingForwardBackward object
-  fb.g_proximal(non_diff_func);
+  fb.g_function(non_diff_func);
 
   auto const diagnostic = fb();
 
