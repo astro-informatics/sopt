@@ -15,6 +15,7 @@
 #include "sopt/relative_variation.h"
 #include "sopt/types.h"
 #include "sopt/non_differentiable_func.h"
+#include "sopt/differentiable_func.h"
 
 #ifdef SOPT_MPI
 #include "sopt/mpi/communicator.h"
@@ -51,15 +52,19 @@ class ImagingForwardBackward {
     t_Vector x;
   };
 
-  //! Setups imaging wrapper for ForwardBackward. Sets g_proximal_ to null to avoid
-  //! having a dependency on the implementation of g_proximal. The correct implementation
+  //! Sets up imaging wrapper for ForwardBackward. Sets g_function_ to null to avoid
+  //! having a dependency on the implementation of g_function. The correct implementation
   //! should be injected by the code that instantiates this class.
   // Note: Using setter injection instead of constructior injection to follow the
   // style in the rest of the class, although constructor might be more appropriate
+  // In this problem we assume an objective function \f$f(x, y, \Phi) + g(x)\f$ where 
+  // \f$f\f$ is differentiable with a supplied gradient and \f$g\f$ is non-differentiable with a supplied proximal operator.
+  // Throughout this class we will use `f` and `g` in variables to refer to these two parts of the objective function.
   //! \param[in] target: Vector of target measurements
   template <typename DERIVED>
   ImagingForwardBackward(Eigen::MatrixBase<DERIVED> const &target)
-      : g_proximal_(nullptr),
+      : g_function_(nullptr),
+        f_function_(nullptr),
         tight_frame_(false),
         residual_tolerance_(0.),
         relative_variation_(1e-4),
@@ -114,7 +119,7 @@ class ImagingForwardBackward {
   SOPT_MACRO(sigma, Real);
   //! ν parameter
   SOPT_MACRO(nu, Real);
-  //! flag to for FISTA Forward-Backward algorithm. True by default but should be false when using a learned g_proximal.
+  //! flag to for FISTA Forward-Backward algorithm. True by default but should be false when using a learned g_function.
   SOPT_MACRO(fista, bool);
   //! A function verifying convergence
   SOPT_MACRO(is_converged, t_IsConverged);
@@ -128,23 +133,32 @@ class ImagingForwardBackward {
 
 #undef SOPT_MACRO
 
-  // Getter and setter for the g_proximal object
-  // The getter of g_proximal can not return a const because it will be used
+  // Getter and setter for the g_function object
+  // The getter of g_function can not return a const because it will be used
   // to call setters of its internal properties
-  std::shared_ptr<NonDifferentiableFunc<SCALAR>> g_proximal() { return g_proximal_; }
-  ImagingForwardBackward<SCALAR>& g_proximal( std::shared_ptr<NonDifferentiableFunc<SCALAR>> g_proximal) {
-    g_proximal_ = std::move(g_proximal);
+  std::shared_ptr<NonDifferentiableFunc<SCALAR>> g_function() { return g_function_; }
+  ImagingForwardBackward<SCALAR>& g_function( std::shared_ptr<NonDifferentiableFunc<SCALAR>> g_function) {
+    g_function_ = std::move(g_function);
+    return *this;
+  }
+
+  // Getter and setter for the f_function object
+  // The getter of f_function can not return a const because it will be used
+  // to call setters of its internal properties
+  std::shared_ptr<DifferentiableFunc<SCALAR>> f_function() { return f_function_; }
+  ImagingForwardBackward<SCALAR>& f_function( std::shared_ptr<DifferentiableFunc<SCALAR>> f_function) {
+    f_function_ = std::move(f_function);
     return *this;
   }
 
   // Default f_gradient is gradient of l2-norm
   // This gradient ignores x and is based only on residual. (x is required for other forms of gradient)
-  t_Gradient f_gradient;
+  //t_Gradient f_gradient;
 
-  void set_f_gradient(const t_Gradient &fgrad)
-  {
-    f_gradient = fgrad;
-  }
+  //void set_f_gradient(const t_Gradient &fgrad)
+  //{
+  //  f_gradient = fgrad;
+  //}
 
   //! Vector of target measurements
   t_Vector const &target() const { return target_; }
@@ -227,9 +241,11 @@ class ImagingForwardBackward {
 
  protected:
 
-  // Store a pointer of the abstract base class GProximal type that should
-  // point to an instance of a derived class (e.g. L1GProximal) once set up
-  std::shared_ptr<NonDifferentiableFunc<SCALAR>> g_proximal_;
+  // Store a pointer of the abstract base classes DifferentiableFunc & NonDifferentiableFunction type for f and g
+  // These should point to an instance of a derived class (e.g. L1GProximal) once set up
+  std::shared_ptr<NonDifferentiableFunc<SCALAR>> g_function_;
+  std::shared_ptr<DifferentiableFunc<SCALAR>> f_function_;
+
   //! Vector of measurements
   t_Vector target_;
   //! Mininum of objective function
@@ -262,11 +278,15 @@ class ImagingForwardBackward {
 template <typename SCALAR>
 typename ImagingForwardBackward<SCALAR>::Diagnostic ImagingForwardBackward<SCALAR>::operator()(
     t_Vector &out, t_Vector const &guess, t_Vector const &res) {
-  g_proximal_->log_message();
-  // The f proximal is an L1 proximal that stores some diagnostic result
+  if(!g_function_)
+  {
+    throw std::runtime_error("Non-differentiable function `g` has not been set. You must set it with `g_function()` before calling the algorithm.");
+  }
+  g_function_->log_message();
   Diagnostic result;
-  auto const g_proximal_function = g_proximal_->proximal_operator();
-
+  auto const g_proximal = g_function_->proximal_operator();
+  t_Gradient f_gradient;
+  if(f_function_) f_gradient = f_function_->gradient();
   if(!f_gradient)
   {
     SOPT_HIGH_LOG("Gradient function has not been set; using default (gaussian likelihood) gradient. (To set a custom gradient set_gradient() must be called before the algorithm is run.)");
@@ -281,7 +301,7 @@ typename ImagingForwardBackward<SCALAR>::Diagnostic ImagingForwardBackward<SCALA
     this->objmin_ = std::real(scalvar.previous());
     return result;
   };
-  auto const fb = ForwardBackward<SCALAR>(f_gradient, g_proximal_function, target())
+  auto const fb = ForwardBackward<SCALAR>(f_gradient, g_proximal, target())
                       .itermax(itermax())
                       .beta(beta())
                       .gamma(gamma())
@@ -310,7 +330,7 @@ bool ImagingForwardBackward<SCALAR>::objective_convergence(ScalarRelativeVariati
                                                            t_Vector const &residual) const {
   if (static_cast<bool>(objective_convergence())) return objective_convergence()(x, residual);
   if (scalvar.relative_tolerance() <= 0e0) return true;
-  auto const current = ((gamma() > 0) ? g_proximal_->function(x)
+  auto const current = ((gamma() > 0) ? g_function_->function(x)
 			* gamma() : 0) + std::pow(sopt::l2_norm(residual), 2) / (2 * sigma() * sigma());
   return scalvar(current);
 }
@@ -324,7 +344,7 @@ bool ImagingForwardBackward<SCALAR>::objective_convergence(mpi::Communicator con
   if (static_cast<bool>(objective_convergence())) return objective_convergence()(x, residual);
   if (scalvar.relative_tolerance() <= 0e0) return true;
   auto const current = obj_comm.all_sum_all<t_real>(
-	((gamma() > 0) ? g_proximal_->function(x)
+	((gamma() > 0) ? g_function_->function(x)
        * gamma() : 0) + std::pow(sopt::l2_norm(residual), 2) / (2 * sigma_ * sigma_));
   return scalvar(current);
 }

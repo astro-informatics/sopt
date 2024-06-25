@@ -6,7 +6,7 @@
 #include <utility>
 #include "sopt/forward_backward.h"
 
-// Abstract base class providing the interface for non differentiable functions 
+// Abstract base class providing the interface for non differentiable functions g(x)
 // with a proximal operator.
 template <typename SCALAR> class NonDifferentiableFunc {
 
