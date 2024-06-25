@@ -14,9 +14,12 @@
 namespace sopt::algorithm {
 
 /*! \brief Forward Backward Splitting 
-  \f$\min_{x} f(x, \Phi x - y) + g(z)\f$. \f$y\f$ is a target vector, while x is the current solution.
-  \f$f$ is a differentiable function. It is necessary to supply the gradient.
-  \f$g$ is a non-differentiable function. It is necessary to supply a proximal operator.
+  \An optimisation method to solve the problem \f$y = \Phi(x) + N(\sigma)\f
+  \f$\min_{x} f(x, y, \Phi) + g(x)\f$. \f$y\f$ is a target vector, while x is the current solution.
+  \f$f$ is a differentiable function. It is necessary to supply the gradient. 
+  \f$f$ is represented using a DifferentiableFunc object, which supplies the function and its gradient.
+  \f$g$ is a non-differentiable function. It is necessary to supply a proximal operator (or similar stepping function e.g. tensor-flow denoiser).
+  \f$g$ is represented using a NonDifferentiableFunc object, which supplies the function and its proximal operator.
 */
 template <typename SCALAR>
 class ForwardBackward {
@@ -60,8 +63,8 @@ class ForwardBackward {
   };
 
   //! Setups ForwardBackward
-  //! \param[in] f_gradient: gradient of the \f$f\f$ function.
-  //! \param[in] g_proximal: proximal operator of the \f$g\f$ function
+  //! \param[in] f_function: the differentiable function \f$f\f$ with a gradient
+  //! \param[in] g_function: the non-differentiable function \f$g\f$ with a proximal operator
   template <typename DERIVED>
   ForwardBackward(t_Gradient const &f_gradient, t_Proximal const &g_proximal,
                   Eigen::MatrixBase<DERIVED> const &target)
