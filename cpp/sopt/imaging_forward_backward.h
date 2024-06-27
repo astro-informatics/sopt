@@ -125,6 +125,7 @@ class ImagingForwardBackward {
   SOPT_MACRO(is_converged, t_IsConverged);
   //! Measurement operator
   SOPT_MACRO(Phi, t_LinearTransform);
+
 #ifdef SOPT_MPI
   //! Communicator for summing objective_function
   SOPT_MACRO(obj_comm, mpi::Communicator);
@@ -149,6 +150,11 @@ class ImagingForwardBackward {
   ImagingForwardBackward<SCALAR>& f_function( std::shared_ptr<DifferentiableFunc<SCALAR>> f_function) {
     f_function_ = std::move(f_function);
     return *this;
+  }
+
+  t_LinearTransform const &Psi() const
+  {
+    return (g_function_) ? g_function_->Psi() : linear_transform_identity<Scalar>();
   }
 
   // Default f_gradient is gradient of l2-norm
