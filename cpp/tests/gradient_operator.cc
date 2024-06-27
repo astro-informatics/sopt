@@ -32,8 +32,18 @@ TEST_CASE("Gradient Operator") {
   CAPTURE(output.segment(image.size(), 5));
   CHECK(output.size() == 2 * input.size());
   CHECK(output.segment(0, input.size()).isApprox(Vector::Zero(input.size())));
+  for(int i = 0; i < input.size()-1; i++)
+  {
+    if(output[input.size() + i] != 0.5)
+    {
+      SOPT_HIGH_LOG("Error at index {}", i+input.size());
+    }
+  }
+  Vector A = output.segment(input.size(), input.size()-1);
+  Vector B = Vector::Constant(input.size()-1, 1, 0.5);
+  CHECK(A.isApprox(B));
   CHECK(output.segment(input.size(), input.size() - 1)
-            .isApprox(Vector::Constant((Eigen::Index)0.5, input.size() - 1)));
+            .isApprox(Vector::Constant(input.size()-1, 1, 0.5)));
   input = Matrix::Ones(image.rows(), image.cols());
   for (Eigen::Index i(0); i < image.cols(); i++) input.col(i) *= static_cast<Scalar>(i);
   output = psi.adjoint() * Vector::Map(input.data(), input.size());
