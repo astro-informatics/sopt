@@ -22,7 +22,7 @@ class soptConan(ConanFile):
                "openmp":['on','off'],
                "dompi":['on','off'],
                "coverage":['on','off'],
-               "onnxrt":['on','off'],
+               "onnxrt":['on','off']}
     default_options = {"docs": 'off',
                        "examples":'on',
                        "tests": 'on',
