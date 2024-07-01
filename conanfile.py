@@ -23,7 +23,6 @@ class soptConan(ConanFile):
                "dompi":['on','off'],
                "coverage":['on','off'],
                "onnxrt":['on','off'],
-               "cppflow":['on','off'],}
     default_options = {"docs": 'off',
                        "examples":'on',
                        "tests": 'on',
@@ -31,13 +30,9 @@ class soptConan(ConanFile):
                        "openmp": 'off',
                        "dompi": 'off',
                        "coverage": 'off',
-                       "onnxrt": 'off',
-                       "cppflow": 'off'}
+                       "onnxrt": 'off'}
 
     def requirements(self):
-
-        if self.options.cppflow == 'on':
-            self.requires("cppflow/2.0.0")
 
         if self.options.onnxrt == 'on':
             self.requires("onnxruntime/1.16.3")
@@ -58,7 +53,6 @@ class soptConan(ConanFile):
         tc.cache_variables['onnxrt'] = self.options.onnxrt
         tc.cache_variables['dompi'] = self.options.dompi
         tc.cache_variables['coverage'] = self.options.coverage
-        tc.cache_variables['cppflow'] = self.options.cppflow
 
         # List cases where we don't use ccache
         if ('GITHUB_ACTIONS' in os.environ.keys() and self.options.docs == 'off'):

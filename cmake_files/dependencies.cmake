@@ -45,8 +45,3 @@ set(SOPT_MPI ${MPI_FOUND})
 if(onnxrt)
   include(LookUpONNXRT)
 endif()
-
-if(cppflow)
-  find_package(cppflow)
-  find_library(TENSORFLOW_LIB tensorflow REQUIRED)
-endif()

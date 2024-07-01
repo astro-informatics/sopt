@@ -62,7 +62,7 @@ class ORTsession {
   template<typename T = t_real>
   Vector<T> compute(const Vector<T>& input) const {
 
-    // require an output note of the form {1, nRows, nCols}
+    // require an output node of the form {1, nRows, nCols}
     // in order to be able to map this onto a 2D tensor
     if (_outDims[0].size() < 3) {
       throw std::length_error("Incorrect size for output tensor!");
@@ -77,6 +77,26 @@ class ORTsession {
     for (size_t i = 0; i < flat_output.size(); ++i) {
       rtn[i] = flat_output[i];
     }
+    return rtn;
+  }
+
+  /// Variant of compute() using input/output Image
+  template<typename T = t_real>
+  Image<T> compute(const Image<T>& input) const {
+
+    // ONNXrt requires floats as input
+    const int nrows = input.rows();
+    const int ncols = input.cols();
+    std::vector<float> flat_input(nrows*ncols);
+    for (int i = 0; i < nrows; ++i) {
+      for (int j = 0; j < ncols; ++j) {
+        flat_input[j*ncols+i] = input(i,j);
+      }
+    }
+    std::vector<float> flat_output = compute(flat_input);
+
+    std::vector<T> tResults(flat_output.begin(), flat_output.end());
+    Eigen::Map<Eigen::Array<T, Eigen::Dynamic, Eigen::Dynamic>> rtn(tResults.data(), nrows, ncols);
     return rtn;
   }
 
