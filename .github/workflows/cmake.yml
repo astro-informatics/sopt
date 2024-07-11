@@ -98,7 +98,7 @@ jobs:
         #echo "/opt/homebrew/opt/libomp" >> $GITHUB_PATH
         if [[ "$USE_CONAN" = 1 ]]; then
           brew install conan
-        else
+        fi
 
     #- name: Install gcc on MacOS
     #  if: ${{ contains(matrix.os, 'macos') && contains(matrix.cxx, 'g++10') }}
@@ -164,6 +164,7 @@ jobs:
           conan build ${{github.workspace}} -of ${{github.workspace}}/build -o dompi=${{matrix.mpi}} -o openmp=${{matrix.omp}} -o onnxrt=on -s compiler.cppstd=17
         else
           export PATH=${{github.workspace}}/Catch2/build:$PATH
+          mkdir -p ${{github.workspace}}/build
           cd ${{github.workspace}}/build
           make -j$(nproc --ignore 1)
           make -j$(nproc --ignore 1) install
