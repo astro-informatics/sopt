@@ -163,7 +163,7 @@ jobs:
           conan build ${{github.workspace}} -of ${{github.workspace}}/build -o dompi=${{matrix.mpi}} -o openmp=${{matrix.omp}} -o onnxrt=on -s compiler.cppstd=17
         else
           export PATH=${{github.workspace}}/Catch2/build:$PATH
-          export CMAKE_PREFIX_PATH=${{github.workspace}}/Catch2/build:$CMAKE_PREFIX_PATH
+          export CMAKE_PREFIX_PATH=${{github.workspace}}/Catch2/build/lib:$CMAKE_PREFIX_PATH
           mkdir -p ${{github.workspace}}/build
           cd ${{github.workspace}}/build
           cmake .. -DCMAKE_INSTALL_PREFIX=${PWD}
