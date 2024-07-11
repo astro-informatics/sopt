@@ -56,31 +56,15 @@ jobs:
             cd -
           fi
 
-      - name: Install Tensorflow API on Ubuntu
-        uses: UCL/install-tensorflow-action@main
-        with:
-          version: 2.11.0
-          os: linux
-
-      - name: Configure
-        run: |
-          if [[ "$USE_CONAN" = 1 ]]; then
-            conan install ${{github.workspace}} -of ${{github.workspace}}/build --build missing -s compiler.libcxx=libstdc++11 -o dompi=off -o openmp=off -o docs=off -o onnxrt=on
-          else
-            export PATH=${{github.workspace}}/Catch2/build:$PATH
-            export CMAKE_PREFIX_PATH=${{github.workspace}}/Catch2/build/lib/cmake/Catch2:$CMAKE_PREFIX_PATH
-            mkdir ${{github.workspace}}/build
-            cd ${{github.workspace}}/build
-            cmake .. -DCMAKE_INSTALL_PREFIX=${PWD} -Ddompi=OFF -Dopenmp=OFF -Ddocs=ON -Donnxrt=ON
-          fi
-
       - name: Build
         run: |
           if [[ "$USE_CONAN" = 1 ]]; then
             conan build ${{github.workspace}} -of ${{github.workspace}}/build
           else
-            export PATH=${{github.workspace}}/Catch2/build:$PATH
+            export CMAKE_PREFIX_PATH=${{github.workspace}}/Catch2/build/lib/cmake:$CMAKE_PREFIX_PATH
+            mkdir ${{github.workspace}}/build
             cd ${{github.workspace}}/build
+            cmake .. --fresh -DCMAKE_INSTALL_PREFIX=${PWD} -Ddompi=OFF -Dopenmp=OFF -Ddocs=ON -Donnxrt=ON
             make -j$(nproc --ignore 1)
             make -j$(nproc --ignore 1) install
           fi
