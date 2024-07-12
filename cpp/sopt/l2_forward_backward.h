@@ -61,8 +61,8 @@ class L2ForwardBackward {
               proximal::l2_norm(output, gamma, x);
             }),
         l2_proximal_weights_(Vector<Real>::Ones(1)),
-        l2_gradient_([](t_Vector &output, t_Vector const &image, const t_Vector &residual) -> void {
-          output = residual;
+        l2_gradient_([](t_Vector &output, t_Vector const &image, const t_Vector &residual, const t_LinearTransform &Phi) -> void {
+          output = Phi.adjoint()*residual;
         }),  // gradient of 1/2 * r^2 = r;
         tight_frame_(false),
         residual_tolerance_(0.),
@@ -264,10 +264,10 @@ typename L2ForwardBackward<SCALAR>::Diagnostic L2ForwardBackward<SCALAR>::operat
       this->l2_proximal()(out, this->l2_proximal_weights()(0) * gamma, x);
   };
   const Real sigma_factor = sigma() * sigma();
-   const t_Gradient f_gradient = [this, sigma_factor](t_Vector &out, t_Vector const &image, t_Vector const &res) {
+  const t_Gradient f_gradient = [sigma_factor](t_Vector &out, t_Vector const &image, t_Vector const &res, t_LinearTransform const &Phi) {
     t_Vector temp;
-    this->l2_gradient()(temp, image, res / sigma_factor);
-    out = this->Phi_.adjoint() * temp;
+    temp = res / sigma_factor;
+    out = Phi.adjoint() * temp;
   };
   ScalarRelativeVariation<Scalar> scalvar(relative_variation(), relative_variation(),
                                           "Objective function");

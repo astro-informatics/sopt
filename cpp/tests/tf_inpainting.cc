@@ -67,7 +67,7 @@ TEST_CASE("Inpainting"){
   auto gp = std::make_shared<sopt::algorithm::TFGProximal<Scalar>>(model_path);
 
   // Inject it into the ImagingForwardBackward object
-  fb.g_proximal(gp);
+  fb.g_function(gp);
 
   auto const diagnostic = fb();
 
