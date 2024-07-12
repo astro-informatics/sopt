@@ -240,18 +240,18 @@ class ForwardBackward {
 template <typename SCALAR>
 void ForwardBackward<SCALAR>::iteration_step(t_Vector &image_new, t_Vector &residual, t_Vector &image_current,
                                              t_Vector &gradient_current, const t_real FISTA_ratio) const {
-  // z = image;  // store previous image in buffer; this looks incorrect. 
-  SOPT_HIGH_LOG("Calculate gradient");
+  image_current = image_new;
+  SOPT_LOW_LOG("Calculate gradient");
   f_gradient(gradient_current, image_current, residual, Phi());  // takes residual and calculates the grad = 1/sig^2 residual
-  SOPT_HIGH_LOG("Take a gradient step");
+  SOPT_LOW_LOG("Take a gradient step");
   image_new = image_current - beta() / nu() * gradient_current;  // step to new image using gradient
-  SOPT_HIGH_LOG("Calculate the weight");
+  SOPT_LOW_LOG("Calculate the weight");
   const Real weight = gamma() * beta();
-  SOPT_HIGH_LOG("Apply proximal operator");
+  SOPT_LOW_LOG("Apply proximal operator");
   g_proximal(image_new, weight, image_new);  // apply proximal operator to new image
-  SOPT_HIGH_LOG("FISTA acceleration step");
+  SOPT_LOW_LOG("FISTA acceleration step");
   image_current = image_new + FISTA_ratio * (image_new - image_current);  // FISTA acceleration step  
-  SOPT_HIGH_LOG("Calculate the residual");
+  SOPT_LOW_LOG("Calculate the residual");
   residual = (Phi() * image_current) - target();  // calculates the residual for the NEXT iteration.
 }
 
