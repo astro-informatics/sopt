@@ -64,7 +64,6 @@ option(dompi          "Enable MPI"                             on)
 option(docs           "Build documentation"                    off)
 option(coverage       "Build coverage"                         off)
 option(onnxrt         "Enable ONNXruntime interface"           off)
-option(cppflow        "Enable tensorflow integration"          off)
 
 if(NOT CMAKE_BUILD_TYPE)
   message(STATUS "Setting build type to 'Release' as none was specified.")

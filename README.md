@@ -25,7 +25,6 @@ This documentation outlines the necessary and optional [dependencies](#dependenc
 - [CMake](http://www.cmake.org/) v3.9.2 A free software that allows cross-platform compilation.
 - [GCC](https://gcc.gnu.org) v7.3.0 GNU compiler for `C++`.
 - [OpenMP](http://openmp.org/wp/) v4.8.4 (Trusty) - Optional - Speeds up some of the operations.
-- [Cppflow](https://github.com/UCL/cppflow) v2.0.0 - Optional - A warpper for the Tensorflow C API allowing us to read Tensorflow models into SOPT. Needed if you are using a learned prior.
 - [Eigen3](http://eigen.tuxfamily.org/index.php?title=Main_Page) v3.4.0 (Trusty) Modern `C++` linear algebra. Downloaded automatically if absent.
 - [Catch2](https://github.com/catchorg/Catch2) v3.4.0 - Optional -  A `C++`
     unit-testing framework only needed for testing. Downloaded automatically if absent.
@@ -39,18 +38,6 @@ This documentation outlines the necessary and optional [dependencies](#dependenc
 
 [Conan](https://docs.conan.io/en/latest/installation.html) is a C++ package manager that helps deal with most of the C++ dependencies
 as well as the **SOPT** installation:
-
-1. If you are using a learned prior you must install the Tensorflow C API and `cppflow` package:
-    - Install [TensorFlow C API](https://www.tensorflow.org/install/lang_c)
-    - Clone the UCL fork of cppflow and create a conan package using
-
-        ``` bash
-        git clone git@github.com:UCL/cppflow.git
-        conan create ./cppflow/
-        ```
-      Note that conan requires you to specify the host (h) and the build (b) profiles on the command
-      line (`-pr:b=default -pr:h=default` or simply `-pr:a=default`), unless you have defined them in your conan profile.
-      You can set up a default profile for your system using `conan profile detect` (only needs to be done once).
 
 1. Once the mandatory dependencies are present, `git clone` from the [GitHub repository](https://github.com/astro-informatics/sopt):
 
@@ -86,7 +73,7 @@ Possible options are:
     - dompi (default off)
     - docs (default off)
     - coverage (default off)
-    - cppflow (default off)
+    - onnxrt (default off)
 
 For example, to build with both MPI and OpenMP on you would use
 
@@ -149,6 +136,56 @@ To check everything went all right, run the test suite:
 cd /path/to/code/build
 ctest .
 ```
+
+## Machine-learning models
+
+Machine-learning models are supported via the ONNXruntime interface.
+Nearly all modern ML toolkits allow to export their trained models
+into the ONNXruntime format using Python.
+
+Install translation packages e.g. using `pip`:
+```
+pip install onnx
+pip install onnxscript
+```
+
+PyTorch models can be exported to ONNXruntime like so
+```
+import torch
+torch_model = ... # PyTorch model based on torch.nn
+torch_input = torch_input = torch.randn(256, 256) # model input tensor
+torch.onnx.export(torch_model,
+                  torch_init,
+                  'model_name.onnx',        # output file name
+                  export_params=True,       # store trained param weights
+                  opset_version=11,         # ONNX version to export the model to
+                  do_constant_folding=True, # optmise using pre-computed constant nodes
+                  input_names=['input'],
+                  output_names=['ouput'],
+                  dynamic_axes={'input'  : {0 : 'batch_size'},
+                                'output' : {0 : 'batch_size'}})
+```
+
+Tensorflow models can be exported to ONNXruntime like so
+```
+python -m tf2onnx.convert
+       --saved-model model_name.pb
+       --output model_name.onnx
+       --opset 11
+       --inputs input0:0
+       --extra_opset StatefulPartitionedCall:0
+```
+Unknown TF input dimensions can be specified e.g. using `--inputs 'input0:0[1,256,256,1]'`.
+
+After the export, load the model and verify that it's well formed like so
+```
+import onnx
+onnx_model = onnx.load("model_name.onnx")
+onnx.checker.check_model(onnx_model)
+print( onnx_model.graph.input )
+```
+
+[Netron](https://netron.app/) is a useful online tool to help visualise the model.
 
 ## Matlab
 

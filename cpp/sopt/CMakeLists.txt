@@ -31,12 +31,7 @@ if(SOPT_MPI)
 endif()
 
 if(onnxrt)
-  list(APPEND headers ort_session.h)
-endif()
-
-if(cppflow)
-  list(APPEND sources cppflow_utils.cc)
-  list(APPEND headers cppflow_utils.h tf_g_proximal.h)
+  list(APPEND headers ort_session.h tf_g_proximal.h)
 endif()
 
 add_library(sopt SHARED ${sources})
@@ -71,20 +66,6 @@ if(onnxrt)
   target_link_libraries(sopt ${onnxruntime_LIBRARIES})
   target_include_directories(sopt SYSTEM PUBLIC ${onnxruntime_INCLUDE_DIR})
 endif()
-
-if (cppflow)
-  target_link_libraries(sopt "${TENSORFLOW_LIB}")
-  # Make cppflow include directory public. Install interface can't point to source directory,
-  # so it needs to be separately defined, explained in
-  # https://stackoverflow.com/questions/25676277/cmake-target-include-directories-prints-an-error-when-i-try-to-add-the-source
-  # Add /usr/local/include for default location of TensorFlow headers
-  target_include_directories(sopt PUBLIC
-    $<BUILD_INTERFACE:${cppflow_INCLUDE_DIR}>
-    $<BUILD_INTERFACE:/usr/local/include>
-    $<INSTALL_INTERFACE:cppflow/include/>
-    )
-endif()
-
 
 target_link_libraries(sopt ${CONAN_LIBS})
 

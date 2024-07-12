@@ -30,20 +30,20 @@ using Image = sopt::Image<Scalar>;
 
 TEST_CASE("Inpainting"){
   extern std::unique_ptr<std::mt19937_64> mersenne;
-  std::string const input = "cameraman256";
+  const std::string input = "cameraman256";
 
-  std::string const model_path = std::string(sopt::tools::models_directory() + "/snr_15_model.pb/");
+  const std::string model_path = std::string(sopt::tools::models_directory() + "/snr_15_model.onnx");
 
-  Image const image = sopt::tools::read_standard_tiff(input);
+  const Image image = sopt::tools::read_standard_tiff(input);
 
   sopt::t_uint nmeasure = std::floor(0.5 * image.size());
   sopt::LinearTransform<Vector> const sampling =
       sopt::linear_transform<Scalar>(sopt::Sampling(image.size(), nmeasure, *mersenne));
 
-  Vector const y0 = sampling * Vector::Map(image.data(), image.size());
-  auto constexpr snr = 30.0;
-  auto const sigma = y0.stableNorm() / std::sqrt(y0.size()) * std::pow(10.0, -(snr / 20.0));
-  auto const epsilon = std::sqrt(nmeasure + 2 * std::sqrt(y0.size())) * sigma;
+  const Vector y0 = sampling * Vector::Map(image.data(), image.size());
+  constexpr auto snr = 30.0;
+  const auto sigma = y0.stableNorm() / std::sqrt(y0.size()) * std::pow(10.0, -(snr / 20.0));
+  const auto epsilon = std::sqrt(nmeasure + 2 * std::sqrt(y0.size())) * sigma;
 
   std::normal_distribution<> gaussian_dist(0, sigma);
   Vector y(y0.size());
