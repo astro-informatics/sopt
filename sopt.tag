@@ -2384,11 +2384,11 @@
     <includes id="forward__backward_8h" name="forward_backward.h" local="yes" imported="no">sopt/forward_backward.h</includes>
     <includes id="linear__transform_8h" name="linear_transform.h" local="yes" imported="no">sopt/linear_transform.h</includes>
     <includes id="logging_8h" name="logging.h" local="yes" imported="no">sopt/logging.h</includes>
+    <includes id="ort__session_8h" name="ort_session.h" local="yes" imported="no">sopt/ort_session.h</includes>
     <includes id="proximal_8h" name="proximal.h" local="yes" imported="no">sopt/proximal.h</includes>
     <includes id="relative__variation_8h" name="relative_variation.h" local="yes" imported="no">sopt/relative_variation.h</includes>
     <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
     <includes id="g__proximal_8h" name="g_proximal.h" local="yes" imported="no">sopt/g_proximal.h</includes>
-    <includes id="cppflow__utils_8h" name="cppflow_utils.h" local="yes" imported="no">sopt/cppflow_utils.h</includes>
     <class kind="class">sopt::algorithm::TFGProximal</class>
     <namespace>sopt</namespace>
     <namespace>sopt::algorithm</namespace>
@@ -3215,37 +3215,6 @@
     </member>
   </compound>
   <compound kind="file">
-    <name>cppflow_model.cc</name>
-    <path>/home/runner/work/sopt/sopt/cpp/tests/</path>
-    <filename>http://astro-informatics.github.io/sopt/cppflow__model_8cc.html</filename>
-    <includes id="logging_8h" name="logging.h" local="yes" imported="no">sopt/logging.h</includes>
-    <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
-    <includes id="utilities_8h" name="utilities.h" local="yes" imported="no">sopt/utilities.h</includes>
-    <includes id="cppflow__utils_8h" name="cppflow_utils.h" local="yes" imported="no">sopt/cppflow_utils.h</includes>
-    <includes id="tiffwrappers_8h" name="tiffwrappers.h" local="yes" imported="no">tools_for_tests/tiffwrappers.h</includes>
-    <member kind="typedef">
-      <type>double</type>
-      <name>Scalar</name>
-      <anchorfile>cppflow__model_8cc.html</anchorfile>
-      <anchor>a8c2981f3f834be9448a6ab06c28748eb</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="typedef">
-      <type>sopt::Image&lt; Scalar &gt;</type>
-      <name>Image</name>
-      <anchorfile>cppflow__model_8cc.html</anchorfile>
-      <anchor>aeeca20f5186519056cf53849afb07e6e</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST_CASE</name>
-      <anchorfile>cppflow__model_8cc.html</anchorfile>
-      <anchor>af13222888aa268274065619978a61fb6</anchor>
-      <arglist>(&quot;Cppflow Model&quot;)</arglist>
-    </member>
-  </compound>
-  <compound kind="file">
     <name>credible_region.cc</name>
     <path>/home/runner/work/sopt/sopt/cpp/tests/</path>
     <filename>http://astro-informatics.github.io/sopt/credible__region_8cc.html</filename>
@@ -3995,6 +3964,44 @@
       <anchorfile>tf__inpainting_8cc.html</anchorfile>
       <anchor>a4e85c74adb906d5a3d0a1c2be49ebc78</anchor>
       <arglist>(&quot;Inpainting&quot;)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>tf_model.cc</name>
+    <path>/home/runner/work/sopt/sopt/cpp/tests/</path>
+    <filename>http://astro-informatics.github.io/sopt/tf__model_8cc.html</filename>
+    <includes id="logging_8h" name="logging.h" local="yes" imported="no">sopt/logging.h</includes>
+    <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
+    <includes id="utilities_8h" name="utilities.h" local="yes" imported="no">sopt/utilities.h</includes>
+    <includes id="ort__session_8h" name="ort_session.h" local="yes" imported="no">sopt/ort_session.h</includes>
+    <includes id="tiffwrappers_8h" name="tiffwrappers.h" local="yes" imported="no">tools_for_tests/tiffwrappers.h</includes>
+    <member kind="typedef">
+      <type>double</type>
+      <name>Scalar</name>
+      <anchorfile>tf__model_8cc.html</anchorfile>
+      <anchor>a8c2981f3f834be9448a6ab06c28748eb</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>sopt::Image&lt; Scalar &gt;</type>
+      <name>Image</name>
+      <anchorfile>tf__model_8cc.html</anchorfile>
+      <anchor>aeeca20f5186519056cf53849afb07e6e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>sopt::Vector&lt; Scalar &gt;</type>
+      <name>Vector</name>
+      <anchorfile>tf__model_8cc.html</anchorfile>
+      <anchor>a47c194cae73625ab3a13b62e4234f46f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST_CASE</name>
+      <anchorfile>tf__model_8cc.html</anchorfile>
+      <anchor>af13222888aa268274065619978a61fb6</anchor>
+      <arglist>(&quot;Cppflow Model&quot;)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -8645,6 +8652,13 @@
       <arglist>(const Vector&lt; T &gt; &amp;input) const</arglist>
     </member>
     <member kind="function">
+      <type>Image&lt; T &gt;</type>
+      <name>compute</name>
+      <anchorfile>classsopt_1_1ORTsession.html</anchorfile>
+      <anchor>a31167b46888687e3fba77d5910088f79</anchor>
+      <arglist>(const Image&lt; T &gt; &amp;input) const</arglist>
+    </member>
+    <member kind="function">
       <type>const bool</type>
       <name>hasKey</name>
       <anchorfile>classsopt_1_1ORTsession.html</anchorfile>
@@ -10564,13 +10578,6 @@
       <anchorfile>classsopt_1_1algorithm_1_1TFGProximal.html</anchorfile>
       <anchor>a278f89fb5ab249e01eab884193571f56</anchor>
       <arglist>(const std::string &amp;path)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TFGProximal</name>
-      <anchorfile>classsopt_1_1algorithm_1_1TFGProximal.html</anchorfile>
-      <anchor>acac65fb8980788ae8392f918286a8e99</anchor>
-      <arglist>(const std::string &amp;path, const int rows, const int cols)</arglist>
     </member>
     <member kind="function">
       <type></type>
