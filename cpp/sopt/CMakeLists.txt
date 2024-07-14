@@ -3,7 +3,7 @@ set(headers
   bisection_method.h chained_operators.h credible_region.h
   imaging_padmm.h logging.h
   forward_backward.h imaging_forward_backward.h
-  non_differentiable_func.h l1_non_diff_function.h joint_map.h
+  non_differentiable_func.h l1_non_diff_function.h real_indicator.h joint_map.h
   differentiable_func.h
   imaging_primal_dual.h primal_dual.h
   maths.h proximal.h relative_variation.h sdmm.h
@@ -12,7 +12,7 @@ set(headers
   tv_primal_dual.h gradient_operator.h
   l2_forward_backward.h l2_primal_dual.h
   real_type.h sampling.h power_method.h objective_functions.h ${PROJECT_BINARY_DIR}/include/sopt/config.h
-)
+  )
 
 set(wavelet_headers
   wavelets/direct.h wavelets/indirect.h wavelets/innards.impl.h wavelets/sara.h
@@ -55,6 +55,7 @@ endif()
 if(EIGEN3_INCLUDE_DIR)
   target_include_directories(sopt SYSTEM PUBLIC ${EIGEN3_INCLUDE_DIR})
 endif()
+message(STATUS "Eigen3 include dir ${EIGEN3_INCLUDE_DIR}")
 
 if(SOPT_OPENMP)
   target_link_libraries(sopt OpenMP::OpenMP_CXX)
@@ -65,9 +66,16 @@ if(SOPT_MPI)
   target_include_directories(sopt SYSTEM PUBLIC ${MPI_CXX_INCLUDE_PATH})
 endif()
 
+message(STATUS "onnxrt enabled? ${onnxrt}")
 if(onnxrt)
+  if(${onnxruntime_FOUND})
+    message(STATUS "ONNX Source dir ${onnxruntime_SOURCE_DIR}")
+    message(STATUS "ONNX Include dir ${onnxruntime_INCLUDE_DIR}")
+  endif()
   target_link_libraries(sopt ${onnxruntime_LIBRARIES})
   target_include_directories(sopt SYSTEM PUBLIC ${onnxruntime_INCLUDE_DIR})
+else()
+  message(STATUS "ONNXrt not found. ONNXrt support disabled.")
 endif()
 
 target_link_libraries(sopt ${CONAN_LIBS})
