@@ -28,11 +28,11 @@ TEST_CASE("Cppflow Model"){
   const int image_cols = image.cols();
 
   // Read in model
-  const std::string path(sopt::tools::models_directory() + "/snr_15_model.onnx");
+  const std::string path(sopt::tools::models_directory() + "/snr_15_model_dynamic.onnx");
   sopt::ORTsession model(path);
 
   // Run model on image
-  const Image output_image = model.compute(image);
+  const Image output_image = model.compute(image, {1,image_rows,image_cols,1});
 
   // compare input image to cleaned output image
   // calculate mean squared error sum_i ( ( x_true(i) - x_est(i) ) **2 )

@@ -37,42 +37,50 @@ class ORTsession {
 
   /// Evaluates the network in the forward direction
   /// using a flattened tensor as input
-  std::vector<float> compute(std::vector<float>& inputs) const {
+  std::vector<float> compute(std::vector<float>& inputs, const std::vector<int64_t>& inDims) const {
 
-    if (inputs.size() != _inDimsFlat[0]) {
-      throw std::length_error("Incorrect size for input tensor! Expected length: " + std::to_string(_inDimsFlat[0]));
+    if (inputs.empty()) {
+      throw std::length_error("Input vector is empty!");
+    }
+    if (inDims.size() != _inShape) {
+      throw std::length_error("Input tensor has incorrect shape! Expected "+std::to_string(_inShape)+" dimensions.");
     }
 
     // reshape flat input vector as tensor and run the model
     auto memory_info = Ort::MemoryInfo::CreateCpu(OrtArenaAllocator, OrtMemTypeDefault);
     auto input_tensor = Ort::Value::CreateTensor<float>(memory_info, inputs.data(), inputs.size(),
-                                                        _inDims[0].data(), _inDims[0].size());
+                                                        inDims.data(), inDims.size());
     auto output_tensors = _session->Run(Ort::RunOptions{nullptr}, _inNames.data(),
                                         &input_tensor, _inNames.size(),
                                         _outNames.data(), _outNames.size());
 
     // retrieve the ouput tensor and return flattened version
+    auto outputInfo = output_tensors[0].GetTensorTypeAndShapeInfo();
+    // Fix negative shape values - this appears to be an artefact of batch size issues
+    int64_t outLen = 1;
+    for (auto& dim : outputInfo.GetShape()) {
+      if (dim < 0)  dim = abs(dim);
+      outLen *= dim;
+    }
+    if (outLen == 0) {
+      throw std::length_error("Invalid network structure: Output node with 0-length tensor encountered!");
+    }
     float* floatarr = output_tensors.front().GetTensorMutableData<float>();
     std::vector<float> outputs;
-    outputs.assign(floatarr, floatarr + _outDimsFlat[0]);
+    outputs.assign(floatarr, floatarr + outLen);
     return outputs;
   }
 
   /// Variant of compute() using input/output Eigen arrays
   template<typename T = t_real>
-  Vector<T> compute(const Vector<T>& input) const {
+  Vector<T> compute(const Vector<T>& input, const std::vector<int64_t>& inDims) const {
 
-    // require an output node of the form {1, nRows, nCols}
-    // in order to be able to map this onto a 2D tensor
-    if (_outDims[0].size() < 3) {
-      throw std::length_error("Incorrect size for output tensor!");
-    }
     // ONNXrt requires floats as input
     std::vector<float> flat_input(input.size());
     for (size_t i=0; i < input.size(); ++i) {
       flat_input[i] = input[i];
     }
-    std::vector<float> flat_output = compute(flat_input);
+    std::vector<float> flat_output = compute(flat_input, inDims);
     Vector<T> rtn(flat_output.size());
     for (size_t i = 0; i < flat_output.size(); ++i) {
       rtn[i] = flat_output[i];
@@ -82,7 +90,13 @@ class ORTsession {
 
   /// Variant of compute() using input/output Image
   template<typename T = t_real>
-  Image<T> compute(const Image<T>& input) const {
+  Image<T> compute(const Image<T>& input, std::vector<int64_t> inDims = {}) const {
+
+    // require an output node of the form {1, nRows, nCols}
+    // in order to be able to map this onto a 2D tensor
+    if (inDims.size() && inDims.size() != _inShape) {
+      throw std::length_error("Input tensor has incorrect shape! Expected "+std::to_string(_inShape)+" dimensions.");
+    }
 
     // ONNXrt requires floats as input
     const int nrows = input.rows();
@@ -93,7 +107,12 @@ class ORTsession {
         flat_input[j*ncols+i] = input(i,j);
       }
     }
-    std::vector<float> flat_output = compute(flat_input);
+    if (inDims.empty()) {
+      while (inDims.size() < _inShape-2)  inDims.push_back(1);
+      inDims.push_back(nrows);
+      inDims.push_back(ncols);
+    }
+    std::vector<float> flat_output = compute(flat_input, inDims);
 
     std::vector<T> tResults(flat_output.begin(), flat_output.end());
     Eigen::Map<Eigen::Array<T, Eigen::Dynamic, Eigen::Dynamic>> rtn(tResults.data(), nrows, ncols);
@@ -150,53 +169,26 @@ class ORTsession {
     if (num_input_nodes == 0) {
       throw std::length_error("Invalid network structure! Expected at least one input node.");
     }
-    _inDimsFlat.reserve(num_input_nodes);
-    _inTypes.reserve(num_input_nodes);
-    _inDims.reserve(num_input_nodes);
+    _inShape = _session->GetInputTypeInfo(0).GetTensorTypeAndShapeInfo().GetShape().size();
     _inNames.reserve(num_input_nodes);
     _inNamesPtr.reserve(num_input_nodes);
+    SOPT_DEBUG("ORT input nodes = {}", num_input_nodes);
     for (size_t i = 0; i < num_input_nodes; ++i) {
       // query input node names
       auto input_name = _session->GetInputNameAllocated(i, allocator);
       _inNames.push_back(input_name.get());
       _inNamesPtr.push_back(std::move(input_name));
       SOPT_DEBUG("ORT input node {} is called {}", i, _inNames[_inNames.size()-1]);
-
-      // query input node types
-      auto in_type_info = _session->GetInputTypeInfo(i);
-      auto in_tensor_info = in_type_info.GetTensorTypeAndShapeInfo();
-      _inTypes.push_back(in_tensor_info.GetElementType());
-      _inDims.push_back(in_tensor_info.GetShape());
-      SOPT_DEBUG("ORT input node {} has {} dimensions", i, in_tensor_info.GetShape().size());
-      for (size_t j=0; j < in_tensor_info.GetShape().size(); ++j) {
-        SOPT_DEBUG("\tdimension {} has length {}", j, in_tensor_info.GetShape()[j]);
-      }
     }
-
-    // Fix negative shape values - this appears to be an artefact of batch size issues
-    for (auto& dims : _inDims) {
-      int64_t n = 1;
-      for (auto& dim : dims) {
-        if (dim < 0)  dim = abs(dim);
-        n *= dim;
-      }
-      _inDimsFlat.push_back(n);
-    }
-    if (_inDimsFlat[0] == 0) {
-      throw std::length_error("Invalid network structure: Input node with 0-length tensor found.");
-    }
-
 
     // find out how many output nodes the model provides
     const size_t num_output_nodes = _session->GetOutputCount();
     if (num_output_nodes == 0) {
       throw std::length_error("Invalid network structure! Expected at least one output node.");
     }
-    _outDimsFlat.reserve(num_output_nodes);
-    _outTypes.reserve(num_output_nodes);
-    _outDims.reserve(num_output_nodes);
     _outNames.reserve(num_output_nodes);
     _outNamesPtr.reserve(num_output_nodes);
+    SOPT_DEBUG("ORT output nodes = {}", num_output_nodes);
     for (size_t i = 0; i < num_output_nodes; ++i) {
       // query input node names
       auto output_name = _session->GetOutputNameAllocated(i, allocator);
@@ -204,28 +196,6 @@ class ORTsession {
       _outNamesPtr.push_back(std::move(output_name));
       SOPT_DEBUG("ORT output node {} is called {}", i, _outNames[_outNames.size()-1]);
 
-      // query output node types
-      auto out_type_info = _session->GetOutputTypeInfo(i);
-      auto out_tensor_info = out_type_info.GetTensorTypeAndShapeInfo();
-      _outTypes.push_back(out_tensor_info.GetElementType());
-      _outDims.push_back(out_tensor_info.GetShape());
-      SOPT_DEBUG("ORT output node {} has {} dimensions", i, out_tensor_info.GetShape().size());
-      for (size_t j=0; j < out_tensor_info.GetShape().size(); ++j) {
-        SOPT_DEBUG("\tdimension {} has length {}", j, out_tensor_info.GetShape()[j]);
-      }
-    }
-
-    // Fix negative shape values - this appears to be an artefact of batch size issues
-    for (auto& dims : _outDims) {
-      int64_t n = 1;
-      for (auto& dim : dims) {
-        if (dim < 0)  dim = abs(dim);
-        n *= dim;
-      }
-      _outDimsFlat.push_back(n);
-    }
-    if (_outDimsFlat[0] == 0) {
-      throw std::length_error("Invalid network structure: Output node with 0-length tensor found.");
     }
   }
 
@@ -240,22 +210,14 @@ class ORTsession {
   /// Network metadata
   std::unique_ptr<Ort::ModelMetadata> _metadata;
 
-  /// Input and output node dimensions
-  ///
-  /// @note Each node could be a multidimensional tensor
-  std::vector<std::vector<int64_t>> _inDims, _outDims;
-
-  /// Equivalent length for flattened input/output node structure
-  std::vector<int64_t> _inDimsFlat, _outDimsFlat;
-
-  /// Types of the input/output nodes (as ONNX enum)
-  std::vector<ONNXTensorElementDataType> _inTypes, _outTypes;
-
   /// Pointers to the ORT input/output node names
   std::vector<Ort::AllocatedStringPtr> _inNamesPtr, _outNamesPtr;
 
   /// C-style arrays of the input/output node names
   std::vector<const char*> _inNames, _outNames;
+
+  /// Shape of the input/output tensors
+  size_t _inShape;
 
 };
 

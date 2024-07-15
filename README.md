@@ -34,58 +34,8 @@ This documentation outlines the necessary and optional [dependencies](#dependenc
 
 ## Installing and building SOPT
 
-### Using Conan v2 (recommended)
 
-[Conan](https://docs.conan.io/en/latest/installation.html) is a C++ package manager that helps deal with most of the C++ dependencies
-as well as the **SOPT** installation:
-
-1. Once the mandatory dependencies are present, `git clone` from the [GitHub repository](https://github.com/astro-informatics/sopt):
-
-    ``` bash
-    git clone https://github.com/astro-informatics/sopt.git
-    ```
-
-1. Then, the program can be built using conan:
-
-    ``` bash
-    cd /path/to/code
-    mkdir build
-    cd build
-    conan install .. -of . --build missing
-    conan build .. -of .
-    ```
-
-Things to note:
-
-- To install in directory `INSTALL_FOLDER`, add the following options to the conan build command:
-
-    ``` bash
-    conan build .. -of INSTALL_FOLDER
-    ```
-
-- CMake build options should be passed as options to `conan install` using the `-o` flag with a value `on` or `off`.
-Possible options are:
-
-    - tests (default on)
-    - benchmarks (default off)
-    - examples (default on)
-    - openmp (default off)
-    - dompi (default off)
-    - docs (default off)
-    - coverage (default off)
-    - onnxrt (default off)
-
-For example, to build with both MPI and OpenMP on you would use
-
-``` bash
-conan install .. -of . --build missing -o openmp=on -o dompi=on
-conan build .. -of .
-```
-
-
-### Using CMake
-
-If the dependencies are already available on your system, you can also install **SOPT** manually like so
+If the dependencies are already available on your system, you can install **SOPT** manually like so
 
   ``` bash
   cd /path/to/code
@@ -101,32 +51,8 @@ On MacOS, you can also install most of the dependencies with Homebrew e.g.
   ``` bash
   brew install libtensorflow eigen tiff catch2
   ```
-**Note that the ONNXruntime interface is currently only supported when compiling with Clang on MacOS, but not with g++**
+**Note that on MacOS, the ONNXruntime currently only support Clang but not g++**
 
-
-## Conan tips
-
-You can set commonly used options, choices of compilers etc. in a
-[conan profile](https://docs.conan.io/en/latest/reference/profiles.html).
-You can list profiles available on your system using `conan profile list` and
-select the profile you want to use with `conan install` with
-`conan install .. -pr my_profile`.
-CMake build options can also be added to the profile under `[options]`.
-Here is an example of a conan profile for building with a homebrew installed gcc 11 on MacOS.
-
-```
-[settings]
-os=Macos
-os_build=Macos
-arch=x86_64
-arch_build=x86_64
-compiler=gcc
-compiler.version=11
-compiler.libcxx=libstdc++11
-build_type=Release
-[options]
-[build_requires]
-```
 
 ## Testing
 
@@ -175,7 +101,6 @@ python -m tf2onnx.convert
        --inputs input0:0
        --extra_opset StatefulPartitionedCall:0
 ```
-Unknown TF input dimensions can be specified e.g. using `--inputs 'input0:0[1,256,256,1]'`.
 
 After the export, load the model and verify that it's well formed like so
 ```
@@ -183,6 +108,11 @@ import onnx
 onnx_model = onnx.load("model_name.onnx")
 onnx.checker.check_model(onnx_model)
 print( onnx_model.graph.input )
+```
+Hard-coded dimensions can be removed from the input/output tensor e.g. like so
+```
+print (onnx_model.graph.input[0].type.tensor_type.shape)
+onnx_model.graph.input[0].type.tensor_type.shape.dim[1].ClearField('dim_value')
 ```
 
 [Netron](https://netron.app/) is a useful online tool to help visualise the model.
