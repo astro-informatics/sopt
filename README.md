@@ -27,10 +27,12 @@ This documentation outlines the necessary and optional [dependencies](#dependenc
 - [OpenMP](http://openmp.org/wp/) v4.8.4 (Trusty) - Optional - Speeds up some of the operations.
 - [Eigen3](http://eigen.tuxfamily.org/index.php?title=Main_Page) v3.4.0 (Trusty) Modern `C++` linear algebra. Downloaded automatically if absent.
 - [Catch2](https://github.com/catchorg/Catch2) v3.4.0 - Optional -  A `C++`
-    unit-testing framework only needed for testing. Downloaded automatically if absent.
+    unit-testing framework only needed for testing.
 - [google/benchmark](https://github.com/google/benchmark) - Optional - A `C++`
-    micro-benchmarking framework only needed for benchmarks. Downloaded automatically if absent.
+    micro-benchmarking framework only needed for benchmarks.
 - [tiff](http://www.libtiff.org/) v4.5.1 (Trusty) Tag Image File Format library - only installed if needed.
+- [ONNXruntime](https://onnxruntime.ai/) v1.17.1 - Optional - a cross-platform runtime engine based on the
+    Open Neural Network eXchange format.
 
 ## Installing and building SOPT
 
