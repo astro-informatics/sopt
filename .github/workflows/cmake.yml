@@ -98,21 +98,6 @@ jobs:
       uses: mxschmitt/action-tmate@v3
       if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.debug_enabled }}
 
-    #- name: Install Tensorflow API on Ubuntu
-    #  # TODO could this be combined with mac version somehow? if/else?
-    #  if: ${{ contains(matrix.os, 'ubuntu') }}
-    #  uses: UCL/install-tensorflow-action@main
-    #  with:
-    #    version: 2.11.0
-    #    os: linux
-
-    #- name: Install Tensorflow API on MacOS
-    #  if: ${{ contains(matrix.os, 'macos') }}
-    #  uses: UCL/install-tensorflow-action@main
-    #  with:
-    #    version: 2.11.0
-    #    os: darwin
-
     - name: Select Python 3.10
       uses: actions/setup-python@v4
       with:
