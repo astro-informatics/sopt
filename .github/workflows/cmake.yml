@@ -17,9 +17,6 @@ env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
   OMP_NUM_THREADS: 2
-  CONAN_PRINT_RUN_COMMANDS: 1
-  CONAN_CPU_COUNT: 2
-  USE_CONAN: 0
 
 jobs:
   build:
@@ -75,18 +72,13 @@ jobs:
       if: ${{ contains(matrix.os, 'ubuntu') }}
       run: |
         sudo apt update
-        sudo apt install openmpi-bin libopenmpi-dev libyaml-cpp-dev ccache
-        if [[ "$USE_CONAN" = 1 ]]; then
-          pip install conan
-        else
-          sudo apt install libeigen3-dev libtiff-dev
-          git clone https://github.com/catchorg/Catch2.git -b v3.4.0
-          mkdir Catch2/build
-          cd Catch2/build
-          cmake .. -DBUILD_TESTING=OFF -DCMAKE_INSTALL_PREFIX=${PWD}
-          make -j$(nproc --ignore 1) install
-          cd -
-        fi
+        sudo apt install openmpi-bin libopenmpi-dev libyaml-cpp-dev ccache libeigen3-dev libtiff-dev
+        git clone https://github.com/catchorg/Catch2.git -b v3.4.0
+        mkdir Catch2/build
+        cd Catch2/build
+        cmake .. -DBUILD_TESTING=OFF -DCMAKE_INSTALL_PREFIX=${PWD}
+        make -j$(nproc --ignore 1) install
+        cd -
 
     - name: Install Dependencies on MacOS
       if: ${{ contains(matrix.os, 'macos') }}
@@ -95,9 +87,6 @@ jobs:
         echo "CMAKE_PREFIX_PATH=/opt/homebrew/opt/libomp" >> $GITHUB_ENV
         echo "/opt/homebrew/opt/ccache/libexec" >> $GITHUB_PATH
         #echo "/opt/homebrew/opt/libomp" >> $GITHUB_PATH
-        if [[ "$USE_CONAN" = 1 ]]; then
-          brew install conan
-        fi
 
     #- name: Install gcc on MacOS
     #  if: ${{ contains(matrix.os, 'macos') && contains(matrix.cxx, 'g++10') }}
@@ -109,24 +98,7 @@ jobs:
       uses: mxschmitt/action-tmate@v3
       if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.debug_enabled }}
 
-    #- name: Install Tensorflow API on Ubuntu
-    #  # TODO could this be combined with mac version somehow? if/else?
-    #  if: ${{ contains(matrix.os, 'ubuntu') }}
-    #  uses: UCL/install-tensorflow-action@main
-    #  with:
-    #    version: 2.11.0
-    #    os: linux
-
-    #- name: Install Tensorflow API on MacOS
-    #  if: ${{ contains(matrix.os, 'macos') }}
-    #  uses: UCL/install-tensorflow-action@main
-    #  with:
-    #    version: 2.11.0
-    #    os: darwin
-
     - name: Select Python 3.10
-      # otherwise turtlebrowser/get-conan@v1.1 fails on macos-14
-      # ref: https://github.com/turtlebrowser/get-conan/issues/4
       uses: actions/setup-python@v4
       with:
         python-version: '3.10'
@@ -148,26 +120,15 @@ jobs:
           ${{ matrix.os }}-${{ matrix.cxx }}
           ${{ matrix.os }}
 
-    - name: Dependencies
-      run: |
-        if [[ "$USE_CONAN" = 1 ]]; then
-          conan profile detect
-          conan install ${{github.workspace}} -of ${{github.workspace}}/build --build missing -o dompi=${{matrix.mpi}} -o openmp=${{matrix.omp}} -o onnxrt=on -s compiler.cppstd=17
-        fi
-
     - name: Build
       # Build your program with the given configuration.
       # The Github Actions machines are dual-core so we can build faster using 2 parallel processes
       run: |
-        if [[ "$USE_CONAN" = 1 ]]; then
-          conan build ${{github.workspace}} -of ${{github.workspace}}/build -o dompi=${{matrix.mpi}} -o openmp=${{matrix.omp}} -o onnxrt=on -s compiler.cppstd=17
-        else
-          export CMAKE_PREFIX_PATH=${{github.workspace}}/Catch2/build/lib/cmake:$CMAKE_PREFIX_PATH
-          mkdir ${{github.workspace}}/build
-          cd ${{github.workspace}}/build
-          cmake .. --fresh -DCMAKE_INSTALL_PREFIX=${PWD}
-          make -j$(nproc --ignore 1) install
-        fi
+        export CMAKE_PREFIX_PATH=${{github.workspace}}/Catch2/build/lib/cmake:$CMAKE_PREFIX_PATH
+        mkdir ${{github.workspace}}/build
+        cd ${{github.workspace}}/build
+        cmake .. --fresh -DCMAKE_INSTALL_PREFIX=${PWD}
+        make -j$(nproc --ignore 1) install
 
 
     - name: Test
