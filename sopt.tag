@@ -9500,8 +9500,8 @@
       <type>RelativeVariation const  &amp;</type>
       <name>name</name>
       <anchorfile>classsopt_1_1RelativeVariation.html</anchorfile>
-      <anchor>a59e71879612c3f794565316dc708a036</anchor>
-      <arglist>(std::string const &amp;name) const</arglist>
+      <anchor>a223926042a67178178c52b02cfc0bf28</anchor>
+      <arglist>(std::string const &amp;name)</arglist>
     </member>
   </compound>
   <compound kind="class">
@@ -9999,8 +9999,8 @@
       <type>RelativeVariation&lt; Scalar &gt; &amp;</type>
       <name>relative_tolerance</name>
       <anchorfile>classsopt_1_1ScalarRelativeVariation.html</anchorfile>
-      <anchor>aed35ffb3df13bb41bf7612aa3f30f026</anchor>
-      <arglist>(Real &amp;e) const</arglist>
+      <anchor>a617f2187dc12921b01921c359dc6d547</anchor>
+      <arglist>(Real &amp;e)</arglist>
     </member>
     <member kind="function">
       <type>Real</type>
@@ -10013,8 +10013,8 @@
       <type>RelativeVariation&lt; Scalar &gt; &amp;</type>
       <name>absolute_tolerance</name>
       <anchorfile>classsopt_1_1ScalarRelativeVariation.html</anchorfile>
-      <anchor>a075b09031649c045d731d61f53c27f64</anchor>
-      <arglist>(Real &amp;e) const</arglist>
+      <anchor>a1c1283a813000b556b3bebd7d7dfc924</anchor>
+      <arglist>(Real &amp;e)</arglist>
     </member>
     <member kind="function">
       <type>std::string const  &amp;</type>
@@ -10027,8 +10027,8 @@
       <type>ScalarRelativeVariation const  &amp;</type>
       <name>name</name>
       <anchorfile>classsopt_1_1ScalarRelativeVariation.html</anchorfile>
-      <anchor>a1aabb696cdeffef87af194bd0ed8482c</anchor>
-      <arglist>(std::string const &amp;name) const</arglist>
+      <anchor>a23d944aa58dc79e61b61066dba65fe5c</anchor>
+      <arglist>(std::string const &amp;name)</arglist>
     </member>
     <member kind="function">
       <type>Scalar</type>
