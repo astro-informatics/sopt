@@ -116,7 +116,7 @@ bool RelativeVariation<SCALAR>::operator()(Eigen::ArrayBase<T> const &input) {
   }
   auto const norm = (input - previous_).matrix().squaredNorm();
   previous_ = input;
-  SOPT_HIGH_LOG("    - {} relative variation: {} <? {}", name(), std::sqrt(norm), tolerance());
+  SOPT_LOW_LOG("    - {} relative variation: {} <? {}", name(), std::sqrt(norm), tolerance());
   return norm < tolerance() * tolerance();
 }
 
