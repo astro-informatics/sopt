@@ -44,11 +44,11 @@ jobs:
             - g++-10
             - clang++
           mpi:
-            - "on"
-            - "off"
+            - "ON"
+            - "OFF"
           omp:
-            - "on"
-            - "off"
+            - "ON"
+            - "OFF"
           exclude:
             - cc: gcc-10
               cxx: clang++
@@ -58,7 +58,7 @@ jobs:
               cc: clang
               cxx: clang++
             - os: macos-14
-              mpi: "on"
+              mpi: "ON"
             # This doesn't seem to work with ONNXrt yet:
             - os: macos-14
               cxx: g++-10
@@ -130,7 +130,7 @@ jobs:
         export CMAKE_PREFIX_PATH=${{github.workspace}}/local:$CMAKE_PREFIX_PATH
         mkdir ${{github.workspace}}/build
         cd ${{github.workspace}}/build
-        cmake .. --fresh -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/local
+        cmake .. --fresh -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/local -Ddompi=${{matrix.mpi}} -Dopenmp=${{matrix.omp}}
         make -j$(nproc --ignore 1) install
 
 
