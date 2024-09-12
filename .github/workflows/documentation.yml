@@ -51,7 +51,7 @@ jobs:
 
       - name: Build
         run: |
-          export CMAKE_PREFIX_PATH=${{github.workspace}}/Catch2/build/lib/cmake:$CMAKE_PREFIX_PATH
+          export CMAKE_PREFIX_PATH=${{github.workspace}}/local:$CMAKE_PREFIX_PATH
           mkdir ${{github.workspace}}/build
           cd ${{github.workspace}}/build
           cmake .. --fresh -DCMAKE_INSTALL_PREFIX=${PWD} -Ddompi=OFF -Dopenmp=OFF -Ddocs=ON -Donnxrt=ON
