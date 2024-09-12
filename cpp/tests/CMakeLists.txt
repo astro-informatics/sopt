@@ -51,7 +51,7 @@ if(onnxrt)
   add_catch_test(tf_inpainting LIBRARIES sopt tools_for_tests onnxruntime::onnxruntime SEED ${RAND_SEED})
 endif()
 
-file(COPY test_data DESTINATION .)
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/test_data DESTINATION .)
 
 if(SOPT_MPI)
   add_library(common_mpi_catch_main_object OBJECT common_mpi_catch_main.cc)
