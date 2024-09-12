@@ -10,6 +10,7 @@ if(NOT ${onnxruntime_FOUND})
   set(ORT_VERSION "1.16.3")
   set(ORT_URL_BASE "https://github.com/microsoft/onnxruntime/releases/download")
   set(ORT_URL "${ORT_URL_BASE}/v${ORT_VERSION}/onnxruntime-linux-${ARCH}-${ORT_VERSION}.tgz")
+  message(STATUS "ORT_URL=${ORT_URL}")
 
   include(FetchContent)
   # https://cmake.org/cmake/help/latest/policy/CMP0135.html
@@ -36,14 +37,6 @@ if(NOT ${onnxruntime_FOUND})
                         IMPORTED_LOCATION "${onnxruntime_LIBRARY}"
                         INTERFACE_INCLUDE_DIRECTORIES "${onnxruntime_INCLUDE_DIR}"
                         LINKER_LANGUAGE CXX)
-
-  #install(TARGETS onnxruntime
-  #  EXPORT soptCPPTargets
-  #  DESTINATION external
-  #  LIBRARY DESTINATION lib
-  #  ARCHIVE DESTINATION lib
-  #  INCLUDES DESTINATION include
-  #)
 
   #include(ExternalProject)
   #set(onnxruntime_DIR "${CMAKE_INSTALL_PREFIX}/external")
