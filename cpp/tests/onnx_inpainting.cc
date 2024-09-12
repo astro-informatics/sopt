@@ -54,8 +54,8 @@ TEST_CASE("Inpainting"){
   auto const epsilon = std::sqrt(nmeasure + 2 * std::sqrt(y0.size())) * sigma;
 
   // set the model function and gradient
-  std::string const prior_path = std::string(sopt::tools::models_directory() + "/example_cost_CRR_sigma_5_t_5.onnx");
-  std::string const prior_gradient_path = std::string(sopt::tools::models_directory() + "/example_grad_CRR_sigma_5_t_5.onnx");
+  std::string const prior_path = std::string(sopt::tools::models_directory() + "/example_cost_dynamic_CRR_sigma_5_t_5.onnx");
+  std::string const prior_gradient_path = std::string(sopt::tools::models_directory() + "/example_grad_dynamic_CRR_sigma_5_t_5.onnx");
   std::shared_ptr<sopt::ONNXDifferentiableFunc<Scalar>> diff_function = std::make_shared<sopt::ONNXDifferentiableFunc<Scalar>>(prior_path, prior_gradient_path, sigma, mu, lambda, sampling);
 
   std::normal_distribution<> gaussian_dist(0, sigma);
@@ -106,7 +106,10 @@ TEST_CASE("Inpainting"){
   // compare input image to cleaned output image
   // calculate mean squared error sum_i ( ( x_true(i) - x_est(i) ) **2 )
   // check this is less than the number of pixels * 0.01
-  sopt::utilities::write_tiff(image, "Onnx_reconstruction.tiff");
+  //sopt::utilities::write_tiff(Matrix::Map(diagnostic.x.data(), image.rows(), image.cols()),
+  //                              "onnx_reconstruction.tiff");
+  //sopt::utilities::write_tiff(Matrix::Map(dirty_image.data(), image.rows(), image.cols()),
+  //                              "dirty.tiff");
   Eigen::Map<const Eigen::VectorXd> flat_image(image.data(), image.size());
   auto mse = (flat_image - diagnostic.x).array().square().sum() / image.size();
   CAPTURE(mse);

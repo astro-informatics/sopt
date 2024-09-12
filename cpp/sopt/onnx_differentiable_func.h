@@ -91,8 +91,8 @@ class ONNXDifferentiableFunc : public DifferentiableFunc<SCALAR>
 
     void infer_dimensions(const size_t image_size)
     {
-        set_dimensions({static_cast<int64_t>(sqrt(image_size)), static_cast<int64_t>(sqrt(image_size))./});
-        if(dimensions[0] * dimensions[1] != image_size)
+        set_dimensions({1, static_cast<int64_t>(sqrt(image_size)), static_cast<int64_t>(sqrt(image_size))});
+        if(dimensions[1] * dimensions[2] != image_size)
         {
           throw std::runtime_error("Image dimensions are not provided and image size is not compatible with a square image.");
         }
