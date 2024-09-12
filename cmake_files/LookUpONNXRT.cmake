@@ -12,7 +12,7 @@ if(NOT ${onnxruntime_FOUND})
   set(ORT_URL "${ORT_URL_BASE}/v${ORT_VERSION}/onnxruntime-linux-${ARCH}-${ORT_VERSION}.tgz")
   message(STATUS "ORT_URL=${ORT_URL}")
 
-  include(FetchContent)
+  #include(FetchContent)
   # https://cmake.org/cmake/help/latest/policy/CMP0135.html
   #
   # CMP0135 is for solving re-building and re-downloading.
@@ -20,42 +20,47 @@ if(NOT ${onnxruntime_FOUND})
   if(POLICY CMP0135)
     cmake_policy(SET CMP0135 NEW)
   endif()
-  FetchContent_Declare(onnxruntime
-                       URL ${ORT_URL}
-                       URL_HASH SHA256=b072f989d6315ac0e22dcb4771b083c5156d974a3496ac3504c77f4062eb248e
-                       DOWNLOAD_DIR ${CMAKE_CURRENT_BINARY_DIR}/external)
-  FetchContent_MakeAvailable(onnxruntime)
-  message(STATUS "Downloaded ONNXrt to ${CMAKE_CURRENT_BINARY_DIR}/external")
-  set(onnxruntime_DIR "${CMAKE_CURRENT_BINARY_DIR}/external")
-  set(onnxruntime_INCLUDE_DIR "${onnxruntime_DIR}/include")
-  find_library(onnxruntime_LIBRARY
-               NAMES onnxruntime
-               PATHS ${onnxruntime_DIR}/lib
-                     ${onnxruntime_DIR}/lib64)
-  add_library(onnxruntime::onnxruntime SHARED IMPORTED)
-  set_target_properties(onnxruntime::onnxruntime PROPERTIES
-                        IMPORTED_LOCATION "${onnxruntime_LIBRARY}"
-                        INTERFACE_INCLUDE_DIRECTORIES "${onnxruntime_INCLUDE_DIR}"
-                        LINKER_LANGUAGE CXX)
+  #FetchContent_Declare(onnxruntime
+  #                     URL ${ORT_URL}
+  #                     URL_HASH SHA256=b072f989d6315ac0e22dcb4771b083c5156d974a3496ac3504c77f4062eb248e
+  #                     DOWNLOAD_DIR ${CMAKE_CURRENT_BINARY_DIR}/external)
+  #FetchContent_MakeAvailable(onnxruntime)
+  #message(STATUS "Downloaded ONNXrt to ${CMAKE_CURRENT_BINARY_DIR}/external")
+  #set(onnxruntime_DIR "${CMAKE_CURRENT_BINARY_DIR}/external")
+  #set(onnxruntime_INCLUDE_DIR "${onnxruntime_DIR}/include")
+  #find_library(onnxruntime_LIBRARY
+  #             NAMES onnxruntime
+  #             PATHS ${onnxruntime_DIR}/lib
+  #                   ${onnxruntime_DIR}/lib64)
+  #add_library(onnxruntime::onnxruntime SHARED IMPORTED)
+  #set_target_properties(onnxruntime::onnxruntime PROPERTIES
+  #                      IMPORTED_LOCATION "${onnxruntime_LIBRARY}"
+  #                      INTERFACE_INCLUDE_DIRECTORIES "${onnxruntime_INCLUDE_DIR}"
+  #                      LINKER_LANGUAGE CXX)
 
-  #include(ExternalProject)
-  #set(onnxruntime_DIR "${CMAKE_INSTALL_PREFIX}/external")
-  #ExternalProject_Add(
-  #  Lookup-ONNXrt
-  #  URL ${ORT_URL}
-  #  URL_HASH SHA256=b072f989d6315ac0e22dcb4771b083c5156d974a3496ac3504c77f4062eb248e
-  #  PREFIX "${CMAKE_BINARY_DIR}/external"
-  #  #INSTALL_DIR ${EXTERNAL_ROOT}
+  include(ExternalProject)
+  set(onnxruntime_DIR "${CMAKE_INSTALL_PREFIX}/external")
+  ExternalProject_Add(
+    Lookup-ONNXRT
+    URL ${ORT_URL}
+    URL_HASH SHA256=b072f989d6315ac0e22dcb4771b083c5156d974a3496ac3504c77f4062eb248e
+    PREFIX "${CMAKE_BINARY_DIR}/external"
+    #INSTALL_DIR ${EXTERNAL_ROOT}
   #  CMAKE_ARGS
   #  -DCMAKE_INSTALL_PREFIX=${onnxruntime_DIR}
   #  -DCMAKE_INSTALL_LIBDIR=${CMAKE_SHARED_LIBRARY_PREFIX}
   #  # Wrap download, configure and build steps in a script to log output
-  #  UPDATE_COMMAND ""
+    UPDATE_COMMAND ""
+    BUILD_COMMAND ""
+    INSTALL_COMMAND ""
   #  LOG_DOWNLOAD ON
   #  LOG_CONFIGURE ON
   #  LOG_BUILD ON
   #  LOG_INSTALL ON
-  #)
+  )
+  set(onnxruntime_INCLUDE_DIR "${onnxruntime_DIR}/include")
+  set(onnxruntime_LIBRARY_DIR "${onnxruntime_DIR}/${CMAKE_SHARED_LIBRARY_PREFIX}")
+  set(onnxruntime_LIBRARIES "onnxruntime")
   set(onnxruntime_FOUND TRUE)
 endif()
 
