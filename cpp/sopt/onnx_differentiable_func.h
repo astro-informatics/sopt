@@ -4,6 +4,7 @@
 #include "sopt/ort_session.h"
 #include "sopt/differentiable_func.h"
 #include <vector>
+#include <array>
 namespace sopt
 {
 
@@ -63,10 +64,13 @@ class ONNXDifferentiableFunc : public DifferentiableFunc<SCALAR>
                            const Real sigma, 
                            const Real mu, 
                            const Real lambda,
-                           const LinearTransform& Phi): LT(Phi), sigma(sigma), mu(mu), lambda(lambda),
-                                                        function_model(function_model_path),
-                                                        gradient_model(gradient_model_path)
-    {}
+                           const LinearTransform& Phi,
+                           const std::vector<int64_t> dimensions = {}): LT(Phi), sigma(sigma), mu(mu), lambda(lambda),
+                                                              function_model(function_model_path),
+                                                              gradient_model(gradient_model_path)
+    {
+        if(dimensions.empty()) infer_square_dimensions = true;
+    }
 
     void log_message() const override
     {
@@ -74,22 +78,40 @@ class ONNXDifferentiableFunc : public DifferentiableFunc<SCALAR>
     }
 
     void gradient(Vector &output, const Vector &image, const Vector &residual,
-                  const LinearTransform &Phi) const override 
+                  const LinearTransform &Phi) override 
     {
+      if(infer_square_dimensions) infer_dimensions(image.size());
+
       output = Phi.adjoint() * (residual / (sigma * sigma));  // L2 norm
       Vector scaled_image = image * mu;
-      std::vector<float> float_image = imageToFloat(scaled_image);
-      Vector ANN_gradient = floatToImage(gradient_model.compute(float_image));  // regulariser
+      std::vector<float> float_image = imageToFloat(scaled_image);      
+      Vector ANN_gradient = floatToImage<SCALAR>(gradient_model.compute(float_image, dimensions));  // regulariser
       output += (ANN_gradient * lambda);
     }
 
-    Real function(Vector const &image, Vector const &y, LinearTransform const &Phi) const override
+    void infer_dimensions(const size_t image_size)
     {
+        set_dimensions({static_cast<int64_t>(sqrt(image_size)), static_cast<int64_t>(sqrt(image_size))./});
+        if(dimensions[0] * dimensions[1] != image_size)
+        {
+          throw std::runtime_error("Image dimensions are not provided and image size is not compatible with a square image.");
+        }
+        infer_square_dimensions = false;
+    }
+
+    void set_dimensions(const std::vector<int64_t> &dims)
+    {
+        dimensions = dims;
+    }
+
+    Real function(Vector const &image, Vector const &y, LinearTransform const &Phi) override
+    {
+        if(infer_square_dimensions) infer_dimensions(image.size());
         // Does this need to be modified to take into account MPI?
         Real Likelihood = 0.5 * ((Phi*image) - y).squaredNorm() / (sigma * sigma);
         Vector scaled_image = image * mu;
         std::vector<float> float_image = imageToFloat(scaled_image);
-        Real Prior = (lambda / mu) * (function_model.compute(float_image)[0]); // Is this correct?
+        Real Prior = (lambda / mu) * (function_model.compute(float_image, dimensions)[0]); // Is this correct?
         return Likelihood + Prior;
     }
 
@@ -99,7 +121,9 @@ class ONNXDifferentiableFunc : public DifferentiableFunc<SCALAR>
     Real sigma;
     Real mu;
     Real lambda;
+    std::vector<int64_t> dimensions;
     const LinearTransform &LT;
+    bool infer_square_dimensions = false;
 };
 
 } // namespace sopt

@@ -21,7 +21,7 @@ public:
   // Return a function representing the proximal operator for this function.
   // Function must be of type t_Proximal, that is
   // void proximal_operator(Vector, real, Vector)
-  virtual t_Gradient gradient() const
+  virtual t_Gradient gradient()
   {
     return [this](t_Vector &output, const t_Vector &image, const t_Vector &residual,
                   const t_LinearTransform &Phi) -> void { this->gradient(output, image, residual, Phi); };
@@ -29,10 +29,10 @@ public:
 
   // Calculate the gradient directly
   virtual void gradient(t_Vector &output, const t_Vector &image, const t_Vector &residual,
-                        const t_LinearTransform &Phi) const = 0;
+                        const t_LinearTransform &Phi) = 0;
 
   // Calculate the function directly
-  virtual Real function(t_Vector const &image, t_Vector const &y, t_LinearTransform const &Phi) const = 0;
+  virtual Real function(t_Vector const &image, t_Vector const &y, t_LinearTransform const &Phi) = 0;
 
   // Transforms input image to a different basis.
   // Return linear_transform_identity() if transform not necessary.
