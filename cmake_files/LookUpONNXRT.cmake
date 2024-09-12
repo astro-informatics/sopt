@@ -60,7 +60,7 @@ if(NOT ${onnxruntime_FOUND})
   )
   set(onnxruntime_INCLUDE_DIR "${onnxruntime_DIR}/include")
   set(onnxruntime_LIBRARY_DIR "${onnxruntime_DIR}/${CMAKE_SHARED_LIBRARY_PREFIX}")
-  set(onnxruntime_LIBRARIES "onnxruntime")
+  set(onnxruntime_LIBRARIES "onnxruntime::onnxruntime")
   set(onnxruntime_FOUND TRUE)
 endif()
 
