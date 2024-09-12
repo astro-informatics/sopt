@@ -44,7 +44,8 @@ if(NOT ${onnxruntime_FOUND})
     Lookup-ONNXRT
     URL ${ORT_URL}
     URL_HASH SHA256=b072f989d6315ac0e22dcb4771b083c5156d974a3496ac3504c77f4062eb248e
-    PREFIX "${CMAKE_BINARY_DIR}/external"
+    #PREFIX "${CMAKE_BINARY_DIR}/external"
+    PREFIX ${onnxruntime_DIR}
     #INSTALL_DIR ${EXTERNAL_ROOT}
   #  CMAKE_ARGS
   #  -DCMAKE_INSTALL_PREFIX=${onnxruntime_DIR}
@@ -59,8 +60,8 @@ if(NOT ${onnxruntime_FOUND})
   #  LOG_INSTALL ON
   )
   set(onnxruntime_INCLUDE_DIR "${onnxruntime_DIR}/include")
-  set(onnxruntime_LIBRARY_DIR "${onnxruntime_DIR}/${CMAKE_SHARED_LIBRARY_PREFIX}")
-  set(onnxruntime_LIBRARY onnxruntime::onnxruntime)
+  set(onnxruntime_LIBRARY_DIR "${onnxruntime_DIR}/lib")
+  set(onnxruntime_LIBRARIES onnxruntime::onnxruntime)
   set(onnxruntime_FOUND TRUE)
 endif()
 
