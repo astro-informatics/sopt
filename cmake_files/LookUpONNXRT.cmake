@@ -47,6 +47,7 @@ if(NOT ${onnxruntime_FOUND})
     #PREFIX "${CMAKE_BINARY_DIR}/external"
     PREFIX ${onnxruntime_DIR}
     #INSTALL_DIR ${EXTERNAL_ROOT}
+    CONFIGURE_COMMAND ""
     UPDATE_COMMAND ""
     BUILD_COMMAND ""
     INSTALL_COMMAND ""
