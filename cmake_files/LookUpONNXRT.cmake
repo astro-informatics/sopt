@@ -47,21 +47,20 @@ if(NOT ${onnxruntime_FOUND})
     #PREFIX "${CMAKE_BINARY_DIR}/external"
     PREFIX ${onnxruntime_DIR}
     #INSTALL_DIR ${EXTERNAL_ROOT}
-  #  CMAKE_ARGS
-  #  -DCMAKE_INSTALL_PREFIX=${onnxruntime_DIR}
-  #  -DCMAKE_INSTALL_LIBDIR=${CMAKE_SHARED_LIBRARY_PREFIX}
-  #  # Wrap download, configure and build steps in a script to log output
     UPDATE_COMMAND ""
     BUILD_COMMAND ""
     INSTALL_COMMAND ""
-  #  LOG_DOWNLOAD ON
-  #  LOG_CONFIGURE ON
-  #  LOG_BUILD ON
-  #  LOG_INSTALL ON
+    LOG_DOWNLOAD ON
+    LOG_CONFIGURE ON
+    LOG_BUILD ON
+    LOG_INSTALL ON
   )
   set(onnxruntime_INCLUDE_DIR "${onnxruntime_DIR}/include")
   set(onnxruntime_LIBRARY_DIR "${onnxruntime_DIR}/lib")
   set(onnxruntime_LIBRARIES onnxruntime::onnxruntime)
+  message(STATUS "ORT-INCDIR=${onnxruntime_INCLUDE_DIR}")
+  message(STATUS "ORT-LIBDIR=${onnxruntime_LIBRARY_DIR}")
+  message(STATUS "ORT-LIB=${onnxruntime_LIBRARIES}")
   set(onnxruntime_FOUND TRUE)
 endif()
 
