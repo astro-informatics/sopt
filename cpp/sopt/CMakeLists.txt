@@ -63,7 +63,7 @@ if(SOPT_MPI)
 endif()
 
 if(onnxrt)
-  target_link_libraries(sopt PRIVATE ${onnxruntime_LIBRARIES})
+  target_link_libraries(sopt ${onnxruntime_LIBRARIES})
   target_include_directories(sopt SYSTEM PUBLIC ${onnxruntime_INCLUDE_DIR})
 endif()
 
