@@ -22,10 +22,10 @@ if(NOT ${onnxruntime_FOUND})
   FetchContent_Declare(onnxruntime
                        URL ${ORT_URL}
                        URL_HASH SHA256=b072f989d6315ac0e22dcb4771b083c5156d974a3496ac3504c77f4062eb248e
-                       DOWNLOAD_DIR ${CMAKE_INSTALL_PREFIX}/external)
+                       DOWNLOAD_DIR ${CMAKE_CURRENT_BINARY_DIR}/external)
   FetchContent_MakeAvailable(onnxruntime)
-  message(STATUS "Downloaded ONNXrt to ${CMAKE_INSTALL_PREFIX}/external")
-  set(onnxruntime_DIR "${CMAKE_INSTALL_PREFIX}/external")
+  message(STATUS "Downloaded ONNXrt to ${CMAKE_CURRENT_BINARY_DIR}/external")
+  set(onnxruntime_DIR "${CMAKE_CURRENT_BINARY_DIR}/external")
   set(onnxruntime_INCLUDE_DIR "${onnxruntime_DIR}/include")
   find_library(onnxruntime_LIBRARY
                NAMES onnxruntime
@@ -36,6 +36,14 @@ if(NOT ${onnxruntime_FOUND})
                         IMPORTED_LOCATION "${onnxruntime_LIBRARY}"
                         INTERFACE_INCLUDE_DIRECTORIES "${onnxruntime_INCLUDE_DIR}"
                         LINKER_LANGUAGE CXX)
+
+  #install(TARGETS onnxruntime
+  #  EXPORT soptCPPTargets
+  #  DESTINATION external
+  #  LIBRARY DESTINATION lib
+  #  ARCHIVE DESTINATION lib
+  #  INCLUDES DESTINATION include
+  #)
 
   #include(ExternalProject)
   #set(onnxruntime_DIR "${CMAKE_INSTALL_PREFIX}/external")
