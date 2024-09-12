@@ -11,7 +11,7 @@ if(NOT ${onnxruntime_FOUND})
   set(ORT_URL_BASE "https://github.com/microsoft/onnxruntime/releases/download")
   set(ORT_URL "${ORT_URL_BASE}/v${ORT_VERSION}/onnxruntime-linux-${ARCH}-${ORT_VERSION}.tgz")
 
-  #include(FetchContent)
+  include(FetchContent)
   # https://cmake.org/cmake/help/latest/policy/CMP0135.html
   #
   # CMP0135 is for solving re-building and re-downloading.
