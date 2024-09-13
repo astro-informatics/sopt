@@ -70,8 +70,12 @@ protected:
 
   void call_model(t_Vector &image_out, t_Vector const &image_in) const {
 
+    // Set dimensions
+    int const image_size = image_in.size();
+    int nrows = sqrt(image_size), ncols = sqrt(image_size);
+
     // Call model
-    image_out = model_.compute(image_in);
+    image_out = model_.compute(image_in, {1,nrows,ncols,1});
 
   }
 

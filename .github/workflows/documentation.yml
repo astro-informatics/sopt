@@ -14,11 +14,7 @@ on:
         default: false
 
 env:
-  CONAN_PRINT_RUN_COMMANDS: 1
-  CONAN_REVISIONS_ENABLED: 1
   OMP_NUM_THREADS: 2
-  CONAN_CPU_COUNT: 2
-  USE_CONAN: 0
 
 jobs:
   make-documentation:
@@ -34,47 +30,38 @@ jobs:
         uses: mxschmitt/action-tmate@v3
         if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.debug_enabled }}
 
-      # Note that we are installing doxygen with apt here, and with conan in the Configure step.
-      # This is because there is no easy way of extracting the path to the doxygen executable from conan.
-      # the apt installed doxygen is used in the Make Docweb step to build the html files,
-      # while the conan installed version is used in the build step.
-      # -> Is this still true for Conan v2?
       - name: Install dependencies
         run: |
           sudo apt update
-          sudo apt install openmpi-bin libopenmpi-dev libyaml-cpp-dev doxygen graphviz ccache
-          if [[ "$USE_CONAN" = 1 ]]; then
-            pip install conan
-          else
-            sudo apt install libeigen3-dev libtiff-dev
-            git clone https://github.com/catchorg/Catch2.git -b v3.4.0
-            mkdir Catch2/build
-            cd Catch2/build
-            cmake .. -DBUILD_TESTING=OFF -DCMAKE_INSTALL_PREFIX=${PWD}
-            make -j$(nproc --ignore 1)
-            make -j$(nproc --ignore 1) install
-            cd -
-          fi
+          sudo apt install openmpi-bin libopenmpi-dev libyaml-cpp-dev doxygen graphviz ccache libeigen3-dev libtiff-dev
+
+      - name: Checkout Catch2
+        uses: actions/checkout@v4
+        with:
+          repository: catchorg/Catch2.git
+          path: Catch2
+          ref: v3.4.0
+
+      - name: Build Catch2
+        run: |
+           mkdir Catch2/build
+           cd Catch2/build
+           cmake .. -DBUILD_TESTING=OFF -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/local
+           make -j$(nproc --ignore 1) install
 
       - name: Build
         run: |
-          if [[ "$USE_CONAN" = 1 ]]; then
-            conan build ${{github.workspace}} -of ${{github.workspace}}/build
-          else
-            export CMAKE_PREFIX_PATH=${{github.workspace}}/Catch2/build/lib/cmake:$CMAKE_PREFIX_PATH
-            mkdir ${{github.workspace}}/build
-            cd ${{github.workspace}}/build
-            cmake .. --fresh -DCMAKE_INSTALL_PREFIX=${PWD} -Ddompi=OFF -Dopenmp=OFF -Ddocs=ON -Donnxrt=ON
-            make -j$(nproc --ignore 1)
-            make -j$(nproc --ignore 1) install
-          fi
+          export CMAKE_PREFIX_PATH=${{github.workspace}}/local:$CMAKE_PREFIX_PATH
+          mkdir ${{github.workspace}}/build
+          cd ${{github.workspace}}/build
+          cmake .. --fresh -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/local -Ddompi=OFF -Dopenmp=OFF -Ddocs=ON -Donnxrt=ON
+          make -j$(nproc --ignore 1)
+          make -j$(nproc --ignore 1) install
 
       - name: Make Docweb
         run: |
-          if [[ "$USE_CONAN" = 0 ]]; then
-            cd build
-            make docweb VERBOSE=1
-          fi
+          cd build
+          make docweb VERBOSE=1
 
       - name: Deploy to GH pages
         if: ${{github.event_name == 'push'}}
