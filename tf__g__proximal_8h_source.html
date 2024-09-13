@@ -150,18 +150,22 @@ $(function() {
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  <span class="keywordtype">void</span> call_model(<a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> &amp;image_out, <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> <span class="keyword">const</span> &amp;image_in)<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="comment">// Call model</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    image_out = model_.<a class="code" href="classsopt_1_1ORTsession.html#ae4d8717c3eb7723e358b79eef5b4592f">compute</a>(image_in);</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  }</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;};</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;} <span class="comment">// namespace sopt::algorithm</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="comment">// Set dimensions</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordtype">int</span> <span class="keyword">const</span> image_size = image_in.size();</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordtype">int</span> nrows = sqrt(image_size), ncols = sqrt(image_size);</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="comment">// Call model</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    image_out = model_.<a class="code" href="classsopt_1_1ORTsession.html#a9ed0f29326444e4f2410fe4cd36ef5c0">compute</a>(image_in, {1,nrows,ncols,1});</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  }</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;};</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;} <span class="comment">// namespace sopt::algorithm</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="abisection__method_8cc_html_a150b8eda2681eca0377a440541891747"><div class="ttname"><a href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a></div><div class="ttdeci">sopt::Vector&lt; Scalar &gt; t_Vector</div><div class="ttdef"><b>Definition:</b> <a href="bisection__method_8cc_source.html#l00010">bisection_method.cc:10</a></div></div>
 <div class="ttc" id="aclassGProximal_html"><div class="ttname"><a href="classGProximal.html">GProximal</a></div><div class="ttdef"><b>Definition:</b> <a href="g__proximal_8h_source.html#l00010">g_proximal.h:10</a></div></div>
 <div class="ttc" id="aclasssopt_1_1ORTsession_html"><div class="ttname"><a href="classsopt_1_1ORTsession.html">sopt::ORTsession</a></div><div class="ttdoc">Sopt interface class to hold a ONNXrt session.</div><div class="ttdef"><b>Definition:</b> <a href="ort__session_8h_source.html#l00018">ort_session.h:18</a></div></div>
-<div class="ttc" id="aclasssopt_1_1ORTsession_html_ae4d8717c3eb7723e358b79eef5b4592f"><div class="ttname"><a href="classsopt_1_1ORTsession.html#ae4d8717c3eb7723e358b79eef5b4592f">sopt::ORTsession::compute</a></div><div class="ttdeci">std::vector&lt; float &gt; compute(std::vector&lt; float &gt; &amp;inputs) const</div><div class="ttdef"><b>Definition:</b> <a href="ort__session_8h_source.html#l00040">ort_session.h:40</a></div></div>
+<div class="ttc" id="aclasssopt_1_1ORTsession_html_a9ed0f29326444e4f2410fe4cd36ef5c0"><div class="ttname"><a href="classsopt_1_1ORTsession.html#a9ed0f29326444e4f2410fe4cd36ef5c0">sopt::ORTsession::compute</a></div><div class="ttdeci">std::vector&lt; float &gt; compute(std::vector&lt; float &gt; &amp;inputs, const std::vector&lt; int64_t &gt; &amp;inDims) const</div><div class="ttdef"><b>Definition:</b> <a href="ort__session_8h_source.html#l00040">ort_session.h:40</a></div></div>
 <div class="ttc" id="aclasssopt_1_1algorithm_1_1ForwardBackward_html"><div class="ttname"><a href="classsopt_1_1algorithm_1_1ForwardBackward.html">sopt::algorithm::ForwardBackward</a></div><div class="ttdoc">Forward Backward Splitting.</div><div class="ttdef"><b>Definition:</b> <a href="forward__backward_8h_source.html#l00019">forward_backward.h:19</a></div></div>
 <div class="ttc" id="aclasssopt_1_1algorithm_1_1ForwardBackward_html_a1eff61e02bfdda72cbb09b3ca89ef5ad"><div class="ttname"><a href="classsopt_1_1algorithm_1_1ForwardBackward.html#a1eff61e02bfdda72cbb09b3ca89ef5ad">sopt::algorithm::ForwardBackward::Real</a></div><div class="ttdeci">typename real_type&lt; Scalar &gt;::type Real</div><div class="ttdoc">Real type.</div><div class="ttdef"><b>Definition:</b> <a href="forward__backward_8h_source.html#l00026">forward_backward.h:26</a></div></div>
 <div class="ttc" id="aclasssopt_1_1algorithm_1_1ForwardBackward_html_a8609e35c90eccd296886177afa25c61b"><div class="ttname"><a href="classsopt_1_1algorithm_1_1ForwardBackward.html#a8609e35c90eccd296886177afa25c61b">sopt::algorithm::ForwardBackward::Scalar</a></div><div class="ttdeci">value_type Scalar</div><div class="ttdoc">Scalar type.</div><div class="ttdef"><b>Definition:</b> <a href="forward__backward_8h_source.html#l00024">forward_backward.h:24</a></div></div>

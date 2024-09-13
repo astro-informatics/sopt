@@ -90,42 +90,13 @@ $(function() {
 <li><a href="https://gcc.gnu.org">GCC</a> v7.3.0 GNU compiler for <code>C++</code>.</li>
 <li><a href="http://openmp.org/wp/">OpenMP</a> v4.8.4 (Trusty) - Optional - Speeds up some of the operations.</li>
 <li><a href="http://eigen.tuxfamily.org/index.php?title=Main_Page">Eigen3</a> v3.4.0 (Trusty) Modern <code>C++</code> linear algebra. Downloaded automatically if absent.</li>
-<li><a href="https://github.com/catchorg/Catch2">Catch2</a> v3.4.0 - Optional - A <code>C++</code> unit-testing framework only needed for testing. Downloaded automatically if absent.</li>
-<li><a href="https://github.com/google/benchmark">google/benchmark</a> - Optional - A <code>C++</code> micro-benchmarking framework only needed for benchmarks. Downloaded automatically if absent.</li>
+<li><a href="https://github.com/catchorg/Catch2">Catch2</a> v3.4.0 - Optional - A <code>C++</code> unit-testing framework only needed for testing.</li>
+<li><a href="https://github.com/google/benchmark">google/benchmark</a> - Optional - A <code>C++</code> micro-benchmarking framework only needed for benchmarks.</li>
 <li><a href="http://www.libtiff.org/">tiff</a> v4.5.1 (Trusty) Tag Image File Format library - only installed if needed.</li>
+<li><a href="https://onnxruntime.ai/">ONNXruntime</a> v1.17.1 - Optional - a cross-platform runtime engine based on the Open Neural Network eXchange format.</li>
 </ul>
 <h1>Installing and building SOPT</h1>
-<h2>Using Conan v2 (recommended)</h2>
-<p><a href="https://docs.conan.io/en/latest/installation.html">Conan</a> is a C++ package manager that helps deal with most of the C++ dependencies as well as the <b>SOPT</b> installation:</p>
-<ol type="1">
-<li><p class="startli">Once the mandatory dependencies are present, <code>git clone</code> from the <a href="https://github.com/astro-informatics/sopt">GitHub repository</a>:</p>
-<p class="startli">``` bash git clone <a href="https://github.com/astro-informatics/sopt.git">https://github.com/astro-informatics/sopt.git</a> ```</p>
-</li>
-</ol>
-<ol type="1">
-<li><p class="startli">Then, the program can be built using conan:</p>
-<p class="startli">``` bash cd /path/to/code mkdir build cd build conan install .. -of . &ndash;build missing conan build .. -of . ```</p>
-</li>
-</ol>
-<p>Things to note:</p>
-<ul>
-<li><p class="startli">To install in directory <code>INSTALL_FOLDER</code>, add the following options to the conan build command:</p>
-<p class="startli">``` bash conan build .. -of INSTALL_FOLDER ```</p>
-</li>
-<li>CMake build options should be passed as options to <code>conan install</code> using the <code>-o</code> flag with a value <code>on</code> or <code>off</code>. Possible options are: <pre class="fragment">- tests (default on)
-- benchmarks (default off)
-- examples (default on)
-- openmp (default off)
-- dompi (default off)
-- docs (default off)
-- coverage (default off)
-- onnxrt (default off)
-</pre> For example, to build with both MPI and OpenMP on you would use</li>
-</ul>
-<div class="fragment"><div class="line">conan install .. -of . --build missing -o openmp=on -o dompi=on</div>
-<div class="line">conan build .. -of .</div>
-</div><!-- fragment --><h2>Using CMake</h2>
-<p>If the dependencies are already available on your system, you can also install <b>SOPT</b> manually like so</p>
+<p>If the dependencies are already available on your system, you can install <b>SOPT</b> manually like so</p>
 <div class="fragment"><div class="line">cd /path/to/code</div>
 <div class="line">mkdir build</div>
 <div class="line">cd build</div>
@@ -134,21 +105,8 @@ $(function() {
 <div class="line">make -j install</div>
 </div><!-- fragment --><p>On MacOS, you can also install most of the dependencies with Homebrew e.g.</p>
 <div class="fragment"><div class="line">brew install libtensorflow eigen tiff catch2</div>
-</div><!-- fragment --><p> <b>Note that the ONNXruntime interface is currently only supported when compiling with Clang on MacOS, but not with g++</b></p>
-<h1>Conan tips</h1>
-<p>You can set commonly used options, choices of compilers etc. in a <a href="https://docs.conan.io/en/latest/reference/profiles.html">conan profile</a>. You can list profiles available on your system using <code>conan profile list</code> and select the profile you want to use with <code>conan install</code> with <code>conan install .. -pr my_profile</code>. CMake build options can also be added to the profile under <code>[options]</code>. Here is an example of a conan profile for building with a homebrew installed gcc 11 on MacOS.</p>
-<div class="fragment"><div class="line">[settings]</div>
-<div class="line">os=Macos</div>
-<div class="line">os_build=Macos</div>
-<div class="line">arch=x86_64</div>
-<div class="line">arch_build=x86_64</div>
-<div class="line">compiler=gcc</div>
-<div class="line">compiler.version=11</div>
-<div class="line">compiler.libcxx=libstdc++11</div>
-<div class="line">build_type=Release</div>
-<div class="line">[options]</div>
-<div class="line">[build_requires]</div>
-</div><!-- fragment --><h1>Testing</h1>
+</div><!-- fragment --><p> <b>Note that on MacOS, the ONNXruntime currently only support Clang but not g++</b></p>
+<h1>Testing</h1>
 <p>To check everything went all right, run the test suite:</p>
 <div class="fragment"><div class="line">cd /path/to/code/build</div>
 <div class="line">ctest .</div>
@@ -175,11 +133,12 @@ $(function() {
 <div class="line">       --opset 11</div>
 <div class="line">       --inputs input0:0</div>
 <div class="line">       --extra_opset StatefulPartitionedCall:0</div>
-</div><!-- fragment --><p> Unknown TF input dimensions can be specified e.g. using &lsquo;--inputs 'input0:0[1,256,256,1]&rsquo;`.</p>
-<p>After the export, load the model and verify that it's well formed like so </p><div class="fragment"><div class="line">import onnx</div>
+</div><!-- fragment --><p>After the export, load the model and verify that it's well formed like so </p><div class="fragment"><div class="line">import onnx</div>
 <div class="line">onnx_model = onnx.load(&quot;model_name.onnx&quot;)</div>
 <div class="line">onnx.checker.check_model(onnx_model)</div>
 <div class="line">print( onnx_model.graph.input )</div>
+</div><!-- fragment --><p> Hard-coded dimensions can be removed from the input/output tensor e.g. like so </p><div class="fragment"><div class="line">print (onnx_model.graph.input[0].type.tensor_type.shape)</div>
+<div class="line">onnx_model.graph.input[0].type.tensor_type.shape.dim[1].ClearField(&#39;dim_value&#39;)</div>
 </div><!-- fragment --><p><a href="https://netron.app/">Netron</a> is a useful online tool to help visualise the model.</p>
 <h1>Matlab</h1>
 <p>A separate Matlab implementation is provided with <b>SOPT</b>. This implementation includes some (but not all) of the optimisation algorithms implemented in the <code>C++</code> code, including the SARA algorithm.</p>

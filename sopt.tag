@@ -8641,22 +8641,22 @@
       <type>std::vector&lt; float &gt;</type>
       <name>compute</name>
       <anchorfile>classsopt_1_1ORTsession.html</anchorfile>
-      <anchor>ae4d8717c3eb7723e358b79eef5b4592f</anchor>
-      <arglist>(std::vector&lt; float &gt; &amp;inputs) const</arglist>
+      <anchor>a9ed0f29326444e4f2410fe4cd36ef5c0</anchor>
+      <arglist>(std::vector&lt; float &gt; &amp;inputs, const std::vector&lt; int64_t &gt; &amp;inDims) const</arglist>
     </member>
     <member kind="function">
       <type>Vector&lt; T &gt;</type>
       <name>compute</name>
       <anchorfile>classsopt_1_1ORTsession.html</anchorfile>
-      <anchor>a482bde75db295989a1aab20b9f0da711</anchor>
-      <arglist>(const Vector&lt; T &gt; &amp;input) const</arglist>
+      <anchor>aa68ae18f670e407ad1d86e502c471b56</anchor>
+      <arglist>(const Vector&lt; T &gt; &amp;input, const std::vector&lt; int64_t &gt; &amp;inDims) const</arglist>
     </member>
     <member kind="function">
       <type>Image&lt; T &gt;</type>
       <name>compute</name>
       <anchorfile>classsopt_1_1ORTsession.html</anchorfile>
-      <anchor>a31167b46888687e3fba77d5910088f79</anchor>
-      <arglist>(const Image&lt; T &gt; &amp;input) const</arglist>
+      <anchor>af56e1d8dbe8b31dca271238b2fa2fc97</anchor>
+      <arglist>(const Image&lt; T &gt; &amp;input, std::vector&lt; int64_t &gt; inDims={}) const</arglist>
     </member>
     <member kind="function">
       <type>const bool</type>
