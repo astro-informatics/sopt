@@ -31,7 +31,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          sudo dnf update
+          sudo dnf -y update
           sudo dnf -y install openmpi openmpi-dev yaml-cpp doxygen graphviz ccache eigen3-dev libtiff catch2-devel
 
       #- name: Checkout Catch2
