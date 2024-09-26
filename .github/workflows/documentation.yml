@@ -32,7 +32,8 @@ jobs:
       - name: Install dependencies
         run: |
           sudo dnf -y update
-          sudo dnf -y install openmpi openmpi-devel yaml-cpp doxygen graphviz ccache eigen3-devel libtiff catch2-devel cmake
+          sudo dnf -y install cmake gcc gcc-c++
+          sudo dnf -y install openmpi openmpi-devel yaml-cpp doxygen graphviz ccache eigen3-devel libtiff catch2-devel
 
       #- name: Checkout Catch2
       #  uses: actions/checkout@v4
@@ -50,6 +51,7 @@ jobs:
 
       - name: Build
         run: |
+          source /etc/profile.d/modules.sh
           mkdir build && cd build
           cmake .. --fresh -DCMAKE_INSTALL_PREFIX=${PWD}/../local -Ddompi=OFF -Dopenmp=OFF -Ddocs=ON -Donnxrt=ON
           make -j$(nproc --ignore 1)
