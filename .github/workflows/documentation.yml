@@ -32,22 +32,22 @@ jobs:
       - name: Install dependencies
         run: |
           cat /etc/os-release
-          sudo apt update
-          sudo apt install openmpi-bin libopenmpi-dev libyaml-cpp-dev doxygen graphviz ccache libeigen3-dev libtiff-dev
+          sudo dnf update
+          sudo dnf install openmpi openmpi-dev yaml-cpp doxygen graphviz ccache eigen3-dev libtiff catch2-devel
 
-      - name: Checkout Catch2
-        uses: actions/checkout@v4
-        with:
-          repository: catchorg/Catch2.git
-          path: Catch2
-          ref: v3.4.0
+      #- name: Checkout Catch2
+      #  uses: actions/checkout@v4
+      #  with:
+      #    repository: catchorg/Catch2.git
+      #    path: Catch2
+      #    ref: v3.4.0
 
-      - name: Build Catch2
-        run: |
-           mkdir Catch2/build
-           cd Catch2/build
-           cmake .. -DBUILD_TESTING=OFF -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/local
-           make -j$(nproc --ignore 1) install
+      #- name: Build Catch2
+      #  run: |
+      #     mkdir Catch2/build
+      #     cd Catch2/build
+      #     cmake .. -DBUILD_TESTING=OFF -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/local
+      #     make -j$(nproc --ignore 1) install
 
       - name: Build
         run: |
