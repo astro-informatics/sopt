@@ -33,21 +33,21 @@ jobs:
         run: |
           sudo dnf -y update
           sudo dnf -y install cmake gcc gcc-c++
-          sudo dnf -y install openmpi openmpi-devel yaml-cpp doxygen graphviz ccache eigen3-devel libtiff-devel catch2-devel
+          sudo dnf -y install openmpi openmpi-devel yaml-cpp doxygen graphviz ccache eigen3-devel libtiff-devel
 
-      #- name: Checkout Catch2
-      #  uses: actions/checkout@v4
-      #  with:
-      #    repository: catchorg/Catch2.git
-      #    path: Catch2
-      #    ref: v3.4.0
+      - name: Checkout Catch2
+        uses: actions/checkout@v4
+        with:
+          repository: catchorg/Catch2.git
+          path: Catch2
+          ref: v3.4.0
 
-      #- name: Build Catch2
-      #  run: |
-      #     mkdir Catch2/build
-      #     cd Catch2/build
-      #     cmake .. -DBUILD_TESTING=OFF -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/local
-      #     make -j$(nproc --ignore 1) install
+      - name: Build Catch2
+        run: |
+           mkdir Catch2/build
+           cd Catch2/build
+           cmake .. -DBUILD_TESTING=OFF -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/local
+           make -j$(nproc --ignore 1) install
 
       - name: Build
         run: |
