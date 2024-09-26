@@ -50,7 +50,9 @@ jobs:
 
       - name: Build
         run: |
-          export CMAKE_PREFIX_PATH=${{github.workspace}}/local:$CMAKE_PREFIX_PATH
+          #export CMAKE_PREFIX_PATH=${{github.workspace}}/local:$CMAKE_PREFIX_PATH
+          pwd
+          echo "${{github.workspace}}"
           mkdir ${{github.workspace}}/build
           cd ${{github.workspace}}/build
           cmake .. --fresh -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/local -Ddompi=OFF -Dopenmp=OFF -Ddocs=ON -Donnxrt=ON
