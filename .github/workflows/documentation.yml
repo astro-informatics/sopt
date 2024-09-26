@@ -32,7 +32,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo dnf -y update
-          sudo dnf -y install openmpi openmpi-dev yaml-cpp doxygen graphviz ccache eigen3-dev libtiff catch2-devel
+          sudo dnf -y install openmpi openmpi-devel yaml-cpp doxygen graphviz ccache eigen3-devel libtiff catch2-devel
 
       #- name: Checkout Catch2
       #  uses: actions/checkout@v4
