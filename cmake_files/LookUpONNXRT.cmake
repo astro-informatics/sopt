@@ -1,7 +1,7 @@
 
 find_package(onnxruntime QUIET)
 
-if(${onnxruntime_FOUND} AND NOT onnxruntime_INCLUDE_DIR)
+if(${onnxruntime_FOUND})
   find_path(onnxruntime_INCLUDE_DIR NAMES onnxruntime_cxx_api.h
       HINTS
       ENV onnxruntime_ROOT
