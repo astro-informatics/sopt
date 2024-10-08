@@ -1,7 +1,7 @@
 
 find_package(onnxruntime QUIET)
 
-if(${onnxruntime_FOUND} AND NOT onnxruntime_INCLUDE_DIR)
+if(${onnxruntime_FOUND})
   find_path(onnxruntime_INCLUDE_DIR NAMES onnxruntime_cxx_api.h
       HINTS
       ENV onnxruntime_ROOT
@@ -12,10 +12,9 @@ if(${onnxruntime_FOUND} AND NOT onnxruntime_INCLUDE_DIR)
   )
   include(FindPackageHandleStandardArgs)
   find_package_handle_standard_args(onnxruntime DEFAULT_MSG onnxruntime_INCLUDE_DIR TRUE)
-  set(onnxruntime_LIBRARIES onnxruntime)
+  set(onnxruntime_LIBRARIES onnxruntime::onnxruntime)
   get_filename_component(onnxruntime_INSTALL_PREFIX "${onnxruntime_INCLUDE_DIR}/../../" ABSOLUTE)
   find_library(onnxruntime_LIBRARY onnxruntime PATHS "${onnxruntime_INSTALL_PREFIX}/lib")
-  add_library(${onnxruntime_LIBRARIES} SHARED IMPORTED)
   set_target_properties(${onnxruntime_LIBRARIES} PROPERTIES IMPORTED_LOCATION "${onnxruntime_LIBRARY}")
   set_target_properties(${onnxruntime_LIBRARIES} PROPERTIES INTERFACE_INCLUDE_DIRECTORIES "${onnxruntime_INCLUDE_DIR}")
 endif()
@@ -47,7 +46,7 @@ if(NOT ${onnxruntime_FOUND})
   execute_process(COMMAND ${CMAKE_COMMAND} -E copy_directory ${ORT_TARNAME} ${onnxruntime_DIR})
   set(onnxruntime_INCLUDE_DIR "${onnxruntime_DIR}/include")
   set(onnxruntime_LIBRARY_DIR "${onnxruntime_DIR}/lib")
-  set(onnxruntime_LIBRARIES onnxruntime)
+  set(onnxruntime_LIBRARIES onnxruntime::onnxruntime)
   add_library(${onnxruntime_LIBRARIES} SHARED IMPORTED GLOBAL)
   set_target_properties(${onnxruntime_LIBRARIES} PROPERTIES IMPORTED_LOCATION ${onnxruntime_LIBRARY_DIR}/libonnxruntime.so)
   set(onnxruntime_FOUND TRUE)
