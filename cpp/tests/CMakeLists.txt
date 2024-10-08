@@ -46,13 +46,13 @@ add_catch_test(wavelets LIBRARIES sopt SEED ${RAND_SEED})
 add_catch_test(wrapper LIBRARIES sopt SEED ${RAND_SEED})
 
 if(onnxrt)
-  add_catch_test(ort_model LIBRARIES sopt onnxruntime::onnxruntime)
-  add_catch_test(tf_model LIBRARIES sopt tools_for_tests onnxruntime::onnxruntime)
-  add_catch_test(tf_inpainting LIBRARIES sopt tools_for_tests onnxruntime::onnxruntime SEED ${RAND_SEED})
-  add_catch_test(onnx_inpainting LIBRARIES sopt tools_for_tests onnxruntime::onnxruntime SEED ${RAND_SEED})
+  add_catch_test(ort_model LIBRARIES sopt ${onnxruntime_LIBRARIES})
+  add_catch_test(tf_model LIBRARIES sopt tools_for_tests ${onnxruntime_LIBRARIES})
+  add_catch_test(tf_inpainting LIBRARIES sopt tools_for_tests ${onnxruntime_LIBRARIES} SEED ${RAND_SEED})
+  add_catch_test(onnx_inpainting LIBRARIES sopt tools_for_tests ${onnxruntime_LIBRARIES} SEED ${RAND_SEED})
 endif()
 
-file(COPY test_data DESTINATION .)
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/test_data DESTINATION .)
 
 if(SOPT_MPI)
   add_library(common_mpi_catch_main_object OBJECT common_mpi_catch_main.cc)

@@ -44,11 +44,11 @@ jobs:
             - g++-10
             - clang++
           mpi:
-            - "on"
-            - "off"
+            - "ON"
+            - "OFF"
           omp:
-            - "on"
-            - "off"
+            - "ON"
+            - "OFF"
           exclude:
             - cc: gcc-10
               cxx: clang++
@@ -58,7 +58,7 @@ jobs:
               cc: clang
               cxx: clang++
             - os: macos-14
-              mpi: "on"
+              mpi: "ON"
             # This doesn't seem to work with ONNXrt yet:
             - os: macos-14
               cxx: g++-10
@@ -73,12 +73,20 @@ jobs:
       run: |
         sudo apt update
         sudo apt install openmpi-bin libopenmpi-dev libyaml-cpp-dev ccache libeigen3-dev libtiff-dev
-        git clone https://github.com/catchorg/Catch2.git -b v3.4.0
-        mkdir Catch2/build
-        cd Catch2/build
-        cmake .. -DBUILD_TESTING=OFF -DCMAKE_INSTALL_PREFIX=${PWD}
-        make -j$(nproc --ignore 1) install
-        cd -
+
+    - name: Checkout Catch2
+      uses: actions/checkout@v4
+      with:
+        repository: catchorg/Catch2.git
+        path: Catch2
+        ref: v3.4.0
+
+    - name: Build Catch2
+      run: |
+         mkdir Catch2/build
+         cd Catch2/build
+         cmake .. -DBUILD_TESTING=OFF -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/local
+         make -j$(nproc --ignore 1) install
 
     - name: Install Dependencies on MacOS
       if: ${{ contains(matrix.os, 'macos') }}
@@ -97,11 +105,6 @@ jobs:
     - name: Setup tmate session
       uses: mxschmitt/action-tmate@v3
       if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.debug_enabled }}
-
-    - name: Select Python 3.10
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.10'
 
     - name: Prepare ccache timestamp
       id: ccache_cache_timestamp
@@ -124,10 +127,10 @@ jobs:
       # Build your program with the given configuration.
       # The Github Actions machines are dual-core so we can build faster using 2 parallel processes
       run: |
-        export CMAKE_PREFIX_PATH=${{github.workspace}}/Catch2/build/lib/cmake:$CMAKE_PREFIX_PATH
+        export CMAKE_PREFIX_PATH=${{github.workspace}}/local:$CMAKE_PREFIX_PATH
         mkdir ${{github.workspace}}/build
         cd ${{github.workspace}}/build
-        cmake .. --fresh -DCMAKE_INSTALL_PREFIX=${PWD}
+        cmake .. --fresh -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/local -Ddompi=${{matrix.mpi}} -Dopenmp=${{matrix.omp}}
         make -j$(nproc --ignore 1) install
 
 

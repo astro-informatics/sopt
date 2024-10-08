@@ -34,20 +34,27 @@ jobs:
         run: |
           sudo apt update
           sudo apt install openmpi-bin libopenmpi-dev libyaml-cpp-dev doxygen graphviz ccache libeigen3-dev libtiff-dev
-          git clone https://github.com/catchorg/Catch2.git -b v3.4.0
-          mkdir Catch2/build
-          cd Catch2/build
-          cmake .. -DBUILD_TESTING=OFF -DCMAKE_INSTALL_PREFIX=${PWD}
-          make -j$(nproc --ignore 1)
-          make -j$(nproc --ignore 1) install
-          cd -
+
+      - name: Checkout Catch2
+        uses: actions/checkout@v4
+        with:
+          repository: catchorg/Catch2.git
+          path: Catch2
+          ref: v3.4.0
+
+      - name: Build Catch2
+        run: |
+           mkdir Catch2/build
+           cd Catch2/build
+           cmake .. -DBUILD_TESTING=OFF -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/local
+           make -j$(nproc --ignore 1) install
 
       - name: Build
         run: |
-          export CMAKE_PREFIX_PATH=${{github.workspace}}/Catch2/build/lib/cmake:$CMAKE_PREFIX_PATH
+          export CMAKE_PREFIX_PATH=${{github.workspace}}/local:$CMAKE_PREFIX_PATH
           mkdir ${{github.workspace}}/build
           cd ${{github.workspace}}/build
-          cmake .. --fresh -DCMAKE_INSTALL_PREFIX=${PWD} -Ddompi=OFF -Dopenmp=OFF -Ddocs=ON -Donnxrt=ON
+          cmake .. --fresh -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/local -Ddompi=OFF -Dopenmp=OFF -Ddocs=ON -Donnxrt=ON
           make -j$(nproc --ignore 1)
           make -j$(nproc --ignore 1) install
 

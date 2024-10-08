@@ -78,8 +78,6 @@ else()
   message(STATUS "ONNXrt not found. ONNXrt support disabled.")
 endif()
 
-target_link_libraries(sopt ${CONAN_LIBS})
-
 install(FILES ${headers} DESTINATION include/sopt)
 install(FILES ${wavelet_headers} DESTINATION include/sopt/wavelets)
 install(FILES ${mpi_headers} DESTINATION include/sopt/mpi)

@@ -40,7 +40,7 @@ class RelativeVariation {
   }
   //! Name that gets interpolated into the log's output
   std::string const &name() const { return name_; }
-  RelativeVariation const &name(std::string const &name) const {
+  RelativeVariation const &name(std::string const &name) {
     name_ = name;
     return *this;
   }
@@ -78,21 +78,21 @@ class ScalarRelativeVariation {
   //! Allowed variation
   Real relative_tolerance() const { return relative_tolerance_; }
   //! Allowed variation
-  RelativeVariation<Scalar> &relative_tolerance(Real &e) const {
+  RelativeVariation<Scalar> &relative_tolerance(Real &e) {
     relative_tolerance_ = e;
     return *this;
   }
   //! Allowed variation
   Real absolute_tolerance() const { return relative_tolerance_; }
   //! Allowed variation
-  RelativeVariation<Scalar> &absolute_tolerance(Real &e) const {
+  RelativeVariation<Scalar> &absolute_tolerance(Real &e) {
     absolute_tolerance_ = e;
     return *this;
   }
 
   //! Name that gets interpolated into the log's output
   std::string const &name() const { return name_; }
-  ScalarRelativeVariation const &name(std::string const &name) const {
+  ScalarRelativeVariation const &name(std::string const &name) {
     name_ = name;
     return *this;
   }
