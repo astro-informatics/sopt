@@ -237,22 +237,30 @@ class ForwardBackward {
   t_Vector target_;
 };
 
+/**
+ * @brief Implementation of FISTA algorithm (see e.g. doi 10.1137/080716542)
+ * 
+ * The "auxilliary image" is a point near the image in the vector space (initially
+ * set to the be the same as the initial image), defined by taking a small step 
+ * (FISTA_step multiplied by the change in x) away from the image, and is used in 
+ * the proximal operator. The actual image which is input and update is called `image`.
+ * @tparam SCALAR 
+ * @param image: image to be updated
+ * @param residual: Phi*image - measurements
+ * @param auxilliary_image: A point close to the image which is also updated
+ * @param gradient_current: the gradient at the auxilliary image
+ * @param FISTA_step: Step size determined by FISTA stepping algorithm
+ */
 template <typename SCALAR>
-void ForwardBackward<SCALAR>::iteration_step(t_Vector &image_new, t_Vector &residual, t_Vector &image_current,
-                                             t_Vector &gradient_current, const t_real FISTA_ratio) const {
-  image_current = image_new;
-  SOPT_LOW_LOG("Calculate gradient");
-  f_gradient(gradient_current, image_current, residual, Phi());  // takes residual and calculates the grad = 1/sig^2 residual
-  SOPT_LOW_LOG("Take a gradient step");
-  image_new = image_current - beta() / nu() * gradient_current;  // step to new image using gradient
-  SOPT_LOW_LOG("Calculate the weight");
+void ForwardBackward<SCALAR>::iteration_step(t_Vector &image, t_Vector &residual, t_Vector &auxilliary_image,
+                                             t_Vector &gradient_current, const t_real FISTA_step) const {
+  t_Vector prev_image = image;
+  f_gradient(gradient_current, auxilliary_image, residual, Phi());  // takes residual and calculates the grad = 1/sig^2 residual
+  t_Vector auxilliary_with_step = auxilliary_image - beta() / nu() * gradient_current;  // step to new image using gradient
   const Real weight = gamma() * beta();
-  SOPT_LOW_LOG("Apply proximal operator");
-  g_proximal(image_new, weight, image_new);  // apply proximal operator to new image
-  SOPT_LOW_LOG("FISTA acceleration step");
-  image_current = image_new + FISTA_ratio * (image_new - image_current);  // FISTA acceleration step  
-  SOPT_LOW_LOG("Calculate the residual");
-  residual = (Phi() * image_current) - target();  // calculates the residual for the NEXT iteration.
+  g_proximal(image, weight, auxilliary_with_step);  // apply proximal operator to new image
+  auxilliary_image = image + FISTA_step * (image - prev_image);  // update auxilliary vector with FISTA acceleration step  
+  residual = (Phi() * auxilliary_image) - target();  // updates the residual for the NEXT iteration (new image).
 }
 
 template <typename SCALAR>
@@ -266,9 +274,9 @@ typename ForwardBackward<SCALAR>::Diagnostic ForwardBackward<SCALAR>::operator()
   }
   sanity_check(x_guess, res_guess);
 
-  const uint image_size = x_guess.size();
+  const size_t image_size = x_guess.size();
 
-  t_Vector image_current = x_guess;
+  t_Vector auxilliary_image = x_guess;
   t_Vector residual = res_guess;
   t_Vector gradient_current = t_Vector::Zero(image_size);
   out = x_guess;
@@ -277,16 +285,16 @@ typename ForwardBackward<SCALAR>::Diagnostic ForwardBackward<SCALAR>::operator()
   bool converged = false;
   Real theta = 1.0;
   Real theta_new = 1.0;
-  Real FISTA_ratio = 0.0;
+  Real FISTA_step = 0.0;
   for (; (not converged) && (niters < itermax()); ++niters) {
     SOPT_HIGH_LOG("    - [FB] Iteration {}/{}", niters, itermax());
     if (fista()) {
       theta_new = (1 + std::sqrt(1 + 4 * theta * theta)) / 2.;
-      FISTA_ratio = (theta - 1) / (theta_new);
+      FISTA_step = (theta - 1) / (theta_new);
       theta = theta_new;
     }
     SOPT_HIGH_LOG("      - Call iteration step");
-    iteration_step(out, residual, image_current, gradient_current, FISTA_ratio);
+    iteration_step(out, residual, auxilliary_image, gradient_current, FISTA_step);
     SOPT_HIGH_LOG("      - [FB] Sum of residuals: {}", residual.array().abs().sum());
     converged = is_converged(out, residual);
   }
