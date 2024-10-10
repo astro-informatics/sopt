@@ -75,9 +75,34 @@ protected:
     int const image_size = image_in.size();
     int nrows = sqrt(image_size), ncols = sqrt(image_size);
 
+    // Scale to [0,1] in reals
+    Vector<float> real_image(image_size);
+    for (size_t i = 0; i < image_size; i++) {
+      if constexpr (std::is_same<SCALAR, t_complex>::value) {
+        real_image[i] = image_in[i].real();
+      } else {
+        real_image[i] = image_in[i];
+      }
+    }
+    auto min = *(std::min_element(real_image.begin(), real_image.end()));
+    auto max = *(std::max_element(real_image.begin(), real_image.end()));
+    for(size_t i = 0; i < image_size; i++)
+    {
+      real_image[i] = (real_image[i] - min)/max;
+    }
+    
     // Call model
-    image_out = model_.compute(image_in, {1,nrows,ncols,1});
+    Vector<float> computed_image = model_.compute(real_image, {1,nrows,ncols,1});
 
+    // rescale back
+    for(size_t i = 0; i < image_size; i++)
+    {
+      if constexpr (std::is_same<SCALAR, t_complex>::value) {
+        image_out[i] = t_complex(computed_image[i] * max + min, 0);
+      } else {
+        image_out[i] = computed_image[i] * max + min;
+      }
+    }
   }
 
 };

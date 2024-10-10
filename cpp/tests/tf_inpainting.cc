@@ -32,7 +32,7 @@ TEST_CASE("Inpainting"){
   extern std::unique_ptr<std::mt19937_64> mersenne;
   const std::string input = "cameraman256";
 
-  const std::string model_path = std::string(sopt::tools::models_directory() + "/snr_15_model_dynamic.onnx");
+  const std::string model_path = std::string(sopt::tools::models_directory() + "/snr_15_model_dynamic_v2.onnx");
 
   const Image image = sopt::tools::read_standard_tiff(input);
 
@@ -79,10 +79,10 @@ TEST_CASE("Inpainting"){
   // compare input image to cleaned output image
   // calculate mean squared error sum_i ( ( x_true(i) - x_est(i) ) **2 )
   // check this is less than the number of pixels * 0.01
-  //sopt::utilities::write_tiff(Matrix::Map(diagnostic.x.data(), image.rows(), image.cols()),
-  //                              "tf_reconstruction.tiff");
-  //sopt::utilities::write_tiff(Matrix::Map(dirty_image.data(), image.rows(), image.cols()),
-  //                              "tf_dirty.tiff");
+  sopt::utilities::write_tiff(Matrix::Map(diagnostic.x.data(), image.rows(), image.cols()),
+                                "tf_reconstruction.tiff");
+  sopt::utilities::write_tiff(Matrix::Map(dirty_image.data(), image.rows(), image.cols()),
+                                "tf_dirty.tiff");
   Eigen::Map<const Eigen::VectorXd> flat_image(image.data(), image.size());
   auto mse = (flat_image - diagnostic.x).array().square().sum() / image.size();
   CAPTURE(mse);
