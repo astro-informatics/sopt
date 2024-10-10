@@ -1,5 +1,6 @@
-#ifndef SOPT_TF_G_PROXIMAL_H
-#define SOPT_TF_G_PROXIMAL_H
+#ifndef SOPT_TF_NON_DIFF_FUNCTION_H
+#define SOPT_TF_NON_DIFF_FUNCTION_H
+// TODO: Clean up unnecessary includes
 #include "sopt/config.h"
 #include "sopt/exception.h"
 #include "sopt/forward_backward.h"
@@ -9,7 +10,7 @@
 #include "sopt/proximal.h"
 #include "sopt/relative_variation.h"
 #include "sopt/types.h"
-#include "sopt/g_proximal.h"
+#include "sopt/non_differentiable_func.h"
 
 #include <numeric>
 #include <string>
@@ -18,11 +19,11 @@
 
 namespace sopt::algorithm {
 
-// Implementation of g_proximal with a TensorFlow model. Owns private
-// object model_ and implements the
-// interface defined by the GProximal class
+// Implementation of non differentiable function g(x) with a TensorFlow model. 
+// The function represents an l1 norm.
+// The "proximal" operator is implemented using the neural net model (denoiser).
 template <typename SCALAR>
-class TFGProximal : public GProximal<SCALAR> {
+class TFGProximal : public NonDifferentiableFunc<SCALAR> {
 
 public:
   using FB = ForwardBackward<SCALAR>;
@@ -45,13 +46,13 @@ public:
   }
 
   // Return the L1 norm of x with unit weights
-  Real proximal_norm(t_Vector const &x) const override {
+  Real function(t_Vector const &x) const override {
     auto weights = Vector<Real>::Ones(x.size());
     return sopt::l1_norm(static_cast<t_Vector>(x), weights);
   }
 
   // Return g_proximal as a lambda function. Used in operator() in base class.
-  t_Proximal proximal_function() const override {
+  t_Proximal proximal_operator() const override {
     return [this](t_Vector &out, Real gamma, t_Vector const &x) {
 	     this -> call_model(out, x);
 	   };
@@ -74,9 +75,34 @@ protected:
     int const image_size = image_in.size();
     int nrows = sqrt(image_size), ncols = sqrt(image_size);
 
+    // Scale to [0,1] in reals
+    Vector<float> real_image(image_size);
+    for (size_t i = 0; i < image_size; i++) {
+      if constexpr (std::is_same<SCALAR, t_complex>::value) {
+        real_image[i] = image_in[i].real();
+      } else {
+        real_image[i] = image_in[i];
+      }
+    }
+    auto min = *(std::min_element(real_image.begin(), real_image.end()));
+    auto max = *(std::max_element(real_image.begin(), real_image.end()));
+    for(size_t i = 0; i < image_size; i++)
+    {
+      real_image[i] = (real_image[i] - min)/max;
+    }
+    
     // Call model
-    image_out = model_.compute(image_in, {1,nrows,ncols,1});
+    Vector<float> computed_image = model_.compute(real_image, {1,nrows,ncols,1});
 
+    // rescale back
+    for(size_t i = 0; i < image_size; i++)
+    {
+      if constexpr (std::is_same<SCALAR, t_complex>::value) {
+        image_out[i] = t_complex(computed_image[i] * max + min, 0);
+      } else {
+        image_out[i] = computed_image[i] * max + min;
+      }
+    }
   }
 
 };

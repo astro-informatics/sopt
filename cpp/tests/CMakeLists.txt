@@ -49,6 +49,7 @@ if(onnxrt)
   add_catch_test(ort_model LIBRARIES sopt ${onnxruntime_LIBRARIES})
   add_catch_test(tf_model LIBRARIES sopt tools_for_tests ${onnxruntime_LIBRARIES})
   add_catch_test(tf_inpainting LIBRARIES sopt tools_for_tests ${onnxruntime_LIBRARIES} SEED ${RAND_SEED})
+  add_catch_test(onnx_inpainting LIBRARIES sopt tools_for_tests ${onnxruntime_LIBRARIES} SEED ${RAND_SEED})
 endif()
 
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/test_data DESTINATION .)

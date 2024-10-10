@@ -13,8 +13,14 @@
 
 namespace sopt::algorithm {
 
-//! \brief Forward Backward Splitting
-//! \details \f$\min_{x} f(\Phi x - y) + g(z)\f$. \f$y\f$ is a target vector.
+/*! \brief Forward Backward Splitting 
+  \An optimisation method to solve the problem \f$y = \Phi(x) + N(\sigma)\f
+  \f$\min_{x} f(x, y, \Phi) + g(x)\f$. \f$y\f$ is a target vector, while x is the current solution.
+  \f$f$ is a differentiable function. It is necessary to supply the gradient. 
+  \f$f$ is represented using a DifferentiableFunc object, which supplies the function and its gradient.
+  \f$g$ is a non-differentiable function. It is necessary to supply a proximal operator (or similar stepping function e.g. tensor-flow denoiser).
+  \f$g$ is represented using a NonDifferentiableFunc object, which supplies the function and its proximal operator.
+*/
 template <typename SCALAR>
 class ForwardBackward {
  public:
@@ -33,7 +39,8 @@ class ForwardBackward {
   //! Type of the proximal operator
   using t_Proximal = ProximalFunction<Scalar>;
   //! Type of the gradient
-  using t_Gradient = typename std::function<void(t_Vector &, const t_Vector &)>;
+  // The first argument is the output vector, the others are inputs
+  using t_Gradient = std::function<void(t_Vector &gradient, const t_Vector &image, const t_Vector &residual, const t_LinearTransform& Phi)>;
 
   //! Values indicating how the algorithm ran
   struct Diagnostic {
@@ -56,8 +63,8 @@ class ForwardBackward {
   };
 
   //! Setups ForwardBackward
-  //! \param[in] f_gradient: gradient of the \f$f\f$ function.
-  //! \param[in] g_proximal: proximal operator of the \f$g\f$ function
+  //! \param[in] f_function: the differentiable function \f$f\f$ with a gradient
+  //! \param[in] g_function: the non-differentiable function \f$g\f$ with a proximal operator
   template <typename DERIVED>
   ForwardBackward(t_Gradient const &f_gradient, t_Proximal const &g_proximal,
                   Eigen::MatrixBase<DERIVED> const &target)
@@ -66,7 +73,7 @@ class ForwardBackward {
         beta_(1),
         nu_(1),
         is_converged_(),
-	fista_(true),
+	      fista_(true),
         Phi_(linear_transform_identity<Scalar>()),
         f_gradient_(f_gradient),
         g_proximal_(g_proximal),
@@ -107,9 +114,9 @@ class ForwardBackward {
   //! Second proximal
   SOPT_MACRO(g_proximal, t_Proximal);
 #undef SOPT_MACRO
-  //! \brief Simplifies calling the proximal of f.
-  void f_gradient(t_Vector &out, t_Vector const &x) const { f_gradient()(out, x); }
-  //! \brief Simplifies calling the proximal of f.
+  //! \brief Simplifies calling the gradient function
+  void f_gradient(t_Vector &out, t_Vector const &x, t_Vector const &res, t_LinearTransform const &Phi) const { f_gradient()(out, x, res, Phi); }
+  //! \brief Simplifies calling the proximal function
   void g_proximal(t_Vector &out, Real gamma, t_Vector const &x) const {
     g_proximal()(out, gamma, x);
   }
@@ -230,16 +237,30 @@ class ForwardBackward {
   t_Vector target_;
 };
 
+/**
+ * @brief Implementation of FISTA algorithm (see e.g. doi 10.1137/080716542)
+ * 
+ * The "auxilliary image" is a point near the image in the vector space (initially
+ * set to the be the same as the initial image), defined by taking a small step 
+ * (FISTA_step multiplied by the change in x) away from the image, and is used in 
+ * the proximal operator. The actual image which is input and update is called `image`.
+ * @tparam SCALAR 
+ * @param image: image to be updated
+ * @param residual: Phi*image - measurements
+ * @param auxilliary_image: A point close to the image which is also updated
+ * @param gradient_current: the gradient at the auxilliary image
+ * @param FISTA_step: Step size determined by FISTA stepping algorithm
+ */
 template <typename SCALAR>
-void ForwardBackward<SCALAR>::iteration_step(t_Vector &out, t_Vector &residual, t_Vector &p,
-                                             t_Vector &z, const t_real lambda) const {
-  p = out;
-  f_gradient(z, residual);
-  const t_Vector input = out - beta() / nu() * (Phi().adjoint() * z);
+void ForwardBackward<SCALAR>::iteration_step(t_Vector &image, t_Vector &residual, t_Vector &auxilliary_image,
+                                             t_Vector &gradient_current, const t_real FISTA_step) const {
+  t_Vector prev_image = image;
+  f_gradient(gradient_current, auxilliary_image, residual, Phi());  // takes residual and calculates the grad = 1/sig^2 residual
+  t_Vector auxilliary_with_step = auxilliary_image - beta() / nu() * gradient_current;  // step to new image using gradient
   const Real weight = gamma() * beta();
-  g_proximal(out, weight, input);
-  p = out + lambda * (out - p);
-  residual = (Phi() * p) - target();
+  g_proximal(image, weight, auxilliary_with_step);  // apply proximal operator to new image
+  auxilliary_image = image + FISTA_step * (image - prev_image);  // update auxilliary vector with FISTA acceleration step  
+  residual = (Phi() * auxilliary_image) - target();  // updates the residual for the NEXT iteration (new image).
 }
 
 template <typename SCALAR>
@@ -253,24 +274,27 @@ typename ForwardBackward<SCALAR>::Diagnostic ForwardBackward<SCALAR>::operator()
   }
   sanity_check(x_guess, res_guess);
 
-  t_Vector p = t_Vector::Zero(x_guess.size());
-  t_Vector z = t_Vector::Zero(target().size());
+  const size_t image_size = x_guess.size();
+
+  t_Vector auxilliary_image = x_guess;
   t_Vector residual = res_guess;
+  t_Vector gradient_current = t_Vector::Zero(image_size);
   out = x_guess;
 
   t_uint niters(0);
   bool converged = false;
   Real theta = 1.0;
   Real theta_new = 1.0;
-  Real lambda = 0.0;
+  Real FISTA_step = 0.0;
   for (; (not converged) && (niters < itermax()); ++niters) {
     SOPT_LOW_LOG("    - [FB] Iteration {}/{}", niters, itermax());
     if (fista()) {
       theta_new = (1 + std::sqrt(1 + 4 * theta * theta)) / 2.;
-      lambda = (theta - 1) / (theta_new);
+      FISTA_step = (theta - 1) / (theta_new);
       theta = theta_new;
     }
-    iteration_step(out, residual, p, z, lambda);
+    SOPT_LOW_LOG("      - Call iteration step");
+    iteration_step(out, residual, auxilliary_image, gradient_current, FISTA_step);
     SOPT_LOW_LOG("      - [FB] Sum of residuals: {}", residual.array().abs().sum());
     converged = is_converged(out, residual);
   }

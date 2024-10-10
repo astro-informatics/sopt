@@ -16,6 +16,8 @@ add_executable(copy_tiff copy_tiff.cc)
 target_link_libraries(copy_tiff tools_for_tests sopt)
 
 configure_file("directories.in.h" "${PROJECT_BINARY_DIR}/include/tools_for_tests/directories.h")
+
+install(FILES "${PROJECT_BINARY_DIR}/include/tools_for_tests/directories.h" DESTINATION include/sopt)
 #file(MAKE_DIRECTORY "${PROJECT_BINARY_DIR}/outputs")
 #file(MAKE_DIRECTORY "${PROJECT_BINARY_DIR}/outputs/sdmm")
 

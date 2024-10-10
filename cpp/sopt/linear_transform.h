@@ -77,7 +77,7 @@ class LinearTransform : public details::WrapFunction<VECTOR> {
 
   //! Indirect transform
   LinearTransform<VECTOR> adjoint() const {
-    return {indirect_, static_cast<details::WrapFunction<VECTOR> const &>(*this)};
+    return LinearTransform<VECTOR>(indirect_, static_cast<details::WrapFunction<VECTOR> const &>(*this));
   }
 
   using details::WrapFunction<VECTOR>::operator*;
@@ -167,7 +167,7 @@ class MatrixToLinearTransform {
   //! \brief Returns conjugate transpose operator
   //! \details The matrix is shared.
   MatrixAdjointToLinearTransform<EIGEN> adjoint() const {
-    return MatrixAdjointToLinearTransform<EIGEN>(matrix);
+        return MatrixAdjointToLinearTransform<EIGEN>(matrix);
   }
 
  private:

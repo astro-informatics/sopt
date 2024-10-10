@@ -74,16 +74,26 @@ class ORTsession {
   /// Variant of compute() using input/output Eigen arrays
   template<typename T = t_real>
   Vector<T> compute(const Vector<T>& input, const std::vector<int64_t>& inDims) const {
-
     // ONNXrt requires floats as input
     std::vector<float> flat_input(input.size());
-    for (size_t i=0; i < input.size(); ++i) {
-      flat_input[i] = input[i];
+    for (size_t i = 0; i < input.size(); ++i) {
+      if constexpr(std::is_same<T, t_complex>::value) {
+        flat_input[i] = input[i].real();
+      } else {
+        flat_input[i] = input[i];
+      }
     }
     std::vector<float> flat_output = compute(flat_input, inDims);
     Vector<T> rtn(flat_output.size());
     for (size_t i = 0; i < flat_output.size(); ++i) {
-      rtn[i] = flat_output[i];
+      if constexpr(std::is_same<T, t_complex>::value)
+      {
+        rtn[i] = t_complex(flat_output[i], 0);
+      }
+      else
+      {
+        rtn[i] = flat_output[i];
+      }
     }
     return rtn;
   }

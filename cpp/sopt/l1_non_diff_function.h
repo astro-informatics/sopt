@@ -1,5 +1,5 @@
-#ifndef SOPT_L1_G_PROXIMAL_H
-#define SOPT_L1_G_PROXIMAL_H
+#ifndef SOPT_L1_NON_DIFF_FUNCTION_H
+#define SOPT_L1_NON_DIFF_FUNCTION_H
 // TODO: Clean up unnecessary includes
 #include "sopt/config.h"
 #include <numeric>
@@ -12,7 +12,7 @@
 #include "sopt/proximal.h"
 #include "sopt/relative_variation.h"
 #include "sopt/types.h"
-#include "sopt/g_proximal.h"
+#include "sopt/non_differentiable_func.h"
 #include "sopt/l1_proximal.h"
 
 #ifdef SOPT_MPI
@@ -21,11 +21,10 @@
 
 namespace sopt::algorithm {
 
-// Implementation of g_proximal with l1 proximal.
-// Owns the private object l1_proximal_ and implements the
-// interface defined by the GProximal class
+// Implementation of non differentiable function g(x) = l1 norm.
+// Proximal operator is implemented using the private l1_proximal object.
 template <typename SCALAR>
-class L1GProximal : public GProximal<SCALAR> {
+class L1GProximal : public NonDifferentiableFunc<SCALAR> {
 
 public:
   using FB = ForwardBackward<SCALAR>;
@@ -51,14 +50,14 @@ public:
   }
 
   // Return the norm associated with this implementation
-  Real proximal_norm(t_Vector const &x) const override {
+  Real function(t_Vector const &x) const override {
     auto &weights = l1_proximal_weights();
     auto input = static_cast<t_Vector>(Psi().adjoint() * x);
     return sopt::l1_norm(input, weights);
   }
 
   // Return g_proximal as a lambda function. Used in operator() in base class.
-  t_Proximal proximal_function() const override {
+  t_Proximal proximal_operator() const override {
     return [this](t_Vector &out, Real gamma, t_Vector const &x) {
 	     this -> l1_proximal(out, gamma, x);
 	   };

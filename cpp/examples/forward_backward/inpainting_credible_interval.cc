@@ -8,7 +8,7 @@
 
 #include "sopt/credible_region.h"
 #include "sopt/imaging_forward_backward.h"
-#include "sopt/l1_g_proximal.h"
+#include "sopt/l1_non_diff_function.h"
 #include "sopt/logging.h"
 #include "sopt/maths.h"
 #include "sopt/relative_variation.h"
@@ -112,7 +112,7 @@ int main(int argc, char const **argv) {
     .Psi(psi);
 
   // Once the properties are set, inject it into the ImagingForwardBackward object
-  fb.g_proximal(gp);
+  fb.g_function(gp);
 
   SOPT_HIGH_LOG("Starting Forward Backward");
   // Alternatively, forward-backward can be called with a tuple (x, residual) as argument
