@@ -66,7 +66,6 @@ if(SOPT_MPI)
   target_include_directories(sopt SYSTEM PUBLIC ${MPI_CXX_INCLUDE_PATH})
 endif()
 
-message(STATUS "onnxrt enabled? ${onnxrt}")
 if(onnxrt)
   if(${onnxruntime_FOUND})
     message(STATUS "ONNX Source dir ${onnxruntime_SOURCE_DIR}")
