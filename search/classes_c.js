@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['nomixing_590',['NoMixing',['../classsopt_1_1proximal_1_1L1_1_1NoMixing.html',1,'sopt::proximal::L1']]]
+  ['onnxdifferentiablefunc_609',['ONNXDifferentiableFunc',['../classsopt_1_1ONNXDifferentiableFunc.html',1,'sopt']]],
+  ['ortsession_610',['ORTsession',['../classsopt_1_1ORTsession.html',1,'sopt']]]
 ];

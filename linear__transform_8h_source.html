@@ -134,7 +134,7 @@ $(function() {
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  }</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
 <div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="classsopt_1_1LinearTransform.html#af9fe77b8afc0761cf9d07f432df85a0d">   79</a></span>&#160;  <a class="code" href="classsopt_1_1LinearTransform.html">LinearTransform&lt;VECTOR&gt;</a> <a class="code" href="classsopt_1_1LinearTransform.html#af9fe77b8afc0761cf9d07f432df85a0d">adjoint</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordflow">return</span> {indirect_, <span class="keyword">static_cast&lt;</span><a class="code" href="classsopt_1_1details_1_1WrapFunction.html">details::WrapFunction&lt;VECTOR&gt;</a> <span class="keyword">const </span>&amp;<span class="keyword">&gt;</span>(*this)};</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classsopt_1_1LinearTransform.html">LinearTransform&lt;VECTOR&gt;</a>(indirect_, <span class="keyword">static_cast&lt;</span><a class="code" href="classsopt_1_1details_1_1WrapFunction.html">details::WrapFunction&lt;VECTOR&gt;</a> <span class="keyword">const </span>&amp;<span class="keyword">&gt;</span>(*<span class="keyword">this</span>));</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  }</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  <span class="keyword">using</span> <a class="code" href="classsopt_1_1details_1_1WrapFunction.html">details::WrapFunction&lt;VECTOR&gt;::operator</a>*;</div>
@@ -194,7 +194,7 @@ $(function() {
 <div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    out = (*matrix) * x;</div>
 <div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;  }</div>
 <div class="line"><a name="l00169"></a><span class="lineno"><a class="line" href="classsopt_1_1details_1_1MatrixToLinearTransform.html#a82a0cca5b726d48b913f2bc4e69d594d">  169</a></span>&#160;  <a class="code" href="classsopt_1_1details_1_1MatrixAdjointToLinearTransform.html">MatrixAdjointToLinearTransform&lt;EIGEN&gt;</a> <a class="code" href="classsopt_1_1details_1_1MatrixToLinearTransform.html#a82a0cca5b726d48b913f2bc4e69d594d">adjoint</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classsopt_1_1details_1_1MatrixAdjointToLinearTransform.html">MatrixAdjointToLinearTransform&lt;EIGEN&gt;</a>(matrix);</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classsopt_1_1details_1_1MatrixAdjointToLinearTransform.html">MatrixAdjointToLinearTransform&lt;EIGEN&gt;</a>(matrix);</div>
 <div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;  }</div>
 <div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160; </div>
 <div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160; <span class="keyword">private</span>:</div>

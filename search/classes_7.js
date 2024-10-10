@@ -1,8 +1,12 @@
 var searchData=
 [
-  ['has_5fvalue_5ftype_562',['has_value_type',['../classsopt_1_1details_1_1has__value__type.html',1,'sopt::details']]],
-  ['has_5fvalue_5ftype_3c_20t_2c_20false_20_3e_563',['has_value_type&lt; T, false &gt;',['../classsopt_1_1details_1_1has__value__type_3_01T_00_01false_01_4.html',1,'sopt::details']]],
-  ['has_5fvalue_5ftype_3c_20t_2c_20true_20_3e_564',['has_value_type&lt; T, true &gt;',['../classsopt_1_1details_1_1has__value__type_3_01T_00_01true_01_4.html',1,'sopt::details']]],
-  ['hasvaluetype_565',['HasValueType',['../structsopt_1_1details_1_1HasValueType.html',1,'sopt::details']]],
-  ['hasvaluetype_3c_20t_2c_20typename_20std_3a_3aenable_5fif_3c_20std_3a_3ais_5ffundamental_3c_20t_20_3e_3a_3avalue_20_3e_3a_3atype_20_3e_566',['HasValueType&lt; T, typename std::enable_if&lt; std::is_fundamental&lt; T &gt;::value &gt;::type &gt;',['../structsopt_1_1details_1_1HasValueType_3_01T_00_01typename_01std_1_1enable__if_3_01std_1_1is__fun157e8b90fda14b9c274aa8d70e4b6d2e.html',1,'sopt::details']]]
+  ['imagingforwardbackward_583',['ImagingForwardBackward',['../classsopt_1_1algorithm_1_1ImagingForwardBackward.html',1,'sopt::algorithm']]],
+  ['imagingprimaldual_584',['ImagingPrimalDual',['../classsopt_1_1algorithm_1_1ImagingPrimalDual.html',1,'sopt::algorithm']]],
+  ['imagingproximaladmm_585',['ImagingProximalADMM',['../classsopt_1_1algorithm_1_1ImagingProximalADMM.html',1,'sopt::algorithm']]],
+  ['introspectsdmm_586',['IntrospectSDMM',['../classIntrospectSDMM.html',1,'']]],
+  ['is_5fcomplex_587',['is_complex',['../structsopt_1_1is__complex.html',1,'sopt']]],
+  ['is_5fcomplex_3c_20std_3a_3acomplex_3c_20t_20_3e_2c_20void_20_3e_588',['is_complex&lt; std::complex&lt; T &gt;, void &gt;',['../structsopt_1_1is__complex_3_01std_1_1complex_3_01T_01_4_00_01void_01_4.html',1,'sopt']]],
+  ['is_5fimaging_5fproximal_5fref_589',['is_imaging_proximal_ref',['../structis__imaging__proximal__ref.html',1,'']]],
+  ['is_5fl1_5fg_5fproximal_5fref_590',['is_l1_g_proximal_ref',['../structis__l1__g__proximal__ref.html',1,'']]],
+  ['is_5fprimal_5fdual_5fref_591',['is_primal_dual_ref',['../structis__primal__dual__ref.html',1,'']]]
 ];

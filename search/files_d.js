@@ -1,15 +1,11 @@
 var searchData=
 [
-  ['sampling_2ecc_711',['sampling.cc',['../sampling_8cc.html',1,'']]],
-  ['sampling_2eh_712',['sampling.h',['../sampling_8h.html',1,'']]],
-  ['sara_2ecc_713',['sara.cc',['../examples_2sara_8cc.html',1,'(Global Namespace)'],['../tests_2sara_8cc.html',1,'(Global Namespace)']]],
-  ['sara_2eh_714',['sara.h',['../sara_8h.html',1,'']]],
-  ['sdmm_2ecc_715',['sdmm.cc',['../sdmm_8cc.html',1,'']]],
-  ['sdmm_2eh_716',['sdmm.h',['../sdmm_8h.html',1,'']]],
-  ['sdmm_5fwarm_5fstart_2ecc_717',['sdmm_warm_start.cc',['../sdmm__warm__start_8cc.html',1,'']]],
-  ['serial_5fvs_5fparallel_5fpadmm_2ecc_718',['serial_vs_parallel_padmm.cc',['../serial__vs__parallel__padmm_8cc.html',1,'']]],
-  ['session_2ecc_719',['session.cc',['../session_8cc.html',1,'']]],
-  ['session_2eh_720',['session.h',['../session_8h.html',1,'']]],
-  ['soft_5fthreshhold_2ecc_721',['soft_threshhold.cc',['../soft__threshhold_8cc.html',1,'']]],
-  ['sopt_5fcontributors_2emd_722',['SOPT_CONTRIBUTORS.md',['../SOPT__CONTRIBUTORS_8md.html',1,'']]]
+  ['readme_2emd_728',['README.md',['../README_8md.html',1,'']]],
+  ['real_5findicator_2eh_729',['real_indicator.h',['../real__indicator_8h.html',1,'']]],
+  ['real_5ftype_2eh_730',['real_type.h',['../real__type_8h.html',1,'']]],
+  ['registered_5ftypes_2ecc_731',['registered_types.cc',['../registered__types_8cc.html',1,'']]],
+  ['registered_5ftypes_2eh_732',['registered_types.h',['../registered__types_8h.html',1,'']]],
+  ['relative_5fvariation_2eh_733',['relative_variation.h',['../relative__variation_8h.html',1,'']]],
+  ['reweighted_2ecc_734',['reweighted.cc',['../examples_2proximal__admm_2reweighted_8cc.html',1,'(Global Namespace)'],['../examples_2sdmm_2reweighted_8cc.html',1,'(Global Namespace)'],['../tests_2reweighted_8cc.html',1,'(Global Namespace)']]],
+  ['reweighted_2eh_735',['reweighted.h',['../reweighted_8h.html',1,'']]]
 ];

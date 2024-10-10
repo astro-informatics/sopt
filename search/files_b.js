@@ -1,15 +1,8 @@
 var searchData=
 [
-  ['padmm_2ecc_692',['padmm.cc',['../padmm_8cc.html',1,'']]],
-  ['padmm_2eh_693',['padmm.h',['../padmm_8h.html',1,'']]],
-  ['padmm_5fwarm_5fstart_2ecc_694',['padmm_warm_start.cc',['../padmm__warm__start_8cc.html',1,'']]],
-  ['positive_5fquadrant_2eh_695',['positive_quadrant.h',['../positive__quadrant_8h.html',1,'']]],
-  ['positive_5fquadrant_5fprojection_2ecc_696',['positive_quadrant_projection.cc',['../positive__quadrant__projection_8cc.html',1,'']]],
-  ['power_5fmethod_2ecc_697',['power_method.cc',['../examples_2power__method_8cc.html',1,'(Global Namespace)'],['../tests_2power__method_8cc.html',1,'(Global Namespace)']]],
-  ['power_5fmethod_2eh_698',['power_method.h',['../power__method_8h.html',1,'']]],
-  ['primal_5fdual_2ecc_699',['primal_dual.cc',['../primal__dual_8cc.html',1,'']]],
-  ['primal_5fdual_2eh_700',['primal_dual.h',['../primal__dual_8h.html',1,'']]],
-  ['proximal_2ecc_701',['proximal.cc',['../proximal_8cc.html',1,'']]],
-  ['proximal_2eh_702',['proximal.h',['../proximal_8h.html',1,'']]],
-  ['proximal_5fexpression_2eh_703',['proximal_expression.h',['../proximal__expression_8h.html',1,'']]]
+  ['objective_5ffunctions_2eh_711',['objective_functions.h',['../objective__functions_8h.html',1,'']]],
+  ['onnx_5fdifferentiable_5ffunc_2eh_712',['onnx_differentiable_func.h',['../onnx__differentiable__func_8h.html',1,'']]],
+  ['onnx_5finpainting_2ecc_713',['onnx_inpainting.cc',['../onnx__inpainting_8cc.html',1,'']]],
+  ['ort_5fmodel_2ecc_714',['ort_model.cc',['../ort__model_8cc.html',1,'']]],
+  ['ort_5fsession_2eh_715',['ort_session.h',['../ort__session_8h.html',1,'']]]
 ];

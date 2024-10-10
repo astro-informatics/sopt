@@ -89,7 +89,7 @@ $(function() {
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;catch2/catch_all.hpp&gt;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="imaging__forward__backward_8h.html">sopt/imaging_forward_backward.h</a>&quot;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="tf__g__proximal_8h.html">sopt/tf_g_proximal.h</a>&quot;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="tf__non__diff__function_8h.html">sopt/tf_non_diff_function.h</a>&quot;</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="logging_8h.html">sopt/logging.h</a>&quot;</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="maths_8h.html">sopt/maths.h</a>&quot;</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="relative__variation_8h.html">sopt/relative_variation.h</a>&quot;</span></div>
@@ -113,7 +113,7 @@ $(function() {
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  <span class="keyword">extern</span> std::unique_ptr&lt;std::mt19937_64&gt; <a class="code" href="common__catch__main_8cc.html#afd7b13def75c5d7feb77ac1ea2df5d0b">mersenne</a>;</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <span class="keyword">const</span> std::string input = <span class="stringliteral">&quot;cameraman256&quot;</span>;</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="keyword">const</span> std::string model_path = std::string(<a class="code" href="namespacesopt_1_1tools.html#aeda5ba380aaf12ffc219fc436507e7d3">sopt::tools::models_directory</a>() + <span class="stringliteral">&quot;/snr_15_model.onnx&quot;</span>);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="keyword">const</span> std::string model_path = std::string(<a class="code" href="namespacesopt_1_1tools.html#aeda5ba380aaf12ffc219fc436507e7d3">sopt::tools::models_directory</a>() + <span class="stringliteral">&quot;/snr_15_model_dynamic.onnx&quot;</span>);</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <span class="keyword">const</span> <a class="code" href="tests_2inpainting_8cc.html#aeeca20f5186519056cf53849afb07e6e">Image</a> image = <a class="code" href="namespacesopt_1_1tools.html#a7a29b5ae602984d1d93165eb0c1f0b54">sopt::tools::read_standard_tiff</a>(input);</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
@@ -130,52 +130,59 @@ $(function() {
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <a class="code" href="tests_2inpainting_8cc.html#a47c194cae73625ab3a13b62e4234f46f">Vector</a> y(y0.size());</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <span class="keywordflow">for</span> (<a class="code" href="namespacesopt.html#a47796df8f5f6bbffc226292ef1ca8196">sopt::t_int</a> i = 0; i &lt; y0.size(); i++) y(i) = y0(i) + gaussian_dist(*<a class="code" href="common__catch__main_8cc.html#afd7b13def75c5d7feb77ac1ea2df5d0b">mersenne</a>);</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <a class="code" href="namespacesopt.html#a71bfb8f70b432862d3d654b9dcff77cc">sopt::t_real</a> constexpr gamma = 18;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  <a class="code" href="namespacesopt.html#a71bfb8f70b432862d3d654b9dcff77cc">sopt::t_real</a> <span class="keyword">const</span> beta = <a class="code" href="namespacesopt.html#ad7fbfa0f1f262d124020ccaf5e6cb573">sigma</a> * <a class="code" href="namespacesopt.html#ad7fbfa0f1f262d124020ccaf5e6cb573">sigma</a> * 0.5;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <span class="keyword">auto</span> fb = <a class="code" href="classsopt_1_1algorithm_1_1ImagingForwardBackward.html">sopt::algorithm::ImagingForwardBackward&lt;Scalar&gt;</a>(y);</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  fb.itermax(500)</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    .beta(beta)    <span class="comment">// stepsize</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    .sigma(<a class="code" href="namespacesopt.html#ad7fbfa0f1f262d124020ccaf5e6cb573">sigma</a>)  <span class="comment">// sigma</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    .gamma(gamma)  <span class="comment">// regularisation paramater</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    .fista(<span class="keyword">false</span>)  <span class="comment">// switch to use FISTA algorithm in Forward Backward algorithm, should be false if using learned TF model</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    .relative_variation(1e-3)</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    .residual_tolerance(0)</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    .tight_frame(<span class="keyword">true</span>)</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    .Phi(sampling);</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  <span class="comment">// Create a shared pointer to an instance of the TFGProximal class</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  <span class="keyword">auto</span> gp = std::make_shared&lt;sopt::algorithm::TFGProximal&lt;Scalar&gt;&gt;(model_path);</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  <span class="comment">// Inject it into the ImagingForwardBackward object</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  fb.g_proximal(gp);</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> diagnostic = fb();</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  Eigen::VectorXd dirty_image = sampling.<a class="code" href="classsopt_1_1LinearTransform.html#af9fe77b8afc0761cf9d07f432df85a0d">adjoint</a>() * y;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  <a class="code" href="namespacesopt.html#a71bfb8f70b432862d3d654b9dcff77cc">sopt::t_real</a> constexpr gamma = 18;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <a class="code" href="namespacesopt.html#a71bfb8f70b432862d3d654b9dcff77cc">sopt::t_real</a> <span class="keyword">const</span> beta = <a class="code" href="namespacesopt.html#ad7fbfa0f1f262d124020ccaf5e6cb573">sigma</a> * <a class="code" href="namespacesopt.html#ad7fbfa0f1f262d124020ccaf5e6cb573">sigma</a> * 0.5;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  <span class="keyword">auto</span> fb = <a class="code" href="classsopt_1_1algorithm_1_1ImagingForwardBackward.html">sopt::algorithm::ImagingForwardBackward&lt;Scalar&gt;</a>(y);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  fb.itermax(500)</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    .beta(beta)    <span class="comment">// stepsize</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    .sigma(<a class="code" href="namespacesopt.html#ad7fbfa0f1f262d124020ccaf5e6cb573">sigma</a>)  <span class="comment">// sigma</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    .gamma(gamma)  <span class="comment">// regularisation paramater</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    .fista(<span class="keyword">false</span>)  <span class="comment">// switch to use FISTA algorithm in Forward Backward algorithm, should be false if using learned TF model</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    .relative_variation(1e-3)</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    .residual_tolerance(0)</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    .tight_frame(<span class="keyword">true</span>)</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    .Phi(sampling);</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  <span class="comment">// Create a shared pointer to an instance of the TFGProximal class</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  <span class="keyword">auto</span> gp = std::make_shared&lt;sopt::algorithm::TFGProximal&lt;Scalar&gt;&gt;(model_path);</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  <span class="comment">// Inject it into the ImagingForwardBackward object</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  fb.g_function(gp);</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  CHECK(diagnostic.good);</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  CHECK(diagnostic.niters &lt; 500);</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  <span class="comment">// compare input image to cleaned output image</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  <span class="comment">// calculate mean squared error sum_i ( ( x_true(i) - x_est(i) ) **2 )</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  <span class="comment">// check this is less than the number of pixels * 0.01</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  <span class="keyword">auto</span> mse = (image - diagnostic.x.array()).square().sum() / image.size();</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  CAPTURE(image.size());</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  CAPTURE(image.sum());</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  CAPTURE(diagnostic.x.array().sum());</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  CAPTURE(mse);</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  CHECK(mse &lt; 0.01);</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;}</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> diagnostic = fb();</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  CHECK(diagnostic.good);</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  CHECK(diagnostic.niters &lt; 500);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  <span class="comment">// compare input image to cleaned output image</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  <span class="comment">// calculate mean squared error sum_i ( ( x_true(i) - x_est(i) ) **2 )</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  <span class="comment">// check this is less than the number of pixels * 0.01</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  <a class="code" href="namespacesopt_1_1utilities.html#a18ac636e4a560294191b1066bc3599b4">sopt::utilities::write_tiff</a>(Matrix::Map(diagnostic.x.data(), image.rows(), image.cols()),</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                                <span class="stringliteral">&quot;tf_reconstruction.tiff&quot;</span>);</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  <a class="code" href="namespacesopt_1_1utilities.html#a18ac636e4a560294191b1066bc3599b4">sopt::utilities::write_tiff</a>(Matrix::Map(dirty_image.data(), image.rows(), image.cols()),</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;                                <span class="stringliteral">&quot;tf_dirty.tiff&quot;</span>);</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  Eigen::Map&lt;const Eigen::VectorXd&gt; flat_image(image.data(), image.size());</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;  <span class="keyword">auto</span> mse = (flat_image - diagnostic.x).array().square().sum() / image.size();</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;  CAPTURE(mse);</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;  <a class="code" href="logging_8h.html#a5bb43e65962554be1a16134dc4d0dba0">SOPT_HIGH_LOG</a>(<span class="stringliteral">&quot;MSE: {}&quot;</span>, mse);</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  CHECK(mse &lt; 0.01);</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;}</div>
 <div class="ttc" id="abisection__method_8cc_html_aa0bfbe32b639db5c015dd41a0ac7ca35"><div class="ttname"><a href="bisection__method_8cc.html#aa0bfbe32b639db5c015dd41a0ac7ca35">Scalar</a></div><div class="ttdeci">sopt::t_real Scalar</div><div class="ttdef"><b>Definition:</b> <a href="bisection__method_8cc_source.html#l00009">bisection_method.cc:9</a></div></div>
 <div class="ttc" id="aclasssopt_1_1LinearTransform_html"><div class="ttname"><a href="classsopt_1_1LinearTransform.html">sopt::LinearTransform</a></div><div class="ttdoc">Joins together direct and indirect operators.</div><div class="ttdef"><b>Definition:</b> <a href="linear__transform_8h_source.html#l00030">linear_transform.h:30</a></div></div>
+<div class="ttc" id="aclasssopt_1_1LinearTransform_html_af9fe77b8afc0761cf9d07f432df85a0d"><div class="ttname"><a href="classsopt_1_1LinearTransform.html#af9fe77b8afc0761cf9d07f432df85a0d">sopt::LinearTransform::adjoint</a></div><div class="ttdeci">LinearTransform&lt; VECTOR &gt; adjoint() const</div><div class="ttdoc">Indirect transform.</div><div class="ttdef"><b>Definition:</b> <a href="linear__transform_8h_source.html#l00079">linear_transform.h:79</a></div></div>
 <div class="ttc" id="aclasssopt_1_1Sampling_html"><div class="ttname"><a href="classsopt_1_1Sampling.html">sopt::Sampling</a></div><div class="ttdoc">An operator that samples a set of measurements.</div><div class="ttdef"><b>Definition:</b> <a href="sampling_8h_source.html#l00017">sampling.h:17</a></div></div>
-<div class="ttc" id="aclasssopt_1_1algorithm_1_1ImagingForwardBackward_html"><div class="ttname"><a href="classsopt_1_1algorithm_1_1ImagingForwardBackward.html">sopt::algorithm::ImagingForwardBackward</a></div><div class="ttdef"><b>Definition:</b> <a href="imaging__forward__backward_8h_source.html#l00026">imaging_forward_backward.h:26</a></div></div>
+<div class="ttc" id="aclasssopt_1_1algorithm_1_1ImagingForwardBackward_html"><div class="ttname"><a href="classsopt_1_1algorithm_1_1ImagingForwardBackward.html">sopt::algorithm::ImagingForwardBackward</a></div><div class="ttdef"><b>Definition:</b> <a href="imaging__forward__backward_8h_source.html#l00027">imaging_forward_backward.h:27</a></div></div>
 <div class="ttc" id="acommon__catch__main_8cc_html_afd7b13def75c5d7feb77ac1ea2df5d0b"><div class="ttname"><a href="common__catch__main_8cc.html#afd7b13def75c5d7feb77ac1ea2df5d0b">mersenne</a></div><div class="ttdeci">std::unique_ptr&lt; std::mt19937_64 &gt; mersenne(new std::mt19937_64(0))</div></div>
 <div class="ttc" id="aimaging__forward__backward_8h_html"><div class="ttname"><a href="imaging__forward__backward_8h.html">imaging_forward_backward.h</a></div></div>
 <div class="ttc" id="alogging_8h_html"><div class="ttname"><a href="logging_8h.html">logging.h</a></div></div>
+<div class="ttc" id="alogging_8h_html_a5bb43e65962554be1a16134dc4d0dba0"><div class="ttname"><a href="logging_8h.html#a5bb43e65962554be1a16134dc4d0dba0">SOPT_HIGH_LOG</a></div><div class="ttdeci">#define SOPT_HIGH_LOG(...)</div><div class="ttdoc">High priority message.</div><div class="ttdef"><b>Definition:</b> <a href="logging_8h_source.html#l00223">logging.h:223</a></div></div>
 <div class="ttc" id="amaths_8h_html"><div class="ttname"><a href="maths_8h.html">maths.h</a></div></div>
 <div class="ttc" id="anamespacesopt_1_1tools_html_a7a29b5ae602984d1d93165eb0c1f0b54"><div class="ttname"><a href="namespacesopt_1_1tools.html#a7a29b5ae602984d1d93165eb0c1f0b54">sopt::tools::read_standard_tiff</a></div><div class="ttdeci">Image read_standard_tiff(std::string const &amp;name)</div><div class="ttdoc">Reads tiff image from sopt data directory if it exists.</div><div class="ttdef"><b>Definition:</b> <a href="tiffwrappers_8cc_source.html#l00009">tiffwrappers.cc:9</a></div></div>
 <div class="ttc" id="anamespacesopt_1_1tools_html_aeda5ba380aaf12ffc219fc436507e7d3"><div class="ttname"><a href="namespacesopt_1_1tools.html#aeda5ba380aaf12ffc219fc436507e7d3">sopt::tools::models_directory</a></div><div class="ttdeci">std::string models_directory()</div><div class="ttdoc">Machine-learning models.</div><div class="ttdef"><b>Definition:</b> <a href="directories_8in_8h_source.html#l00013">directories.in.h:13</a></div></div>
+<div class="ttc" id="anamespacesopt_1_1utilities_html_a18ac636e4a560294191b1066bc3599b4"><div class="ttname"><a href="namespacesopt_1_1utilities.html#a18ac636e4a560294191b1066bc3599b4">sopt::utilities::write_tiff</a></div><div class="ttdeci">void write_tiff(Image&lt;&gt; const &amp;image, std::string const &amp;filename)</div><div class="ttdoc">Writes a tiff greyscale file.</div><div class="ttdef"><b>Definition:</b> <a href="utilities_8cc_source.html#l00068">utilities.cc:68</a></div></div>
 <div class="ttc" id="anamespacesopt_html_a47796df8f5f6bbffc226292ef1ca8196"><div class="ttname"><a href="namespacesopt.html#a47796df8f5f6bbffc226292ef1ca8196">sopt::t_int</a></div><div class="ttdeci">int t_int</div><div class="ttdoc">Root of the type hierarchy for signed integers.</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00013">types.h:13</a></div></div>
 <div class="ttc" id="anamespacesopt_html_a71bfb8f70b432862d3d654b9dcff77cc"><div class="ttname"><a href="namespacesopt.html#a71bfb8f70b432862d3d654b9dcff77cc">sopt::t_real</a></div><div class="ttdeci">double t_real</div><div class="ttdoc">Root of the type hierarchy for real numbers.</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00017">types.h:17</a></div></div>
 <div class="ttc" id="anamespacesopt_html_a7237c0991f6ec8c2bbdab8929b564964"><div class="ttname"><a href="namespacesopt.html#a7237c0991f6ec8c2bbdab8929b564964">sopt::t_uint</a></div><div class="ttdeci">size_t t_uint</div><div class="ttdoc">Root of the type hierarchy for unsigned integers.</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00015">types.h:15</a></div></div>
@@ -189,8 +196,8 @@ $(function() {
 <div class="ttc" id="atests_2inpainting_8cc_html_a47c194cae73625ab3a13b62e4234f46f"><div class="ttname"><a href="tests_2inpainting_8cc.html#a47c194cae73625ab3a13b62e4234f46f">Vector</a></div><div class="ttdeci">sopt::Vector&lt; Scalar &gt; Vector</div><div class="ttdef"><b>Definition:</b> <a href="tests_2inpainting_8cc_source.html#l00028">inpainting.cc:28</a></div></div>
 <div class="ttc" id="atests_2inpainting_8cc_html_ab86a00c212fb2233871e057014ded6a6"><div class="ttname"><a href="tests_2inpainting_8cc.html#ab86a00c212fb2233871e057014ded6a6">Matrix</a></div><div class="ttdeci">sopt::Matrix&lt; Scalar &gt; Matrix</div><div class="ttdef"><b>Definition:</b> <a href="tests_2inpainting_8cc_source.html#l00029">inpainting.cc:29</a></div></div>
 <div class="ttc" id="atests_2inpainting_8cc_html_aeeca20f5186519056cf53849afb07e6e"><div class="ttname"><a href="tests_2inpainting_8cc.html#aeeca20f5186519056cf53849afb07e6e">Image</a></div><div class="ttdeci">sopt::Image&lt; Scalar &gt; Image</div><div class="ttdef"><b>Definition:</b> <a href="tests_2inpainting_8cc_source.html#l00030">inpainting.cc:30</a></div></div>
-<div class="ttc" id="atf__g__proximal_8h_html"><div class="ttname"><a href="tf__g__proximal_8h.html">tf_g_proximal.h</a></div></div>
 <div class="ttc" id="atf__inpainting_8cc_html_a4e85c74adb906d5a3d0a1c2be49ebc78"><div class="ttname"><a href="tf__inpainting_8cc.html#a4e85c74adb906d5a3d0a1c2be49ebc78">TEST_CASE</a></div><div class="ttdeci">TEST_CASE(&quot;Inpainting&quot;)</div><div class="ttdef"><b>Definition:</b> <a href="tf__inpainting_8cc_source.html#l00031">tf_inpainting.cc:31</a></div></div>
+<div class="ttc" id="atf__non__diff__function_8h_html"><div class="ttname"><a href="tf__non__diff__function_8h.html">tf_non_diff_function.h</a></div></div>
 <div class="ttc" id="atiffwrappers_8h_html"><div class="ttname"><a href="tiffwrappers_8h.html">tiffwrappers.h</a></div></div>
 <div class="ttc" id="atypes_8h_html"><div class="ttname"><a href="types_8h.html">types.h</a></div></div>
 <div class="ttc" id="autilities_8h_html"><div class="ttname"><a href="utilities_8h.html">utilities.h</a></div></div>

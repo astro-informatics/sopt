@@ -88,7 +88,7 @@ $(function() {
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;ctime&gt;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="imaging__forward__backward_8h.html">sopt/imaging_forward_backward.h</a>&quot;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="l1__g__proximal_8h.html">sopt/l1_g_proximal.h</a>&quot;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="l1__non__diff__function_8h.html">sopt/l1_non_diff_function.h</a>&quot;</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="joint__map_8h.html">sopt/joint_map.h</a>&quot;</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="logging_8h.html">sopt/logging.h</a>&quot;</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="maths_8h.html">sopt/maths.h</a>&quot;</span></div>
@@ -192,7 +192,7 @@ $(function() {
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    .Psi(psi);</div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;  <span class="comment">// Once the properties are set, inject it into the ImagingForwardBackward object</span></div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;  fb-&gt;g_proximal(gp);</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;  fb-&gt;g_function(gp);</div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;  <a class="code" href="logging_8h.html#a5bb43e65962554be1a16134dc4d0dba0">SOPT_HIGH_LOG</a>(<span class="stringliteral">&quot;Starting Forward Backward&quot;</span>);</div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;  <span class="comment">// Alternatively, forward-backward can be called with a tuple (x, residual) as argument</span></div>
@@ -229,7 +229,7 @@ $(function() {
 <div class="ttc" id="aimaging__forward__backward_8h_html"><div class="ttname"><a href="imaging__forward__backward_8h.html">imaging_forward_backward.h</a></div></div>
 <div class="ttc" id="ainpainting__joint__map_8cc_html_a790aa8b99fa3d90918361b8936af0b14"><div class="ttname"><a href="inpainting__joint__map_8cc.html#a790aa8b99fa3d90918361b8936af0b14">main</a></div><div class="ttdeci">int main(int argc, char const **argv)</div><div class="ttdef"><b>Definition:</b> <a href="inpainting__joint__map_8cc_source.html#l00025">inpainting_joint_map.cc:25</a></div></div>
 <div class="ttc" id="ajoint__map_8h_html"><div class="ttname"><a href="joint__map_8h.html">joint_map.h</a></div></div>
-<div class="ttc" id="al1__g__proximal_8h_html"><div class="ttname"><a href="l1__g__proximal_8h.html">l1_g_proximal.h</a></div></div>
+<div class="ttc" id="al1__non__diff__function_8h_html"><div class="ttname"><a href="l1__non__diff__function_8h.html">l1_non_diff_function.h</a></div></div>
 <div class="ttc" id="alogging_8h_html"><div class="ttname"><a href="logging_8h.html">logging.h</a></div></div>
 <div class="ttc" id="alogging_8h_html_a4a497e6b273bf510772846ac52cef095"><div class="ttname"><a href="logging_8h.html#a4a497e6b273bf510772846ac52cef095">SOPT_LOW_LOG</a></div><div class="ttdeci">#define SOPT_LOW_LOG(...)</div><div class="ttdoc">Low priority message.</div><div class="ttdef"><b>Definition:</b> <a href="logging_8h_source.html#l00227">logging.h:227</a></div></div>
 <div class="ttc" id="alogging_8h_html_a5bb43e65962554be1a16134dc4d0dba0"><div class="ttname"><a href="logging_8h.html#a5bb43e65962554be1a16134dc4d0dba0">SOPT_HIGH_LOG</a></div><div class="ttdeci">#define SOPT_HIGH_LOG(...)</div><div class="ttdoc">High priority message.</div><div class="ttdef"><b>Definition:</b> <a href="logging_8h_source.html#l00223">logging.h:223</a></div></div>

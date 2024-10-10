@@ -438,7 +438,7 @@
     <path>/home/runner/work/sopt/sopt/cpp/examples/forward_backward/</path>
     <filename>http://astro-informatics.github.io/sopt/examples_2forward__backward_2inpainting_8cc.html</filename>
     <includes id="imaging__forward__backward_8h" name="imaging_forward_backward.h" local="yes" imported="no">sopt/imaging_forward_backward.h</includes>
-    <includes id="l1__g__proximal_8h" name="l1_g_proximal.h" local="yes" imported="no">sopt/l1_g_proximal.h</includes>
+    <includes id="l1__non__diff__function_8h" name="l1_non_diff_function.h" local="yes" imported="no">sopt/l1_non_diff_function.h</includes>
     <includes id="logging_8h" name="logging.h" local="yes" imported="no">sopt/logging.h</includes>
     <includes id="maths_8h" name="maths.h" local="yes" imported="no">sopt/maths.h</includes>
     <includes id="relative__variation_8h" name="relative_variation.h" local="yes" imported="no">sopt/relative_variation.h</includes>
@@ -525,7 +525,7 @@
     <path>/home/runner/work/sopt/sopt/cpp/tests/</path>
     <filename>http://astro-informatics.github.io/sopt/tests_2inpainting_8cc.html</filename>
     <includes id="imaging__forward__backward_8h" name="imaging_forward_backward.h" local="yes" imported="no">sopt/imaging_forward_backward.h</includes>
-    <includes id="l1__g__proximal_8h" name="l1_g_proximal.h" local="yes" imported="no">sopt/l1_g_proximal.h</includes>
+    <includes id="l1__non__diff__function_8h" name="l1_non_diff_function.h" local="yes" imported="no">sopt/l1_non_diff_function.h</includes>
     <includes id="logging_8h" name="logging.h" local="yes" imported="no">sopt/logging.h</includes>
     <includes id="maths_8h" name="maths.h" local="yes" imported="no">sopt/maths.h</includes>
     <includes id="relative__variation_8h" name="relative_variation.h" local="yes" imported="no">sopt/relative_variation.h</includes>
@@ -576,7 +576,7 @@
     <filename>http://astro-informatics.github.io/sopt/inpainting__credible__interval_8cc.html</filename>
     <includes id="credible__region_8h" name="credible_region.h" local="yes" imported="no">sopt/credible_region.h</includes>
     <includes id="imaging__forward__backward_8h" name="imaging_forward_backward.h" local="yes" imported="no">sopt/imaging_forward_backward.h</includes>
-    <includes id="l1__g__proximal_8h" name="l1_g_proximal.h" local="yes" imported="no">sopt/l1_g_proximal.h</includes>
+    <includes id="l1__non__diff__function_8h" name="l1_non_diff_function.h" local="yes" imported="no">sopt/l1_non_diff_function.h</includes>
     <includes id="logging_8h" name="logging.h" local="yes" imported="no">sopt/logging.h</includes>
     <includes id="maths_8h" name="maths.h" local="yes" imported="no">sopt/maths.h</includes>
     <includes id="relative__variation_8h" name="relative_variation.h" local="yes" imported="no">sopt/relative_variation.h</includes>
@@ -598,7 +598,7 @@
     <path>/home/runner/work/sopt/sopt/cpp/examples/forward_backward/</path>
     <filename>http://astro-informatics.github.io/sopt/inpainting__joint__map_8cc.html</filename>
     <includes id="imaging__forward__backward_8h" name="imaging_forward_backward.h" local="yes" imported="no">sopt/imaging_forward_backward.h</includes>
-    <includes id="l1__g__proximal_8h" name="l1_g_proximal.h" local="yes" imported="no">sopt/l1_g_proximal.h</includes>
+    <includes id="l1__non__diff__function_8h" name="l1_non_diff_function.h" local="yes" imported="no">sopt/l1_non_diff_function.h</includes>
     <includes id="joint__map_8h" name="joint_map.h" local="yes" imported="no">sopt/joint_map.h</includes>
     <includes id="logging_8h" name="logging.h" local="yes" imported="no">sopt/logging.h</includes>
     <includes id="maths_8h" name="maths.h" local="yes" imported="no">sopt/maths.h</includes>
@@ -1155,6 +1155,13 @@
     </member>
   </compound>
   <compound kind="file">
+    <name>differentiable_func.h</name>
+    <path>/home/runner/work/sopt/sopt/cpp/sopt/</path>
+    <filename>http://astro-informatics.github.io/sopt/differentiable__func_8h.html</filename>
+    <includes id="forward__backward_8h" name="forward_backward.h" local="yes" imported="no">sopt/forward_backward.h</includes>
+    <class kind="class">DifferentiableFunc</class>
+  </compound>
+  <compound kind="file">
     <name>exception.h</name>
     <path>/home/runner/work/sopt/sopt/cpp/sopt/</path>
     <filename>http://astro-informatics.github.io/sopt/exception_8h.html</filename>
@@ -1176,9 +1183,6 @@
     <includes id="linear__transform_8h" name="linear_transform.h" local="yes" imported="no">sopt/linear_transform.h</includes>
     <includes id="logging_8h" name="logging.h" local="yes" imported="no">sopt/logging.h</includes>
     <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
-    <class kind="class">sopt::algorithm::ForwardBackward</class>
-    <class kind="struct">sopt::algorithm::ForwardBackward::Diagnostic</class>
-    <class kind="struct">sopt::algorithm::ForwardBackward::DiagnosticAndResult</class>
     <namespace>sopt</namespace>
     <namespace>sopt::algorithm</namespace>
     <member kind="define">
@@ -1188,13 +1192,6 @@
       <anchor>acc08c2e01b4beda3b86b0ad0e358476b</anchor>
       <arglist>(NAME, TYPE)</arglist>
     </member>
-  </compound>
-  <compound kind="file">
-    <name>g_proximal.h</name>
-    <path>/home/runner/work/sopt/sopt/cpp/sopt/</path>
-    <filename>http://astro-informatics.github.io/sopt/g__proximal_8h.html</filename>
-    <includes id="forward__backward_8h" name="forward_backward.h" local="yes" imported="no">sopt/forward_backward.h</includes>
-    <class kind="class">GProximal</class>
   </compound>
   <compound kind="file">
     <name>gradient_operator.h</name>
@@ -1251,7 +1248,8 @@
     <includes id="proximal_8h" name="proximal.h" local="yes" imported="no">sopt/proximal.h</includes>
     <includes id="relative__variation_8h" name="relative_variation.h" local="yes" imported="no">sopt/relative_variation.h</includes>
     <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
-    <includes id="g__proximal_8h" name="g_proximal.h" local="yes" imported="no">sopt/g_proximal.h</includes>
+    <includes id="non__differentiable__func_8h" name="non_differentiable_func.h" local="yes" imported="no">sopt/non_differentiable_func.h</includes>
+    <includes id="differentiable__func_8h" name="differentiable_func.h" local="yes" imported="no">sopt/differentiable_func.h</includes>
     <class kind="class">sopt::algorithm::ImagingForwardBackward</class>
     <class kind="struct">sopt::algorithm::ImagingForwardBackward::Diagnostic</class>
     <class kind="struct">sopt::algorithm::ImagingForwardBackward::DiagnosticAndResult</class>
@@ -1352,9 +1350,9 @@
     </member>
   </compound>
   <compound kind="file">
-    <name>l1_g_proximal.h</name>
+    <name>l1_non_diff_function.h</name>
     <path>/home/runner/work/sopt/sopt/cpp/sopt/</path>
-    <filename>http://astro-informatics.github.io/sopt/l1__g__proximal_8h.html</filename>
+    <filename>http://astro-informatics.github.io/sopt/l1__non__diff__function_8h.html</filename>
     <includes id="exception_8h" name="exception.h" local="yes" imported="no">sopt/exception.h</includes>
     <includes id="forward__backward_8h" name="forward_backward.h" local="yes" imported="no">sopt/forward_backward.h</includes>
     <includes id="linear__transform_8h" name="linear_transform.h" local="yes" imported="no">sopt/linear_transform.h</includes>
@@ -1362,7 +1360,7 @@
     <includes id="proximal_8h" name="proximal.h" local="yes" imported="no">sopt/proximal.h</includes>
     <includes id="relative__variation_8h" name="relative_variation.h" local="yes" imported="no">sopt/relative_variation.h</includes>
     <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
-    <includes id="g__proximal_8h" name="g_proximal.h" local="yes" imported="no">sopt/g_proximal.h</includes>
+    <includes id="non__differentiable__func_8h" name="non_differentiable_func.h" local="yes" imported="no">sopt/non_differentiable_func.h</includes>
     <includes id="l1__proximal_8h" name="l1_proximal.h" local="yes" imported="no">sopt/l1_proximal.h</includes>
     <class kind="class">sopt::algorithm::L1GProximal</class>
     <namespace>sopt</namespace>
@@ -1370,7 +1368,7 @@
     <member kind="define">
       <type>#define</type>
       <name>SOPT_MACRO</name>
-      <anchorfile>l1__g__proximal_8h.html</anchorfile>
+      <anchorfile>l1__non__diff__function_8h.html</anchorfile>
       <anchor>a7c88c2dcaf3f2db3abc260ee9d77a9b3</anchor>
       <arglist>(VAR, TYPE)</arglist>
     </member>
@@ -1405,6 +1403,15 @@
       <anchor>acc08c2e01b4beda3b86b0ad0e358476b</anchor>
       <arglist>(NAME, TYPE)</arglist>
     </member>
+  </compound>
+  <compound kind="file">
+    <name>l2_differentiable_func.h</name>
+    <path>/home/runner/work/sopt/sopt/cpp/sopt/</path>
+    <filename>http://astro-informatics.github.io/sopt/l2__differentiable__func_8h.html</filename>
+    <includes id="ort__session_8h" name="ort_session.h" local="yes" imported="no">sopt/ort_session.h</includes>
+    <includes id="differentiable__func_8h" name="differentiable_func.h" local="yes" imported="no">sopt/differentiable_func.h</includes>
+    <class kind="class">sopt::L2DifferentiableFunc</class>
+    <namespace>sopt</namespace>
   </compound>
   <compound kind="file">
     <name>l2_forward_backward.h</name>
@@ -1970,6 +1977,13 @@
     </member>
   </compound>
   <compound kind="file">
+    <name>non_differentiable_func.h</name>
+    <path>/home/runner/work/sopt/sopt/cpp/sopt/</path>
+    <filename>http://astro-informatics.github.io/sopt/non__differentiable__func_8h.html</filename>
+    <includes id="forward__backward_8h" name="forward_backward.h" local="yes" imported="no">sopt/forward_backward.h</includes>
+    <class kind="class">NonDifferentiableFunc</class>
+  </compound>
+  <compound kind="file">
     <name>objective_functions.h</name>
     <path>/home/runner/work/sopt/sopt/cpp/sopt/</path>
     <filename>http://astro-informatics.github.io/sopt/objective__functions_8h.html</filename>
@@ -2014,6 +2028,36 @@
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1objective__functions.html</anchorfile>
       <anchor>a7cb9cb604bf0ffb45b71d3dc31ed304f</anchor>
       <arglist>(const t_real &amp;gamma, const t_real &amp;sig, const T &amp;y, const sopt::OperatorFunction&lt; T &gt; &amp;measurement_operator, const sopt::LinearTransform&lt; T &gt; &amp;wavelet_operator)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>onnx_differentiable_func.h</name>
+    <path>/home/runner/work/sopt/sopt/cpp/sopt/</path>
+    <filename>http://astro-informatics.github.io/sopt/onnx__differentiable__func_8h.html</filename>
+    <includes id="ort__session_8h" name="ort_session.h" local="yes" imported="no">sopt/ort_session.h</includes>
+    <includes id="differentiable__func_8h" name="differentiable_func.h" local="yes" imported="no">sopt/differentiable_func.h</includes>
+    <class kind="class">sopt::ONNXDifferentiableFunc</class>
+    <namespace>sopt</namespace>
+    <member kind="function">
+      <type>std::vector&lt; float &gt;</type>
+      <name>imageToFloat</name>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt.html</anchorfile>
+      <anchor>a41e13505f1425dd1bfa7e33b81f0729c</anchor>
+      <arglist>(sopt::Vector&lt; t_complex &gt; const &amp;image)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; float &gt;</type>
+      <name>imageToFloat</name>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt.html</anchorfile>
+      <anchor>a681e8b650f3797972d9e4b1c27cf8be3</anchor>
+      <arglist>(sopt::Vector&lt; T &gt; const &amp;image)</arglist>
+    </member>
+    <member kind="function">
+      <type>sopt::Vector&lt; t_complex &gt;</type>
+      <name>floatToImage</name>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt.html</anchorfile>
+      <anchor>ac714d2f3ce2bd0e93bd2d32eccefcb37</anchor>
+      <arglist>(std::vector&lt; float &gt; const &amp;float_image)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -2255,6 +2299,14 @@
     </member>
   </compound>
   <compound kind="file">
+    <name>real_indicator.h</name>
+    <path>/home/runner/work/sopt/sopt/cpp/sopt/</path>
+    <filename>http://astro-informatics.github.io/sopt/real__indicator_8h.html</filename>
+    <includes id="non__differentiable__func_8h" name="non_differentiable_func.h" local="yes" imported="no">sopt/non_differentiable_func.h</includes>
+    <includes id="linear__transform_8h" name="linear_transform.h" local="yes" imported="no">sopt/linear_transform.h</includes>
+    <class kind="class">RealIndicator</class>
+  </compound>
+  <compound kind="file">
     <name>real_type.h</name>
     <path>/home/runner/work/sopt/sopt/cpp/sopt/</path>
     <filename>http://astro-informatics.github.io/sopt/real__type_8h.html</filename>
@@ -2377,9 +2429,9 @@
     </member>
   </compound>
   <compound kind="file">
-    <name>tf_g_proximal.h</name>
+    <name>tf_non_diff_function.h</name>
     <path>/home/runner/work/sopt/sopt/cpp/sopt/</path>
-    <filename>http://astro-informatics.github.io/sopt/tf__g__proximal_8h.html</filename>
+    <filename>http://astro-informatics.github.io/sopt/tf__non__diff__function_8h.html</filename>
     <includes id="exception_8h" name="exception.h" local="yes" imported="no">sopt/exception.h</includes>
     <includes id="forward__backward_8h" name="forward_backward.h" local="yes" imported="no">sopt/forward_backward.h</includes>
     <includes id="linear__transform_8h" name="linear_transform.h" local="yes" imported="no">sopt/linear_transform.h</includes>
@@ -2388,7 +2440,7 @@
     <includes id="proximal_8h" name="proximal.h" local="yes" imported="no">sopt/proximal.h</includes>
     <includes id="relative__variation_8h" name="relative_variation.h" local="yes" imported="no">sopt/relative_variation.h</includes>
     <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
-    <includes id="g__proximal_8h" name="g_proximal.h" local="yes" imported="no">sopt/g_proximal.h</includes>
+    <includes id="non__differentiable__func_8h" name="non_differentiable_func.h" local="yes" imported="no">sopt/non_differentiable_func.h</includes>
     <class kind="class">sopt::algorithm::TFGProximal</class>
     <namespace>sopt</namespace>
     <namespace>sopt::algorithm</namespace>
@@ -2494,10 +2546,10 @@
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>std::function&lt; void(Vector&lt; SCALAR &gt; &amp;, typename real_type&lt; SCALAR &gt;::type, Vector&lt; SCALAR &gt; const &amp;)&gt;</type>
+      <type>std::function&lt; void(Vector&lt; SCALAR &gt; &amp;output, typename real_type&lt; SCALAR &gt;::type const weight, Vector&lt; SCALAR &gt; const &amp;input)&gt;</type>
       <name>ProximalFunction</name>
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt.html</anchorfile>
-      <anchor>af924da011a36e574306ab72f9f423834</anchor>
+      <anchor>acbf84f975b1aa24c2925150488215df2</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
@@ -3297,7 +3349,7 @@
     <path>/home/runner/work/sopt/sopt/cpp/tests/</path>
     <filename>http://astro-informatics.github.io/sopt/forward__backward_8cc.html</filename>
     <includes id="imaging__forward__backward_8h" name="imaging_forward_backward.h" local="yes" imported="no">sopt/imaging_forward_backward.h</includes>
-    <includes id="l1__g__proximal_8h" name="l1_g_proximal.h" local="yes" imported="no">sopt/l1_g_proximal.h</includes>
+    <includes id="l1__non__diff__function_8h" name="l1_non_diff_function.h" local="yes" imported="no">sopt/l1_non_diff_function.h</includes>
     <includes id="logging_8h" name="logging.h" local="yes" imported="no">sopt/logging.h</includes>
     <includes id="maths_8h" name="maths.h" local="yes" imported="no">sopt/maths.h</includes>
     <includes id="proximal_8h" name="proximal.h" local="yes" imported="no">sopt/proximal.h</includes>
@@ -3317,6 +3369,13 @@
       <name>t_Vector</name>
       <anchorfile>forward__backward_8cc.html</anchorfile>
       <anchor>a150b8eda2681eca0377a440541891747</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>sopt::LinearTransform&lt; t_Vector &gt;</type>
+      <name>t_LinearTransform</name>
+      <anchorfile>forward__backward_8cc.html</anchorfile>
+      <anchor>a26a6916175b1fd40353e0524ab36501c</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
@@ -3524,6 +3583,64 @@
       <anchorfile>mpi__wavelets_8cc.html</anchorfile>
       <anchor>a81238bde1e31d33921ffb3e7d79ee62d</anchor>
       <arglist>(&quot;Wavelet transform innards with integer data&quot;, &quot;[wavelet]&quot;)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>onnx_inpainting.cc</name>
+    <path>/home/runner/work/sopt/sopt/cpp/tests/</path>
+    <filename>http://astro-informatics.github.io/sopt/onnx__inpainting_8cc.html</filename>
+    <includes id="imaging__forward__backward_8h" name="imaging_forward_backward.h" local="yes" imported="no">sopt/imaging_forward_backward.h</includes>
+    <includes id="real__indicator_8h" name="real_indicator.h" local="yes" imported="no">sopt/real_indicator.h</includes>
+    <includes id="logging_8h" name="logging.h" local="yes" imported="no">sopt/logging.h</includes>
+    <includes id="maths_8h" name="maths.h" local="yes" imported="no">sopt/maths.h</includes>
+    <includes id="relative__variation_8h" name="relative_variation.h" local="yes" imported="no">sopt/relative_variation.h</includes>
+    <includes id="sampling_8h" name="sampling.h" local="yes" imported="no">sopt/sampling.h</includes>
+    <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
+    <includes id="utilities_8h" name="utilities.h" local="yes" imported="no">sopt/utilities.h</includes>
+    <includes id="ort__session_8h" name="ort_session.h" local="yes" imported="no">sopt/ort_session.h</includes>
+    <includes id="onnx__differentiable__func_8h" name="onnx_differentiable_func.h" local="yes" imported="no">sopt/onnx_differentiable_func.h</includes>
+    <includes id="tiffwrappers_8h" name="tiffwrappers.h" local="yes" imported="no">tools_for_tests/tiffwrappers.h</includes>
+    <member kind="typedef">
+      <type>double</type>
+      <name>Scalar</name>
+      <anchorfile>onnx__inpainting_8cc.html</anchorfile>
+      <anchor>a8c2981f3f834be9448a6ab06c28748eb</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>sopt::Vector&lt; Scalar &gt;</type>
+      <name>Vector</name>
+      <anchorfile>onnx__inpainting_8cc.html</anchorfile>
+      <anchor>a47c194cae73625ab3a13b62e4234f46f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>sopt::Matrix&lt; Scalar &gt;</type>
+      <name>Matrix</name>
+      <anchorfile>onnx__inpainting_8cc.html</anchorfile>
+      <anchor>ab86a00c212fb2233871e057014ded6a6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>sopt::Image&lt; Scalar &gt;</type>
+      <name>Image</name>
+      <anchorfile>onnx__inpainting_8cc.html</anchorfile>
+      <anchor>aeeca20f5186519056cf53849afb07e6e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>sopt::LinearTransform&lt; Vector &gt;</type>
+      <name>LinearTransform</name>
+      <anchorfile>onnx__inpainting_8cc.html</anchorfile>
+      <anchor>a55420a2bfb242ca7698e4daf64bbd7df</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST_CASE</name>
+      <anchorfile>onnx__inpainting_8cc.html</anchorfile>
+      <anchor>a4e85c74adb906d5a3d0a1c2be49ebc78</anchor>
+      <arglist>(&quot;Inpainting&quot;)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -3922,7 +4039,7 @@
     <path>/home/runner/work/sopt/sopt/cpp/tests/</path>
     <filename>http://astro-informatics.github.io/sopt/tf__inpainting_8cc.html</filename>
     <includes id="imaging__forward__backward_8h" name="imaging_forward_backward.h" local="yes" imported="no">sopt/imaging_forward_backward.h</includes>
-    <includes id="tf__g__proximal_8h" name="tf_g_proximal.h" local="yes" imported="no">sopt/tf_g_proximal.h</includes>
+    <includes id="tf__non__diff__function_8h" name="tf_non_diff_function.h" local="yes" imported="no">sopt/tf_non_diff_function.h</includes>
     <includes id="logging_8h" name="logging.h" local="yes" imported="no">sopt/logging.h</includes>
     <includes id="maths_8h" name="maths.h" local="yes" imported="no">sopt/maths.h</includes>
     <includes id="relative__variation_8h" name="relative_variation.h" local="yes" imported="no">sopt/relative_variation.h</includes>
@@ -4564,48 +4681,8 @@
     <base>sopt::details::HasValueType::Fallback</base>
   </compound>
   <compound kind="struct">
-    <name>sopt::algorithm::ForwardBackward::Diagnostic</name>
-    <filename>http://astro-informatics.github.io/sopt/structsopt_1_1algorithm_1_1ForwardBackward_1_1Diagnostic.html</filename>
-    <member kind="function">
-      <type></type>
-      <name>Diagnostic</name>
-      <anchorfile>structsopt_1_1algorithm_1_1ForwardBackward_1_1Diagnostic.html</anchorfile>
-      <anchor>ab8baddd373080cecf7dabce6488a0e08</anchor>
-      <arglist>(t_uint niters=0u, bool good=false)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>Diagnostic</name>
-      <anchorfile>structsopt_1_1algorithm_1_1ForwardBackward_1_1Diagnostic.html</anchorfile>
-      <anchor>a2d54ba9f95d4fa86a6ef445189183525</anchor>
-      <arglist>(t_uint niters, bool good, t_Vector &amp;&amp;residual)</arglist>
-    </member>
-    <member kind="variable">
-      <type>t_uint</type>
-      <name>niters</name>
-      <anchorfile>structsopt_1_1algorithm_1_1ForwardBackward_1_1Diagnostic.html</anchorfile>
-      <anchor>a714c807aa4bb9c9b2c9aa40414d4e20d</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>bool</type>
-      <name>good</name>
-      <anchorfile>structsopt_1_1algorithm_1_1ForwardBackward_1_1Diagnostic.html</anchorfile>
-      <anchor>a34d420a479b015ea998c0f1da2e51a89</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>t_Vector</type>
-      <name>residual</name>
-      <anchorfile>structsopt_1_1algorithm_1_1ForwardBackward_1_1Diagnostic.html</anchorfile>
-      <anchor>a21851ff79aa79ee99f4e4452f70ef46e</anchor>
-      <arglist></arglist>
-    </member>
-  </compound>
-  <compound kind="struct">
     <name>sopt::algorithm::ImagingForwardBackward::Diagnostic</name>
     <filename>http://astro-informatics.github.io/sopt/structsopt_1_1algorithm_1_1ImagingForwardBackward_1_1Diagnostic.html</filename>
-    <base>sopt::algorithm::ForwardBackward::Diagnostic</base>
     <member kind="function">
       <type></type>
       <name>Diagnostic</name>
@@ -4684,7 +4761,6 @@
   <compound kind="struct">
     <name>sopt::algorithm::L2ForwardBackward::Diagnostic</name>
     <filename>http://astro-informatics.github.io/sopt/structsopt_1_1algorithm_1_1L2ForwardBackward_1_1Diagnostic.html</filename>
-    <base>sopt::algorithm::ForwardBackward::Diagnostic</base>
     <member kind="function">
       <type></type>
       <name>Diagnostic</name>
@@ -4898,18 +4974,6 @@
     </member>
   </compound>
   <compound kind="struct">
-    <name>sopt::algorithm::ForwardBackward::DiagnosticAndResult</name>
-    <filename>http://astro-informatics.github.io/sopt/structsopt_1_1algorithm_1_1ForwardBackward_1_1DiagnosticAndResult.html</filename>
-    <base>sopt::algorithm::ForwardBackward::Diagnostic</base>
-    <member kind="variable">
-      <type>t_Vector</type>
-      <name>x</name>
-      <anchorfile>structsopt_1_1algorithm_1_1ForwardBackward_1_1DiagnosticAndResult.html</anchorfile>
-      <anchor>a6bebb7483ac2747d9adedbb21d06c7d0</anchor>
-      <arglist></arglist>
-    </member>
-  </compound>
-  <compound kind="struct">
     <name>sopt::algorithm::ImagingForwardBackward::DiagnosticAndResult</name>
     <filename>http://astro-informatics.github.io/sopt/structsopt_1_1algorithm_1_1ImagingForwardBackward_1_1DiagnosticAndResult.html</filename>
     <base>sopt::algorithm::ImagingForwardBackward::Diagnostic</base>
@@ -5086,6 +5150,74 @@
       <anchorfile>structsopt_1_1algorithm_1_1JointMAP_1_1DiagnosticAndResultReg.html</anchorfile>
       <anchor>a9f939486853257e0ba769c7df1e66fc6</anchor>
       <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>DifferentiableFunc</name>
+    <filename>http://astro-informatics.github.io/sopt/classDifferentiableFunc.html</filename>
+    <templarg></templarg>
+    <member kind="typedef">
+      <type>sopt::algorithm::ForwardBackward&lt; SCALAR &gt;</type>
+      <name>FB</name>
+      <anchorfile>classDifferentiableFunc.html</anchorfile>
+      <anchor>a9698c5c9e68c5923f49251d42a95a52c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>typename FB::Real</type>
+      <name>Real</name>
+      <anchorfile>classDifferentiableFunc.html</anchorfile>
+      <anchor>a641dc427a46526bd41c9bf2ecb87f953</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>typename FB::t_Vector</type>
+      <name>t_Vector</name>
+      <anchorfile>classDifferentiableFunc.html</anchorfile>
+      <anchor>ac648e81c90fd51eeab756947f60a403c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>typename FB::t_Gradient</type>
+      <name>t_Gradient</name>
+      <anchorfile>classDifferentiableFunc.html</anchorfile>
+      <anchor>a37f28dd6ca8d069d0d61ff2a928315e1</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>typename FB::t_LinearTransform</type>
+      <name>t_LinearTransform</name>
+      <anchorfile>classDifferentiableFunc.html</anchorfile>
+      <anchor>a1320a8e7b865ad2d41d126f49d33f86d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="function" virtualness="pure">
+      <type>virtual void</type>
+      <name>log_message</name>
+      <anchorfile>classDifferentiableFunc.html</anchorfile>
+      <anchor>a6a74eac7d3076154b5522f8c4c830528</anchor>
+      <arglist>() const =0</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual t_Gradient</type>
+      <name>gradient</name>
+      <anchorfile>classDifferentiableFunc.html</anchorfile>
+      <anchor>abb7a36fd55cadefc2a949c797ce792d9</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" virtualness="pure">
+      <type>virtual void</type>
+      <name>gradient</name>
+      <anchorfile>classDifferentiableFunc.html</anchorfile>
+      <anchor>aef00f0d9657b1bf19e93770331b57a7a</anchor>
+      <arglist>(t_Vector &amp;output, const t_Vector &amp;image, const t_Vector &amp;residual, const t_LinearTransform &amp;Phi)=0</arglist>
+    </member>
+    <member kind="function" virtualness="pure">
+      <type>virtual Real</type>
+      <name>function</name>
+      <anchorfile>classDifferentiableFunc.html</anchorfile>
+      <anchor>ae4131d643db9981937e21d78ba618b5e</anchor>
+      <arglist>(t_Vector const &amp;image, t_Vector const &amp;y, t_LinearTransform const &amp;Phi)=0</arglist>
     </member>
   </compound>
   <compound kind="struct">
@@ -5283,291 +5415,6 @@
     </member>
   </compound>
   <compound kind="class">
-    <name>sopt::algorithm::ForwardBackward</name>
-    <filename>http://astro-informatics.github.io/sopt/classsopt_1_1algorithm_1_1ForwardBackward.html</filename>
-    <templarg></templarg>
-    <class kind="struct">sopt::algorithm::ForwardBackward::Diagnostic</class>
-    <class kind="struct">sopt::algorithm::ForwardBackward::DiagnosticAndResult</class>
-    <member kind="typedef">
-      <type>SCALAR</type>
-      <name>value_type</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ForwardBackward.html</anchorfile>
-      <anchor>a7f3a7b49b585fe0e2d0bcca1adae3f4e</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="typedef">
-      <type>value_type</type>
-      <name>Scalar</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ForwardBackward.html</anchorfile>
-      <anchor>a8609e35c90eccd296886177afa25c61b</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="typedef">
-      <type>typename real_type&lt; Scalar &gt;::type</type>
-      <name>Real</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ForwardBackward.html</anchorfile>
-      <anchor>a1eff61e02bfdda72cbb09b3ca89ef5ad</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="typedef">
-      <type>Vector&lt; Scalar &gt;</type>
-      <name>t_Vector</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ForwardBackward.html</anchorfile>
-      <anchor>a8e179c92b2f7c350d9ee3bdf2b9c7edc</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="typedef">
-      <type>LinearTransform&lt; t_Vector &gt;</type>
-      <name>t_LinearTransform</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ForwardBackward.html</anchorfile>
-      <anchor>aaa95cc7ccbbddac6bf905079875f3fdf</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="typedef">
-      <type>std::function&lt; bool(const t_Vector &amp;, const t_Vector &amp;)&gt;</type>
-      <name>t_IsConverged</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ForwardBackward.html</anchorfile>
-      <anchor>af84c3056f186a532ca262ed9233c697b</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="typedef">
-      <type>ProximalFunction&lt; Scalar &gt;</type>
-      <name>t_Proximal</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ForwardBackward.html</anchorfile>
-      <anchor>abbcb952f644a8f41d3129a774bb0cddd</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="typedef">
-      <type>typename std::function&lt; void(t_Vector &amp;, const t_Vector &amp;)&gt;</type>
-      <name>t_Gradient</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ForwardBackward.html</anchorfile>
-      <anchor>aecfa1469aa8a0ccf5da71deec9a8c68e</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>ForwardBackward</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ForwardBackward.html</anchorfile>
-      <anchor>a5ea856a4532bc6cc861b49b272307078</anchor>
-      <arglist>(t_Gradient const &amp;f_gradient, t_Proximal const &amp;g_proximal, Eigen::MatrixBase&lt; DERIVED &gt; const &amp;target)</arglist>
-    </member>
-    <member kind="function" virtualness="virtual">
-      <type>virtual</type>
-      <name>~ForwardBackward</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ForwardBackward.html</anchorfile>
-      <anchor>a05e2e99267735a28809c658a6fa08c03</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>SOPT_MACRO</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ForwardBackward.html</anchorfile>
-      <anchor>a90f3de727f33d36da28a033973c2841a</anchor>
-      <arglist>(itermax, t_uint)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>SOPT_MACRO</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ForwardBackward.html</anchorfile>
-      <anchor>a35774da7475dbd339b6176efc6d35efd</anchor>
-      <arglist>(gamma, Real)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>SOPT_MACRO</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ForwardBackward.html</anchorfile>
-      <anchor>a017010a81bffb91610020b569bab7f5d</anchor>
-      <arglist>(beta, Real)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>SOPT_MACRO</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ForwardBackward.html</anchorfile>
-      <anchor>a03831d551eb3226966b0833eeeaf6848</anchor>
-      <arglist>(nu, Real)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>SOPT_MACRO</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ForwardBackward.html</anchorfile>
-      <anchor>a5993c55188e2008f3cfa01d1df62fd3f</anchor>
-      <arglist>(fista, bool)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>SOPT_MACRO</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ForwardBackward.html</anchorfile>
-      <anchor>a0eab3dd46b4505b46b538e62b306e135</anchor>
-      <arglist>(is_converged, t_IsConverged)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>SOPT_MACRO</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ForwardBackward.html</anchorfile>
-      <anchor>a31cc334868ac1114bd00da2e3ee8d2de</anchor>
-      <arglist>(Phi, t_LinearTransform)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>SOPT_MACRO</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ForwardBackward.html</anchorfile>
-      <anchor>ae122e577d7bf063b4b48011bff0ba633</anchor>
-      <arglist>(f_gradient, t_Gradient)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>SOPT_MACRO</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ForwardBackward.html</anchorfile>
-      <anchor>a09cdba171a07f3e201fdc3cbf9f4974b</anchor>
-      <arglist>(g_proximal, t_Proximal)</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>f_gradient</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ForwardBackward.html</anchorfile>
-      <anchor>ad5ff963c11f8f31a2fb3802daf99d16b</anchor>
-      <arglist>(t_Vector &amp;out, t_Vector const &amp;x) const</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>g_proximal</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ForwardBackward.html</anchorfile>
-      <anchor>aded1ee9c25417d1f0f5333e7c6b833b0</anchor>
-      <arglist>(t_Vector &amp;out, Real gamma, t_Vector const &amp;x) const</arglist>
-    </member>
-    <member kind="function">
-      <type>ForwardBackward&lt; Scalar &gt; &amp;</type>
-      <name>is_converged</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ForwardBackward.html</anchorfile>
-      <anchor>a71cb1304377e1b7a0fde6c7b2b7696cd</anchor>
-      <arglist>(std::function&lt; bool(t_Vector const &amp;x)&gt; const &amp;func)</arglist>
-    </member>
-    <member kind="function">
-      <type>t_Vector const  &amp;</type>
-      <name>target</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ForwardBackward.html</anchorfile>
-      <anchor>a8ffccc9cb540d2f573a376298a8105a9</anchor>
-      <arglist>() const</arglist>
-    </member>
-    <member kind="function">
-      <type>ForwardBackward&lt; Scalar &gt; &amp;</type>
-      <name>target</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ForwardBackward.html</anchorfile>
-      <anchor>aeaf225ee8c51663cd8139f7b55b419b1</anchor>
-      <arglist>(Eigen::MatrixBase&lt; DERIVED &gt; const &amp;target)</arglist>
-    </member>
-    <member kind="function">
-      <type>bool</type>
-      <name>is_converged</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ForwardBackward.html</anchorfile>
-      <anchor>a865ce022ed10e89f0d7fdced5aa60a5a</anchor>
-      <arglist>(t_Vector const &amp;x, t_Vector const &amp;residual) const</arglist>
-    </member>
-    <member kind="function">
-      <type>Diagnostic</type>
-      <name>operator()</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ForwardBackward.html</anchorfile>
-      <anchor>a40bbe44d3eadbfc2cb9bb4ee612de92d</anchor>
-      <arglist>(t_Vector &amp;out) const</arglist>
-    </member>
-    <member kind="function">
-      <type>Diagnostic</type>
-      <name>operator()</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ForwardBackward.html</anchorfile>
-      <anchor>a7c5b039da115cfbc518c62a3b5d6af69</anchor>
-      <arglist>(t_Vector &amp;out, std::tuple&lt; t_Vector, t_Vector &gt; const &amp;guess) const</arglist>
-    </member>
-    <member kind="function">
-      <type>Diagnostic</type>
-      <name>operator()</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ForwardBackward.html</anchorfile>
-      <anchor>a7c44690dac19b49fdbb9cf101d34dc2a</anchor>
-      <arglist>(t_Vector &amp;out, std::tuple&lt; t_Vector const &amp;, t_Vector const &amp; &gt; const &amp;guess) const</arglist>
-    </member>
-    <member kind="function">
-      <type>DiagnosticAndResult</type>
-      <name>operator()</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ForwardBackward.html</anchorfile>
-      <anchor>ab61badb52152599b3a8ca6030f6ad429</anchor>
-      <arglist>(std::tuple&lt; t_Vector, t_Vector &gt; const &amp;guess) const</arglist>
-    </member>
-    <member kind="function">
-      <type>DiagnosticAndResult</type>
-      <name>operator()</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ForwardBackward.html</anchorfile>
-      <anchor>af01e9814d02582e79cf61ddb7072d423</anchor>
-      <arglist>(std::tuple&lt; t_Vector const &amp;, t_Vector const &amp; &gt; const &amp;guess) const</arglist>
-    </member>
-    <member kind="function">
-      <type>DiagnosticAndResult</type>
-      <name>operator()</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ForwardBackward.html</anchorfile>
-      <anchor>a1724a96f76b3779cc34e272cbd9aa726</anchor>
-      <arglist>() const</arglist>
-    </member>
-    <member kind="function">
-      <type>DiagnosticAndResult</type>
-      <name>operator()</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ForwardBackward.html</anchorfile>
-      <anchor>a4c64180827488006cd1dd287a8d1e7d5</anchor>
-      <arglist>(DiagnosticAndResult const &amp;warmstart) const</arglist>
-    </member>
-    <member kind="function">
-      <type>ForwardBackward &amp;::type</type>
-      <name>Phi</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ForwardBackward.html</anchorfile>
-      <anchor>a8be880cc3fba39cb51a45d7f65982630</anchor>
-      <arglist>(ARGS &amp;&amp;... args)</arglist>
-    </member>
-    <member kind="function">
-      <type>std::tuple&lt; t_Vector, t_Vector &gt;</type>
-      <name>initial_guess</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ForwardBackward.html</anchorfile>
-      <anchor>a9d44dc3f863101780a1e519491756f1d</anchor>
-      <arglist>() const</arglist>
-    </member>
-    <member kind="function" static="yes">
-      <type>static std::tuple&lt; t_Vector, t_Vector &gt;</type>
-      <name>initial_guess</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ForwardBackward.html</anchorfile>
-      <anchor>ad530665e3a4ccaab94cb3e04e45c7e6d</anchor>
-      <arglist>(t_Vector const &amp;target, t_LinearTransform const &amp;phi, Real nu)</arglist>
-    </member>
-  </compound>
-  <compound kind="class">
-    <name>GProximal</name>
-    <filename>http://astro-informatics.github.io/sopt/classGProximal.html</filename>
-    <templarg></templarg>
-    <member kind="function" virtualness="pure">
-      <type>virtual void</type>
-      <name>log_message</name>
-      <anchorfile>classGProximal.html</anchorfile>
-      <anchor>a2595aa6c505024a43c7e34cccfbe3cf1</anchor>
-      <arglist>() const =0</arglist>
-    </member>
-    <member kind="function" virtualness="pure">
-      <type>virtual t_Proximal</type>
-      <name>proximal_function</name>
-      <anchorfile>classGProximal.html</anchorfile>
-      <anchor>a1b0355a5f21c7d002431218cb65290f2</anchor>
-      <arglist>() const =0</arglist>
-    </member>
-    <member kind="function" virtualness="pure">
-      <type>virtual Real</type>
-      <name>proximal_norm</name>
-      <anchorfile>classGProximal.html</anchorfile>
-      <anchor>a63f2ef76f413ceda6cc12a14055a7d63</anchor>
-      <arglist>(t_Vector const &amp;x) const =0</arglist>
-    </member>
-    <member kind="function" virtualness="pure">
-      <type>virtual const t_LinearTransform &amp;</type>
-      <name>Psi</name>
-      <anchorfile>classGProximal.html</anchorfile>
-      <anchor>aa09fe88d13ad97c15487b4f7894431cd</anchor>
-      <arglist>() const =0</arglist>
-    </member>
-  </compound>
-  <compound kind="class">
     <name>sopt::details::has_value_type</name>
     <filename>http://astro-informatics.github.io/sopt/classsopt_1_1details_1_1has__value__type.html</filename>
     <templarg></templarg>
@@ -5687,6 +5534,13 @@
       <arglist></arglist>
     </member>
     <member kind="typedef">
+      <type>typename std::function&lt; void(t_Vector &amp;, const t_Vector &amp;)&gt;</type>
+      <name>t_l2Gradient</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
+      <anchor>aa2850ff2be22360db79531957d920c9b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
       <type>typename FB::t_IsConverged</type>
       <name>t_IsConverged</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
@@ -5706,13 +5560,6 @@
       <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
       <anchor>af2c1c67e818111aa1a3332d910a97ab4</anchor>
       <arglist>()</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>SOPT_MACRO</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
-      <anchor>a39b0d44f732ab968c8a28d00b9a0ba1e</anchor>
-      <arglist>(l2_gradient, t_Gradient)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -5806,18 +5653,39 @@
       <arglist>(Phi, t_LinearTransform)</arglist>
     </member>
     <member kind="function">
-      <type>std::shared_ptr&lt; GProximal&lt; SCALAR &gt; &gt;</type>
-      <name>g_proximal</name>
+      <type>std::shared_ptr&lt; NonDifferentiableFunc&lt; SCALAR &gt; &gt;</type>
+      <name>g_function</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
-      <anchor>a0173213ab9b73098f72e8df145c55ad5</anchor>
+      <anchor>a15df534fa9e2bc8ebada757faf537924</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
       <type>ImagingForwardBackward&lt; SCALAR &gt; &amp;</type>
-      <name>g_proximal</name>
+      <name>g_function</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
-      <anchor>a1b5879322313df6b6d38be713226ed1e</anchor>
-      <arglist>(std::shared_ptr&lt; GProximal&lt; SCALAR &gt;&gt; g_proximal)</arglist>
+      <anchor>a867c823632f51da022acdae462dc849a</anchor>
+      <arglist>(std::shared_ptr&lt; NonDifferentiableFunc&lt; SCALAR &gt;&gt; g_function)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::shared_ptr&lt; DifferentiableFunc&lt; SCALAR &gt; &gt;</type>
+      <name>f_function</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
+      <anchor>a2d9de340de906fc989c265a9541a4e19</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>ImagingForwardBackward&lt; SCALAR &gt; &amp;</type>
+      <name>f_function</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
+      <anchor>aa617f079604f9cc03ebedd9cf811b770</anchor>
+      <arglist>(std::shared_ptr&lt; DifferentiableFunc&lt; SCALAR &gt;&gt; f_function)</arglist>
+    </member>
+    <member kind="function">
+      <type>t_LinearTransform const  &amp;</type>
+      <name>Psi</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
+      <anchor>a213ab7294e681c24e8805155ba9ae489</anchor>
+      <arglist>() const</arglist>
     </member>
     <member kind="function">
       <type>t_Vector const  &amp;</type>
@@ -5851,43 +5719,43 @@
       <type>Diagnostic</type>
       <name>operator()</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
-      <anchor>aea7c763090b3dd4f911a58a1b9ffdfff</anchor>
-      <arglist>(t_Vector &amp;out, std::tuple&lt; t_Vector, t_Vector &gt; const &amp;guess) const</arglist>
+      <anchor>ab5a94ecf8cbf38240ef328c6271fd3d0</anchor>
+      <arglist>(t_Vector &amp;out, std::tuple&lt; t_Vector, t_Vector &gt; const &amp;guess)</arglist>
     </member>
     <member kind="function">
       <type>Diagnostic</type>
       <name>operator()</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
-      <anchor>a75b473640e37aaa1ff28e4b8ff8420e0</anchor>
-      <arglist>(t_Vector &amp;out, std::tuple&lt; t_Vector const &amp;, t_Vector const &amp; &gt; const &amp;guess) const</arglist>
+      <anchor>a8023b77e3ccfb1f47027fcd8f0b70c98</anchor>
+      <arglist>(t_Vector &amp;out, std::tuple&lt; t_Vector const &amp;, t_Vector const &amp; &gt; const &amp;guess)</arglist>
     </member>
     <member kind="function">
       <type>DiagnosticAndResult</type>
       <name>operator()</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
-      <anchor>a8b26fe099ca3b34dc1179855f9948d31</anchor>
-      <arglist>(std::tuple&lt; t_Vector, t_Vector &gt; const &amp;guess) const</arglist>
+      <anchor>a52dadc27af9a683e1f633f41563eeb9c</anchor>
+      <arglist>(std::tuple&lt; t_Vector, t_Vector &gt; const &amp;guess)</arglist>
     </member>
     <member kind="function">
       <type>DiagnosticAndResult</type>
       <name>operator()</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
-      <anchor>a5661d2363b17b34511db9bb864c061d4</anchor>
-      <arglist>(std::tuple&lt; t_Vector const &amp;, t_Vector const &amp; &gt; const &amp;guess) const</arglist>
+      <anchor>a7ec185ec9a66f49270201d3b85edc79d</anchor>
+      <arglist>(std::tuple&lt; t_Vector const &amp;, t_Vector const &amp; &gt; const &amp;guess)</arglist>
     </member>
     <member kind="function">
       <type>DiagnosticAndResult</type>
       <name>operator()</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
-      <anchor>a74fae8a536fe10c3750e2f29632e2a42</anchor>
-      <arglist>() const</arglist>
+      <anchor>ab118b2da569053028e8d0f1700d0d8f5</anchor>
+      <arglist>()</arglist>
     </member>
     <member kind="function">
       <type>DiagnosticAndResult</type>
       <name>operator()</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
-      <anchor>af8cf6fa54dd1b2f467632abfcc687b0b</anchor>
-      <arglist>(DiagnosticAndResult const &amp;warmstart) const</arglist>
+      <anchor>a925f31e8bd9589a1d1e0a5fa283efb45</anchor>
+      <arglist>(DiagnosticAndResult const &amp;warmstart)</arglist>
     </member>
     <member kind="function">
       <type>ImagingForwardBackward &amp;::type</type>
@@ -5895,13 +5763,6 @@
       <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
       <anchor>aa068cb8568fc8f1dfa307b05bfbf89c5</anchor>
       <arglist>(ARGS &amp;&amp;... args)</arglist>
-    </member>
-    <member kind="function">
-      <type>t_Gradient &amp;</type>
-      <name>l2_gradient</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
-      <anchor>a9b16c4439aad39d80660476aa75e2512</anchor>
-      <arglist>()</arglist>
     </member>
     <member kind="function">
       <type>ImagingForwardBackward&lt; Scalar &gt; &amp;</type>
@@ -7438,7 +7299,7 @@
     <name>sopt::algorithm::L1GProximal</name>
     <filename>http://astro-informatics.github.io/sopt/classsopt_1_1algorithm_1_1L1GProximal.html</filename>
     <templarg></templarg>
-    <base>GProximal</base>
+    <base>NonDifferentiableFunc</base>
     <member kind="typedef">
       <type>ForwardBackward&lt; SCALAR &gt;</type>
       <name>FB</name>
@@ -7504,16 +7365,16 @@
     </member>
     <member kind="function">
       <type>Real</type>
-      <name>proximal_norm</name>
+      <name>function</name>
       <anchorfile>classsopt_1_1algorithm_1_1L1GProximal.html</anchorfile>
-      <anchor>aa042855284f50c371eed859e0acab2d1</anchor>
+      <anchor>a2df47461edbb4ade85a29d9a290d0ca7</anchor>
       <arglist>(t_Vector const &amp;x) const override</arglist>
     </member>
     <member kind="function">
       <type>t_Proximal</type>
-      <name>proximal_function</name>
+      <name>proximal_operator</name>
       <anchorfile>classsopt_1_1algorithm_1_1L1GProximal.html</anchorfile>
-      <anchor>aef10e4b2cd001b5cbe6ad381a5914e30</anchor>
+      <anchor>acde30375242525903983f184a8ec293f</anchor>
       <arglist>() const override</arglist>
     </member>
     <member kind="function">
@@ -7830,6 +7691,40 @@
       <anchorfile>classsopt_1_1proximal_1_1L2Ball.html</anchorfile>
       <anchor>aadf6fb56a7f93619182f2806c0c3e299</anchor>
       <arglist>(Real eps)</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>sopt::L2DifferentiableFunc</name>
+    <filename>http://astro-informatics.github.io/sopt/classsopt_1_1L2DifferentiableFunc.html</filename>
+    <templarg></templarg>
+    <base>DifferentiableFunc</base>
+    <member kind="function">
+      <type></type>
+      <name>L2DifferentiableFunc</name>
+      <anchorfile>classsopt_1_1L2DifferentiableFunc.html</anchorfile>
+      <anchor>ab0b3dc031da4ed6b0e03ef4ecb663fbd</anchor>
+      <arglist>(const Real sigma, const LinearTransform &amp;Phi)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>log_message</name>
+      <anchorfile>classsopt_1_1L2DifferentiableFunc.html</anchorfile>
+      <anchor>aa41360c9a90f7aab6a0b803fbdf8c1ae</anchor>
+      <arglist>() const override</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>gradient</name>
+      <anchorfile>classsopt_1_1L2DifferentiableFunc.html</anchorfile>
+      <anchor>a6944ed864e740f4750d95bd485267746</anchor>
+      <arglist>(Vector &amp;output, const Vector &amp;image, const Vector &amp;residual, const LinearTransform &amp;Phi) const override</arglist>
+    </member>
+    <member kind="function">
+      <type>Real</type>
+      <name>function</name>
+      <anchorfile>classsopt_1_1L2DifferentiableFunc.html</anchorfile>
+      <anchor>a96f42474ae8bab807c1178a10755d5f9</anchor>
+      <arglist>(Vector const &amp;image, Vector const &amp;y, LinearTransform const &amp;Phi) const override</arglist>
     </member>
   </compound>
   <compound kind="class">
@@ -8618,6 +8513,122 @@
       <anchorfile>classsopt_1_1proximal_1_1L1_1_1NoMixing.html</anchorfile>
       <anchor>a00a31cf9de7790aea3e76ccb602452cc</anchor>
       <arglist>(Vector&lt; SCALAR &gt; &amp;previous, Eigen::MatrixBase&lt; T1 &gt; const &amp;unmixed, t_uint)</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>NonDifferentiableFunc</name>
+    <filename>http://astro-informatics.github.io/sopt/classNonDifferentiableFunc.html</filename>
+    <templarg></templarg>
+    <member kind="typedef">
+      <type>sopt::algorithm::ForwardBackward&lt; SCALAR &gt;</type>
+      <name>FB</name>
+      <anchorfile>classNonDifferentiableFunc.html</anchorfile>
+      <anchor>afde3f7f63ca650c15de44b821ef40912</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>typename FB::Real</type>
+      <name>Real</name>
+      <anchorfile>classNonDifferentiableFunc.html</anchorfile>
+      <anchor>a611cb86c8567e56cb6ad97e254fa9445</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>typename FB::t_Vector</type>
+      <name>t_Vector</name>
+      <anchorfile>classNonDifferentiableFunc.html</anchorfile>
+      <anchor>ac025198c3212fc563c581c6e8594a935</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>typename FB::t_Proximal</type>
+      <name>t_Proximal</name>
+      <anchorfile>classNonDifferentiableFunc.html</anchorfile>
+      <anchor>a24796d361f31d52fa463d73811ee95c7</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>typename FB::t_LinearTransform</type>
+      <name>t_LinearTransform</name>
+      <anchorfile>classNonDifferentiableFunc.html</anchorfile>
+      <anchor>ac3400220d30fbdaff11ae68206ec72e6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="function" virtualness="pure">
+      <type>virtual void</type>
+      <name>log_message</name>
+      <anchorfile>classNonDifferentiableFunc.html</anchorfile>
+      <anchor>a56f2ed00cd20a26d2f97541b1a40d9bf</anchor>
+      <arglist>() const =0</arglist>
+    </member>
+    <member kind="function" virtualness="pure">
+      <type>virtual t_Proximal</type>
+      <name>proximal_operator</name>
+      <anchorfile>classNonDifferentiableFunc.html</anchorfile>
+      <anchor>a5cc707b8fa9351c86f55cab7ebadb390</anchor>
+      <arglist>() const =0</arglist>
+    </member>
+    <member kind="function" virtualness="pure">
+      <type>virtual Real</type>
+      <name>function</name>
+      <anchorfile>classNonDifferentiableFunc.html</anchorfile>
+      <anchor>a24fbdbbe937dcf3b941de0b5d3a5abfe</anchor>
+      <arglist>(t_Vector const &amp;x) const =0</arglist>
+    </member>
+    <member kind="function" virtualness="pure">
+      <type>virtual const t_LinearTransform &amp;</type>
+      <name>Psi</name>
+      <anchorfile>classNonDifferentiableFunc.html</anchorfile>
+      <anchor>ab1c4bc08a070a1707bbe3743f8d51d97</anchor>
+      <arglist>() const =0</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>sopt::ONNXDifferentiableFunc</name>
+    <filename>http://astro-informatics.github.io/sopt/classsopt_1_1ONNXDifferentiableFunc.html</filename>
+    <templarg></templarg>
+    <base>DifferentiableFunc</base>
+    <member kind="function">
+      <type></type>
+      <name>ONNXDifferentiableFunc</name>
+      <anchorfile>classsopt_1_1ONNXDifferentiableFunc.html</anchorfile>
+      <anchor>a2276c894ec420ea2b88fb19c6da1aa55</anchor>
+      <arglist>(const std::string &amp;function_model_path, const std::string &amp;gradient_model_path, const Real sigma, const Real mu, const Real lambda, const LinearTransform &amp;Phi, const std::vector&lt; int64_t &gt; dimensions={})</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>log_message</name>
+      <anchorfile>classsopt_1_1ONNXDifferentiableFunc.html</anchorfile>
+      <anchor>a6655ec16f2e99f6a834a9fef0ce00b1d</anchor>
+      <arglist>() const override</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>gradient</name>
+      <anchorfile>classsopt_1_1ONNXDifferentiableFunc.html</anchorfile>
+      <anchor>a66100b7db12b5ae68ec4735b8dc1df50</anchor>
+      <arglist>(Vector &amp;output, const Vector &amp;image, const Vector &amp;residual, const LinearTransform &amp;Phi) override</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>infer_dimensions</name>
+      <anchorfile>classsopt_1_1ONNXDifferentiableFunc.html</anchorfile>
+      <anchor>a8cd31843225b261bbb90e773e25fef9c</anchor>
+      <arglist>(const size_t image_size)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>set_dimensions</name>
+      <anchorfile>classsopt_1_1ONNXDifferentiableFunc.html</anchorfile>
+      <anchor>a9b9fd8df32ef1641905469826d1c0ebd</anchor>
+      <arglist>(const std::vector&lt; int64_t &gt; &amp;dims)</arglist>
+    </member>
+    <member kind="function">
+      <type>Real</type>
+      <name>function</name>
+      <anchorfile>classsopt_1_1ONNXDifferentiableFunc.html</anchorfile>
+      <anchor>acef8ed6d6da8eab134c5143ce6da9c75</anchor>
+      <arglist>(Vector const &amp;image, Vector const &amp;y, LinearTransform const &amp;Phi) override</arglist>
     </member>
   </compound>
   <compound kind="class">
@@ -9427,6 +9438,96 @@
       <anchorfile>classsopt_1_1algorithm_1_1ProximalADMM.html</anchorfile>
       <anchor>a9fc25eba4170d117543e09e87805c8de</anchor>
       <arglist>(t_Vector const &amp;target, t_LinearTransform const &amp;phi, Real nu)</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>RealIndicator</name>
+    <filename>http://astro-informatics.github.io/sopt/classRealIndicator.html</filename>
+    <templarg></templarg>
+    <base>NonDifferentiableFunc</base>
+    <member kind="typedef">
+      <type>NonDifferentiableFunc&lt; SCALAR &gt;</type>
+      <name>NDF</name>
+      <anchorfile>classRealIndicator.html</anchorfile>
+      <anchor>a06c35208b03e9ba4e46cf9d4d4237445</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>typename NDF::Real</type>
+      <name>Real</name>
+      <anchorfile>classRealIndicator.html</anchorfile>
+      <anchor>a40e1299b192b18bc65abaa961a23e3cf</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>typename NDF::t_Vector</type>
+      <name>t_Vector</name>
+      <anchorfile>classRealIndicator.html</anchorfile>
+      <anchor>ad85bd675cb7324bb6a48dbc4c9bf3aa5</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>typename NDF::t_Proximal</type>
+      <name>t_Proximal</name>
+      <anchorfile>classRealIndicator.html</anchorfile>
+      <anchor>a9a8bf5918542c4975ac01ea7f12d0eed</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>typename NDF::t_LinearTransform</type>
+      <name>t_LinearTransform</name>
+      <anchorfile>classRealIndicator.html</anchorfile>
+      <anchor>aa15c78de6d074ad784e9e9a0e0d9b25c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>RealIndicator</name>
+      <anchorfile>classRealIndicator.html</anchorfile>
+      <anchor>a3d0d99a3d26b1ebd818c1f96d77d6243</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>log_message</name>
+      <anchorfile>classRealIndicator.html</anchorfile>
+      <anchor>a6ab8549179d45f2fa6aeb3ac0e7ce95c</anchor>
+      <arglist>() const override</arglist>
+    </member>
+    <member kind="function">
+      <type>Real</type>
+      <name>function</name>
+      <anchorfile>classRealIndicator.html</anchorfile>
+      <anchor>ab887f31cd11b9ef7ab6433055b66c59d</anchor>
+      <arglist>(t_Vector const &amp;x) const override</arglist>
+    </member>
+    <member kind="function">
+      <type>t_Proximal</type>
+      <name>proximal_operator</name>
+      <anchorfile>classRealIndicator.html</anchorfile>
+      <anchor>acc4472b946a9bfca537bce329e7a227a</anchor>
+      <arglist>() const override</arglist>
+    </member>
+    <member kind="function">
+      <type>t_LinearTransform const  &amp;</type>
+      <name>Psi</name>
+      <anchorfile>classRealIndicator.html</anchorfile>
+      <anchor>a1e1bd3442529f71bc432582b173c5fde</anchor>
+      <arglist>() const override</arglist>
+    </member>
+    <member kind="function">
+      <type>RealIndicator&lt; std::complex&lt; double &gt; &gt;::Real</type>
+      <name>function</name>
+      <anchorfile>classRealIndicator.html</anchorfile>
+      <anchor>acf8d685f5ffa3583efe34717372c234b</anchor>
+      <arglist>(typename RealIndicator&lt; std::complex&lt; double &gt;&gt;::t_Vector const &amp;x) const</arglist>
+    </member>
+    <member kind="variable">
+      <type>t_LinearTransform</type>
+      <name>linear_operator</name>
+      <anchorfile>classRealIndicator.html</anchorfile>
+      <anchor>a51a0f4e795f4d8b0dbb24225cd6f2180</anchor>
+      <arglist></arglist>
     </member>
   </compound>
   <compound kind="class">
@@ -10529,7 +10630,7 @@
     <name>sopt::algorithm::TFGProximal</name>
     <filename>http://astro-informatics.github.io/sopt/classsopt_1_1algorithm_1_1TFGProximal.html</filename>
     <templarg></templarg>
-    <base>GProximal</base>
+    <base>NonDifferentiableFunc</base>
     <member kind="typedef">
       <type>ForwardBackward&lt; SCALAR &gt;</type>
       <name>FB</name>
@@ -10595,16 +10696,16 @@
     </member>
     <member kind="function">
       <type>Real</type>
-      <name>proximal_norm</name>
+      <name>function</name>
       <anchorfile>classsopt_1_1algorithm_1_1TFGProximal.html</anchorfile>
-      <anchor>a45f8b05c6ac90ef9be4971fedb40527b</anchor>
+      <anchor>ae265add0542169068599210e65f194d6</anchor>
       <arglist>(t_Vector const &amp;x) const override</arglist>
     </member>
     <member kind="function">
       <type>t_Proximal</type>
-      <name>proximal_function</name>
+      <name>proximal_operator</name>
       <anchorfile>classsopt_1_1algorithm_1_1TFGProximal.html</anchorfile>
-      <anchor>a9ac2ca8e4cc93369d482529ca792075e</anchor>
+      <anchor>a1defc005583071429ad90492c91e8771</anchor>
       <arglist>() const override</arglist>
     </member>
     <member kind="function">
@@ -11480,7 +11581,9 @@
     <namespace>sopt::wavelets</namespace>
     <class kind="class">sopt::ConjugateGradient</class>
     <class kind="class">sopt::Exception</class>
+    <class kind="class">sopt::L2DifferentiableFunc</class>
     <class kind="class">sopt::LinearTransform</class>
+    <class kind="class">sopt::ONNXDifferentiableFunc</class>
     <class kind="class">sopt::ORTsession</class>
     <class kind="struct">sopt::is_complex</class>
     <class kind="struct">sopt::is_complex&lt; std::complex&lt; T &gt;, void &gt;</class>
@@ -11559,10 +11662,10 @@
       <arglist></arglist>
     </member>
     <member kind="typedef">
-      <type>std::function&lt; void(Vector&lt; SCALAR &gt; &amp;, typename real_type&lt; SCALAR &gt;::type, Vector&lt; SCALAR &gt; const &amp;)&gt;</type>
+      <type>std::function&lt; void(Vector&lt; SCALAR &gt; &amp;output, typename real_type&lt; SCALAR &gt;::type const weight, Vector&lt; SCALAR &gt; const &amp;input)&gt;</type>
       <name>ProximalFunction</name>
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt.html</anchorfile>
-      <anchor>af924da011a36e574306ab72f9f423834</anchor>
+      <anchor>acbf84f975b1aa24c2925150488215df2</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
@@ -11804,6 +11907,27 @@
       <arglist>(Eigen::MatrixBase&lt; T0 &gt; const &amp;input)</arglist>
     </member>
     <member kind="function">
+      <type>std::vector&lt; float &gt;</type>
+      <name>imageToFloat</name>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt.html</anchorfile>
+      <anchor>a41e13505f1425dd1bfa7e33b81f0729c</anchor>
+      <arglist>(sopt::Vector&lt; t_complex &gt; const &amp;image)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; float &gt;</type>
+      <name>imageToFloat</name>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt.html</anchorfile>
+      <anchor>a681e8b650f3797972d9e4b1c27cf8be3</anchor>
+      <arglist>(sopt::Vector&lt; T &gt; const &amp;image)</arglist>
+    </member>
+    <member kind="function">
+      <type>sopt::Vector&lt; t_complex &gt;</type>
+      <name>floatToImage</name>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt.html</anchorfile>
+      <anchor>ac714d2f3ce2bd0e93bd2d32eccefcb37</anchor>
+      <arglist>(std::vector&lt; float &gt; const &amp;float_image)</arglist>
+    </member>
+    <member kind="function">
       <type>LinearTransform&lt; Vector&lt; T &gt; &gt;</type>
       <name>linear_transform</name>
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt.html</anchorfile>
@@ -11884,7 +12008,6 @@
   <compound kind="namespace">
     <name>sopt::algorithm</name>
     <filename>http://astro-informatics.github.io/sopt/http://astro-informatics.github.io/sopt/namespacesopt_1_1algorithm.html</filename>
-    <class kind="class">sopt::algorithm::ForwardBackward</class>
     <class kind="class">sopt::algorithm::ImagingForwardBackward</class>
     <class kind="class">sopt::algorithm::ImagingProximalADMM</class>
     <class kind="class">sopt::algorithm::ImagingPrimalDual</class>

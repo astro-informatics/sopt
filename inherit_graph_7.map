@@ -1,3 +1,6 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classsopt_1_1algorithm_1_1ForwardBackward.html" title="Forward Backward Splitting." alt="" coords="5,5,187,47"/>
+<area shape="rect" id="node1" href="$classNonDifferentiableFunc.html" title=" " alt="" coords="5,57,172,98"/>
+<area shape="rect" id="node2" href="$classRealIndicator.html" title=" " alt="" coords="231,5,422,32"/>
+<area shape="rect" id="node3" href="$classsopt_1_1algorithm_1_1L1GProximal.html" title=" " alt="" coords="221,57,433,98"/>
+<area shape="rect" id="node4" href="$classsopt_1_1algorithm_1_1TFGProximal.html" title=" " alt="" coords="220,122,433,163"/>
 </map>

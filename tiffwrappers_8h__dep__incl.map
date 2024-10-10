@@ -1,5 +1,5 @@
 <map id="/home/runner/work/sopt/sopt/cpp/tools_for_tests/tiffwrappers.h" name="/home/runner/work/sopt/sopt/cpp/tools_for_tests/tiffwrappers.h">
-<area shape="rect" id="node1" title=" " alt="" coords="2001,5,2183,61"/>
+<area shape="rect" id="node1" title=" " alt="" coords="2111,5,2292,61"/>
 <area shape="rect" id="node2" href="$examples_2forward__backward_2inpainting_8cc.html" title=" " alt="" coords="5,117,208,173"/>
 <area shape="rect" id="node3" href="$inpainting__credible__interval_8cc.html" title=" " alt="" coords="233,109,453,180"/>
 <area shape="rect" id="node4" href="$inpainting__joint__map_8cc.html" title=" " alt="" coords="477,117,728,173"/>
@@ -13,9 +13,10 @@
 <area shape="rect" id="node12" href="$forward__backward_8cc.html" title=" " alt="" coords="2323,117,2501,173"/>
 <area shape="rect" id="node13" href="$gradient__operator_8cc.html" title=" " alt="" coords="2525,117,2702,173"/>
 <area shape="rect" id="node14" href="$tests_2inpainting_8cc.html" title=" " alt="" coords="2726,124,2930,165"/>
-<area shape="rect" id="node15" href="$serial__vs__parallel__padmm_8cc.html" title=" " alt="" coords="2954,117,3131,173"/>
-<area shape="rect" id="node16" href="$tf__inpainting_8cc.html" title=" " alt="" coords="3156,124,3377,165"/>
-<area shape="rect" id="node17" href="$tf__model_8cc.html" title=" " alt="" coords="3401,124,3599,165"/>
-<area shape="rect" id="node18" href="$copy__tiff_8cc.html" title=" " alt="" coords="3623,117,3804,173"/>
-<area shape="rect" id="node19" href="$tiffwrappers_8cc.html" title=" " alt="" coords="3828,117,4009,173"/>
+<area shape="rect" id="node15" href="$onnx__inpainting_8cc.html" title=" " alt="" coords="2955,124,3197,165"/>
+<area shape="rect" id="node16" href="$serial__vs__parallel__padmm_8cc.html" title=" " alt="" coords="3222,117,3399,173"/>
+<area shape="rect" id="node17" href="$tf__inpainting_8cc.html" title=" " alt="" coords="3424,124,3645,165"/>
+<area shape="rect" id="node18" href="$tf__model_8cc.html" title=" " alt="" coords="3669,124,3867,165"/>
+<area shape="rect" id="node19" href="$copy__tiff_8cc.html" title=" " alt="" coords="3891,117,4072,173"/>
+<area shape="rect" id="node20" href="$tiffwrappers_8cc.html" title=" " alt="" coords="4096,117,4277,173"/>
 </map>

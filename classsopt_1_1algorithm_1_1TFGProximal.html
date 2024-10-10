@@ -84,7 +84,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="tf__g__proximal_8h_source.html">tf_g_proximal.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="tf__non__diff__function_8h_source.html">tf_non_diff_function.h</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for sopt::algorithm::TFGProximal&lt; SCALAR &gt;:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -92,8 +92,8 @@ $(function() {
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="classsopt_1_1algorithm_1_1TFGProximal__inherit__graph.png" border="0" usemap="#asopt_1_1algorithm_1_1TFGProximal_3_01SCALAR_01_4_inherit__map" alt="Inheritance graph"/></div>
 <map name="asopt_1_1algorithm_1_1TFGProximal_3_01SCALAR_01_4_inherit__map" id="asopt_1_1algorithm_1_1TFGProximal_3_01SCALAR_01_4_inherit__map">
-<area shape="rect" title=" " alt="" coords="5,80,219,121"/>
-<area shape="rect" href="classGProximal.html" title=" " alt="" coords="26,5,198,32"/>
+<area shape="rect" title=" " alt="" coords="5,95,219,136"/>
+<area shape="rect" href="classNonDifferentiableFunc.html" title=" " alt="" coords="29,5,195,47"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -103,25 +103,36 @@ $(function() {
 <div id="dynsection-1-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="classsopt_1_1algorithm_1_1TFGProximal__coll__graph.png" border="0" usemap="#asopt_1_1algorithm_1_1TFGProximal_3_01SCALAR_01_4_coll__map" alt="Collaboration graph"/></div>
 <map name="asopt_1_1algorithm_1_1TFGProximal_3_01SCALAR_01_4_coll__map" id="asopt_1_1algorithm_1_1TFGProximal_3_01SCALAR_01_4_coll__map">
-<area shape="rect" title=" " alt="" coords="5,80,219,121"/>
-<area shape="rect" href="classGProximal.html" title=" " alt="" coords="26,5,198,32"/>
+<area shape="rect" title=" " alt="" coords="5,95,219,136"/>
+<area shape="rect" href="classNonDifferentiableFunc.html" title=" " alt="" coords="29,5,195,47"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a596de6d25fec19553936cc874ea8b918"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsopt_1_1algorithm_1_1TFGProximal.html#a596de6d25fec19553936cc874ea8b918">FB</a> = <a class="el" href="classsopt_1_1algorithm_1_1ForwardBackward.html">ForwardBackward</a>&lt; SCALAR &gt;</td></tr>
+<tr class="memitem:a596de6d25fec19553936cc874ea8b918"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsopt_1_1algorithm_1_1TFGProximal.html#a596de6d25fec19553936cc874ea8b918">FB</a> = ForwardBackward&lt; SCALAR &gt;</td></tr>
 <tr class="separator:a596de6d25fec19553936cc874ea8b918"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abad886c15adc3724d101748a4dcaf669"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsopt_1_1algorithm_1_1TFGProximal.html#abad886c15adc3724d101748a4dcaf669">Real</a> = typename <a class="el" href="classsopt_1_1algorithm_1_1ForwardBackward.html#a1eff61e02bfdda72cbb09b3ca89ef5ad">FB::Real</a></td></tr>
+<tr class="memitem:abad886c15adc3724d101748a4dcaf669"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsopt_1_1algorithm_1_1TFGProximal.html#abad886c15adc3724d101748a4dcaf669">Real</a> = typename FB::Real</td></tr>
 <tr class="separator:abad886c15adc3724d101748a4dcaf669"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1090aa5b8306692a482536d0b0058188"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsopt_1_1algorithm_1_1TFGProximal.html#a1090aa5b8306692a482536d0b0058188">Scalar</a> = typename <a class="el" href="classsopt_1_1algorithm_1_1ForwardBackward.html#a8609e35c90eccd296886177afa25c61b">FB::Scalar</a></td></tr>
+<tr class="memitem:a1090aa5b8306692a482536d0b0058188"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsopt_1_1algorithm_1_1TFGProximal.html#a1090aa5b8306692a482536d0b0058188">Scalar</a> = typename FB::Scalar</td></tr>
 <tr class="separator:a1090aa5b8306692a482536d0b0058188"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a84feda70e76aaccf5a718607645170"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsopt_1_1algorithm_1_1TFGProximal.html#a4a84feda70e76aaccf5a718607645170">t_Vector</a> = typename <a class="el" href="classsopt_1_1algorithm_1_1ForwardBackward.html#a8e179c92b2f7c350d9ee3bdf2b9c7edc">FB::t_Vector</a></td></tr>
+<tr class="memitem:a4a84feda70e76aaccf5a718607645170"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsopt_1_1algorithm_1_1TFGProximal.html#a4a84feda70e76aaccf5a718607645170">t_Vector</a> = typename FB::t_Vector</td></tr>
 <tr class="separator:a4a84feda70e76aaccf5a718607645170"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5a2ce70fcb5ab36b0d8a0b3b1ea060dd"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsopt_1_1algorithm_1_1TFGProximal.html#a5a2ce70fcb5ab36b0d8a0b3b1ea060dd">t_Proximal</a> = typename <a class="el" href="classsopt_1_1algorithm_1_1ForwardBackward.html#abbcb952f644a8f41d3129a774bb0cddd">FB::t_Proximal</a></td></tr>
+<tr class="memitem:a5a2ce70fcb5ab36b0d8a0b3b1ea060dd"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsopt_1_1algorithm_1_1TFGProximal.html#a5a2ce70fcb5ab36b0d8a0b3b1ea060dd">t_Proximal</a> = typename FB::t_Proximal</td></tr>
 <tr class="separator:a5a2ce70fcb5ab36b0d8a0b3b1ea060dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab5a5e53eff1e665d5cb5ac0e7256afe7"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsopt_1_1algorithm_1_1TFGProximal.html#ab5a5e53eff1e665d5cb5ac0e7256afe7">t_LinearTransform</a> = typename <a class="el" href="classsopt_1_1algorithm_1_1ForwardBackward.html#aaa95cc7ccbbddac6bf905079875f3fdf">FB::t_LinearTransform</a></td></tr>
+<tr class="memitem:ab5a5e53eff1e665d5cb5ac0e7256afe7"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsopt_1_1algorithm_1_1TFGProximal.html#ab5a5e53eff1e665d5cb5ac0e7256afe7">t_LinearTransform</a> = typename FB::t_LinearTransform</td></tr>
 <tr class="separator:ab5a5e53eff1e665d5cb5ac0e7256afe7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_types_classNonDifferentiableFunc"><td colspan="2" onclick="javascript:toggleInherit('pub_types_classNonDifferentiableFunc')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="classNonDifferentiableFunc.html">NonDifferentiableFunc&lt; SCALAR &gt;</a></td></tr>
+<tr class="memitem:afde3f7f63ca650c15de44b821ef40912 inherit pub_types_classNonDifferentiableFunc"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNonDifferentiableFunc.html#afde3f7f63ca650c15de44b821ef40912">FB</a> = sopt::algorithm::ForwardBackward&lt; SCALAR &gt;</td></tr>
+<tr class="separator:afde3f7f63ca650c15de44b821ef40912 inherit pub_types_classNonDifferentiableFunc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a611cb86c8567e56cb6ad97e254fa9445 inherit pub_types_classNonDifferentiableFunc"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNonDifferentiableFunc.html#a611cb86c8567e56cb6ad97e254fa9445">Real</a> = typename FB::Real</td></tr>
+<tr class="separator:a611cb86c8567e56cb6ad97e254fa9445 inherit pub_types_classNonDifferentiableFunc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac025198c3212fc563c581c6e8594a935 inherit pub_types_classNonDifferentiableFunc"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNonDifferentiableFunc.html#ac025198c3212fc563c581c6e8594a935">t_Vector</a> = typename FB::t_Vector</td></tr>
+<tr class="separator:ac025198c3212fc563c581c6e8594a935 inherit pub_types_classNonDifferentiableFunc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24796d361f31d52fa463d73811ee95c7 inherit pub_types_classNonDifferentiableFunc"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNonDifferentiableFunc.html#a24796d361f31d52fa463d73811ee95c7">t_Proximal</a> = typename FB::t_Proximal</td></tr>
+<tr class="separator:a24796d361f31d52fa463d73811ee95c7 inherit pub_types_classNonDifferentiableFunc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3400220d30fbdaff11ae68206ec72e6 inherit pub_types_classNonDifferentiableFunc"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNonDifferentiableFunc.html#ac3400220d30fbdaff11ae68206ec72e6">t_LinearTransform</a> = typename FB::t_LinearTransform</td></tr>
+<tr class="separator:ac3400220d30fbdaff11ae68206ec72e6 inherit pub_types_classNonDifferentiableFunc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -131,11 +142,11 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a006fc3e639234bb2a841c3c84e94066a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a78359a395a2fb5f9358a0a139c7f65e9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsopt_1_1algorithm_1_1TFGProximal.html#a78359a395a2fb5f9358a0a139c7f65e9">log_message</a> () const override</td></tr>
 <tr class="separator:a78359a395a2fb5f9358a0a139c7f65e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a45f8b05c6ac90ef9be4971fedb40527b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsopt_1_1algorithm_1_1TFGProximal.html#abad886c15adc3724d101748a4dcaf669">Real</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsopt_1_1algorithm_1_1TFGProximal.html#a45f8b05c6ac90ef9be4971fedb40527b">proximal_norm</a> (<a class="el" href="classsopt_1_1algorithm_1_1TFGProximal.html#a4a84feda70e76aaccf5a718607645170">t_Vector</a> const &amp;x) const override</td></tr>
-<tr class="separator:a45f8b05c6ac90ef9be4971fedb40527b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9ac2ca8e4cc93369d482529ca792075e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsopt_1_1algorithm_1_1TFGProximal.html#a5a2ce70fcb5ab36b0d8a0b3b1ea060dd">t_Proximal</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsopt_1_1algorithm_1_1TFGProximal.html#a9ac2ca8e4cc93369d482529ca792075e">proximal_function</a> () const override</td></tr>
-<tr class="separator:a9ac2ca8e4cc93369d482529ca792075e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a50268b551865ad495e2dad530adb7e26"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsopt_1_1algorithm_1_1TFGProximal.html#ab5a5e53eff1e665d5cb5ac0e7256afe7">t_LinearTransform</a> const  &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsopt_1_1algorithm_1_1TFGProximal.html#a50268b551865ad495e2dad530adb7e26">Psi</a> () const override</td></tr>
+<tr class="memitem:ae265add0542169068599210e65f194d6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classNonDifferentiableFunc.html#a611cb86c8567e56cb6ad97e254fa9445">Real</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsopt_1_1algorithm_1_1TFGProximal.html#ae265add0542169068599210e65f194d6">function</a> (<a class="el" href="classNonDifferentiableFunc.html#ac025198c3212fc563c581c6e8594a935">t_Vector</a> const &amp;x) const override</td></tr>
+<tr class="separator:ae265add0542169068599210e65f194d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1defc005583071429ad90492c91e8771"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classNonDifferentiableFunc.html#a24796d361f31d52fa463d73811ee95c7">t_Proximal</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsopt_1_1algorithm_1_1TFGProximal.html#a1defc005583071429ad90492c91e8771">proximal_operator</a> () const override</td></tr>
+<tr class="separator:a1defc005583071429ad90492c91e8771"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50268b551865ad495e2dad530adb7e26"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classNonDifferentiableFunc.html#ac3400220d30fbdaff11ae68206ec72e6">t_LinearTransform</a> const  &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsopt_1_1algorithm_1_1TFGProximal.html#a50268b551865ad495e2dad530adb7e26">Psi</a> () const override</td></tr>
 <tr class="memdesc:a50268b551865ad495e2dad530adb7e26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Analysis operator Ψ  <a href="classsopt_1_1algorithm_1_1TFGProximal.html#a50268b551865ad495e2dad530adb7e26">More...</a><br /></td></tr>
 <tr class="separator:a50268b551865ad495e2dad530adb7e26"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -144,7 +155,7 @@ Public Member Functions</h2></td></tr>
 class sopt::algorithm::TFGProximal&lt; SCALAR &gt;</h3>
 
 
-<p class="definition">Definition at line <a class="el" href="tf__g__proximal_8h_source.html#l00025">25</a> of file <a class="el" href="tf__g__proximal_8h_source.html">tf_g_proximal.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tf__non__diff__function_8h_source.html#l00026">26</a> of file <a class="el" href="tf__non__diff__function_8h_source.html">tf_non_diff_function.h</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="a596de6d25fec19553936cc874ea8b918"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a596de6d25fec19553936cc874ea8b918">&#9670;&nbsp;</a></span>FB</h2>
@@ -155,12 +166,12 @@ class sopt::algorithm::TFGProximal&lt; SCALAR &gt;</h3>
 template&lt;typename SCALAR &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classsopt_1_1algorithm_1_1TFGProximal.html">sopt::algorithm::TFGProximal</a>&lt; SCALAR &gt;::<a class="el" href="classsopt_1_1algorithm_1_1ForwardBackward.html">FB</a> =  <a class="el" href="classsopt_1_1algorithm_1_1ForwardBackward.html">ForwardBackward</a>&lt;SCALAR&gt;</td>
+          <td class="memname">using <a class="el" href="classsopt_1_1algorithm_1_1TFGProximal.html">sopt::algorithm::TFGProximal</a>&lt; SCALAR &gt;::<a class="el" href="classNonDifferentiableFunc.html#afde3f7f63ca650c15de44b821ef40912">FB</a> =  ForwardBackward&lt;SCALAR&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="tf__g__proximal_8h_source.html#l00028">28</a> of file <a class="el" href="tf__g__proximal_8h_source.html">tf_g_proximal.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tf__non__diff__function_8h_source.html#l00029">29</a> of file <a class="el" href="tf__non__diff__function_8h_source.html">tf_non_diff_function.h</a>.</p>
 
 </div>
 </div>
@@ -173,12 +184,12 @@ template&lt;typename SCALAR &gt; </div>
 template&lt;typename SCALAR &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classsopt_1_1algorithm_1_1TFGProximal.html">sopt::algorithm::TFGProximal</a>&lt; SCALAR &gt;::Real =  typename <a class="el" href="classsopt_1_1algorithm_1_1ForwardBackward.html#a1eff61e02bfdda72cbb09b3ca89ef5ad">FB::Real</a></td>
+          <td class="memname">using <a class="el" href="classsopt_1_1algorithm_1_1TFGProximal.html">sopt::algorithm::TFGProximal</a>&lt; SCALAR &gt;::<a class="el" href="classNonDifferentiableFunc.html#a611cb86c8567e56cb6ad97e254fa9445">Real</a> =  typename FB::Real</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="tf__g__proximal_8h_source.html#l00029">29</a> of file <a class="el" href="tf__g__proximal_8h_source.html">tf_g_proximal.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tf__non__diff__function_8h_source.html#l00030">30</a> of file <a class="el" href="tf__non__diff__function_8h_source.html">tf_non_diff_function.h</a>.</p>
 
 </div>
 </div>
@@ -191,12 +202,12 @@ template&lt;typename SCALAR &gt; </div>
 template&lt;typename SCALAR &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classsopt_1_1algorithm_1_1TFGProximal.html">sopt::algorithm::TFGProximal</a>&lt; SCALAR &gt;::<a class="el" href="classsopt_1_1algorithm_1_1TFGProximal.html#a1090aa5b8306692a482536d0b0058188">Scalar</a> =  typename <a class="el" href="classsopt_1_1algorithm_1_1ForwardBackward.html#a8609e35c90eccd296886177afa25c61b">FB::Scalar</a></td>
+          <td class="memname">using <a class="el" href="classsopt_1_1algorithm_1_1TFGProximal.html">sopt::algorithm::TFGProximal</a>&lt; SCALAR &gt;::<a class="el" href="classsopt_1_1algorithm_1_1TFGProximal.html#a1090aa5b8306692a482536d0b0058188">Scalar</a> =  typename FB::Scalar</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="tf__g__proximal_8h_source.html#l00030">30</a> of file <a class="el" href="tf__g__proximal_8h_source.html">tf_g_proximal.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tf__non__diff__function_8h_source.html#l00031">31</a> of file <a class="el" href="tf__non__diff__function_8h_source.html">tf_non_diff_function.h</a>.</p>
 
 </div>
 </div>
@@ -209,12 +220,12 @@ template&lt;typename SCALAR &gt; </div>
 template&lt;typename SCALAR &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classsopt_1_1algorithm_1_1TFGProximal.html">sopt::algorithm::TFGProximal</a>&lt; SCALAR &gt;::t_LinearTransform =  typename <a class="el" href="classsopt_1_1algorithm_1_1ForwardBackward.html#aaa95cc7ccbbddac6bf905079875f3fdf">FB::t_LinearTransform</a></td>
+          <td class="memname">using <a class="el" href="classsopt_1_1algorithm_1_1TFGProximal.html">sopt::algorithm::TFGProximal</a>&lt; SCALAR &gt;::<a class="el" href="classNonDifferentiableFunc.html#ac3400220d30fbdaff11ae68206ec72e6">t_LinearTransform</a> =  typename FB::t_LinearTransform</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="tf__g__proximal_8h_source.html#l00033">33</a> of file <a class="el" href="tf__g__proximal_8h_source.html">tf_g_proximal.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tf__non__diff__function_8h_source.html#l00034">34</a> of file <a class="el" href="tf__non__diff__function_8h_source.html">tf_non_diff_function.h</a>.</p>
 
 </div>
 </div>
@@ -227,12 +238,12 @@ template&lt;typename SCALAR &gt; </div>
 template&lt;typename SCALAR &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classsopt_1_1algorithm_1_1TFGProximal.html">sopt::algorithm::TFGProximal</a>&lt; SCALAR &gt;::t_Proximal =  typename <a class="el" href="classsopt_1_1algorithm_1_1ForwardBackward.html#abbcb952f644a8f41d3129a774bb0cddd">FB::t_Proximal</a></td>
+          <td class="memname">using <a class="el" href="classsopt_1_1algorithm_1_1TFGProximal.html">sopt::algorithm::TFGProximal</a>&lt; SCALAR &gt;::<a class="el" href="classNonDifferentiableFunc.html#a24796d361f31d52fa463d73811ee95c7">t_Proximal</a> =  typename FB::t_Proximal</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="tf__g__proximal_8h_source.html#l00032">32</a> of file <a class="el" href="tf__g__proximal_8h_source.html">tf_g_proximal.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tf__non__diff__function_8h_source.html#l00033">33</a> of file <a class="el" href="tf__non__diff__function_8h_source.html">tf_non_diff_function.h</a>.</p>
 
 </div>
 </div>
@@ -245,12 +256,12 @@ template&lt;typename SCALAR &gt; </div>
 template&lt;typename SCALAR &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classsopt_1_1algorithm_1_1TFGProximal.html">sopt::algorithm::TFGProximal</a>&lt; SCALAR &gt;::t_Vector =  typename <a class="el" href="classsopt_1_1algorithm_1_1ForwardBackward.html#a8e179c92b2f7c350d9ee3bdf2b9c7edc">FB::t_Vector</a></td>
+          <td class="memname">using <a class="el" href="classsopt_1_1algorithm_1_1TFGProximal.html">sopt::algorithm::TFGProximal</a>&lt; SCALAR &gt;::<a class="el" href="classNonDifferentiableFunc.html#ac025198c3212fc563c581c6e8594a935">t_Vector</a> =  typename FB::t_Vector</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="tf__g__proximal_8h_source.html#l00031">31</a> of file <a class="el" href="tf__g__proximal_8h_source.html">tf_g_proximal.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tf__non__diff__function_8h_source.html#l00032">32</a> of file <a class="el" href="tf__non__diff__function_8h_source.html">tf_non_diff_function.h</a>.</p>
 
 </div>
 </div>
@@ -281,9 +292,9 @@ template&lt;typename SCALAR &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="tf__g__proximal_8h_source.html#l00037">37</a> of file <a class="el" href="tf__g__proximal_8h_source.html">tf_g_proximal.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    : model_(path),</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;      Psi_(linear_transform_identity&lt;Scalar&gt;()) {}</div>
+<p class="definition">Definition at line <a class="el" href="tf__non__diff__function_8h_source.html#l00038">38</a> of file <a class="el" href="tf__non__diff__function_8h_source.html">tf_non_diff_function.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    : model_(path),</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;      Psi_(linear_transform_identity&lt;Scalar&gt;()) {}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -312,12 +323,53 @@ template&lt;typename SCALAR &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="tf__g__proximal_8h_source.html#l00040">40</a> of file <a class="el" href="tf__g__proximal_8h_source.html">tf_g_proximal.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;{};</div>
+<p class="definition">Definition at line <a class="el" href="tf__non__diff__function_8h_source.html#l00041">41</a> of file <a class="el" href="tf__non__diff__function_8h_source.html">tf_non_diff_function.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;{};</div>
 </div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="ae265add0542169068599210e65f194d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae265add0542169068599210e65f194d6">&#9670;&nbsp;</a></span>function()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename SCALAR &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classNonDifferentiableFunc.html#a611cb86c8567e56cb6ad97e254fa9445">Real</a> <a class="el" href="classsopt_1_1algorithm_1_1TFGProximal.html">sopt::algorithm::TFGProximal</a>&lt; SCALAR &gt;::function </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classNonDifferentiableFunc.html#ac025198c3212fc563c581c6e8594a935">t_Vector</a> const &amp;&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="classNonDifferentiableFunc.html#a24fbdbbe937dcf3b941de0b5d3a5abfe">NonDifferentiableFunc&lt; SCALAR &gt;</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="tf__non__diff__function_8h_source.html#l00049">49</a> of file <a class="el" href="tf__non__diff__function_8h_source.html">tf_non_diff_function.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                                                  {</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keyword">auto</span> weights = <a class="code" href="tests_2inpainting_8cc.html#a47c194cae73625ab3a13b62e4234f46f">Vector&lt;Real&gt;::Ones</a>(x.size());</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="namespacesopt.html#ad992ab663c3f521cad1deff62844c4cc">sopt::l1_norm</a>(<span class="keyword">static_cast&lt;</span><a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a><span class="keyword">&gt;</span>(x), weights);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  }</div>
+<div class="ttc" id="abisection__method_8cc_html_a150b8eda2681eca0377a440541891747"><div class="ttname"><a href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a></div><div class="ttdeci">sopt::Vector&lt; Scalar &gt; t_Vector</div><div class="ttdef"><b>Definition:</b> <a href="bisection__method_8cc_source.html#l00010">bisection_method.cc:10</a></div></div>
+<div class="ttc" id="anamespacesopt_html_ad992ab663c3f521cad1deff62844c4cc"><div class="ttname"><a href="namespacesopt.html#ad992ab663c3f521cad1deff62844c4cc">sopt::l1_norm</a></div><div class="ttdeci">real_type&lt; typename T0::Scalar &gt;::type l1_norm(Eigen::ArrayBase&lt; T0 &gt; const &amp;input, Eigen::ArrayBase&lt; T1 &gt; const &amp;weights)</div><div class="ttdoc">Computes weighted L1 norm.</div><div class="ttdef"><b>Definition:</b> <a href="maths_8h_source.html#l00116">maths.h:116</a></div></div>
+<div class="ttc" id="atests_2inpainting_8cc_html_a47c194cae73625ab3a13b62e4234f46f"><div class="ttname"><a href="tests_2inpainting_8cc.html#a47c194cae73625ab3a13b62e4234f46f">Vector</a></div><div class="ttdeci">sopt::Vector&lt; Scalar &gt; Vector</div><div class="ttdef"><b>Definition:</b> <a href="tests_2inpainting_8cc_source.html#l00028">inpainting.cc:28</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="maths_8h_source.html#l00116">sopt::l1_norm()</a>.</p>
+
+</div>
+</div>
 <a id="a78359a395a2fb5f9358a0a139c7f65e9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a78359a395a2fb5f9358a0a139c7f65e9">&#9670;&nbsp;</a></span>log_message()</h2>
 
@@ -343,20 +395,20 @@ template&lt;typename SCALAR &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Implements <a class="el" href="classGProximal.html#a2595aa6c505024a43c7e34cccfbe3cf1">GProximal&lt; SCALAR &gt;</a>.</p>
+<p>Implements <a class="el" href="classNonDifferentiableFunc.html#a56f2ed00cd20a26d2f97541b1a40d9bf">NonDifferentiableFunc&lt; SCALAR &gt;</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="tf__g__proximal_8h_source.html#l00043">43</a> of file <a class="el" href="tf__g__proximal_8h_source.html">tf_g_proximal.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                                    {</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <a class="code" href="logging_8h.html#a5bb43e65962554be1a16134dc4d0dba0">SOPT_HIGH_LOG</a>(<span class="stringliteral">&quot;Performing Forward Backward TensorFlow model&quot;</span>);</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  }</div>
+<p class="definition">Definition at line <a class="el" href="tf__non__diff__function_8h_source.html#l00044">44</a> of file <a class="el" href="tf__non__diff__function_8h_source.html">tf_non_diff_function.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                                    {</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <a class="code" href="logging_8h.html#a5bb43e65962554be1a16134dc4d0dba0">SOPT_HIGH_LOG</a>(<span class="stringliteral">&quot;Performing Forward Backward TensorFlow model&quot;</span>);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  }</div>
 <div class="ttc" id="alogging_8h_html_a5bb43e65962554be1a16134dc4d0dba0"><div class="ttname"><a href="logging_8h.html#a5bb43e65962554be1a16134dc4d0dba0">SOPT_HIGH_LOG</a></div><div class="ttdeci">#define SOPT_HIGH_LOG(...)</div><div class="ttdoc">High priority message.</div><div class="ttdef"><b>Definition:</b> <a href="logging_8h_source.html#l00223">logging.h:223</a></div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="logging_8h_source.html#l00223">SOPT_HIGH_LOG</a>.</p>
 
 </div>
 </div>
-<a id="a9ac2ca8e4cc93369d482529ca792075e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9ac2ca8e4cc93369d482529ca792075e">&#9670;&nbsp;</a></span>proximal_function()</h2>
+<a id="a1defc005583071429ad90492c91e8771"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1defc005583071429ad90492c91e8771">&#9670;&nbsp;</a></span>proximal_operator()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -367,7 +419,7 @@ template&lt;typename SCALAR &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classsopt_1_1algorithm_1_1TFGProximal.html#a5a2ce70fcb5ab36b0d8a0b3b1ea060dd">t_Proximal</a> <a class="el" href="classsopt_1_1algorithm_1_1TFGProximal.html">sopt::algorithm::TFGProximal</a>&lt; SCALAR &gt;::proximal_function </td>
+          <td class="memname"><a class="el" href="classNonDifferentiableFunc.html#a24796d361f31d52fa463d73811ee95c7">t_Proximal</a> <a class="el" href="classsopt_1_1algorithm_1_1TFGProximal.html">sopt::algorithm::TFGProximal</a>&lt; SCALAR &gt;::proximal_operator </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -380,57 +432,16 @@ template&lt;typename SCALAR &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Implements <a class="el" href="classGProximal.html#a1b0355a5f21c7d002431218cb65290f2">GProximal&lt; SCALAR &gt;</a>.</p>
+<p>Implements <a class="el" href="classNonDifferentiableFunc.html#a5cc707b8fa9351c86f55cab7ebadb390">NonDifferentiableFunc&lt; SCALAR &gt;</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="tf__g__proximal_8h_source.html#l00054">54</a> of file <a class="el" href="tf__g__proximal_8h_source.html">tf_g_proximal.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                                                {</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordflow">return</span> [<span class="keyword">this</span>](<a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> &amp;out, <a class="code" href="classsopt_1_1algorithm_1_1TFGProximal.html#abad886c15adc3724d101748a4dcaf669">Real</a> gamma, <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> <span class="keyword">const</span> &amp;x) {</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;         <span class="keyword">this</span> -&gt; call_model(out, x);</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;       };</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  }</div>
-<div class="ttc" id="abisection__method_8cc_html_a150b8eda2681eca0377a440541891747"><div class="ttname"><a href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a></div><div class="ttdeci">sopt::Vector&lt; Scalar &gt; t_Vector</div><div class="ttdef"><b>Definition:</b> <a href="bisection__method_8cc_source.html#l00010">bisection_method.cc:10</a></div></div>
-<div class="ttc" id="aclasssopt_1_1algorithm_1_1TFGProximal_html_abad886c15adc3724d101748a4dcaf669"><div class="ttname"><a href="classsopt_1_1algorithm_1_1TFGProximal.html#abad886c15adc3724d101748a4dcaf669">sopt::algorithm::TFGProximal::Real</a></div><div class="ttdeci">typename FB::Real Real</div><div class="ttdef"><b>Definition:</b> <a href="tf__g__proximal_8h_source.html#l00029">tf_g_proximal.h:29</a></div></div>
+<p class="definition">Definition at line <a class="el" href="tf__non__diff__function_8h_source.html#l00055">55</a> of file <a class="el" href="tf__non__diff__function_8h_source.html">tf_non_diff_function.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                                                {</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordflow">return</span> [<span class="keyword">this</span>](<a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> &amp;out, <a class="code" href="classsopt_1_1algorithm_1_1TFGProximal.html#abad886c15adc3724d101748a4dcaf669">Real</a> gamma, <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> <span class="keyword">const</span> &amp;x) {</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;         <span class="keyword">this</span> -&gt; call_model(out, x);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;       };</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  }</div>
+<div class="ttc" id="aclasssopt_1_1algorithm_1_1TFGProximal_html_abad886c15adc3724d101748a4dcaf669"><div class="ttname"><a href="classsopt_1_1algorithm_1_1TFGProximal.html#abad886c15adc3724d101748a4dcaf669">sopt::algorithm::TFGProximal::Real</a></div><div class="ttdeci">typename FB::Real Real</div><div class="ttdef"><b>Definition:</b> <a href="tf__non__diff__function_8h_source.html#l00030">tf_non_diff_function.h:30</a></div></div>
 </div><!-- fragment -->
-</div>
-</div>
-<a id="a45f8b05c6ac90ef9be4971fedb40527b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a45f8b05c6ac90ef9be4971fedb40527b">&#9670;&nbsp;</a></span>proximal_norm()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename SCALAR &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classsopt_1_1algorithm_1_1TFGProximal.html#abad886c15adc3724d101748a4dcaf669">Real</a> <a class="el" href="classsopt_1_1algorithm_1_1TFGProximal.html">sopt::algorithm::TFGProximal</a>&lt; SCALAR &gt;::proximal_norm </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classsopt_1_1algorithm_1_1TFGProximal.html#a4a84feda70e76aaccf5a718607645170">t_Vector</a> const &amp;&#160;</td>
-          <td class="paramname"><em>x</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Implements <a class="el" href="classGProximal.html#a63f2ef76f413ceda6cc12a14055a7d63">GProximal&lt; SCALAR &gt;</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="tf__g__proximal_8h_source.html#l00048">48</a> of file <a class="el" href="tf__g__proximal_8h_source.html">tf_g_proximal.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                                                       {</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">auto</span> weights = <a class="code" href="tests_2inpainting_8cc.html#a47c194cae73625ab3a13b62e4234f46f">Vector&lt;Real&gt;::Ones</a>(x.size());</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="namespacesopt.html#ad992ab663c3f521cad1deff62844c4cc">sopt::l1_norm</a>(<span class="keyword">static_cast&lt;</span><a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a><span class="keyword">&gt;</span>(x), weights);</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  }</div>
-<div class="ttc" id="anamespacesopt_html_ad992ab663c3f521cad1deff62844c4cc"><div class="ttname"><a href="namespacesopt.html#ad992ab663c3f521cad1deff62844c4cc">sopt::l1_norm</a></div><div class="ttdeci">real_type&lt; typename T0::Scalar &gt;::type l1_norm(Eigen::ArrayBase&lt; T0 &gt; const &amp;input, Eigen::ArrayBase&lt; T1 &gt; const &amp;weights)</div><div class="ttdoc">Computes weighted L1 norm.</div><div class="ttdef"><b>Definition:</b> <a href="maths_8h_source.html#l00116">maths.h:116</a></div></div>
-<div class="ttc" id="atests_2inpainting_8cc_html_a47c194cae73625ab3a13b62e4234f46f"><div class="ttname"><a href="tests_2inpainting_8cc.html#a47c194cae73625ab3a13b62e4234f46f">Vector</a></div><div class="ttdeci">sopt::Vector&lt; Scalar &gt; Vector</div><div class="ttdef"><b>Definition:</b> <a href="tests_2inpainting_8cc_source.html#l00028">inpainting.cc:28</a></div></div>
-</div><!-- fragment -->
-<p class="reference">References <a class="el" href="maths_8h_source.html#l00116">sopt::l1_norm()</a>.</p>
-
 </div>
 </div>
 <a id="a50268b551865ad495e2dad530adb7e26"></a>
@@ -445,7 +456,7 @@ template&lt;typename SCALAR &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classsopt_1_1algorithm_1_1TFGProximal.html#ab5a5e53eff1e665d5cb5ac0e7256afe7">t_LinearTransform</a> const&amp; <a class="el" href="classsopt_1_1algorithm_1_1TFGProximal.html">sopt::algorithm::TFGProximal</a>&lt; SCALAR &gt;::Psi </td>
+          <td class="memname"><a class="el" href="classNonDifferentiableFunc.html#ac3400220d30fbdaff11ae68206ec72e6">t_LinearTransform</a> const&amp; <a class="el" href="classsopt_1_1algorithm_1_1TFGProximal.html">sopt::algorithm::TFGProximal</a>&lt; SCALAR &gt;::Psi </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -460,17 +471,17 @@ template&lt;typename SCALAR &gt; </div>
 
 <p>Analysis operator Ψ </p>
 
-<p>Implements <a class="el" href="classGProximal.html#aa09fe88d13ad97c15487b4f7894431cd">GProximal&lt; SCALAR &gt;</a>.</p>
+<p>Implements <a class="el" href="classNonDifferentiableFunc.html#ab1c4bc08a070a1707bbe3743f8d51d97">NonDifferentiableFunc&lt; SCALAR &gt;</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="tf__g__proximal_8h_source.html#l00062">62</a> of file <a class="el" href="tf__g__proximal_8h_source.html">tf_g_proximal.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                                                {</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordflow">return</span> Psi_;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  }</div>
+<p class="definition">Definition at line <a class="el" href="tf__non__diff__function_8h_source.html#l00063">63</a> of file <a class="el" href="tf__non__diff__function_8h_source.html">tf_non_diff_function.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                                                {</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordflow">return</span> Psi_;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  }</div>
 </div><!-- fragment -->
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>/home/runner/work/sopt/sopt/cpp/sopt/<a class="el" href="tf__g__proximal_8h_source.html">tf_g_proximal.h</a></li>
+<li>/home/runner/work/sopt/sopt/cpp/sopt/<a class="el" href="tf__non__diff__function_8h_source.html">tf_non_diff_function.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

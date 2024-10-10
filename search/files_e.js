@@ -1,11 +1,15 @@
 var searchData=
 [
-  ['tf_5fg_5fproximal_2eh_723',['tf_g_proximal.h',['../tf__g__proximal_8h.html',1,'']]],
-  ['tf_5finpainting_2ecc_724',['tf_inpainting.cc',['../tf__inpainting_8cc.html',1,'']]],
-  ['tf_5fmodel_2ecc_725',['tf_model.cc',['../tf__model_8cc.html',1,'']]],
-  ['tiffwrappers_2ecc_726',['tiffwrappers.cc',['../tiffwrappers_8cc.html',1,'']]],
-  ['tiffwrappers_2eh_727',['tiffwrappers.h',['../tiffwrappers_8h.html',1,'']]],
-  ['tv_5finpainting_2ecc_728',['tv_inpainting.cc',['../tv__inpainting_8cc.html',1,'']]],
-  ['tv_5fprimal_5fdual_2eh_729',['tv_primal_dual.h',['../tv__primal__dual_8h.html',1,'']]],
-  ['types_2eh_730',['types.h',['../types_8h.html',1,'']]]
+  ['sampling_2ecc_736',['sampling.cc',['../sampling_8cc.html',1,'']]],
+  ['sampling_2eh_737',['sampling.h',['../sampling_8h.html',1,'']]],
+  ['sara_2ecc_738',['sara.cc',['../examples_2sara_8cc.html',1,'(Global Namespace)'],['../tests_2sara_8cc.html',1,'(Global Namespace)']]],
+  ['sara_2eh_739',['sara.h',['../sara_8h.html',1,'']]],
+  ['sdmm_2ecc_740',['sdmm.cc',['../sdmm_8cc.html',1,'']]],
+  ['sdmm_2eh_741',['sdmm.h',['../sdmm_8h.html',1,'']]],
+  ['sdmm_5fwarm_5fstart_2ecc_742',['sdmm_warm_start.cc',['../sdmm__warm__start_8cc.html',1,'']]],
+  ['serial_5fvs_5fparallel_5fpadmm_2ecc_743',['serial_vs_parallel_padmm.cc',['../serial__vs__parallel__padmm_8cc.html',1,'']]],
+  ['session_2ecc_744',['session.cc',['../session_8cc.html',1,'']]],
+  ['session_2eh_745',['session.h',['../session_8h.html',1,'']]],
+  ['soft_5fthreshhold_2ecc_746',['soft_threshhold.cc',['../soft__threshhold_8cc.html',1,'']]],
+  ['sopt_5fcontributors_2emd_747',['SOPT_CONTRIBUTORS.md',['../SOPT__CONTRIBUTORS_8md.html',1,'']]]
 ];

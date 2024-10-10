@@ -117,8 +117,12 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsopt_1_1Exception.html">Exception</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Root exception for sopt.  <a href="classsopt_1_1Exception.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsopt_1_1L2DifferentiableFunc.html">L2DifferentiableFunc</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsopt_1_1LinearTransform.html">LinearTransform</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Joins together direct and indirect operators.  <a href="classsopt_1_1LinearTransform.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsopt_1_1ONNXDifferentiableFunc.html">ONNXDifferentiableFunc</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsopt_1_1ORTsession.html">ORTsession</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sopt interface class to hold a ONNXrt session.  <a href="classsopt_1_1ORTsession.html#details">More...</a><br /></td></tr>
@@ -177,10 +181,10 @@ Typedefs</h2></td></tr>
 <tr class="memitem:aa4353f012100677172534381f2801fa9"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacesopt.html#aa4353f012100677172534381f2801fa9">OperatorFunction</a> = std::function&lt; void(VECTOR &amp;, VECTOR const &amp;)&gt;</td></tr>
 <tr class="memdesc:aa4353f012100677172534381f2801fa9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Typical function out = A*x.  <a href="namespacesopt.html#aa4353f012100677172534381f2801fa9">More...</a><br /></td></tr>
 <tr class="separator:aa4353f012100677172534381f2801fa9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af924da011a36e574306ab72f9f423834"><td class="memTemplParams" colspan="2">template&lt;typename SCALAR  = t_real&gt; </td></tr>
-<tr class="memitem:af924da011a36e574306ab72f9f423834"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacesopt.html#af924da011a36e574306ab72f9f423834">ProximalFunction</a> = std::function&lt; void(<a class="el" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">Vector</a>&lt; SCALAR &gt; &amp;, typename <a class="el" href="namespacesopt.html#a7ee75936aaae93251b12abb77c3e02aa">real_type</a>&lt; SCALAR &gt;::type, <a class="el" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">Vector</a>&lt; SCALAR &gt; const &amp;)&gt;</td></tr>
-<tr class="memdesc:af924da011a36e574306ab72f9f423834"><td class="mdescLeft">&#160;</td><td class="mdescRight">Typical function signature for calls to proximal.  <a href="namespacesopt.html#af924da011a36e574306ab72f9f423834">More...</a><br /></td></tr>
-<tr class="separator:af924da011a36e574306ab72f9f423834"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbf84f975b1aa24c2925150488215df2"><td class="memTemplParams" colspan="2">template&lt;typename SCALAR  = t_real&gt; </td></tr>
+<tr class="memitem:acbf84f975b1aa24c2925150488215df2"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacesopt.html#acbf84f975b1aa24c2925150488215df2">ProximalFunction</a> = std::function&lt; void(<a class="el" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">Vector</a>&lt; SCALAR &gt; &amp;output, typename <a class="el" href="namespacesopt.html#a7ee75936aaae93251b12abb77c3e02aa">real_type</a>&lt; SCALAR &gt;::type const weight, <a class="el" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">Vector</a>&lt; SCALAR &gt; const &amp;input)&gt;</td></tr>
+<tr class="memdesc:acbf84f975b1aa24c2925150488215df2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Typical function signature for calls to proximal.  <a href="namespacesopt.html#acbf84f975b1aa24c2925150488215df2">More...</a><br /></td></tr>
+<tr class="separator:acbf84f975b1aa24c2925150488215df2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acc375c693a8c32c2a954d17a7773b7f8"><td class="memTemplParams" colspan="2">template&lt;typename SCALAR  = t_real&gt; </td></tr>
 <tr class="memitem:acc375c693a8c32c2a954d17a7773b7f8"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacesopt.html#acc375c693a8c32c2a954d17a7773b7f8">ConvergenceFunction</a> = std::function&lt; bool(<a class="el" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">Vector</a>&lt; SCALAR &gt; const &amp;)&gt;</td></tr>
 <tr class="memdesc:acc375c693a8c32c2a954d17a7773b7f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Typical function signature for convergence.  <a href="namespacesopt.html#acc375c693a8c32c2a954d17a7773b7f8">More...</a><br /></td></tr>
@@ -311,6 +315,13 @@ Functions</h2></td></tr>
 <tr class="memitem:a96b301acf3c109ea862ff9e563d2a164"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespacesopt.html#a7ee75936aaae93251b12abb77c3e02aa">real_type</a>&lt; typename <a class="el" href="tf__model_8cc.html#a8c2981f3f834be9448a6ab06c28748eb">T0::Scalar</a> &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacesopt.html#a96b301acf3c109ea862ff9e563d2a164">tv_norm</a> (Eigen::MatrixBase&lt; T0 &gt; const &amp;input)</td></tr>
 <tr class="memdesc:a96b301acf3c109ea862ff9e563d2a164"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes weighted TV norm.  <a href="namespacesopt.html#a96b301acf3c109ea862ff9e563d2a164">More...</a><br /></td></tr>
 <tr class="separator:a96b301acf3c109ea862ff9e563d2a164"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41e13505f1425dd1bfa7e33b81f0729c"><td class="memItemLeft" align="right" valign="top">std::vector&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesopt.html#a41e13505f1425dd1bfa7e33b81f0729c">imageToFloat</a> (<a class="el" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">sopt::Vector</a>&lt; <a class="el" href="namespacesopt.html#ad24bc0cbf4f1391b3d1440213329d13f">t_complex</a> &gt; const &amp;image)</td></tr>
+<tr class="separator:a41e13505f1425dd1bfa7e33b81f0729c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a681e8b650f3797972d9e4b1c27cf8be3"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a681e8b650f3797972d9e4b1c27cf8be3"><td class="memTemplItemLeft" align="right" valign="top">std::vector&lt; float &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacesopt.html#a681e8b650f3797972d9e4b1c27cf8be3">imageToFloat</a> (<a class="el" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">sopt::Vector</a>&lt; T &gt; const &amp;image)</td></tr>
+<tr class="separator:a681e8b650f3797972d9e4b1c27cf8be3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac714d2f3ce2bd0e93bd2d32eccefcb37"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">sopt::Vector</a>&lt; <a class="el" href="namespacesopt.html#ad24bc0cbf4f1391b3d1440213329d13f">t_complex</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesopt.html#ac714d2f3ce2bd0e93bd2d32eccefcb37">floatToImage</a> (std::vector&lt; float &gt; const &amp;float_image)</td></tr>
+<tr class="separator:ac714d2f3ce2bd0e93bd2d32eccefcb37"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a57b3045c6210eedfab02fd8faf71c18a"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a57b3045c6210eedfab02fd8faf71c18a"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classsopt_1_1LinearTransform.html">LinearTransform</a>&lt; <a class="el" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">Vector</a>&lt; T &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacesopt.html#a57b3045c6210eedfab02fd8faf71c18a">linear_transform</a> (<a class="el" href="classsopt_1_1Sampling.html">Sampling</a> const &amp;sampling)</td></tr>
 <tr class="memdesc:a57b3045c6210eedfab02fd8faf71c18a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns linear transform version of this object.  <a href="namespacesopt.html#a57b3045c6210eedfab02fd8faf71c18a">More...</a><br /></td></tr>
@@ -454,8 +465,8 @@ template&lt;typename VECTOR  = Vector&lt;&gt;&gt; </div>
 
 </div>
 </div>
-<a id="af924da011a36e574306ab72f9f423834"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af924da011a36e574306ab72f9f423834">&#9670;&nbsp;</a></span>ProximalFunction</h2>
+<a id="acbf84f975b1aa24c2925150488215df2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acbf84f975b1aa24c2925150488215df2">&#9670;&nbsp;</a></span>ProximalFunction</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -463,7 +474,7 @@ template&lt;typename VECTOR  = Vector&lt;&gt;&gt; </div>
 template&lt;typename SCALAR  = t_real&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="namespacesopt.html#af924da011a36e574306ab72f9f423834">sopt::ProximalFunction</a> = typedef std::function&lt;void(<a class="el" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">Vector</a>&lt;SCALAR&gt; &amp;, typename <a class="el" href="namespacesopt.html#a7ee75936aaae93251b12abb77c3e02aa">real_type</a>&lt;SCALAR&gt;::type, <a class="el" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">Vector</a>&lt;SCALAR&gt; const &amp;)&gt;</td>
+          <td class="memname">using <a class="el" href="namespacesopt.html#acbf84f975b1aa24c2925150488215df2">sopt::ProximalFunction</a> = typedef std::function&lt;void(<a class="el" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">Vector</a>&lt;SCALAR&gt; &amp;output, typename <a class="el" href="namespacesopt.html#a7ee75936aaae93251b12abb77c3e02aa">real_type</a>&lt;SCALAR&gt;::type const weight, <a class="el" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">Vector</a>&lt;SCALAR&gt; const &amp;input)&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -727,7 +738,7 @@ template&lt;typename K &gt; </div>
 <div class="ttc" id="abisection__method_8cc_html_a63a56f8266f9d4e2b7904199812311c4"><div class="ttname"><a href="bisection__method_8cc.html#a63a56f8266f9d4e2b7904199812311c4">b</a></div><div class="ttdeci">constexpr Scalar b</div><div class="ttdef"><b>Definition:</b> <a href="bisection__method_8cc_source.html#l00014">bisection_method.cc:14</a></div></div>
 <div class="ttc" id="abisection__method_8cc_html_abe0def96c0a846f46d6fe7c115ff2a7f"><div class="ttname"><a href="bisection__method_8cc.html#abe0def96c0a846f46d6fe7c115ff2a7f">a</a></div><div class="ttdeci">constexpr Scalar a</div><div class="ttdef"><b>Definition:</b> <a href="bisection__method_8cc_source.html#l00013">bisection_method.cc:13</a></div></div>
 <div class="ttc" id="aexception_8h_html_a57974308768f9fafc7107b626a394f4f"><div class="ttname"><a href="exception_8h.html#a57974308768f9fafc7107b626a394f4f">SOPT_THROW</a></div><div class="ttdeci">#define SOPT_THROW(MSG)</div><div class="ttdef"><b>Definition:</b> <a href="exception_8h_source.html#l00046">exception.h:46</a></div></div>
-<div class="ttc" id="aforward__backward_8cc_html_adf3dc3fe16f041e337211cca9c8882dc"><div class="ttname"><a href="forward__backward_8cc.html#adf3dc3fe16f041e337211cca9c8882dc">t_real</a></div><div class="ttdeci">sopt::t_real t_real</div><div class="ttdef"><b>Definition:</b> <a href="forward__backward_8cc_source.html#l00027">forward_backward.cc:27</a></div></div>
+<div class="ttc" id="aforward__backward_8cc_html_adf3dc3fe16f041e337211cca9c8882dc"><div class="ttname"><a href="forward__backward_8cc.html#adf3dc3fe16f041e337211cca9c8882dc">t_real</a></div><div class="ttdeci">sopt::t_real t_real</div><div class="ttdef"><b>Definition:</b> <a href="forward__backward_8cc_source.html#l00028">forward_backward.cc:28</a></div></div>
 <div class="ttc" id="alogging_8h_html_a4a497e6b273bf510772846ac52cef095"><div class="ttname"><a href="logging_8h.html#a4a497e6b273bf510772846ac52cef095">SOPT_LOW_LOG</a></div><div class="ttdeci">#define SOPT_LOW_LOG(...)</div><div class="ttdoc">Low priority message.</div><div class="ttdef"><b>Definition:</b> <a href="logging_8h_source.html#l00227">logging.h:227</a></div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="bisection__method_8cc_source.html#l00013">a</a>, <a class="el" href="bisection__method_8cc_source.html#l00014">b</a>, <a class="el" href="logging_8h_source.html#l00227">SOPT_LOW_LOG</a>, and <a class="el" href="exception_8h_source.html#l00046">SOPT_THROW</a>.</p>
@@ -1000,6 +1011,36 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
+<a id="ac714d2f3ce2bd0e93bd2d32eccefcb37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac714d2f3ce2bd0e93bd2d32eccefcb37">&#9670;&nbsp;</a></span>floatToImage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">sopt::Vector</a>&lt;<a class="el" href="namespacesopt.html#ad24bc0cbf4f1391b3d1440213329d13f">t_complex</a>&gt; sopt::floatToImage </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; float &gt; const &amp;&#160;</td>
+          <td class="paramname"><em>float_image</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="onnx__differentiable__func_8h_source.html#l00032">32</a> of file <a class="el" href="onnx__differentiable__func_8h_source.html">onnx_differentiable_func.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    {</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <a class="code" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">sopt::Vector&lt;t_complex&gt;</a> image(float_image.size());</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; float_image.size(); i++)</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        {</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            image[i] = <a class="code" href="namespacesopt.html#ad24bc0cbf4f1391b3d1440213329d13f">t_complex</a>(float_image[i], 0);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        }</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keywordflow">return</span> image;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    }</div>
+<div class="ttc" id="anamespacesopt_html_ac4dd3feebe1bf49ebd44d72b05064c19"><div class="ttname"><a href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">sopt::Vector</a></div><div class="ttdeci">Eigen::Matrix&lt; T, Eigen::Dynamic, 1 &gt; Vector</div><div class="ttdoc">A vector of a given type.</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00024">types.h:24</a></div></div>
+<div class="ttc" id="anamespacesopt_html_ad24bc0cbf4f1391b3d1440213329d13f"><div class="ttname"><a href="namespacesopt.html#ad24bc0cbf4f1391b3d1440213329d13f">sopt::t_complex</a></div><div class="ttdeci">std::complex&lt; t_real &gt; t_complex</div><div class="ttdoc">Root of the type hierarchy for (real) complex numbers.</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00019">types.h:19</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
 <a id="ae1029fa88c4dddd856802462d2121deb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae1029fa88c4dddd856802462d2121deb">&#9670;&nbsp;</a></span>gitref()</h2>
 
@@ -1028,6 +1069,66 @@ template&lt;typename T &gt; </div>
 <p class="definition">Definition at line <a class="el" href="config_8in_8h_source.html#l00041">41</a> of file <a class="el" href="config_8in_8h_source.html">config.in.h</a>.</p>
 <div class="fragment"><div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;{ <span class="keywordflow">return</span> <span class="stringliteral">&quot;@SOPT_GITREF@&quot;</span>; }</div>
 </div><!-- fragment -->
+</div>
+</div>
+<a id="a681e8b650f3797972d9e4b1c27cf8be3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a681e8b650f3797972d9e4b1c27cf8be3">&#9670;&nbsp;</a></span>imageToFloat() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;float&gt; sopt::imageToFloat </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">sopt::Vector</a>&lt; T &gt; const &amp;&#160;</td>
+          <td class="paramname"><em>image</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="onnx__differentiable__func_8h_source.html#l00022">22</a> of file <a class="el" href="onnx__differentiable__func_8h_source.html">onnx_differentiable_func.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        std::vector&lt;float&gt; float_image(image.size());</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; image.size(); i++)</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        {</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;            float_image[i] = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(image[i]);</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        }</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keywordflow">return</span> float_image;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a41e13505f1425dd1bfa7e33b81f0729c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41e13505f1425dd1bfa7e33b81f0729c">&#9670;&nbsp;</a></span>imageToFloat() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;float&gt; sopt::imageToFloat </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">sopt::Vector</a>&lt; <a class="el" href="namespacesopt.html#ad24bc0cbf4f1391b3d1440213329d13f">t_complex</a> &gt; const &amp;&#160;</td>
+          <td class="paramname"><em>image</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="onnx__differentiable__func_8h_source.html#l00011">11</a> of file <a class="el" href="onnx__differentiable__func_8h_source.html">onnx_differentiable_func.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    {</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        std::vector&lt;float&gt; float_image(image.size());</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; image.size(); i++)</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        {</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;            float_image[i] = image[i].real();</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        }</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <span class="keywordflow">return</span> float_image;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    }</div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="onnx__differentiable__func_8h_source.html#l00107">sopt::ONNXDifferentiableFunc&lt; SCALAR &gt;::function()</a>, and <a class="el" href="onnx__differentiable__func_8h_source.html#l00080">sopt::ONNXDifferentiableFunc&lt; SCALAR &gt;::gradient()</a>.</p>
+
 </div>
 </div>
 <a id="aa8f62b39e20496c485d78f97f9afa3e4"></a>
@@ -1093,7 +1194,7 @@ template&lt;typename T0 , typename T1 &gt; </div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;  <span class="keywordflow">return</span> (input * weights).cwiseAbs().sum();</div>
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="maths_8h_source.html#l00123">l1_norm()</a>, <a class="el" href="examples_2sdmm_2inpainting_8cc_source.html#l00023">main()</a>, <a class="el" href="l1__proximal_8h_source.html#l00149">sopt::proximal::L1TightFrame&lt; SCALAR &gt;::objective()</a>, <a class="el" href="l1__g__proximal_8h_source.html#l00054">sopt::algorithm::L1GProximal&lt; SCALAR &gt;::proximal_norm()</a>, <a class="el" href="tf__g__proximal_8h_source.html#l00048">sopt::algorithm::TFGProximal&lt; SCALAR &gt;::proximal_norm()</a>, <a class="el" href="maths_8cc_source.html#l00055">TEST_CASE()</a>, and <a class="el" href="objective__functions_8h_source.html#l00043">sopt::objective_functions::unconstrained_l1_regularisation()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="l1__non__diff__function_8h_source.html#l00053">sopt::algorithm::L1GProximal&lt; SCALAR &gt;::function()</a>, <a class="el" href="tf__non__diff__function_8h_source.html#l00049">sopt::algorithm::TFGProximal&lt; SCALAR &gt;::function()</a>, <a class="el" href="maths_8h_source.html#l00123">l1_norm()</a>, <a class="el" href="examples_2sdmm_2inpainting_8cc_source.html#l00023">main()</a>, <a class="el" href="l1__proximal_8h_source.html#l00149">sopt::proximal::L1TightFrame&lt; SCALAR &gt;::objective()</a>, <a class="el" href="maths_8cc_source.html#l00055">TEST_CASE()</a>, and <a class="el" href="objective__functions_8h_source.html#l00043">sopt::objective_functions::unconstrained_l1_regularisation()</a>.</p>
 
 </div>
 </div>
@@ -1457,7 +1558,7 @@ template&lt;typename VECTOR &gt; </div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;  <span class="keywordflow">return</span> {direct, indirect, sizes};</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="sdmm_8h_source.html#l00090">sopt::algorithm::SDMM&lt; SCALAR &gt;::append()</a>, <a class="el" href="examples_2power__method_8cc_source.html#l00005">main()</a>, <a class="el" href="forward__backward_8h_source.html#l00180">sopt::algorithm::ForwardBackward&lt; SCALAR &gt;::Phi()</a>, <a class="el" href="imaging__forward__backward_8h_source.html#l00202">sopt::algorithm::ImagingForwardBackward&lt; SCALAR &gt;::Phi()</a>, <a class="el" href="imaging__padmm_8h_source.html#l00180">sopt::algorithm::ImagingProximalADMM&lt; SCALAR &gt;::Phi()</a>, <a class="el" href="imaging__primal__dual_8h_source.html#l00219">sopt::algorithm::ImagingPrimalDual&lt; SCALAR &gt;::Phi()</a>, <a class="el" href="l2__forward__backward_8h_source.html#l00197">sopt::algorithm::L2ForwardBackward&lt; SCALAR &gt;::Phi()</a>, <a class="el" href="padmm_8h_source.html#l00177">sopt::algorithm::ProximalADMM&lt; SCALAR &gt;::Phi()</a>, <a class="el" href="primal__dual_8h_source.html#l00221">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::Phi()</a>, <a class="el" href="tv__primal__dual_8h_source.html#l00217">sopt::algorithm::TVPrimalDual&lt; SCALAR &gt;::Phi()</a>, <a class="el" href="imaging__primal__dual_8h_source.html#l00230">sopt::algorithm::ImagingPrimalDual&lt; SCALAR &gt;::Psi()</a>, <a class="el" href="l1__proximal_8h_source.html#l00093">sopt::proximal::L1TightFrame&lt; SCALAR &gt;::Psi()</a>, <a class="el" href="primal__dual_8h_source.html#l00227">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::Psi()</a>, <a class="el" href="tv__primal__dual_8h_source.html#l00228">sopt::algorithm::TVPrimalDual&lt; SCALAR &gt;::Psi()</a>, and <a class="el" href="tests_2power__method_8cc_source.html#l00010">TEST_CASE()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="sdmm_8h_source.html#l00090">sopt::algorithm::SDMM&lt; SCALAR &gt;::append()</a>, <a class="el" href="examples_2power__method_8cc_source.html#l00005">main()</a>, <a class="el" href="imaging__forward__backward_8h_source.html#l00229">sopt::algorithm::ImagingForwardBackward&lt; SCALAR &gt;::Phi()</a>, <a class="el" href="imaging__padmm_8h_source.html#l00180">sopt::algorithm::ImagingProximalADMM&lt; SCALAR &gt;::Phi()</a>, <a class="el" href="imaging__primal__dual_8h_source.html#l00219">sopt::algorithm::ImagingPrimalDual&lt; SCALAR &gt;::Phi()</a>, <a class="el" href="l2__forward__backward_8h_source.html#l00197">sopt::algorithm::L2ForwardBackward&lt; SCALAR &gt;::Phi()</a>, <a class="el" href="padmm_8h_source.html#l00177">sopt::algorithm::ProximalADMM&lt; SCALAR &gt;::Phi()</a>, <a class="el" href="primal__dual_8h_source.html#l00221">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::Phi()</a>, <a class="el" href="tv__primal__dual_8h_source.html#l00217">sopt::algorithm::TVPrimalDual&lt; SCALAR &gt;::Phi()</a>, <a class="el" href="imaging__primal__dual_8h_source.html#l00230">sopt::algorithm::ImagingPrimalDual&lt; SCALAR &gt;::Psi()</a>, <a class="el" href="l1__proximal_8h_source.html#l00093">sopt::proximal::L1TightFrame&lt; SCALAR &gt;::Psi()</a>, <a class="el" href="primal__dual_8h_source.html#l00227">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::Psi()</a>, <a class="el" href="tv__primal__dual_8h_source.html#l00228">sopt::algorithm::TVPrimalDual&lt; SCALAR &gt;::Psi()</a>, and <a class="el" href="tests_2power__method_8cc_source.html#l00010">TEST_CASE()</a>.</p>
 
 </div>
 </div>
@@ -1833,7 +1934,7 @@ template&lt;typename T &gt; </div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="inpainting_8h_source.html#l00012">target()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="inpainting_8h_source.html#l00025">dirty()</a>, <a class="el" href="inpainting_8h_source.html#l00038">epsilon()</a>, <a class="el" href="examples_2forward__backward_2inpainting_8cc_source.html#l00024">main()</a>, and <a class="el" href="tests_2inpainting_8cc_source.html#l00032">TEST_CASE()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="inpainting_8h_source.html#l00025">dirty()</a>, <a class="el" href="inpainting_8h_source.html#l00038">epsilon()</a>, <a class="el" href="onnx__differentiable__func_8h_source.html#l00107">sopt::ONNXDifferentiableFunc&lt; SCALAR &gt;::function()</a>, <a class="el" href="onnx__differentiable__func_8h_source.html#l00080">sopt::ONNXDifferentiableFunc&lt; SCALAR &gt;::gradient()</a>, <a class="el" href="l2__differentiable__func_8h_source.html#l00020">sopt::L2DifferentiableFunc&lt; SCALAR &gt;::L2DifferentiableFunc()</a>, <a class="el" href="examples_2forward__backward_2inpainting_8cc_source.html#l00024">main()</a>, and <a class="el" href="tests_2inpainting_8cc_source.html#l00032">TEST_CASE()</a>.</p>
 
 </div>
 </div>
@@ -2100,7 +2201,7 @@ template&lt;typename T &gt; </div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;  <span class="keywordflow">return</span> sampling * <a class="code" href="tests_2inpainting_8cc.html#a47c194cae73625ab3a13b62e4234f46f">Vector&lt;T&gt;::Map</a>(image.data(), image.size());</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="inpainting_8h_source.html#l00025">dirty()</a>, <a class="el" href="inpainting_8h_source.html#l00038">epsilon()</a>, <a class="el" href="imaging__forward__backward_8h_source.html#l00156">sopt::algorithm::ImagingForwardBackward&lt; SCALAR &gt;::operator()()</a>, <a class="el" href="l2__forward__backward_8h_source.html#l00151">sopt::algorithm::L2ForwardBackward&lt; SCALAR &gt;::operator()()</a>, <a class="el" href="inpainting_8h_source.html#l00017">sigma()</a>, <a class="el" href="imaging__forward__backward_8h_source.html#l00149">sopt::algorithm::ImagingForwardBackward&lt; SCALAR &gt;::target()</a>, <a class="el" href="l2__forward__backward_8h_source.html#l00144">sopt::algorithm::L2ForwardBackward&lt; SCALAR &gt;::target()</a>, and <a class="el" href="primal__dual_8cc_source.html#l00020">TEST_CASE()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="inpainting_8h_source.html#l00025">dirty()</a>, <a class="el" href="inpainting_8h_source.html#l00038">epsilon()</a>, <a class="el" href="l2__forward__backward_8h_source.html#l00151">sopt::algorithm::L2ForwardBackward&lt; SCALAR &gt;::operator()()</a>, <a class="el" href="inpainting_8h_source.html#l00017">sigma()</a>, <a class="el" href="l2__forward__backward_8h_source.html#l00144">sopt::algorithm::L2ForwardBackward&lt; SCALAR &gt;::target()</a>, and <a class="el" href="primal__dual_8cc_source.html#l00020">TEST_CASE()</a>.</p>
 
 </div>
 </div>

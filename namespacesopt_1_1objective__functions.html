@@ -159,7 +159,7 @@ template&lt;typename T &gt; </div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;}</div>
 <div class="ttc" id="aclasssopt_1_1LinearTransform_html_af9fe77b8afc0761cf9d07f432df85a0d"><div class="ttname"><a href="classsopt_1_1LinearTransform.html#af9fe77b8afc0761cf9d07f432df85a0d">sopt::LinearTransform::adjoint</a></div><div class="ttdeci">LinearTransform&lt; VECTOR &gt; adjoint() const</div><div class="ttdoc">Indirect transform.</div><div class="ttdef"><b>Definition:</b> <a href="linear__transform_8h_source.html#l00079">linear_transform.h:79</a></div></div>
 <div class="ttc" id="aexception_8h_html_a57974308768f9fafc7107b626a394f4f"><div class="ttname"><a href="exception_8h.html#a57974308768f9fafc7107b626a394f4f">SOPT_THROW</a></div><div class="ttdeci">#define SOPT_THROW(MSG)</div><div class="ttdef"><b>Definition:</b> <a href="exception_8h_source.html#l00046">exception.h:46</a></div></div>
-<div class="ttc" id="aforward__backward_8cc_html_adf3dc3fe16f041e337211cca9c8882dc"><div class="ttname"><a href="forward__backward_8cc.html#adf3dc3fe16f041e337211cca9c8882dc">t_real</a></div><div class="ttdeci">sopt::t_real t_real</div><div class="ttdef"><b>Definition:</b> <a href="forward__backward_8cc_source.html#l00027">forward_backward.cc:27</a></div></div>
+<div class="ttc" id="aforward__backward_8cc_html_adf3dc3fe16f041e337211cca9c8882dc"><div class="ttname"><a href="forward__backward_8cc.html#adf3dc3fe16f041e337211cca9c8882dc">t_real</a></div><div class="ttdeci">sopt::t_real t_real</div><div class="ttdef"><b>Definition:</b> <a href="forward__backward_8cc_source.html#l00028">forward_backward.cc:28</a></div></div>
 <div class="ttc" id="anamespacesopt_html_ad992ab663c3f521cad1deff62844c4cc"><div class="ttname"><a href="namespacesopt.html#ad992ab663c3f521cad1deff62844c4cc">sopt::l1_norm</a></div><div class="ttdeci">real_type&lt; typename T0::Scalar &gt;::type l1_norm(Eigen::ArrayBase&lt; T0 &gt; const &amp;input, Eigen::ArrayBase&lt; T1 &gt; const &amp;weights)</div><div class="ttdoc">Computes weighted L1 norm.</div><div class="ttdef"><b>Definition:</b> <a href="maths_8h_source.html#l00116">maths.h:116</a></div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="linear__transform_8h_source.html#l00079">sopt::LinearTransform&lt; VECTOR &gt;::adjoint()</a>, <a class="el" href="maths_8h_source.html#l00116">sopt::l1_norm()</a>, and <a class="el" href="exception_8h_source.html#l00046">SOPT_THROW</a>.</p>
@@ -264,9 +264,10 @@ template&lt;typename T &gt; </div>
 
 <p class="definition">Definition at line <a class="el" href="objective__functions_8h_source.html#l00061">61</a> of file <a class="el" href="objective__functions_8h_source.html">objective_functions.h</a>.</p>
 <div class="fragment"><div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                                                    {</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  <span class="keyword">const</span> LinearTransform&lt;T&gt; mop = {measurement_operator, measurement_operator};</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  <span class="keyword">const</span> <a class="code" href="classsopt_1_1LinearTransform.html">LinearTransform&lt;T&gt;</a> mop = {measurement_operator, measurement_operator};</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  <span class="keywordflow">return</span> unconstrained_l1_regularisation&lt;T&gt;(gamma, sig, mop * y, mop, wavelet_operator);</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;}</div>
+<div class="ttc" id="aclasssopt_1_1LinearTransform_html"><div class="ttname"><a href="classsopt_1_1LinearTransform.html">sopt::LinearTransform</a></div><div class="ttdoc">Joins together direct and indirect operators.</div><div class="ttdef"><b>Definition:</b> <a href="linear__transform_8h_source.html#l00030">linear_transform.h:30</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -366,7 +367,7 @@ template&lt;typename T &gt; </div>
 
 <p class="definition">Definition at line <a class="el" href="objective__functions_8h_source.html#l00054">54</a> of file <a class="el" href="objective__functions_8h_source.html">objective_functions.h</a>.</p>
 <div class="fragment"><div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                                                         {</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  <span class="keyword">const</span> LinearTransform&lt;T&gt; mop = {measurement_operator, measurement_operator};</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  <span class="keyword">const</span> <a class="code" href="classsopt_1_1LinearTransform.html">LinearTransform&lt;T&gt;</a> mop = {measurement_operator, measurement_operator};</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <span class="keywordflow">return</span> unconstrained_regularisation&lt;T&gt;(g, sig, mop * y, mop);</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;}</div>
 </div><!-- fragment -->
