@@ -287,20 +287,20 @@ typename ForwardBackward<SCALAR>::Diagnostic ForwardBackward<SCALAR>::operator()
   Real theta_new = 1.0;
   Real FISTA_step = 0.0;
   for (; (not converged) && (niters < itermax()); ++niters) {
-    SOPT_HIGH_LOG("    - [FB] Iteration {}/{}", niters, itermax());
+    SOPT_LOW_LOG("    - [FB] Iteration {}/{}", niters, itermax());
     if (fista()) {
       theta_new = (1 + std::sqrt(1 + 4 * theta * theta)) / 2.;
       FISTA_step = (theta - 1) / (theta_new);
       theta = theta_new;
     }
-    SOPT_HIGH_LOG("      - Call iteration step");
+    SOPT_LOW_LOG("      - Call iteration step");
     iteration_step(out, residual, auxilliary_image, gradient_current, FISTA_step);
-    SOPT_HIGH_LOG("      - [FB] Sum of residuals: {}", residual.array().abs().sum());
+    SOPT_LOW_LOG("      - [FB] Sum of residuals: {}", residual.array().abs().sum());
     converged = is_converged(out, residual);
   }
 
   if (converged) {
-    SOPT_HIGH_LOG("    - [FB] converged in {} of {} iterations", niters, itermax());
+    SOPT_MEDIUM_LOG("    - [FB] converged in {} of {} iterations", niters, itermax());
   } else if (static_cast<bool>(is_converged())) {
     // not meaningful if not convergence function
     SOPT_ERROR("    - [FB] did not converge within {} iterations", itermax());
