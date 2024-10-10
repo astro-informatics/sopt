@@ -33,7 +33,7 @@ list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/build)
 find_package(Git)
 
 # Set version variable
-set(SOPT_VERSION 3.1.0)
+set(SOPT_VERSION 5.0.0)
 
 # If git is found and this is a git workdir, then figure out build id
 # Stores results in SOPT_VERSION and SOPT_GITREF
