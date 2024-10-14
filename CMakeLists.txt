@@ -102,11 +102,6 @@ if(examples)
   include(AddExample)
 endif()
 
-if(benchmarks)
-  set(GBenchmark_GIT_TAG "v1.3.0")
-  include(AddBenchmark)
-endif()
-
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-command-line-argument")
 
 if(tests AND coverage)

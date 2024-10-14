@@ -39,4 +39,4 @@ BENCHMARK_TEMPLATE(matrix_cg, sopt::t_real)->RangePair(1, 256, 4, 12)->UseRealTi
 BENCHMARK_TEMPLATE(function_cg, sopt::t_complex)->RangePair(1, 256, 4, 12)->UseRealTime();
 BENCHMARK_TEMPLATE(function_cg, sopt::t_real)->RangePair(1, 256, 4, 12)->UseRealTime();
 
-BENCHMARK_MAIN()
+BENCHMARK_MAIN();

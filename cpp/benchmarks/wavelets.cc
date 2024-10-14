@@ -74,4 +74,4 @@ BENCHMARK_TEMPLATE(indirect_vector, sopt::t_complex, 10, 1)->Range(n, N)->UseRea
 BENCHMARK_TEMPLATE(indirect_vector, sopt::t_complex, 1, 2)->Range(n, N)->UseRealTime();
 BENCHMARK_TEMPLATE(indirect_vector, sopt::t_real, 1, 1)->Range(n, N)->UseRealTime();
 
-BENCHMARK_MAIN()
+BENCHMARK_MAIN();
