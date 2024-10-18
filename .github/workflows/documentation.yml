@@ -19,11 +19,10 @@ env:
 jobs:
   make-documentation:
     runs-on: ubuntu-22.04
+    container: fedora:39
     steps:
       - name: Check out sopt
         uses: actions/checkout@v3
-        with:
-          submodules: recursive
 
       # Enable tmate debugging of manually-triggered workflows if the input option was provided
       - name: Setup tmate session
@@ -32,8 +31,9 @@ jobs:
 
       - name: Install dependencies
         run: |
-          sudo apt update
-          sudo apt install openmpi-bin libopenmpi-dev libyaml-cpp-dev doxygen graphviz ccache libeigen3-dev libtiff-dev
+          sudo dnf -y update
+          sudo dnf -y install cmake gcc gcc-c++
+          sudo dnf -y install openmpi openmpi-devel yaml-cpp doxygen graphviz ccache eigen3-devel libtiff-devel git
 
       - name: Checkout Catch2
         uses: actions/checkout@v4
@@ -52,9 +52,8 @@ jobs:
       - name: Build
         run: |
           export CMAKE_PREFIX_PATH=${{github.workspace}}/local:$CMAKE_PREFIX_PATH
-          mkdir ${{github.workspace}}/build
-          cd ${{github.workspace}}/build
-          cmake .. --fresh -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/local -Ddompi=OFF -Dopenmp=OFF -Ddocs=ON -Donnxrt=ON
+          mkdir build && cd build
+          cmake .. --fresh -DCMAKE_INSTALL_PREFIX=${PWD}/../local -Ddompi=OFF -Dopenmp=OFF -Ddocs=ON -Donnxrt=ON
           make -j$(nproc --ignore 1)
           make -j$(nproc --ignore 1) install
 
