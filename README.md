@@ -65,6 +65,13 @@ cd /path/to/code/build
 ctest .
 ```
 
+## Debugging the CI workflow with tmate
+
+The CI workflow has a manual dispatch trigger which allows you to log into the job while it's running. You can trigger it in 
+[actions](https://github.com/astro-informatics/sopt/actions/workflows/cmake.yml).
+Run the workflow and set `debug_enabled=true` to enable the `tmate` step in the CI workflow. Once the workflow is running, open the job in actions. 
+You should see it printing out a line with a `ssh` command. Run it in terminal to log into the GitHub Actions runner.
+
 ## Machine-learning models
 
 Machine-learning models are supported via the ONNXruntime interface.
