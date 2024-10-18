@@ -110,7 +110,9 @@ $(function() {
 <p>To check everything went all right, run the test suite:</p>
 <div class="fragment"><div class="line">cd /path/to/code/build</div>
 <div class="line">ctest .</div>
-</div><!-- fragment --><h1>Machine-learning models</h1>
+</div><!-- fragment --><h1>Debugging the CI workflow with tmate</h1>
+<p>The CI workflow has a manual dispatch trigger which allows you to log into the job while it's running. You can trigger it in <a href="https://github.com/astro-informatics/sopt/actions/workflows/cmake.yml">actions</a>. Run the workflow and set <code>debug_enabled=true</code> to enable the <code>tmate</code> step in the CI workflow. Once the workflow is running, open the job in actions. You should see it printing out a line with a <code>ssh</code> command. Run it in terminal to log into the GitHub Actions runner.</p>
+<h1>Machine-learning models</h1>
 <p>Machine-learning models are supported via the ONNXruntime interface. Nearly all modern ML toolkits allow to export their trained models into the ONNXruntime format using Python.</p>
 <p>Install translation packages e.g. using <code>pip</code>: </p><div class="fragment"><div class="line">pip install onnx</div>
 <div class="line">pip install onnxscript</div>
