@@ -31,4 +31,4 @@ void function_l1p(benchmark::State &state) {
 BENCHMARK_TEMPLATE(function_l1p, sopt::t_complex)->RangePair(1, 256, 4, 12)->UseRealTime();
 BENCHMARK_TEMPLATE(function_l1p, sopt::t_real)->RangePair(1, 256, 4, 12)->UseRealTime();
 
-BENCHMARK_MAIN()
+BENCHMARK_MAIN();
