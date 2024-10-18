@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['logging_20macros_1168',['Logging macros',['../group__logmacros.html',1,'']]]
+  ['logging_20macros_1170',['Logging macros',['../group__logmacros.html',1,'']]]
 ];

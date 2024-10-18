@@ -47,6 +47,13 @@
       <anchor>a5897da3b34d3f4e9222dae946f229d37</anchor>
       <arglist>(function_cg, sopt::t_real) -&gt; RangePair(1, 256, 4, 12) -&gt;UseRealTime()</arglist>
     </member>
+    <member kind="function">
+      <type></type>
+      <name>BENCHMARK_MAIN</name>
+      <anchorfile>benchmarks_2conjugate__gradient_8cc.html</anchorfile>
+      <anchor>a5851750faa9cfec10f7cad1f3b89697e</anchor>
+      <arglist>()</arglist>
+    </member>
   </compound>
   <compound kind="file">
     <name>conjugate_gradient.cc</name>
@@ -102,6 +109,13 @@
       <anchorfile>benchmarks_2l1__proximal_8cc.html</anchorfile>
       <anchor>a9c089d0a2a916132316c0983e5fd9d69</anchor>
       <arglist>(function_l1p, sopt::t_real) -&gt; RangePair(1, 256, 4, 12) -&gt;UseRealTime()</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>BENCHMARK_MAIN</name>
+      <anchorfile>benchmarks_2l1__proximal_8cc.html</anchorfile>
+      <anchor>a5851750faa9cfec10f7cad1f3b89697e</anchor>
+      <arglist>()</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -263,6 +277,13 @@
       <anchorfile>benchmarks_2wavelets_8cc.html</anchorfile>
       <anchor>aeb542924428312e8a3a87b65a47a480d</anchor>
       <arglist>(indirect_vector, sopt::t_real, 1, 1) -&gt; Range(n, N) -&gt;UseRealTime()</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>BENCHMARK_MAIN</name>
+      <anchorfile>benchmarks_2wavelets_8cc.html</anchorfile>
+      <anchor>a5851750faa9cfec10f7cad1f3b89697e</anchor>
+      <arglist>()</arglist>
     </member>
     <member kind="variable">
       <type>constexpr auto</type>

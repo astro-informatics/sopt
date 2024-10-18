@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['_5fupdatelevels_764',['_updateLevels',['../namespacesopt_1_1logging.html#adcf103419e3ac1c9fea0403e7d87d8cf',1,'sopt::logging']]]
+  ['_5fupdatelevels_765',['_updateLevels',['../namespacesopt_1_1logging.html#adcf103419e3ac1c9fea0403e7d87d8cf',1,'sopt::logging']]]
 ];

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['version_972',['version',['../namespacesopt.html#aad09b58521217893f8f6bb076ade261b',1,'sopt']]],
-  ['version_5ftuple_973',['version_tuple',['../namespacesopt.html#a67e58ea24374aec8759a251b307a0af4',1,'sopt']]]
+  ['version_974',['version',['../namespacesopt.html#aad09b58521217893f8f6bb076ade261b',1,'sopt']]],
+  ['version_5ftuple_975',['version_tuple',['../namespacesopt.html#a67e58ea24374aec8759a251b307a0af4',1,'sopt']]]
 ];

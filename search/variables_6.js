@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['high_1050',['high',['../structsopt_1_1wavelets_1_1WaveletData_1_1DirectFilter.html#aab76e2c0194364a8bc9bf1b2e641cb88',1,'sopt::wavelets::WaveletData::DirectFilter']]],
-  ['high_5feven_1051',['high_even',['../structsopt_1_1wavelets_1_1WaveletData.html#a17c799c22df9e11b4e08fd2937eecfef',1,'sopt::wavelets::WaveletData']]],
-  ['high_5fodd_1052',['high_odd',['../structsopt_1_1wavelets_1_1WaveletData.html#adb051c8290b4f993e8e9294a4a7519fe',1,'sopt::wavelets::WaveletData']]]
+  ['high_1052',['high',['../structsopt_1_1wavelets_1_1WaveletData_1_1DirectFilter.html#aab76e2c0194364a8bc9bf1b2e641cb88',1,'sopt::wavelets::WaveletData::DirectFilter']]],
+  ['high_5feven_1053',['high_even',['../structsopt_1_1wavelets_1_1WaveletData.html#a17c799c22df9e11b4e08fd2937eecfef',1,'sopt::wavelets::WaveletData']]],
+  ['high_5fodd_1054',['high_odd',['../structsopt_1_1wavelets_1_1WaveletData.html#adb051c8290b4f993e8e9294a4a7519fe',1,'sopt::wavelets::WaveletData']]]
 ];
