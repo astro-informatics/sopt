@@ -3802,6 +3802,56 @@
     </member>
   </compound>
   <compound kind="file">
+    <name>pd_inpainting.cc</name>
+    <path>/home/runner/work/sopt/sopt/cpp/tests/</path>
+    <filename>http://astro-informatics.github.io/sopt/pd__inpainting_8cc.html</filename>
+    <includes id="imaging__primal__dual_8h" name="imaging_primal_dual.h" local="yes" imported="no">sopt/imaging_primal_dual.h</includes>
+    <includes id="l1__non__diff__function_8h" name="l1_non_diff_function.h" local="yes" imported="no">sopt/l1_non_diff_function.h</includes>
+    <includes id="logging_8h" name="logging.h" local="yes" imported="no">sopt/logging.h</includes>
+    <includes id="maths_8h" name="maths.h" local="yes" imported="no">sopt/maths.h</includes>
+    <includes id="relative__variation_8h" name="relative_variation.h" local="yes" imported="no">sopt/relative_variation.h</includes>
+    <includes id="sampling_8h" name="sampling.h" local="yes" imported="no">sopt/sampling.h</includes>
+    <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
+    <includes id="utilities_8h" name="utilities.h" local="yes" imported="no">sopt/utilities.h</includes>
+    <includes id="wavelets_8h" name="wavelets.h" local="yes" imported="no">sopt/wavelets.h</includes>
+    <includes id="tiffwrappers_8h" name="tiffwrappers.h" local="yes" imported="no">tools_for_tests/tiffwrappers.h</includes>
+    <member kind="typedef">
+      <type>double</type>
+      <name>Scalar</name>
+      <anchorfile>pd__inpainting_8cc.html</anchorfile>
+      <anchor>a8c2981f3f834be9448a6ab06c28748eb</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>sopt::Vector&lt; Scalar &gt;</type>
+      <name>Vector</name>
+      <anchorfile>pd__inpainting_8cc.html</anchorfile>
+      <anchor>a47c194cae73625ab3a13b62e4234f46f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>sopt::Matrix&lt; Scalar &gt;</type>
+      <name>Matrix</name>
+      <anchorfile>pd__inpainting_8cc.html</anchorfile>
+      <anchor>ab86a00c212fb2233871e057014ded6a6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>sopt::Image&lt; Scalar &gt;</type>
+      <name>Image</name>
+      <anchorfile>pd__inpainting_8cc.html</anchorfile>
+      <anchor>aeeca20f5186519056cf53849afb07e6e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST_CASE</name>
+      <anchorfile>pd__inpainting_8cc.html</anchorfile>
+      <anchor>aba4bac43146626c7fb9d51d65abac4b9</anchor>
+      <arglist>(&quot;Primal Dual Inpainting&quot;)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
     <name>primal_dual.cc</name>
     <path>/home/runner/work/sopt/sopt/cpp/tests/</path>
     <filename>http://astro-informatics.github.io/sopt/primal__dual_8cc.html</filename>
@@ -5951,13 +6001,6 @@
       <name>~ImagingPrimalDual</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
       <anchor>a3c3df825f7a6ef2d0e2992d088e9a862</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="function">
-      <type>ImagingPrimalDual *</type>
-      <name>g_proximal</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
-      <anchor>ae2abb4e5b8f1012a724e68c691b95681</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">

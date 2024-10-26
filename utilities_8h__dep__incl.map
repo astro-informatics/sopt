@@ -1,5 +1,5 @@
 <map id="/home/runner/work/sopt/sopt/cpp/sopt/utilities.h" name="/home/runner/work/sopt/sopt/cpp/sopt/utilities.h">
-<area shape="rect" id="node1" title=" " alt="" coords="2247,5,2425,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="2316,5,2495,47"/>
 <area shape="rect" id="node2" href="$examples_2forward__backward_2inpainting_8cc.html" title=" " alt="" coords="5,102,208,158"/>
 <area shape="rect" id="node3" href="$inpainting__credible__interval_8cc.html" title=" " alt="" coords="233,95,453,165"/>
 <area shape="rect" id="node4" href="$inpainting__joint__map_8cc.html" title=" " alt="" coords="477,102,728,158"/>
@@ -18,9 +18,10 @@
 <area shape="rect" id="node20" href="$utilities_8cc.html" title=" " alt="" coords="2752,109,2936,151"/>
 <area shape="rect" id="node21" href="$gradient__operator_8cc.html" title=" " alt="" coords="2961,102,3138,158"/>
 <area shape="rect" id="node22" href="$tests_2inpainting_8cc.html" title=" " alt="" coords="3162,109,3366,151"/>
-<area shape="rect" id="node23" href="$serial__vs__parallel__padmm_8cc.html" title=" " alt="" coords="3390,102,3567,158"/>
-<area shape="rect" id="node24" href="$copy__tiff_8cc.html" title=" " alt="" coords="3592,102,3773,158"/>
-<area shape="rect" id="node25" href="$tiffwrappers_8cc.html" title=" " alt="" coords="3797,102,3979,158"/>
+<area shape="rect" id="node23" href="$pd__inpainting_8cc.html" title=" " alt="" coords="3391,109,3617,151"/>
+<area shape="rect" id="node24" href="$serial__vs__parallel__padmm_8cc.html" title=" " alt="" coords="3642,102,3819,158"/>
+<area shape="rect" id="node25" href="$copy__tiff_8cc.html" title=" " alt="" coords="3844,102,4025,158"/>
+<area shape="rect" id="node26" href="$tiffwrappers_8cc.html" title=" " alt="" coords="4049,102,4231,158"/>
 <area shape="rect" id="node13" href="$l2__differentiable__func_8h.html" title=" " alt="" coords="2050,213,2273,269"/>
 <area shape="rect" id="node14" href="$onnx__differentiable__func_8h.html" title=" " alt="" coords="1783,213,2025,269"/>
 <area shape="rect" id="node16" href="$tf__non__diff__function_8h.html" title=" " alt="" coords="2347,213,2525,269"/>
