@@ -94,7 +94,6 @@ class ImagingPrimalDual {
   TYPE NAME##_;                                       \
                                                       \
  public:
-  ImagingPrimalDual * g_proximal(){ return this;}
   //! The l1 prox functioning as f
   SOPT_MACRO(l1_proximal, t_Proximal<Real>);
   //! The l1 prox with weights functioning as f
@@ -334,7 +333,7 @@ typename ImagingPrimalDual<SCALAR>::Diagnostic ImagingPrimalDual<SCALAR>::operat
   const bool positive = positivity_constraint();
   const bool real = real_constraint();
   t_Constraint constraint = [real, positive](t_Vector &out, const t_Vector &x) {
-    if (real) out.real() = x.real();
+    if (real) out = x.real();
     if (positive) out = sopt::positive_quadrant(x);
     if (not real and not positive) out = x;
   };
