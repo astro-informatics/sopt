@@ -671,13 +671,13 @@ template&lt;typename SCALAR &gt; </div>
 
 <p>Computes initial guess for x and the residual using the targets. </p>
 <p>with y the vector of measurements</p><ul>
-<li>x = Φ^T y * xi * tau</li>
+<li>x = Φ^T y / nu = Φ^T y / (Φ_norm^2)</li>
 <li>residuals = Φ x - y </li>
 </ul>
 
 <p class="definition">Definition at line <a class="el" href="primal__dual_8h_source.html#l00236">236</a> of file <a class="el" href="primal__dual_8h_source.html">primal_dual.h</a>.</p>
 <div class="fragment"><div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;                                                     {</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#aea449fd612f6063653b3bf224a3c16a7">PrimalDual&lt;SCALAR&gt;::initial_guess</a>(<a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#a39f1e56c6b33fabe54ba519f47bc1f5a">target</a>(), <a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#a91d151813a8eee0469332889088acf17">Phi</a>(), xi());</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#aea449fd612f6063653b3bf224a3c16a7">PrimalDual&lt;SCALAR&gt;::initial_guess</a>(<a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#a39f1e56c6b33fabe54ba519f47bc1f5a">target</a>(), <a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#a91d151813a8eee0469332889088acf17">Phi</a>(), nu());</div>
 <div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;  }</div>
 <div class="ttc" id="aclasssopt_1_1algorithm_1_1PrimalDual_html_a91d151813a8eee0469332889088acf17"><div class="ttname"><a href="classsopt_1_1algorithm_1_1PrimalDual.html#a91d151813a8eee0469332889088acf17">sopt::algorithm::PrimalDual::Phi</a></div><div class="ttdeci">PrimalDual &amp;::type Phi(ARGS &amp;&amp;... args)</div><div class="ttdef"><b>Definition:</b> <a href="primal__dual_8h_source.html#l00221">primal_dual.h:221</a></div></div>
 <div class="ttc" id="aclasssopt_1_1algorithm_1_1PrimalDual_html_aea449fd612f6063653b3bf224a3c16a7"><div class="ttname"><a href="classsopt_1_1algorithm_1_1PrimalDual.html#aea449fd612f6063653b3bf224a3c16a7">sopt::algorithm::PrimalDual::initial_guess</a></div><div class="ttdeci">std::tuple&lt; t_Vector, t_Vector &gt; initial_guess() const</div><div class="ttdoc">Computes initial guess for x and the residual using the targets.</div><div class="ttdef"><b>Definition:</b> <a href="primal__dual_8h_source.html#l00236">primal_dual.h:236</a></div></div>
@@ -732,7 +732,7 @@ template&lt;typename SCALAR &gt; </div>
 
 <p>Computes initial guess for x and the residual using the targets. </p>
 <p>with y the vector of measurements</p><ul>
-<li>x = Φ^T y * xi * tau</li>
+<li>x = Φ^T y / nu = Φ^T y / (Φ_norm^2)</li>
 <li>residuals = Φ x - y</li>
 </ul>
 <p>This function simplifies creating overloads for operator() in PD wrappers. </p>
@@ -740,7 +740,7 @@ template&lt;typename SCALAR &gt; </div>
 <p class="definition">Definition at line <a class="el" href="primal__dual_8h_source.html#l00246">246</a> of file <a class="el" href="primal__dual_8h_source.html">primal_dual.h</a>.</p>
 <div class="fragment"><div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;                                                                                             {</div>
 <div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;    std::tuple&lt;t_Vector, t_Vector&gt; guess;</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;    std::get&lt;0&gt;(guess) = <span class="keyword">static_cast&lt;</span><a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a><span class="keyword">&gt;</span>(phi.adjoint() * <a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#a39f1e56c6b33fabe54ba519f47bc1f5a">target</a>);</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;    std::get&lt;0&gt;(guess) = <span class="keyword">static_cast&lt;</span><a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a><span class="keyword">&gt;</span>(phi.adjoint() * <a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#a39f1e56c6b33fabe54ba519f47bc1f5a">target</a>) / nu;</div>
 <div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;    std::get&lt;1&gt;(guess) = <a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#a39f1e56c6b33fabe54ba519f47bc1f5a">target</a>;</div>
 <div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;    <span class="keywordflow">return</span> guess;</div>
 <div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;  }</div>
