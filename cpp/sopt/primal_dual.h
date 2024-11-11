@@ -231,22 +231,22 @@ class PrimalDual {
 
   //! \brief Computes initial guess for x and the residual using the targets
   //! \details with y the vector of measurements
-  //! - x = Φ^T y * xi * tau
+  //! - x = Φ^T y / nu =  Φ^T y / (Φ_norm^2)
   //! - residuals = Φ x - y
   std::tuple<t_Vector, t_Vector> initial_guess() const {
-    return PrimalDual<SCALAR>::initial_guess(target(), Phi(), xi());
+    return PrimalDual<SCALAR>::initial_guess(target(), Phi(), nu());
   }
 
   //! \brief Computes initial guess for x and the residual using the targets
   //! \details with y the vector of measurements
-  //! - x = Φ^T y * xi * tau
+  //! - x = Φ^T y / nu =  Φ^T y / (Φ_norm^2)
   //! - residuals = Φ x - y
   //!
   //! This function simplifies creating overloads for operator() in PD wrappers.
   static std::tuple<t_Vector, t_Vector> initial_guess(t_Vector const &target,
                                                       t_LinearTransform const &phi, Real nu) {
     std::tuple<t_Vector, t_Vector> guess;
-    std::get<0>(guess) = static_cast<t_Vector>(phi.adjoint() * target);
+    std::get<0>(guess) = static_cast<t_Vector>(phi.adjoint() * target) / nu;
     std::get<1>(guess) = target;
     return guess;
   }
