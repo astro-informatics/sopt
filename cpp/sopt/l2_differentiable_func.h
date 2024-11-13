@@ -19,7 +19,9 @@ class L2DifferentiableFunc : public DifferentiableFunc<SCALAR>
     public:
     L2DifferentiableFunc (const Real sigma, 
                           const LinearTransform& Phi): LT(Phi), sigma(sigma)
-    {}
+    {
+        alpha = sigma*sigma;
+    }
 
     void log_message() const override
     {
