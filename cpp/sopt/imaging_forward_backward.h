@@ -292,13 +292,19 @@ typename ImagingForwardBackward<SCALAR>::Diagnostic ImagingForwardBackward<SCALA
   Diagnostic result;
   auto const g_proximal = g_function_->proximal_operator();
   t_Gradient f_gradient;
-  if(f_function_) f_gradient = f_function_->gradient();
+  Real gradient_step_size;
+  if(f_function_)
+  {
+    f_gradient = f_function_->gradient();
+    gradient_step_size = f_function_->alpha();
+  }
   if(!f_gradient)
   {
     SOPT_MEDIUM_LOG("Gradient function has not been set; using default (gaussian likelihood) gradient. (To set a custom gradient set_gradient() must be called before the algorithm is run.)");
     f_gradient = [this](t_Vector &output, t_Vector const &x, t_Vector const &residual, t_LinearTransform const &Phi) {
       output = Phi.adjoint() * (residual / (this->sigma() * this->sigma()));
     };
+    gradient_step_size = sigma*sigma;
   }
   ScalarRelativeVariation<Scalar> scalvar(relative_variation(), relative_variation(),
                                           "Objective function");
@@ -309,7 +315,7 @@ typename ImagingForwardBackward<SCALAR>::Diagnostic ImagingForwardBackward<SCALA
   };
   auto const fb = ForwardBackward<SCALAR>(f_gradient, g_proximal, target())
                       .itermax(itermax())
-                      .beta(beta())
+                      .beta(gradient_step_size)
                       .gamma(gamma())
                       .nu(nu())
                       .fista(fista())
