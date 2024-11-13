@@ -255,7 +255,7 @@ template <typename SCALAR>
 void ForwardBackward<SCALAR>::iteration_step(t_Vector &image, t_Vector &residual, t_Vector &auxilliary_image,
                                              t_Vector &gradient_current, const t_real FISTA_step) const {
   t_Vector prev_image = image;
-  f_gradient(gradient_current, auxilliary_image, residual, Phi());  // takes residual and calculates the grad = 1/sig^2 residual
+  f_gradient(gradient_current, auxilliary_image, residual, Phi());  // assigns gradient_current
   t_Vector auxilliary_with_step = auxilliary_image - beta() / nu() * gradient_current;  // step to new image using gradient
   const Real weight = gamma() * beta();
   g_proximal(image, weight, auxilliary_with_step);  // apply proximal operator to new image

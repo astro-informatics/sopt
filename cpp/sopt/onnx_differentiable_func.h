@@ -5,6 +5,7 @@
 #include "sopt/differentiable_func.h"
 #include <vector>
 #include <array>
+#include <exception>
 namespace sopt
 {
 
@@ -69,7 +70,24 @@ class ONNXDifferentiableFunc : public DifferentiableFunc<SCALAR>
                                                               function_model(function_model_path),
                                                               gradient_model(gradient_model_path)
     {
+        Real L_CRR;  // Lipschitz constant
         if(dimensions.empty()) infer_square_dimensions = true;
+        try
+        {
+            L_CRR = gradient_model.retrieve<double>("L_CRR");
+            alpha = 0.98 / (1/(sigma*sigma) + mu * lambda * L_CRR);
+            SOPT_MEDIUM_LOG("Lipschitz Constant for CRR = {}", L_CRR);
+            SOPT_MEDIUM_LOG("Step size (alpha) for CRR = {}", alpha);
+        }
+        catch(std::exception e)
+        {
+          SOPT_HIGH_LOG(
+              "Failed to find a Lipschitz constant for the current model. Please ensure that the "
+              "Lipschitz constant is included in the gradient model meta-data with the key "
+              "\"L_CRR\". Setting step size (alpha) to 1 by default.");
+          SOPT_HIGH_LOG("Exception message retrieving L_CRR: {}", e.what());
+          alpha = 1;
+        }
     }
 
     void log_message() const override
