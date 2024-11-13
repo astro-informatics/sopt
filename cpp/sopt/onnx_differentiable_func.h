@@ -125,11 +125,10 @@ class ONNXDifferentiableFunc : public DifferentiableFunc<SCALAR>
     Real function(Vector const &image, Vector const &y, LinearTransform const &Phi) override
     {
         if(infer_square_dimensions) infer_dimensions(image.size());
-        // Does this need to be modified to take into account MPI?
         Real Likelihood = 0.5 * ((Phi*image) - y).squaredNorm() / (sigma * sigma);
         Vector scaled_image = image * mu;
         std::vector<float> float_image = imageToFloat(scaled_image);
-        Real Prior = (lambda / mu) * (function_model.compute(float_image, dimensions)[0]); // Is this correct?
+        Real Prior = (lambda / mu) * (function_model.compute(float_image, dimensions)[0]);
         return Likelihood + Prior;
     }
 
