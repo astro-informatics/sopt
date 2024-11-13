@@ -75,9 +75,9 @@ class ONNXDifferentiableFunc : public DifferentiableFunc<SCALAR>
         try
         {
             L_CRR = gradient_model.retrieve<double>("L_CRR");
-            step_size = 0.98 / (1/(sigma*sigma) + mu * lambda * L_CRR);
+            this->step_size = 0.98 / (1/(sigma*sigma) + mu * lambda * L_CRR);
             SOPT_MEDIUM_LOG("Lipschitz Constant for CRR = {}", L_CRR);
-            SOPT_MEDIUM_LOG("Step size for CRR = {}", step_size);
+            SOPT_MEDIUM_LOG("Step size for CRR = {}", this->step_size);
         }
         catch(std::exception e)
         {
@@ -86,7 +86,7 @@ class ONNXDifferentiableFunc : public DifferentiableFunc<SCALAR>
               "Lipschitz constant is included in the gradient model meta-data with the key "
               "\"L_CRR\". Setting step size to 1 by default.");
           SOPT_HIGH_LOG("Exception message retrieving L_CRR: {}", e.what());
-          step_size = 1;
+          this->step_size = 1;
         }
     }
 

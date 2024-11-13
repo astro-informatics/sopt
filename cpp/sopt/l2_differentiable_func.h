@@ -20,7 +20,7 @@ class L2DifferentiableFunc : public DifferentiableFunc<SCALAR>
     L2DifferentiableFunc (const Real sigma, 
                           const LinearTransform& Phi): LT(Phi), sigma(sigma)
     {
-        step_size = sigma*sigma;
+        this->step_size = sigma*sigma;
     }
 
     void log_message() const override
