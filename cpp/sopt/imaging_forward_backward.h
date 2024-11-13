@@ -296,7 +296,7 @@ typename ImagingForwardBackward<SCALAR>::Diagnostic ImagingForwardBackward<SCALA
   if(f_function_)
   {
     f_gradient = f_function_->gradient();
-    gradient_step_size = f_function_->alpha();
+    gradient_step_size = f_function_->get_step_size();
   }
   if(!f_gradient)
   {
@@ -304,7 +304,7 @@ typename ImagingForwardBackward<SCALAR>::Diagnostic ImagingForwardBackward<SCALA
     f_gradient = [this](t_Vector &output, t_Vector const &x, t_Vector const &residual, t_LinearTransform const &Phi) {
       output = Phi.adjoint() * (residual / (this->sigma() * this->sigma()));
     };
-    gradient_step_size = sigma*sigma;
+    gradient_step_size = sigma()*sigma();
   }
   ScalarRelativeVariation<Scalar> scalvar(relative_variation(), relative_variation(),
                                           "Objective function");

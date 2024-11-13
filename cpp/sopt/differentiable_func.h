@@ -34,15 +34,15 @@ public:
   // Calculate the function directly
   virtual Real function(t_Vector const &image, t_Vector const &y, t_LinearTransform const &Phi) = 0;
 
-  // Get appropriate gradient step-size (alpha) for FISTA algorithms
-  Real alpha()
+  // Get appropriate gradient step-size for FISTA algorithms
+  Real get_step_size()
   {
-    return alpha;
+    return step_size;
   }
 
-  private:
+  protected:
 
-  Real alpha;
+  Real step_size;
 
   // Transforms input image to a different basis.
   // Return linear_transform_identity() if transform not necessary.
