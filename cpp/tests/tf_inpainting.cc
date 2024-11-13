@@ -51,7 +51,7 @@ TEST_CASE("Inpainting"){
 
   Eigen::VectorXd dirty_image = sampling.adjoint() * y;
 
-  sopt::t_real constexpr gamma = 18;
+  sopt::t_real constexpr gamma = 100;
   sopt::t_real const beta = sigma * sigma * 0.5;
 
   auto fb = sopt::algorithm::ImagingForwardBackward<Scalar>(y);
