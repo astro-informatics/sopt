@@ -29,6 +29,16 @@ class ORTsession {
 
     // Load the model
     Ort::SessionOptions sessionopts;
+
+    // Allow the number of threads used by the ONNX runtime to be set by an
+    // environment variable. If unset it will use all available threads by default
+    char* env_num_threads = std::getenv("ORT_NUM_THREADS");
+    if(env_num_threads) {
+      const int num_threads = std::stoi(env_num_threads);
+      sessionopts.SetIntraOpNumThreads(num_threads);
+      SOPT_INFO("ONNXRT using {} IntraOpThreads", num_threads);
+    }
+
     _session = std::make_unique<Ort::Session>(*_env, filename.c_str(), sessionopts);
 
     // Store model hyperparameters (input/output shape etc.)
