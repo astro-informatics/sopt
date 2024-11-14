@@ -2,7 +2,7 @@ get_filename_component(sopt_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
 message(STATUS "Linking to sopt package in ${sopt_CMAKE_DIR}")
 set(sopt_INCLUDE_DIR "@ALL_INCLUDE_DIRS@")
 
-if(onnxrt)
+if (@SOPT_ORT@)
   # try and find ORT from the environment
   find_package(onnxruntime QUIET)
   if(NOT ${onnxruntime_FOUND})
