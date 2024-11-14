@@ -3,8 +3,10 @@ message(STATUS "Linking to sopt package in ${sopt_CMAKE_DIR}")
 set(sopt_INCLUDE_DIR "@ALL_INCLUDE_DIRS@")
 
 if(onnxrt)
+  # try and find ORT from the environment
   find_package(onnxruntime QUIET)
   if(NOT ${onnxruntime_FOUND})
+    # if not found, it was installed on the fly
     set(onnxruntime_LIBRARIES onnxruntime::onnxruntime)
     add_library(${onnxruntime_LIBRARIES} SHARED IMPORTED GLOBAL)
     set_target_properties(${onnxruntime_LIBRARIES}
