@@ -48,21 +48,18 @@ class RealIndicator : public NonDifferentiableFunc<SCALAR>
     t_LinearTransform linear_operator = sopt::linear_transform_identity<SCALAR>();
 };
 
-template<>
-typename RealIndicator<std::complex<double>>::Real RealIndicator<std::complex<double>>::function(typename RealIndicator<std::complex<double>>::t_Vector const &x) const
-{
-  for (auto &z : x) {
-    if (z.imag() != 0) {
-      return 0;
-    }
-  }
-  return 1;
-}
-
 template<typename SCALAR>
 typename RealIndicator<SCALAR>::Real RealIndicator<SCALAR>::function(typename RealIndicator<SCALAR>::t_Vector const &x) const
 {
-    return 1;
+  if constexpr (std::is_same<SCALAR, sopt::t_complex>::value)
+  {
+    for (auto &z : x) {
+      if (z.imag() != 0) {
+        return 0;
+      }
+    }
+  }
+  return 1;
 }
 
 #endif
