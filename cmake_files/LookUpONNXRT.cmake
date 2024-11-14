@@ -15,8 +15,10 @@ if(${onnxruntime_FOUND})
   set(onnxruntime_LIBRARIES onnxruntime::onnxruntime)
   get_filename_component(onnxruntime_INSTALL_PREFIX "${onnxruntime_INCLUDE_DIR}/../../" ABSOLUTE)
   find_library(onnxruntime_LIBRARY onnxruntime PATHS "${onnxruntime_INSTALL_PREFIX}/lib")
-  set_target_properties(${onnxruntime_LIBRARIES} PROPERTIES IMPORTED_LOCATION "${onnxruntime_LIBRARY}")
-  set_target_properties(${onnxruntime_LIBRARIES} PROPERTIES INTERFACE_INCLUDE_DIRECTORIES "${onnxruntime_INCLUDE_DIR}")
+  set_target_properties(${onnxruntime_LIBRARIES}
+                        PROPERTIES
+                        IMPORTED_LOCATION "${onnxruntime_LIBRARY}"
+                        INTERFACE_INCLUDE_DIRECTORIES "${onnxruntime_INCLUDE_DIR}")
 endif()
 
 if(NOT ${onnxruntime_FOUND})
@@ -48,7 +50,10 @@ if(NOT ${onnxruntime_FOUND})
   set(onnxruntime_LIBRARY_DIR "${onnxruntime_DIR}/lib")
   set(onnxruntime_LIBRARIES onnxruntime::onnxruntime)
   add_library(${onnxruntime_LIBRARIES} SHARED IMPORTED GLOBAL)
-  set_target_properties(${onnxruntime_LIBRARIES} PROPERTIES IMPORTED_LOCATION ${onnxruntime_LIBRARY_DIR}/libonnxruntime.so)
+  set_target_properties(${onnxruntime_LIBRARIES}
+                        PROPERTIES
+                        IMPORTED_LOCATION ${onnxruntime_LIBRARY_DIR}/libonnxruntime.so
+                        INTERFACE_INCLUDE_DIRECTORIES ${onnxruntime_INCLUDE_DIR})
   set(onnxruntime_FOUND TRUE)
 endif()
 
