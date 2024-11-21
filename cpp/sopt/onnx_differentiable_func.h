@@ -8,49 +8,6 @@
 #include <exception>
 namespace sopt
 {
-
-    std::vector<float> imageToFloat(sopt::Vector<t_complex> const &image)
-    {
-        std::vector<float> float_image(image.size());
-        for (int i = 0; i < image.size(); i++)
-        {
-            float_image[i] = image[i].real();
-        }
-        return float_image;
-    }
-
-    template<typename T>
-    std::vector<float> imageToFloat(sopt::Vector<T> const &image)
-    {
-        std::vector<float> float_image(image.size());
-        for (int i = 0; i < image.size(); i++)
-        {
-            float_image[i] = static_cast<float>(image[i]);
-        }
-        return float_image;
-    }
-
-    sopt::Vector<t_complex> floatToImage(std::vector<float> const &float_image)
-    {
-        sopt::Vector<t_complex> image(float_image.size());
-        for (int i = 0; i < float_image.size(); i++)
-        {
-            image[i] = t_complex(float_image[i], 0);
-        }
-        return image;
-    }
-
-    template<typename T>
-    sopt::Vector<T> floatToImage(std::vector<float> const &float_image)
-    {
-        sopt::Vector<T> image(float_image.size());
-        for (int i = 0; i < float_image.size(); i++)
-        {
-            image[i] = static_cast<T>(float_image[i]);
-        }
-        return image;
-    }
-
 template<typename SCALAR>
 class ONNXDifferentiableFunc : public DifferentiableFunc<SCALAR> 
 {
@@ -102,8 +59,8 @@ class ONNXDifferentiableFunc : public DifferentiableFunc<SCALAR>
 
       output = Phi.adjoint() * (residual / (sigma * sigma));  // L2 norm
       Vector scaled_image = image * mu;
-      std::vector<float> float_image = imageToFloat(scaled_image);      
-      Vector ANN_gradient = floatToImage<SCALAR>(gradient_model.compute(float_image, dimensions));  // regulariser
+      std::vector<float> float_image = utilities::imageToFloat(scaled_image);      
+      Vector ANN_gradient = utilities::floatToImage<SCALAR>(gradient_model.compute(float_image, dimensions));  // regulariser
       output += (ANN_gradient * lambda);
     }
 
@@ -127,7 +84,7 @@ class ONNXDifferentiableFunc : public DifferentiableFunc<SCALAR>
         if(infer_square_dimensions) infer_dimensions(image.size());
         Real Likelihood = 0.5 * ((Phi*image) - y).squaredNorm() / (sigma * sigma);
         Vector scaled_image = image * mu;
-        std::vector<float> float_image = imageToFloat(scaled_image);
+        std::vector<float> float_image = utilities::imageToFloat(scaled_image);
         Real Prior = (lambda / mu) * (function_model.compute(float_image, dimensions)[0]);
         return Likelihood + Prior;
     }
