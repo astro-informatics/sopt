@@ -75,7 +75,7 @@ class PrimalDual {
         update_scale_(1),
         xi_(1),
         rho_(1),
-        nu_(1),
+        sq_op_norm_(1),
         is_converged_(),
         constraint_([](t_Vector &out, t_Vector const &x) { out = x; }),
         Phi_(linear_transform_identity<Scalar>()),
@@ -121,7 +121,7 @@ class PrimalDual {
   //! tau parameter
   SOPT_MACRO(tau, Real);
   //! ν parameter
-  SOPT_MACRO(nu, Real);
+  SOPT_MACRO(sq_op_norm, Real);
   //! \brief A function verifying convergence
   //! \details It takes as input two arguments: the current solution x and the current residual.
   SOPT_MACRO(is_converged, t_IsConverged);
@@ -234,7 +234,7 @@ class PrimalDual {
   //! - x = Φ^T y / nu =  Φ^T y / (Φ_norm^2)
   //! - residuals = Φ x - y
   std::tuple<t_Vector, t_Vector> initial_guess() const {
-    return PrimalDual<SCALAR>::initial_guess(target(), Phi(), nu());
+    return PrimalDual<SCALAR>::initial_guess(target(), Phi(), sq_op_norm());
   }
 
   //! \brief Computes initial guess for x and the residual using the targets
@@ -244,9 +244,9 @@ class PrimalDual {
   //!
   //! This function simplifies creating overloads for operator() in PD wrappers.
   static std::tuple<t_Vector, t_Vector> initial_guess(t_Vector const &target,
-                                                      t_LinearTransform const &phi, Real nu) {
+                                                      t_LinearTransform const &phi, Real sq_op_norm) {
     std::tuple<t_Vector, t_Vector> guess;
-    std::get<0>(guess) = static_cast<t_Vector>(phi.adjoint() * target) / nu;
+    std::get<0>(guess) = static_cast<t_Vector>(phi.adjoint() * target) / sq_op_norm;
     std::get<1>(guess) = target;
     return guess;
   }

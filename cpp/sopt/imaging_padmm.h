@@ -62,7 +62,7 @@ class ImagingProximalADMM {
         objective_convergence_(nullptr),
         itermax_(std::numeric_limits<t_uint>::max()),
         regulariser_strength_(1e-8),
-        nu_(1),
+        sq_op_norm_(1),
         lagrange_update_scale_(0.9),
         is_converged_(),
         Phi_(linear_transform_identity<Scalar>()),
@@ -111,7 +111,7 @@ class ImagingProximalADMM {
   //! γ parameter
   SOPT_MACRO(regulariser_strength, Real);
   //! ν parameter
-  SOPT_MACRO(nu, Real);
+  SOPT_MACRO(sq_op_norm, Real);
   //! Lagrange update scale β
   SOPT_MACRO(lagrange_update_scale, Real);
   //! A function verifying convergence
@@ -132,7 +132,7 @@ class ImagingProximalADMM {
   //! \brief Calls Proximal ADMM
   //! \param[out] out: Output vector x
   Diagnostic operator()(t_Vector &out) const {
-    return operator()(out, PADMM::initial_guess(target(), Phi(), nu()));
+    return operator()(out, PADMM::initial_guess(target(), Phi(), sq_op_norm()));
   }
   //! \brief Calls Proximal ADMM
   //! \param[out] out: Output vector x
@@ -165,7 +165,7 @@ class ImagingProximalADMM {
   DiagnosticAndResult operator()() const {
     DiagnosticAndResult result;
     static_cast<Diagnostic &>(result) = operator()(result.x,
-                                                   PADMM::initial_guess(target(), Phi(), nu()));
+                                                   PADMM::initial_guess(target(), Phi(), sq_op_norm()));
     return result;
   }
   //! Makes it simple to chain different calls to PADMM
@@ -307,7 +307,7 @@ typename ImagingProximalADMM<SCALAR>::Diagnostic ImagingProximalADMM<SCALAR>::op
   auto const padmm = PADMM(f_proximal, g_proximal, target())
                          .itermax(itermax())
                          .regulariser_strength(regulariser_strength())
-                         .nu(nu())
+                         .sq_op_norm(sq_op_norm())
                          .lagrange_update_scale(lagrange_update_scale())
                          .Phi(Phi())
                          .is_converged(convergence);

@@ -65,7 +65,7 @@ TEST_CASE("Check type returned on setting variables") {
   CHECK(is_imaging_proximal_ref<decltype(admm.l1_proximal_real_constraint(true))>::value);
   CHECK(is_imaging_proximal_ref<decltype(admm.residual_convergence(1.001))>::value);
   CHECK(is_imaging_proximal_ref<decltype(admm.lagrange_update_scale(0.9))>::value);
-  CHECK(is_imaging_proximal_ref<decltype(admm.nu(1e0))>::value);
+  CHECK(is_imaging_proximal_ref<decltype(admm.sq_op_norm(1e0))>::value);
   CHECK(is_imaging_proximal_ref<decltype(admm.target(Vector<double>::Zero(0)))>::value);
   using ConvFunc = ConvergenceFunction<double>;
   CHECK(is_imaging_proximal_ref<decltype(admm.is_converged(std::declval<ConvFunc>()))>::value);

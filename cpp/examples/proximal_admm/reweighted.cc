@@ -97,7 +97,7 @@ int main(int argc, char const **argv) {
                          .l1_proximal_real_constraint(true)
                          .residual_convergence(epsilon * 1.001)
                          .lagrange_update_scale(0.9)
-                         .nu(1e0)
+                         .sq_op_norm(1e0)
                          .Psi(psi)
                          .Phi(sampling);
 
