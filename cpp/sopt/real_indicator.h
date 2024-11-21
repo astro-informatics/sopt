@@ -55,11 +55,12 @@ typename RealIndicator<SCALAR>::Real RealIndicator<SCALAR>::function(typename Re
   {
     for (auto &z : x) {
       if (z.imag() != 0) {
-        return 0;
+        SOPT_HIGH_LOG("Non-real vector in real indicator function; real projection has not been properly performed.");
+        return 1;  // should in principle be inf but not sure how to model this
       }
     }
   }
-  return 1;
+  return 0;
 }
 
 #endif
