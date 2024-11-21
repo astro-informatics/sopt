@@ -93,7 +93,7 @@ TEST_CASE("Inpainting"){
   fb.f_function(diff_function);
 
   // Create a shared pointer to the real indicator (non differentiable) function
-  auto non_diff_func = std::make_shared<RealIndicator<Scalar>>();
+  auto non_diff_func = std::make_shared<sopt::algorithm::RealIndicator<Scalar>>();
 
   // Inject it into the ImagingForwardBackward object
   fb.g_function(non_diff_func);

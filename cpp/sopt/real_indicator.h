@@ -5,6 +5,8 @@
 #include "sopt/linear_transform.h"
 #include <complex>
 
+namespace sopt::algorithm {
+
 // Implementation of real indicator (non differentiable) function
 // The proximal operator is just a real projection
 // interface defined by NonDifferentiableFunc class
@@ -61,6 +63,8 @@ typename RealIndicator<SCALAR>::Real RealIndicator<SCALAR>::function(typename Re
     }
   }
   return 0;
+}
+
 }
 
 #endif
