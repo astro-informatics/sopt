@@ -56,7 +56,7 @@ TEST_CASE("Inpainting"){
 
   auto fb = sopt::algorithm::ImagingForwardBackward<Scalar>(y);
   fb.itermax(500)
-    .beta(beta)    // stepsize
+    .step_size(beta)    // stepsize
     .sigma(sigma)  // sigma
     .gamma(gamma)  // regularisation paramater
     .fista(false)  // switch to use FISTA algorithm in Forward Backward algorithm, should be false if using learned TF model

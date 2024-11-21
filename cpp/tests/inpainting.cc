@@ -57,7 +57,7 @@ TEST_CASE("Inpainting"){
 
   auto fb = sopt::algorithm::ImagingForwardBackward<Scalar>(y);
   fb.itermax(500)
-    .beta(beta)    // stepsize
+    .step_size(beta)    // stepsize
     .sigma(sigma)  // sigma
     .gamma(gamma)  // regularisation paramater
     .relative_variation(1e-3)

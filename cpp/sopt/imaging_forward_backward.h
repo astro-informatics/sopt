@@ -72,7 +72,7 @@ class ImagingForwardBackward {
         objective_convergence_(nullptr),
         itermax_(std::numeric_limits<t_uint>::max()),
         gamma_(1e-8),
-        beta_(1),
+        step_size_(1),
         sigma_(1),
         nu_(1),
         fista_(true),
@@ -114,7 +114,7 @@ class ImagingForwardBackward {
   //! γ parameter
   SOPT_MACRO(gamma, Real);
   //! γ parameter
-  SOPT_MACRO(beta, Real);
+  SOPT_MACRO(step_size, Real);
   //! γ parameter
   SOPT_MACRO(sigma, Real);
   //! ν parameter
@@ -315,7 +315,7 @@ typename ImagingForwardBackward<SCALAR>::Diagnostic ImagingForwardBackward<SCALA
   };
   auto const fb = ForwardBackward<SCALAR>(f_gradient, g_proximal, target())
                       .itermax(itermax())
-                      .beta(gradient_step_size)
+                      .step_size(gradient_step_size)
                       .gamma(gamma())
                       .nu(nu())
                       .fista(fista())

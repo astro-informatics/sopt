@@ -93,7 +93,7 @@ int main(int argc, char const **argv) {
   SOPT_HIGH_LOG("Creating Foward Backward Functor");
   auto fb = sopt::algorithm::ImagingForwardBackward<Scalar>(y)
     .itermax(500)
-    .beta(beta)
+    .step_size(beta)
     .sigma(sigma)
     .gamma(gamma)
     .relative_variation(5e-4)

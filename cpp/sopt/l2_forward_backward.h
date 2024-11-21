@@ -278,7 +278,7 @@ typename L2ForwardBackward<SCALAR>::Diagnostic L2ForwardBackward<SCALAR>::operat
   };
   auto const fb = ForwardBackward<SCALAR>(f_gradient, g_proximal, target())
                       .itermax(itermax())
-                      .beta(beta())
+                      .step_size(beta())
                       .gamma(gamma())
                       .nu(nu())
                       .Phi(Phi())

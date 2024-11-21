@@ -70,7 +70,7 @@ class ForwardBackward {
                   Eigen::MatrixBase<DERIVED> const &target)
       : itermax_(std::numeric_limits<t_uint>::max()),
         gamma_(1e-8),
-        beta_(1),
+        step_size_(1),
         nu_(1),
         is_converged_(),
 	      fista_(true),
@@ -99,7 +99,7 @@ class ForwardBackward {
   //! γ parameter
   SOPT_MACRO(gamma, Real);
   //! β parameter
-  SOPT_MACRO(beta, Real);
+  SOPT_MACRO(step_size, Real);
   //! ν parameter
   SOPT_MACRO(nu, Real);
   //! flag to for FISTA Forward-Backward algorithm. True by default but should be false when using a learned g_proximal.
@@ -256,8 +256,8 @@ void ForwardBackward<SCALAR>::iteration_step(t_Vector &image, t_Vector &residual
                                              t_Vector &gradient_current, const t_real FISTA_step) const {
   t_Vector prev_image = image;
   f_gradient(gradient_current, auxilliary_image, residual, Phi());  // assigns gradient_current
-  t_Vector auxilliary_with_step = auxilliary_image - beta() / nu() * gradient_current;  // step to new image using gradient
-  const Real weight = gamma() * beta();
+  t_Vector auxilliary_with_step = auxilliary_image - step_size() / nu() * gradient_current;  // step to new image using gradient
+  const Real weight = gamma() * step_size();
   g_proximal(image, weight, auxilliary_with_step);  // apply proximal operator to new image
   auxilliary_image = image + FISTA_step * (image - prev_image);  // update auxilliary vector with FISTA acceleration step  
   residual = (Phi() * auxilliary_image) - target();  // updates the residual for the NEXT iteration (new image).
@@ -287,7 +287,7 @@ typename ForwardBackward<SCALAR>::Diagnostic ForwardBackward<SCALAR>::operator()
   Real theta_new = 1.0;
   Real FISTA_step = 0.0;
   for (; (not converged) && (niters < itermax()); ++niters) {
-    SOPT_LOW_LOG("    - [FB] Iteration {}/{}", niters, itermax());
+    SOPT_MEDIUM_LOG("    - [FB] Iteration {}/{}", niters, itermax());
     if (fista()) {
       theta_new = (1 + std::sqrt(1 + 4 * theta * theta)) / 2.;
       FISTA_step = (theta - 1) / (theta_new);
