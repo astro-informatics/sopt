@@ -71,7 +71,7 @@ class ForwardBackward {
       : itermax_(std::numeric_limits<t_uint>::max()),
         regulariser_strength_(1e-8),
         step_size_(1),
-        nu_(1),
+        sq_op_norm_(1),
         is_converged_(),
 	      fista_(true),
         Phi_(linear_transform_identity<Scalar>()),
@@ -101,7 +101,7 @@ class ForwardBackward {
   //! β parameter
   SOPT_MACRO(step_size, Real);
   //! ν parameter
-  SOPT_MACRO(nu, Real);
+  SOPT_MACRO(sq_op_norm, Real);
   //! flag to for FISTA Forward-Backward algorithm. True by default but should be false when using a learned g_proximal.
   SOPT_MACRO(fista, bool);
   //! \brief A function verifying convergence
@@ -194,7 +194,7 @@ class ForwardBackward {
   //! - x = Φ^T y / ν
   //! - residuals = Φ x - y
   std::tuple<t_Vector, t_Vector> initial_guess() const {
-    return ForwardBackward<SCALAR>::initial_guess(target(), Phi(), nu());
+    return ForwardBackward<SCALAR>::initial_guess(target(), Phi(), sq_op_norm());
   }
 
   //! \brief Computes initial guess for x and the residual using the targets
@@ -204,9 +204,9 @@ class ForwardBackward {
   //!
   //! This function simplifies creating overloads for operator() in FB wrappers.
   static std::tuple<t_Vector, t_Vector> initial_guess(t_Vector const &target,
-                                                      t_LinearTransform const &phi, Real nu) {
+                                                      t_LinearTransform const &phi, Real sq_op_norm) {
     std::tuple<t_Vector, t_Vector> guess;
-    std::get<0>(guess) = static_cast<t_Vector>(phi.adjoint() * target) / nu;
+    std::get<0>(guess) = static_cast<t_Vector>(phi.adjoint() * target) / sq_op_norm;
     std::get<1>(guess) = phi * std::get<0>(guess) - target;
     return guess;
   }
@@ -255,8 +255,8 @@ template <typename SCALAR>
 void ForwardBackward<SCALAR>::iteration_step(t_Vector &image, t_Vector &residual, t_Vector &auxilliary_image,
                                              t_Vector &gradient_current, const t_real FISTA_step) const {
   t_Vector prev_image = image;
-  f_gradient(gradient_current, auxilliary_image, residual, Phi());  // assigns gradient_current
-  t_Vector auxilliary_with_step = auxilliary_image - step_size() / nu() * gradient_current;  // step to new image using gradient
+  f_gradient(gradient_current, auxilliary_image, residual, Phi());  // assigns gradient_current (non normalised)
+  t_Vector auxilliary_with_step = auxilliary_image - step_size() / sq_op_norm() * gradient_current;  // step to new image using gradient
   const Real weight = regulariser_strength() * step_size();
   g_proximal(image, weight, auxilliary_with_step);  // apply proximal operator to new image
   auxilliary_image = image + FISTA_step * (image - prev_image);  // update auxilliary vector with FISTA acceleration step  
