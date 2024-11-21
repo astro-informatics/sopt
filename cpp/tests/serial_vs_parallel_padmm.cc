@@ -87,7 +87,7 @@ TEST_CASE("Parallel vs serial inpainting") {
   auto padmm =
       sopt::algorithm::ImagingProximalADMM<Scalar>(y)
           .itermax(4)
-          .gamma(1e-1)
+          .regulariser_strength(1e-1)
           .relative_variation(5e-4)
           .l2ball_proximal(sopt::proximal::WeightedL2Ball<Scalar>(epsilon).communicator(split_comm))
           .tight_frame(false)
