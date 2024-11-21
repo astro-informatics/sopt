@@ -91,12 +91,12 @@ int main(int argc, char const **argv) {
     sopt::utilities::write_tiff(Matrix::Map(dirty.data(), image.rows(), image.cols()),
                                 "dirty_" + output + ".tiff");
   }
-  sopt::t_real const gamma = (psi.adjoint() * (sampling.adjoint() * y)).real().maxCoeff() * 1e-2;
+  sopt::t_real const regulariser_strength = (psi.adjoint() * (sampling.adjoint() * y)).real().maxCoeff() * 1e-2;
 
   SOPT_HIGH_LOG("Creating primal-dual Functor");
   auto const pd = sopt::algorithm::ImagingPrimalDual<Scalar>(y)
                       .itermax(500)
-                      .gamma(gamma)
+                      .regulariser_strength(regulariser_strength)
                       .tau(0.5)
                       .l2ball_proximal_epsilon(epsilon)
                       .Psi(psi)

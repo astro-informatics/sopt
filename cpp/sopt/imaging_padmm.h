@@ -61,7 +61,7 @@ class ImagingProximalADMM {
         residual_convergence_(nullptr),
         objective_convergence_(nullptr),
         itermax_(std::numeric_limits<t_uint>::max()),
-        gamma_(1e-8),
+        regulariser_strength_(1e-8),
         nu_(1),
         lagrange_update_scale_(0.9),
         is_converged_(),
@@ -109,7 +109,7 @@ class ImagingProximalADMM {
   //! Maximum number of iterations
   SOPT_MACRO(itermax, t_uint);
   //! γ parameter
-  SOPT_MACRO(gamma, Real);
+  SOPT_MACRO(regulariser_strength, Real);
   //! ν parameter
   SOPT_MACRO(nu, Real);
   //! Lagrange update scale β
@@ -257,22 +257,22 @@ class ImagingProximalADMM {
 
   //! Calls l1 proximal operator, checking for real constraints and tight frame
   template <typename T0, typename T1>
-  typename proximal::L1<Scalar>::Diagnostic l1_proximal(Eigen::MatrixBase<T0> &out, Real gamma,
+  typename proximal::L1<Scalar>::Diagnostic l1_proximal(Eigen::MatrixBase<T0> &out, Real regulariser_strength,
                                                         Eigen::MatrixBase<T1> const &x) const {
     return l1_proximal_real_constraint()
-               ? call_l1_proximal(out, gamma, x.real().template cast<typename T1::Scalar>())
-               : call_l1_proximal(out, gamma, x);
+               ? call_l1_proximal(out, regulariser_strength, x.real().template cast<typename T1::Scalar>())
+               : call_l1_proximal(out, regulariser_strength, x);
   }
 
   //! Calls l1 proximal operator, checking for thight frame
   template <typename T0, typename T1>
-  typename proximal::L1<Scalar>::Diagnostic call_l1_proximal(Eigen::MatrixBase<T0> &out, Real gamma,
+  typename proximal::L1<Scalar>::Diagnostic call_l1_proximal(Eigen::MatrixBase<T0> &out, Real regulariser_strength,
                                                              Eigen::MatrixBase<T1> const &x) const {
     if (tight_frame()) {
-      l1_proximal().tight_frame(out, gamma, x);
-      return {0, 0, l1_proximal().objective(x, out, gamma), true};
+      l1_proximal().tight_frame(out, regulariser_strength, x);
+      return {0, 0, l1_proximal().objective(x, out, regulariser_strength), true};
     }
-    return l1_proximal()(out, gamma, x);
+    return l1_proximal()(out, regulariser_strength, x);
   }
 
   //! Helper function to simplify checking convergence
@@ -293,11 +293,11 @@ typename ImagingProximalADMM<SCALAR>::Diagnostic ImagingProximalADMM<SCALAR>::op
   SOPT_HIGH_LOG("Performing Proximal ADMM with L1 and L2 operators");
   // The f proximal is an L1 proximal that stores some diagnostic result
   Diagnostic result;
-  auto const f_proximal = [this, &result](t_Vector &out, Real gamma, t_Vector const &x) {
-    result.l1_diagnostic = this->l1_proximal(out, gamma, x);
+  auto const f_proximal = [this, &result](t_Vector &out, Real regulariser_strength, t_Vector const &x) {
+    result.l1_diagnostic = this->l1_proximal(out, regulariser_strength, x);
   };
-  auto const g_proximal = [this](t_Vector &out, Real gamma, t_Vector const &x) {
-    this->l2ball_proximal()(out, gamma, x);
+  auto const g_proximal = [this](t_Vector &out, Real regulariser_strength, t_Vector const &x) {
+    this->l2ball_proximal()(out, regulariser_strength, x);
   };
   ScalarRelativeVariation<Scalar> scalvar(relative_variation(), relative_variation(),
                                           "Objective function");
@@ -306,7 +306,7 @@ typename ImagingProximalADMM<SCALAR>::Diagnostic ImagingProximalADMM<SCALAR>::op
   };
   auto const padmm = PADMM(f_proximal, g_proximal, target())
                          .itermax(itermax())
-                         .gamma(gamma())
+                         .regulariser_strength(regulariser_strength())
                          .nu(nu())
                          .lagrange_update_scale(lagrange_update_scale())
                          .Phi(Phi())

@@ -19,7 +19,7 @@ int main(int, char const **) {
 
   // Creates the resulting proximal
   // In practice g_0 and g_1 are any functions with the signature
-  // void(t_Vector &output, t_Vector::Scalar gamma, t_Vector const &input)
+  // void(t_Vector &output, t_Vector::Scalar regulariser_strength, t_Vector const &input)
   // They are the proximal of ||x - x_0|| and ||x - x_1||
   auto prox_g0 = sopt::proximal::translate(sopt::proximal::EuclidianNorm(), -target0);
   auto prox_g1 = sopt::proximal::translate(sopt::proximal::EuclidianNorm(), -target1);
@@ -27,7 +27,7 @@ int main(int, char const **) {
   auto padmm = sopt::algorithm::ProximalADMM<t_Scalar>(prox_g0, prox_g1, t_Vector::Zero(N))
                    .itermax(5000)
                    .is_converged(sopt::RelativeVariation<t_Scalar>(1e-12))
-                   .gamma(0.01)
+                   .regulariser_strength(0.01)
                    // Phi == -1, so that we can minimize f(x) + g(x), as per problem definition in
                    // padmm.
                    .Phi(-t_Matrix::Identity(N, N));

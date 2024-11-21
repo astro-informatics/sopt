@@ -33,7 +33,7 @@ SCENARIO("ProximalADMM with warm start", "[padmm][integration]") {
     auto padmm = algorithm::ProximalADMM<Scalar>(g0, g1, t_Vector::Zero(N))
                      .Phi(mId)
                      .itermax(3000)
-                     .gamma(0.5)
+                     .regulariser_strength(0.5)
                      .is_converged(convergence);
 
     WHEN("the algorithms runs") {

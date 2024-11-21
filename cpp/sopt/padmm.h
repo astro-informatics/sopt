@@ -60,7 +60,7 @@ class ProximalADMM {
   ProximalADMM(t_Proximal const &f_proximal, t_Proximal const &g_proximal,
                Eigen::MatrixBase<DERIVED> const &target)
       : itermax_(std::numeric_limits<t_uint>::max()),
-        gamma_(1e-8),
+        regulariser_strength_(1e-8),
         nu_(1),
         lagrange_update_scale_(0.9),
         is_converged_(),
@@ -87,7 +87,7 @@ class ProximalADMM {
   //! Maximum number of iterations
   SOPT_MACRO(itermax, t_uint);
   //! γ parameter
-  SOPT_MACRO(gamma, Real);
+  SOPT_MACRO(regulariser_strength, Real);
   //! ν parameter
   SOPT_MACRO(nu, Real);
   //! Lagrange update scale β
@@ -103,12 +103,12 @@ class ProximalADMM {
   SOPT_MACRO(g_proximal, t_Proximal);
 #undef SOPT_MACRO
   //! \brief Simplifies calling the proximal of f.
-  void f_proximal(t_Vector &out, Real gamma, t_Vector const &x) const {
-    f_proximal()(out, gamma, x);
+  void f_proximal(t_Vector &out, Real regulariser_strength, t_Vector const &x) const {
+    f_proximal()(out, regulariser_strength, x);
   }
   //! \brief Simplifies calling the proximal of f.
-  void g_proximal(t_Vector &out, Real gamma, t_Vector const &x) const {
-    g_proximal()(out, gamma, x);
+  void g_proximal(t_Vector &out, Real regulariser_strength, t_Vector const &x) const {
+    g_proximal()(out, regulariser_strength, x);
   }
 
   //! Convergence function that takes only the output as argument
@@ -229,8 +229,8 @@ class ProximalADMM {
 template <typename SCALAR>
 void ProximalADMM<SCALAR>::iteration_step(t_Vector &out, t_Vector &residual, t_Vector &lambda,
                                           t_Vector &z) const {
-  g_proximal(z, gamma(), -lambda - residual);
-  f_proximal(out, gamma() / nu(),
+  g_proximal(z, regulariser_strength(), -lambda - residual);
+  f_proximal(out, regulariser_strength() / nu(),
              out - static_cast<t_Vector>(Phi().adjoint() * (residual + lambda + z)) / nu());
   residual = static_cast<t_Vector>(Phi() * out - target());
   lambda += lagrange_update_scale() * (residual + z);
