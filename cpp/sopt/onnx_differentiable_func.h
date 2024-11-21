@@ -8,49 +8,6 @@
 #include <exception>
 namespace sopt
 {
-
-    std::vector<float> imageToFloat(sopt::Vector<t_complex> const &image)
-    {
-        std::vector<float> float_image(image.size());
-        for (int i = 0; i < image.size(); i++)
-        {
-            float_image[i] = image[i].real();
-        }
-        return float_image;
-    }
-
-    template<typename T>
-    std::vector<float> imageToFloat(sopt::Vector<T> const &image)
-    {
-        std::vector<float> float_image(image.size());
-        for (int i = 0; i < image.size(); i++)
-        {
-            float_image[i] = static_cast<float>(image[i]);
-        }
-        return float_image;
-    }
-
-    sopt::Vector<t_complex> floatToImage(std::vector<float> const &float_image)
-    {
-        sopt::Vector<t_complex> image(float_image.size());
-        for (int i = 0; i < float_image.size(); i++)
-        {
-            image[i] = t_complex(float_image[i], 0);
-        }
-        return image;
-    }
-
-    template<typename T>
-    sopt::Vector<T> floatToImage(std::vector<float> const &float_image)
-    {
-        sopt::Vector<T> image(float_image.size());
-        for (int i = 0; i < float_image.size(); i++)
-        {
-            image[i] = static_cast<T>(float_image[i]);
-        }
-        return image;
-    }
-
 template<typename SCALAR>
 class ONNXDifferentiableFunc : public DifferentiableFunc<SCALAR> 
 {
