@@ -71,7 +71,7 @@ class ImagingForwardBackward {
         residual_convergence_(nullptr),
         objective_convergence_(nullptr),
         itermax_(std::numeric_limits<t_uint>::max()),
-        gamma_(1e-8),
+        regulariser_strength_(1e-8),
         step_size_(1),
         sigma_(1),
         nu_(1),
@@ -112,7 +112,7 @@ class ImagingForwardBackward {
   //! Maximum number of iterations
   SOPT_MACRO(itermax, t_uint);
   //! γ parameter
-  SOPT_MACRO(gamma, Real);
+  SOPT_MACRO(regulariser_strength, Real);
   //! γ parameter
   SOPT_MACRO(step_size, Real);
   //! γ parameter
@@ -316,7 +316,7 @@ typename ImagingForwardBackward<SCALAR>::Diagnostic ImagingForwardBackward<SCALA
   auto const fb = ForwardBackward<SCALAR>(f_gradient, g_proximal, target())
                       .itermax(itermax())
                       .step_size(gradient_step_size)
-                      .gamma(gamma())
+                      .regulariser_strength(regulariser_strength())
                       .nu(nu())
                       .fista(fista())
                       .Phi(Phi())
@@ -342,8 +342,8 @@ bool ImagingForwardBackward<SCALAR>::objective_convergence(ScalarRelativeVariati
                                                            t_Vector const &residual) const {
   if (static_cast<bool>(objective_convergence())) return objective_convergence()(x, residual);
   if (scalvar.relative_tolerance() <= 0e0) return true;
-  auto const current = ((gamma() > 0) ? g_function_->function(x)
-			* gamma() : 0) + std::pow(sopt::l2_norm(residual), 2) / (2 * sigma() * sigma());
+  auto const current = ((regulariser_strength() > 0) ? g_function_->function(x)
+			* regulariser_strength() : 0) + std::pow(sopt::l2_norm(residual), 2) / (2 * sigma() * sigma());
   return scalvar(current);
 }
 
@@ -356,8 +356,8 @@ bool ImagingForwardBackward<SCALAR>::objective_convergence(mpi::Communicator con
   if (static_cast<bool>(objective_convergence())) return objective_convergence()(x, residual);
   if (scalvar.relative_tolerance() <= 0e0) return true;
   auto const current = obj_comm.all_sum_all<t_real>(
-	((gamma() > 0) ? g_function_->function(x)
-       * gamma() : 0) + std::pow(sopt::l2_norm(residual), 2) / (2 * sigma_ * sigma_));
+	((regulariser_strength() > 0) ? g_function_->function(x)
+       * regulariser_strength() : 0) + std::pow(sopt::l2_norm(residual), 2) / (2 * sigma_ * sigma_));
   return scalvar(current);
 }
 #endif

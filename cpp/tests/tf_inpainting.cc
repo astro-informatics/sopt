@@ -51,14 +51,14 @@ TEST_CASE("Inpainting"){
 
   Eigen::VectorXd dirty_image = sampling.adjoint() * y;
 
-  sopt::t_real constexpr gamma = 100;
+  sopt::t_real constexpr regulariser_strength = 100;
   sopt::t_real const beta = sigma * sigma * 0.5;
 
   auto fb = sopt::algorithm::ImagingForwardBackward<Scalar>(y);
   fb.itermax(500)
     .step_size(beta)    // stepsize
     .sigma(sigma)  // sigma
-    .gamma(gamma)  // regularisation paramater
+    .regulariser_strength(regulariser_strength)  // regularisation paramater
     .fista(false)  // switch to use FISTA algorithm in Forward Backward algorithm, should be false if using learned TF model
     .relative_variation(1e-3)
     .residual_tolerance(0)

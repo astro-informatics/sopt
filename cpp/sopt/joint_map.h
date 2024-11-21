@@ -82,8 +82,8 @@ class JointMAP {
 #undef SOPT_MACRO
  protected:
   //! Checks input makes sense
-  void sanity_check(t_real const &gamma, t_real const beta, t_real const alpha) const {
-    if (gamma < 0) SOPT_THROW("Starting regularisation parameter not positive.");
+  void sanity_check(t_real const &regulariser_strength, t_real const beta, t_real const alpha) const {
+    if (regulariser_strength < 0) SOPT_THROW("Starting regularisation parameter not positive.");
     if (alpha < 0) SOPT_THROW("Alpha parameter not positive.");
     if (beta <= 0) SOPT_THROW("Beta not positive.");
   }
@@ -99,23 +99,23 @@ class JointMAP {
                                             "Regularisation Parameter");
     ScalarRelativeVariation<t_real> objvar(objective_variation(), objective_variation(),
                                            "Joint Objective Function");
-    sanity_check(this->algo_ptr_->gamma(), beta(), alpha());
+    sanity_check(this->algo_ptr_->regulariser_strength(), beta(), alpha());
     t_uint niters(0);
     bool converged = false;
     using ResultType = typename ALGORITHM::DiagnosticAndResult;
     ResultType result = (*(this->algo_ptr_))(std::forward<ARGS>(args)...);
-    t_real gamma = 0;
+    t_real regulariser_strength = 0;
     niters++;
     t_uint algo_iters(result.niters);
     for (; (not converged) && (niters < itermax()); ++niters) {
       SOPT_LOW_LOG("    - [JMAP] Iteration {}/{}", niters, itermax());
-      gamma = (static_cast<t_real>(number_of_wavelet_coeffs()) / k() + alpha()) /
+      regulariser_strength = (static_cast<t_real>(number_of_wavelet_coeffs()) / k() + alpha()) /
               (this->reg_term()(result.x) + beta());
-      SOPT_LOW_LOG("    - [JMAP] Regularisation Parameter Value {}", gamma);
-      algo_ptr_->gamma(gamma);
+      SOPT_LOW_LOG("    - [JMAP] Regularisation Parameter Value {}", regulariser_strength);
+      algo_ptr_->regulariser_strength(regulariser_strength);
       result = (*algo_ptr_)(result);
-      converged = result.good and scalvar(gamma) and objvar(algo_ptr_->objmin()) and
-                  this->is_converged()(result.x, result.residual, gamma);
+      converged = result.good and scalvar(regulariser_strength) and objvar(algo_ptr_->objmin()) and
+                  this->is_converged()(result.x, result.residual, regulariser_strength);
       algo_iters += result.niters;
     }
 
@@ -131,7 +131,7 @@ class JointMAP {
     diagnostic.niters = algo_iters;
     diagnostic.reg_good = converged;
     diagnostic.reg_niters = niters;
-    diagnostic.reg_term = gamma;
+    diagnostic.reg_term = regulariser_strength;
     return diagnostic;
   }
 };

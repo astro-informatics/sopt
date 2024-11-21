@@ -32,10 +32,10 @@ TEST_CASE("Forward Backward with ||x - x0||_2^2 function", "[fb]") {
   using namespace sopt;
   t_Vector const target0 = t_Vector::Random(N);
   t_real constexpr beta = 0.2;
-  t_real constexpr gamma = 0.1;
+  t_real constexpr regulariser_strength = 0.1;
   int constexpr itermax = 300;
-  auto const g0 = [](t_Vector &out, const t_real gamma, const t_Vector &x) {
-    proximal::id(out, gamma, x);
+  auto const g0 = [](t_Vector &out, const t_real regulariser_strength, const t_Vector &x) {
+    proximal::id(out, regulariser_strength, x);
   };
   auto const grad = [](t_Vector &out, const t_Vector image, const t_Vector &res,
                        const t_LinearTransform &Phi) { out = Phi.adjoint() * res; };
@@ -49,7 +49,7 @@ TEST_CASE("Forward Backward with ||x - x0||_2^2 function", "[fb]") {
   CAPTURE(res);
   auto const fb = algorithm::ForwardBackward<Scalar>(grad, g0, target0)
                       .itermax(itermax)
-                      .gamma(gamma)
+                      .regulariser_strength(regulariser_strength)
                       .step_size(beta)
                       .is_converged(convergence);
   auto const result = fb(std::make_tuple(x_guess, res));
@@ -73,7 +73,7 @@ TEST_CASE("Check type returned on setting variables") {
   ImagingForwardBackward<double> fb(Vector<double>::Zero(0).eval());
   CHECK(is_imaging_proximal_ref<decltype(fb.itermax(500))>::value);
   CHECK(is_imaging_proximal_ref<decltype(fb.step_size(1e-1))>::value);
-  CHECK(is_imaging_proximal_ref<decltype(fb.gamma(1e-1))>::value);
+  CHECK(is_imaging_proximal_ref<decltype(fb.regulariser_strength(1e-1))>::value);
   CHECK(is_imaging_proximal_ref<decltype(fb.sigma(1e-1))>::value);
   CHECK(is_imaging_proximal_ref<decltype(fb.residual_convergence(1.001))>::value);
   CHECK(is_imaging_proximal_ref<decltype(fb.target(Vector<double>::Zero(0)))>::value);

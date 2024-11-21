@@ -69,7 +69,7 @@ class ForwardBackward {
   ForwardBackward(t_Gradient const &f_gradient, t_Proximal const &g_proximal,
                   Eigen::MatrixBase<DERIVED> const &target)
       : itermax_(std::numeric_limits<t_uint>::max()),
-        gamma_(1e-8),
+        regulariser_strength_(1e-8),
         step_size_(1),
         nu_(1),
         is_converged_(),
@@ -97,7 +97,7 @@ class ForwardBackward {
   //! Maximum number of iterations
   SOPT_MACRO(itermax, t_uint);
   //! γ parameter
-  SOPT_MACRO(gamma, Real);
+  SOPT_MACRO(regulariser_strength, Real);
   //! β parameter
   SOPT_MACRO(step_size, Real);
   //! ν parameter
@@ -117,8 +117,8 @@ class ForwardBackward {
   //! \brief Simplifies calling the gradient function
   void f_gradient(t_Vector &out, t_Vector const &x, t_Vector const &res, t_LinearTransform const &Phi) const { f_gradient()(out, x, res, Phi); }
   //! \brief Simplifies calling the proximal function
-  void g_proximal(t_Vector &out, Real gamma, t_Vector const &x) const {
-    g_proximal()(out, gamma, x);
+  void g_proximal(t_Vector &out, Real regulariser_strength, t_Vector const &x) const {
+    g_proximal()(out, regulariser_strength, x);
   }
 
   //! Convergence function that takes only the output as argument
@@ -257,7 +257,7 @@ void ForwardBackward<SCALAR>::iteration_step(t_Vector &image, t_Vector &residual
   t_Vector prev_image = image;
   f_gradient(gradient_current, auxilliary_image, residual, Phi());  // assigns gradient_current
   t_Vector auxilliary_with_step = auxilliary_image - step_size() / nu() * gradient_current;  // step to new image using gradient
-  const Real weight = gamma() * step_size();
+  const Real weight = regulariser_strength() * step_size();
   g_proximal(image, weight, auxilliary_with_step);  // apply proximal operator to new image
   auxilliary_image = image + FISTA_step * (image - prev_image);  // update auxilliary vector with FISTA acceleration step  
   residual = (Phi() * auxilliary_image) - target();  // updates the residual for the NEXT iteration (new image).
