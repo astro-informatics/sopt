@@ -1,7 +1,6 @@
-#ifndef ONNX_DIFFERENTIABLE_FUNC
-#define ONNX_DIFFERENTIABLE_FUNC
+#ifndef L2_DIFFERENTIABLE_FUNC
+#define L2_DIFFERENTIABLE_FUNC
 
-#include "sopt/ort_session.h"
 #include "sopt/differentiable_func.h"
 
 namespace sopt
@@ -29,12 +28,12 @@ class L2DifferentiableFunc : public DifferentiableFunc<SCALAR>
     }
 
     void gradient(Vector &output, const Vector &image, const Vector &residual,
-                  const LinearTransform &Phi) const override 
+                  const LinearTransform &Phi) override 
     {
       output = Phi.adjoint() * (residual / (sigma * sigma));  // L2 norm
     }
 
-    Real function(Vector const &image, Vector const &y, LinearTransform const &Phi) const override
+    Real function(Vector const &image, Vector const &y, LinearTransform const &Phi) override
     {
         // Does this need to be modified to take into account MPI?
         Real Likelihood = 0.5 * ((Phi*image) - y).squaredNorm() / (sigma * sigma);
