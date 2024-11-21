@@ -71,7 +71,7 @@ class L2ForwardBackward {
         objective_convergence_(nullptr),
         itermax_(std::numeric_limits<t_uint>::max()),
         regulariser_strength_(1e-8),
-        beta_(1),
+        step_size_(1),
         sigma_(1),
         sq_op_norm_(1),
         is_converged_(),
@@ -120,7 +120,7 @@ class L2ForwardBackward {
   //! γ parameter
   SOPT_MACRO(regulariser_strength, Real);
   //! γ parameter
-  SOPT_MACRO(beta, Real);
+  SOPT_MACRO(step_size, Real);
   //! γ parameter
   SOPT_MACRO(sigma, Real);
   //! ν parameter
@@ -278,7 +278,7 @@ typename L2ForwardBackward<SCALAR>::Diagnostic L2ForwardBackward<SCALAR>::operat
   };
   auto const fb = ForwardBackward<SCALAR>(f_gradient, g_proximal, target())
                       .itermax(itermax())
-                      .step_size(beta())
+                      .step_size(step_size())
                       .regulariser_strength(regulariser_strength())
                       .sq_op_norm(sq_op_norm())
                       .Phi(Phi())
