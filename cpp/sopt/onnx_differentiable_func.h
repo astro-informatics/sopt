@@ -36,7 +36,7 @@ class ONNXDifferentiableFunc : public DifferentiableFunc<SCALAR>
             SOPT_MEDIUM_LOG("Lipschitz Constant for CRR = {}", L_CRR);
             SOPT_MEDIUM_LOG("Step size for CRR = {}", this->step_size);
         }
-        catch(std::exception e)
+        catch(const std::exception &e)
         {
           SOPT_HIGH_LOG(
               "Failed to find a Lipschitz constant for the current model. Please ensure that the "
