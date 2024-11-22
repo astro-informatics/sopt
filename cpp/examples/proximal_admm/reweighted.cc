@@ -86,7 +86,7 @@ int main(int argc, char const **argv) {
   SOPT_MEDIUM_LOG("Creating proximal-ADMM Functor");
   auto const padmm = sopt::algorithm::ImagingProximalADMM<Scalar>(y)
                          .itermax(500)
-                         .gamma(1e-1)
+                         .regulariser_strength(1e-1)
                          .relative_variation(5e-4)
                          .l2ball_proximal_epsilon(epsilon)
                          .tight_frame(false)
@@ -97,7 +97,7 @@ int main(int argc, char const **argv) {
                          .l1_proximal_real_constraint(true)
                          .residual_convergence(epsilon * 1.001)
                          .lagrange_update_scale(0.9)
-                         .nu(1e0)
+                         .sq_op_norm(1e0)
                          .Psi(psi)
                          .Phi(sampling);
 

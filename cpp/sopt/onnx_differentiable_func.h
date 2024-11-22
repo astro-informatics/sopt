@@ -5,51 +5,9 @@
 #include "sopt/differentiable_func.h"
 #include <vector>
 #include <array>
+#include <exception>
 namespace sopt
 {
-
-    std::vector<float> imageToFloat(sopt::Vector<t_complex> const &image)
-    {
-        std::vector<float> float_image(image.size());
-        for (int i = 0; i < image.size(); i++)
-        {
-            float_image[i] = image[i].real();
-        }
-        return float_image;
-    }
-
-    template<typename T>
-    std::vector<float> imageToFloat(sopt::Vector<T> const &image)
-    {
-        std::vector<float> float_image(image.size());
-        for (int i = 0; i < image.size(); i++)
-        {
-            float_image[i] = static_cast<float>(image[i]);
-        }
-        return float_image;
-    }
-
-    sopt::Vector<t_complex> floatToImage(std::vector<float> const &float_image)
-    {
-        sopt::Vector<t_complex> image(float_image.size());
-        for (int i = 0; i < float_image.size(); i++)
-        {
-            image[i] = t_complex(float_image[i], 0);
-        }
-        return image;
-    }
-
-    template<typename T>
-    sopt::Vector<T> floatToImage(std::vector<float> const &float_image)
-    {
-        sopt::Vector<T> image(float_image.size());
-        for (int i = 0; i < float_image.size(); i++)
-        {
-            image[i] = static_cast<T>(float_image[i]);
-        }
-        return image;
-    }
-
 template<typename SCALAR>
 class ONNXDifferentiableFunc : public DifferentiableFunc<SCALAR> 
 {
@@ -69,7 +27,24 @@ class ONNXDifferentiableFunc : public DifferentiableFunc<SCALAR>
                                                               function_model(function_model_path),
                                                               gradient_model(gradient_model_path)
     {
+        Real L_CRR;  // Lipschitz constant
         if(dimensions.empty()) infer_square_dimensions = true;
+        try
+        {
+            L_CRR = gradient_model.retrieve<double>("L_CRR");
+            this->step_size = 0.98 / (1/(sigma*sigma) + mu * lambda * L_CRR);
+            SOPT_MEDIUM_LOG("Lipschitz Constant for CRR = {}", L_CRR);
+            SOPT_MEDIUM_LOG("Step size for CRR = {}", this->step_size);
+        }
+        catch(const std::exception &e)
+        {
+          SOPT_HIGH_LOG(
+              "Failed to find a Lipschitz constant for the current model. Please ensure that the "
+              "Lipschitz constant is included in the gradient model meta-data with the key "
+              "\"L_CRR\". Setting step size to 1 by default.");
+          SOPT_HIGH_LOG("Exception message retrieving L_CRR: {}", e.what());
+          this->step_size = 1;
+        }
     }
 
     void log_message() const override
@@ -84,8 +59,8 @@ class ONNXDifferentiableFunc : public DifferentiableFunc<SCALAR>
 
       output = Phi.adjoint() * (residual / (sigma * sigma));  // L2 norm
       Vector scaled_image = image * mu;
-      std::vector<float> float_image = imageToFloat(scaled_image);      
-      Vector ANN_gradient = floatToImage<SCALAR>(gradient_model.compute(float_image, dimensions));  // regulariser
+      std::vector<float> float_image = utilities::imageToFloat(scaled_image);      
+      Vector ANN_gradient = utilities::floatToImage<SCALAR>(gradient_model.compute(float_image, dimensions));  // regulariser
       output += (ANN_gradient * lambda);
     }
 
@@ -107,11 +82,10 @@ class ONNXDifferentiableFunc : public DifferentiableFunc<SCALAR>
     Real function(Vector const &image, Vector const &y, LinearTransform const &Phi) override
     {
         if(infer_square_dimensions) infer_dimensions(image.size());
-        // Does this need to be modified to take into account MPI?
         Real Likelihood = 0.5 * ((Phi*image) - y).squaredNorm() / (sigma * sigma);
         Vector scaled_image = image * mu;
-        std::vector<float> float_image = imageToFloat(scaled_image);
-        Real Prior = (lambda / mu) * (function_model.compute(float_image, dimensions)[0]); // Is this correct?
+        std::vector<float> float_image = utilities::imageToFloat(scaled_image);
+        Real Prior = (lambda / mu) * (function_model.compute(float_image, dimensions)[0]);
         return Likelihood + Prior;
     }
 

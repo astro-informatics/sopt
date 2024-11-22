@@ -85,14 +85,14 @@ int main(int argc, char const **argv) {
                                 "dirty_" + output + ".tiff");
   }
   constexpr sopt::t_real x_sigma = 1.;
-  sopt::t_real constexpr gamma = 1. / (x_sigma * x_sigma * 2);
-  sopt::t_real const beta = sigma * sigma * 0.5;
+  sopt::t_real constexpr regulariser_strength = 1. / (x_sigma * x_sigma * 2);
+  sopt::t_real const step_size = sigma * sigma * 0.5;
   SOPT_HIGH_LOG("Creating Foward Backward Functor");
   auto const fb = sopt::algorithm::L2ForwardBackward<Scalar>(y)
                       .itermax(500)
-                      .beta(beta)    // stepsize
+                      .step_size(step_size)    // stepsize
                       .sigma(sigma)  // sigma
-                      .gamma(gamma)  // regularisation paramater
+                      .regulariser_strength(regulariser_strength)  // regularisation paramater
                       .relative_variation(1e-3)
                       .residual_tolerance(0)
                       .tight_frame(true)

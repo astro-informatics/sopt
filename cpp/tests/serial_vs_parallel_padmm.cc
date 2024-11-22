@@ -87,7 +87,7 @@ TEST_CASE("Parallel vs serial inpainting") {
   auto padmm =
       sopt::algorithm::ImagingProximalADMM<Scalar>(y)
           .itermax(4)
-          .gamma(1e-1)
+          .regulariser_strength(1e-1)
           .relative_variation(5e-4)
           .l2ball_proximal(sopt::proximal::WeightedL2Ball<Scalar>(epsilon).communicator(split_comm))
           .tight_frame(false)
@@ -97,7 +97,7 @@ TEST_CASE("Parallel vs serial inpainting") {
           .l1_proximal_positivity_constraint(true)
           .l1_proximal_real_constraint(true)
           .lagrange_update_scale(0.9)
-          .nu(1e0)
+          .sq_op_norm(1e0)
           .Psi(psi);
   LinearTransform<Vector> const parallel_sampling(
       [&sampling](Vector &out, Vector const &input) { out = sampling * input; }, sampling.sizes(),

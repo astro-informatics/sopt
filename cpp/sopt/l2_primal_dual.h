@@ -71,7 +71,7 @@ class ImagingPrimalDual {
         precondition_iters_(0),
         xi_(1),
         rho_(1),
-        nu_(1),
+        sq_op_norm_(1),
         is_converged_(),
         Phi_(linear_transform_identity<Scalar>()),
         Psi_(linear_transform_identity<Scalar>()),
@@ -132,7 +132,7 @@ class ImagingPrimalDual {
   //! rho parameter
   SOPT_MACRO(rho, Real);
   //! ν parameter
-  SOPT_MACRO(nu, Real);
+  SOPT_MACRO(sq_op_norm, Real);
   //! precondtion step size parameter
   SOPT_MACRO(precondition_stepsize, Real);
   //! precondition weights parameter
@@ -169,7 +169,7 @@ class ImagingPrimalDual {
   //! \brief Calls Primal Dual
   //! \param[out] out: Output vector x
   Diagnostic operator()(t_Vector &out) const {
-    return operator()(out, PD::initial_guess(target(), Phi(), nu()));
+    return operator()(out, PD::initial_guess(target(), Phi(), sq_op_norm()));
   }
   //! \brief Calls Primal Dual
   //! \param[out] out: Output vector x
@@ -202,7 +202,7 @@ class ImagingPrimalDual {
   DiagnosticAndResult operator()() const {
     DiagnosticAndResult result;
     static_cast<Diagnostic &>(result) = operator()(result.x,
-                                                   PD::initial_guess(target(), Phi(), nu()));
+                                                   PD::initial_guess(target(), Phi(), sq_op_norm()));
     return result;
   }
   //! Makes it simple to chain different calls to PD
@@ -346,7 +346,7 @@ typename ImagingPrimalDual<SCALAR>::Diagnostic ImagingPrimalDual<SCALAR>::operat
                       .update_scale(update_scale())
                       .xi(xi())
                       .rho(rho())
-                      .nu(nu())
+                      .sq_op_norm(sq_op_norm())
                       .gamma(gamma())
                       .Phi(Phi())
                       .Psi(Psi())

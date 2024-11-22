@@ -54,14 +54,14 @@ TEST_CASE("Primal Dual Inpainting"){
 
   Eigen::VectorXd dirty_image = sampling.adjoint() * y;
 
-  sopt::t_real const gamma = (psi.adjoint() * (sampling.adjoint() * y)).real().maxCoeff() * 1e-2;
+  sopt::t_real const regulariser_strength = (psi.adjoint() * (sampling.adjoint() * y)).real().maxCoeff() * 1e-2;
 
   auto pd = sopt::algorithm::ImagingPrimalDual<Scalar>(y)
                         .Phi(sampling)
                         .Psi(psi)
                         .itermax(500)
                         .tau(0.5)
-                        .gamma(gamma)
+                        .regulariser_strength(regulariser_strength)
                         .l2ball_proximal_epsilon(epsilon)
                         .relative_variation(5e-4)
                         .residual_convergence(epsilon)

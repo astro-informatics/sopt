@@ -71,10 +71,10 @@ class ImagingForwardBackward {
         residual_convergence_(nullptr),
         objective_convergence_(nullptr),
         itermax_(std::numeric_limits<t_uint>::max()),
-        gamma_(1e-8),
-        beta_(1),
+        regulariser_strength_(1e-8),
+        step_size_(1),
         sigma_(1),
-        nu_(1),
+        sq_op_norm_(1),
         fista_(true),
         is_converged_(),
         Phi_(linear_transform_identity<Scalar>()),
@@ -112,13 +112,13 @@ class ImagingForwardBackward {
   //! Maximum number of iterations
   SOPT_MACRO(itermax, t_uint);
   //! γ parameter
-  SOPT_MACRO(gamma, Real);
+  SOPT_MACRO(regulariser_strength, Real);
   //! γ parameter
-  SOPT_MACRO(beta, Real);
+  SOPT_MACRO(step_size, Real);
   //! γ parameter
   SOPT_MACRO(sigma, Real);
   //! ν parameter
-  SOPT_MACRO(nu, Real);
+  SOPT_MACRO(sq_op_norm, Real);
   //! flag to for FISTA Forward-Backward algorithm. True by default but should be false when using a learned g_function.
   SOPT_MACRO(fista, bool);
   //! A function verifying convergence
@@ -181,7 +181,7 @@ class ImagingForwardBackward {
   //! \brief Calls Forward Backward
   //! \param[out] out: Output vector x
   Diagnostic operator()(t_Vector &out) const {
-    return operator()(out, ForwardBackward<SCALAR>::initial_guess(target(), Phi(), nu()));
+    return operator()(out, ForwardBackward<SCALAR>::initial_guess(target(), Phi(), sq_op_norm()));
   }
   //! \brief Calls Forward Backward
   //! \param[out] out: Output vector x
@@ -214,7 +214,7 @@ class ImagingForwardBackward {
   DiagnosticAndResult operator()()  {
     DiagnosticAndResult result;
     static_cast<Diagnostic &>(result) = operator()(
-        result.x, ForwardBackward<SCALAR>::initial_guess(target(), Phi(), nu()));
+        result.x, ForwardBackward<SCALAR>::initial_guess(target(), Phi(), sq_op_norm()));
     return result;
   }
   //! Makes it simple to chain different calls to FB
@@ -292,13 +292,19 @@ typename ImagingForwardBackward<SCALAR>::Diagnostic ImagingForwardBackward<SCALA
   Diagnostic result;
   auto const g_proximal = g_function_->proximal_operator();
   t_Gradient f_gradient;
-  if(f_function_) f_gradient = f_function_->gradient();
+  Real gradient_step_size;
+  if(f_function_)
+  {
+    f_gradient = f_function_->gradient();
+    gradient_step_size = f_function_->get_step_size();
+  }
   if(!f_gradient)
   {
-    SOPT_HIGH_LOG("Gradient function has not been set; using default (gaussian likelihood) gradient. (To set a custom gradient set_gradient() must be called before the algorithm is run.)");
+    SOPT_MEDIUM_LOG("Gradient function has not been set; using default (gaussian likelihood) gradient. (To set a custom gradient set_gradient() must be called before the algorithm is run.)");
     f_gradient = [this](t_Vector &output, t_Vector const &x, t_Vector const &residual, t_LinearTransform const &Phi) {
       output = Phi.adjoint() * (residual / (this->sigma() * this->sigma()));
     };
+    gradient_step_size = sigma()*sigma();
   }
   ScalarRelativeVariation<Scalar> scalvar(relative_variation(), relative_variation(),
                                           "Objective function");
@@ -309,9 +315,9 @@ typename ImagingForwardBackward<SCALAR>::Diagnostic ImagingForwardBackward<SCALA
   };
   auto const fb = ForwardBackward<SCALAR>(f_gradient, g_proximal, target())
                       .itermax(itermax())
-                      .beta(beta())
-                      .gamma(gamma())
-                      .nu(nu())
+                      .step_size(gradient_step_size)
+                      .regulariser_strength(regulariser_strength())
+                      .sq_op_norm(sq_op_norm())
                       .fista(fista())
                       .Phi(Phi())
                       .is_converged(convergence);
@@ -336,8 +342,8 @@ bool ImagingForwardBackward<SCALAR>::objective_convergence(ScalarRelativeVariati
                                                            t_Vector const &residual) const {
   if (static_cast<bool>(objective_convergence())) return objective_convergence()(x, residual);
   if (scalvar.relative_tolerance() <= 0e0) return true;
-  auto const current = ((gamma() > 0) ? g_function_->function(x)
-			* gamma() : 0) + std::pow(sopt::l2_norm(residual), 2) / (2 * sigma() * sigma());
+  auto const current = ((regulariser_strength() > 0) ? g_function_->function(x)
+			* regulariser_strength() : 0) + std::pow(sopt::l2_norm(residual), 2) / (2 * sigma() * sigma());
   return scalvar(current);
 }
 
@@ -350,8 +356,8 @@ bool ImagingForwardBackward<SCALAR>::objective_convergence(mpi::Communicator con
   if (static_cast<bool>(objective_convergence())) return objective_convergence()(x, residual);
   if (scalvar.relative_tolerance() <= 0e0) return true;
   auto const current = obj_comm.all_sum_all<t_real>(
-	((gamma() > 0) ? g_function_->function(x)
-       * gamma() : 0) + std::pow(sopt::l2_norm(residual), 2) / (2 * sigma_ * sigma_));
+	((regulariser_strength() > 0) ? g_function_->function(x)
+       * regulariser_strength() : 0) + std::pow(sopt::l2_norm(residual), 2) / (2 * sigma_ * sigma_));
   return scalvar(current);
 }
 #endif

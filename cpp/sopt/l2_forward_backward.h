@@ -53,12 +53,12 @@ class L2ForwardBackward {
   //! \param[in] g_proximal: proximal operator of the \f$g\f$ function
   template <typename DERIVED>
   L2ForwardBackward(Eigen::MatrixBase<DERIVED> const &target)
-      : l2_proximal_([](t_Vector &output, const t_real &gamma, const t_Vector &x) -> void {
-          proximal::l2_norm(output, gamma, x);
+      : l2_proximal_([](t_Vector &output, const t_real &regulariser_strength, const t_Vector &x) -> void {
+          proximal::l2_norm(output, regulariser_strength, x);
         }),
         l2_proximal_weighted_(
-            [](t_Vector &output, const Vector<Real> &gamma, const t_Vector &x) -> void {
-              proximal::l2_norm(output, gamma, x);
+            [](t_Vector &output, const Vector<Real> &regulariser_strength, const t_Vector &x) -> void {
+              proximal::l2_norm(output, regulariser_strength, x);
             }),
         l2_proximal_weights_(Vector<Real>::Ones(1)),
         l2_gradient_([](t_Vector &output, t_Vector const &image, const t_Vector &residual, const t_LinearTransform &Phi) -> void {
@@ -70,10 +70,10 @@ class L2ForwardBackward {
         residual_convergence_(nullptr),
         objective_convergence_(nullptr),
         itermax_(std::numeric_limits<t_uint>::max()),
-        gamma_(1e-8),
-        beta_(1),
+        regulariser_strength_(1e-8),
+        step_size_(1),
         sigma_(1),
-        nu_(1),
+        sq_op_norm_(1),
         is_converged_(),
         Phi_(linear_transform_identity<Scalar>()),
         target_(target) {}
@@ -118,13 +118,13 @@ class L2ForwardBackward {
   //! Maximum number of iterations
   SOPT_MACRO(itermax, t_uint);
   //! γ parameter
-  SOPT_MACRO(gamma, Real);
+  SOPT_MACRO(regulariser_strength, Real);
   //! γ parameter
-  SOPT_MACRO(beta, Real);
+  SOPT_MACRO(step_size, Real);
   //! γ parameter
   SOPT_MACRO(sigma, Real);
   //! ν parameter
-  SOPT_MACRO(nu, Real);
+  SOPT_MACRO(sq_op_norm, Real);
   //! A function verifying convergence
   SOPT_MACRO(is_converged, t_IsConverged);
   //! Measurement operator
@@ -149,7 +149,7 @@ class L2ForwardBackward {
   //! \brief Calls Forward Backward
   //! \param[out] out: Output vector x
   Diagnostic operator()(t_Vector &out) const {
-    return operator()(out, ForwardBackward<SCALAR>::initial_guess(target(), Phi(), nu()));
+    return operator()(out, ForwardBackward<SCALAR>::initial_guess(target(), Phi(), sq_op_norm()));
   }
   //! \brief Calls Forward Backward
   //! \param[out] out: Output vector x
@@ -182,7 +182,7 @@ class L2ForwardBackward {
   DiagnosticAndResult operator()() const {
     DiagnosticAndResult result;
     static_cast<Diagnostic &>(result) = operator()(
-        result.x, ForwardBackward<SCALAR>::initial_guess(target(), Phi(), nu()));
+        result.x, ForwardBackward<SCALAR>::initial_guess(target(), Phi(), sq_op_norm()));
     return result;
   }
   //! Makes it simple to chain different calls to FB
@@ -257,11 +257,11 @@ typename L2ForwardBackward<SCALAR>::Diagnostic L2ForwardBackward<SCALAR>::operat
   SOPT_HIGH_LOG("Performing Forward Backward with L2 and L2 norms");
   // The f proximal is an L2 proximal
   Diagnostic result;
-  auto const g_proximal = [this](t_Vector &out, Real gamma, t_Vector const &x) {
+  auto const g_proximal = [this](t_Vector &out, Real regulariser_strength, t_Vector const &x) {
     if (this->l2_proximal_weights().size() > 1)
-      this->l2_proximal_weighted()(out, this->l2_proximal_weights() * gamma, x);
+      this->l2_proximal_weighted()(out, this->l2_proximal_weights() * regulariser_strength, x);
     else
-      this->l2_proximal()(out, this->l2_proximal_weights()(0) * gamma, x);
+      this->l2_proximal()(out, this->l2_proximal_weights()(0) * regulariser_strength, x);
   };
   const Real sigma_factor = sigma() * sigma();
   const t_Gradient f_gradient = [sigma_factor](t_Vector &out, t_Vector const &image, t_Vector const &res, t_LinearTransform const &Phi) {
@@ -278,9 +278,9 @@ typename L2ForwardBackward<SCALAR>::Diagnostic L2ForwardBackward<SCALAR>::operat
   };
   auto const fb = ForwardBackward<SCALAR>(f_gradient, g_proximal, target())
                       .itermax(itermax())
-                      .beta(beta())
-                      .gamma(gamma())
-                      .nu(nu())
+                      .step_size(step_size())
+                      .regulariser_strength(regulariser_strength())
+                      .sq_op_norm(sq_op_norm())
                       .Phi(Phi())
                       .is_converged(convergence);
   static_cast<typename ForwardBackward<SCALAR>::Diagnostic &>(result) =
@@ -304,7 +304,7 @@ bool L2ForwardBackward<SCALAR>::objective_convergence(ScalarRelativeVariation<Sc
                                                            t_Vector const &residual) const {
   if (static_cast<bool>(objective_convergence())) return objective_convergence()(x, residual);
   if (scalvar.relative_tolerance() <= 0e0) return true;
-  auto const current = ((gamma() > 0) ? sopt::l2_norm(x, l2_proximal_weights()) * gamma() : 0) +
+  auto const current = ((regulariser_strength() > 0) ? sopt::l2_norm(x, l2_proximal_weights()) * regulariser_strength() : 0) +
                        std::pow(sopt::l2_norm(residual), 2) / (2 * sigma() * sigma());
   return scalvar(current);
 }
@@ -318,7 +318,7 @@ bool L2ForwardBackward<SCALAR>::objective_convergence(mpi::Communicator const &o
   if (static_cast<bool>(objective_convergence())) return objective_convergence()(x, residual);
   if (scalvar.relative_tolerance() <= 0e0) return true;
   auto const current = obj_comm.all_sum_all<t_real>(
-      ((gamma() > 0) ? sopt::l2_norm(x, l2_proximal_weights()) * gamma() : 0) +
+      ((regulariser_strength() > 0) ? sopt::l2_norm(x, l2_proximal_weights()) * regulariser_strength() : 0) +
       std::pow(sopt::l2_norm(residual), 2) / (2 * sigma() * sigma()));
   return scalvar(current);
 }
