@@ -14,9 +14,9 @@ class IterationState {
   public:
   IterationState() = delete;
 
-  IterationState(const T& target_vis,
+  IterationState(const T& target,
                  std::shared_ptr<sopt::LinearTransform<T>> phi)
-                 : _target(target_vis) {
+                 : _target(target) {
     _phi = phi;
   }
 
