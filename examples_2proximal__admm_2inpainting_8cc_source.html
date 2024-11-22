@@ -165,7 +165,7 @@ $(function() {
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  <a class="code" href="logging_8h.html#a5bb43e65962554be1a16134dc4d0dba0">SOPT_HIGH_LOG</a>(<span class="stringliteral">&quot;Creating proximal-ADMM Functor&quot;</span>);</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> padmm = <a class="code" href="classsopt_1_1algorithm_1_1ImagingProximalADMM.html">sopt::algorithm::ImagingProximalADMM&lt;Scalar&gt;</a>(y)</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                         .itermax(500)</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                         .gamma(1e-1)</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                         .regulariser_strength(1e-1)</div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                         .relative_variation(5e-4)</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                         .l2ball_proximal_epsilon(<a class="code" href="namespacesopt.html#a974f99e567f8ac05a0fe5e50fbfd215b">epsilon</a>)</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                         .tight_frame(<span class="keyword">false</span>)</div>
@@ -176,7 +176,7 @@ $(function() {
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                         .l1_proximal_real_constraint(<span class="keyword">true</span>)</div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                         .<a class="code" href="classsopt_1_1algorithm_1_1ImagingProximalADMM.html#a99bfcc4355c8eae813fe6aeedd1c4850">residual_convergence</a>(<a class="code" href="namespacesopt.html#a974f99e567f8ac05a0fe5e50fbfd215b">epsilon</a> * 1.001)</div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;                         .lagrange_update_scale(0.9)</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;                         .nu(1e0)</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;                         .sq_op_norm(1e0)</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                         .Psi(psi)</div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;                         .Phi(sampling);</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>

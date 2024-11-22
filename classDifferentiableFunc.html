@@ -117,6 +117,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aef00f0d9657b1bf19e93770331b57a7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae4131d643db9981937e21d78ba618b5e"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classDifferentiableFunc.html#a641dc427a46526bd41c9bf2ecb87f953">Real</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDifferentiableFunc.html#ae4131d643db9981937e21d78ba618b5e">function</a> (<a class="el" href="classDifferentiableFunc.html#ac648e81c90fd51eeab756947f60a403c">t_Vector</a> const &amp;image, <a class="el" href="classDifferentiableFunc.html#ac648e81c90fd51eeab756947f60a403c">t_Vector</a> const &amp;y, <a class="el" href="classDifferentiableFunc.html#a1320a8e7b865ad2d41d126f49d33f86d">t_LinearTransform</a> const &amp;Phi)=0</td></tr>
 <tr class="separator:ae4131d643db9981937e21d78ba618b5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a914e74c74a25efc341a60586de538a99"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classDifferentiableFunc.html#a641dc427a46526bd41c9bf2ecb87f953">Real</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDifferentiableFunc.html#a914e74c74a25efc341a60586de538a99">get_step_size</a> () const</td></tr>
+<tr class="separator:a914e74c74a25efc341a60586de538a99"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename SCALAR&gt;<br />
@@ -258,8 +260,40 @@ template&lt;typename SCALAR &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classsopt_1_1ONNXDifferentiableFunc.html#acef8ed6d6da8eab134c5143ce6da9c75">sopt::ONNXDifferentiableFunc&lt; SCALAR &gt;</a>.</p>
+<p>Implemented in <a class="el" href="classsopt_1_1ONNXDifferentiableFunc.html#acef8ed6d6da8eab134c5143ce6da9c75">sopt::ONNXDifferentiableFunc&lt; SCALAR &gt;</a>, and <a class="el" href="classsopt_1_1L2DifferentiableFunc.html#ae684d6610f31972aa3924e3d40badebc">sopt::L2DifferentiableFunc&lt; SCALAR &gt;</a>.</p>
 
+</div>
+</div>
+<a id="a914e74c74a25efc341a60586de538a99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a914e74c74a25efc341a60586de538a99">&#9670;&nbsp;</a></span>get_step_size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename SCALAR &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classDifferentiableFunc.html#a641dc427a46526bd41c9bf2ecb87f953">Real</a> <a class="el" href="classDifferentiableFunc.html">DifferentiableFunc</a>&lt; SCALAR &gt;::get_step_size </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="differentiable__func_8h_source.html#l00038">38</a> of file <a class="el" href="differentiable__func_8h_source.html">differentiable_func.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  {</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordflow">return</span> step_size;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  }</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="abb7a36fd55cadefc2a949c797ce792d9"></a>
@@ -346,7 +380,7 @@ template&lt;typename SCALAR &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classsopt_1_1ONNXDifferentiableFunc.html#a66100b7db12b5ae68ec4735b8dc1df50">sopt::ONNXDifferentiableFunc&lt; SCALAR &gt;</a>.</p>
+<p>Implemented in <a class="el" href="classsopt_1_1ONNXDifferentiableFunc.html#a66100b7db12b5ae68ec4735b8dc1df50">sopt::ONNXDifferentiableFunc&lt; SCALAR &gt;</a>, and <a class="el" href="classsopt_1_1L2DifferentiableFunc.html#ac6c72f6038562c9730d64936735af2b2">sopt::L2DifferentiableFunc&lt; SCALAR &gt;</a>.</p>
 
 </div>
 </div>

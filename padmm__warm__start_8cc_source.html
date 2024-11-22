@@ -114,7 +114,7 @@ $(function() {
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">auto</span> padmm = <a class="code" href="classsopt_1_1algorithm_1_1ProximalADMM.html">algorithm::ProximalADMM&lt;Scalar&gt;</a>(g0, g1, t_Vector::Zero(<a class="code" href="padmm__warm__start_8cc.html#abf5832df28c04314f2887376d47dca71">N</a>))</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;                     .<a class="code" href="classsopt_1_1algorithm_1_1ProximalADMM.html#a9362a4dc424daf8e707372f79c5648b2">Phi</a>(mId)</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                     .itermax(3000)</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                     .gamma(0.5)</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                     .regulariser_strength(0.5)</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                     .<a class="code" href="classsopt_1_1algorithm_1_1ProximalADMM.html#a37ba0ed391b2a76b28eb35602a027a07">is_converged</a>(convergence);</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    WHEN(<span class="stringliteral">&quot;the algorithms runs&quot;</span>) {</div>

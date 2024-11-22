@@ -148,7 +148,7 @@ $(function() {
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  <span class="keyword">auto</span> init_res_norm = init_res.array().abs().sum();</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  <a class="code" href="logging_8h.html#a5bb43e65962554be1a16134dc4d0dba0">SOPT_HIGH_LOG</a>(<span class="stringliteral">&quot;Initial residual norm: {}&quot;</span>, init_res_norm);</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  <a class="code" href="namespacesopt.html#a71bfb8f70b432862d3d654b9dcff77cc">sopt::t_real</a> constexpr gamma = 18;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  <a class="code" href="namespacesopt.html#a71bfb8f70b432862d3d654b9dcff77cc">sopt::t_real</a> constexpr regulariser_strength = 18;</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  <a class="code" href="namespacesopt.html#a71bfb8f70b432862d3d654b9dcff77cc">sopt::t_real</a> <span class="keyword">const</span> beta = <a class="code" href="namespacesopt.html#ad7fbfa0f1f262d124020ccaf5e6cb573">sigma</a> * <a class="code" href="namespacesopt.html#ad7fbfa0f1f262d124020ccaf5e6cb573">sigma</a> * 0.5;</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  <span class="comment">// Arbitrary (absolute) tolerance level to produce a reasonable image which converges</span></div>
@@ -161,9 +161,9 @@ $(function() {
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  <span class="keyword">auto</span> fb = <a class="code" href="classsopt_1_1algorithm_1_1ImagingForwardBackward.html">sopt::algorithm::ImagingForwardBackward&lt;Scalar&gt;</a>(y);</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  fb.itermax(500)</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    .beta(beta)    <span class="comment">// stepsize</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    .step_size(beta)    <span class="comment">// stepsize</span></div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    .sigma(<a class="code" href="namespacesopt.html#ad7fbfa0f1f262d124020ccaf5e6cb573">sigma</a>)  <span class="comment">// sigma</span></div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    .gamma(gamma)  <span class="comment">// regularisation paramater</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    .regulariser_strength(regulariser_strength)  <span class="comment">// regularisation paramater</span></div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    .relative_variation(1e-3)</div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    .residual_tolerance(0)</div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    .tight_frame(<span class="keyword">true</span>)</div>
@@ -174,7 +174,7 @@ $(function() {
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;  fb.f_function(diff_function);</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  <span class="comment">// Create a shared pointer to the real indicator (non differentiable) function</span></div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  <span class="keyword">auto</span> non_diff_func = std::make_shared&lt;RealIndicator&lt;Scalar&gt;&gt;();</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  <span class="keyword">auto</span> non_diff_func = std::make_shared&lt;sopt::algorithm::RealIndicator&lt;Scalar&gt;&gt;();</div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;  <span class="comment">// Inject it into the ImagingForwardBackward object</span></div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;  fb.g_function(non_diff_func);</div>

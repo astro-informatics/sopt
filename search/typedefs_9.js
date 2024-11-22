@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['ndf_1101',['NDF',['../classRealIndicator.html#a06c35208b03e9ba4e46cf9d4d4237445',1,'RealIndicator']]]
+  ['ndf_1102',['NDF',['../classsopt_1_1algorithm_1_1RealIndicator.html#a6562972ac63156fefd57e7987bb6384f',1,'sopt::algorithm::RealIndicator']]]
 ];

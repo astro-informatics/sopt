@@ -105,6 +105,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a2ebafd0ab3d0c68fa51b2b5045f6a408"><td class="memTemplItemLeft" align="right" valign="top">std::vector&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacesopt_1_1utilities.html#a2ebafd0ab3d0c68fa51b2b5045f6a408">split</a> (std::string s, const std::string &amp;sep)</td></tr>
 <tr class="memdesc:a2ebafd0ab3d0c68fa51b2b5045f6a408"><td class="mdescLeft">&#160;</td><td class="mdescRight">Split a string on a specified delimiter with optional cast to another type.  <a href="namespacesopt_1_1utilities.html#a2ebafd0ab3d0c68fa51b2b5045f6a408">More...</a><br /></td></tr>
 <tr class="separator:a2ebafd0ab3d0c68fa51b2b5045f6a408"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5d2fcd67098340651f35a64aebe0781"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ad5d2fcd67098340651f35a64aebe0781"><td class="memTemplItemLeft" align="right" valign="top">std::vector&lt; float &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacesopt_1_1utilities.html#ad5d2fcd67098340651f35a64aebe0781">imageToFloat</a> (<a class="el" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">sopt::Vector</a>&lt; T &gt; const &amp;image)</td></tr>
+<tr class="separator:ad5d2fcd67098340651f35a64aebe0781"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab48bb16390bc5b719b35a3897a1118d9"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ab48bb16390bc5b719b35a3897a1118d9"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">sopt::Vector</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacesopt_1_1utilities.html#ab48bb16390bc5b719b35a3897a1118d9">floatToImage</a> (std::vector&lt; float &gt; const &amp;float_image)</td></tr>
+<tr class="separator:ab48bb16390bc5b719b35a3897a1118d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa690cbbff2973dae8e221bb19cf332cd"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:aa690cbbff2973dae8e221bb19cf332cd"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">Vector</a>&lt; T &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacesopt_1_1utilities.html#aa690cbbff2973dae8e221bb19cf332cd">get_wavelet_basis_coefficients</a> (<a class="el" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">Vector</a>&lt; T &gt; &amp;coeffs, const <a class="el" href="namespacesopt.html#a7237c0991f6ec8c2bbdab8929b564964">t_uint</a> basis_index, const <a class="el" href="namespacesopt.html#a7237c0991f6ec8c2bbdab8929b564964">t_uint</a> size)</td></tr>
 <tr class="memdesc:aa690cbbff2973dae8e221bb19cf332cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">return wavelet basis coefficients from a dictionary  <a href="namespacesopt_1_1utilities.html#aa690cbbff2973dae8e221bb19cf332cd">More...</a><br /></td></tr>
@@ -139,6 +145,44 @@ Functions</h2></td></tr>
 <tr class="separator:a4f4b5626396dbc7fba8c06d64be6f7f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="ab48bb16390bc5b719b35a3897a1118d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab48bb16390bc5b719b35a3897a1118d9">&#9670;&nbsp;</a></span>floatToImage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">sopt::Vector</a>&lt;T&gt; sopt::utilities::floatToImage </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; float &gt; const &amp;&#160;</td>
+          <td class="paramname"><em>float_image</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="utilities_8h_source.html#l00083">83</a> of file <a class="el" href="utilities_8h_source.html">utilities.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                                                                {</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  <a class="code" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">sopt::Vector&lt;T&gt;</a> image(float_image.size());</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; float_image.size(); i++) {</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordflow">if</span> constexpr(std::is_same&lt;T, t_complex&gt;::value)</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    {</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;      image[i] = <a class="code" href="namespacesopt.html#ad24bc0cbf4f1391b3d1440213329d13f">t_complex</a>(float_image[i], 0);</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    }</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    {</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;      image[i] = <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(float_image[i]);</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    }</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;  }</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  <span class="keywordflow">return</span> image;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;}</div>
+<div class="ttc" id="anamespacesopt_html_ac4dd3feebe1bf49ebd44d72b05064c19"><div class="ttname"><a href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">sopt::Vector</a></div><div class="ttdeci">Eigen::Matrix&lt; T, Eigen::Dynamic, 1 &gt; Vector</div><div class="ttdoc">A vector of a given type.</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00024">types.h:24</a></div></div>
+<div class="ttc" id="anamespacesopt_html_ad24bc0cbf4f1391b3d1440213329d13f"><div class="ttname"><a href="namespacesopt.html#ad24bc0cbf4f1391b3d1440213329d13f">sopt::t_complex</a></div><div class="ttdeci">std::complex&lt; t_real &gt; t_complex</div><div class="ttdoc">Root of the type hierarchy for (real) complex numbers.</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00019">types.h:19</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
 <a id="aa690cbbff2973dae8e221bb19cf332cd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa690cbbff2973dae8e221bb19cf332cd">&#9670;&nbsp;</a></span>get_wavelet_basis_coefficients()</h2>
 
@@ -559,6 +603,44 @@ template&lt;typename T &gt; </div>
 <div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;}</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="credible__region_8cc_source.html#l00013">cols</a>, <a class="el" href="wavelets_8h_source.html#l00121">get_wavelet_levels()</a>, and <a class="el" href="credible__region_8cc_source.html#l00012">rows</a>.</p>
+
+</div>
+</div>
+<a id="ad5d2fcd67098340651f35a64aebe0781"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5d2fcd67098340651f35a64aebe0781">&#9670;&nbsp;</a></span>imageToFloat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;float&gt; sopt::utilities::imageToFloat </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacesopt.html#ac4dd3feebe1bf49ebd44d72b05064c19">sopt::Vector</a>&lt; T &gt; const &amp;&#160;</td>
+          <td class="paramname"><em>image</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="utilities_8h_source.html#l00067">67</a> of file <a class="el" href="utilities_8h_source.html">utilities.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                                                          {</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  std::vector&lt;float&gt; float_image(image.size());</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; image.size(); i++) {</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordflow">if</span> constexpr(std::is_same&lt;T, t_complex&gt;::value)</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    {</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;      float_image[i] = image[i].real();</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    }</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    {</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;      float_image[i] = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(image[i]);</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    }</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  }</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  <span class="keywordflow">return</span> float_image;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;}</div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="onnx__differentiable__func_8h_source.html#l00082">sopt::ONNXDifferentiableFunc&lt; SCALAR &gt;::function()</a>, and <a class="el" href="onnx__differentiable__func_8h_source.html#l00055">sopt::ONNXDifferentiableFunc&lt; SCALAR &gt;::gradient()</a>.</p>
 
 </div>
 </div>

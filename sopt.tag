@@ -1429,7 +1429,6 @@
     <name>l2_differentiable_func.h</name>
     <path>/home/runner/work/sopt/sopt/cpp/sopt/</path>
     <filename>http://astro-informatics.github.io/sopt/l2__differentiable__func_8h.html</filename>
-    <includes id="ort__session_8h" name="ort_session.h" local="yes" imported="no">sopt/ort_session.h</includes>
     <includes id="differentiable__func_8h" name="differentiable_func.h" local="yes" imported="no">sopt/differentiable_func.h</includes>
     <class kind="class">sopt::L2DifferentiableFunc</class>
     <namespace>sopt</namespace>
@@ -1996,6 +1995,20 @@
       <anchor>a2ebafd0ab3d0c68fa51b2b5045f6a408</anchor>
       <arglist>(std::string s, const std::string &amp;sep)</arglist>
     </member>
+    <member kind="function">
+      <type>std::vector&lt; float &gt;</type>
+      <name>imageToFloat</name>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1utilities.html</anchorfile>
+      <anchor>ad5d2fcd67098340651f35a64aebe0781</anchor>
+      <arglist>(sopt::Vector&lt; T &gt; const &amp;image)</arglist>
+    </member>
+    <member kind="function">
+      <type>sopt::Vector&lt; T &gt;</type>
+      <name>floatToImage</name>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1utilities.html</anchorfile>
+      <anchor>ab48bb16390bc5b719b35a3897a1118d9</anchor>
+      <arglist>(std::vector&lt; float &gt; const &amp;float_image)</arglist>
+    </member>
   </compound>
   <compound kind="file">
     <name>non_differentiable_func.h</name>
@@ -2059,27 +2072,6 @@
     <includes id="differentiable__func_8h" name="differentiable_func.h" local="yes" imported="no">sopt/differentiable_func.h</includes>
     <class kind="class">sopt::ONNXDifferentiableFunc</class>
     <namespace>sopt</namespace>
-    <member kind="function">
-      <type>std::vector&lt; float &gt;</type>
-      <name>imageToFloat</name>
-      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt.html</anchorfile>
-      <anchor>a41e13505f1425dd1bfa7e33b81f0729c</anchor>
-      <arglist>(sopt::Vector&lt; t_complex &gt; const &amp;image)</arglist>
-    </member>
-    <member kind="function">
-      <type>std::vector&lt; float &gt;</type>
-      <name>imageToFloat</name>
-      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt.html</anchorfile>
-      <anchor>a681e8b650f3797972d9e4b1c27cf8be3</anchor>
-      <arglist>(sopt::Vector&lt; T &gt; const &amp;image)</arglist>
-    </member>
-    <member kind="function">
-      <type>sopt::Vector&lt; t_complex &gt;</type>
-      <name>floatToImage</name>
-      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt.html</anchorfile>
-      <anchor>ac714d2f3ce2bd0e93bd2d32eccefcb37</anchor>
-      <arglist>(std::vector&lt; float &gt; const &amp;float_image)</arglist>
-    </member>
   </compound>
   <compound kind="file">
     <name>ort_session.h</name>
@@ -2325,7 +2317,9 @@
     <filename>http://astro-informatics.github.io/sopt/real__indicator_8h.html</filename>
     <includes id="non__differentiable__func_8h" name="non_differentiable_func.h" local="yes" imported="no">sopt/non_differentiable_func.h</includes>
     <includes id="linear__transform_8h" name="linear_transform.h" local="yes" imported="no">sopt/linear_transform.h</includes>
-    <class kind="class">RealIndicator</class>
+    <class kind="class">sopt::algorithm::RealIndicator</class>
+    <namespace>sopt</namespace>
+    <namespace>sopt::algorithm</namespace>
   </compound>
   <compound kind="file">
     <name>real_type.h</name>
@@ -5290,6 +5284,13 @@
       <anchor>ae4131d643db9981937e21d78ba618b5e</anchor>
       <arglist>(t_Vector const &amp;image, t_Vector const &amp;y, t_LinearTransform const &amp;Phi)=0</arglist>
     </member>
+    <member kind="function">
+      <type>Real</type>
+      <name>get_step_size</name>
+      <anchorfile>classDifferentiableFunc.html</anchorfile>
+      <anchor>a914e74c74a25efc341a60586de538a99</anchor>
+      <arglist>() const</arglist>
+    </member>
   </compound>
   <compound kind="struct">
     <name>sopt::wavelets::WaveletData::DirectFilter</name>
@@ -5678,15 +5679,15 @@
       <type></type>
       <name>SOPT_MACRO</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
-      <anchor>ada8a92000181951f6a0d788e8c5289f2</anchor>
-      <arglist>(gamma, Real)</arglist>
+      <anchor>a9ccf8b41ec7bc1b92db187981fbc9ed5</anchor>
+      <arglist>(regulariser_strength, Real)</arglist>
     </member>
     <member kind="function">
       <type></type>
       <name>SOPT_MACRO</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
-      <anchor>a1a8ab5602979c481360edb61007888a1</anchor>
-      <arglist>(beta, Real)</arglist>
+      <anchor>a923b6467b35e8e6f1843632dcf635da3</anchor>
+      <arglist>(step_size, Real)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -5699,8 +5700,8 @@
       <type></type>
       <name>SOPT_MACRO</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
-      <anchor>ab29954b1591cdc72830b641eb8143527</anchor>
-      <arglist>(nu, Real)</arglist>
+      <anchor>a1f09cee8e6f1dd6534b24344707db6c5</anchor>
+      <arglist>(sq_op_norm, Real)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -6070,8 +6071,8 @@
       <type></type>
       <name>SOPT_MACRO</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
-      <anchor>a1978addd19d0d783e8e88932ab44b4c4</anchor>
-      <arglist>(gamma, Real)</arglist>
+      <anchor>afe6cee518c32bc5d480fb92307aecc46</anchor>
+      <arglist>(regulariser_strength, Real)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -6126,8 +6127,8 @@
       <type></type>
       <name>SOPT_MACRO</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
-      <anchor>aa18fff7542906be32f597d0646438d8a</anchor>
-      <arglist>(nu, Real)</arglist>
+      <anchor>a7cafa9c54a3f9402b92351a67c1537cc</anchor>
+      <arglist>(sq_op_norm, Real)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -6441,8 +6442,8 @@
       <type></type>
       <name>SOPT_MACRO</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
-      <anchor>aa18fff7542906be32f597d0646438d8a</anchor>
-      <arglist>(nu, Real)</arglist>
+      <anchor>a7cafa9c54a3f9402b92351a67c1537cc</anchor>
+      <arglist>(sq_op_norm, Real)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -6756,15 +6757,15 @@
       <type></type>
       <name>SOPT_MACRO</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingProximalADMM.html</anchorfile>
-      <anchor>af51db335d8e3a3b3326e7d48b965e1d5</anchor>
-      <arglist>(gamma, Real)</arglist>
+      <anchor>a712d937caf47b9d0e70f8b1ac8a61180</anchor>
+      <arglist>(regulariser_strength, Real)</arglist>
     </member>
     <member kind="function">
       <type></type>
       <name>SOPT_MACRO</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingProximalADMM.html</anchorfile>
-      <anchor>a16cd4ad3c1e15042287783e19a3b3f78</anchor>
-      <arglist>(nu, Real)</arglist>
+      <anchor>ab36b5ec1dd78b9d8c026e182e076d5ce</anchor>
+      <arglist>(sq_op_norm, Real)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -7780,15 +7781,15 @@
       <type>void</type>
       <name>gradient</name>
       <anchorfile>classsopt_1_1L2DifferentiableFunc.html</anchorfile>
-      <anchor>a6944ed864e740f4750d95bd485267746</anchor>
-      <arglist>(Vector &amp;output, const Vector &amp;image, const Vector &amp;residual, const LinearTransform &amp;Phi) const override</arglist>
+      <anchor>ac6c72f6038562c9730d64936735af2b2</anchor>
+      <arglist>(Vector &amp;output, const Vector &amp;image, const Vector &amp;residual, const LinearTransform &amp;Phi) override</arglist>
     </member>
     <member kind="function">
       <type>Real</type>
       <name>function</name>
       <anchorfile>classsopt_1_1L2DifferentiableFunc.html</anchorfile>
-      <anchor>a96f42474ae8bab807c1178a10755d5f9</anchor>
-      <arglist>(Vector const &amp;image, Vector const &amp;y, LinearTransform const &amp;Phi) const override</arglist>
+      <anchor>ae684d6610f31972aa3924e3d40badebc</anchor>
+      <arglist>(Vector const &amp;image, Vector const &amp;y, LinearTransform const &amp;Phi) override</arglist>
     </member>
   </compound>
   <compound kind="class">
@@ -7941,15 +7942,15 @@
       <type></type>
       <name>SOPT_MACRO</name>
       <anchorfile>classsopt_1_1algorithm_1_1L2ForwardBackward.html</anchorfile>
-      <anchor>addd2a4f447cb5109dd46a6c7de0f0a45</anchor>
-      <arglist>(gamma, Real)</arglist>
+      <anchor>aeedf165b5a1384ead9530f96a2f66a5c</anchor>
+      <arglist>(regulariser_strength, Real)</arglist>
     </member>
     <member kind="function">
       <type></type>
       <name>SOPT_MACRO</name>
       <anchorfile>classsopt_1_1algorithm_1_1L2ForwardBackward.html</anchorfile>
-      <anchor>ac60c1cee4206a45318bd8340e4b2f53c</anchor>
-      <arglist>(beta, Real)</arglist>
+      <anchor>a79c979e00672930297d448bf355a4f77</anchor>
+      <arglist>(step_size, Real)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -7962,8 +7963,8 @@
       <type></type>
       <name>SOPT_MACRO</name>
       <anchorfile>classsopt_1_1algorithm_1_1L2ForwardBackward.html</anchorfile>
-      <anchor>a49fa1254a1257acba327b8d2c28eee6f</anchor>
-      <arglist>(nu, Real)</arglist>
+      <anchor>ace15eb99b08f4df57b4ee4c9313dc488</anchor>
+      <arglist>(sq_op_norm, Real)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -9021,8 +9022,8 @@
       <type></type>
       <name>SOPT_MACRO</name>
       <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
-      <anchor>aa1b6b8b193c60aa3e5004b7165acc011</anchor>
-      <arglist>(gamma, Real)</arglist>
+      <anchor>aa0139e2f470009839c9a8957f20c75cf</anchor>
+      <arglist>(regulariser_strength, Real)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -9056,8 +9057,8 @@
       <type></type>
       <name>SOPT_MACRO</name>
       <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
-      <anchor>a9c8e9a8721f2903dd7cf62f654f7f099</anchor>
-      <arglist>(nu, Real)</arglist>
+      <anchor>ad30587bb7afa8899d37d506ed07a9f2a</anchor>
+      <arglist>(sq_op_norm, Real)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -9119,15 +9120,15 @@
       <type>void</type>
       <name>f_proximal</name>
       <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
-      <anchor>aa68279f9bc2127ea66e52012022d86d9</anchor>
-      <arglist>(t_Vector &amp;out, Real gamma, t_Vector const &amp;x) const</arglist>
+      <anchor>aa26113a7f290aa1f46248ed8abdbf5cf</anchor>
+      <arglist>(t_Vector &amp;out, Real regulariser_strength, t_Vector const &amp;x) const</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>g_proximal</name>
       <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
-      <anchor>ac422e051ec531e547a854cbab7cb004a</anchor>
-      <arglist>(t_Vector &amp;out, Real gamma, t_Vector const &amp;x) const</arglist>
+      <anchor>ab46fd9c82aeba75848296d872431267c</anchor>
+      <arglist>(t_Vector &amp;out, Real regulariser_strength, t_Vector const &amp;x) const</arglist>
     </member>
     <member kind="function">
       <type>PrimalDual&lt; Scalar &gt; &amp;</type>
@@ -9231,8 +9232,8 @@
       <type>static std::tuple&lt; t_Vector, t_Vector &gt;</type>
       <name>initial_guess</name>
       <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
-      <anchor>a0039c6b90f2c469f38fed3a90b62f7a0</anchor>
-      <arglist>(t_Vector const &amp;target, t_LinearTransform const &amp;phi, Real nu)</arglist>
+      <anchor>a45d47a07ee4abc968dde5af7bea40298</anchor>
+      <arglist>(t_Vector const &amp;target, t_LinearTransform const &amp;phi, Real sq_op_norm)</arglist>
     </member>
   </compound>
   <compound kind="class">
@@ -9346,15 +9347,15 @@
       <type></type>
       <name>SOPT_MACRO</name>
       <anchorfile>classsopt_1_1algorithm_1_1ProximalADMM.html</anchorfile>
-      <anchor>a944a098c36473b56e6b108ff75599d78</anchor>
-      <arglist>(gamma, Real)</arglist>
+      <anchor>a0da9053cd077b8eadb72551c247bae14</anchor>
+      <arglist>(regulariser_strength, Real)</arglist>
     </member>
     <member kind="function">
       <type></type>
       <name>SOPT_MACRO</name>
       <anchorfile>classsopt_1_1algorithm_1_1ProximalADMM.html</anchorfile>
-      <anchor>a0ef4ddd2dbf0aa34460fdf6540d7972e</anchor>
-      <arglist>(nu, Real)</arglist>
+      <anchor>ae2e9d4a35625a3cda4b11aa2cdece1fb</anchor>
+      <arglist>(sq_op_norm, Real)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -9395,15 +9396,15 @@
       <type>void</type>
       <name>f_proximal</name>
       <anchorfile>classsopt_1_1algorithm_1_1ProximalADMM.html</anchorfile>
-      <anchor>a96a4fb1c1b4e9aaf8c716d2c3d416538</anchor>
-      <arglist>(t_Vector &amp;out, Real gamma, t_Vector const &amp;x) const</arglist>
+      <anchor>ac705dfc248388f9f1e4cfaf4f9ebc953</anchor>
+      <arglist>(t_Vector &amp;out, Real regulariser_strength, t_Vector const &amp;x) const</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>g_proximal</name>
       <anchorfile>classsopt_1_1algorithm_1_1ProximalADMM.html</anchorfile>
-      <anchor>a463d5fe15218df71370f16b70e22472a</anchor>
-      <arglist>(t_Vector &amp;out, Real gamma, t_Vector const &amp;x) const</arglist>
+      <anchor>a0d4db161df21a0bc8a93a679a8cbbedf</anchor>
+      <arglist>(t_Vector &amp;out, Real regulariser_strength, t_Vector const &amp;x) const</arglist>
     </member>
     <member kind="function">
       <type>ProximalADMM&lt; Scalar &gt; &amp;</type>
@@ -9500,97 +9501,90 @@
       <type>static std::tuple&lt; t_Vector, t_Vector &gt;</type>
       <name>initial_guess</name>
       <anchorfile>classsopt_1_1algorithm_1_1ProximalADMM.html</anchorfile>
-      <anchor>a9fc25eba4170d117543e09e87805c8de</anchor>
-      <arglist>(t_Vector const &amp;target, t_LinearTransform const &amp;phi, Real nu)</arglist>
+      <anchor>a865d756f92a3809914ff9c566be1a2c1</anchor>
+      <arglist>(t_Vector const &amp;target, t_LinearTransform const &amp;phi, Real sq_op_norm)</arglist>
     </member>
   </compound>
   <compound kind="class">
-    <name>RealIndicator</name>
-    <filename>http://astro-informatics.github.io/sopt/classRealIndicator.html</filename>
+    <name>sopt::algorithm::RealIndicator</name>
+    <filename>http://astro-informatics.github.io/sopt/classsopt_1_1algorithm_1_1RealIndicator.html</filename>
     <templarg></templarg>
     <base>NonDifferentiableFunc</base>
     <member kind="typedef">
       <type>NonDifferentiableFunc&lt; SCALAR &gt;</type>
       <name>NDF</name>
-      <anchorfile>classRealIndicator.html</anchorfile>
-      <anchor>a06c35208b03e9ba4e46cf9d4d4237445</anchor>
+      <anchorfile>classsopt_1_1algorithm_1_1RealIndicator.html</anchorfile>
+      <anchor>a6562972ac63156fefd57e7987bb6384f</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>typename NDF::Real</type>
       <name>Real</name>
-      <anchorfile>classRealIndicator.html</anchorfile>
-      <anchor>a40e1299b192b18bc65abaa961a23e3cf</anchor>
+      <anchorfile>classsopt_1_1algorithm_1_1RealIndicator.html</anchorfile>
+      <anchor>a5800dc51a1d4ec9db096ec44b6e6c370</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>typename NDF::t_Vector</type>
       <name>t_Vector</name>
-      <anchorfile>classRealIndicator.html</anchorfile>
-      <anchor>ad85bd675cb7324bb6a48dbc4c9bf3aa5</anchor>
+      <anchorfile>classsopt_1_1algorithm_1_1RealIndicator.html</anchorfile>
+      <anchor>abfe99ba74803b0462574b6240e3b5e9d</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>typename NDF::t_Proximal</type>
       <name>t_Proximal</name>
-      <anchorfile>classRealIndicator.html</anchorfile>
-      <anchor>a9a8bf5918542c4975ac01ea7f12d0eed</anchor>
+      <anchorfile>classsopt_1_1algorithm_1_1RealIndicator.html</anchorfile>
+      <anchor>ae47ede20631201c4584cce8161fdae89</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
       <type>typename NDF::t_LinearTransform</type>
       <name>t_LinearTransform</name>
-      <anchorfile>classRealIndicator.html</anchorfile>
-      <anchor>aa15c78de6d074ad784e9e9a0e0d9b25c</anchor>
+      <anchorfile>classsopt_1_1algorithm_1_1RealIndicator.html</anchorfile>
+      <anchor>a2e22c0039ec21938df966b60a649ea63</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
       <type></type>
       <name>RealIndicator</name>
-      <anchorfile>classRealIndicator.html</anchorfile>
-      <anchor>a3d0d99a3d26b1ebd818c1f96d77d6243</anchor>
+      <anchorfile>classsopt_1_1algorithm_1_1RealIndicator.html</anchorfile>
+      <anchor>a3196da3557b28c3939aca737aeff462d</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>log_message</name>
-      <anchorfile>classRealIndicator.html</anchorfile>
-      <anchor>a6ab8549179d45f2fa6aeb3ac0e7ce95c</anchor>
+      <anchorfile>classsopt_1_1algorithm_1_1RealIndicator.html</anchorfile>
+      <anchor>a740ea95abc0e5b0668048c02e67eb960</anchor>
       <arglist>() const override</arglist>
     </member>
     <member kind="function">
       <type>Real</type>
       <name>function</name>
-      <anchorfile>classRealIndicator.html</anchorfile>
-      <anchor>ab887f31cd11b9ef7ab6433055b66c59d</anchor>
+      <anchorfile>classsopt_1_1algorithm_1_1RealIndicator.html</anchorfile>
+      <anchor>ac9174c79e835ce6b22925cc7d8b29e0a</anchor>
       <arglist>(t_Vector const &amp;x) const override</arglist>
     </member>
     <member kind="function">
       <type>t_Proximal</type>
       <name>proximal_operator</name>
-      <anchorfile>classRealIndicator.html</anchorfile>
-      <anchor>acc4472b946a9bfca537bce329e7a227a</anchor>
+      <anchorfile>classsopt_1_1algorithm_1_1RealIndicator.html</anchorfile>
+      <anchor>abec968a004b3b88de2768937c43f9c57</anchor>
       <arglist>() const override</arglist>
     </member>
     <member kind="function">
       <type>t_LinearTransform const  &amp;</type>
       <name>Psi</name>
-      <anchorfile>classRealIndicator.html</anchorfile>
-      <anchor>a1e1bd3442529f71bc432582b173c5fde</anchor>
+      <anchorfile>classsopt_1_1algorithm_1_1RealIndicator.html</anchorfile>
+      <anchor>a7681e51a8115a839c8629ebec7bc1b26</anchor>
       <arglist>() const override</arglist>
-    </member>
-    <member kind="function">
-      <type>RealIndicator&lt; std::complex&lt; double &gt; &gt;::Real</type>
-      <name>function</name>
-      <anchorfile>classRealIndicator.html</anchorfile>
-      <anchor>acf8d685f5ffa3583efe34717372c234b</anchor>
-      <arglist>(typename RealIndicator&lt; std::complex&lt; double &gt;&gt;::t_Vector const &amp;x) const</arglist>
     </member>
     <member kind="variable">
       <type>t_LinearTransform</type>
       <name>linear_operator</name>
-      <anchorfile>classRealIndicator.html</anchorfile>
-      <anchor>a51a0f4e795f4d8b0dbb24225cd6f2180</anchor>
+      <anchorfile>classsopt_1_1algorithm_1_1RealIndicator.html</anchorfile>
+      <anchor>ae9f1de6952eaa6dd1dda089c5aeaafba</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -11003,8 +10997,8 @@
       <type></type>
       <name>SOPT_MACRO</name>
       <anchorfile>classsopt_1_1algorithm_1_1TVPrimalDual.html</anchorfile>
-      <anchor>a66b8089638be765f7b0f83485e9f54cd</anchor>
-      <arglist>(gamma, Real)</arglist>
+      <anchor>ac063f52088741bfdec32e387e322e881</anchor>
+      <arglist>(regulariser_strength, Real)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -11059,8 +11053,8 @@
       <type></type>
       <name>SOPT_MACRO</name>
       <anchorfile>classsopt_1_1algorithm_1_1TVPrimalDual.html</anchorfile>
-      <anchor>ae2ca08e29e8b49b95a4df452490d0e5d</anchor>
-      <arglist>(nu, Real)</arglist>
+      <anchor>a6197be282b57058fb3d8b84e4b3c25b0</anchor>
+      <arglist>(sq_op_norm, Real)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -11971,27 +11965,6 @@
       <arglist>(Eigen::MatrixBase&lt; T0 &gt; const &amp;input)</arglist>
     </member>
     <member kind="function">
-      <type>std::vector&lt; float &gt;</type>
-      <name>imageToFloat</name>
-      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt.html</anchorfile>
-      <anchor>a41e13505f1425dd1bfa7e33b81f0729c</anchor>
-      <arglist>(sopt::Vector&lt; t_complex &gt; const &amp;image)</arglist>
-    </member>
-    <member kind="function">
-      <type>std::vector&lt; float &gt;</type>
-      <name>imageToFloat</name>
-      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt.html</anchorfile>
-      <anchor>a681e8b650f3797972d9e4b1c27cf8be3</anchor>
-      <arglist>(sopt::Vector&lt; T &gt; const &amp;image)</arglist>
-    </member>
-    <member kind="function">
-      <type>sopt::Vector&lt; t_complex &gt;</type>
-      <name>floatToImage</name>
-      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt.html</anchorfile>
-      <anchor>ac714d2f3ce2bd0e93bd2d32eccefcb37</anchor>
-      <arglist>(std::vector&lt; float &gt; const &amp;float_image)</arglist>
-    </member>
-    <member kind="function">
       <type>LinearTransform&lt; Vector&lt; T &gt; &gt;</type>
       <name>linear_transform</name>
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt.html</anchorfile>
@@ -12082,6 +12055,7 @@
     <class kind="class">sopt::algorithm::PositiveQuadrant</class>
     <class kind="class">sopt::algorithm::PowerMethod</class>
     <class kind="class">sopt::algorithm::PrimalDual</class>
+    <class kind="class">sopt::algorithm::RealIndicator</class>
     <class kind="class">sopt::algorithm::Reweighted</class>
     <class kind="class">sopt::algorithm::SDMM</class>
     <class kind="class">sopt::algorithm::TFGProximal</class>
@@ -12629,6 +12603,20 @@
       <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1utilities.html</anchorfile>
       <anchor>a2ebafd0ab3d0c68fa51b2b5045f6a408</anchor>
       <arglist>(std::string s, const std::string &amp;sep)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; float &gt;</type>
+      <name>imageToFloat</name>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1utilities.html</anchorfile>
+      <anchor>ad5d2fcd67098340651f35a64aebe0781</anchor>
+      <arglist>(sopt::Vector&lt; T &gt; const &amp;image)</arglist>
+    </member>
+    <member kind="function">
+      <type>sopt::Vector&lt; T &gt;</type>
+      <name>floatToImage</name>
+      <anchorfile>http://astro-informatics.github.io/sopt/namespacesopt_1_1utilities.html</anchorfile>
+      <anchor>ab48bb16390bc5b719b35a3897a1118d9</anchor>
+      <arglist>(std::vector&lt; float &gt; const &amp;float_image)</arglist>
     </member>
     <member kind="function">
       <type>Vector&lt; T &gt; &amp;</type>

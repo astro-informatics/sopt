@@ -1,12 +1,12 @@
 var searchData=
 [
-  ['imaging_5fforward_5fbackward_2eh_685',['imaging_forward_backward.h',['../imaging__forward__backward_8h.html',1,'']]],
-  ['imaging_5fpadmm_2eh_686',['imaging_padmm.h',['../imaging__padmm_8h.html',1,'']]],
-  ['imaging_5fprimal_5fdual_2eh_687',['imaging_primal_dual.h',['../imaging__primal__dual_8h.html',1,'']]],
-  ['indirect_2eh_688',['indirect.h',['../indirect_8h.html',1,'']]],
-  ['innards_2eimpl_2eh_689',['innards.impl.h',['../innards_8impl_8h.html',1,'']]],
-  ['inpainting_2ecc_690',['inpainting.cc',['../examples_2forward__backward_2inpainting_8cc.html',1,'(Global Namespace)'],['../examples_2primal__dual_2inpainting_8cc.html',1,'(Global Namespace)'],['../examples_2proximal__admm_2inpainting_8cc.html',1,'(Global Namespace)'],['../examples_2sdmm_2inpainting_8cc.html',1,'(Global Namespace)'],['../tests_2inpainting_8cc.html',1,'(Global Namespace)']]],
-  ['inpainting_2eh_691',['inpainting.h',['../inpainting_8h.html',1,'']]],
-  ['inpainting_5fcredible_5finterval_2ecc_692',['inpainting_credible_interval.cc',['../inpainting__credible__interval_8cc.html',1,'']]],
-  ['inpainting_5fjoint_5fmap_2ecc_693',['inpainting_joint_map.cc',['../inpainting__joint__map_8cc.html',1,'']]]
+  ['imaging_5fforward_5fbackward_2eh_686',['imaging_forward_backward.h',['../imaging__forward__backward_8h.html',1,'']]],
+  ['imaging_5fpadmm_2eh_687',['imaging_padmm.h',['../imaging__padmm_8h.html',1,'']]],
+  ['imaging_5fprimal_5fdual_2eh_688',['imaging_primal_dual.h',['../imaging__primal__dual_8h.html',1,'']]],
+  ['indirect_2eh_689',['indirect.h',['../indirect_8h.html',1,'']]],
+  ['innards_2eimpl_2eh_690',['innards.impl.h',['../innards_8impl_8h.html',1,'']]],
+  ['inpainting_2ecc_691',['inpainting.cc',['../examples_2forward__backward_2inpainting_8cc.html',1,'(Global Namespace)'],['../examples_2primal__dual_2inpainting_8cc.html',1,'(Global Namespace)'],['../examples_2proximal__admm_2inpainting_8cc.html',1,'(Global Namespace)'],['../examples_2sdmm_2inpainting_8cc.html',1,'(Global Namespace)'],['../tests_2inpainting_8cc.html',1,'(Global Namespace)']]],
+  ['inpainting_2eh_692',['inpainting.h',['../inpainting_8h.html',1,'']]],
+  ['inpainting_5fcredible_5finterval_2ecc_693',['inpainting_credible_interval.cc',['../inpainting__credible__interval_8cc.html',1,'']]],
+  ['inpainting_5fjoint_5fmap_2ecc_694',['inpainting_joint_map.cc',['../inpainting__joint__map_8cc.html',1,'']]]
 ];

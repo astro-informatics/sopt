@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['appliedfunction_562',['AppliedFunction',['../classsopt_1_1details_1_1AppliedFunction.html',1,'sopt::details']]]
+  ['appliedfunction_563',['AppliedFunction',['../classsopt_1_1details_1_1AppliedFunction.html',1,'sopt::details']]]
 ];

@@ -168,7 +168,7 @@ $(function() {
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                                <span class="stringliteral">&quot;dirty_&quot;</span> + output + <span class="stringliteral">&quot;.tiff&quot;</span>);</div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;  }</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;  <span class="keyword">const</span> <a class="code" href="tests_2inpainting_8cc.html#a47c194cae73625ab3a13b62e4234f46f">Vector</a> grad = psi.adjoint() * (sampling.adjoint() * y);</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  <span class="keyword">const</span> <a class="code" href="namespacesopt.html#a71bfb8f70b432862d3d654b9dcff77cc">sopt::t_real</a> gamma = (grad.segment(0, image.size()).array().square() +</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  <span class="keyword">const</span> <a class="code" href="namespacesopt.html#a71bfb8f70b432862d3d654b9dcff77cc">sopt::t_real</a> regulariser_strength = (grad.segment(0, image.size()).array().square() +</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                              grad.segment(image.size(), image.size()).array().square())</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                                 .sqrt()</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;                                 .real()</div>
@@ -178,7 +178,7 @@ $(function() {
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;  <a class="code" href="logging_8h.html#a5bb43e65962554be1a16134dc4d0dba0">SOPT_HIGH_LOG</a>(<span class="stringliteral">&quot;Creating primal-dual Functor&quot;</span>);</div>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;  <span class="keyword">auto</span> <span class="keyword">const</span> pd = <a class="code" href="classsopt_1_1algorithm_1_1TVPrimalDual.html">sopt::algorithm::TVPrimalDual&lt;Scalar&gt;</a>(y)</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                      .itermax(2000)</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;                      .gamma(gamma)</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;                      .regulariser_strength(regulariser_strength)</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                      .tau(0.5 / (1. + 1.))</div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;                      .l2ball_proximal_epsilon(<a class="code" href="namespacesopt.html#a974f99e567f8ac05a0fe5e50fbfd215b">epsilon</a>)</div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;                      .<a class="code" href="classsopt_1_1algorithm_1_1TVPrimalDual.html#ad0b7c219d64f734550e1696a178cd600">Psi</a>(psi)</div>

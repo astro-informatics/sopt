@@ -280,14 +280,14 @@ Functions</h2></td></tr>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  Eigen::VectorXd dirty_image = sampling.<a class="code" href="classsopt_1_1LinearTransform.html#af9fe77b8afc0761cf9d07f432df85a0d">adjoint</a>() * y;</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  <a class="code" href="namespacesopt.html#a71bfb8f70b432862d3d654b9dcff77cc">sopt::t_real</a> constexpr gamma = 18;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  <a class="code" href="namespacesopt.html#a71bfb8f70b432862d3d654b9dcff77cc">sopt::t_real</a> constexpr regulariser_strength = 100;</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <a class="code" href="namespacesopt.html#a71bfb8f70b432862d3d654b9dcff77cc">sopt::t_real</a> <span class="keyword">const</span> beta = <a class="code" href="namespacesopt.html#ad7fbfa0f1f262d124020ccaf5e6cb573">sigma</a> * <a class="code" href="namespacesopt.html#ad7fbfa0f1f262d124020ccaf5e6cb573">sigma</a> * 0.5;</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  <span class="keyword">auto</span> fb = <a class="code" href="classsopt_1_1algorithm_1_1ImagingForwardBackward.html">sopt::algorithm::ImagingForwardBackward&lt;Scalar&gt;</a>(y);</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  fb.itermax(500)</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    .beta(beta)    <span class="comment">// stepsize</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    .step_size(beta)    <span class="comment">// stepsize</span></div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    .sigma(<a class="code" href="namespacesopt.html#ad7fbfa0f1f262d124020ccaf5e6cb573">sigma</a>)  <span class="comment">// sigma</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    .gamma(gamma)  <span class="comment">// regularisation paramater</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    .regulariser_strength(regulariser_strength)  <span class="comment">// regularisation paramater</span></div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    .fista(<span class="keyword">false</span>)  <span class="comment">// switch to use FISTA algorithm in Forward Backward algorithm, should be false if using learned TF model</span></div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    .relative_variation(1e-3)</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    .residual_tolerance(0)</div>
