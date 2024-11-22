@@ -1259,6 +1259,15 @@
     </member>
   </compound>
   <compound kind="file">
+    <name>gradient_utils.h</name>
+    <path>/home/runner/work/sopt/sopt/cpp/sopt/</path>
+    <filename>http://astro-informatics.github.io/sopt/gradient__utils_8h.html</filename>
+    <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
+    <includes id="linear__transform_8h" name="linear_transform.h" local="yes" imported="no">sopt/linear_transform.h</includes>
+    <class kind="class">sopt::IterationState</class>
+    <namespace>sopt</namespace>
+  </compound>
+  <compound kind="file">
     <name>imaging_forward_backward.h</name>
     <path>/home/runner/work/sopt/sopt/cpp/sopt/</path>
     <filename>http://astro-informatics.github.io/sopt/imaging__forward__backward_8h.html</filename>
@@ -7003,6 +7012,39 @@
     <templarg></templarg>
   </compound>
   <compound kind="class">
+    <name>sopt::IterationState</name>
+    <filename>http://astro-informatics.github.io/sopt/classsopt_1_1IterationState.html</filename>
+    <templarg></templarg>
+    <member kind="function">
+      <type></type>
+      <name>IterationState</name>
+      <anchorfile>classsopt_1_1IterationState.html</anchorfile>
+      <anchor>a728a28654de66cbdb59d12b5c82244f4</anchor>
+      <arglist>()=delete</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>IterationState</name>
+      <anchorfile>classsopt_1_1IterationState.html</anchorfile>
+      <anchor>a6f5b6504333b342c54d02b4fea390228</anchor>
+      <arglist>(const T &amp;target, std::shared_ptr&lt; sopt::LinearTransform&lt; T &gt;&gt; phi)</arglist>
+    </member>
+    <member kind="function">
+      <type>const T &amp;</type>
+      <name>target</name>
+      <anchorfile>classsopt_1_1IterationState.html</anchorfile>
+      <anchor>a6d79c59d9e5e841e0b581c4596220787</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>const sopt::LinearTransform&lt; T &gt; &amp;</type>
+      <name>phi</name>
+      <anchorfile>classsopt_1_1IterationState.html</anchorfile>
+      <anchor>a57f17c7a5eb84fbc00e359135c6d2889</anchor>
+      <arglist>() const</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
     <name>sopt::algorithm::JointMAP</name>
     <filename>http://astro-informatics.github.io/sopt/classsopt_1_1algorithm_1_1JointMAP.html</filename>
     <templarg></templarg>
@@ -11239,11 +11281,11 @@
     <templarg></templarg>
   </compound>
   <compound kind="class">
-    <name>underlying_value_type&lt; Scalar &gt;</name>
+    <name>underlying_value_type&lt; SCALAR &gt;</name>
     <filename>http://astro-informatics.github.io/sopt/classsopt_1_1details_1_1underlying__value__type.html</filename>
   </compound>
   <compound kind="class">
-    <name>underlying_value_type&lt; SCALAR &gt;</name>
+    <name>underlying_value_type&lt; Scalar &gt;</name>
     <filename>http://astro-informatics.github.io/sopt/classsopt_1_1details_1_1underlying__value__type.html</filename>
   </compound>
   <compound kind="class">
@@ -11639,6 +11681,7 @@
     <namespace>sopt::wavelets</namespace>
     <class kind="class">sopt::ConjugateGradient</class>
     <class kind="class">sopt::Exception</class>
+    <class kind="class">sopt::IterationState</class>
     <class kind="class">sopt::L2DifferentiableFunc</class>
     <class kind="class">sopt::LinearTransform</class>
     <class kind="class">sopt::ONNXDifferentiableFunc</class>
