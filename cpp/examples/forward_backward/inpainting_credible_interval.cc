@@ -88,14 +88,14 @@ int main(int argc, char const **argv) {
                                 "dirty_" + output + ".tiff");
   }
 
-  sopt::t_real constexpr gamma = 18;
+  sopt::t_real constexpr regulariser_strength = 18;
   sopt::t_real const beta = sigma * sigma;
   SOPT_HIGH_LOG("Creating Foward Backward Functor");
   auto fb = sopt::algorithm::ImagingForwardBackward<Scalar>(y)
     .itermax(500)
-    .beta(beta)
+    .step_size(beta)
     .sigma(sigma)
-    .gamma(gamma)
+    .regulariser_strength(regulariser_strength)
     .relative_variation(5e-4)
     .residual_tolerance(0)
     .tight_frame(true)
@@ -133,9 +133,9 @@ int main(int argc, char const **argv) {
   constexpr sopt::t_real alpha = 0.99;
   const sopt::t_uint grid_pixel_size = image.rows() / 16;
   SOPT_HIGH_LOG("Finding credible interval");
-  const std::function<Scalar(Vector)> objective_function = [gamma, sigma, &y, &sampling,
+  const std::function<Scalar(Vector)> objective_function = [regulariser_strength, sigma, &y, &sampling,
                                                             &psi](const Vector &x) {
-    return sopt::l1_norm(psi.adjoint() * x) * gamma +
+    return sopt::l1_norm(psi.adjoint() * x) * regulariser_strength +
            0.5 * std::pow(sopt::l2_norm(sampling * x - y), 2) / (sigma * sigma);
   };
 

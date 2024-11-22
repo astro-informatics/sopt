@@ -52,14 +52,14 @@ TEST_CASE("Inpainting"){
   Vector y(y0.size());
   for (sopt::t_int i = 0; i < y0.size(); i++) y(i) = y0(i) + gaussian_dist(*mersenne);
 
-  sopt::t_real constexpr gamma = 18;
+  sopt::t_real constexpr regulariser_strength = 18;
   sopt::t_real const beta = sigma * sigma * 0.5;
 
   auto fb = sopt::algorithm::ImagingForwardBackward<Scalar>(y);
   fb.itermax(500)
-    .beta(beta)    // stepsize
+    .step_size(beta)    // stepsize
     .sigma(sigma)  // sigma
-    .gamma(gamma)  // regularisation paramater
+    .regulariser_strength(regulariser_strength)  // regularisation paramater
     .relative_variation(1e-3)
     .residual_tolerance(0)
     .tight_frame(true)

@@ -34,7 +34,7 @@ TEST_CASE("Primal Dual Imaging", "[primaldual]") {
                         .Psi(mId)
                         .itermax(5000)
                         .tau(0.1)
-                        .gamma(0.4)
+                        .regulariser_strength(0.4)
                         .l2ball_proximal_epsilon(epsilon)
                         .relative_variation(1e-4)
                         .residual_convergence(epsilon);
@@ -43,20 +43,20 @@ TEST_CASE("Primal Dual Imaging", "[primaldual]") {
   CHECK((result.x - target).stableNorm() <= Approx(epsilon).margin(1e-10));
   CHECK(result.good);
   primaldual
-      .l1_proximal([](t_Vector &output, const t_real &gamma, const t_Vector &input) {
-        output = gamma * input;
+      .l1_proximal([](t_Vector &output, const t_real &regulariser_strength, const t_Vector &input) {
+        output = regulariser_strength * input;
       })
       .l1_proximal_weighted(
-          [](t_Vector &output, const Vector<t_real> &gamma, const t_Vector &input) {
-            output = 10 * gamma.array() * input.array();
+          [](t_Vector &output, const Vector<t_real> &regulariser_strength, const t_Vector &input) {
+            output = 10 * regulariser_strength.array() * input.array();
           });
   CHECK_THROWS(primaldual());
 }
 TEST_CASE("Primal Dual with 0.5 * ||x - x0||_2^2 function", "[primaldual]") {
   using namespace sopt;
   t_Vector const target0 = t_Vector::Random(N);
-  auto const f = [](t_Vector &out, const t_real gamma, const t_Vector &x) {
-    proximal::id(out, gamma, x);
+  auto const f = [](t_Vector &out, const t_real regulariser_strength, const t_Vector &x) {
+    proximal::id(out, regulariser_strength, x);
   };
   auto const g = proximal::L2Norm<Scalar>();
   const t_Vector x_guess = t_Vector::Random(target0.size());
@@ -69,7 +69,7 @@ TEST_CASE("Primal Dual with 0.5 * ||x - x0||_2^2 function", "[primaldual]") {
   CAPTURE(res);
   auto const pd = algorithm::PrimalDual<Scalar>(f, g, target0)
                       .itermax(3000)
-                      .gamma(0.9)
+                      .regulariser_strength(0.9)
                       .rho(0.5)
                       .update_scale(0.5)
                       .is_converged(convergence);
@@ -94,7 +94,7 @@ TEST_CASE("Check type returned on setting variables") {
   CHECK(is_primal_dual_ref<decltype(pd.tau(1))>::value);
   CHECK(is_primal_dual_ref<decltype(pd.rho(1))>::value);
   CHECK(is_primal_dual_ref<decltype(pd.xi(1))>::value);
-  CHECK(is_primal_dual_ref<decltype(pd.gamma(1e0))>::value);
+  CHECK(is_primal_dual_ref<decltype(pd.regulariser_strength(1e0))>::value);
   CHECK(is_primal_dual_ref<decltype(pd.update_scale(1e0))>::value);
   CHECK(is_primal_dual_ref<decltype(pd.positivity_constraint(true))>::value);
   CHECK(is_primal_dual_ref<decltype(pd.real_constraint(true))>::value);

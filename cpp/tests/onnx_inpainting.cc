@@ -67,7 +67,7 @@ TEST_CASE("Inpainting"){
   auto init_res_norm = init_res.array().abs().sum();
   SOPT_HIGH_LOG("Initial residual norm: {}", init_res_norm);
 
-  sopt::t_real constexpr gamma = 18;
+  sopt::t_real constexpr regulariser_strength = 18;
   sopt::t_real const beta = sigma * sigma * 0.5;
 
   // Arbitrary (absolute) tolerance level to produce a reasonable image which converges
@@ -80,9 +80,9 @@ TEST_CASE("Inpainting"){
 
   auto fb = sopt::algorithm::ImagingForwardBackward<Scalar>(y);
   fb.itermax(500)
-    .beta(beta)    // stepsize
+    .step_size(beta)    // stepsize
     .sigma(sigma)  // sigma
-    .gamma(gamma)  // regularisation paramater
+    .regulariser_strength(regulariser_strength)  // regularisation paramater
     .relative_variation(1e-3)
     .residual_tolerance(0)
     .tight_frame(true)
@@ -93,7 +93,7 @@ TEST_CASE("Inpainting"){
   fb.f_function(diff_function);
 
   // Create a shared pointer to the real indicator (non differentiable) function
-  auto non_diff_func = std::make_shared<RealIndicator<Scalar>>();
+  auto non_diff_func = std::make_shared<sopt::algorithm::RealIndicator<Scalar>>();
 
   // Inject it into the ImagingForwardBackward object
   fb.g_function(non_diff_func);

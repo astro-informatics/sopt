@@ -5,6 +5,8 @@
 #include "sopt/linear_transform.h"
 #include <complex>
 
+namespace sopt::algorithm {
+
 // Implementation of real indicator (non differentiable) function
 // The proximal operator is just a real projection
 // interface defined by NonDifferentiableFunc class
@@ -48,21 +50,21 @@ class RealIndicator : public NonDifferentiableFunc<SCALAR>
     t_LinearTransform linear_operator = sopt::linear_transform_identity<SCALAR>();
 };
 
-template<>
-typename RealIndicator<std::complex<double>>::Real RealIndicator<std::complex<double>>::function(typename RealIndicator<std::complex<double>>::t_Vector const &x) const
-{
-  for (auto &z : x) {
-    if (z.imag() != 0) {
-      return 0;
-    }
-  }
-  return 1;
-}
-
 template<typename SCALAR>
 typename RealIndicator<SCALAR>::Real RealIndicator<SCALAR>::function(typename RealIndicator<SCALAR>::t_Vector const &x) const
 {
-    return 1;
+  if constexpr (std::is_same<SCALAR, sopt::t_complex>::value)
+  {
+    for (auto &z : x) {
+      if (z.imag() != 0) {
+        SOPT_HIGH_LOG("Non-real vector in real indicator function; real projection has not been properly performed.");
+        return 1;  // should in principle be inf but not sure how to model this
+      }
+    }
+  }
+  return 0;
+}
+
 }
 
 #endif

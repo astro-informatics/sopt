@@ -49,11 +49,11 @@ class TVPrimalDual {
   //! \param[in] g_proximal: proximal operator of the \f$g\f$ function
   template <typename DERIVED>
   TVPrimalDual(Eigen::MatrixBase<DERIVED> const &target)
-      : tv_proximal_([](t_Vector &out, const Real &gamma, const t_Vector &x) {
-          proximal::tv_norm<t_Vector, t_Vector>(out, gamma, x);
+      : tv_proximal_([](t_Vector &out, const Real &regulariser_strength, const t_Vector &x) {
+          proximal::tv_norm<t_Vector, t_Vector>(out, regulariser_strength, x);
         }),
-        tv_proximal_weighted_([](t_Vector &out, const Vector<Real> &gamma, const t_Vector &x) {
-          proximal::tv_norm<t_Vector, t_Vector, Vector<Real>>(out, gamma, x);
+        tv_proximal_weighted_([](t_Vector &out, const Vector<Real> &regulariser_strength, const t_Vector &x) {
+          proximal::tv_norm<t_Vector, t_Vector, Vector<Real>>(out, regulariser_strength, x);
         }),
         tv_proximal_weights_(Vector<Real>::Ones(1)),
         l2ball_proximal_(1e0),
@@ -64,14 +64,14 @@ class TVPrimalDual {
         itermax_(std::numeric_limits<t_uint>::max()),
         sigma_(1),
         tau_(0.5),
-        gamma_(0.5),
+        regulariser_strength_(0.5),
         update_scale_(1),
         precondition_stepsize_(0.5),
         precondition_weights_(t_Vector::Ones(target.size())),
         precondition_iters_(0),
         xi_(1),
         rho_(1),
-        nu_(1),
+        sq_op_norm_(1),
         is_converged_(),
         Phi_(linear_transform_identity<Scalar>()),
         Psi_(linear_transform_identity<Scalar>()),
@@ -115,8 +115,8 @@ class TVPrimalDual {
   SOPT_MACRO(objective_convergence, t_IsConverged);
   //! Maximum number of iterations
   SOPT_MACRO(itermax, t_uint);
-  //! gamma parameter
-  SOPT_MACRO(gamma, Real);
+  //! regulariser_strength parameter
+  SOPT_MACRO(regulariser_strength, Real);
   //! update parameter
   SOPT_MACRO(update_scale, Real);
   //! Apply positivity constraint
@@ -132,7 +132,7 @@ class TVPrimalDual {
   //! rho parameter
   SOPT_MACRO(rho, Real);
   //! ν parameter
-  SOPT_MACRO(nu, Real);
+  SOPT_MACRO(sq_op_norm, Real);
   //! precondtion step size parameter
   SOPT_MACRO(precondition_stepsize, Real);
   //! precondition weights parameter
@@ -169,7 +169,7 @@ class TVPrimalDual {
   //! \brief Calls Primal Dual
   //! \param[out] out: Output vector x
   Diagnostic operator()(t_Vector &out) const {
-    return operator()(out, PD::initial_guess(target(), Phi(), nu()));
+    return operator()(out, PD::initial_guess(target(), Phi(), sq_op_norm()));
   }
   //! \brief Calls Primal Dual
   //! \param[out] out: Output vector x
@@ -202,7 +202,7 @@ class TVPrimalDual {
   DiagnosticAndResult operator()() const {
     DiagnosticAndResult result;
     static_cast<Diagnostic &>(result) = operator()(result.x,
-                                                   PD::initial_guess(target(), Phi(), nu()));
+                                                   PD::initial_guess(target(), Phi(), sq_op_norm()));
     return result;
   }
   //! Makes it simple to chain different calls to PD
@@ -307,18 +307,18 @@ typename TVPrimalDual<SCALAR>::Diagnostic TVPrimalDual<SCALAR>::operator()(
     SOPT_THROW(
         "tv proximal and weighted tv proximal appear to be different functions. Please make sure "
         "both are the same function.");
-  auto const f_proximal = [this](t_Vector &out, Real gamma, t_Vector const &x) {
+  auto const f_proximal = [this](t_Vector &out, Real regulariser_strength, t_Vector const &x) {
     if (this->tv_proximal_weights().size() > 1)
-      this->tv_proximal_weighted()(out, this->tv_proximal_weights() * gamma, x);
+      this->tv_proximal_weighted()(out, this->tv_proximal_weights() * regulariser_strength, x);
     else
-      this->tv_proximal()(out, this->tv_proximal_weights()(0) * gamma, x);
+      this->tv_proximal()(out, this->tv_proximal_weights()(0) * regulariser_strength, x);
   };
-  auto const g_proximal = [this](t_Vector &out, Real gamma, t_Vector const &x) {
-    this->l2ball_proximal()(out, gamma, x);
+  auto const g_proximal = [this](t_Vector &out, Real regulariser_strength, t_Vector const &x) {
+    this->l2ball_proximal()(out, regulariser_strength, x);
     // applying preconditioning
     for (t_int i = 0; i < this->precondition_iters(); i++)
       this->l2ball_proximal()(
-          out, gamma,
+          out, regulariser_strength,
           out - this->precondition_stepsize() *
                     (out.array() * this->precondition_weights().array() - x.array()).matrix());
 
@@ -341,12 +341,12 @@ typename TVPrimalDual<SCALAR>::Diagnostic TVPrimalDual<SCALAR>::operator()(
                       .constraint(constraint)
                       .sigma(sigma())
                       .tau(tau())
-                      .gamma(gamma())
+                      .regulariser_strength(regulariser_strength())
                       .update_scale(update_scale())
                       .xi(xi())
                       .rho(rho())
-                      .nu(nu())
-                      .gamma(gamma())
+                      .sq_op_norm(sq_op_norm())
+                      .regulariser_strength(regulariser_strength())
                       .Phi(Phi())
                       .Psi(Psi())
                       .random_measurement_updater(random_measurement_updater())

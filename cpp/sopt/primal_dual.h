@@ -71,11 +71,11 @@ class PrimalDual {
       : itermax_(std::numeric_limits<t_uint>::max()),
         sigma_(1),
         tau_(0.5),
-        gamma_(0.5),
+        regulariser_strength_(0.5),
         update_scale_(1),
         xi_(1),
         rho_(1),
-        nu_(1),
+        sq_op_norm_(1),
         is_converged_(),
         constraint_([](t_Vector &out, t_Vector const &x) { out = x; }),
         Phi_(linear_transform_identity<Scalar>()),
@@ -111,7 +111,7 @@ class PrimalDual {
   //! Update parameter
   SOPT_MACRO(update_scale, Real);
   //! γ parameter
-  SOPT_MACRO(gamma, Real);
+  SOPT_MACRO(regulariser_strength, Real);
   //! sigma parameter
   SOPT_MACRO(sigma, Real);
   //! xi parameter
@@ -121,7 +121,7 @@ class PrimalDual {
   //! tau parameter
   SOPT_MACRO(tau, Real);
   //! ν parameter
-  SOPT_MACRO(nu, Real);
+  SOPT_MACRO(sq_op_norm, Real);
   //! \brief A function verifying convergence
   //! \details It takes as input two arguments: the current solution x and the current residual.
   SOPT_MACRO(is_converged, t_IsConverged);
@@ -147,12 +147,12 @@ class PrimalDual {
 #endif
 #undef SOPT_MACRO
   //! \brief Simplifies calling the proximal of f.
-  void f_proximal(t_Vector &out, Real gamma, t_Vector const &x) const {
-    f_proximal()(out, gamma, x);
+  void f_proximal(t_Vector &out, Real regulariser_strength, t_Vector const &x) const {
+    f_proximal()(out, regulariser_strength, x);
   }
   //! \brief Simplifies calling the proximal of f.
-  void g_proximal(t_Vector &out, Real gamma, t_Vector const &x) const {
-    g_proximal()(out, gamma, x);
+  void g_proximal(t_Vector &out, Real regulariser_strength, t_Vector const &x) const {
+    g_proximal()(out, regulariser_strength, x);
   }
 
   //! Convergence function that takes only the output as argument
@@ -234,7 +234,7 @@ class PrimalDual {
   //! - x = Φ^T y / nu =  Φ^T y / (Φ_norm^2)
   //! - residuals = Φ x - y
   std::tuple<t_Vector, t_Vector> initial_guess() const {
-    return PrimalDual<SCALAR>::initial_guess(target(), Phi(), nu());
+    return PrimalDual<SCALAR>::initial_guess(target(), Phi(), sq_op_norm());
   }
 
   //! \brief Computes initial guess for x and the residual using the targets
@@ -244,9 +244,9 @@ class PrimalDual {
   //!
   //! This function simplifies creating overloads for operator() in PD wrappers.
   static std::tuple<t_Vector, t_Vector> initial_guess(t_Vector const &target,
-                                                      t_LinearTransform const &phi, Real nu) {
+                                                      t_LinearTransform const &phi, Real sq_op_norm) {
     std::tuple<t_Vector, t_Vector> guess;
-    std::get<0>(guess) = static_cast<t_Vector>(phi.adjoint() * target) / nu;
+    std::get<0>(guess) = static_cast<t_Vector>(phi.adjoint() * target) / sq_op_norm;
     std::get<1>(guess) = target;
     return guess;
   }
@@ -296,7 +296,7 @@ void PrimalDual<SCALAR>::iteration_step(t_Vector &out, t_Vector &out_hold, t_Vec
   // dual calculations for wavelet
   if (random_wavelet_update) {
     q = static_cast<t_Vector>(Psi().adjoint() * out_hold) * sigma();
-    f_proximal(u_hold, gamma(), (u + q));
+    f_proximal(u_hold, regulariser_strength(), (u + q));
     u_hold = u + q - u_hold;
     u = u + update_scale() * (u_hold - u);
     u_update = static_cast<t_Vector>(Psi() * u);

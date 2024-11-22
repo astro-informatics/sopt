@@ -31,7 +31,7 @@ TEST_CASE("Proximal ADMM with ||x - x0||_2 functions", "[padmm][integration]") {
 
   t_Vector const translation = t_Vector::Ones(N) * 5;
   auto const padmm =
-      algorithm::ProximalADMM<Scalar>(g0, g1, t_Vector::Zero(N)).Phi(mId).itermax(3000).gamma(0.01);
+      algorithm::ProximalADMM<Scalar>(g0, g1, t_Vector::Zero(N)).Phi(mId).itermax(3000).regulariser_strength(0.01);
   auto const result = padmm();
 
   t_Vector const segment = (target1 - target0).normalized();
@@ -54,7 +54,7 @@ TEST_CASE("Check type returned on setting variables") {
   using namespace sopt::algorithm;
   ImagingProximalADMM<double> admm(Vector<double>::Zero(0));
   CHECK(is_imaging_proximal_ref<decltype(admm.itermax(500))>::value);
-  CHECK(is_imaging_proximal_ref<decltype(admm.gamma(1e-1))>::value);
+  CHECK(is_imaging_proximal_ref<decltype(admm.regulariser_strength(1e-1))>::value);
   CHECK(is_imaging_proximal_ref<decltype(admm.relative_variation(5e-4))>::value);
   CHECK(is_imaging_proximal_ref<decltype(admm.l2ball_proximal_epsilon(1e-4))>::value);
   CHECK(is_imaging_proximal_ref<decltype(admm.tight_frame(false))>::value);
@@ -65,7 +65,7 @@ TEST_CASE("Check type returned on setting variables") {
   CHECK(is_imaging_proximal_ref<decltype(admm.l1_proximal_real_constraint(true))>::value);
   CHECK(is_imaging_proximal_ref<decltype(admm.residual_convergence(1.001))>::value);
   CHECK(is_imaging_proximal_ref<decltype(admm.lagrange_update_scale(0.9))>::value);
-  CHECK(is_imaging_proximal_ref<decltype(admm.nu(1e0))>::value);
+  CHECK(is_imaging_proximal_ref<decltype(admm.sq_op_norm(1e0))>::value);
   CHECK(is_imaging_proximal_ref<decltype(admm.target(Vector<double>::Zero(0)))>::value);
   using ConvFunc = ConvergenceFunction<double>;
   CHECK(is_imaging_proximal_ref<decltype(admm.is_converged(std::declval<ConvFunc>()))>::value);

@@ -87,7 +87,7 @@ int main(int argc, char const **argv) {
                                 "dirty_" + output + ".tiff");
   }
   const Vector grad = psi.adjoint() * (sampling.adjoint() * y);
-  const sopt::t_real gamma = (grad.segment(0, image.size()).array().square() +
+  const sopt::t_real regulariser_strength = (grad.segment(0, image.size()).array().square() +
                               grad.segment(image.size(), image.size()).array().square())
                                  .sqrt()
                                  .real()
@@ -97,7 +97,7 @@ int main(int argc, char const **argv) {
   SOPT_HIGH_LOG("Creating primal-dual Functor");
   auto const pd = sopt::algorithm::TVPrimalDual<Scalar>(y)
                       .itermax(2000)
-                      .gamma(gamma)
+                      .regulariser_strength(regulariser_strength)
                       .tau(0.5 / (1. + 1.))
                       .l2ball_proximal_epsilon(epsilon)
                       .Psi(psi)
