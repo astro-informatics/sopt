@@ -28,6 +28,7 @@ jobs:
     # cross-platform coverage.
     # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
     runs-on: ${{matrix.os}}
+    container: ${{matrix.container}}
     env:
       CC: ${{ matrix.cc }}
       CXX: ${{ matrix.cxx }}
@@ -62,6 +63,13 @@ jobs:
             # This doesn't seem to work with ONNXrt yet:
             - os: macos-14
               cxx: g++-10
+          include:
+            - os: ubuntu-20.04
+              container: fedora:39
+              cc: gcc-10
+              cxx: g++-10
+              mpi: "ON"
+              omp: "ON"
 
     steps:
     - uses: actions/checkout@v3
@@ -73,6 +81,13 @@ jobs:
       run: |
         sudo apt update
         sudo apt install openmpi-bin libopenmpi-dev libyaml-cpp-dev ccache libeigen3-dev libtiff-dev
+
+    - name: Install Dependencies on Fedora
+      if: ${{ contains(matrix.container, 'fedora') }}
+      run: |
+          sudo dnf -y update
+          sudo dnf -y install cmake gcc gcc-c++
+          sudo dnf -y install openmpi openmpi-devel yaml-cpp doxygen graphviz ccache eigen3-devel libtiff-devel git
 
     - name: Checkout Catch2
       uses: actions/checkout@v4
