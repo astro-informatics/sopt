@@ -36,7 +36,7 @@ jobs:
             - { os: ubuntu-20.04, cxx: g++-10, mpi: "ON", omp: "OFF" }
             - { os: ubuntu-20.04, cxx: g++-10, mpi: "OFF", omp: "ON" }
             - { os: ubuntu-20.04, cxx: g++-10, mpi: "OFF", omp: "OFF" }
-            - { os: ubuntu-20.04, container: "fedora:39", cxx: g++-10, mpi: "ON", omp: "ON" }
+            - { os: ubuntu-20.04, container: "fedora:39", cxx: g++, mpi: "ON", omp: "ON" }
             - { os: macos-14, cxx: clang++, mpi: "ON", omp: "ON" }
             - { os: macos-14, cxx: clang++, mpi: "OFF", omp: "OFF" }
             #- { os: macos-14, cxx: clang++, mpi: "OFF", omp: "ON" }
