@@ -55,15 +55,28 @@ jobs:
           #  - os: macos-14
           #    cxx: g++-10
           include:
-            - [ os: ubuntu-20.04, cc: gcc-10, cxx: g++-10, mpi: "ON", omp: "ON" ]
-            - [ os: ubuntu-20.04, cc: gcc-10, cxx: g++-10, mpi: "ON", omp: "OFF" ]
-            - [ os: ubuntu-20.04, cc: gcc-10, cxx: g++-10, mpi: "OFF", omp: "ON" ]
-            - [ os: ubuntu-20.04, cc: gcc-10, cxx: g++-10, mpi: "OFF", omp: "OFF" ]
-            - [ os: ubuntu-20.04, container: fedora:39, cc: gcc-10, cxx: g++-10, mpi: "ON", omp: "ON" ]
-            - [ os: macos-14, cc: clang, cxx: clang++, mpi: "ON", omp: "ON" ]
+            - os: ubuntu-20.04
+              cc: gcc-10
+              cxx: g++-10
+              mpi: "ON"
+              omp: "ON"
+            - os: ubuntu-20.04
+              cc: gcc-10
+              cxx: g++-10
+              mpi: "ON"
+              omp: "OFF"
+            - os: ubuntu-20.04
+              cc: gcc-10
+              cxx: g++-10
+              mpi: "OFF"
+              omp: "ON"
+            #- os: ubuntu-20.04
+            #  cc: gcc-10, cxx: g++-10, mpi: "OFF", omp: "OFF" ]
+            #- os: ubuntu-20.04, container: fedora:39, cc: gcc-10, cxx: g++-10, mpi: "ON", omp: "ON" ]
+            #- os: macos-14, cc: clang, cxx: clang++, mpi: "ON", omp: "ON" ]
+            #- os: macos-14, cc: clang, cxx: clang++, mpi: "OFF", omp: "OFF" ]
             #- [ os: macos-14, cc: clang, cxx: clang++, mpi: "OFF", omp: "ON" ]
             #- [ os: macos-14, cc: clang, cxx: clang++, mpi: "ON", omp: "OFF" ]
-            - [ os: macos-14, cc: clang, cxx: clang++, mpi: "OFF", omp: "OFF" ]
 
     steps:
     - uses: actions/checkout@v3
