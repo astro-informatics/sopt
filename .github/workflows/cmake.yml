@@ -107,8 +107,7 @@ jobs:
       # The Github Actions machines are dual-core so we can build faster using 2 parallel processes
       run: |
         export CMAKE_PREFIX_PATH=${{github.workspace}}/local:$CMAKE_PREFIX_PATH
-        mkdir ${{github.workspace}}/build
-        cd ${{github.workspace}}/build
+        mkdir build && cd build
         cmake .. --fresh -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/local -Ddompi=${{matrix.mpi}} -Dopenmp=${{matrix.omp}}
         make -j$(nproc --ignore 1) install
 
