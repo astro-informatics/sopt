@@ -30,8 +30,7 @@ jobs:
     runs-on: ${{matrix.os}}
     container: ${{matrix.container}}
     env:
-      #CC: ${{ matrix.cc }}
-      CC: gcc-10 if ${{ contains(matrix.os, 'ubuntu') }} else clang
+      CC: ${{ matrix.cc }}
       CXX: ${{ matrix.cxx }}
     strategy:
       fail-fast: false
