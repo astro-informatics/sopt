@@ -30,51 +30,44 @@ jobs:
     runs-on: ${{matrix.os}}
     container: ${{matrix.container}}
     env:
-      CC: ${{ matrix.cc }}
+      #CC: ${{ matrix.cc }}
+      CC: gcc-10 if ${{ contains(matrix.os, 'ubuntu') }} else clang
       CXX: ${{ matrix.cxx }}
     strategy:
       fail-fast: false
       matrix:
-          os:
-            - ubuntu-20.04
-            - macos-14
-          cc:
-            - gcc-10
-            - clang
-          cxx:
-            - g++-10
-            - clang++
-          mpi:
-            - "ON"
-            - "OFF"
-          omp:
-            - "ON"
-            - "OFF"
-          exclude:
-            - cc: gcc-10
-              cxx: clang++
-            - cc: clang
-              cxx: g++-10
-            - os: ubuntu-20.04
-              cc: clang
-              cxx: clang++
-            - os: macos-14
-              mpi: "ON"
-            # This doesn't seem to work with ONNXrt yet:
-            - os: macos-14
-              cxx: g++-10
+          #os: [ ubuntu-20.04, macos-14 ]
+          #cc: [ gcc-10, clang ]
+          #cxx: [ g++-10, clang++ ]
+          #mpi: [ "ON", "OFF" ]
+          #omp: [ "ON", "OFF" ]
+          #container: [ fedora:39, "" ]
+          #exclude:
+          #  - cc: gcc-10
+          #    cxx: clang++
+          #  - cc: clang
+          #    cxx: g++-10
+          #  - os: ubuntu-20.04
+          #    cc: clang
+          #    cxx: clang++
+          #  - os: macos-14
+          #    mpi: "ON"
+          #  # This doesn't seem to work with ONNXrt yet:
+          #  - os: macos-14
+          #    cxx: g++-10
           include:
-            - os: ubuntu-20.04
-              container: fedora:39
-              cc: gcc-10
-              cxx: g++-10
-              mpi: "ON"
-              omp: "ON"
+            - [ os: ubuntu-20.04, cc: gcc-10, cxx: g++-10, mpi: "ON", omp: "ON" ]
+            - [ os: ubuntu-20.04, cc: gcc-10, cxx: g++-10, mpi: "ON", omp: "OFF" ]
+            - [ os: ubuntu-20.04, cc: gcc-10, cxx: g++-10, mpi: "OFF", omp: "ON" ]
+            - [ os: ubuntu-20.04, cc: gcc-10, cxx: g++-10, mpi: "OFF", omp: "OFF" ]
+            - [ os: ubuntu-20.04, container: fedora:39, cc: gcc-10, cxx: g++-10, mpi: "ON", omp: "ON" ]
+            - [ os: macos-14, cc: clang, cxx: clang++, mpi: "ON", omp: "ON" ]
+            #- [ os: macos-14, cc: clang, cxx: clang++, mpi: "OFF", omp: "ON" ]
+            #- [ os: macos-14, cc: clang, cxx: clang++, mpi: "ON", omp: "OFF" ]
+            - [ os: macos-14, cc: clang, cxx: clang++, mpi: "OFF", omp: "OFF" ]
 
     steps:
     - uses: actions/checkout@v3
-      with:
-        submodules: recursive
 
     - name: Install Dependencies on Ubunutu
       if: ${{ contains(matrix.os, 'ubuntu') }}
