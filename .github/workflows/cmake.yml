@@ -55,11 +55,7 @@ jobs:
           #  - os: macos-14
           #    cxx: g++-10
           include:
-            - os: ubuntu-20.04
-              cc: gcc-10
-              cxx: g++-10
-              mpi: "ON"
-              omp: "ON"
+            - { os: ubuntu-20.04, cc: gcc-10, cxx: g++-10, mpi: "ON", omp: "ON" }
             - os: ubuntu-20.04
               cc: gcc-10
               cxx: g++-10
