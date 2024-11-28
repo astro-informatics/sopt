@@ -46,7 +46,7 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Install Dependencies on Ubunutu
-      if: ${{ contains(matrix.os, 'ubuntu') }} && ! ${{ contains(matrix.container, 'fedora') }}
+      if: contains(matrix.os, 'ubuntu') && !contains(matrix.container, 'fedora')
       run: |
         sudo apt update
         sudo apt install openmpi-bin libopenmpi-dev libyaml-cpp-dev ccache libeigen3-dev libtiff-dev
