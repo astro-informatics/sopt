@@ -107,7 +107,7 @@ jobs:
       # Build your program with the given configuration.
       # The Github Actions machines are dual-core so we can build faster using 2 parallel processes
       run: |
-        if [ ${{ contains(matrix.container, 'fedora') }} ]; then
+        if [[ ${{ matrix.containeri }} == "*fedora*" ]]; then
           source /etc/profile.d/modules.sh
           module load mpi/openmpi-x86_64
         fi
