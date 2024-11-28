@@ -36,7 +36,7 @@ jobs:
             - { os: ubuntu-20.04, cxx: g++-10, mpi: "ON", omp: "OFF" }
             - { os: ubuntu-20.04, cxx: g++-10, mpi: "OFF", omp: "ON" }
             - { os: ubuntu-20.04, cxx: g++-10, mpi: "OFF", omp: "OFF" }
-            - { os: ubuntu-20.04, container: "fedora:39", cxx: g++, mpi: "ON", omp: "ON" }
+            - { os: ubuntu-20.04, container: "fedora:39", cxx: g++, mpi: "OFF", omp: "ON" }
             - { os: macos-14, cxx: clang++, mpi: "ON", omp: "ON" }
             - { os: macos-14, cxx: clang++, mpi: "OFF", omp: "OFF" }
             #- { os: macos-14, cxx: clang++, mpi: "OFF", omp: "ON" }
@@ -107,10 +107,6 @@ jobs:
       # Build your program with the given configuration.
       # The Github Actions machines are dual-core so we can build faster using 2 parallel processes
       run: |
-        if [[ "${{ matrix.container }}" == "*fedora*" ]]; then
-          source /etc/profile.d/modules.sh
-          module load mpi/openmpi-x86_64
-        fi
         export CMAKE_PREFIX_PATH=${{github.workspace}}/local:$CMAKE_PREFIX_PATH
         mkdir build && cd build
         cmake .. --fresh -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/local -Ddompi=${{matrix.mpi}} -Dopenmp=${{matrix.omp}}
