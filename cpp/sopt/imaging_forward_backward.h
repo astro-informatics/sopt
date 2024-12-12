@@ -42,7 +42,7 @@ class ImagingForwardBackward {
   using t_Gradient = typename FB::t_Gradient;
   using t_l2Gradient = typename std::function<void(t_Vector &, const t_Vector &)>;
   using t_IsConverged = typename FB::t_IsConverged;
-  using t_randomUpdater = std::function<IterationState<t_Vector>()>;
+  using t_randomUpdater = std::function<std::shared_ptr<IterationState<t_Vector>>()>;
 
   //! Values indicating how the algorithm ran
   struct Diagnostic : public FB::Diagnostic {
@@ -81,9 +81,11 @@ class ImagingForwardBackward {
         sigma_(1),
         sq_op_norm_(1),
         fista_(true),
-        is_converged_(),
-        Phi_(linear_transform_identity<Scalar>()),
-        target_(&target) {}
+        is_converged_() 
+        {
+          std::shared_ptr<t_LinearTransform> Id = std::make_shared<t_LinearTransform>(linear_transform_identity<Scalar>());
+          problem_state = std::make_shared<IterationState<t_Vector>>(target, Id);
+        }
 
   ImagingForwardBackward(t_randomUpdater &updater)
       : g_function_(nullptr),
@@ -102,11 +104,10 @@ class ImagingForwardBackward {
         fista_(true),
         is_converged_() 
         {
-          if(random_updater)
+          if(random_updater_)
           {
             // target and Phi are not known ahead of time for random data sets so need to be initialised
-            target_state_ = std::make_unique<IterationState<t_Vector>>(random_updater_);
-            target_ = &target_state_.target();
+            problem_state = random_updater_();
           } 
           else
           {
@@ -157,8 +158,13 @@ class ImagingForwardBackward {
   SOPT_MACRO(fista, bool);
   //! A function verifying convergence
   SOPT_MACRO(is_converged, t_IsConverged);
+  
   //! Measurement operator
-  SOPT_MACRO(Phi, t_LinearTransform);
+  t_LinearTransform const &Phi() const { return problem_state->Phi(); }
+  ImagingForwardBackward<SCALAR> &Phi(t_LinearTransform const &(Phi)) {
+    problem_state->Phi(Phi);
+    return *this;
+  }
 
 #ifdef SOPT_MPI
   //! Communicator for summing objective_function
@@ -208,13 +214,13 @@ class ImagingForwardBackward {
   //}
 
   //! Vector of target measurements
-  t_Vector const &target() const { return *target_; }
+  t_Vector const &target() const { return problem_state->target(); }
 
   //! Minimum of objective_function
   Real objmin() const { return objmin_; }
   //! Sets the vector of target measurements
   ImagingForwardBackward<Scalar> &target(t_Vector const &target) {
-    target_ = &target;
+    problem_state->target(target);
     return *this;
   }
 
@@ -268,7 +274,7 @@ class ImagingForwardBackward {
   template <typename... ARGS>
   typename std::enable_if<sizeof...(ARGS) >= 1, ImagingForwardBackward &>::type Phi(
       ARGS &&... args) {
-    Phi_ = linear_transform(std::forward<ARGS>(args)...);
+    problem_state->Phi(linear_transform(std::forward<ARGS>(args)...));
     return *this;
   }
 
@@ -292,10 +298,9 @@ class ImagingForwardBackward {
   std::shared_ptr<NonDifferentiableFunc<SCALAR>> g_function_;
   std::shared_ptr<DifferentiableFunc<SCALAR>> f_function_;
   t_randomUpdater random_updater_;
-  std::shared_ptr<IterationState<t_Vector>> target_state_;
+  //! Problem state represents Phi and y s.t. the problem to solve is y = Phi x
+  std::shared_ptr<IterationState<t_Vector>> problem_state;
 
-  //! Vector of measurements
-  const t_Vector *target_;
   //! Mininum of objective function
   mutable Real objmin_;
 

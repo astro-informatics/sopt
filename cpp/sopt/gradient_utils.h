@@ -24,6 +24,11 @@ class IterationState {
 
   const sopt::LinearTransform<T>& Phi() const { return *_Phi; }
 
+  void Phi(const sopt::LinearTransform<T> &new_phi)
+  {
+    _Phi = std::make_shared<sopt::LinearTransform<T>>(sopt::LinearTransform<T>(new_phi));
+  }
+
   private:
   const T _target;
 
