@@ -42,7 +42,7 @@ class ImagingForwardBackward {
   using t_Gradient = typename FB::t_Gradient;
   using t_l2Gradient = typename std::function<void(t_Vector &, const t_Vector &)>;
   using t_IsConverged = typename FB::t_IsConverged;
-  using t_randomUpdater = std::function<std::shared_ptr<IterationState<t_Vector>>()>;
+  using t_randomUpdater = typename FB::t_randomUpdater;
 
   //! Values indicating how the algorithm ran
   struct Diagnostic : public FB::Diagnostic {

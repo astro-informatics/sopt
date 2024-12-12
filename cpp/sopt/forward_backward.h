@@ -11,6 +11,8 @@
 #include "sopt/logging.h"
 #include "sopt/types.h"
 
+#include "sopt/gradient_utils.h"
+
 namespace sopt::algorithm {
 
 /*! \brief Forward Backward Splitting 
@@ -41,6 +43,7 @@ class ForwardBackward {
   //! Type of the gradient
   // The first argument is the output vector, the others are inputs
   using t_Gradient = std::function<void(t_Vector &gradient, const t_Vector &image, const t_Vector &residual, const t_LinearTransform& Phi)>;
+  using t_randomUpdater = std::function<std::shared_ptr<IterationState<t_Vector>>()>;
 
   //! Values indicating how the algorithm ran
   struct Diagnostic {
@@ -73,10 +76,12 @@ class ForwardBackward {
         sq_op_norm_(1),
         is_converged_(),
 	      fista_(true),
-        Phi_(linear_transform_identity<Scalar>()),
         f_gradient_(f_gradient),
-        g_proximal_(g_proximal),
-        target_(&target) {}
+        g_proximal_(g_proximal)
+        {
+          std::shared_ptr<t_LinearTransform> Id = std::make_shared<t_LinearTransform>(linear_transform_identity<Scalar>());
+          problem_state = std::make_shared<IterationState<t_Vector>>(target, Id);
+        }
   virtual ~ForwardBackward() {}
 
 // Macro helps define properties that can be initialized as in
@@ -106,12 +111,18 @@ class ForwardBackward {
   //! \brief A function verifying convergence
   //! \details It takes as input two arguments: the current solution x and the current residual.
   SOPT_MACRO(is_converged, t_IsConverged);
-  //! Measurement operator
-  SOPT_MACRO(Phi, t_LinearTransform);
   //! First proximal
   SOPT_MACRO(f_gradient, t_Gradient);
   //! Second proximal
   SOPT_MACRO(g_proximal, t_Proximal);
+
+  //! Measurement operator
+  t_LinearTransform const &Phi() const { return problem_state->Phi(); }
+  ForwardBackward<SCALAR> &Phi(t_LinearTransform const &(Phi)) {
+    problem_state->Phi(Phi);
+    return *this;
+  }
+
 #undef SOPT_MACRO
   //! \brief Simplifies calling the gradient function
   void f_gradient(t_Vector &out, t_Vector const &x, t_Vector const &res, t_LinearTransform const &Phi) const { f_gradient()(out, x, res, Phi); }
@@ -126,10 +137,10 @@ class ForwardBackward {
   }
 
   //! Vector of target measurements
-  t_Vector const &target() const { return *target_; }
+  t_Vector const &target() const { return problem_state->target(); }
   //! Sets the vector of target measurements
   ForwardBackward<Scalar> &target(t_Vector const &target) {
-    target_ = &target;
+    problem_state->target(target);
     return *this;
   }
 
@@ -183,7 +194,7 @@ class ForwardBackward {
   //! Set Φ and Φ^† using arguments that sopt::linear_transform understands
   template <typename... ARGS>
   typename std::enable_if<sizeof...(ARGS) >= 1, ForwardBackward &>::type Phi(ARGS &&... args) {
-    Phi_ = linear_transform(std::forward<ARGS>(args)...);
+    problem_state->Phi(linear_transform(std::forward<ARGS>(args)...));
     return *this;
   }
 
@@ -231,8 +242,9 @@ class ForwardBackward {
   //! \param[in] residuals: initial residuals
   Diagnostic operator()(t_Vector &out, t_Vector const &guess, t_Vector const &res) const;
 
-  //! Vector of measurements
-  const t_Vector *target_;
+  //! problem state (shared with Imaging Forward Backward)
+  std::shared_ptr<IterationState<t_Vector>> problem_state;
+  t_randomUpdater random_updates;
 };
 
 /**
@@ -258,6 +270,12 @@ void ForwardBackward<SCALAR>::iteration_step(t_Vector &image, t_Vector &residual
   const Real weight = regulariser_strength() * step_size();
   g_proximal(image, weight, auxilliary_with_step);  // apply proximal operator to new image
   auxilliary_image = image + FISTA_step * (image - prev_image);  // update auxilliary vector with FISTA acceleration step  
+  
+  // set up next iteration
+  if(random_updates)
+  {
+    problem_state = random_updates();
+  }
   residual = (Phi() * auxilliary_image) - target();  // updates the residual for the NEXT iteration (new image).
 }
 
