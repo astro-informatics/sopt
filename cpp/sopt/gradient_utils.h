@@ -15,19 +15,19 @@ class IterationState {
   IterationState() = delete;
 
   IterationState(const T& target,
-                 std::shared_ptr<sopt::LinearTransform<T>> phi)
+                 std::shared_ptr<sopt::LinearTransform<T>> Phi)
                  : _target(target) {
-    _phi = phi;
+    _Phi = Phi;
   }
 
   const T& target() const { return _target; }
 
-  const sopt::LinearTransform<T>& phi() const { return *_phi; }
+  const sopt::LinearTransform<T>& Phi() const { return *_Phi; }
 
   private:
   const T _target;
 
-  std::shared_ptr<sopt::LinearTransform<T>> _phi;
+  std::shared_ptr<sopt::LinearTransform<T>> _Phi;
 };
 
 } // namespace sopt
