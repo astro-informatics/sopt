@@ -19,6 +19,7 @@
 
 #include <functional>
 #include "sopt/gradient_utils.h"
+#include <stdexcept>
 
 #ifdef SOPT_MPI
 #include "sopt/mpi/communicator.h"
@@ -83,8 +84,37 @@ class ImagingForwardBackward {
         is_converged_(),
         Phi_(linear_transform_identity<Scalar>()),
         target_(&target) {}
-  virtual ~ImagingForwardBackward() {}
 
+  ImagingForwardBackward(t_randomUpdater &updater)
+      : g_function_(nullptr),
+        f_function_(nullptr),
+        random_updater_(updater),
+        tight_frame_(false),
+        residual_tolerance_(0.),
+        relative_variation_(1e-4),
+        residual_convergence_(nullptr),
+        objective_convergence_(nullptr),
+        itermax_(std::numeric_limits<t_uint>::max()),
+        regulariser_strength_(1e-8),
+        step_size_(1),
+        sigma_(1),
+        sq_op_norm_(1),
+        fista_(true),
+        is_converged_() 
+        {
+          if(random_updater)
+          {
+            // target and Phi are not known ahead of time for random data sets so need to be initialised
+            target_state_ = std::make_unique<IterationState<t_Vector>>(random_updater_);
+            target_ = &target_state_.target();
+          } 
+          else
+          {
+            throw std::runtime_error("Attempted to construct ImagingForwardBackward class with a null random updater. To run without random updates supply a target vector instead.");
+          } 
+        }
+
+  virtual ~ImagingForwardBackward() {}
 // Macro helps define properties that can be initialized as in
 // auto padmm = ImagingForwardBackward<float>().prop0(value).prop1(value);
 #define SOPT_MACRO(NAME, TYPE)                             \
@@ -262,6 +292,7 @@ class ImagingForwardBackward {
   std::shared_ptr<NonDifferentiableFunc<SCALAR>> g_function_;
   std::shared_ptr<DifferentiableFunc<SCALAR>> f_function_;
   t_randomUpdater random_updater_;
+  std::shared_ptr<IterationState<t_Vector>> target_state_;
 
   //! Vector of measurements
   const t_Vector *target_;
