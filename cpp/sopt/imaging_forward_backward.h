@@ -226,7 +226,7 @@ class ImagingForwardBackward {
 
   //! \brief Calls Forward Backward
   //! \param[out] out: Output vector x
-  Diagnostic operator()(t_Vector &out) const {
+  Diagnostic operator()(t_Vector &out) {
     return operator()(out, ForwardBackward<SCALAR>::initial_guess(target(), Phi(), sq_op_norm()));
   }
   //! \brief Calls Forward Backward
@@ -360,14 +360,16 @@ typename ImagingForwardBackward<SCALAR>::Diagnostic ImagingForwardBackward<SCALA
     this->objmin_ = std::real(scalvar.previous());
     return result;
   };
-  auto const fb = ForwardBackward<SCALAR>(f_gradient, g_proximal, target())
+  auto fb = ForwardBackward<SCALAR>(f_gradient, g_proximal, target())
                       .itermax(itermax())
                       .step_size(gradient_step_size)
                       .regulariser_strength(regulariser_strength())
                       .sq_op_norm(sq_op_norm())
                       .fista(fista())
                       .Phi(Phi())
-                      .is_converged(convergence);
+                      .is_converged(convergence)
+                      .random_updater(random_updater_)
+                      .set_problem_state(problem_state);
   static_cast<typename ForwardBackward<SCALAR>::Diagnostic &>(result) =
       fb(out, std::tie(guess, res));
   return result;

@@ -276,7 +276,7 @@ typename L2ForwardBackward<SCALAR>::Diagnostic L2ForwardBackward<SCALAR>::operat
     this->objmin_ = std::real(scalvar.previous());
     return result;
   };
-  auto const fb = ForwardBackward<SCALAR>(f_gradient, g_proximal, target())
+  auto fb = ForwardBackward<SCALAR>(f_gradient, g_proximal, target())
                       .itermax(itermax())
                       .step_size(step_size())
                       .regulariser_strength(regulariser_strength())

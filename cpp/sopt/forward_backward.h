@@ -118,8 +118,20 @@ class ForwardBackward {
 
   //! Measurement operator
   t_LinearTransform const &Phi() const { return problem_state->Phi(); }
-  ForwardBackward<SCALAR> &Phi(t_LinearTransform const &(Phi)) {
-    problem_state->Phi(Phi);
+  ForwardBackward<SCALAR> &Phi(t_LinearTransform const &new_phi) {
+    problem_state->Phi(new_phi);
+    return *this;
+  }
+
+  ForwardBackward<SCALAR> &random_updater(t_randomUpdater &rU)
+  {
+    random_updater_ = rU;
+    return *this;
+  }
+
+  ForwardBackward<SCALAR> &set_problem_state(std::shared_ptr<IterationState<t_Vector>> pS)
+  {
+    problem_state = pS;
     return *this;
   }
 
@@ -151,42 +163,42 @@ class ForwardBackward {
 
   //! \brief Calls Forward Backward
   //! \param[out] out: Output vector x
-  Diagnostic operator()(t_Vector &out) const { return operator()(out, initial_guess()); }
+  Diagnostic operator()(t_Vector &out) { return operator()(out, initial_guess()); }
   //! \brief Calls Forward Backward
   //! \param[out] out: Output vector x
   //! \param[in] guess: initial guess
-  Diagnostic operator()(t_Vector &out, std::tuple<t_Vector, t_Vector> const &guess) const {
+  Diagnostic operator()(t_Vector &out, std::tuple<t_Vector, t_Vector> const &guess) {
     return operator()(out, std::get<0>(guess), std::get<1>(guess));
   }
   //! \brief Calls Forward Backward
   //! \param[out] out: Output vector x
   //! \param[in] guess: initial guess
   Diagnostic operator()(t_Vector &out,
-                        std::tuple<t_Vector const &, t_Vector const &> const &guess) const {
+                        std::tuple<t_Vector const &, t_Vector const &> const &guess) {
     return operator()(out, std::get<0>(guess), std::get<1>(guess));
   }
   //! \brief Calls Forward Backward
   //! \param[in] guess: initial guess
-  DiagnosticAndResult operator()(std::tuple<t_Vector, t_Vector> const &guess) const {
+  DiagnosticAndResult operator()(std::tuple<t_Vector, t_Vector> const &guess) {
     return operator()(std::tie(std::get<0>(guess), std::get<1>(guess)));
   }
   //! \brief Calls Forward Backward
   //! \param[in] guess: initial guess
   DiagnosticAndResult operator()(
-      std::tuple<t_Vector const &, t_Vector const &> const &guess) const {
+      std::tuple<t_Vector const &, t_Vector const &> const &guess) {
     DiagnosticAndResult result;
     static_cast<Diagnostic &>(result) = operator()(result.x, guess);
     return result;
   }
   //! \brief Calls Forward Backward
   //! \param[in] guess: initial guess
-  DiagnosticAndResult operator()() const {
+  DiagnosticAndResult operator()() {
     DiagnosticAndResult result;
     static_cast<Diagnostic &>(result) = operator()(result.x, initial_guess());
     return result;
   }
   //! Makes it simple to chain different calls to FB
-  DiagnosticAndResult operator()(DiagnosticAndResult const &warmstart) const {
+  DiagnosticAndResult operator()(DiagnosticAndResult const &warmstart) {
     DiagnosticAndResult result = warmstart;
     static_cast<Diagnostic &>(result) = operator()(result.x, warmstart.x, warmstart.residual);
     return result;
@@ -222,7 +234,7 @@ class ForwardBackward {
 
  protected:
   void iteration_step(t_Vector &out, t_Vector &residual, t_Vector &p, t_Vector &z,
-                      const t_real lambda) const;
+                      const t_real lambda);
 
   //! Checks input makes sense
   void sanity_check(t_Vector const &x_guess, t_Vector const &res_guess) const {
@@ -240,11 +252,11 @@ class ForwardBackward {
   //! \param[out] out: Output vector x
   //! \param[in] guess: initial guess
   //! \param[in] residuals: initial residuals
-  Diagnostic operator()(t_Vector &out, t_Vector const &guess, t_Vector const &res) const;
+  Diagnostic operator()(t_Vector &out, t_Vector const &guess, t_Vector const &res);
 
   //! problem state (shared with Imaging Forward Backward)
   std::shared_ptr<IterationState<t_Vector>> problem_state;
-  t_randomUpdater random_updates;
+  t_randomUpdater random_updater_;
 };
 
 /**
@@ -263,7 +275,7 @@ class ForwardBackward {
  */
 template <typename SCALAR>
 void ForwardBackward<SCALAR>::iteration_step(t_Vector &image, t_Vector &residual, t_Vector &auxilliary_image,
-                                             t_Vector &gradient_current, const t_real FISTA_step) const {
+                                             t_Vector &gradient_current, const t_real FISTA_step) {
   t_Vector prev_image = image;
   f_gradient(gradient_current, auxilliary_image, residual, Phi());  // assigns gradient_current (non normalised)
   t_Vector auxilliary_with_step = auxilliary_image - step_size() / sq_op_norm() * gradient_current;  // step to new image using gradient
@@ -272,16 +284,16 @@ void ForwardBackward<SCALAR>::iteration_step(t_Vector &image, t_Vector &residual
   auxilliary_image = image + FISTA_step * (image - prev_image);  // update auxilliary vector with FISTA acceleration step  
   
   // set up next iteration
-  if(random_updates)
+  if(random_updater_)
   {
-    problem_state = random_updates();
+    problem_state = random_updater_();
   }
   residual = (Phi() * auxilliary_image) - target();  // updates the residual for the NEXT iteration (new image).
 }
 
 template <typename SCALAR>
 typename ForwardBackward<SCALAR>::Diagnostic ForwardBackward<SCALAR>::operator()(
-    t_Vector &out, t_Vector const &x_guess, t_Vector const &res_guess) const {
+    t_Vector &out, t_Vector const &x_guess, t_Vector const &res_guess) {
   SOPT_HIGH_LOG("Performing Forward Backward Splitting");
   if (fista()) {
     SOPT_HIGH_LOG("Using FISTA algorithm");
