@@ -17,6 +17,9 @@
 #include "sopt/non_differentiable_func.h"
 #include "sopt/differentiable_func.h"
 
+#include <functional>
+#include "sopt/gradient_utils.h"
+
 #ifdef SOPT_MPI
 #include "sopt/mpi/communicator.h"
 #include "sopt/mpi/utilities.h"
@@ -38,6 +41,7 @@ class ImagingForwardBackward {
   using t_Gradient = typename FB::t_Gradient;
   using t_l2Gradient = typename std::function<void(t_Vector &, const t_Vector &)>;
   using t_IsConverged = typename FB::t_IsConverged;
+  using t_randomUpdater = std::function<IterationState<t_Vector>()>;
 
   //! Values indicating how the algorithm ran
   struct Diagnostic : public FB::Diagnostic {
@@ -61,10 +65,10 @@ class ImagingForwardBackward {
   // \f$f\f$ is differentiable with a supplied gradient and \f$g\f$ is non-differentiable with a supplied proximal operator.
   // Throughout this class we will use `f` and `g` in variables to refer to these two parts of the objective function.
   //! \param[in] target: Vector of target measurements
-  template <typename DERIVED>
-  ImagingForwardBackward(Eigen::MatrixBase<DERIVED> const &target)
+  ImagingForwardBackward(t_Vector const &target)
       : g_function_(nullptr),
         f_function_(nullptr),
+        random_updater_(nullptr),
         tight_frame_(false),
         residual_tolerance_(0.),
         relative_variation_(1e-4),
@@ -78,7 +82,7 @@ class ImagingForwardBackward {
         fista_(true),
         is_converged_(),
         Phi_(linear_transform_identity<Scalar>()),
-        target_(target) {}
+        target_(&target) {}
   virtual ~ImagingForwardBackward() {}
 
 // Macro helps define properties that can be initialized as in
@@ -152,6 +156,13 @@ class ImagingForwardBackward {
     return *this;
   }
 
+  // Getter and setter for the random updater object
+  t_randomUpdater &random_updater() { return random_updater_; }
+  ImagingForwardBackward<SCALAR>& random_updater( t_randomUpdater &f_function) {
+    random_updater_ = random_updater_;  // may change this to a move if we don't need to keep it
+    return *this;
+  }
+
   t_LinearTransform const &Psi() const
   {
     return (g_function_) ? g_function_->Psi() : linear_transform_identity<Scalar>();
@@ -167,14 +178,13 @@ class ImagingForwardBackward {
   //}
 
   //! Vector of target measurements
-  t_Vector const &target() const { return target_; }
+  t_Vector const &target() const { return *target_; }
 
   //! Minimum of objective_function
   Real objmin() const { return objmin_; }
   //! Sets the vector of target measurements
-  template <typename DERIVED>
-  ImagingForwardBackward<Scalar> &target(Eigen::MatrixBase<DERIVED> const &target) {
-    target_ = target;
+  ImagingForwardBackward<Scalar> &target(t_Vector const &target) {
+    target_ = &target;
     return *this;
   }
 
@@ -251,9 +261,10 @@ class ImagingForwardBackward {
   // These should point to an instance of a derived class (e.g. L1GProximal) once set up
   std::shared_ptr<NonDifferentiableFunc<SCALAR>> g_function_;
   std::shared_ptr<DifferentiableFunc<SCALAR>> f_function_;
+  t_randomUpdater random_updater_;
 
   //! Vector of measurements
-  t_Vector target_;
+  const t_Vector *target_;
   //! Mininum of objective function
   mutable Real objmin_;
 

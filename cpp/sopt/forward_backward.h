@@ -65,9 +65,8 @@ class ForwardBackward {
   //! Setups ForwardBackward
   //! \param[in] f_function: the differentiable function \f$f\f$ with a gradient
   //! \param[in] g_function: the non-differentiable function \f$g\f$ with a proximal operator
-  template <typename DERIVED>
   ForwardBackward(t_Gradient const &f_gradient, t_Proximal const &g_proximal,
-                  Eigen::MatrixBase<DERIVED> const &target)
+                  t_Vector const &target)
       : itermax_(std::numeric_limits<t_uint>::max()),
         regulariser_strength_(1e-8),
         step_size_(1),
@@ -77,7 +76,7 @@ class ForwardBackward {
         Phi_(linear_transform_identity<Scalar>()),
         f_gradient_(f_gradient),
         g_proximal_(g_proximal),
-        target_(target) {}
+        target_(&target) {}
   virtual ~ForwardBackward() {}
 
 // Macro helps define properties that can be initialized as in
@@ -127,11 +126,10 @@ class ForwardBackward {
   }
 
   //! Vector of target measurements
-  t_Vector const &target() const { return target_; }
+  t_Vector const &target() const { return *target_; }
   //! Sets the vector of target measurements
-  template <typename DERIVED>
-  ForwardBackward<Scalar> &target(Eigen::MatrixBase<DERIVED> const &target) {
-    target_ = target;
+  ForwardBackward<Scalar> &target(t_Vector const &target) {
+    target_ = &target;
     return *this;
   }
 
@@ -234,7 +232,7 @@ class ForwardBackward {
   Diagnostic operator()(t_Vector &out, t_Vector const &guess, t_Vector const &res) const;
 
   //! Vector of measurements
-  t_Vector target_;
+  const t_Vector *target_;
 };
 
 /**
