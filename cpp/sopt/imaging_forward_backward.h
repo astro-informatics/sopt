@@ -194,8 +194,8 @@ class ImagingForwardBackward {
 
   // Getter and setter for the random updater object
   t_randomUpdater &random_updater() { return random_updater_; }
-  ImagingForwardBackward<SCALAR>& random_updater( t_randomUpdater &f_function) {
-    random_updater_ = random_updater_;  // may change this to a move if we don't need to keep it
+  ImagingForwardBackward<SCALAR>& random_updater( t_randomUpdater &new_updater) {
+    random_updater_ = new_updater;  // may change this to a move if we don't need to keep it
     return *this;
   }
 
