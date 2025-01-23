@@ -12,22 +12,30 @@ namespace sopt {
 template <typename T>
 class IterationState {
   public:
-  IterationState() = delete;
+  IterationState(const T& target)
+  {
+    _Phi = std::make_shared<sopt::LinearTransform<T>>(linear_transform_identity<T>());
+  }
 
   IterationState(const T& target,
-                 std::shared_ptr<sopt::LinearTransform<T>> phi)
+                 std::shared_ptr<sopt::LinearTransform<T>> Phi)
                  : _target(target) {
-    _phi = phi;
+    _Phi = Phi;
   }
 
   const T& target() const { return _target; }
 
-  const sopt::LinearTransform<T>& phi() const { return *_phi; }
+  const sopt::LinearTransform<T>& Phi() const { return *_Phi; }
+
+  void Phi(const sopt::LinearTransform<T> &new_phi)
+  {
+    _Phi = std::make_shared<sopt::LinearTransform<T>>(new_phi);
+  }
 
   private:
   const T _target;
 
-  std::shared_ptr<sopt::LinearTransform<T>> _phi;
+  std::shared_ptr<sopt::LinearTransform<T>> _Phi;
 };
 
 } // namespace sopt
