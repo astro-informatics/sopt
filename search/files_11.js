@@ -1,9 +1,9 @@
 var searchData=
 [
-  ['wavelet_5fdata_2ecc_767',['wavelet_data.cc',['../wavelet__data_8cc.html',1,'']]],
-  ['wavelet_5fdata_2eh_768',['wavelet_data.h',['../wavelet__data_8h.html',1,'']]],
-  ['wavelets_2ecc_769',['wavelets.cc',['../benchmarks_2wavelets_8cc.html',1,'(Global Namespace)'],['../examples_2wavelets_8cc.html',1,'(Global Namespace)'],['../sopt_2wavelets_2wavelets_8cc.html',1,'(Global Namespace)'],['../tests_2wavelets_8cc.html',1,'(Global Namespace)']]],
-  ['wavelets_2eh_770',['wavelets.h',['../wavelets_2wavelets_8h.html',1,'(Global Namespace)'],['../wavelets_8h.html',1,'(Global Namespace)']]],
-  ['wrapper_2ecc_771',['wrapper.cc',['../wrapper_8cc.html',1,'']]],
-  ['wrapper_2eh_772',['wrapper.h',['../wrapper_8h.html',1,'']]]
+  ['wavelet_5fdata_2ecc_770',['wavelet_data.cc',['../wavelet__data_8cc.html',1,'']]],
+  ['wavelet_5fdata_2eh_771',['wavelet_data.h',['../wavelet__data_8h.html',1,'']]],
+  ['wavelets_2ecc_772',['wavelets.cc',['../benchmarks_2wavelets_8cc.html',1,'(Global Namespace)'],['../examples_2wavelets_8cc.html',1,'(Global Namespace)'],['../sopt_2wavelets_2wavelets_8cc.html',1,'(Global Namespace)'],['../tests_2wavelets_8cc.html',1,'(Global Namespace)']]],
+  ['wavelets_2eh_773',['wavelets.h',['../wavelets_2wavelets_8h.html',1,'(Global Namespace)'],['../wavelets_8h.html',1,'(Global Namespace)']]],
+  ['wrapper_2ecc_774',['wrapper.cc',['../wrapper_8cc.html',1,'']]],
+  ['wrapper_2eh_775',['wrapper.h',['../wrapper_8h.html',1,'']]]
 ];

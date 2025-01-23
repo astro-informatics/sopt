@@ -1204,6 +1204,7 @@
     <includes id="linear__transform_8h" name="linear_transform.h" local="yes" imported="no">sopt/linear_transform.h</includes>
     <includes id="logging_8h" name="logging.h" local="yes" imported="no">sopt/logging.h</includes>
     <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
+    <includes id="gradient__utils_8h" name="gradient_utils.h" local="yes" imported="no">sopt/gradient_utils.h</includes>
     <namespace>sopt</namespace>
     <namespace>sopt::algorithm</namespace>
     <member kind="define">
@@ -1280,6 +1281,7 @@
     <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
     <includes id="non__differentiable__func_8h" name="non_differentiable_func.h" local="yes" imported="no">sopt/non_differentiable_func.h</includes>
     <includes id="differentiable__func_8h" name="differentiable_func.h" local="yes" imported="no">sopt/differentiable_func.h</includes>
+    <includes id="gradient__utils_8h" name="gradient_utils.h" local="yes" imported="no">sopt/gradient_utils.h</includes>
     <class kind="class">sopt::algorithm::ImagingForwardBackward</class>
     <class kind="struct">sopt::algorithm::ImagingForwardBackward::Diagnostic</class>
     <class kind="struct">sopt::algorithm::ImagingForwardBackward::DiagnosticAndResult</class>
@@ -4109,6 +4111,57 @@
     </member>
   </compound>
   <compound kind="file">
+    <name>stochastic_update.cc</name>
+    <path>/home/runner/work/sopt/sopt/cpp/tests/</path>
+    <filename>http://astro-informatics.github.io/sopt/stochastic__update_8cc.html</filename>
+    <includes id="imaging__forward__backward_8h" name="imaging_forward_backward.h" local="yes" imported="no">sopt/imaging_forward_backward.h</includes>
+    <includes id="l1__non__diff__function_8h" name="l1_non_diff_function.h" local="yes" imported="no">sopt/l1_non_diff_function.h</includes>
+    <includes id="logging_8h" name="logging.h" local="yes" imported="no">sopt/logging.h</includes>
+    <includes id="maths_8h" name="maths.h" local="yes" imported="no">sopt/maths.h</includes>
+    <includes id="relative__variation_8h" name="relative_variation.h" local="yes" imported="no">sopt/relative_variation.h</includes>
+    <includes id="sampling_8h" name="sampling.h" local="yes" imported="no">sopt/sampling.h</includes>
+    <includes id="types_8h" name="types.h" local="yes" imported="no">sopt/types.h</includes>
+    <includes id="utilities_8h" name="utilities.h" local="yes" imported="no">sopt/utilities.h</includes>
+    <includes id="wavelets_8h" name="wavelets.h" local="yes" imported="no">sopt/wavelets.h</includes>
+    <includes id="gradient__utils_8h" name="gradient_utils.h" local="yes" imported="no">sopt/gradient_utils.h</includes>
+    <includes id="tiffwrappers_8h" name="tiffwrappers.h" local="yes" imported="no">tools_for_tests/tiffwrappers.h</includes>
+    <member kind="typedef">
+      <type>double</type>
+      <name>Scalar</name>
+      <anchorfile>stochastic__update_8cc.html</anchorfile>
+      <anchor>a8c2981f3f834be9448a6ab06c28748eb</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>sopt::Vector&lt; Scalar &gt;</type>
+      <name>Vector</name>
+      <anchorfile>stochastic__update_8cc.html</anchorfile>
+      <anchor>a47c194cae73625ab3a13b62e4234f46f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>sopt::Matrix&lt; Scalar &gt;</type>
+      <name>Matrix</name>
+      <anchorfile>stochastic__update_8cc.html</anchorfile>
+      <anchor>ab86a00c212fb2233871e057014ded6a6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>sopt::Image&lt; Scalar &gt;</type>
+      <name>Image</name>
+      <anchorfile>stochastic__update_8cc.html</anchorfile>
+      <anchor>aeeca20f5186519056cf53849afb07e6e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST_CASE</name>
+      <anchorfile>stochastic__update_8cc.html</anchorfile>
+      <anchor>a4e85c74adb906d5a3d0a1c2be49ebc78</anchor>
+      <arglist>(&quot;Inpainting&quot;)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
     <name>tf_inpainting.cc</name>
     <path>/home/runner/work/sopt/sopt/cpp/tests/</path>
     <filename>http://astro-informatics.github.io/sopt/tf__inpainting_8cc.html</filename>
@@ -5628,12 +5681,26 @@
       <anchor>a969aca86a227e6cb6d392fada385491b</anchor>
       <arglist></arglist>
     </member>
+    <member kind="typedef">
+      <type>typename FB::t_randomUpdater</type>
+      <name>t_randomUpdater</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
+      <anchor>adbd7a2fd61f51d8c939632431a378c2c</anchor>
+      <arglist></arglist>
+    </member>
     <member kind="function">
       <type></type>
       <name>ImagingForwardBackward</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
-      <anchor>aa65883194375705f1798cbd17f17b952</anchor>
-      <arglist>(Eigen::MatrixBase&lt; DERIVED &gt; const &amp;target)</arglist>
+      <anchor>a24359209f19bd6f0ec115dfd42264c99</anchor>
+      <arglist>(t_Vector const &amp;target)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>ImagingForwardBackward</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
+      <anchor>a221980c699966e7bb534ec9158ae7d55</anchor>
+      <arglist>(t_randomUpdater &amp;updater)</arglist>
     </member>
     <member kind="function" virtualness="virtual">
       <type>virtual</type>
@@ -5727,11 +5794,18 @@
       <arglist>(is_converged, t_IsConverged)</arglist>
     </member>
     <member kind="function">
-      <type></type>
-      <name>SOPT_MACRO</name>
+      <type>t_LinearTransform const  &amp;</type>
+      <name>Phi</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
-      <anchor>a81b2cd01b9e9de940824fc835c636b72</anchor>
-      <arglist>(Phi, t_LinearTransform)</arglist>
+      <anchor>a438ac05a01740a6317089053b46bc279</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>ImagingForwardBackward&lt; SCALAR &gt; &amp;</type>
+      <name>Phi</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
+      <anchor>a40ca53f45deec3f61b4e8a8410e89ed8</anchor>
+      <arglist>(t_LinearTransform const &amp;(Phi))</arglist>
     </member>
     <member kind="function">
       <type>std::shared_ptr&lt; NonDifferentiableFunc&lt; SCALAR &gt; &gt;</type>
@@ -5762,6 +5836,20 @@
       <arglist>(std::shared_ptr&lt; DifferentiableFunc&lt; SCALAR &gt;&gt; f_function)</arglist>
     </member>
     <member kind="function">
+      <type>t_randomUpdater &amp;</type>
+      <name>random_updater</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
+      <anchor>a75a65280e7befe66a8398101374783e1</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>ImagingForwardBackward&lt; SCALAR &gt; &amp;</type>
+      <name>random_updater</name>
+      <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
+      <anchor>a14b8aa454f32290019b35c0d4db766c5</anchor>
+      <arglist>(t_randomUpdater &amp;new_updater)</arglist>
+    </member>
+    <member kind="function">
       <type>t_LinearTransform const  &amp;</type>
       <name>Psi</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
@@ -5786,15 +5874,15 @@
       <type>ImagingForwardBackward&lt; Scalar &gt; &amp;</type>
       <name>target</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
-      <anchor>a5c3270a8456887434223f1c1b8ba2522</anchor>
-      <arglist>(Eigen::MatrixBase&lt; DERIVED &gt; const &amp;target)</arglist>
+      <anchor>a57fbce8f0d9a7b254697daec54db816b</anchor>
+      <arglist>(t_Vector const &amp;target)</arglist>
     </member>
     <member kind="function">
       <type>Diagnostic</type>
       <name>operator()</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
-      <anchor>a12325be5e433952ca7f46d7de165fec6</anchor>
-      <arglist>(t_Vector &amp;out) const</arglist>
+      <anchor>ac3dcc02cd78e64c0b60ef46296b233a3</anchor>
+      <arglist>(t_Vector &amp;out)</arglist>
     </member>
     <member kind="function">
       <type>Diagnostic</type>
@@ -7019,15 +7107,15 @@
       <type></type>
       <name>IterationState</name>
       <anchorfile>classsopt_1_1IterationState.html</anchorfile>
-      <anchor>a728a28654de66cbdb59d12b5c82244f4</anchor>
-      <arglist>()=delete</arglist>
+      <anchor>aca51d50b031aed4d5ed109273e049f56</anchor>
+      <arglist>(const T &amp;target)</arglist>
     </member>
     <member kind="function">
       <type></type>
       <name>IterationState</name>
       <anchorfile>classsopt_1_1IterationState.html</anchorfile>
-      <anchor>a6f5b6504333b342c54d02b4fea390228</anchor>
-      <arglist>(const T &amp;target, std::shared_ptr&lt; sopt::LinearTransform&lt; T &gt;&gt; phi)</arglist>
+      <anchor>a2f4caff3425e51d074610cfbfdc4aa6b</anchor>
+      <arglist>(const T &amp;target, std::shared_ptr&lt; sopt::LinearTransform&lt; T &gt;&gt; Phi)</arglist>
     </member>
     <member kind="function">
       <type>const T &amp;</type>
@@ -7038,10 +7126,17 @@
     </member>
     <member kind="function">
       <type>const sopt::LinearTransform&lt; T &gt; &amp;</type>
-      <name>phi</name>
+      <name>Phi</name>
       <anchorfile>classsopt_1_1IterationState.html</anchorfile>
-      <anchor>a57f17c7a5eb84fbc00e359135c6d2889</anchor>
+      <anchor>ac80efa2b1c54bdad188afe286ae56598</anchor>
       <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>Phi</name>
+      <anchorfile>classsopt_1_1IterationState.html</anchorfile>
+      <anchor>a5f3d218f605958b87bb3e09200c284f5</anchor>
+      <arglist>(const sopt::LinearTransform&lt; T &gt; &amp;new_phi)</arglist>
     </member>
   </compound>
   <compound kind="class">
