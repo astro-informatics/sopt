@@ -63,16 +63,20 @@ class LinearTransform : public details::WrapFunction<VECTOR> {
                   details::WrapFunction<VECTOR> const &indirect)
       : details::WrapFunction<VECTOR>(direct), indirect_(indirect) {}
   LinearTransform(LinearTransform const &c)
-      : details::WrapFunction<VECTOR>(c), indirect_(c.indirect_) {}
+      : details::WrapFunction<VECTOR>(c), indirect_(c.indirect_), norm_(c.norm_), sq_norm_(c.sq_norm_) {}
   LinearTransform(LinearTransform &&c)
-      : details::WrapFunction<VECTOR>(std::move(c)), indirect_(std::move(c.indirect_)) {}
+      : details::WrapFunction<VECTOR>(std::move(c)), indirect_(std::move(c.indirect_)), norm_(c.norm_), sq_norm_(c.sq_norm_) {}
   void operator=(LinearTransform const &c) {
     details::WrapFunction<VECTOR>::operator=(c);
     indirect_ = c.indirect_;
+    norm_ = c.norm_;
+    sq_norm_ = c.sq_norm_;
   }
   void operator=(LinearTransform &&c) {
     details::WrapFunction<VECTOR>::operator=(std::move(c));
     indirect_ = std::move(c.indirect_);
+    norm_ = c.norm_;
+    sq_norm_ = c.sq_norm_;
   }
 
   //! Indirect transform
