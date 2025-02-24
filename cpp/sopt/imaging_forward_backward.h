@@ -74,7 +74,6 @@ class ImagingForwardBackward {
         regulariser_strength_(1e-8),
         step_size_(1),
         sigma_(1),
-        sq_op_norm_(1),
         fista_(true),
         is_converged_(),
         Phi_(linear_transform_identity<Scalar>()),
@@ -117,8 +116,6 @@ class ImagingForwardBackward {
   SOPT_MACRO(step_size, Real);
   //! γ parameter
   SOPT_MACRO(sigma, Real);
-  //! ν parameter
-  SOPT_MACRO(sq_op_norm, Real);
   //! flag to for FISTA Forward-Backward algorithm. True by default but should be false when using a learned g_function.
   SOPT_MACRO(fista, bool);
   //! A function verifying convergence
@@ -181,7 +178,7 @@ class ImagingForwardBackward {
   //! \brief Calls Forward Backward
   //! \param[out] out: Output vector x
   Diagnostic operator()(t_Vector &out) const {
-    return operator()(out, ForwardBackward<SCALAR>::initial_guess(target(), Phi(), sq_op_norm()));
+    return operator()(out, ForwardBackward<SCALAR>::initial_guess(target(), Phi()));
   }
   //! \brief Calls Forward Backward
   //! \param[out] out: Output vector x
@@ -214,7 +211,7 @@ class ImagingForwardBackward {
   DiagnosticAndResult operator()()  {
     DiagnosticAndResult result;
     static_cast<Diagnostic &>(result) = operator()(
-        result.x, ForwardBackward<SCALAR>::initial_guess(target(), Phi(), sq_op_norm()));
+        result.x, ForwardBackward<SCALAR>::initial_guess(target(), Phi()));
     return result;
   }
   //! Makes it simple to chain different calls to FB
@@ -317,7 +314,6 @@ typename ImagingForwardBackward<SCALAR>::Diagnostic ImagingForwardBackward<SCALA
                       .itermax(itermax())
                       .step_size(gradient_step_size)
                       .regulariser_strength(regulariser_strength())
-                      .sq_op_norm(sq_op_norm())
                       .fista(fista())
                       .Phi(Phi())
                       .is_converged(convergence);

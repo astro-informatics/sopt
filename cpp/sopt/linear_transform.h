@@ -84,9 +84,28 @@ class LinearTransform : public details::WrapFunction<VECTOR> {
   using details::WrapFunction<VECTOR>::sizes;
   using details::WrapFunction<VECTOR>::rows;
 
+  void set_norm(t_real n)
+  {
+    norm_ = n;
+    sq_norm_ = n*n;
+  }
+
+  sopt::t_real norm() const
+  {
+    return norm_;
+  }
+
+  sopt::t_real sq_norm() const
+  {
+    return sq_norm_;
+  }
+
  private:
   //! Function applying conjugate transpose operator
   details::WrapFunction<VECTOR> indirect_;
+
+  sopt::t_real norm_ = 1.0;
+  sopt::t_real sq_norm_ = 1.0;
 };
 
 //! Helper function to creates a function operator

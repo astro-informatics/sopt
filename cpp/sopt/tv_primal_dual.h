@@ -71,7 +71,6 @@ class TVPrimalDual {
         precondition_iters_(0),
         xi_(1),
         rho_(1),
-        sq_op_norm_(1),
         is_converged_(),
         Phi_(linear_transform_identity<Scalar>()),
         Psi_(linear_transform_identity<Scalar>()),
@@ -131,8 +130,6 @@ class TVPrimalDual {
   SOPT_MACRO(xi, Real);
   //! rho parameter
   SOPT_MACRO(rho, Real);
-  //! ν parameter
-  SOPT_MACRO(sq_op_norm, Real);
   //! precondtion step size parameter
   SOPT_MACRO(precondition_stepsize, Real);
   //! precondition weights parameter
@@ -169,7 +166,7 @@ class TVPrimalDual {
   //! \brief Calls Primal Dual
   //! \param[out] out: Output vector x
   Diagnostic operator()(t_Vector &out) const {
-    return operator()(out, PD::initial_guess(target(), Phi(), sq_op_norm()));
+    return operator()(out, PD::initial_guess(target(), Phi()));
   }
   //! \brief Calls Primal Dual
   //! \param[out] out: Output vector x
@@ -202,7 +199,7 @@ class TVPrimalDual {
   DiagnosticAndResult operator()() const {
     DiagnosticAndResult result;
     static_cast<Diagnostic &>(result) = operator()(result.x,
-                                                   PD::initial_guess(target(), Phi(), sq_op_norm()));
+                                                   PD::initial_guess(target(), Phi()));
     return result;
   }
   //! Makes it simple to chain different calls to PD
@@ -345,7 +342,6 @@ typename TVPrimalDual<SCALAR>::Diagnostic TVPrimalDual<SCALAR>::operator()(
                       .update_scale(update_scale())
                       .xi(xi())
                       .rho(rho())
-                      .sq_op_norm(sq_op_norm())
                       .regulariser_strength(regulariser_strength())
                       .Phi(Phi())
                       .Psi(Psi())

@@ -61,7 +61,6 @@ class ProximalADMM {
                Eigen::MatrixBase<DERIVED> const &target)
       : itermax_(std::numeric_limits<t_uint>::max()),
         regulariser_strength_(1e-8),
-        sq_op_norm_(1),
         lagrange_update_scale_(0.9),
         is_converged_(),
         Phi_(linear_transform_identity<Scalar>()),
@@ -88,8 +87,6 @@ class ProximalADMM {
   SOPT_MACRO(itermax, t_uint);
   //! γ parameter
   SOPT_MACRO(regulariser_strength, Real);
-  //! ν parameter
-  SOPT_MACRO(sq_op_norm, Real);
   //! Lagrange update scale β
   SOPT_MACRO(lagrange_update_scale, Real);
   //! \brief A function verifying convergence
@@ -184,7 +181,7 @@ class ProximalADMM {
   //! - x = Φ^T y / ν
   //! - residuals = Φ x - y
   std::tuple<t_Vector, t_Vector> initial_guess() const {
-    return ProximalADMM<SCALAR>::initial_guess(target(), Phi(), sq_op_norm());
+    return ProximalADMM<SCALAR>::initial_guess(target(), Phi());
   }
 
   //! \brief Computes initial guess for x and the residual using the targets
@@ -194,9 +191,9 @@ class ProximalADMM {
   //!
   //! This function simplifies creating overloads for operator() in PADMM wrappers.
   static std::tuple<t_Vector, t_Vector> initial_guess(t_Vector const &target,
-                                                      t_LinearTransform const &phi, Real sq_op_norm) {
+                                                      t_LinearTransform const &phi) {
     std::tuple<t_Vector, t_Vector> guess;
-    std::get<0>(guess) = static_cast<t_Vector>(phi.adjoint() * target) / sq_op_norm;
+    std::get<0>(guess) = static_cast<t_Vector>(phi.adjoint() * target) / phi.sq_norm();
     std::get<1>(guess) = phi * std::get<0>(guess) - target;
     return guess;
   }
@@ -230,8 +227,8 @@ template <typename SCALAR>
 void ProximalADMM<SCALAR>::iteration_step(t_Vector &out, t_Vector &residual, t_Vector &lambda,
                                           t_Vector &z) const {
   g_proximal(z, regulariser_strength(), -lambda - residual);
-  f_proximal(out, regulariser_strength() / sq_op_norm(),
-             out - static_cast<t_Vector>(Phi().adjoint() * (residual + lambda + z)) / sq_op_norm());
+  f_proximal(out, regulariser_strength() / Phi().sq_norm(),
+             out - static_cast<t_Vector>(Phi().adjoint() * (residual + lambda + z)) / Phi().sq_norm());
   residual = static_cast<t_Vector>(Phi() * out - target());
   lambda += lagrange_update_scale() * (residual + z);
 }
