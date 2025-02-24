@@ -99,7 +99,6 @@ class ImagingForwardBackward {
         regulariser_strength_(1e-8),
         step_size_(1),
         sigma_(1),
-        sq_op_norm_(1),
         fista_(true),
         is_converged_() 
         {
