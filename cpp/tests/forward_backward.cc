@@ -47,7 +47,7 @@ TEST_CASE("Forward Backward with ||x - x0||_2^2 function", "[fb]") {
   CAPTURE(target0);
   CAPTURE(x_guess);
   CAPTURE(res);
-  auto const fb = algorithm::ForwardBackward<Scalar>(grad, g0, target0)
+  auto fb = algorithm::ForwardBackward<Scalar>(grad, g0, target0)
                       .itermax(itermax)
                       .regulariser_strength(regulariser_strength)
                       .step_size(beta)

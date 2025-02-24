@@ -17,6 +17,10 @@
 #include "sopt/non_differentiable_func.h"
 #include "sopt/differentiable_func.h"
 
+#include <functional>
+#include "sopt/gradient_utils.h"
+#include <stdexcept>
+
 #ifdef SOPT_MPI
 #include "sopt/mpi/communicator.h"
 #include "sopt/mpi/utilities.h"
@@ -38,6 +42,7 @@ class ImagingForwardBackward {
   using t_Gradient = typename FB::t_Gradient;
   using t_l2Gradient = typename std::function<void(t_Vector &, const t_Vector &)>;
   using t_IsConverged = typename FB::t_IsConverged;
+  using t_randomUpdater = typename FB::t_randomUpdater;
 
   //! Values indicating how the algorithm ran
   struct Diagnostic : public FB::Diagnostic {
@@ -61,10 +66,10 @@ class ImagingForwardBackward {
   // \f$f\f$ is differentiable with a supplied gradient and \f$g\f$ is non-differentiable with a supplied proximal operator.
   // Throughout this class we will use `f` and `g` in variables to refer to these two parts of the objective function.
   //! \param[in] target: Vector of target measurements
-  template <typename DERIVED>
-  ImagingForwardBackward(Eigen::MatrixBase<DERIVED> const &target)
+  ImagingForwardBackward(t_Vector const &target)
       : g_function_(nullptr),
         f_function_(nullptr),
+        random_updater_(nullptr),
         tight_frame_(false),
         residual_tolerance_(0.),
         relative_variation_(1e-4),
@@ -75,11 +80,41 @@ class ImagingForwardBackward {
         step_size_(1),
         sigma_(1),
         fista_(true),
-        is_converged_(),
-        Phi_(linear_transform_identity<Scalar>()),
-        target_(target) {}
-  virtual ~ImagingForwardBackward() {}
+        is_converged_() 
+        {
+          std::shared_ptr<t_LinearTransform> Id = std::make_shared<t_LinearTransform>(linear_transform_identity<Scalar>());
+          problem_state = std::make_shared<IterationState<t_Vector>>(target, Id);
+        }
 
+  ImagingForwardBackward(t_randomUpdater &updater)
+      : g_function_(nullptr),
+        f_function_(nullptr),
+        random_updater_(updater),
+        tight_frame_(false),
+        residual_tolerance_(0.),
+        relative_variation_(1e-4),
+        residual_convergence_(nullptr),
+        objective_convergence_(nullptr),
+        itermax_(std::numeric_limits<t_uint>::max()),
+        regulariser_strength_(1e-8),
+        step_size_(1),
+        sigma_(1),
+        sq_op_norm_(1),
+        fista_(true),
+        is_converged_() 
+        {
+          if(random_updater_)
+          {
+            // target and Phi are not known ahead of time for random data sets so need to be initialised
+            problem_state = random_updater_();
+          } 
+          else
+          {
+            throw std::runtime_error("Attempted to construct ImagingForwardBackward class with a null random updater. To run without random updates supply a target vector instead.");
+          } 
+        }
+
+  virtual ~ImagingForwardBackward() {}
 // Macro helps define properties that can be initialized as in
 // auto padmm = ImagingForwardBackward<float>().prop0(value).prop1(value);
 #define SOPT_MACRO(NAME, TYPE)                             \
@@ -120,8 +155,13 @@ class ImagingForwardBackward {
   SOPT_MACRO(fista, bool);
   //! A function verifying convergence
   SOPT_MACRO(is_converged, t_IsConverged);
+  
   //! Measurement operator
-  SOPT_MACRO(Phi, t_LinearTransform);
+  t_LinearTransform const &Phi() const { return problem_state->Phi(); }
+  ImagingForwardBackward<SCALAR> &Phi(t_LinearTransform const &(Phi)) {
+    problem_state->Phi(Phi);
+    return *this;
+  }
 
 #ifdef SOPT_MPI
   //! Communicator for summing objective_function
@@ -149,6 +189,13 @@ class ImagingForwardBackward {
     return *this;
   }
 
+  // Getter and setter for the random updater object
+  t_randomUpdater &random_updater() { return random_updater_; }
+  ImagingForwardBackward<SCALAR>& random_updater( t_randomUpdater &new_updater) {
+    random_updater_ = new_updater;  // may change this to a move if we don't need to keep it
+    return *this;
+  }
+
   t_LinearTransform const &Psi() const
   {
     return (g_function_) ? g_function_->Psi() : linear_transform_identity<Scalar>();
@@ -164,14 +211,13 @@ class ImagingForwardBackward {
   //}
 
   //! Vector of target measurements
-  t_Vector const &target() const { return target_; }
+  t_Vector const &target() const { return problem_state->target(); }
 
   //! Minimum of objective_function
   Real objmin() const { return objmin_; }
   //! Sets the vector of target measurements
-  template <typename DERIVED>
-  ImagingForwardBackward<Scalar> &target(Eigen::MatrixBase<DERIVED> const &target) {
-    target_ = target;
+  ImagingForwardBackward<Scalar> &target(t_Vector const &target) {
+    problem_state->target(target);
     return *this;
   }
 
@@ -179,6 +225,7 @@ class ImagingForwardBackward {
   //! \param[out] out: Output vector x
   Diagnostic operator()(t_Vector &out) const {
     return operator()(out, ForwardBackward<SCALAR>::initial_guess(target(), Phi()));
+
   }
   //! \brief Calls Forward Backward
   //! \param[out] out: Output vector x
@@ -225,7 +272,7 @@ class ImagingForwardBackward {
   template <typename... ARGS>
   typename std::enable_if<sizeof...(ARGS) >= 1, ImagingForwardBackward &>::type Phi(
       ARGS &&... args) {
-    Phi_ = linear_transform(std::forward<ARGS>(args)...);
+    problem_state->Phi(linear_transform(std::forward<ARGS>(args)...));
     return *this;
   }
 
@@ -248,9 +295,10 @@ class ImagingForwardBackward {
   // These should point to an instance of a derived class (e.g. L1GProximal) once set up
   std::shared_ptr<NonDifferentiableFunc<SCALAR>> g_function_;
   std::shared_ptr<DifferentiableFunc<SCALAR>> f_function_;
+  t_randomUpdater random_updater_;
+  //! Problem state represents Phi and y s.t. the problem to solve is y = Phi x
+  std::shared_ptr<IterationState<t_Vector>> problem_state;
 
-  //! Vector of measurements
-  t_Vector target_;
   //! Mininum of objective function
   mutable Real objmin_;
 
@@ -310,13 +358,15 @@ typename ImagingForwardBackward<SCALAR>::Diagnostic ImagingForwardBackward<SCALA
     this->objmin_ = std::real(scalvar.previous());
     return result;
   };
-  auto const fb = ForwardBackward<SCALAR>(f_gradient, g_proximal, target())
+  auto fb = ForwardBackward<SCALAR>(f_gradient, g_proximal, target())
                       .itermax(itermax())
                       .step_size(gradient_step_size)
                       .regulariser_strength(regulariser_strength())
                       .fista(fista())
                       .Phi(Phi())
-                      .is_converged(convergence);
+                      .is_converged(convergence)
+                      .random_updater(random_updater_)
+                      .set_problem_state(problem_state);
   static_cast<typename ForwardBackward<SCALAR>::Diagnostic &>(result) =
       fb(out, std::tie(guess, res));
   return result;
@@ -339,7 +389,8 @@ bool ImagingForwardBackward<SCALAR>::objective_convergence(ScalarRelativeVariati
   if (static_cast<bool>(objective_convergence())) return objective_convergence()(x, residual);
   if (scalvar.relative_tolerance() <= 0e0) return true;
   auto const current = ((regulariser_strength() > 0) ? g_function_->function(x)
-			* regulariser_strength() : 0) + std::pow(sopt::l2_norm(residual), 2) / (2 * sigma() * sigma());
+			* regulariser_strength() : 0) + \
+      ((f_function_) ? f_function_->function(x, target(), Phi()) : std::pow(sopt::l2_norm(residual), 2) / (2 * sigma() * sigma()));
   return scalvar(current);
 }
 
