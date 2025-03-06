@@ -73,7 +73,6 @@ class L2ForwardBackward {
         regulariser_strength_(1e-8),
         step_size_(1),
         sigma_(1),
-        sq_op_norm_(1),
         is_converged_(),
         Phi_(linear_transform_identity<Scalar>()),
         target_(target) {}
@@ -123,8 +122,6 @@ class L2ForwardBackward {
   SOPT_MACRO(step_size, Real);
   //! γ parameter
   SOPT_MACRO(sigma, Real);
-  //! ν parameter
-  SOPT_MACRO(sq_op_norm, Real);
   //! A function verifying convergence
   SOPT_MACRO(is_converged, t_IsConverged);
   //! Measurement operator
@@ -149,7 +146,7 @@ class L2ForwardBackward {
   //! \brief Calls Forward Backward
   //! \param[out] out: Output vector x
   Diagnostic operator()(t_Vector &out) const {
-    return operator()(out, ForwardBackward<SCALAR>::initial_guess(target(), Phi(), sq_op_norm()));
+    return operator()(out, ForwardBackward<SCALAR>::initial_guess(target(), Phi()));
   }
   //! \brief Calls Forward Backward
   //! \param[out] out: Output vector x
@@ -182,7 +179,7 @@ class L2ForwardBackward {
   DiagnosticAndResult operator()() const {
     DiagnosticAndResult result;
     static_cast<Diagnostic &>(result) = operator()(
-        result.x, ForwardBackward<SCALAR>::initial_guess(target(), Phi(), sq_op_norm()));
+        result.x, ForwardBackward<SCALAR>::initial_guess(target(), Phi()));
     return result;
   }
   //! Makes it simple to chain different calls to FB
@@ -280,7 +277,6 @@ typename L2ForwardBackward<SCALAR>::Diagnostic L2ForwardBackward<SCALAR>::operat
                       .itermax(itermax())
                       .step_size(step_size())
                       .regulariser_strength(regulariser_strength())
-                      .sq_op_norm(sq_op_norm())
                       .Phi(Phi())
                       .is_converged(convergence);
   static_cast<typename ForwardBackward<SCALAR>::Diagnostic &>(result) =
