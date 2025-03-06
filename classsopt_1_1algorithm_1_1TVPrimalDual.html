@@ -176,9 +176,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8d818fe7bf141b419be886b8fce53a0c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsopt_1_1algorithm_1_1TVPrimalDual.html#a8d818fe7bf141b419be886b8fce53a0c">SOPT_MACRO</a> (rho, <a class="el" href="classsopt_1_1algorithm_1_1TVPrimalDual.html#a065875c572ddb264ac5bfd9296cc78a4">Real</a>)</td></tr>
 <tr class="memdesc:a8d818fe7bf141b419be886b8fce53a0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">rho parameter  <a href="classsopt_1_1algorithm_1_1TVPrimalDual.html#a8d818fe7bf141b419be886b8fce53a0c">More...</a><br /></td></tr>
 <tr class="separator:a8d818fe7bf141b419be886b8fce53a0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6197be282b57058fb3d8b84e4b3c25b0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsopt_1_1algorithm_1_1TVPrimalDual.html#a6197be282b57058fb3d8b84e4b3c25b0">SOPT_MACRO</a> (sq_op_norm, <a class="el" href="classsopt_1_1algorithm_1_1TVPrimalDual.html#a065875c572ddb264ac5bfd9296cc78a4">Real</a>)</td></tr>
-<tr class="memdesc:a6197be282b57058fb3d8b84e4b3c25b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">ν parameter.  <a href="classsopt_1_1algorithm_1_1TVPrimalDual.html#a6197be282b57058fb3d8b84e4b3c25b0">More...</a><br /></td></tr>
-<tr class="separator:a6197be282b57058fb3d8b84e4b3c25b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0e9c844ef75de3048750f3457d9a0c21"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsopt_1_1algorithm_1_1TVPrimalDual.html#a0e9c844ef75de3048750f3457d9a0c21">SOPT_MACRO</a> (precondition_stepsize, <a class="el" href="classsopt_1_1algorithm_1_1TVPrimalDual.html#a065875c572ddb264ac5bfd9296cc78a4">Real</a>)</td></tr>
 <tr class="memdesc:a0e9c844ef75de3048750f3457d9a0c21"><td class="mdescLeft">&#160;</td><td class="mdescRight">precondtion step size parameter  <a href="classsopt_1_1algorithm_1_1TVPrimalDual.html#a0e9c844ef75de3048750f3457d9a0c21">More...</a><br /></td></tr>
 <tr class="separator:a0e9c844ef75de3048750f3457d9a0c21"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -482,16 +479,15 @@ template&lt;typename DERIVED &gt; </div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        precondition_iters_(0),</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        xi_(1),</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        rho_(1),</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        sq_op_norm_(1),</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        is_converged_(),</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        Phi_(linear_transform_identity&lt;Scalar&gt;()),</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        Psi_(linear_transform_identity&lt;Scalar&gt;()),</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        random_measurement_updater_([]() { <span class="keywordflow">return</span> <span class="keyword">true</span>; }),</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        random_wavelet_updater_([]() { <span class="keywordflow">return</span> <span class="keyword">true</span>; }),</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        target_(<a class="code" href="classsopt_1_1algorithm_1_1TVPrimalDual.html#a5e52bced96a1a84e6ef01479b232a9d8">target</a>) {}</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        is_converged_(),</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        Phi_(linear_transform_identity&lt;Scalar&gt;()),</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        Psi_(linear_transform_identity&lt;Scalar&gt;()),</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        random_measurement_updater_([]() { <span class="keywordflow">return</span> <span class="keyword">true</span>; }),</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        random_wavelet_updater_([]() { <span class="keywordflow">return</span> <span class="keyword">true</span>; }),</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        target_(<a class="code" href="classsopt_1_1algorithm_1_1TVPrimalDual.html#a5e52bced96a1a84e6ef01479b232a9d8">target</a>) {}</div>
 <div class="ttc" id="abisection__method_8cc_html_a150b8eda2681eca0377a440541891747"><div class="ttname"><a href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a></div><div class="ttdeci">sopt::Vector&lt; Scalar &gt; t_Vector</div><div class="ttdef"><b>Definition:</b> <a href="bisection__method_8cc_source.html#l00010">bisection_method.cc:10</a></div></div>
 <div class="ttc" id="aclasssopt_1_1algorithm_1_1TVPrimalDual_html_a065875c572ddb264ac5bfd9296cc78a4"><div class="ttname"><a href="classsopt_1_1algorithm_1_1TVPrimalDual.html#a065875c572ddb264ac5bfd9296cc78a4">sopt::algorithm::TVPrimalDual::Real</a></div><div class="ttdeci">typename PD::Real Real</div><div class="ttdef"><b>Definition:</b> <a href="tv__primal__dual_8h_source.html#l00026">tv_primal_dual.h:26</a></div></div>
-<div class="ttc" id="aclasssopt_1_1algorithm_1_1TVPrimalDual_html_a5e52bced96a1a84e6ef01479b232a9d8"><div class="ttname"><a href="classsopt_1_1algorithm_1_1TVPrimalDual.html#a5e52bced96a1a84e6ef01479b232a9d8">sopt::algorithm::TVPrimalDual::target</a></div><div class="ttdeci">t_Vector const  &amp; target() const</div><div class="ttdoc">Vector of target measurements.</div><div class="ttdef"><b>Definition:</b> <a href="tv__primal__dual_8h_source.html#l00161">tv_primal_dual.h:161</a></div></div>
+<div class="ttc" id="aclasssopt_1_1algorithm_1_1TVPrimalDual_html_a5e52bced96a1a84e6ef01479b232a9d8"><div class="ttname"><a href="classsopt_1_1algorithm_1_1TVPrimalDual.html#a5e52bced96a1a84e6ef01479b232a9d8">sopt::algorithm::TVPrimalDual::target</a></div><div class="ttdeci">t_Vector const  &amp; target() const</div><div class="ttdoc">Vector of target measurements.</div><div class="ttdef"><b>Definition:</b> <a href="tv__primal__dual_8h_source.html#l00158">tv_primal_dual.h:158</a></div></div>
 <div class="ttc" id="atests_2inpainting_8cc_html_a47c194cae73625ab3a13b62e4234f46f"><div class="ttname"><a href="tests_2inpainting_8cc.html#a47c194cae73625ab3a13b62e4234f46f">Vector</a></div><div class="ttdeci">sopt::Vector&lt; Scalar &gt; Vector</div><div class="ttdef"><b>Definition:</b> <a href="tests_2inpainting_8cc_source.html#l00028">inpainting.cc:28</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -521,8 +517,8 @@ template&lt;typename SCALAR &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="tv__primal__dual_8h_source.html#l00081">81</a> of file <a class="el" href="tv__primal__dual_8h_source.html">tv_primal_dual.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;{}</div>
+<p class="definition">Definition at line <a class="el" href="tv__primal__dual_8h_source.html#l00080">80</a> of file <a class="el" href="tv__primal__dual_8h_source.html">tv_primal_dual.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;{}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -555,11 +551,11 @@ template&lt;typename SCALAR &gt; </div>
 
 <p>Convergence function that takes only the output as argument. </p>
 
-<p class="definition">Definition at line <a class="el" href="tv__primal__dual_8h_source.html#l00265">265</a> of file <a class="el" href="tv__primal__dual_8h_source.html">tv_primal_dual.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;                                                                                       {</div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classsopt_1_1algorithm_1_1TVPrimalDual.html#aa820cffeae9c7c5fc820f505ca002842">is_converged</a>([func](<a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> <span class="keyword">const</span> &amp;x, <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> <span class="keyword">const</span> &amp;) { <span class="keywordflow">return</span> func(x); });</div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;  }</div>
-<div class="ttc" id="aclasssopt_1_1algorithm_1_1TVPrimalDual_html_aa820cffeae9c7c5fc820f505ca002842"><div class="ttname"><a href="classsopt_1_1algorithm_1_1TVPrimalDual.html#aa820cffeae9c7c5fc820f505ca002842">sopt::algorithm::TVPrimalDual::is_converged</a></div><div class="ttdeci">TVPrimalDual&lt; Scalar &gt; &amp; is_converged(std::function&lt; bool(t_Vector const &amp;x)&gt; const &amp;func)</div><div class="ttdoc">Convergence function that takes only the output as argument.</div><div class="ttdef"><b>Definition:</b> <a href="tv__primal__dual_8h_source.html#l00265">tv_primal_dual.h:265</a></div></div>
+<p class="definition">Definition at line <a class="el" href="tv__primal__dual_8h_source.html#l00262">262</a> of file <a class="el" href="tv__primal__dual_8h_source.html">tv_primal_dual.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;                                                                                       {</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classsopt_1_1algorithm_1_1TVPrimalDual.html#aa820cffeae9c7c5fc820f505ca002842">is_converged</a>([func](<a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> <span class="keyword">const</span> &amp;x, <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> <span class="keyword">const</span> &amp;) { <span class="keywordflow">return</span> func(x); });</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;  }</div>
+<div class="ttc" id="aclasssopt_1_1algorithm_1_1TVPrimalDual_html_aa820cffeae9c7c5fc820f505ca002842"><div class="ttname"><a href="classsopt_1_1algorithm_1_1TVPrimalDual.html#aa820cffeae9c7c5fc820f505ca002842">sopt::algorithm::TVPrimalDual::is_converged</a></div><div class="ttdeci">TVPrimalDual&lt; Scalar &gt; &amp; is_converged(std::function&lt; bool(t_Vector const &amp;x)&gt; const &amp;func)</div><div class="ttdoc">Convergence function that takes only the output as argument.</div><div class="ttdef"><b>Definition:</b> <a href="tv__primal__dual_8h_source.html#l00262">tv_primal_dual.h:262</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -591,8 +587,8 @@ template&lt;typename SCALAR &gt; </div>
 <p>Proximal of the L2 ball. </p>
 <p>Non-const version to setup the object. </p>
 
-<p class="definition">Definition at line <a class="el" href="tv__primal__dual_8h_source.html#l00224">224</a> of file <a class="el" href="tv__primal__dual_8h_source.html">tv_primal_dual.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;{ <span class="keywordflow">return</span> l2ball_proximal_; }</div>
+<p class="definition">Definition at line <a class="el" href="tv__primal__dual_8h_source.html#l00221">221</a> of file <a class="el" href="tv__primal__dual_8h_source.html">tv_primal_dual.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;{ <span class="keywordflow">return</span> l2ball_proximal_; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -624,11 +620,11 @@ template&lt;typename SCALAR &gt; </div>
 
 <p>Helper function to set-up default residual convergence function. </p>
 
-<p class="definition">Definition at line <a class="el" href="tv__primal__dual_8h_source.html#l00261">261</a> of file <a class="el" href="tv__primal__dual_8h_source.html">tv_primal_dual.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;                                                                     {</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classsopt_1_1algorithm_1_1TVPrimalDual.html#ae82344a8b20e421d3f77627f906c95fe">objective_convergence</a>(<span class="keyword">nullptr</span>).relative_variation(tolerance);</div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;  }</div>
-<div class="ttc" id="aclasssopt_1_1algorithm_1_1TVPrimalDual_html_ae82344a8b20e421d3f77627f906c95fe"><div class="ttname"><a href="classsopt_1_1algorithm_1_1TVPrimalDual.html#ae82344a8b20e421d3f77627f906c95fe">sopt::algorithm::TVPrimalDual::objective_convergence</a></div><div class="ttdeci">TVPrimalDual&lt; Scalar &gt; &amp; objective_convergence(Real const &amp;tolerance)</div><div class="ttdoc">Helper function to set-up default residual convergence function.</div><div class="ttdef"><b>Definition:</b> <a href="tv__primal__dual_8h_source.html#l00261">tv_primal_dual.h:261</a></div></div>
+<p class="definition">Definition at line <a class="el" href="tv__primal__dual_8h_source.html#l00258">258</a> of file <a class="el" href="tv__primal__dual_8h_source.html">tv_primal_dual.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;                                                                     {</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classsopt_1_1algorithm_1_1TVPrimalDual.html#ae82344a8b20e421d3f77627f906c95fe">objective_convergence</a>(<span class="keyword">nullptr</span>).relative_variation(tolerance);</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;  }</div>
+<div class="ttc" id="aclasssopt_1_1algorithm_1_1TVPrimalDual_html_ae82344a8b20e421d3f77627f906c95fe"><div class="ttname"><a href="classsopt_1_1algorithm_1_1TVPrimalDual.html#ae82344a8b20e421d3f77627f906c95fe">sopt::algorithm::TVPrimalDual::objective_convergence</a></div><div class="ttdeci">TVPrimalDual&lt; Scalar &gt; &amp; objective_convergence(Real const &amp;tolerance)</div><div class="ttdoc">Helper function to set-up default residual convergence function.</div><div class="ttdef"><b>Definition:</b> <a href="tv__primal__dual_8h_source.html#l00258">tv_primal_dual.h:258</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -665,19 +661,19 @@ template&lt;typename SCALAR &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="tv__primal__dual_8h_source.html#l00202">202</a> of file <a class="el" href="tv__primal__dual_8h_source.html">tv_primal_dual.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;                                         {</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    DiagnosticAndResult result;</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    <span class="keyword">static_cast&lt;</span>Diagnostic &amp;<span class="keyword">&gt;</span>(result) = <span class="keyword">operator</span>()(result.x,</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;                                                   <a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#aea449fd612f6063653b3bf224a3c16a7">PD::initial_guess</a>(<a class="code" href="classsopt_1_1algorithm_1_1TVPrimalDual.html#a5e52bced96a1a84e6ef01479b232a9d8">target</a>(), <a class="code" href="classsopt_1_1algorithm_1_1TVPrimalDual.html#a49d06903cbb8a1af763f3e95821cf3e4">Phi</a>(), sq_op_norm()));</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    <span class="keywordflow">return</span> result;</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;  }</div>
-<div class="ttc" id="aclasssopt_1_1algorithm_1_1PrimalDual_html_aea449fd612f6063653b3bf224a3c16a7"><div class="ttname"><a href="classsopt_1_1algorithm_1_1PrimalDual.html#aea449fd612f6063653b3bf224a3c16a7">sopt::algorithm::PrimalDual::initial_guess</a></div><div class="ttdeci">std::tuple&lt; t_Vector, t_Vector &gt; initial_guess() const</div><div class="ttdoc">Computes initial guess for x and the residual using the targets.</div><div class="ttdef"><b>Definition:</b> <a href="primal__dual_8h_source.html#l00236">primal_dual.h:236</a></div></div>
-<div class="ttc" id="aclasssopt_1_1algorithm_1_1TVPrimalDual_html_a49d06903cbb8a1af763f3e95821cf3e4"><div class="ttname"><a href="classsopt_1_1algorithm_1_1TVPrimalDual.html#a49d06903cbb8a1af763f3e95821cf3e4">sopt::algorithm::TVPrimalDual::Phi</a></div><div class="ttdeci">TVPrimalDual &amp;::type Phi(ARGS &amp;&amp;... args)</div><div class="ttdef"><b>Definition:</b> <a href="tv__primal__dual_8h_source.html#l00217">tv_primal_dual.h:217</a></div></div>
+<p class="definition">Definition at line <a class="el" href="tv__primal__dual_8h_source.html#l00199">199</a> of file <a class="el" href="tv__primal__dual_8h_source.html">tv_primal_dual.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;                                         {</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    DiagnosticAndResult result;</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    <span class="keyword">static_cast&lt;</span>Diagnostic &amp;<span class="keyword">&gt;</span>(result) = <span class="keyword">operator</span>()(result.x,</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;                                                   <a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#aea449fd612f6063653b3bf224a3c16a7">PD::initial_guess</a>(<a class="code" href="classsopt_1_1algorithm_1_1TVPrimalDual.html#a5e52bced96a1a84e6ef01479b232a9d8">target</a>(), <a class="code" href="classsopt_1_1algorithm_1_1TVPrimalDual.html#a49d06903cbb8a1af763f3e95821cf3e4">Phi</a>()));</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;  }</div>
+<div class="ttc" id="aclasssopt_1_1algorithm_1_1PrimalDual_html_aea449fd612f6063653b3bf224a3c16a7"><div class="ttname"><a href="classsopt_1_1algorithm_1_1PrimalDual.html#aea449fd612f6063653b3bf224a3c16a7">sopt::algorithm::PrimalDual::initial_guess</a></div><div class="ttdeci">std::tuple&lt; t_Vector, t_Vector &gt; initial_guess() const</div><div class="ttdoc">Computes initial guess for x and the residual using the targets.</div><div class="ttdef"><b>Definition:</b> <a href="primal__dual_8h_source.html#l00233">primal_dual.h:233</a></div></div>
+<div class="ttc" id="aclasssopt_1_1algorithm_1_1TVPrimalDual_html_a49d06903cbb8a1af763f3e95821cf3e4"><div class="ttname"><a href="classsopt_1_1algorithm_1_1TVPrimalDual.html#a49d06903cbb8a1af763f3e95821cf3e4">sopt::algorithm::TVPrimalDual::Phi</a></div><div class="ttdeci">TVPrimalDual &amp;::type Phi(ARGS &amp;&amp;... args)</div><div class="ttdef"><b>Definition:</b> <a href="tv__primal__dual_8h_source.html#l00214">tv_primal_dual.h:214</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="primal__dual_8h_source.html#l00236">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::initial_guess()</a>, <a class="el" href="tv__primal__dual_8h_source.html#l00217">sopt::algorithm::TVPrimalDual&lt; SCALAR &gt;::Phi()</a>, <a class="el" href="tv__primal__dual_8h_source.html#l00161">sopt::algorithm::TVPrimalDual&lt; SCALAR &gt;::target()</a>, and <a class="el" href="tv__primal__dual_8h_source.html#l00044">sopt::algorithm::TVPrimalDual&lt; SCALAR &gt;::DiagnosticAndResult::x</a>.</p>
+<p class="reference">References <a class="el" href="primal__dual_8h_source.html#l00233">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::initial_guess()</a>, <a class="el" href="tv__primal__dual_8h_source.html#l00214">sopt::algorithm::TVPrimalDual&lt; SCALAR &gt;::Phi()</a>, <a class="el" href="tv__primal__dual_8h_source.html#l00158">sopt::algorithm::TVPrimalDual&lt; SCALAR &gt;::target()</a>, and <a class="el" href="tv__primal__dual_8h_source.html#l00044">sopt::algorithm::TVPrimalDual&lt; SCALAR &gt;::DiagnosticAndResult::x</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="tv__primal__dual_8h_source.html#l00171">sopt::algorithm::TVPrimalDual&lt; SCALAR &gt;::operator()()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="tv__primal__dual_8h_source.html#l00168">sopt::algorithm::TVPrimalDual&lt; SCALAR &gt;::operator()()</a>.</p>
 
 </div>
 </div>
@@ -709,12 +705,12 @@ template&lt;typename SCALAR &gt; </div>
 
 <p>Makes it simple to chain different calls to PD. </p>
 
-<p class="definition">Definition at line <a class="el" href="tv__primal__dual_8h_source.html#l00209">209</a> of file <a class="el" href="tv__primal__dual_8h_source.html">tv_primal_dual.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;                                                                             {</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    DiagnosticAndResult result = warmstart;</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    <span class="keyword">static_cast&lt;</span>Diagnostic &amp;<span class="keyword">&gt;</span>(result) = <span class="keyword">operator</span>()(result.x, warmstart.x, warmstart.residual);</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    <span class="keywordflow">return</span> result;</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;  }</div>
+<p class="definition">Definition at line <a class="el" href="tv__primal__dual_8h_source.html#l00206">206</a> of file <a class="el" href="tv__primal__dual_8h_source.html">tv_primal_dual.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;                                                                             {</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    DiagnosticAndResult result = warmstart;</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;    <span class="keyword">static_cast&lt;</span>Diagnostic &amp;<span class="keyword">&gt;</span>(result) = <span class="keyword">operator</span>()(result.x, warmstart.x, warmstart.residual);</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;  }</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="primal__dual_8h_source.html#l00052">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::Diagnostic::residual</a>, and <a class="el" href="tv__primal__dual_8h_source.html#l00044">sopt::algorithm::TVPrimalDual&lt; SCALAR &gt;::DiagnosticAndResult::x</a>.</p>
 
@@ -754,12 +750,12 @@ template&lt;typename SCALAR &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="tv__primal__dual_8h_source.html#l00194">194</a> of file <a class="el" href="tv__primal__dual_8h_source.html">tv_primal_dual.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;                                                                       {</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    DiagnosticAndResult result;</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    <span class="keyword">static_cast&lt;</span>Diagnostic &amp;<span class="keyword">&gt;</span>(result) = <span class="keyword">operator</span>()(result.x, guess);</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    <span class="keywordflow">return</span> result;</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;  }</div>
+<p class="definition">Definition at line <a class="el" href="tv__primal__dual_8h_source.html#l00191">191</a> of file <a class="el" href="tv__primal__dual_8h_source.html">tv_primal_dual.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;                                                                       {</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    DiagnosticAndResult result;</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    <span class="keyword">static_cast&lt;</span>Diagnostic &amp;<span class="keyword">&gt;</span>(result) = <span class="keyword">operator</span>()(result.x, guess);</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;  }</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="tv__primal__dual_8h_source.html#l00044">sopt::algorithm::TVPrimalDual&lt; SCALAR &gt;::DiagnosticAndResult::x</a>.</p>
 
@@ -799,13 +795,13 @@ template&lt;typename SCALAR &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="tv__primal__dual_8h_source.html#l00189">189</a> of file <a class="el" href="tv__primal__dual_8h_source.html">tv_primal_dual.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;                                                                                  {</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classsopt_1_1algorithm_1_1TVPrimalDual.html#a964c2302f69bd4deac05da198954d16e">operator()</a>(std::tie(std::get&lt;0&gt;(guess), std::get&lt;1&gt;(guess)));</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;  }</div>
-<div class="ttc" id="aclasssopt_1_1algorithm_1_1TVPrimalDual_html_a964c2302f69bd4deac05da198954d16e"><div class="ttname"><a href="classsopt_1_1algorithm_1_1TVPrimalDual.html#a964c2302f69bd4deac05da198954d16e">sopt::algorithm::TVPrimalDual::operator()</a></div><div class="ttdeci">DiagnosticAndResult operator()() const</div><div class="ttdoc">Calls Primal Dual.</div><div class="ttdef"><b>Definition:</b> <a href="tv__primal__dual_8h_source.html#l00202">tv_primal_dual.h:202</a></div></div>
+<p class="definition">Definition at line <a class="el" href="tv__primal__dual_8h_source.html#l00186">186</a> of file <a class="el" href="tv__primal__dual_8h_source.html">tv_primal_dual.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;                                                                                  {</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classsopt_1_1algorithm_1_1TVPrimalDual.html#a964c2302f69bd4deac05da198954d16e">operator()</a>(std::tie(std::get&lt;0&gt;(guess), std::get&lt;1&gt;(guess)));</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;  }</div>
+<div class="ttc" id="aclasssopt_1_1algorithm_1_1TVPrimalDual_html_a964c2302f69bd4deac05da198954d16e"><div class="ttname"><a href="classsopt_1_1algorithm_1_1TVPrimalDual.html#a964c2302f69bd4deac05da198954d16e">sopt::algorithm::TVPrimalDual::operator()</a></div><div class="ttdeci">DiagnosticAndResult operator()() const</div><div class="ttdoc">Calls Primal Dual.</div><div class="ttdef"><b>Definition:</b> <a href="tv__primal__dual_8h_source.html#l00199">tv_primal_dual.h:199</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="tv__primal__dual_8h_source.html#l00202">sopt::algorithm::TVPrimalDual&lt; SCALAR &gt;::operator()()</a>.</p>
+<p class="reference">References <a class="el" href="tv__primal__dual_8h_source.html#l00199">sopt::algorithm::TVPrimalDual&lt; SCALAR &gt;::operator()()</a>.</p>
 
 </div>
 </div>
@@ -843,12 +839,12 @@ template&lt;typename SCALAR &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="tv__primal__dual_8h_source.html#l00171">171</a> of file <a class="el" href="tv__primal__dual_8h_source.html">tv_primal_dual.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;                                             {</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classsopt_1_1algorithm_1_1TVPrimalDual.html#a964c2302f69bd4deac05da198954d16e">operator()</a>(out, <a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#aea449fd612f6063653b3bf224a3c16a7">PD::initial_guess</a>(<a class="code" href="classsopt_1_1algorithm_1_1TVPrimalDual.html#a5e52bced96a1a84e6ef01479b232a9d8">target</a>(), <a class="code" href="classsopt_1_1algorithm_1_1TVPrimalDual.html#a49d06903cbb8a1af763f3e95821cf3e4">Phi</a>(), sq_op_norm()));</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;  }</div>
+<p class="definition">Definition at line <a class="el" href="tv__primal__dual_8h_source.html#l00168">168</a> of file <a class="el" href="tv__primal__dual_8h_source.html">tv_primal_dual.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;                                             {</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classsopt_1_1algorithm_1_1TVPrimalDual.html#a964c2302f69bd4deac05da198954d16e">operator()</a>(out, <a class="code" href="classsopt_1_1algorithm_1_1PrimalDual.html#aea449fd612f6063653b3bf224a3c16a7">PD::initial_guess</a>(<a class="code" href="classsopt_1_1algorithm_1_1TVPrimalDual.html#a5e52bced96a1a84e6ef01479b232a9d8">target</a>(), <a class="code" href="classsopt_1_1algorithm_1_1TVPrimalDual.html#a49d06903cbb8a1af763f3e95821cf3e4">Phi</a>()));</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;  }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="primal__dual_8h_source.html#l00236">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::initial_guess()</a>, <a class="el" href="tv__primal__dual_8h_source.html#l00202">sopt::algorithm::TVPrimalDual&lt; SCALAR &gt;::operator()()</a>, <a class="el" href="tv__primal__dual_8h_source.html#l00217">sopt::algorithm::TVPrimalDual&lt; SCALAR &gt;::Phi()</a>, and <a class="el" href="tv__primal__dual_8h_source.html#l00161">sopt::algorithm::TVPrimalDual&lt; SCALAR &gt;::target()</a>.</p>
+<p class="reference">References <a class="el" href="primal__dual_8h_source.html#l00233">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::initial_guess()</a>, <a class="el" href="tv__primal__dual_8h_source.html#l00199">sopt::algorithm::TVPrimalDual&lt; SCALAR &gt;::operator()()</a>, <a class="el" href="tv__primal__dual_8h_source.html#l00214">sopt::algorithm::TVPrimalDual&lt; SCALAR &gt;::Phi()</a>, and <a class="el" href="tv__primal__dual_8h_source.html#l00158">sopt::algorithm::TVPrimalDual&lt; SCALAR &gt;::target()</a>.</p>
 
 </div>
 </div>
@@ -897,12 +893,12 @@ template&lt;typename SCALAR &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="tv__primal__dual_8h_source.html#l00183">183</a> of file <a class="el" href="tv__primal__dual_8h_source.html">tv_primal_dual.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;                                                                                         {</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classsopt_1_1algorithm_1_1TVPrimalDual.html#a964c2302f69bd4deac05da198954d16e">operator()</a>(out, std::get&lt;0&gt;(guess), std::get&lt;1&gt;(guess));</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;  }</div>
+<p class="definition">Definition at line <a class="el" href="tv__primal__dual_8h_source.html#l00180">180</a> of file <a class="el" href="tv__primal__dual_8h_source.html">tv_primal_dual.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;                                                                                         {</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classsopt_1_1algorithm_1_1TVPrimalDual.html#a964c2302f69bd4deac05da198954d16e">operator()</a>(out, std::get&lt;0&gt;(guess), std::get&lt;1&gt;(guess));</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;  }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="tv__primal__dual_8h_source.html#l00202">sopt::algorithm::TVPrimalDual&lt; SCALAR &gt;::operator()()</a>.</p>
+<p class="reference">References <a class="el" href="tv__primal__dual_8h_source.html#l00199">sopt::algorithm::TVPrimalDual&lt; SCALAR &gt;::operator()()</a>.</p>
 
 </div>
 </div>
@@ -951,12 +947,12 @@ template&lt;typename SCALAR &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="tv__primal__dual_8h_source.html#l00177">177</a> of file <a class="el" href="tv__primal__dual_8h_source.html">tv_primal_dual.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;                                                                                        {</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classsopt_1_1algorithm_1_1TVPrimalDual.html#a964c2302f69bd4deac05da198954d16e">operator()</a>(out, std::get&lt;0&gt;(guess), std::get&lt;1&gt;(guess));</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;  }</div>
+<p class="definition">Definition at line <a class="el" href="tv__primal__dual_8h_source.html#l00174">174</a> of file <a class="el" href="tv__primal__dual_8h_source.html">tv_primal_dual.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;                                                                                        {</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classsopt_1_1algorithm_1_1TVPrimalDual.html#a964c2302f69bd4deac05da198954d16e">operator()</a>(out, std::get&lt;0&gt;(guess), std::get&lt;1&gt;(guess));</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;  }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="tv__primal__dual_8h_source.html#l00202">sopt::algorithm::TVPrimalDual&lt; SCALAR &gt;::operator()()</a>.</p>
+<p class="reference">References <a class="el" href="tv__primal__dual_8h_source.html#l00199">sopt::algorithm::TVPrimalDual&lt; SCALAR &gt;::operator()()</a>.</p>
 
 </div>
 </div>
@@ -986,16 +982,16 @@ template&lt;typename SCALAR &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="tv__primal__dual_8h_source.html#l00217">217</a> of file <a class="el" href="tv__primal__dual_8h_source.html">tv_primal_dual.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;                                                                                       {</div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    Phi_ = <a class="code" href="namespacesopt.html#a27b8391ddefe157e732bebe05696170e">linear_transform</a>(std::forward&lt;ARGS&gt;(args)...);</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;  }</div>
-<div class="ttc" id="anamespacesopt_html_a27b8391ddefe157e732bebe05696170e"><div class="ttname"><a href="namespacesopt.html#a27b8391ddefe157e732bebe05696170e">sopt::linear_transform</a></div><div class="ttdeci">LinearTransform&lt; VECTOR &gt; linear_transform(OperatorFunction&lt; VECTOR &gt; const &amp;direct, OperatorFunction&lt; VECTOR &gt; const &amp;indirect, std::array&lt; t_int, 3 &gt; const &amp;sizes={{1, 1, 0}})</div><div class="ttdef"><b>Definition:</b> <a href="linear__transform_8h_source.html#l00101">linear_transform.h:101</a></div></div>
+<p class="definition">Definition at line <a class="el" href="tv__primal__dual_8h_source.html#l00214">214</a> of file <a class="el" href="tv__primal__dual_8h_source.html">tv_primal_dual.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;                                                                                       {</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;    Phi_ = <a class="code" href="namespacesopt.html#a27b8391ddefe157e732bebe05696170e">linear_transform</a>(std::forward&lt;ARGS&gt;(args)...);</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;  }</div>
+<div class="ttc" id="anamespacesopt_html_a27b8391ddefe157e732bebe05696170e"><div class="ttname"><a href="namespacesopt.html#a27b8391ddefe157e732bebe05696170e">sopt::linear_transform</a></div><div class="ttdeci">LinearTransform&lt; VECTOR &gt; linear_transform(OperatorFunction&lt; VECTOR &gt; const &amp;direct, OperatorFunction&lt; VECTOR &gt; const &amp;indirect, std::array&lt; t_int, 3 &gt; const &amp;sizes={{1, 1, 0}})</div><div class="ttdef"><b>Definition:</b> <a href="linear__transform_8h_source.html#l00124">linear_transform.h:124</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="linear__transform_8h_source.html#l00101">sopt::linear_transform()</a>.</p>
+<p class="reference">References <a class="el" href="linear__transform_8h_source.html#l00124">sopt::linear_transform()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="tv__inpainting_8cc_source.html#l00029">main()</a>, and <a class="el" href="tv__primal__dual_8h_source.html#l00171">sopt::algorithm::TVPrimalDual&lt; SCALAR &gt;::operator()()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="tv__inpainting_8cc_source.html#l00029">main()</a>, and <a class="el" href="tv__primal__dual_8h_source.html#l00168">sopt::algorithm::TVPrimalDual&lt; SCALAR &gt;::operator()()</a>.</p>
 
 </div>
 </div>
@@ -1025,13 +1021,13 @@ template&lt;typename SCALAR &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="tv__primal__dual_8h_source.html#l00228">228</a> of file <a class="el" href="tv__primal__dual_8h_source.html">tv_primal_dual.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;                                                                                       {</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    Psi_ = <a class="code" href="namespacesopt.html#a27b8391ddefe157e732bebe05696170e">linear_transform</a>(std::forward&lt;ARGS&gt;(args)...);</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;  }</div>
+<p class="definition">Definition at line <a class="el" href="tv__primal__dual_8h_source.html#l00225">225</a> of file <a class="el" href="tv__primal__dual_8h_source.html">tv_primal_dual.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;                                                                                       {</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    Psi_ = <a class="code" href="namespacesopt.html#a27b8391ddefe157e732bebe05696170e">linear_transform</a>(std::forward&lt;ARGS&gt;(args)...);</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;  }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="linear__transform_8h_source.html#l00101">sopt::linear_transform()</a>.</p>
+<p class="reference">References <a class="el" href="linear__transform_8h_source.html#l00124">sopt::linear_transform()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="tv__inpainting_8cc_source.html#l00029">main()</a>.</p>
 
@@ -1065,18 +1061,18 @@ template&lt;typename SCALAR &gt; </div>
 
 <p>Helper function to set-up default residual convergence function. </p>
 
-<p class="definition">Definition at line <a class="el" href="tv__primal__dual_8h_source.html#l00257">257</a> of file <a class="el" href="tv__primal__dual_8h_source.html">tv_primal_dual.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;                                                                    {</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classsopt_1_1algorithm_1_1TVPrimalDual.html#a770c4ef96ad15b97764855947253e1c8">residual_convergence</a>(<span class="keyword">nullptr</span>).residual_tolerance(tolerance);</div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;  }</div>
-<div class="ttc" id="aclasssopt_1_1algorithm_1_1TVPrimalDual_html_a770c4ef96ad15b97764855947253e1c8"><div class="ttname"><a href="classsopt_1_1algorithm_1_1TVPrimalDual.html#a770c4ef96ad15b97764855947253e1c8">sopt::algorithm::TVPrimalDual::residual_convergence</a></div><div class="ttdeci">TVPrimalDual&lt; Scalar &gt; &amp; residual_convergence(Real const &amp;tolerance)</div><div class="ttdoc">Helper function to set-up default residual convergence function.</div><div class="ttdef"><b>Definition:</b> <a href="tv__primal__dual_8h_source.html#l00257">tv_primal_dual.h:257</a></div></div>
+<p class="definition">Definition at line <a class="el" href="tv__primal__dual_8h_source.html#l00254">254</a> of file <a class="el" href="tv__primal__dual_8h_source.html">tv_primal_dual.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;                                                                    {</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classsopt_1_1algorithm_1_1TVPrimalDual.html#a770c4ef96ad15b97764855947253e1c8">residual_convergence</a>(<span class="keyword">nullptr</span>).residual_tolerance(tolerance);</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;  }</div>
+<div class="ttc" id="aclasssopt_1_1algorithm_1_1TVPrimalDual_html_a770c4ef96ad15b97764855947253e1c8"><div class="ttname"><a href="classsopt_1_1algorithm_1_1TVPrimalDual.html#a770c4ef96ad15b97764855947253e1c8">sopt::algorithm::TVPrimalDual::residual_convergence</a></div><div class="ttdeci">TVPrimalDual&lt; Scalar &gt; &amp; residual_convergence(Real const &amp;tolerance)</div><div class="ttdoc">Helper function to set-up default residual convergence function.</div><div class="ttdef"><b>Definition:</b> <a href="tv__primal__dual_8h_source.html#l00254">tv_primal_dual.h:254</a></div></div>
 </div><!-- fragment -->
 <p class="reference">Referenced by <a class="el" href="tv__inpainting_8cc_source.html#l00029">main()</a>.</p>
 
 </div>
 </div>
 <a id="a13f3c14dbc377a0703d7c3768e3ac404"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a13f3c14dbc377a0703d7c3768e3ac404">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[1/28]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a13f3c14dbc377a0703d7c3768e3ac404">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[1/27]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1112,7 +1108,7 @@ template&lt;typename SCALAR &gt; </div>
 </div>
 </div>
 <a id="a6a6f1ad4a472ed02a556d23dedcba574"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6a6f1ad4a472ed02a556d23dedcba574">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[2/28]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a6f1ad4a472ed02a556d23dedcba574">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[2/27]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1144,7 +1140,7 @@ template&lt;typename SCALAR &gt; </div>
 </div>
 </div>
 <a id="a444e91dac5db43fe5a5d8be8744ab167"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a444e91dac5db43fe5a5d8be8744ab167">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[3/28]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a444e91dac5db43fe5a5d8be8744ab167">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[3/27]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1176,7 +1172,7 @@ template&lt;typename SCALAR &gt; </div>
 </div>
 </div>
 <a id="a0a51a303c790c7be0582994535388e9d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0a51a303c790c7be0582994535388e9d">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[4/28]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a51a303c790c7be0582994535388e9d">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[4/27]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1208,7 +1204,7 @@ template&lt;typename SCALAR &gt; </div>
 </div>
 </div>
 <a id="a269165a56ddaf93519a5d6eb6e8a1e43"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a269165a56ddaf93519a5d6eb6e8a1e43">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[5/28]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a269165a56ddaf93519a5d6eb6e8a1e43">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[5/27]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1241,7 +1237,7 @@ template&lt;typename SCALAR &gt; </div>
 </div>
 </div>
 <a id="a4ae5228b206db31c85daca630a0912f9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4ae5228b206db31c85daca630a0912f9">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[6/28]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ae5228b206db31c85daca630a0912f9">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[6/27]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1273,7 +1269,7 @@ template&lt;typename SCALAR &gt; </div>
 </div>
 </div>
 <a id="a9df7004b57e62e358f4e2198f0bbd725"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9df7004b57e62e358f4e2198f0bbd725">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[7/28]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9df7004b57e62e358f4e2198f0bbd725">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[7/27]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1305,7 +1301,7 @@ template&lt;typename SCALAR &gt; </div>
 </div>
 </div>
 <a id="a5cbc502b7629f3d977412041cd10be64"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5cbc502b7629f3d977412041cd10be64">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[8/28]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5cbc502b7629f3d977412041cd10be64">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[8/27]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1337,7 +1333,7 @@ template&lt;typename SCALAR &gt; </div>
 </div>
 </div>
 <a id="a0e9c844ef75de3048750f3457d9a0c21"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0e9c844ef75de3048750f3457d9a0c21">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[9/28]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e9c844ef75de3048750f3457d9a0c21">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[9/27]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1369,7 +1365,7 @@ template&lt;typename SCALAR &gt; </div>
 </div>
 </div>
 <a id="a50e9743c9a639960476eb63dd8aece7d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a50e9743c9a639960476eb63dd8aece7d">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[10/28]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a50e9743c9a639960476eb63dd8aece7d">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[10/27]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1401,7 +1397,7 @@ template&lt;typename SCALAR &gt; </div>
 </div>
 </div>
 <a id="ab3a6530c57ffb4503e9f122a8af951a6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab3a6530c57ffb4503e9f122a8af951a6">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[11/28]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3a6530c57ffb4503e9f122a8af951a6">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[11/27]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1433,7 +1429,7 @@ template&lt;typename SCALAR &gt; </div>
 </div>
 </div>
 <a id="a39b4c6b1a0e676b0d44e5eadd13e2061"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a39b4c6b1a0e676b0d44e5eadd13e2061">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[12/28]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a39b4c6b1a0e676b0d44e5eadd13e2061">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[12/27]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1465,7 +1461,7 @@ template&lt;typename SCALAR &gt; </div>
 </div>
 </div>
 <a id="ad4d6b104b11fc90ef04f2898bcc74518"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad4d6b104b11fc90ef04f2898bcc74518">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[13/28]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4d6b104b11fc90ef04f2898bcc74518">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[13/27]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1497,7 +1493,7 @@ template&lt;typename SCALAR &gt; </div>
 </div>
 </div>
 <a id="a7dfcd9f627e6dc57731e95f52aee0232"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7dfcd9f627e6dc57731e95f52aee0232">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[14/28]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7dfcd9f627e6dc57731e95f52aee0232">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[14/27]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1529,7 +1525,7 @@ template&lt;typename SCALAR &gt; </div>
 </div>
 </div>
 <a id="ac063f52088741bfdec32e387e322e881"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac063f52088741bfdec32e387e322e881">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[15/28]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac063f52088741bfdec32e387e322e881">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[15/27]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1561,7 +1557,7 @@ template&lt;typename SCALAR &gt; </div>
 </div>
 </div>
 <a id="a1eaa45f68a77355daea64dc48758996c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1eaa45f68a77355daea64dc48758996c">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[16/28]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1eaa45f68a77355daea64dc48758996c">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[16/27]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1594,7 +1590,7 @@ template&lt;typename SCALAR &gt; </div>
 </div>
 </div>
 <a id="a93adcac7635fe8f017784b73eb41ec3e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a93adcac7635fe8f017784b73eb41ec3e">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[17/28]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a93adcac7635fe8f017784b73eb41ec3e">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[17/27]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1627,7 +1623,7 @@ template&lt;typename SCALAR &gt; </div>
 </div>
 </div>
 <a id="a6c4f8d4f9eca0292a89f9a94b3a9e324"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6c4f8d4f9eca0292a89f9a94b3a9e324">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[18/28]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c4f8d4f9eca0292a89f9a94b3a9e324">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[18/27]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1660,7 +1656,7 @@ template&lt;typename SCALAR &gt; </div>
 </div>
 </div>
 <a id="a8d818fe7bf141b419be886b8fce53a0c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8d818fe7bf141b419be886b8fce53a0c">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[19/28]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d818fe7bf141b419be886b8fce53a0c">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[19/27]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1692,7 +1688,7 @@ template&lt;typename SCALAR &gt; </div>
 </div>
 </div>
 <a id="a4dca836c25e823c563fbe4ffb88061a9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4dca836c25e823c563fbe4ffb88061a9">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[20/28]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4dca836c25e823c563fbe4ffb88061a9">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[20/27]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1723,40 +1719,8 @@ template&lt;typename SCALAR &gt; </div>
 
 </div>
 </div>
-<a id="a6197be282b57058fb3d8b84e4b3c25b0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6197be282b57058fb3d8b84e4b3c25b0">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[21/28]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename SCALAR &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classsopt_1_1algorithm_1_1TVPrimalDual.html">sopt::algorithm::TVPrimalDual</a>&lt; SCALAR &gt;::SOPT_MACRO </td>
-          <td>(</td>
-          <td class="paramtype">sq_op_norm&#160;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classsopt_1_1algorithm_1_1TVPrimalDual.html#a065875c572ddb264ac5bfd9296cc78a4">Real</a>&#160;</td>
-          <td class="paramname">&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>ν parameter. </p>
-
-</div>
-</div>
 <a id="a7ea0e67309dd45189e1559ef8978493d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7ea0e67309dd45189e1559ef8978493d">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[22/28]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ea0e67309dd45189e1559ef8978493d">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[21/27]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1788,7 +1752,7 @@ template&lt;typename SCALAR &gt; </div>
 </div>
 </div>
 <a id="ab436861e122767befe5cbae5f3a3dd74"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab436861e122767befe5cbae5f3a3dd74">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[23/28]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab436861e122767befe5cbae5f3a3dd74">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[22/27]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1820,7 +1784,7 @@ template&lt;typename SCALAR &gt; </div>
 </div>
 </div>
 <a id="a9afe5efef177f314da7ec255da7bee1e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9afe5efef177f314da7ec255da7bee1e">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[24/28]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9afe5efef177f314da7ec255da7bee1e">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[23/27]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1852,7 +1816,7 @@ template&lt;typename SCALAR &gt; </div>
 </div>
 </div>
 <a id="a7abce595c9bb69bf64d0fbada5adb7e3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7abce595c9bb69bf64d0fbada5adb7e3">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[25/28]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7abce595c9bb69bf64d0fbada5adb7e3">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[24/27]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1884,7 +1848,7 @@ template&lt;typename SCALAR &gt; </div>
 </div>
 </div>
 <a id="a3c5558c361897b59fc7afa945455e42b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3c5558c361897b59fc7afa945455e42b">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[26/28]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c5558c361897b59fc7afa945455e42b">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[25/27]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1916,7 +1880,7 @@ template&lt;typename SCALAR &gt; </div>
 </div>
 </div>
 <a id="a4ea0333bc052fbac4d3575c1bc737ca9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4ea0333bc052fbac4d3575c1bc737ca9">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[27/28]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ea0333bc052fbac4d3575c1bc737ca9">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[26/27]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1952,7 +1916,7 @@ template&lt;typename SCALAR &gt; </div>
 </div>
 </div>
 <a id="a46639900f75b61913e3bebf3556deae4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a46639900f75b61913e3bebf3556deae4">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[28/28]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a46639900f75b61913e3bebf3556deae4">&#9670;&nbsp;</a></span>SOPT_MACRO() <span class="overload">[27/27]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2010,10 +1974,10 @@ template&lt;typename SCALAR &gt; </div>
 
 <p>Vector of target measurements. </p>
 
-<p class="definition">Definition at line <a class="el" href="tv__primal__dual_8h_source.html#l00161">161</a> of file <a class="el" href="tv__primal__dual_8h_source.html">tv_primal_dual.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;{ <span class="keywordflow">return</span> target_; }</div>
+<p class="definition">Definition at line <a class="el" href="tv__primal__dual_8h_source.html#l00158">158</a> of file <a class="el" href="tv__primal__dual_8h_source.html">tv_primal_dual.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;{ <span class="keywordflow">return</span> target_; }</div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="tv__primal__dual_8h_source.html#l00171">sopt::algorithm::TVPrimalDual&lt; SCALAR &gt;::operator()()</a>, and <a class="el" href="tv__primal__dual_8h_source.html#l00164">sopt::algorithm::TVPrimalDual&lt; SCALAR &gt;::target()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="tv__primal__dual_8h_source.html#l00168">sopt::algorithm::TVPrimalDual&lt; SCALAR &gt;::operator()()</a>, and <a class="el" href="tv__primal__dual_8h_source.html#l00161">sopt::algorithm::TVPrimalDual&lt; SCALAR &gt;::target()</a>.</p>
 
 </div>
 </div>
@@ -2047,13 +2011,13 @@ template&lt;typename DERIVED &gt; </div>
 
 <p>Sets the vector of target measurements. </p>
 
-<p class="definition">Definition at line <a class="el" href="tv__primal__dual_8h_source.html#l00164">164</a> of file <a class="el" href="tv__primal__dual_8h_source.html">tv_primal_dual.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;                                                                       {</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    target_ = <a class="code" href="classsopt_1_1algorithm_1_1TVPrimalDual.html#a5e52bced96a1a84e6ef01479b232a9d8">target</a>;</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;  }</div>
+<p class="definition">Definition at line <a class="el" href="tv__primal__dual_8h_source.html#l00161">161</a> of file <a class="el" href="tv__primal__dual_8h_source.html">tv_primal_dual.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;                                                                       {</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    target_ = <a class="code" href="classsopt_1_1algorithm_1_1TVPrimalDual.html#a5e52bced96a1a84e6ef01479b232a9d8">target</a>;</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;  }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="tv__primal__dual_8h_source.html#l00161">sopt::algorithm::TVPrimalDual&lt; SCALAR &gt;::target()</a>.</p>
+<p class="reference">References <a class="el" href="tv__primal__dual_8h_source.html#l00158">sopt::algorithm::TVPrimalDual&lt; SCALAR &gt;::target()</a>.</p>
 
 </div>
 </div>

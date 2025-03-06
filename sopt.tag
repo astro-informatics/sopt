@@ -5776,13 +5776,6 @@
       <type></type>
       <name>SOPT_MACRO</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
-      <anchor>a1f09cee8e6f1dd6534b24344707db6c5</anchor>
-      <arglist>(sq_op_norm, Real)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>SOPT_MACRO</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
       <anchor>ad1e5e2b587a87f086b5a11031c1871d3</anchor>
       <arglist>(fista, bool)</arglist>
     </member>
@@ -5881,8 +5874,8 @@
       <type>Diagnostic</type>
       <name>operator()</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingForwardBackward.html</anchorfile>
-      <anchor>ac3dcc02cd78e64c0b60ef46296b233a3</anchor>
-      <arglist>(t_Vector &amp;out)</arglist>
+      <anchor>a12325be5e433952ca7f46d7de165fec6</anchor>
+      <arglist>(t_Vector &amp;out) const</arglist>
     </member>
     <member kind="function">
       <type>Diagnostic</type>
@@ -6224,13 +6217,6 @@
       <type></type>
       <name>SOPT_MACRO</name>
       <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
-      <anchor>a7cafa9c54a3f9402b92351a67c1537cc</anchor>
-      <arglist>(sq_op_norm, Real)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>SOPT_MACRO</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
       <anchor>a9154f17456583b5f419bcc27aa61ab5a</anchor>
       <arglist>(precondition_stepsize, Real)</arglist>
     </member>
@@ -6534,13 +6520,6 @@
       <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
       <anchor>a87cf7ff4b86ed7f87c5f3d2cd217967a</anchor>
       <arglist>(rho, Real)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>SOPT_MACRO</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ImagingPrimalDual.html</anchorfile>
-      <anchor>a7cafa9c54a3f9402b92351a67c1537cc</anchor>
-      <arglist>(sq_op_norm, Real)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -6856,13 +6835,6 @@
       <anchorfile>classsopt_1_1algorithm_1_1ImagingProximalADMM.html</anchorfile>
       <anchor>a712d937caf47b9d0e70f8b1ac8a61180</anchor>
       <arglist>(regulariser_strength, Real)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>SOPT_MACRO</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ImagingProximalADMM.html</anchorfile>
-      <anchor>ab36b5ec1dd78b9d8c026e182e076d5ce</anchor>
-      <arglist>(sq_op_norm, Real)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -8100,13 +8072,6 @@
       <type></type>
       <name>SOPT_MACRO</name>
       <anchorfile>classsopt_1_1algorithm_1_1L2ForwardBackward.html</anchorfile>
-      <anchor>ace15eb99b08f4df57b4ee4c9313dc488</anchor>
-      <arglist>(sq_op_norm, Real)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>SOPT_MACRO</name>
-      <anchorfile>classsopt_1_1algorithm_1_1L2ForwardBackward.html</anchorfile>
       <anchor>a1572343283cb56cfb33d317fa3baa997</anchor>
       <arglist>(is_converged, t_IsConverged)</arglist>
     </member>
@@ -8345,6 +8310,27 @@
       <anchor>af9fe77b8afc0761cf9d07f432df85a0d</anchor>
       <arglist>() const</arglist>
     </member>
+    <member kind="function">
+      <type>void</type>
+      <name>set_norm</name>
+      <anchorfile>classsopt_1_1LinearTransform.html</anchorfile>
+      <anchor>ad53f8710c5a8cb92679874cb785a1525</anchor>
+      <arglist>(t_real n)</arglist>
+    </member>
+    <member kind="function">
+      <type>sopt::t_real</type>
+      <name>norm</name>
+      <anchorfile>classsopt_1_1LinearTransform.html</anchorfile>
+      <anchor>aeda33deae1a25a9da8765a92c840876e</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>sopt::t_real</type>
+      <name>sq_norm</name>
+      <anchorfile>classsopt_1_1LinearTransform.html</anchorfile>
+      <anchor>ac2fa5cbacee12c06408c8c3e34041a3e</anchor>
+      <arglist>() const</arglist>
+    </member>
   </compound>
   <compound kind="class">
     <name>LinearTransform&lt; t_Vector &gt;</name>
@@ -8411,6 +8397,27 @@
       <name>adjoint</name>
       <anchorfile>classsopt_1_1LinearTransform.html</anchorfile>
       <anchor>af9fe77b8afc0761cf9d07f432df85a0d</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>set_norm</name>
+      <anchorfile>classsopt_1_1LinearTransform.html</anchorfile>
+      <anchor>ad53f8710c5a8cb92679874cb785a1525</anchor>
+      <arglist>(t_real n)</arglist>
+    </member>
+    <member kind="function">
+      <type>sopt::t_real</type>
+      <name>norm</name>
+      <anchorfile>classsopt_1_1LinearTransform.html</anchorfile>
+      <anchor>aeda33deae1a25a9da8765a92c840876e</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>sopt::t_real</type>
+      <name>sq_norm</name>
+      <anchorfile>classsopt_1_1LinearTransform.html</anchorfile>
+      <anchor>ac2fa5cbacee12c06408c8c3e34041a3e</anchor>
       <arglist>() const</arglist>
     </member>
   </compound>
@@ -9194,13 +9201,6 @@
       <type></type>
       <name>SOPT_MACRO</name>
       <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
-      <anchor>ad30587bb7afa8899d37d506ed07a9f2a</anchor>
-      <arglist>(sq_op_norm, Real)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>SOPT_MACRO</name>
-      <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
       <anchor>a6f804bfd6a04525eb2bab2f529b8b2e4</anchor>
       <arglist>(is_converged, t_IsConverged)</arglist>
     </member>
@@ -9369,8 +9369,8 @@
       <type>static std::tuple&lt; t_Vector, t_Vector &gt;</type>
       <name>initial_guess</name>
       <anchorfile>classsopt_1_1algorithm_1_1PrimalDual.html</anchorfile>
-      <anchor>a45d47a07ee4abc968dde5af7bea40298</anchor>
-      <arglist>(t_Vector const &amp;target, t_LinearTransform const &amp;phi, Real sq_op_norm)</arglist>
+      <anchor>aee0f60fc540437f1fd69aac0a7da8ab6</anchor>
+      <arglist>(t_Vector const &amp;target, t_LinearTransform const &amp;phi)</arglist>
     </member>
   </compound>
   <compound kind="class">
@@ -9486,13 +9486,6 @@
       <anchorfile>classsopt_1_1algorithm_1_1ProximalADMM.html</anchorfile>
       <anchor>a0da9053cd077b8eadb72551c247bae14</anchor>
       <arglist>(regulariser_strength, Real)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>SOPT_MACRO</name>
-      <anchorfile>classsopt_1_1algorithm_1_1ProximalADMM.html</anchorfile>
-      <anchor>ae2e9d4a35625a3cda4b11aa2cdece1fb</anchor>
-      <arglist>(sq_op_norm, Real)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -9638,8 +9631,8 @@
       <type>static std::tuple&lt; t_Vector, t_Vector &gt;</type>
       <name>initial_guess</name>
       <anchorfile>classsopt_1_1algorithm_1_1ProximalADMM.html</anchorfile>
-      <anchor>a865d756f92a3809914ff9c566be1a2c1</anchor>
-      <arglist>(t_Vector const &amp;target, t_LinearTransform const &amp;phi, Real sq_op_norm)</arglist>
+      <anchor>ac488a22a189e1c987527f091242e8ff5</anchor>
+      <arglist>(t_Vector const &amp;target, t_LinearTransform const &amp;phi)</arglist>
     </member>
   </compound>
   <compound kind="class">
@@ -11185,13 +11178,6 @@
       <anchorfile>classsopt_1_1algorithm_1_1TVPrimalDual.html</anchorfile>
       <anchor>a8d818fe7bf141b419be886b8fce53a0c</anchor>
       <arglist>(rho, Real)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>SOPT_MACRO</name>
-      <anchorfile>classsopt_1_1algorithm_1_1TVPrimalDual.html</anchorfile>
-      <anchor>a6197be282b57058fb3d8b84e4b3c25b0</anchor>
-      <arglist>(sq_op_norm, Real)</arglist>
     </member>
     <member kind="function">
       <type></type>

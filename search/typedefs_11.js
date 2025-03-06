@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['xvector_1149',['XVector',['../classsopt_1_1algorithm_1_1Reweighted.html#af084f978bfeaa198aeabce8a75f53017',1,'sopt::algorithm::Reweighted']]]
+  ['xvector_1157',['XVector',['../classsopt_1_1algorithm_1_1Reweighted.html#af084f978bfeaa198aeabce8a75f53017',1,'sopt::algorithm::Reweighted']]]
 ];

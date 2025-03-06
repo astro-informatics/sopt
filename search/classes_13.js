@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['wavelet_647',['Wavelet',['../classsopt_1_1wavelets_1_1Wavelet.html',1,'sopt::wavelets']]],
-  ['waveletdata_648',['WaveletData',['../structsopt_1_1wavelets_1_1WaveletData.html',1,'sopt::wavelets']]],
-  ['weightedl2ball_649',['WeightedL2Ball',['../classsopt_1_1proximal_1_1WeightedL2Ball.html',1,'sopt::proximal']]],
-  ['wrapfunction_650',['WrapFunction',['../classsopt_1_1details_1_1WrapFunction.html',1,'sopt::details']]]
+  ['wavelet_653',['Wavelet',['../classsopt_1_1wavelets_1_1Wavelet.html',1,'sopt::wavelets']]],
+  ['waveletdata_654',['WaveletData',['../structsopt_1_1wavelets_1_1WaveletData.html',1,'sopt::wavelets']]],
+  ['weightedl2ball_655',['WeightedL2Ball',['../classsopt_1_1proximal_1_1WeightedL2Ball.html',1,'sopt::proximal']]],
+  ['wrapfunction_656',['WrapFunction',['../classsopt_1_1details_1_1WrapFunction.html',1,'sopt::details']]]
 ];

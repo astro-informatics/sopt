@@ -140,6 +140,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af9fe77b8afc0761cf9d07f432df85a0d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsopt_1_1LinearTransform.html">LinearTransform</a>&lt; VECTOR &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsopt_1_1LinearTransform.html#af9fe77b8afc0761cf9d07f432df85a0d">adjoint</a> () const</td></tr>
 <tr class="memdesc:af9fe77b8afc0761cf9d07f432df85a0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indirect transform.  <a href="classsopt_1_1LinearTransform.html#af9fe77b8afc0761cf9d07f432df85a0d">More...</a><br /></td></tr>
 <tr class="separator:af9fe77b8afc0761cf9d07f432df85a0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad53f8710c5a8cb92679874cb785a1525"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsopt_1_1LinearTransform.html#ad53f8710c5a8cb92679874cb785a1525">set_norm</a> (<a class="el" href="namespacesopt.html#a71bfb8f70b432862d3d654b9dcff77cc">t_real</a> <a class="el" href="benchmarks_2wavelets_8cc.html#aab81ff0bb1fb0df11cec0c298b500db3">n</a>)</td></tr>
+<tr class="separator:ad53f8710c5a8cb92679874cb785a1525"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeda33deae1a25a9da8765a92c840876e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacesopt.html#a71bfb8f70b432862d3d654b9dcff77cc">sopt::t_real</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsopt_1_1LinearTransform.html#aeda33deae1a25a9da8765a92c840876e">norm</a> () const</td></tr>
+<tr class="separator:aeda33deae1a25a9da8765a92c840876e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2fa5cbacee12c06408c8c3e34041a3e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacesopt.html#a71bfb8f70b432862d3d654b9dcff77cc">sopt::t_real</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsopt_1_1LinearTransform.html#ac2fa5cbacee12c06408c8c3e34041a3e">sq_norm</a> () const</td></tr>
+<tr class="separator:ac2fa5cbacee12c06408c8c3e34041a3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classsopt_1_1details_1_1WrapFunction"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classsopt_1_1details_1_1WrapFunction')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classsopt_1_1details_1_1WrapFunction.html">sopt::details::WrapFunction&lt; VECTOR &gt;</a></td></tr>
 <tr class="memitem:a260cef6252937e7fbd40f8ee987d81d7 inherit pub_methods_classsopt_1_1details_1_1WrapFunction"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsopt_1_1details_1_1WrapFunction.html#a260cef6252937e7fbd40f8ee987d81d7">WrapFunction</a> (<a class="el" href="classsopt_1_1details_1_1WrapFunction.html#a0f3e11172f290c6702faa27c02358741">t_Function</a> const &amp;func, std::array&lt; <a class="el" href="namespacesopt.html#a47796df8f5f6bbffc226292ef1ca8196">t_int</a>, 3 &gt; <a class="el" href="classsopt_1_1details_1_1WrapFunction.html#a52060dbd11f91b4532775a6dd8e8d454">sizes</a>={{1, 1, 0}})</td></tr>
 <tr class="separator:a260cef6252937e7fbd40f8ee987d81d7 inherit pub_methods_classsopt_1_1details_1_1WrapFunction"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -397,7 +403,7 @@ template&lt;typename VECTOR &gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="linear__transform_8h_source.html#l00065">65</a> of file <a class="el" href="linear__transform_8h_source.html">linear_transform.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;      : details::WrapFunction&lt;VECTOR&gt;(c), indirect_(c.indirect_) {}</div>
+<div class="fragment"><div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;      : details::WrapFunction&lt;VECTOR&gt;(c), indirect_(c.indirect_), norm_(c.norm_), sq_norm_(c.sq_norm_) {}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -428,7 +434,7 @@ template&lt;typename VECTOR &gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="linear__transform_8h_source.html#l00067">67</a> of file <a class="el" href="linear__transform_8h_source.html">linear_transform.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;      : details::WrapFunction&lt;VECTOR&gt;(std::move(c)), indirect_(std::move(c.indirect_)) {}</div>
+<div class="fragment"><div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;      : details::WrapFunction&lt;VECTOR&gt;(std::move(c)), indirect_(std::move(c.indirect_)), norm_(c.norm_), sq_norm_(c.sq_norm_) {}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -460,14 +466,46 @@ template&lt;typename VECTOR &gt; </div>
 
 <p>Indirect transform. </p>
 
-<p class="definition">Definition at line <a class="el" href="linear__transform_8h_source.html#l00079">79</a> of file <a class="el" href="linear__transform_8h_source.html">linear_transform.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                                          {</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classsopt_1_1LinearTransform.html">LinearTransform&lt;VECTOR&gt;</a>(indirect_, <span class="keyword">static_cast&lt;</span>details::WrapFunction&lt;VECTOR&gt; <span class="keyword">const </span>&amp;<span class="keyword">&gt;</span>(*<span class="keyword">this</span>));</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  }</div>
+<p class="definition">Definition at line <a class="el" href="linear__transform_8h_source.html#l00083">83</a> of file <a class="el" href="linear__transform_8h_source.html">linear_transform.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                                          {</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classsopt_1_1LinearTransform.html">LinearTransform&lt;VECTOR&gt;</a>(indirect_, <span class="keyword">static_cast&lt;</span>details::WrapFunction&lt;VECTOR&gt; <span class="keyword">const </span>&amp;<span class="keyword">&gt;</span>(*<span class="keyword">this</span>));</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  }</div>
 <div class="ttc" id="aclasssopt_1_1LinearTransform_html"><div class="ttname"><a href="classsopt_1_1LinearTransform.html">sopt::LinearTransform</a></div><div class="ttdoc">Joins together direct and indirect operators.</div><div class="ttdef"><b>Definition:</b> <a href="linear__transform_8h_source.html#l00030">linear_transform.h:30</a></div></div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="cdata_8h_source.html#l00027">sopt::adjoint_transform()</a>, <a class="el" href="power__method_8h_source.html#l00199">sopt::algorithm::PowerMethod&lt; SCALAR &gt;::AtA()</a>, <a class="el" href="padmm_8h_source.html#l00196">sopt::algorithm::ProximalADMM&lt; SCALAR &gt;::initial_guess()</a>, <a class="el" href="primal__dual_8h_source.html#l00246">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::initial_guess()</a>, <a class="el" href="examples_2forward__backward_2inpainting_8cc_source.html#l00024">main()</a>, <a class="el" href="power__method_8h_source.html#l00023">sopt::algorithm::power_method()</a>, <a class="el" href="tests_2power__method_8cc_source.html#l00050">TEST_CASE()</a>, and <a class="el" href="objective__functions_8h_source.html#l00043">sopt::objective_functions::unconstrained_l1_regularisation()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="cdata_8h_source.html#l00027">sopt::adjoint_transform()</a>, <a class="el" href="power__method_8h_source.html#l00199">sopt::algorithm::PowerMethod&lt; SCALAR &gt;::AtA()</a>, <a class="el" href="padmm_8h_source.html#l00193">sopt::algorithm::ProximalADMM&lt; SCALAR &gt;::initial_guess()</a>, <a class="el" href="primal__dual_8h_source.html#l00243">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::initial_guess()</a>, <a class="el" href="examples_2forward__backward_2inpainting_8cc_source.html#l00024">main()</a>, <a class="el" href="power__method_8h_source.html#l00023">sopt::algorithm::power_method()</a>, <a class="el" href="tests_2power__method_8cc_source.html#l00050">TEST_CASE()</a>, and <a class="el" href="objective__functions_8h_source.html#l00043">sopt::objective_functions::unconstrained_l1_regularisation()</a>.</p>
 
+</div>
+</div>
+<a id="aeda33deae1a25a9da8765a92c840876e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeda33deae1a25a9da8765a92c840876e">&#9670;&nbsp;</a></span>norm()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename VECTOR &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacesopt.html#a71bfb8f70b432862d3d654b9dcff77cc">sopt::t_real</a> <a class="el" href="classsopt_1_1LinearTransform.html">sopt::LinearTransform</a>&lt; VECTOR &gt;::norm </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="linear__transform_8h_source.html#l00097">97</a> of file <a class="el" href="linear__transform_8h_source.html">linear_transform.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;  {</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keywordflow">return</span> norm_;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;  }</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="aa5f1572d1aef887a4009c09aeec2556d"></a>
@@ -496,11 +534,13 @@ template&lt;typename VECTOR &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="linear__transform_8h_source.html#l00073">73</a> of file <a class="el" href="linear__transform_8h_source.html">linear_transform.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                                      {</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <a class="code" href="classsopt_1_1details_1_1WrapFunction.html#a0f8a03ef208d402e01d607cc687d2594">details::WrapFunction&lt;VECTOR&gt;::operator=</a>(std::move(c));</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    indirect_ = std::move(c.indirect_);</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  }</div>
+<p class="definition">Definition at line <a class="el" href="linear__transform_8h_source.html#l00075">75</a> of file <a class="el" href="linear__transform_8h_source.html">linear_transform.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                                      {</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <a class="code" href="classsopt_1_1details_1_1WrapFunction.html#a0f8a03ef208d402e01d607cc687d2594">details::WrapFunction&lt;VECTOR&gt;::operator=</a>(std::move(c));</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    indirect_ = std::move(c.indirect_);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    norm_ = c.norm_;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    sq_norm_ = c.sq_norm_;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  }</div>
 <div class="ttc" id="aclasssopt_1_1details_1_1WrapFunction_html_a0f8a03ef208d402e01d607cc687d2594"><div class="ttname"><a href="classsopt_1_1details_1_1WrapFunction.html#a0f8a03ef208d402e01d607cc687d2594">sopt::details::WrapFunction::operator=</a></div><div class="ttdeci">void operator=(WrapFunction const &amp;c)</div><div class="ttdef"><b>Definition:</b> <a href="wrapper_8h_source.html#l00063">wrapper.h:63</a></div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="wrapper_8h_source.html#l00063">sopt::details::WrapFunction&lt; VECTOR &gt;::operator=()</a>.</p>
@@ -537,9 +577,82 @@ template&lt;typename VECTOR &gt; </div>
 <div class="fragment"><div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                                           {</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <a class="code" href="classsopt_1_1details_1_1WrapFunction.html#a0f8a03ef208d402e01d607cc687d2594">details::WrapFunction&lt;VECTOR&gt;::operator=</a>(c);</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    indirect_ = c.indirect_;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  }</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    norm_ = c.norm_;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    sq_norm_ = c.sq_norm_;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  }</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="wrapper_8h_source.html#l00063">sopt::details::WrapFunction&lt; VECTOR &gt;::operator=()</a>.</p>
+
+</div>
+</div>
+<a id="ad53f8710c5a8cb92679874cb785a1525"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad53f8710c5a8cb92679874cb785a1525">&#9670;&nbsp;</a></span>set_norm()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename VECTOR &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classsopt_1_1LinearTransform.html">sopt::LinearTransform</a>&lt; VECTOR &gt;::set_norm </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacesopt.html#a71bfb8f70b432862d3d654b9dcff77cc">t_real</a>&#160;</td>
+          <td class="paramname"><em>n</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="linear__transform_8h_source.html#l00091">91</a> of file <a class="el" href="linear__transform_8h_source.html">linear_transform.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  {</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    norm_ = <a class="code" href="benchmarks_2wavelets_8cc.html#aab81ff0bb1fb0df11cec0c298b500db3">n</a>;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    sq_norm_ = <a class="code" href="benchmarks_2wavelets_8cc.html#aab81ff0bb1fb0df11cec0c298b500db3">n</a>*<a class="code" href="benchmarks_2wavelets_8cc.html#aab81ff0bb1fb0df11cec0c298b500db3">n</a>;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  }</div>
+<div class="ttc" id="abenchmarks_2wavelets_8cc_html_aab81ff0bb1fb0df11cec0c298b500db3"><div class="ttname"><a href="benchmarks_2wavelets_8cc.html#aab81ff0bb1fb0df11cec0c298b500db3">n</a></div><div class="ttdeci">constexpr auto n</div><div class="ttdef"><b>Definition:</b> <a href="benchmarks_2wavelets_8cc_source.html#l00056">wavelets.cc:56</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="benchmarks_2wavelets_8cc_source.html#l00056">n</a>.</p>
+
+</div>
+</div>
+<a id="ac2fa5cbacee12c06408c8c3e34041a3e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac2fa5cbacee12c06408c8c3e34041a3e">&#9670;&nbsp;</a></span>sq_norm()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename VECTOR &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacesopt.html#a71bfb8f70b432862d3d654b9dcff77cc">sopt::t_real</a> <a class="el" href="classsopt_1_1LinearTransform.html">sopt::LinearTransform</a>&lt; VECTOR &gt;::sq_norm </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="linear__transform_8h_source.html#l00102">102</a> of file <a class="el" href="linear__transform_8h_source.html">linear_transform.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;  {</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keywordflow">return</span> sq_norm_;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;  }</div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="padmm_8h_source.html#l00193">sopt::algorithm::ProximalADMM&lt; SCALAR &gt;::initial_guess()</a>, and <a class="el" href="primal__dual_8h_source.html#l00243">sopt::algorithm::PrimalDual&lt; SCALAR &gt;::initial_guess()</a>.</p>
 
 </div>
 </div>

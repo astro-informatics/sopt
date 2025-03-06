@@ -1,16 +1,16 @@
 var searchData=
 [
-  ['algorithm_653',['algorithm',['../namespacesopt_1_1algorithm.html',1,'sopt']]],
-  ['cppflowutils_654',['cppflowutils',['../namespacesopt_1_1cppflowutils.html',1,'sopt']]],
-  ['credible_5fregion_655',['credible_region',['../namespacesopt_1_1credible__region.html',1,'sopt']]],
-  ['details_656',['details',['../namespacesopt_1_1details.html',1,'sopt::details'],['../namespacesopt_1_1mpi_1_1details.html',1,'sopt::mpi::details'],['../namespacesopt_1_1proximal_1_1details.html',1,'sopt::proximal::details']]],
-  ['gradient_5foperator_657',['gradient_operator',['../namespacesopt_1_1gradient__operator.html',1,'sopt']]],
-  ['logging_658',['logging',['../namespacesopt_1_1logging.html',1,'sopt']]],
-  ['mpi_659',['mpi',['../namespacesopt_1_1mpi.html',1,'sopt']]],
-  ['objective_5ffunctions_660',['objective_functions',['../namespacesopt_1_1objective__functions.html',1,'sopt']]],
-  ['proximal_661',['proximal',['../namespacesopt_1_1proximal.html',1,'sopt']]],
-  ['sopt_662',['sopt',['../namespacesopt.html',1,'']]],
-  ['tools_663',['tools',['../namespacesopt_1_1tools.html',1,'sopt']]],
-  ['utilities_664',['utilities',['../namespacesopt_1_1utilities.html',1,'sopt']]],
-  ['wavelets_665',['wavelets',['../namespacesopt_1_1wavelets.html',1,'sopt']]]
+  ['algorithm_659',['algorithm',['../namespacesopt_1_1algorithm.html',1,'sopt']]],
+  ['cppflowutils_660',['cppflowutils',['../namespacesopt_1_1cppflowutils.html',1,'sopt']]],
+  ['credible_5fregion_661',['credible_region',['../namespacesopt_1_1credible__region.html',1,'sopt']]],
+  ['details_662',['details',['../namespacesopt_1_1details.html',1,'sopt::details'],['../namespacesopt_1_1mpi_1_1details.html',1,'sopt::mpi::details'],['../namespacesopt_1_1proximal_1_1details.html',1,'sopt::proximal::details']]],
+  ['gradient_5foperator_663',['gradient_operator',['../namespacesopt_1_1gradient__operator.html',1,'sopt']]],
+  ['logging_664',['logging',['../namespacesopt_1_1logging.html',1,'sopt']]],
+  ['mpi_665',['mpi',['../namespacesopt_1_1mpi.html',1,'sopt']]],
+  ['objective_5ffunctions_666',['objective_functions',['../namespacesopt_1_1objective__functions.html',1,'sopt']]],
+  ['proximal_667',['proximal',['../namespacesopt_1_1proximal.html',1,'sopt']]],
+  ['sopt_668',['sopt',['../namespacesopt.html',1,'']]],
+  ['tools_669',['tools',['../namespacesopt_1_1tools.html',1,'sopt']]],
+  ['utilities_670',['utilities',['../namespacesopt_1_1utilities.html',1,'sopt']]],
+  ['wavelets_671',['wavelets',['../namespacesopt_1_1wavelets.html',1,'sopt']]]
 ];

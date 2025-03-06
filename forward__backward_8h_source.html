@@ -129,213 +129,212 @@ $(function() {
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;      : itermax_(std::numeric_limits&lt;t_uint&gt;::max()),</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        regulariser_strength_(1e-8),</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        step_size_(1),</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        sq_op_norm_(1),</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        is_converged_(),</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;          fista_(<span class="keyword">true</span>),</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        f_gradient_(f_gradient),</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        g_proximal_(g_proximal)</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        {</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;          std::shared_ptr&lt;t_LinearTransform&gt; Id = std::make_shared&lt;t_LinearTransform&gt;(linear_transform_identity&lt;Scalar&gt;());</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;          problem_state = std::make_shared&lt;IterationState&lt;t_Vector&gt;&gt;(<a class="code" href="namespacesopt.html#a83a82628fe55e720accd252a72c7337c">target</a>, Id);</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        }</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  <span class="keyword">virtual</span> ~ForwardBackward() {}</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="comment">// Macro helps define properties that can be initialized as in</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="comment">// auto sdmm  = ForwardBackward&lt;float&gt;().prop0(value).prop1(value);</span></div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="preprocessor">#define SOPT_MACRO(NAME, TYPE)                      \</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="preprocessor">  TYPE const &amp;NAME() const { return NAME##_; }      \</span></div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="preprocessor">  ForwardBackward&lt;SCALAR&gt; &amp;NAME(TYPE const &amp;(NAME)) { \</span></div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="preprocessor">    NAME##_ = NAME;                                 \</span></div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="preprocessor">    return *this;                                   \</span></div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="preprocessor">  }                                                 \</span></div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="preprocessor">                                                    \</span></div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="preprocessor"> protected:                                         \</span></div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="preprocessor">  TYPE NAME##_;                                     \</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="preprocessor">                                                    \</span></div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="preprocessor"> public:</span></div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;  <a class="code" href="forward__backward_8h.html#acc08c2e01b4beda3b86b0ad0e358476b">SOPT_MACRO</a>(itermax, <a class="code" href="namespacesopt.html#a7237c0991f6ec8c2bbdab8929b564964">t_uint</a>);</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;  <a class="code" href="forward__backward_8h.html#acc08c2e01b4beda3b86b0ad0e358476b">SOPT_MACRO</a>(regulariser_strength, Real);</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;  <a class="code" href="forward__backward_8h.html#acc08c2e01b4beda3b86b0ad0e358476b">SOPT_MACRO</a>(step_size, Real);</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;  <a class="code" href="forward__backward_8h.html#acc08c2e01b4beda3b86b0ad0e358476b">SOPT_MACRO</a>(sq_op_norm, Real);</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;  <a class="code" href="forward__backward_8h.html#acc08c2e01b4beda3b86b0ad0e358476b">SOPT_MACRO</a>(fista, <span class="keywordtype">bool</span>);</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;  <a class="code" href="forward__backward_8h.html#acc08c2e01b4beda3b86b0ad0e358476b">SOPT_MACRO</a>(is_converged, t_IsConverged);</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;  <a class="code" href="forward__backward_8h.html#acc08c2e01b4beda3b86b0ad0e358476b">SOPT_MACRO</a>(f_gradient, t_Gradient);</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;  <a class="code" href="forward__backward_8h.html#acc08c2e01b4beda3b86b0ad0e358476b">SOPT_MACRO</a>(g_proximal, t_Proximal);</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;  <a class="code" href="classsopt_1_1LinearTransform.html">t_LinearTransform</a> <span class="keyword">const</span> &amp;Phi()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> problem_state-&gt;Phi(); }</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;  ForwardBackward&lt;SCALAR&gt; &amp;Phi(<a class="code" href="classsopt_1_1LinearTransform.html">t_LinearTransform</a> <span class="keyword">const</span> &amp;new_phi) {</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    problem_state-&gt;Phi(new_phi);</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;  }</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;  ForwardBackward&lt;SCALAR&gt; &amp;random_updater(t_randomUpdater &amp;rU)</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;  {</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    random_updater_ = rU;</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;  }</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;  ForwardBackward&lt;SCALAR&gt; &amp;set_problem_state(std::shared_ptr&lt;<a class="code" href="classsopt_1_1IterationState.html">IterationState&lt;t_Vector&gt;</a>&gt; pS)</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;  {</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    problem_state = pS;</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;  }</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;<span class="preprocessor">#undef SOPT_MACRO</span></div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;  <span class="keywordtype">void</span> f_gradient(<a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> &amp;out, <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> <span class="keyword">const</span> &amp;x, <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> <span class="keyword">const</span> &amp;res, <a class="code" href="classsopt_1_1LinearTransform.html">t_LinearTransform</a> <span class="keyword">const</span> &amp;Phi)<span class="keyword"> const </span>{ f_gradient()(out, x, res, Phi); }</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;  <span class="keywordtype">void</span> g_proximal(<a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> &amp;out, Real regulariser_strength, <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> <span class="keyword">const</span> &amp;x)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    g_proximal()(out, regulariser_strength, x);</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;  }</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160; </div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;  ForwardBackward&lt;Scalar&gt; &amp;is_converged(std::function&lt;<span class="keywordtype">bool</span>(<a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> <span class="keyword">const</span> &amp;x)&gt; <span class="keyword">const</span> &amp;func) {</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    <span class="keywordflow">return</span> is_converged([func](<a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> <span class="keyword">const</span> &amp;x, <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> <span class="keyword">const</span> &amp;) { <span class="keywordflow">return</span> func(x); });</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;  }</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160; </div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;  <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> <span class="keyword">const</span> &amp;<a class="code" href="namespacesopt.html#a83a82628fe55e720accd252a72c7337c">target</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> problem_state-&gt;target(); }</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;  ForwardBackward&lt;Scalar&gt; &amp;<a class="code" href="namespacesopt.html#a83a82628fe55e720accd252a72c7337c">target</a>(<a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> <span class="keyword">const</span> &amp;<a class="code" href="namespacesopt.html#a83a82628fe55e720accd252a72c7337c">target</a>) {</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    problem_state-&gt;target(<a class="code" href="namespacesopt.html#a83a82628fe55e720accd252a72c7337c">target</a>);</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;  }</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160; </div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;  <span class="keywordtype">bool</span> is_converged(<a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> <span class="keyword">const</span> &amp;x, <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> <span class="keyword">const</span> &amp;residual)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">bool</span><span class="keyword">&gt;</span>(is_converged()) and is_converged()(x, residual);</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;  }</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160; </div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;  Diagnostic operator()(<a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> &amp;out) { <span class="keywordflow">return</span> operator()(out, initial_guess()); }</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;  Diagnostic operator()(<a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> &amp;out, std::tuple&lt;t_Vector, t_Vector&gt; <span class="keyword">const</span> &amp;guess) {</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <span class="keywordflow">return</span> operator()(out, std::get&lt;0&gt;(guess), std::get&lt;1&gt;(guess));</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;  }</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;  Diagnostic operator()(<a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> &amp;out,</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;                        std::tuple&lt;t_Vector const &amp;, t_Vector const &amp;&gt; <span class="keyword">const</span> &amp;guess) {</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    <span class="keywordflow">return</span> operator()(out, std::get&lt;0&gt;(guess), std::get&lt;1&gt;(guess));</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;  }</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;  DiagnosticAndResult operator()(std::tuple&lt;t_Vector, t_Vector&gt; <span class="keyword">const</span> &amp;guess) {</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    <span class="keywordflow">return</span> operator()(std::tie(std::get&lt;0&gt;(guess), std::get&lt;1&gt;(guess)));</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;  }</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;  DiagnosticAndResult operator()(</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;      std::tuple&lt;t_Vector const &amp;, t_Vector const &amp;&gt; <span class="keyword">const</span> &amp;guess) {</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    DiagnosticAndResult result;</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    <span class="keyword">static_cast&lt;</span>Diagnostic &amp;<span class="keyword">&gt;</span>(result) = <span class="keyword">operator</span>()(result.x, guess);</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    <span class="keywordflow">return</span> result;</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;  }</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;  DiagnosticAndResult operator()() {</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    DiagnosticAndResult result;</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    <span class="keyword">static_cast&lt;</span>Diagnostic &amp;<span class="keyword">&gt;</span>(result) = <span class="keyword">operator</span>()(result.x, initial_guess());</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    <span class="keywordflow">return</span> result;</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;  }</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;  DiagnosticAndResult operator()(DiagnosticAndResult <span class="keyword">const</span> &amp;warmstart) {</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    DiagnosticAndResult result = warmstart;</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    <span class="keyword">static_cast&lt;</span>Diagnostic &amp;<span class="keyword">&gt;</span>(result) = <span class="keyword">operator</span>()(result.x, warmstart.x, warmstart.residual);</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    <span class="keywordflow">return</span> result;</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;  }</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span>... ARGS&gt;</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;  <span class="keyword">typename</span> std::enable_if&lt;<span class="keyword">sizeof</span>...(ARGS) &gt;= 1, ForwardBackward &amp;&gt;::type Phi(ARGS &amp;&amp;... args) {</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    problem_state-&gt;Phi(<a class="code" href="namespacesopt.html#a27b8391ddefe157e732bebe05696170e">linear_transform</a>(std::forward&lt;ARGS&gt;(args)...));</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;  }</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160; </div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;  std::tuple&lt;t_Vector, t_Vector&gt; initial_guess()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    <span class="keywordflow">return</span> ForwardBackward&lt;SCALAR&gt;::initial_guess(<a class="code" href="namespacesopt.html#a83a82628fe55e720accd252a72c7337c">target</a>(), Phi(), sq_op_norm());</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;  }</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160; </div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;  <span class="keyword">static</span> std::tuple&lt;t_Vector, t_Vector&gt; initial_guess(<a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> <span class="keyword">const</span> &amp;<a class="code" href="namespacesopt.html#a83a82628fe55e720accd252a72c7337c">target</a>,</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;                                                      <a class="code" href="classsopt_1_1LinearTransform.html">t_LinearTransform</a> <span class="keyword">const</span> &amp;phi, Real sq_op_norm) {</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    std::tuple&lt;t_Vector, t_Vector&gt; guess;</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    std::get&lt;0&gt;(guess) = <span class="keyword">static_cast&lt;</span><a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a><span class="keyword">&gt;</span>(phi.<a class="code" href="classsopt_1_1LinearTransform.html#af9fe77b8afc0761cf9d07f432df85a0d">adjoint</a>() * <a class="code" href="namespacesopt.html#a83a82628fe55e720accd252a72c7337c">target</a>) / sq_op_norm;</div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    std::get&lt;1&gt;(guess) = phi * std::get&lt;0&gt;(guess) - <a class="code" href="namespacesopt.html#a83a82628fe55e720accd252a72c7337c">target</a>;</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    <span class="keywordflow">return</span> guess;</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;  }</div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160; </div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160; <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;  <span class="keywordtype">void</span> iteration_step(<a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> &amp;out, <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> &amp;residual, <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> &amp;p, <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> &amp;z,</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;                      <span class="keyword">const</span> <a class="code" href="namespacesopt.html#a71bfb8f70b432862d3d654b9dcff77cc">t_real</a> lambda);</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160; </div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;  <span class="keywordtype">void</span> sanity_check(<a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> <span class="keyword">const</span> &amp;x_guess, <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> <span class="keyword">const</span> &amp;res_guess)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    <span class="keywordflow">if</span> ((Phi().adjoint() * <a class="code" href="namespacesopt.html#a83a82628fe55e720accd252a72c7337c">target</a>()).size() != x_guess.size())</div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;      <a class="code" href="exception_8h.html#a57974308768f9fafc7107b626a394f4f">SOPT_THROW</a>(<span class="stringliteral">&quot;target, adjoint measurement operator and input vector have inconsistent sizes&quot;</span>);</div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="namespacesopt.html#a83a82628fe55e720accd252a72c7337c">target</a>().size() != res_guess.size())</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;      <a class="code" href="exception_8h.html#a57974308768f9fafc7107b626a394f4f">SOPT_THROW</a>(<span class="stringliteral">&quot;target and residual vector have inconsistent sizes&quot;</span>);</div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    <span class="keywordflow">if</span> ((Phi() * x_guess).size() != <a class="code" href="namespacesopt.html#a83a82628fe55e720accd252a72c7337c">target</a>().size())</div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;      <a class="code" href="exception_8h.html#a57974308768f9fafc7107b626a394f4f">SOPT_THROW</a>(<span class="stringliteral">&quot;target, measurement operator and input vector have inconsistent sizes&quot;</span>);</div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;    <span class="keywordflow">if</span> (not <span class="keyword">static_cast&lt;</span><span class="keywordtype">bool</span><span class="keyword">&gt;</span>(is_converged()))</div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;      <a class="code" href="logging_8h.html#abd1d61c2422ec3ea1ffcfd497acae7e6">SOPT_WARN</a>(<span class="stringliteral">&quot;No convergence function was provided: algorithm will run for {} steps&quot;</span>, itermax());</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;  }</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160; </div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;  Diagnostic operator()(<a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> &amp;out, <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> <span class="keyword">const</span> &amp;guess, <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> <span class="keyword">const</span> &amp;res);</div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160; </div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;  std::shared_ptr&lt;IterationState&lt;t_Vector&gt;&gt; problem_state;</div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;  t_randomUpdater random_updater_;</div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;};</div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160; </div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> SCALAR&gt;</div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;<span class="keywordtype">void</span> ForwardBackward&lt;SCALAR&gt;::iteration_step(<a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> &amp;image, <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> &amp;residual, <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> &amp;auxilliary_image,</div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;                                             <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> &amp;gradient_current, <span class="keyword">const</span> <a class="code" href="namespacesopt.html#a71bfb8f70b432862d3d654b9dcff77cc">t_real</a> FISTA_step) {</div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;  <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> prev_image = image;</div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;  f_gradient(gradient_current, auxilliary_image, residual, Phi());  <span class="comment">// assigns gradient_current (non normalised)</span></div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;  <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> auxilliary_with_step = auxilliary_image - step_size() / sq_op_norm() * gradient_current;  <span class="comment">// step to new image using gradient</span></div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;  <span class="keyword">const</span> Real weight = regulariser_strength() * step_size();</div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;  g_proximal(image, weight, auxilliary_with_step);  <span class="comment">// apply proximal operator to new image</span></div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;  auxilliary_image = image + FISTA_step * (image - prev_image);  <span class="comment">// update auxilliary vector with FISTA acceleration step  </span></div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;  </div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;  <span class="comment">// set up next iteration</span></div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;  <span class="keywordflow">if</span>(random_updater_)</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;  {</div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    problem_state = random_updater_();</div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;  }</div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;  residual = (Phi() * auxilliary_image) - <a class="code" href="namespacesopt.html#a83a82628fe55e720accd252a72c7337c">target</a>();  <span class="comment">// updates the residual for the NEXT iteration (new image).</span></div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;}</div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160; </div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> SCALAR&gt;</div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;<span class="keyword">typename</span> ForwardBackward&lt;SCALAR&gt;::Diagnostic ForwardBackward&lt;SCALAR&gt;::operator()(</div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> &amp;out, <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> <span class="keyword">const</span> &amp;x_guess, <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> <span class="keyword">const</span> &amp;res_guess) {</div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;  <a class="code" href="logging_8h.html#a5bb43e65962554be1a16134dc4d0dba0">SOPT_HIGH_LOG</a>(<span class="stringliteral">&quot;Performing Forward Backward Splitting&quot;</span>);</div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;  <span class="keywordflow">if</span> (fista()) {</div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;    <a class="code" href="logging_8h.html#a5bb43e65962554be1a16134dc4d0dba0">SOPT_HIGH_LOG</a>(<span class="stringliteral">&quot;Using FISTA algorithm&quot;</span>);</div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;  } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;    <a class="code" href="logging_8h.html#a5bb43e65962554be1a16134dc4d0dba0">SOPT_HIGH_LOG</a>(<span class="stringliteral">&quot;Using standard FB algorithm&quot;</span>);</div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;  }</div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;  sanity_check(x_guess, res_guess);</div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160; </div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;  <span class="keyword">const</span> <span class="keywordtype">size_t</span> image_size = x_guess.size();</div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160; </div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;  <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> auxilliary_image = x_guess;</div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;  <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> residual = res_guess;</div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;  <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> gradient_current = t_Vector::Zero(image_size);</div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;  out = x_guess;</div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160; </div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;  <a class="code" href="namespacesopt.html#a7237c0991f6ec8c2bbdab8929b564964">t_uint</a> niters(0);</div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;  <span class="keywordtype">bool</span> converged = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;  Real theta = 1.0;</div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;  Real theta_new = 1.0;</div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;  Real FISTA_step = 0.0;</div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;  <span class="keywordflow">for</span> (; (not converged) &amp;&amp; (niters &lt; itermax()); ++niters) {</div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;    <a class="code" href="logging_8h.html#add63e5a2a432d1c74e89ac839cea59ec">SOPT_MEDIUM_LOG</a>(<span class="stringliteral">&quot;    - [FB] Iteration {}/{}&quot;</span>, niters, itermax());</div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;    <span class="keywordflow">if</span> (fista()) {</div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;      theta_new = (1 + std::sqrt(1 + 4 * theta * theta)) / 2.;</div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;      FISTA_step = (theta - 1) / (theta_new);</div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;      theta = theta_new;</div>
-<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;    }</div>
-<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;    <a class="code" href="logging_8h.html#a4a497e6b273bf510772846ac52cef095">SOPT_LOW_LOG</a>(<span class="stringliteral">&quot;      - Call iteration step&quot;</span>);</div>
-<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;    iteration_step(out, residual, auxilliary_image, gradient_current, FISTA_step);</div>
-<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;    <a class="code" href="logging_8h.html#a4a497e6b273bf510772846ac52cef095">SOPT_LOW_LOG</a>(<span class="stringliteral">&quot;      - [FB] Sum of residuals: {}&quot;</span>, residual.array().abs().sum());</div>
-<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;    converged = is_converged(out, residual);</div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;  }</div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160; </div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;  <span class="keywordflow">if</span> (converged) {</div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;    <a class="code" href="logging_8h.html#add63e5a2a432d1c74e89ac839cea59ec">SOPT_MEDIUM_LOG</a>(<span class="stringliteral">&quot;    - [FB] converged in {} of {} iterations&quot;</span>, niters, itermax());</div>
-<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<span class="keyword">static_cast&lt;</span><span class="keywordtype">bool</span><span class="keyword">&gt;</span>(is_converged())) {</div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;    <span class="comment">// not meaningful if not convergence function</span></div>
-<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;    <a class="code" href="logging_8h.html#a647ff10c7a51d06f45a5cf5856f30ea8">SOPT_ERROR</a>(<span class="stringliteral">&quot;    - [FB] did not converge within {} iterations&quot;</span>, itermax());</div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;  }</div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;  <span class="keywordflow">return</span> {niters, converged, std::move(residual)};</div>
-<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;}</div>
-<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;} <span class="comment">// namespace sopt::algorithm</span></div>
-<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        is_converged_(),</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;          fista_(<span class="keyword">true</span>),</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        f_gradient_(f_gradient),</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        g_proximal_(g_proximal)</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        {</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;          std::shared_ptr&lt;t_LinearTransform&gt; Id = std::make_shared&lt;t_LinearTransform&gt;(linear_transform_identity&lt;Scalar&gt;());</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;          problem_state = std::make_shared&lt;IterationState&lt;t_Vector&gt;&gt;(<a class="code" href="namespacesopt.html#a83a82628fe55e720accd252a72c7337c">target</a>, Id);</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        }</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  <span class="keyword">virtual</span> ~ForwardBackward() {}</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="comment">// Macro helps define properties that can be initialized as in</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="comment">// auto sdmm  = ForwardBackward&lt;float&gt;().prop0(value).prop1(value);</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="preprocessor">#define SOPT_MACRO(NAME, TYPE)                      \</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="preprocessor">  TYPE const &amp;NAME() const { return NAME##_; }      \</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="preprocessor">  ForwardBackward&lt;SCALAR&gt; &amp;NAME(TYPE const &amp;(NAME)) { \</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="preprocessor">    NAME##_ = NAME;                                 \</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="preprocessor">    return *this;                                   \</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="preprocessor">  }                                                 \</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="preprocessor">                                                    \</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="preprocessor"> protected:                                         \</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="preprocessor">  TYPE NAME##_;                                     \</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="preprocessor">                                                    \</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="preprocessor"> public:</span></div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;  <a class="code" href="forward__backward_8h.html#acc08c2e01b4beda3b86b0ad0e358476b">SOPT_MACRO</a>(itermax, <a class="code" href="namespacesopt.html#a7237c0991f6ec8c2bbdab8929b564964">t_uint</a>);</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;  <a class="code" href="forward__backward_8h.html#acc08c2e01b4beda3b86b0ad0e358476b">SOPT_MACRO</a>(regulariser_strength, Real);</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;  <a class="code" href="forward__backward_8h.html#acc08c2e01b4beda3b86b0ad0e358476b">SOPT_MACRO</a>(step_size, Real);</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;  <a class="code" href="forward__backward_8h.html#acc08c2e01b4beda3b86b0ad0e358476b">SOPT_MACRO</a>(fista, <span class="keywordtype">bool</span>);</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;  <a class="code" href="forward__backward_8h.html#acc08c2e01b4beda3b86b0ad0e358476b">SOPT_MACRO</a>(is_converged, t_IsConverged);</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;  <a class="code" href="forward__backward_8h.html#acc08c2e01b4beda3b86b0ad0e358476b">SOPT_MACRO</a>(f_gradient, t_Gradient);</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;  <a class="code" href="forward__backward_8h.html#acc08c2e01b4beda3b86b0ad0e358476b">SOPT_MACRO</a>(g_proximal, t_Proximal);</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;  <a class="code" href="classsopt_1_1LinearTransform.html">t_LinearTransform</a> <span class="keyword">const</span> &amp;Phi()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> problem_state-&gt;Phi(); }</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;  ForwardBackward&lt;SCALAR&gt; &amp;Phi(<a class="code" href="classsopt_1_1LinearTransform.html">t_LinearTransform</a> <span class="keyword">const</span> &amp;new_phi) {</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    problem_state-&gt;Phi(new_phi);</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;  }</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;  ForwardBackward&lt;SCALAR&gt; &amp;random_updater(t_randomUpdater &amp;rU)</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;  {</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    random_updater_ = rU;</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;  }</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;  ForwardBackward&lt;SCALAR&gt; &amp;set_problem_state(std::shared_ptr&lt;<a class="code" href="classsopt_1_1IterationState.html">IterationState&lt;t_Vector&gt;</a>&gt; pS)</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;  {</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    problem_state = pS;</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;  }</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160; </div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="preprocessor">#undef SOPT_MACRO</span></div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;  <span class="keywordtype">void</span> f_gradient(<a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> &amp;out, <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> <span class="keyword">const</span> &amp;x, <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> <span class="keyword">const</span> &amp;res, <a class="code" href="classsopt_1_1LinearTransform.html">t_LinearTransform</a> <span class="keyword">const</span> &amp;Phi)<span class="keyword"> const </span>{ f_gradient()(out, x, res, Phi); }</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;  <span class="keywordtype">void</span> g_proximal(<a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> &amp;out, Real regulariser_strength, <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> <span class="keyword">const</span> &amp;x)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    g_proximal()(out, regulariser_strength, x);</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;  }</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160; </div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;  ForwardBackward&lt;Scalar&gt; &amp;is_converged(std::function&lt;<span class="keywordtype">bool</span>(<a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> <span class="keyword">const</span> &amp;x)&gt; <span class="keyword">const</span> &amp;func) {</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    <span class="keywordflow">return</span> is_converged([func](<a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> <span class="keyword">const</span> &amp;x, <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> <span class="keyword">const</span> &amp;) { <span class="keywordflow">return</span> func(x); });</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;  }</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160; </div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;  <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> <span class="keyword">const</span> &amp;<a class="code" href="namespacesopt.html#a83a82628fe55e720accd252a72c7337c">target</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> problem_state-&gt;target(); }</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;  ForwardBackward&lt;Scalar&gt; &amp;<a class="code" href="namespacesopt.html#a83a82628fe55e720accd252a72c7337c">target</a>(<a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> <span class="keyword">const</span> &amp;<a class="code" href="namespacesopt.html#a83a82628fe55e720accd252a72c7337c">target</a>) {</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    problem_state-&gt;target(<a class="code" href="namespacesopt.html#a83a82628fe55e720accd252a72c7337c">target</a>);</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;  }</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160; </div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;  <span class="keywordtype">bool</span> is_converged(<a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> <span class="keyword">const</span> &amp;x, <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> <span class="keyword">const</span> &amp;residual)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">bool</span><span class="keyword">&gt;</span>(is_converged()) and is_converged()(x, residual);</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;  }</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160; </div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;  Diagnostic operator()(<a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> &amp;out) { <span class="keywordflow">return</span> operator()(out, initial_guess()); }</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;  Diagnostic operator()(<a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> &amp;out, std::tuple&lt;t_Vector, t_Vector&gt; <span class="keyword">const</span> &amp;guess) {</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    <span class="keywordflow">return</span> operator()(out, std::get&lt;0&gt;(guess), std::get&lt;1&gt;(guess));</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;  }</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;  Diagnostic operator()(<a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> &amp;out,</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;                        std::tuple&lt;t_Vector const &amp;, t_Vector const &amp;&gt; <span class="keyword">const</span> &amp;guess) {</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    <span class="keywordflow">return</span> operator()(out, std::get&lt;0&gt;(guess), std::get&lt;1&gt;(guess));</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;  }</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;  DiagnosticAndResult operator()(std::tuple&lt;t_Vector, t_Vector&gt; <span class="keyword">const</span> &amp;guess) {</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    <span class="keywordflow">return</span> operator()(std::tie(std::get&lt;0&gt;(guess), std::get&lt;1&gt;(guess)));</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;  }</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;  DiagnosticAndResult operator()(</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;      std::tuple&lt;t_Vector const &amp;, t_Vector const &amp;&gt; <span class="keyword">const</span> &amp;guess) {</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    DiagnosticAndResult result;</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    <span class="keyword">static_cast&lt;</span>Diagnostic &amp;<span class="keyword">&gt;</span>(result) = <span class="keyword">operator</span>()(result.x, guess);</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;  }</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;  DiagnosticAndResult operator()() {</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    DiagnosticAndResult result;</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    <span class="keyword">static_cast&lt;</span>Diagnostic &amp;<span class="keyword">&gt;</span>(result) = <span class="keyword">operator</span>()(result.x, initial_guess());</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;  }</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;  DiagnosticAndResult operator()(DiagnosticAndResult <span class="keyword">const</span> &amp;warmstart) {</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    DiagnosticAndResult result = warmstart;</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    <span class="keyword">static_cast&lt;</span>Diagnostic &amp;<span class="keyword">&gt;</span>(result) = <span class="keyword">operator</span>()(result.x, warmstart.x, warmstart.residual);</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;  }</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span>... ARGS&gt;</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;  <span class="keyword">typename</span> std::enable_if&lt;<span class="keyword">sizeof</span>...(ARGS) &gt;= 1, ForwardBackward &amp;&gt;::type Phi(ARGS &amp;&amp;... args) {</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    problem_state-&gt;Phi(<a class="code" href="namespacesopt.html#a27b8391ddefe157e732bebe05696170e">linear_transform</a>(std::forward&lt;ARGS&gt;(args)...));</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;  }</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160; </div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;  std::tuple&lt;t_Vector, t_Vector&gt; initial_guess()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;    <span class="keywordflow">return</span> ForwardBackward&lt;SCALAR&gt;::initial_guess(<a class="code" href="namespacesopt.html#a83a82628fe55e720accd252a72c7337c">target</a>(), Phi());</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;  }</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160; </div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;  <span class="keyword">static</span> std::tuple&lt;t_Vector, t_Vector&gt; initial_guess(<a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> <span class="keyword">const</span> &amp;<a class="code" href="namespacesopt.html#a83a82628fe55e720accd252a72c7337c">target</a>,</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;                                                      <a class="code" href="classsopt_1_1LinearTransform.html">t_LinearTransform</a> <span class="keyword">const</span> &amp;phi) {</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    std::tuple&lt;t_Vector, t_Vector&gt; guess;</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    std::get&lt;0&gt;(guess) = <span class="keyword">static_cast&lt;</span><a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a><span class="keyword">&gt;</span>(phi.<a class="code" href="classsopt_1_1LinearTransform.html#af9fe77b8afc0761cf9d07f432df85a0d">adjoint</a>() * <a class="code" href="namespacesopt.html#a83a82628fe55e720accd252a72c7337c">target</a>) / phi.<a class="code" href="classsopt_1_1LinearTransform.html#ac2fa5cbacee12c06408c8c3e34041a3e">sq_norm</a>();</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    std::get&lt;1&gt;(guess) = phi * std::get&lt;0&gt;(guess) - <a class="code" href="namespacesopt.html#a83a82628fe55e720accd252a72c7337c">target</a>;</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    <span class="keywordflow">return</span> guess;</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;  }</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160; </div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160; <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;  <span class="keywordtype">void</span> iteration_step(<a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> &amp;out, <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> &amp;residual, <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> &amp;p, <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> &amp;z,</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;                      <span class="keyword">const</span> <a class="code" href="namespacesopt.html#a71bfb8f70b432862d3d654b9dcff77cc">t_real</a> lambda);</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160; </div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;  <span class="keywordtype">void</span> sanity_check(<a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> <span class="keyword">const</span> &amp;x_guess, <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> <span class="keyword">const</span> &amp;res_guess)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;    <span class="keywordflow">if</span> ((Phi().adjoint() * <a class="code" href="namespacesopt.html#a83a82628fe55e720accd252a72c7337c">target</a>()).size() != x_guess.size())</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;      <a class="code" href="exception_8h.html#a57974308768f9fafc7107b626a394f4f">SOPT_THROW</a>(<span class="stringliteral">&quot;target, adjoint measurement operator and input vector have inconsistent sizes&quot;</span>);</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="namespacesopt.html#a83a82628fe55e720accd252a72c7337c">target</a>().size() != res_guess.size())</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;      <a class="code" href="exception_8h.html#a57974308768f9fafc7107b626a394f4f">SOPT_THROW</a>(<span class="stringliteral">&quot;target and residual vector have inconsistent sizes&quot;</span>);</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;    <span class="keywordflow">if</span> ((Phi() * x_guess).size() != <a class="code" href="namespacesopt.html#a83a82628fe55e720accd252a72c7337c">target</a>().size())</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;      <a class="code" href="exception_8h.html#a57974308768f9fafc7107b626a394f4f">SOPT_THROW</a>(<span class="stringliteral">&quot;target, measurement operator and input vector have inconsistent sizes&quot;</span>);</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    <span class="keywordflow">if</span> (not <span class="keyword">static_cast&lt;</span><span class="keywordtype">bool</span><span class="keyword">&gt;</span>(is_converged()))</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;      <a class="code" href="logging_8h.html#abd1d61c2422ec3ea1ffcfd497acae7e6">SOPT_WARN</a>(<span class="stringliteral">&quot;No convergence function was provided: algorithm will run for {} steps&quot;</span>, itermax());</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;  }</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160; </div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;  Diagnostic operator()(<a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> &amp;out, <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> <span class="keyword">const</span> &amp;guess, <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> <span class="keyword">const</span> &amp;res);</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160; </div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;  std::shared_ptr&lt;IterationState&lt;t_Vector&gt;&gt; problem_state;</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;  t_randomUpdater random_updater_;</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;};</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160; </div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> SCALAR&gt;</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;<span class="keywordtype">void</span> ForwardBackward&lt;SCALAR&gt;::iteration_step(<a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> &amp;image, <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> &amp;residual, <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> &amp;auxilliary_image,</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;                                             <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> &amp;gradient_current, <span class="keyword">const</span> <a class="code" href="namespacesopt.html#a71bfb8f70b432862d3d654b9dcff77cc">t_real</a> FISTA_step) {</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;  <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> prev_image = image;</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;  f_gradient(gradient_current, auxilliary_image, residual, Phi());  <span class="comment">// assigns gradient_current (non normalised)</span></div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;  <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> auxilliary_with_step = auxilliary_image - step_size() / Phi().sq_norm() * gradient_current;  <span class="comment">// step to new image using gradient</span></div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;  <span class="keyword">const</span> Real weight = regulariser_strength() * step_size();</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;  g_proximal(image, weight, auxilliary_with_step);  <span class="comment">// apply proximal operator to new image</span></div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;  auxilliary_image = image + FISTA_step * (image - prev_image);  <span class="comment">// update auxilliary vector with FISTA acceleration step  </span></div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;  </div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;  <span class="comment">// set up next iteration</span></div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;  <span class="keywordflow">if</span>(random_updater_)</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;  {</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    problem_state = random_updater_();</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;  }</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;  residual = (Phi() * auxilliary_image) - <a class="code" href="namespacesopt.html#a83a82628fe55e720accd252a72c7337c">target</a>();  <span class="comment">// updates the residual for the NEXT iteration (new image).</span></div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;}</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160; </div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> SCALAR&gt;</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;<span class="keyword">typename</span> ForwardBackward&lt;SCALAR&gt;::Diagnostic ForwardBackward&lt;SCALAR&gt;::operator()(</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;    <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> &amp;out, <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> <span class="keyword">const</span> &amp;x_guess, <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> <span class="keyword">const</span> &amp;res_guess) {</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;  <a class="code" href="logging_8h.html#a5bb43e65962554be1a16134dc4d0dba0">SOPT_HIGH_LOG</a>(<span class="stringliteral">&quot;Performing Forward Backward Splitting&quot;</span>);</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;  <span class="keywordflow">if</span> (fista()) {</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    <a class="code" href="logging_8h.html#a5bb43e65962554be1a16134dc4d0dba0">SOPT_HIGH_LOG</a>(<span class="stringliteral">&quot;Using FISTA algorithm&quot;</span>);</div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;  } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;    <a class="code" href="logging_8h.html#a5bb43e65962554be1a16134dc4d0dba0">SOPT_HIGH_LOG</a>(<span class="stringliteral">&quot;Using standard FB algorithm&quot;</span>);</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;  }</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;  sanity_check(x_guess, res_guess);</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160; </div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;  <span class="keyword">const</span> <span class="keywordtype">size_t</span> image_size = x_guess.size();</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160; </div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;  <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> auxilliary_image = x_guess;</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;  <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> residual = res_guess;</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;  <a class="code" href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a> gradient_current = t_Vector::Zero(image_size);</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;  out = x_guess;</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160; </div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;  <a class="code" href="namespacesopt.html#a7237c0991f6ec8c2bbdab8929b564964">t_uint</a> niters(0);</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;  <span class="keywordtype">bool</span> converged = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;  Real theta = 1.0;</div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;  Real theta_new = 1.0;</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;  Real FISTA_step = 0.0;</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;  <span class="keywordflow">for</span> (; (not converged) &amp;&amp; (niters &lt; itermax()); ++niters) {</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;    <a class="code" href="logging_8h.html#add63e5a2a432d1c74e89ac839cea59ec">SOPT_MEDIUM_LOG</a>(<span class="stringliteral">&quot;    - [FB] Iteration {}/{}&quot;</span>, niters, itermax());</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;    <span class="keywordflow">if</span> (fista()) {</div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;      theta_new = (1 + std::sqrt(1 + 4 * theta * theta)) / 2.;</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;      FISTA_step = (theta - 1) / (theta_new);</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;      theta = theta_new;</div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;    }</div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;    <a class="code" href="logging_8h.html#a4a497e6b273bf510772846ac52cef095">SOPT_LOW_LOG</a>(<span class="stringliteral">&quot;      - Call iteration step&quot;</span>);</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;    iteration_step(out, residual, auxilliary_image, gradient_current, FISTA_step);</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;    <a class="code" href="logging_8h.html#a4a497e6b273bf510772846ac52cef095">SOPT_LOW_LOG</a>(<span class="stringliteral">&quot;      - [FB] Sum of residuals: {}&quot;</span>, residual.array().abs().sum());</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;    converged = is_converged(out, residual);</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;  }</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160; </div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;  <span class="keywordflow">if</span> (converged) {</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;    <a class="code" href="logging_8h.html#add63e5a2a432d1c74e89ac839cea59ec">SOPT_MEDIUM_LOG</a>(<span class="stringliteral">&quot;    - [FB] converged in {} of {} iterations&quot;</span>, niters, itermax());</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<span class="keyword">static_cast&lt;</span><span class="keywordtype">bool</span><span class="keyword">&gt;</span>(is_converged())) {</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;    <span class="comment">// not meaningful if not convergence function</span></div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;    <a class="code" href="logging_8h.html#a647ff10c7a51d06f45a5cf5856f30ea8">SOPT_ERROR</a>(<span class="stringliteral">&quot;    - [FB] did not converge within {} iterations&quot;</span>, itermax());</div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;  }</div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;  <span class="keywordflow">return</span> {niters, converged, std::move(residual)};</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;}</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;} <span class="comment">// namespace sopt::algorithm</span></div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="abisection__method_8cc_html_a150b8eda2681eca0377a440541891747"><div class="ttname"><a href="bisection__method_8cc.html#a150b8eda2681eca0377a440541891747">t_Vector</a></div><div class="ttdeci">sopt::Vector&lt; Scalar &gt; t_Vector</div><div class="ttdef"><b>Definition:</b> <a href="bisection__method_8cc_source.html#l00010">bisection_method.cc:10</a></div></div>
 <div class="ttc" id="abisection__method_8cc_html_aa0bfbe32b639db5c015dd41a0ac7ca35"><div class="ttname"><a href="bisection__method_8cc.html#aa0bfbe32b639db5c015dd41a0ac7ca35">Scalar</a></div><div class="ttdeci">sopt::t_real Scalar</div><div class="ttdef"><b>Definition:</b> <a href="bisection__method_8cc_source.html#l00009">bisection_method.cc:9</a></div></div>
 <div class="ttc" id="aclasssopt_1_1IterationState_html"><div class="ttname"><a href="classsopt_1_1IterationState.html">sopt::IterationState</a></div><div class="ttdef"><b>Definition:</b> <a href="gradient__utils_8h_source.html#l00013">gradient_utils.h:13</a></div></div>
 <div class="ttc" id="aclasssopt_1_1LinearTransform_html"><div class="ttname"><a href="classsopt_1_1LinearTransform.html">sopt::LinearTransform&lt; t_Vector &gt;</a></div></div>
-<div class="ttc" id="aclasssopt_1_1LinearTransform_html_af9fe77b8afc0761cf9d07f432df85a0d"><div class="ttname"><a href="classsopt_1_1LinearTransform.html#af9fe77b8afc0761cf9d07f432df85a0d">sopt::LinearTransform::adjoint</a></div><div class="ttdeci">LinearTransform&lt; VECTOR &gt; adjoint() const</div><div class="ttdoc">Indirect transform.</div><div class="ttdef"><b>Definition:</b> <a href="linear__transform_8h_source.html#l00079">linear_transform.h:79</a></div></div>
+<div class="ttc" id="aclasssopt_1_1LinearTransform_html_ac2fa5cbacee12c06408c8c3e34041a3e"><div class="ttname"><a href="classsopt_1_1LinearTransform.html#ac2fa5cbacee12c06408c8c3e34041a3e">sopt::LinearTransform::sq_norm</a></div><div class="ttdeci">sopt::t_real sq_norm() const</div><div class="ttdef"><b>Definition:</b> <a href="linear__transform_8h_source.html#l00102">linear_transform.h:102</a></div></div>
+<div class="ttc" id="aclasssopt_1_1LinearTransform_html_af9fe77b8afc0761cf9d07f432df85a0d"><div class="ttname"><a href="classsopt_1_1LinearTransform.html#af9fe77b8afc0761cf9d07f432df85a0d">sopt::LinearTransform::adjoint</a></div><div class="ttdeci">LinearTransform&lt; VECTOR &gt; adjoint() const</div><div class="ttdoc">Indirect transform.</div><div class="ttdef"><b>Definition:</b> <a href="linear__transform_8h_source.html#l00083">linear_transform.h:83</a></div></div>
 <div class="ttc" id="aclasssopt_1_1details_1_1underlying__value__type_html"><div class="ttname"><a href="classsopt_1_1details_1_1underlying__value__type.html">sopt::details::underlying_value_type</a></div><div class="ttdoc">Computes inner-most element type.</div><div class="ttdef"><b>Definition:</b> <a href="real__type_8h_source.html#l00042">real_type.h:42</a></div></div>
 <div class="ttc" id="aexception_8h_html"><div class="ttname"><a href="exception_8h.html">exception.h</a></div></div>
 <div class="ttc" id="aexception_8h_html_a57974308768f9fafc7107b626a394f4f"><div class="ttname"><a href="exception_8h.html#a57974308768f9fafc7107b626a394f4f">SOPT_THROW</a></div><div class="ttdeci">#define SOPT_THROW(MSG)</div><div class="ttdef"><b>Definition:</b> <a href="exception_8h_source.html#l00046">exception.h:46</a></div></div>
@@ -349,7 +348,7 @@ $(function() {
 <div class="ttc" id="alogging_8h_html_abd1d61c2422ec3ea1ffcfd497acae7e6"><div class="ttname"><a href="logging_8h.html#abd1d61c2422ec3ea1ffcfd497acae7e6">SOPT_WARN</a></div><div class="ttdeci">#define SOPT_WARN(...)</div><div class="ttdoc">\macro Something might be going wrong</div><div class="ttdef"><b>Definition:</b> <a href="logging_8h_source.html#l00213">logging.h:213</a></div></div>
 <div class="ttc" id="alogging_8h_html_add63e5a2a432d1c74e89ac839cea59ec"><div class="ttname"><a href="logging_8h.html#add63e5a2a432d1c74e89ac839cea59ec">SOPT_MEDIUM_LOG</a></div><div class="ttdeci">#define SOPT_MEDIUM_LOG(...)</div><div class="ttdoc">Medium priority message.</div><div class="ttdef"><b>Definition:</b> <a href="logging_8h_source.html#l00225">logging.h:225</a></div></div>
 <div class="ttc" id="anamespacesopt_1_1algorithm_html"><div class="ttname"><a href="namespacesopt_1_1algorithm.html">sopt::algorithm</a></div><div class="ttdef"><b>Definition:</b> <a href="forward__backward_8h_source.html#l00016">forward_backward.h:16</a></div></div>
-<div class="ttc" id="anamespacesopt_html_a27b8391ddefe157e732bebe05696170e"><div class="ttname"><a href="namespacesopt.html#a27b8391ddefe157e732bebe05696170e">sopt::linear_transform</a></div><div class="ttdeci">LinearTransform&lt; VECTOR &gt; linear_transform(OperatorFunction&lt; VECTOR &gt; const &amp;direct, OperatorFunction&lt; VECTOR &gt; const &amp;indirect, std::array&lt; t_int, 3 &gt; const &amp;sizes={{1, 1, 0}})</div><div class="ttdef"><b>Definition:</b> <a href="linear__transform_8h_source.html#l00101">linear_transform.h:101</a></div></div>
+<div class="ttc" id="anamespacesopt_html_a27b8391ddefe157e732bebe05696170e"><div class="ttname"><a href="namespacesopt.html#a27b8391ddefe157e732bebe05696170e">sopt::linear_transform</a></div><div class="ttdeci">LinearTransform&lt; VECTOR &gt; linear_transform(OperatorFunction&lt; VECTOR &gt; const &amp;direct, OperatorFunction&lt; VECTOR &gt; const &amp;indirect, std::array&lt; t_int, 3 &gt; const &amp;sizes={{1, 1, 0}})</div><div class="ttdef"><b>Definition:</b> <a href="linear__transform_8h_source.html#l00124">linear_transform.h:124</a></div></div>
 <div class="ttc" id="anamespacesopt_html_a71bfb8f70b432862d3d654b9dcff77cc"><div class="ttname"><a href="namespacesopt.html#a71bfb8f70b432862d3d654b9dcff77cc">sopt::t_real</a></div><div class="ttdeci">double t_real</div><div class="ttdoc">Root of the type hierarchy for real numbers.</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00017">types.h:17</a></div></div>
 <div class="ttc" id="anamespacesopt_html_a7237c0991f6ec8c2bbdab8929b564964"><div class="ttname"><a href="namespacesopt.html#a7237c0991f6ec8c2bbdab8929b564964">sopt::t_uint</a></div><div class="ttdeci">size_t t_uint</div><div class="ttdoc">Root of the type hierarchy for unsigned integers.</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00015">types.h:15</a></div></div>
 <div class="ttc" id="anamespacesopt_html_a83a82628fe55e720accd252a72c7337c"><div class="ttname"><a href="namespacesopt.html#a83a82628fe55e720accd252a72c7337c">sopt::target</a></div><div class="ttdeci">Vector&lt; T &gt; target(sopt::LinearTransform&lt; Vector&lt; T &gt;&gt; const &amp;sampling, sopt::Image&lt; T &gt; const &amp;image)</div><div class="ttdef"><b>Definition:</b> <a href="inpainting_8h_source.html#l00012">inpainting.h:12</a></div></div>
